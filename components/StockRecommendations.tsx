@@ -91,8 +91,8 @@ function StockCard({ stock, expanded, onToggle }: { stock: ScanStock; expanded: 
           </div>
 
           <div className="grid grid-cols-2 gap-1.5 text-[10px]">
-            {Object.entries(stock.signals).map(([key, signals]) =>
-              signals.map((s, i) => (
+            {(Object.entries(stock.signals) as [string, string[]][]).map(([key, signals]) =>
+              signals.map((s: string, i: number) => (
                 <div key={`${key}-${i}`} className="text-gray-400 flex items-start gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-sky-400/60 mt-1 flex-shrink-0" />
                   <span>

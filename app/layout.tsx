@@ -6,12 +6,13 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: '台股雷達 Taiwan Stock Radar',
-  description: '深色交易終端介面，整合大盤概況、族群熱點、個股追蹤與交易策略',
+  description: '每日自動掃錨系統｜五維度評分｜Top 10 強勢股推薦｜深色交易終端介面',
+  keywords: ['台股', '股票', '選股', '技術分析', '掃錨', 'Taiwan Stock'],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="zh-TW">
+    <html lang="zh-TW" className="dark">
       <body className={`${inter.className} bg-gray-950 text-gray-100 antialiased`}>
         {children}
       </body>
