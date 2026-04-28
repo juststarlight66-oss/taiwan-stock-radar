@@ -12,6 +12,8 @@ import { Activity, RefreshCw } from 'lucide-react';
 type Tab = '大盤概況' | '族群熱點' | '個股追蹤' | '交易策略';
 const TABS: Tab[] = ['大盤概況', '族群熱點', '個股追蹤', '交易策略'];
 
+import StockRecommendations from './StockRecommendations';
+
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState<Tab>('大盤概況');
   const { indexData, stockData, isLoading, isError, isDemo } = useMarketData();
@@ -115,39 +117,7 @@ export default function Dashboard() {
             {activeTab === '個股追蹤' && (
               <div className="grid grid-cols-1 xl:grid-cols-4 gap-5">
                 <div className="xl:col-span-3 space-y-5">
-                  <div className="rounded-lg border border-gray-700/60 bg-gray-800/50 p-4">
-                    <div className="text-sm font-semibold text-gray-300 mb-1">追蹤清單</div>
-                    <p className="text-xs text-gray-500">顯示所有監控中的個股即時資訊</p>
-                  </div>
-                  <StockTable
-                    stocks={stockData}
-                    title="個股追蹤清單（全部）"
-                  />
-                  {/* Mini detail cards */}
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                    {stockData.slice(0, 4).map(s => {
-                      const up = s.change >= 0;
-                      return (
-                        <div key={s.stockId} className="rounded-lg border border-gray-700/60 bg-gray-800/50 p-3">
-                          <div className="flex items-center justify-between mb-2">
-                            <span className="text-xs font-mono text-gray-400">{s.stockId}</span>
-                            <span className="text-[10px] text-gray-500 bg-gray-700/50 rounded px-1.5 py-0.5">{s.sector}</span>
-                          </div>
-                          <div className="text-sm font-semibold text-gray-200">{s.name}</div>
-                          <div className={`text-lg font-bold font-mono mt-1 ${up ? 'text-emerald-400' : 'text-red-400'}`}>
-                            {s.close.toFixed(1)}
-                          </div>
-                          <div className={`text-xs font-mono ${up ? 'text-emerald-400' : 'text-red-400'}`}>
-                            {up ? '+' : ''}{s.changePercent.toFixed(2)}%
-                          </div>
-                          <div className="mt-2 text-[10px] text-gray-500 space-y-0.5">
-                            <div>PE {s.pe?.toFixed(1) ?? '—'} / PB {s.pb?.toFixed(1) ?? '—'}</div>
-                            <div>殖利率 {s.yield?.toFixed(1) ?? '—'}%</div>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
+                  <StockRecommendations />
                 </div>
                 <div className="xl:col-span-1 min-h-[500px]">
                   <NewsSidebar />

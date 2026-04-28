@@ -1,0 +1,172 @@
+{
+  "scan_date": "2026/04/28",
+  "scan_start": "2026-04-28 07:13:13",
+  "scan_elapsed_sec": 12.3,
+  "dl_elapsed_sec": 8.1,
+  "scanned_count": 2,
+  "total_stocks": 2,
+  "top10": [
+    {
+      "stock_id": "2330",
+      "name": "台積電",
+      "sector": "半導體",
+      "close": 850.0,
+      "change_pct": 2.35,
+      "total_score": 72.4,
+      "rsi": 54.3,
+      "vol_ratio": 1.87,
+      "dimensions": {
+        "technical": 18,
+        "chips": 6,
+        "fundamental": 20,
+        "news": 8,
+        "sentiment": 7
+      },
+      "signals": {
+        "technical": [
+          "均線多頭排列",
+          "RSI健康(54)"
+        ],
+        "chips": [
+          "主力加碼",
+          "法人買超"
+        ],
+        "fundamental": [
+          "PE合理(22.1)",
+          "毛利優秀(53%)"
+        ],
+        "news": [
+          "法說會利多",
+          "外資調升目標價"
+        ],
+        "sentiment": [
+          "周轉率健康(4.2%)",
+          "量比理想(1.9x)"
+        ]
+      },
+      "details": {
+        "rsi": 54.3,
+        "vol_ratio": 1.87,
+        "ma_spread": 1.2,
+        "pe": 22.1,
+        "gross_margin": 53.0,
+        "turnover": 4.2
+      },
+      "strategy": {
+        "entry": 841.0,
+        "target": 977.5,
+        "stop_loss": 774.0,
+        "upside": 16.2,
+        "downside": 8.0,
+        "recommendation": "積極買進 - T+5中型部位（+5%出50%，+9%清倉）"
+      }
+    }
+  ],
+  "all_results": [
+    {
+      "stock_id": "2330",
+      "name": "台積電",
+      "sector": "半導體",
+      "close": 850.0,
+      "change_pct": 2.35,
+      "total_score": 72.4,
+      "rsi": 54.3,
+      "vol_ratio": 1.87,
+      "dimensions": {
+        "technical": 18,
+        "chips": 6,
+        "fundamental": 20,
+        "news": 8,
+        "sentiment": 7
+      },
+      "signals": {
+        "technical": [
+          "均線多頭排列",
+          "RSI健康(54)"
+        ],
+        "chips": [
+          "主力加碼",
+          "法人買超"
+        ],
+        "fundamental": [
+          "PE合理(22.1)",
+          "毛利優秀(53%)"
+        ],
+        "news": [
+          "法說會利多",
+          "外資調升目標價"
+        ],
+        "sentiment": [
+          "周轉率健康(4.2%)",
+          "量比理想(1.9x)"
+        ]
+      },
+      "details": {
+        "rsi": 54.3,
+        "vol_ratio": 1.87,
+        "ma_spread": 1.2,
+        "pe": 22.1,
+        "gross_margin": 53.0,
+        "turnover": 4.2
+      },
+      "strategy": {
+        "entry": 841.0,
+        "target": 977.5,
+        "stop_loss": 774.0,
+        "upside": 16.2,
+        "downside": 8.0,
+        "recommendation": "積極買進 - T+5中型部位（+5%出50%，+9%清倉）"
+      }
+    }
+  ],
+  "explosive_top5": [
+    {
+      "stock_id": "2360",
+      "name": "致茂",
+      "sector": "矽光子",
+      "close": 95.0,
+      "change_pct": 4.1,
+      "total_score": 68.5,
+      "rsi": 48.0,
+      "vol_ratio": 3.2,
+      "dimensions": {
+        "technical": 22,
+        "chips": 7,
+        "fundamental": 16,
+        "news": 9,
+        "sentiment": 8
+      },
+      "signals": {
+        "technical": [
+          "爆量突破(3.2x)",
+          "20日新高"
+        ],
+        "chips": [
+          "主力逢低承接"
+        ],
+        "fundamental": [
+          "PE合理(18.5)"
+        ],
+        "news": [
+          "族群輪動利多"
+        ],
+        "sentiment": [
+          "量比理想(3.2x)"
+        ]
+      },
+      "details": {
+        "rsi": 48.0,
+        "vol_ratio": 3.2
+      },
+      "strategy": {
+        "entry": 93.0,
+        "target": 109.25,
+        "stop_loss": 85.6,
+        "upside": 17.5,
+        "downside": 8.0,
+        "recommendation": "積極買進"
+      }
+    }
+  ],
+  "text_report": "test"
+}
