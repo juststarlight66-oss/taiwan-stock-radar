@@ -100,11 +100,11 @@ export interface ScanResult {
 // news:      raw score 0-10 (normalised weighted composite)
 // sentiment: raw score 0-10
 export const DIMENSION_CONFIG = {
-  technical:   { label: '\u6280\u8853\u9762', labelEn: 'Technical',   max: 40, color: '#38bdf8' },
-  chips:       { label: '\u7c4c\u78bc\u9762', labelEn: 'Chips',       max: 10, color: '#a78bfa' },
-  fundamental: { label: '\u57fa\u672c\u9762', labelEn: 'Fundamental', max: 40, color: '#34d399' },
-  news:        { label: '\u6d88\u606f\u9762', labelEn: 'News',        max: 10, color: '#fbbf24' },
-  sentiment:   { label: '\u60c5\u7dd2\u9762', labelEn: 'Sentiment',   max: 10, color: '#f87171' },
+  technical:   { label: '技術面', labelEn: 'Technical',   max: 40, color: '#38bdf8' },
+  chips:       { label: '籌碼面', labelEn: 'Chips',       max: 10, color: '#a78bfa' },
+  fundamental: { label: '基本面', labelEn: 'Fundamental', max: 40, color: '#34d399' },
+  news:        { label: '消息面', labelEn: 'News',        max: 10, color: '#fbbf24' },
+  sentiment:   { label: '情緒面', labelEn: 'Sentiment',   max: 10, color: '#f87171' },
 } as const;
 
 export type DimensionKey = keyof typeof DIMENSION_CONFIG;
@@ -118,8 +118,8 @@ export function getScoreColor(score: number, max: number): string {
 }
 
 export function getActionColor(action: string): string {
-  if (action.includes('\u5f37\u529b') || action.includes('\u7a4d\u6975')) return 'text-emerald-300 bg-emerald-500/15 border-emerald-500/40';
-  if (action.includes('\u8cb7\u9032') || action.includes('\u8cb7\u5165')) return 'text-sky-300 bg-sky-500/15 border-sky-500/40';
-  if (action.includes('\u89c0\u671b') || action.includes('\u6301\u6709')) return 'text-amber-300 bg-amber-500/15 border-amber-500/40';
+  if (action.includes('強力') || action.includes('積極')) return 'text-emerald-300 bg-emerald-500/15 border-emerald-500/40';
+  if (action.includes('買進') || action.includes('買入')) return 'text-sky-300 bg-sky-500/15 border-sky-500/40';
+  if (action.includes('觀望') || action.includes('持有')) return 'text-amber-300 bg-amber-500/15 border-amber-500/40';
   return 'text-red-300 bg-red-500/15 border-red-500/40';
 }

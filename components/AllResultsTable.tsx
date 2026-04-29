@@ -66,7 +66,7 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
 
   const SortIndicator = ({ k }: { k: typeof sortKey }) =>
     sortKey === k ? (
-      <span className="ml-0.5 text-sky-400">{sortDir === 'desc' ? '\u2193' : '\u2191'}</span>
+      <span className="ml-0.5 text-sky-400">{sortDir === 'desc' ? '↓' : '↑'}</span>
     ) : null;
 
   return (
@@ -74,10 +74,10 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
       <div className="rounded-xl border border-gray-700/60 bg-gray-900/60 overflow-hidden">
         <div className="px-4 py-3 border-b border-gray-700/60 flex items-center justify-between gap-3 flex-wrap">
           <div>
-            <h3 className="text-sm font-semibold text-gray-200">\u5168\u90e8\u6383\u63cf\u7d50\u679c</h3>
+            <h3 className="text-sm font-semibold text-gray-200">全部掃描結果</h3>
             {scanDate && (
               <div className="text-[11px] text-gray-500 mt-0.5">
-                \u6383\u63cf\u65e5\u671f\uff1a{scanDate}\u3000\u5171 {filtered.length} / {stocks.length} \u6a94
+                掃描日期：{scanDate}　共 {filtered.length} / {stocks.length} 檔
               </div>
             )}
           </div>
@@ -87,7 +87,7 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
               type="text"
               value={query}
               onChange={(e) => handleSearch(e.target.value)}
-              placeholder="\u641c\u5c0b\u4ee3\u865f/\u540d\u7a31/\u65cf\u7fa4"
+              placeholder="搜尋代號/名稱/族群"
               className="bg-gray-800 border border-gray-700/60 rounded-lg pl-8 pr-3 py-1.5 text-xs text-gray-200 placeholder-gray-600 focus:outline-none focus:border-sky-500/60 w-48"
             />
           </div>
@@ -97,18 +97,18 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
             <thead>
               <tr className="text-gray-500 border-b border-gray-700/40 bg-gray-800/30">
                 <th className="text-left px-4 py-2.5 font-medium w-8">#</th>
-                <th className="text-left px-3 py-2.5 font-medium">\u4ee3\u865f / \u540d\u7a31</th>
+                <th className="text-left px-3 py-2.5 font-medium">代號 / 名稱</th>
                 <th className="text-right px-3 py-2.5 font-medium cursor-pointer hover:text-gray-300 select-none" onClick={() => handleSort('close')}>
-                  \u6536\u76e4 <SortIndicator k="close" />
+                  收盤 <SortIndicator k="close" />
                 </th>
                 <th className="text-right px-3 py-2.5 font-medium cursor-pointer hover:text-gray-300 select-none" onClick={() => handleSort('change_pct')}>
-                  \u6f32\u8dcc% <SortIndicator k="change_pct" />
+                  漲跌% <SortIndicator k="change_pct" />
                 </th>
-                <th className="text-right px-3 py-2.5 font-medium hidden lg:table-cell">\u65cf\u7fa4</th>
+                <th className="text-right px-3 py-2.5 font-medium hidden lg:table-cell">族群</th>
                 <th className="px-3 py-2.5 font-medium cursor-pointer hover:text-gray-300 select-none" onClick={() => handleSort('total_score')}>
-                  \u8a55\u5206 <SortIndicator k="total_score" />
+                  評分 <SortIndicator k="total_score" />
                 </th>
-                <th className="px-3 py-2.5 font-medium">\u5efa\u8b70</th>
+                <th className="px-3 py-2.5 font-medium">建議</th>
                 <th className="px-3 py-2.5 w-8"></th>
               </tr>
             </thead>
@@ -151,7 +151,7 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
         </div>
         {totalPages > 1 && (
           <div className="px-4 py-3 border-t border-gray-700/40 flex items-center justify-between gap-2 flex-wrap">
-            <span className="text-[11px] text-gray-500">\u7b2c {page} / {totalPages} \u9801\u3000\uff08\u6bcf\u9801 {PAGE_SIZE} \u7b46\uff09</span>
+            <span className="text-[11px] text-gray-500">第 {page} / {totalPages} 頁　（每頁 {PAGE_SIZE} 筆）</span>
             <div className="flex items-center gap-1">
               <button onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1} className="p-1.5 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-gray-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors">
                 <ChevronLeft className="w-4 h-4" />
