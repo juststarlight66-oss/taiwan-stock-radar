@@ -34,7 +34,6 @@ export default function MainDashboard() {
 
   const scanData = data ?? (error ? demoScanResult : null);
   const isDemo = !data && !!error;
-  // all_results comes from all_scores.json (2102 stocks), not latest.json
   const allResults = allScores?.all_stock_scores ?? null;
   const allResultsDate = allScores?.scan_date ?? scanData?.scan_date;
   const allResultsCount = allScores?.scanned_count ?? allResults?.length ?? 0;
