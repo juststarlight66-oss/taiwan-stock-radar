@@ -1,6 +1,12 @@
 'use client';
 import useSWR from 'swr';
-import { ScanResult } from './scanTypes';
+import { ScanResult, ScanStock } from './scanTypes';
+
+export interface AllScoresData {
+  scan_date: string;
+  scanned_count: number;
+  stocks: ScanStock[];
+}
 
 // basePath is /taiwan-stock-radar — fetches must use absolute paths from that base
 const BASE = '/taiwan-stock-radar';
@@ -39,4 +45,14 @@ export function useHistoryIndex() {
     { refreshInterval: 0, revalidateOnFocus: false }
   );
   return { dates: data?.dates ?? [], error, isLoading };
+}
+
+/** Fetch all_scores.json — every scanned stock's 5-dimension breakdown for the self-check tab */
+export function useAllScores() {
+  const { data, error, isLoading } = useSWR<AllScoresData>(
+    `${BASE}/data/all_scores.json`,
+    fetcher,
+    { refreshInterval: 0, revalidateOnFocus: false }
+  );
+  return { data, error, isLoading };
 }

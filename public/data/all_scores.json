@@ -1,0 +1,51 @@
+{
+  "scan_date": "2026/04/28",
+  "scanned_count": 2,
+  "stocks": [
+    {
+      "stock_id": "2330",
+      "name": "台積電",
+      "sector": "半導體",
+      "close": 850.0,
+      "change_pct": 2.35,
+      "total_score": 72.4,
+      "dimensions": {
+        "technical": 18,
+        "chips": 6,
+        "fundamental": 20,
+        "news": 8,
+        "sentiment": 7
+      },
+      "signals": {
+        "technical": [
+          "均線多頭排列",
+          "RSI健康(54)"
+        ],
+        "chips": [
+          "主力加碼",
+          "法人買超"
+        ],
+        "fundamental": [
+          "PE合理(22.1)",
+          "毛利優秀(53%)"
+        ],
+        "news": [
+          "法說會利多",
+          "外資調升目標價"
+        ],
+        "sentiment": [
+          "周轉率健康(4.2%)",
+          "量比理想(1.9x)"
+        ]
+      },
+      "strategy": {
+        "entry": 841.0,
+        "target": 977.5,
+        "stop_loss": 774.0,
+        "upside": 16.2,
+        "downside": 8.0,
+        "recommendation": "積極買進 - T+5中型部位（+5%出50%，+9%清倉）"
+      }
+    }
+  ]
+}

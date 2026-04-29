@@ -5,9 +5,10 @@ import { demoScanResult } from '@/lib/demoScanData';
 import SummaryCards from './SummaryCards';
 import Top10Table from './Top10Table';
 import HistoryBrowser from './HistoryBrowser';
-import { Activity, RefreshCw, Clock, History, Radar } from 'lucide-react';
+import SelfCheck from './SelfCheck';
+import { Activity, RefreshCw, Clock, History, Radar, Search } from 'lucide-react';
 
-type Tab = 'dashboard' | 'history';
+type Tab = 'dashboard' | 'history' | 'selfcheck';
 
 export default function MainDashboard() {
   const [activeTab, setActiveTab] = useState<Tab>('dashboard');
@@ -69,6 +70,17 @@ export default function MainDashboard() {
               >
                 <History className="w-3.5 h-3.5" />
                 歷史查詢
+              </button>
+              <button
+                onClick={() => setActiveTab('selfcheck')}
+                className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all whitespace-nowrap flex items-center gap-1.5 ${
+                  activeTab === 'selfcheck'
+                    ? 'bg-sky-500/20 text-sky-300 border border-sky-500/40'
+                    : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800'
+                }`}
+              >
+                <Search className="w-3.5 h-3.5" />
+                自主檢查
               </button>
             </nav>
 
@@ -164,6 +176,10 @@ export default function MainDashboard() {
             </div>
             <HistoryBrowser />
           </div>
+        )}
+
+        {activeTab === 'selfcheck' && (
+          <SelfCheck />
         )}
       </main>
 
