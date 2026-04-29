@@ -2,6 +2,7 @@
 import { useState, useMemo } from 'react';
 import { ScanStock, DIMENSION_CONFIG, getActionColor } from '@/lib/scanTypes';
 import StockDetailModal from './StockDetailModal';
+import { WatchlistToggleBtn } from './WatchlistPanel';
 import { ChevronRight, ArrowUpRight, ArrowDownRight, Search, ChevronLeft } from 'lucide-react';
 
 interface Props {
@@ -24,27 +25,51 @@ function ScoreBar({ score, max }: { score: number; max: number }) {
   );
 }
 
+/** 漲跌停徽章 */
+function LimitBadge({ changePct }: { changePct: number }) {
+  if (Math.abs(changePct) < 9.5) return null;
+  const up = changePct >= 0;
+  return (
+    <span
+      className={`ml-1 text-[9px] px-1 py-0.5 rounded font-bold ${
+        up ? 'bg-red-500/20 text-red-300' : 'bg-emerald-500/20 text-emerald-300'
+      }`}
+    >
+      {up ? '漲停' : '跌停'}
+    </span>
+  );
+}
+
 export default function AllResultsTable({ stocks, scanDate }: Props) {
   const [selectedStock, setSelectedStock] = useState<ScanStock | null>(null);
   const [query, setQuery] = useState('');
   const [page, setPage] = useState(1);
   const [sortKey, setSortKey] = useState<'total_score' | 'change_pct' | 'close'>('total_score');
   const [sortDir, setSortDir] = useState<'desc' | 'asc'>('desc');
+  const [activeSector, setActiveSector] = useState<string>('全部');
   const totalMax = Object.values(DIMENSION_CONFIG).reduce((s, c) => s + c.max, 0);
+
+  // 取得所有族群（排序按出現頻率）
+  const sectors = useMemo(() => {
+    const count = new Map<string, number>();
+    stocks.forEach((s) => count.set(s.sector, (count.get(s.sector) ?? 0) + 1));
+    const sorted = [...count.entries()].sort((a, b) => b[1] - a[1]).map(([k]) => k);
+    return ['全部', ...sorted];
+  }, [stocks]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    let list = q
-      ? stocks.filter(
-          (s) => s.stock_id.includes(q) || s.name.toLowerCase().includes(q) || s.sector.toLowerCase().includes(q)
-        )
-      : [...stocks];
+    let list = stocks.filter((s) => {
+      const matchSector = activeSector === '全部' || s.sector === activeSector;
+      const matchQ = !q || s.stock_id.includes(q) || s.name.toLowerCase().includes(q) || s.sector.toLowerCase().includes(q);
+      return matchSector && matchQ;
+    });
     list.sort((a, b) => {
       const diff = (a[sortKey] as number) - (b[sortKey] as number);
       return sortDir === 'desc' ? -diff : diff;
     });
     return list;
-  }, [stocks, query, sortKey, sortDir]);
+  }, [stocks, query, sortKey, sortDir, activeSector]);
 
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
   const pageItems = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
@@ -64,14 +89,18 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
     setPage(1);
   }
 
+  function handleSector(sector: string) {
+    setActiveSector(sector);
+    setPage(1);
+  }
+
   const SortIndicator = ({ k }: { k: typeof sortKey }) =>
-    sortKey === k ? (
-      <span className="ml-0.5 text-sky-400">{sortDir === 'desc' ? '↓' : '↑'}</span>
-    ) : null;
+    sortKey === k ? <span className="ml-0.5 text-sky-400">{sortDir === 'desc' ? '↓' : '↑'}</span> : null;
 
   return (
     <>
       <div className="rounded-xl border border-gray-700/60 bg-gray-900/60 overflow-hidden">
+        {/* header */}
         <div className="px-4 py-3 border-b border-gray-700/60 flex items-center justify-between gap-3 flex-wrap">
           <div>
             <h3 className="text-sm font-semibold text-gray-200">全部掃描結果</h3>
@@ -92,88 +121,180 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
             />
           </div>
         </div>
-        <div className="overflow-x-auto">
+
+        {/* 族群篩選 Tabs */}
+        <div className="px-4 py-2 border-b border-gray-700/40 flex items-center gap-1.5 overflow-x-auto scrollbar-hide">
+          {sectors.slice(0, 20).map((sector) => (
+            <button
+              key={sector}
+              onClick={() => handleSector(sector)}
+              className={`shrink-0 px-2.5 py-1 text-[11px] rounded-lg font-medium transition-all ${
+                activeSector === sector
+                  ? 'bg-sky-500/20 text-sky-300 border border-sky-500/40'
+                  : 'text-gray-500 hover:text-gray-300 hover:bg-gray-800 border border-transparent'
+              }`}
+            >
+              {sector}
+            </button>
+          ))}
+          {sectors.length > 21 && (
+            <span className="shrink-0 text-[11px] text-gray-600 px-1">+{sectors.length - 21}</span>
+          )}
+        </div>
+
+        {/* desktop table */}
+        <div className="hidden md:block overflow-x-auto">
           <table className="w-full text-xs">
             <thead>
               <tr className="text-gray-500 border-b border-gray-700/40 bg-gray-800/30">
                 <th className="text-left px-4 py-2.5 font-medium w-8">#</th>
                 <th className="text-left px-3 py-2.5 font-medium">代號 / 名稱</th>
-                <th className="text-right px-3 py-2.5 font-medium cursor-pointer hover:text-gray-300 select-none" onClick={() => handleSort('close')}>
-                  收盤 <SortIndicator k="close" />
+                <th className="text-left px-3 py-2.5 font-medium">族群</th>
+                <th
+                  className="text-right px-3 py-2.5 font-medium cursor-pointer hover:text-gray-300"
+                  onClick={() => handleSort('close')}
+                >
+                  收盤價 <SortIndicator k="close" />
                 </th>
-                <th className="text-right px-3 py-2.5 font-medium cursor-pointer hover:text-gray-300 select-none" onClick={() => handleSort('change_pct')}>
-                  漲跌% <SortIndicator k="change_pct" />
+                <th
+                  className="text-right px-3 py-2.5 font-medium cursor-pointer hover:text-gray-300"
+                  onClick={() => handleSort('change_pct')}
+                >
+                  漲跌幅 <SortIndicator k="change_pct" />
                 </th>
-                <th className="text-right px-3 py-2.5 font-medium hidden lg:table-cell">族群</th>
-                <th className="px-3 py-2.5 font-medium cursor-pointer hover:text-gray-300 select-none" onClick={() => handleSort('total_score')}>
-                  評分 <SortIndicator k="total_score" />
+                <th
+                  className="text-left px-3 py-2.5 font-medium cursor-pointer hover:text-gray-300"
+                  onClick={() => handleSort('total_score')}
+                >
+                  綜合分 <SortIndicator k="total_score" />
                 </th>
-                <th className="px-3 py-2.5 font-medium">建議</th>
+                <th className="text-left px-3 py-2.5 font-medium">建議</th>
                 <th className="px-3 py-2.5 w-8"></th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="divide-y divide-gray-700/20">
               {pageItems.map((s, i) => {
                 const up = s.change_pct >= 0;
+                const isLimit = Math.abs(s.change_pct) >= 9.5;
+                const rowCls = isLimit
+                  ? up
+                    ? 'ring-1 ring-inset ring-red-500/50 bg-red-500/5'
+                    : 'ring-1 ring-inset ring-emerald-500/50 bg-emerald-500/5'
+                  : '';
                 const actionCls = getActionColor(s.strategy.recommendation);
-                const rank = (page - 1) * PAGE_SIZE + i + 1;
                 return (
-                  <tr key={s.stock_id} onClick={() => setSelectedStock(s)} className="border-b border-gray-700/20 hover:bg-gray-800/50 cursor-pointer transition-colors">
-                    <td className="px-4 py-2.5 text-gray-600 font-bold">{rank}</td>
-                    <td className="px-3 py-2.5">
-                      <div className="flex items-center gap-2">
-                        <span className="font-mono text-gray-500 text-[11px] w-10 shrink-0">{s.stock_id}</span>
-                        <span className="text-gray-200 font-semibold">{s.name}</span>
-                      </div>
+                  <tr
+                    key={s.stock_id}
+                    onClick={() => setSelectedStock(s)}
+                    className={`hover:bg-gray-800/40 cursor-pointer transition-colors ${rowCls}`}
+                  >
+                    <td className="px-4 py-2.5 text-gray-600 font-mono">
+                      {(page - 1) * PAGE_SIZE + i + 1}
                     </td>
-                    <td className="px-3 py-2.5 text-right font-mono text-gray-200">{s.close.toLocaleString()}</td>
-                    <td className={`px-3 py-2.5 text-right font-mono font-bold ${up ? 'text-emerald-400' : 'text-red-400'}`}>
-                      <span className="flex items-center justify-end gap-0.5">
-                        {up ? <ArrowUpRight className="w-3.5 h-3.5" /> : <ArrowDownRight className="w-3.5 h-3.5" />}
+                    <td className="px-3 py-2.5">
+                      <div className="font-mono text-gray-500 text-[11px]">{s.stock_id}</div>
+                      <div className="font-semibold text-gray-200">{s.name}</div>
+                    </td>
+                    <td className="px-3 py-2.5 text-gray-400">{s.sector}</td>
+                    <td className="px-3 py-2.5 text-right font-mono font-bold text-white">
+                      {s.close.toLocaleString()}
+                    </td>
+                    <td className="px-3 py-2.5 text-right">
+                      <span className={`font-mono flex items-center justify-end gap-0.5 ${up ? 'text-emerald-400' : 'text-red-400'}`}>
+                        {up ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
                         {Math.abs(s.change_pct).toFixed(2)}%
+                        <LimitBadge changePct={s.change_pct} />
                       </span>
                     </td>
-                    <td className="px-3 py-2.5 hidden lg:table-cell">
-                      <span className="text-gray-400 bg-gray-700/40 px-1.5 py-0.5 rounded text-[11px]">{s.sector}</span>
-                    </td>
-                    <td className="px-3 py-2.5"><ScoreBar score={s.total_score} max={totalMax} /></td>
                     <td className="px-3 py-2.5">
-                      <span className={`text-[11px] px-2 py-1 rounded border font-medium whitespace-nowrap ${actionCls}`}>
+                      <ScoreBar score={s.total_score} max={totalMax} />
+                    </td>
+                    <td className="px-3 py-2.5">
+                      <span className={`px-1.5 py-0.5 rounded border text-[10px] font-medium ${actionCls}`}>
                         {s.strategy.recommendation.split(' - ')[0]}
                       </span>
                     </td>
-                    <td className="px-3 py-2.5"><ChevronRight className="w-4 h-4 text-gray-600" /></td>
+                    <td className="px-3 py-2.5" onClick={(e) => e.stopPropagation()}>
+                      <WatchlistToggleBtn stockId={s.stock_id} />
+                    </td>
                   </tr>
                 );
               })}
             </tbody>
           </table>
         </div>
+
+        {/* mobile cards */}
+        <div className="block md:hidden divide-y divide-gray-700/30">
+          {pageItems.map((s) => {
+            const up = s.change_pct >= 0;
+            const isLimit = Math.abs(s.change_pct) >= 9.5;
+            const limitCls = isLimit
+              ? up
+                ? 'ring-1 ring-red-500/60 bg-red-500/5'
+                : 'ring-1 ring-emerald-500/60 bg-emerald-500/5'
+              : '';
+            return (
+              <div key={s.stock_id} className={`flex items-center gap-3 p-3 ${limitCls}`}>
+                <button
+                  className="flex-1 text-left hover:bg-gray-800/50 transition-colors"
+                  onClick={() => setSelectedStock(s)}
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="font-mono text-xs text-gray-500">{s.stock_id}</span>
+                    <span className="text-sm font-semibold text-gray-200 truncate">{s.name}</span>
+                    <span className="text-[10px] text-gray-500 bg-gray-800 px-1 rounded">{s.sector}</span>
+                  </div>
+                  <div className="flex items-center gap-3 mt-1">
+                    <ScoreBar score={s.total_score} max={totalMax} />
+                    <span className={`font-mono text-xs flex items-center ${up ? 'text-emerald-400' : 'text-red-400'}`}>
+                      {up ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
+                      {Math.abs(s.change_pct).toFixed(2)}%
+                      <LimitBadge changePct={s.change_pct} />
+                    </span>
+                  </div>
+                </button>
+                <div className="flex flex-col items-end gap-1 shrink-0">
+                  <span className="text-sm font-mono font-bold text-white">{s.close.toLocaleString()}</span>
+                  <WatchlistToggleBtn stockId={s.stock_id} />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* empty state */}
+        {pageItems.length === 0 && (
+          <div className="py-10 text-center text-gray-600 text-xs">沒有符合條件的結果</div>
+        )}
+
+        {/* pagination */}
         {totalPages > 1 && (
-          <div className="px-4 py-3 border-t border-gray-700/40 flex items-center justify-between gap-2 flex-wrap">
-            <span className="text-[11px] text-gray-500">第 {page} / {totalPages} 頁　（每頁 {PAGE_SIZE} 筆）</span>
-            <div className="flex items-center gap-1">
-              <button onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1} className="p-1.5 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-gray-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors">
-                <ChevronLeft className="w-4 h-4" />
-              </button>
-              {Array.from({ length: Math.min(totalPages, 7) }, (_, i) => {
-                let p: number;
-                if (totalPages <= 7) { p = i + 1; }
-                else if (page <= 4) { p = i + 1; }
-                else if (page >= totalPages - 3) { p = totalPages - 6 + i; }
-                else { p = page - 3 + i; }
-                return (
-                  <button key={p} onClick={() => setPage(p)} className={`w-7 h-7 text-xs rounded-lg font-medium transition-colors ${p === page ? 'bg-sky-500/20 text-sky-300 border border-sky-500/40' : 'text-gray-500 hover:bg-gray-800 hover:text-gray-200'}`}>{p}</button>
-                );
-              })}
-              <button onClick={() => setPage((p) => Math.min(totalPages, p + 1))} disabled={page === totalPages} className="p-1.5 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-gray-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors">
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
+          <div className="px-4 py-3 border-t border-gray-700/40 flex items-center justify-between text-xs text-gray-500">
+            <button
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              disabled={page === 1}
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg hover:bg-gray-800 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+            >
+              <ChevronLeft className="w-3.5 h-3.5" /> 上一頁
+            </button>
+            <span>
+              第 {page} / {totalPages} 頁　（共 {filtered.length} 筆）
+            </span>
+            <button
+              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+              disabled={page === totalPages}
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg hover:bg-gray-800 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+            >
+              下一頁 <ChevronRight className="w-3.5 h-3.5" />
+            </button>
           </div>
         )}
       </div>
-      {selectedStock && <StockDetailModal stock={selectedStock} onClose={() => setSelectedStock(null)} />}
+
+      {selectedStock && (
+        <StockDetailModal stock={selectedStock} onClose={() => setSelectedStock(null)} />
+      )}
     </>
   );
 }
