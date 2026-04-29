@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { useLatestScan } from '@/lib/useScanData';
+import { useLatestScan, useAllScores } from '@/lib/useScanData';
 import { demoScanResult } from '@/lib/demoScanData';
 import SummaryCards from './SummaryCards';
 import Top10Table from './Top10Table';
@@ -15,6 +15,7 @@ export default function MainDashboard() {
   const [activeTab, setActiveTab] = useState<Tab>('dashboard');
   const [now, setNow] = useState('');
   const { data, isLoading, error } = useLatestScan();
+  const { data: allScores, isLoading: allLoading } = useAllScores();
 
   useEffect(() => {
     const tick = () =>
@@ -33,6 +34,10 @@ export default function MainDashboard() {
 
   const scanData = data ?? (error ? demoScanResult : null);
   const isDemo = !data && !!error;
+  // all_results comes from all_scores.json (2102 stocks), not latest.json
+  const allResults = allScores?.all_stock_scores ?? null;
+  const allResultsDate = allScores?.scan_date ?? scanData?.scan_date;
+  const allResultsCount = allScores?.scanned_count ?? allResults?.length ?? 0;
 
   return (
     <div className="min-h-dvh bg-gray-950 text-gray-100 font-sans flex flex-col">
@@ -50,8 +55,8 @@ export default function MainDashboard() {
               </button>
               <button onClick={() => setActiveTab('all')} className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all whitespace-nowrap flex items-center gap-1.5 ${activeTab === 'all' ? 'bg-sky-500/20 text-sky-300 border border-sky-500/40' : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800'}`}>
                 <List className="w-3.5 h-3.5" />\u5168\u90e8\u7d50\u679c
-                {scanData?.all_results && (
-                  <span className="text-[10px] bg-gray-700 text-gray-400 px-1.5 py-0.5 rounded-full">{scanData.all_results.length}</span>
+                {allResultsCount > 0 && (
+                  <span className="text-[10px] bg-gray-700 text-gray-400 px-1.5 py-0.5 rounded-full">{allResultsCount}</span>
                 )}
               </button>
               <button onClick={() => setActiveTab('history')} className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all whitespace-nowrap flex items-center gap-1.5 ${activeTab === 'history' ? 'bg-sky-500/20 text-sky-300 border border-sky-500/40' : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800'}`}>
@@ -113,23 +118,23 @@ export default function MainDashboard() {
               <div className="flex items-start justify-between flex-wrap gap-3">
                 <div>
                   <h1 className="text-lg font-bold text-white flex items-center gap-2"><List className="w-5 h-5 text-sky-400" />\u5168\u90e8\u6383\u63cf\u7d50\u679c</h1>
-                  <p className="text-xs text-gray-400 mt-1">\u672c\u6b21\u6383\u63cf\u6240\u6709\u6a19\u7684\u5b8c\u6574\u8a55\u5206\uff0c\u53ef\u4f9d\u5206\u6578\u6392\u5e8f\u8207\u641c\u5c0b</p>
+                  <p className="text-xs text-gray-400 mt-1">\u672c\u6b21\u6383\u63cf\u6240\u6709 {allResultsCount} \u6a94\u5b8c\u6574\u8a55\u5206\uff0c\u53ef\u4f9d\u5206\u6578\u6392\u5e8f\u8207\u641c\u5c0b</p>
                 </div>
-                {scanData && <div className="text-right"><div className="text-xs text-gray-500">\u6383\u63cf\u65e5\u671f</div><div className="text-sm font-mono font-bold text-sky-300">{scanData.scan_date}</div></div>}
+                {allResultsDate && <div className="text-right"><div className="text-xs text-gray-500">\u6383\u63cf\u65e5\u671f</div><div className="text-sm font-mono font-bold text-sky-300">{allResultsDate}</div></div>}
               </div>
             </div>
-            {isLoading ? (
+            {allLoading ? (
               <div className="rounded-xl border border-gray-700/60 bg-gray-900/60 p-16 text-center">
                 <div className="w-10 h-10 border-2 border-sky-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-                <p className="text-sm text-gray-400">\u8f09\u5165\u4e2d...</p>
+                <p className="text-sm text-gray-400">\u8f09\u5165 {allResultsCount || 2102} \u6a94\u5b8c\u6574\u8cc7\u6599...</p>
               </div>
-            ) : scanData?.all_results ? (
-              <AllResultsTable stocks={scanData.all_results} scanDate={scanData.scan_date} />
+            ) : allResults ? (
+              <AllResultsTable stocks={allResults} scanDate={allResultsDate} />
             ) : (
               <div className="rounded-xl border border-gray-700/60 bg-gray-900/60 p-16 text-center">
                 <List className="w-12 h-12 text-gray-700 mx-auto mb-4" />
                 <p className="text-sm text-gray-400">\u5c1a\u7121\u5b8c\u6574\u7d50\u679c\u8cc7\u6599</p>
-                <p className="text-xs text-gray-600 mt-1">latest.json \u9700\u5305\u542b all_results \u6b04\u4f4d</p>
+                <p className="text-xs text-gray-600 mt-1">all_scores.json \u5c1a\u672a\u5c31\u7dd2\uff0c\u8acb\u7b49\u5f85\u4e0b\u4e00\u6b21 22:55 \u6383\u63cf</p>
               </div>
             )}
           </div>
