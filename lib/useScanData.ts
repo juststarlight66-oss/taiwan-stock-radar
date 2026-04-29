@@ -10,6 +10,23 @@ export interface AllScoresData {
   all_stock_scores: ScanStock[];
 }
 
+/** Lightweight index entry — only essential fields, no dimensions/signals/strategy */
+export interface StockIndexEntry {
+  stock_id: string;
+  name: string;
+  sector: string;
+  close: number;
+  change_pct: number;
+  total_score: number;
+  recommendation: string;
+}
+
+export interface AllStocksIndex {
+  scan_date: string;
+  scanned_count: number;
+  stocks: StockIndexEntry[];
+}
+
 // basePath is /taiwan-stock-radar — fetches must use absolute paths from that base
 const BASE = '/taiwan-stock-radar';
 
@@ -49,10 +66,27 @@ export function useHistoryIndex() {
   return { dates: data?.dates ?? [], error, isLoading };
 }
 
-/** Fetch all_scores.json — every scanned stock's 5-dimension breakdown for the self-check tab */
-export function useAllScores() {
+/**
+ * Fetch lightweight all_stocks_index.json (~120KB).
+ * Contains only stock_id/name/sector/close/change_pct/total_score/recommendation.
+ * Always loaded on startup — used by SelfCheck search and header badge count.
+ */
+export function useAllStocksIndex() {
+  const { data, error, isLoading } = useSWR<AllStocksIndex>(
+    `${BASE}/data/all_stocks_index.json`,
+    fetcher,
+    { refreshInterval: 0, revalidateOnFocus: false }
+  );
+  return { data, error, isLoading };
+}
+
+/**
+ * Fetch full all_scores.json (~1.6MB) — lazy, only call when needed.
+ * Use for AllResultsTable (full details) or SelfCheck detail view.
+ */
+export function useAllScores(enabled = true) {
   const { data, error, isLoading } = useSWR<AllScoresData>(
-    `${BASE}/data/all_scores.json`,
+    enabled ? `${BASE}/data/all_scores.json` : null,
     fetcher,
     { refreshInterval: 0, revalidateOnFocus: false }
   );
@@ -495,7 +529,6 @@ export function useOnDemandScan(stockId: string | null): {
         const sentResult  = scoreSentiment(hist, stockId!);
 
         // v2 weights: tech 25%, fundamental 23%, news 32%, sentiment 12%, chips 8%
-        // Map raw scores to 0-100 scale using each dimension's max
         const techNorm  = (techResult.score / 40) * 100;
         const fundNorm  = (fundResult.score / 40) * 100;
         const newsNorm  = (newsResult.score / 10) * 100;

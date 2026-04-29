@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { useLatestScan, useAllScores } from '@/lib/useScanData';
+import { useLatestScan, useAllScores, useAllStocksIndex } from '@/lib/useScanData';
 import { demoScanResult } from '@/lib/demoScanData';
 import SummaryCards from './SummaryCards';
 import Top10Table from './Top10Table';
@@ -13,9 +13,14 @@ type Tab = 'dashboard' | 'all' | 'history' | 'selfcheck';
 
 export default function MainDashboard() {
   const [activeTab, setActiveTab] = useState<Tab>('dashboard');
+  const [allTabVisited, setAllTabVisited] = useState(false);
   const [now, setNow] = useState('');
+
   const { data, isLoading, error } = useLatestScan();
-  const { data: allScores, isLoading: allLoading } = useAllScores();
+  // Lightweight index: always loaded (~120KB), used for badge count + SelfCheck search
+  const { data: indexData } = useAllStocksIndex();
+  // Full all_scores: only loaded after user visits the 'all' tab
+  const { data: allScores, isLoading: allLoading } = useAllScores(allTabVisited);
 
   useEffect(() => {
     const tick = () =>
@@ -32,11 +37,20 @@ export default function MainDashboard() {
     return () => clearInterval(id);
   }, []);
 
+  function handleTabChange(tab: Tab) {
+    setActiveTab(tab);
+    if (tab === 'all') setAllTabVisited(true);
+  }
+
   const scanData = data ?? (error ? demoScanResult : null);
   const isDemo = !data && !!error;
+
+  // Badge count from lightweight index (available immediately)
+  const allResultsCount = indexData?.scanned_count ?? 0;
+  const allResultsDate = allScores?.scan_date ?? indexData?.scan_date ?? scanData?.scan_date;
+
+  // Full results for AllResultsTable
   const allResults = allScores?.all_stock_scores ?? null;
-  const allResultsDate = allScores?.scan_date ?? scanData?.scan_date;
-  const allResultsCount = allScores?.scanned_count ?? allResults?.length ?? 0;
 
   return (
     <div className="min-h-dvh bg-gray-950 text-gray-100 font-sans flex flex-col">
@@ -49,19 +63,19 @@ export default function MainDashboard() {
               <span className="text-gray-600 text-xs hidden sm:inline">Taiwan Stock Radar</span>
             </div>
             <nav className="flex items-center gap-1 flex-1 overflow-x-auto scrollbar-hide">
-              <button onClick={() => setActiveTab('dashboard')} className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all whitespace-nowrap flex items-center gap-1.5 ${activeTab === 'dashboard' ? 'bg-sky-500/20 text-sky-300 border border-sky-500/40' : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800'}`}>
+              <button onClick={() => handleTabChange('dashboard')} className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all whitespace-nowrap flex items-center gap-1.5 ${activeTab === 'dashboard' ? 'bg-sky-500/20 text-sky-300 border border-sky-500/40' : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800'}`}>
                 <Activity className="w-3.5 h-3.5" />最新掃描
               </button>
-              <button onClick={() => setActiveTab('all')} className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all whitespace-nowrap flex items-center gap-1.5 ${activeTab === 'all' ? 'bg-sky-500/20 text-sky-300 border border-sky-500/40' : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800'}`}>
+              <button onClick={() => handleTabChange('all')} className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all whitespace-nowrap flex items-center gap-1.5 ${activeTab === 'all' ? 'bg-sky-500/20 text-sky-300 border border-sky-500/40' : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800'}`}>
                 <List className="w-3.5 h-3.5" />全部結果
                 {allResultsCount > 0 && (
                   <span className="text-[10px] bg-gray-700 text-gray-400 px-1.5 py-0.5 rounded-full">{allResultsCount}</span>
                 )}
               </button>
-              <button onClick={() => setActiveTab('history')} className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all whitespace-nowrap flex items-center gap-1.5 ${activeTab === 'history' ? 'bg-sky-500/20 text-sky-300 border border-sky-500/40' : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800'}`}>
+              <button onClick={() => handleTabChange('history')} className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all whitespace-nowrap flex items-center gap-1.5 ${activeTab === 'history' ? 'bg-sky-500/20 text-sky-300 border border-sky-500/40' : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800'}`}>
                 <History className="w-3.5 h-3.5" />歷史查詢
               </button>
-              <button onClick={() => setActiveTab('selfcheck')} className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all whitespace-nowrap flex items-center gap-1.5 ${activeTab === 'selfcheck' ? 'bg-sky-500/20 text-sky-300 border border-sky-500/40' : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800'}`}>
+              <button onClick={() => handleTabChange('selfcheck')} className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all whitespace-nowrap flex items-center gap-1.5 ${activeTab === 'selfcheck' ? 'bg-sky-500/20 text-sky-300 border border-sky-500/40' : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800'}`}>
                 <Search className="w-3.5 h-3.5" />自主檢查
               </button>
             </nav>
@@ -147,12 +161,12 @@ export default function MainDashboard() {
             <HistoryBrowser />
           </div>
         )}
-        {activeTab === 'selfcheck' && <SelfCheck />}
+        {activeTab === 'selfcheck' && <SelfCheck indexData={indexData ?? null} />}
       </main>
 
       <footer className="border-t border-gray-800/60 py-4 text-center text-[10px] text-gray-600 px-4">
         資料來源：TWSE OpenAPI｜本系統僅供資訊參考，不構成投資建議
-        ｜<span className="text-gray-700">Taiwan Stock Radar v2.0</span>
+        ｜<span className="text-gray-700">Taiwan Stock Radar v2.1</span>
       </footer>
     </div>
   );

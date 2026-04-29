@@ -29,6 +29,47 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
+      - name: Generate all_stocks_index.json
+        run: |
+          python3 - << 'EOF'
+          import json, os
+
+          src = 'public/data/all_scores.json'
+          dst = 'public/data/all_stocks_index.json'
+
+          if not os.path.exists(src):
+              print(f'[skip] {src} not found, skipping index generation')
+              exit(0)
+
+          with open(src, 'r', encoding='utf-8') as f:
+              data = json.load(f)
+
+          stocks = data.get('all_stock_scores', data.get('stocks', []))
+
+          index = {
+              'scan_date': data.get('scan_date', ''),
+              'scanned_count': data.get('scanned_count', len(stocks)),
+              'stocks': [
+                  {
+                      'stock_id': s['stock_id'],
+                      'name': s['name'],
+                      'sector': s.get('sector', ''),
+                      'close': s.get('close', 0),
+                      'change_pct': s.get('change_pct', 0),
+                      'total_score': s.get('total_score', 0),
+                      'recommendation': s.get('strategy', {}).get('recommendation', ''),
+                  }
+                  for s in stocks
+              ]
+          }
+
+          with open(dst, 'w', encoding='utf-8') as f:
+              json.dump(index, f, ensure_ascii=False, separators=(',', ':'))
+
+          size_kb = os.path.getsize(dst) // 1024
+          print(f'[ok] Generated {dst}: {len(index["stocks"])} stocks, {size_kb} KB')
+          EOF
+
       - name: Install dependencies
         run: npm install --no-fund --no-audit
 
