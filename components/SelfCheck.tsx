@@ -1,10 +1,10 @@
 'use client';
-import { useState, useMemo, useRef, useEffect } from 'react';
-import { useAllScores } from '@/lib/useScanData';
+import { useState, useMemo, useRef } from 'react';
+import { useAllScores, useOnDemandScan } from '@/lib/useScanData';
 import { ScanStock, DIMENSION_CONFIG } from '@/lib/scanTypes';
 import RadarChart from './RadarChart';
 import DimensionBars from './DimensionBars';
-import { Search, X, TrendingUp, TrendingDown, Minus, Info, AlertCircle } from 'lucide-react';
+import { Search, X, TrendingUp, TrendingDown, Minus, Info, AlertCircle, Zap, BarChart2 } from 'lucide-react';
 
 const BASE = '/taiwan-stock-radar';
 
@@ -32,20 +32,47 @@ interface StockResultProps {
   scanDate: string;
   isHistorical?: boolean;
   historicalDate?: string;
+  isOnDemand?: boolean;
 }
 
-function StockResult({ stock, scanDate, isHistorical, historicalDate }: StockResultProps) {
+function StockResult({ stock, scanDate, isHistorical, historicalDate, isOnDemand }: StockResultProps) {
   const grade = getScoreGrade(stock.total_score);
   const dimKeys = Object.keys(DIMENSION_CONFIG) as (keyof typeof DIMENSION_CONFIG)[];
 
   return (
     <div className="space-y-4 animate-in fade-in duration-300">
+      {/* Source badge */}
+      <div className="flex items-center gap-2">
+        {isOnDemand ? (
+          <div className="flex items-center gap-1.5 rounded-full border border-violet-500/40 bg-violet-500/10 px-3 py-1">
+            <Zap className="w-3 h-3 text-violet-400" />
+            <span className="text-xs font-medium text-violet-300">即時分析</span>
+            <span className="text-[10px] text-violet-500 ml-1">· 即時計算，非每日掃描收錄</span>
+          </div>
+        ) : (
+          <div className="flex items-center gap-1.5 rounded-full border border-sky-500/40 bg-sky-500/10 px-3 py-1">
+            <BarChart2 className="w-3 h-3 text-sky-400" />
+            <span className="text-xs font-medium text-sky-300">每日掃描</span>
+          </div>
+        )}
+      </div>
+
       {/* Historical notice */}
       {isHistorical && historicalDate && (
         <div className="flex items-center gap-2 rounded-lg border border-amber-500/30 bg-amber-500/10 px-4 py-2.5">
           <Info className="w-4 h-4 text-amber-400 shrink-0" />
           <p className="text-xs text-amber-300">
             此股票未出現在最新掃描中，顯示的是 <span className="font-mono font-bold">{historicalDate}</span> 的歷史資料
+          </p>
+        </div>
+      )}
+
+      {/* On-demand notice */}
+      {isOnDemand && (
+        <div className="flex items-center gap-2 rounded-lg border border-violet-500/30 bg-violet-500/10 px-4 py-2.5">
+          <Info className="w-4 h-4 text-violet-400 shrink-0" />
+          <p className="text-xs text-violet-300">
+            此股票不在今日掃描池中，已從 TWSE 即時計算五維評分。基本面數據（毛利率、營收）採中性估算。
           </p>
         </div>
       )}
@@ -71,7 +98,9 @@ function StockResult({ stock, scanDate, isHistorical, historicalDate }: StockRes
               {getChangeIcon(stock.change_pct)}
               {stock.change_pct > 0 ? '+' : ''}{stock.change_pct?.toFixed(2) ?? '0.00'}%
             </div>
-            <div className="text-[10px] text-gray-600 mt-1">掃描日期：{scanDate}</div>
+            <div className="text-[10px] text-gray-600 mt-1">
+              {isOnDemand ? '即時資料' : `掃描日期：${scanDate}`}
+            </div>
           </div>
         </div>
 
@@ -161,27 +190,78 @@ function StockResult({ stock, scanDate, isHistorical, historicalDate }: StockRes
   );
 }
 
+// ─── On-demand wrapper: triggers useOnDemandScan only when needed ─────────────
+function OnDemandLookup({ stockId, onClear }: { stockId: string; onClear: () => void }) {
+  const { data, status, error } = useOnDemandScan(stockId);
+
+  if (status === 'loading') {
+    return (
+      <div className="rounded-xl border border-gray-700/60 bg-gray-900/60 p-12 text-center">
+        <div className="w-8 h-8 border-2 border-violet-500 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+        <p className="text-sm text-gray-400">
+          正在從 TWSE 即時計算 <span className="font-mono text-violet-300">{stockId}</span> 的五維評分...
+        </p>
+        <p className="text-xs text-gray-600 mt-1">通常需要 3–8 秒</p>
+      </div>
+    );
+  }
+
+  if (status === 'not_traded' || status === 'error') {
+    return (
+      <div className="rounded-xl border border-gray-700/60 bg-gray-900/60 p-12 text-center">
+        <AlertCircle className="w-10 h-10 text-gray-600 mx-auto mb-3" />
+        <p className="text-sm text-gray-400">
+          找不到股票代號 <span className="font-mono text-sky-300">{stockId}</span>
+        </p>
+        <p className="text-xs text-gray-600 mt-1.5">
+          {error ?? '此股票可能不在 TWSE 上市，或近期未有交易紀錄，請確認代號是否正確（如：台積電請輸入 2330）'}
+        </p>
+      </div>
+    );
+  }
+
+  if (status === 'done' && data) {
+    return (
+      <StockResult
+        stock={data.stock}
+        scanDate={new Date().toISOString().slice(0, 10)}
+        isOnDemand
+      />
+    );
+  }
+
+  return null;
+}
+
+// ─── Main SelfCheck component ─────────────────────────────────────────────────
 export default function SelfCheck() {
   const { data: allScores, isLoading, error } = useAllScores();
   const [query, setQuery] = useState('');
   const [committed, setCommitted] = useState('');
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const [result, setResult] = useState<{ stock: ScanStock; scanDate: string; isHistorical: boolean; historicalDate?: string } | null>(null);
+  const [result, setResult] = useState<{
+    stock: ScanStock;
+    scanDate: string;
+    isHistorical: boolean;
+    historicalDate?: string;
+  } | null>(null);
   const [searching, setSearching] = useState(false);
   const [notFound, setNotFound] = useState(false);
+  // When this is non-null, we mount the OnDemandLookup component
+  const [onDemandId, setOnDemandId] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Build lookup map from all_scores
+  // Build lookup map from all_scores — uses the corrected key all_stock_scores
   const stockMap = useMemo(() => {
-    if (!allScores?.stocks) return new Map<string, ScanStock>();
-    return new Map(allScores.stocks.map((s) => [s.stock_id, s]));
+    if (!allScores?.all_stock_scores) return new Map<string, ScanStock>();
+    return new Map(allScores.all_stock_scores.map((s) => [s.stock_id, s]));
   }, [allScores]);
 
   // Autocomplete suggestions
   const suggestions = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q || q.length < 1 || !allScores?.stocks) return [];
-    return allScores.stocks
+    if (!q || q.length < 1 || !allScores?.all_stock_scores) return [];
+    return allScores.all_stock_scores
       .filter(
         (s) =>
           s.stock_id.startsWith(q) ||
@@ -198,6 +278,7 @@ export default function SelfCheck() {
     setSearching(true);
     setNotFound(false);
     setResult(null);
+    setOnDemandId(null);
 
     // Look up in today's all_scores
     const found = stockMap.get(q);
@@ -211,7 +292,7 @@ export default function SelfCheck() {
     fetch(`${BASE}/data/index.json`)
       .then((r) => r.json())
       .then(async (idx: { dates: string[] }) => {
-        const dates = (idx.dates ?? []).slice(0, 30); // check last 30 dates
+        const dates = (idx.dates ?? []).slice(0, 30);
         for (const date of dates) {
           const dateStr = date.replace(/-/g, '');
           try {
@@ -232,22 +313,20 @@ export default function SelfCheck() {
             continue;
           }
         }
-        setNotFound(true);
+        // Not found anywhere — trigger on-demand TWSE lookup
         setSearching(false);
+        setOnDemandId(q);
       })
       .catch(() => {
-        setNotFound(true);
+        // index.json unavailable — fall straight to on-demand
         setSearching(false);
+        setOnDemandId(q);
       });
   }
 
   function handleKeyDown(e: React.KeyboardEvent) {
-    if (e.key === 'Enter') {
-      doSearch(query);
-    }
-    if (e.key === 'Escape') {
-      setShowSuggestions(false);
-    }
+    if (e.key === 'Enter') doSearch(query);
+    if (e.key === 'Escape') setShowSuggestions(false);
   }
 
   function clearSearch() {
@@ -255,6 +334,7 @@ export default function SelfCheck() {
     setCommitted('');
     setResult(null);
     setNotFound(false);
+    setOnDemandId(null);
     setShowSuggestions(false);
     inputRef.current?.focus();
   }
@@ -270,7 +350,7 @@ export default function SelfCheck() {
               自主檢查
             </h1>
             <p className="text-xs text-gray-400 mt-1">
-              輸入股票代號（如 2330、3008），查詢五維雷達圖分析
+              輸入股票代號（如 2330、3008），查詢五維雷達圖分析；未收錄股票將即時從 TWSE 計算
             </p>
           </div>
           {allScores && (
@@ -340,7 +420,7 @@ export default function SelfCheck() {
         )}
       </div>
 
-      {/* Loading state */}
+      {/* Loading state (initial data load) */}
       {isLoading && (
         <div className="rounded-xl border border-gray-700/60 bg-gray-900/60 p-12 text-center">
           <div className="w-8 h-8 border-2 border-sky-500 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
@@ -357,7 +437,7 @@ export default function SelfCheck() {
         </div>
       )}
 
-      {/* Searching spinner */}
+      {/* Searching historical spinner */}
       {searching && (
         <div className="rounded-xl border border-gray-700/60 bg-gray-900/60 p-12 text-center">
           <div className="w-8 h-8 border-2 border-sky-500 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
@@ -365,42 +445,42 @@ export default function SelfCheck() {
         </div>
       )}
 
-      {/* Not found */}
-      {notFound && !searching && (
-        <div className="rounded-xl border border-gray-700/60 bg-gray-900/60 p-12 text-center">
-          <AlertCircle className="w-10 h-10 text-gray-600 mx-auto mb-3" />
-          <p className="text-sm text-gray-400">
-            找不到股票代號 <span className="font-mono text-sky-300">{committed}</span>
-          </p>
-          <p className="text-xs text-gray-600 mt-1.5">
-            此股票可能不在掃描範圍內，或請確認代號是否正確（如：台積電請輸入 2330）
-          </p>
-        </div>
+      {/* On-demand TWSE lookup */}
+      {onDemandId && !searching && (
+        <OnDemandLookup stockId={onDemandId} onClear={clearSearch} />
       )}
 
-      {/* Result */}
+      {/* Scan result (today or historical) */}
       {result && !searching && (
         <StockResult
           stock={result.stock}
           scanDate={result.scanDate}
           isHistorical={result.isHistorical}
           historicalDate={result.historicalDate}
+          isOnDemand={false}
         />
       )}
 
       {/* Empty state */}
-      {!isLoading && !error && !result && !searching && !notFound && (
+      {!isLoading && !error && !result && !searching && !notFound && !onDemandId && (
         <div className="rounded-xl border border-gray-700/40 bg-gray-900/30 p-12 text-center">
           <Search className="w-12 h-12 text-gray-700 mx-auto mb-4" />
           <p className="text-sm text-gray-500">輸入股票代號開始查詢</p>
           <p className="text-xs text-gray-600 mt-1">
             支援代號（如 2330）或名稱（如 台積電）搜尋
           </p>
-          {allScores && (
-            <p className="text-xs text-gray-700 mt-3">
-              資料庫收錄 <span className="text-gray-500">{allScores.stocks.length}</span> 檔股票評分
-            </p>
-          )}
+          <div className="mt-3 flex items-center justify-center gap-3 flex-wrap">
+            {allScores && (
+              <span className="text-xs text-gray-700">
+                資料庫收錄 <span className="text-gray-500">{allScores.all_stock_scores.length}</span> 檔股票評分
+              </span>
+            )}
+            <span className="text-xs text-gray-700">·</span>
+            <span className="text-xs text-gray-600 flex items-center gap-1">
+              <Zap className="w-3 h-3 text-violet-600" />
+              未收錄股票自動即時分析
+            </span>
+          </div>
         </div>
       )}
     </div>
