@@ -1,5 +1,6 @@
 {
-  "dates": [
-    "2026-04-28"
-  ]
+  "latest": "latest.json",
+  "all_scores": "all_scores.json",
+  "scan_result": "scan_result.json",
+  "updated": "2026-04-30"
 }
