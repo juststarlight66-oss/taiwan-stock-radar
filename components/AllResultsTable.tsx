@@ -106,11 +106,11 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
 
   return (
     <>
-      <div className="rounded-xl border border-gray-700/60 bg-gray-900/60 overflow-hidden">
+      <div className="rounded-xl border border-gray-200 bg-white overflow-hidden">
         {/* header */}
         <div className="px-4 py-3 border-b border-gray-700/60 flex items-center justify-between gap-3 flex-wrap">
           <div>
-            <h3 className="text-sm font-semibold text-gray-200">全部掃描結果</h3>
+            <h3 className="text-sm font-semibold text-gray-800">全部掃描結果</h3>
             {scanDate && (
               <div className="text-[11px] text-gray-500 mt-0.5">
                 掃描日期：{scanDate}　共 {filtered.length} / {stocks.length} 檔
@@ -118,34 +118,34 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
             )}
           </div>
           <div className="relative">
-            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-500 pointer-events-none" />
+            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400 pointer-events-none" />
             <input
               type="text"
               value={query}
               onChange={(e) => handleSearch(e.target.value)}
               placeholder="搜尋代號/名稱/族群"
-              className="bg-gray-800 border border-gray-700/60 rounded-lg pl-8 pr-3 py-1.5 text-xs text-gray-200 placeholder-gray-600 focus:outline-none focus:border-sky-500/60 w-48"
+              className="bg-white border border-gray-300 rounded-lg pl-8 pr-3 py-1.5 text-xs text-gray-800 placeholder-gray-400 focus:outline-none focus:border-sky-500 w-48"
             />
           </div>
         </div>
 
         {/* 族群篩選 Tabs */}
-        <div className="px-4 py-2 border-b border-gray-700/40 flex items-center gap-1.5 overflow-x-auto scrollbar-hide">
+        <div className="px-4 py-2 border-b border-gray-200 flex items-center gap-1.5 overflow-x-auto scrollbar-hide bg-gray-50">
           {sectors.slice(0, 20).map((sector) => (
             <button
               key={sector}
               onClick={() => handleSector(sector)}
-              className={`shrink-0 px-2.5 py-1 text-[11px] rounded-lg font-medium transition-all ${
+              className={`shrink-0 px-2.5 py-1 text-[11px] rounded-full font-medium transition-all border ${
                 activeSector === sector
-                  ? 'bg-sky-500/20 text-sky-300 border border-sky-500/40'
-                  : 'text-gray-500 hover:text-gray-300 hover:bg-gray-800 border border-transparent'
+                  ? 'bg-sky-500 text-white border-sky-500 shadow-sm'
+                  : 'text-gray-600 hover:text-gray-800 hover:bg-gray-200 border-gray-300 bg-white'
               }`}
             >
               {sector}
             </button>
           ))}
           {sectors.length > 21 && (
-            <span className="shrink-0 text-[11px] text-gray-600 px-1">+{sectors.length - 21}</span>
+            <span className="shrink-0 text-[11px] text-gray-400 px-1">+{sectors.length - 21}</span>
           )}
         </div>
 
@@ -153,7 +153,7 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
         <div className="hidden md:block overflow-x-auto">
           <table className="w-full text-xs">
             <thead>
-              <tr className="text-gray-500 border-b border-gray-700/40 bg-gray-800/30">
+              <tr className="text-gray-500 border-b border-gray-200 bg-gray-50">
                 <th className="text-left px-4 py-2.5 font-medium w-8">#</th>
                 <th className="text-left px-3 py-2.5 font-medium">代號 / 名稱</th>
                 <th className="text-left px-3 py-2.5 font-medium">族群</th>
@@ -179,7 +179,7 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
                 <th className="px-3 py-2.5 w-8"></th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-700/20">
+            <tbody className="divide-y divide-gray-100">
               {pageItems.map((s, i) => {
                 const up = s.change_pct >= 0;
                 const isLimit = Math.abs(s.change_pct) >= 9.5;
@@ -193,17 +193,19 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
                   <tr
                     key={s.stock_id}
                     onClick={() => setSelectedStock(s)}
-                    className={`hover:bg-gray-800/40 cursor-pointer transition-colors ${rowCls}`}
+                    className={`hover:bg-sky-50/60 cursor-pointer transition-colors ${rowCls}`}
                   >
-                    <td className="px-4 py-2.5 text-gray-600 font-mono">
+                    <td className="px-4 py-2.5 text-gray-400 font-mono">
                       {(page - 1) * PAGE_SIZE + i + 1}
                     </td>
                     <td className="px-3 py-2.5">
-                      <div className="font-mono text-gray-500 text-[11px]">{s.stock_id}</div>
-                      <div className="font-semibold text-gray-200">{s.name}</div>
+                      <div className="font-mono text-gray-400 text-[11px]">{s.stock_id}</div>
+                      <div className="font-semibold text-gray-800">{s.name}</div>
                     </td>
-                    <td className="px-3 py-2.5 text-gray-400">{s.sector}</td>
-                    <td className="px-3 py-2.5 text-right font-mono font-bold text-white">
+                    <td className="px-3 py-2.5">
+                      <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-medium bg-indigo-50 text-indigo-600 border border-indigo-200">{s.sector}</span>
+                    </td>
+                    <td className="px-3 py-2.5 text-right font-mono font-bold text-gray-800">
                       {s.close.toLocaleString()}
                     </td>
                     <td className="px-3 py-2.5 text-right">
@@ -232,7 +234,7 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
         </div>
 
         {/* mobile cards */}
-        <div className="block md:hidden divide-y divide-gray-700/30">
+        <div className="block md:hidden divide-y divide-gray-100">
           {pageItems.map((s) => {
             const up = s.change_pct >= 0;
             const isLimit = Math.abs(s.change_pct) >= 9.5;
@@ -242,15 +244,15 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
                 : 'ring-1 ring-emerald-500/60 bg-emerald-500/5'
               : '';
             return (
-              <div key={s.stock_id} className={`flex items-center gap-3 p-3 ${limitCls}`}>
+              <div key={s.stock_id} className={`flex items-center gap-3 p-3 bg-white ${limitCls}`}>
                 <button
-                  className="flex-1 text-left hover:bg-gray-800/50 transition-colors"
+                  className="flex-1 text-left hover:bg-sky-50/60 transition-colors"
                   onClick={() => setSelectedStock(s)}
                 >
                   <div className="flex items-center gap-2">
-                    <span className="font-mono text-xs text-gray-500">{s.stock_id}</span>
-                    <span className="text-sm font-semibold text-gray-200 truncate">{s.name}</span>
-                    <span className="text-[10px] text-gray-500 bg-gray-800 px-1 rounded">{s.sector}</span>
+                    <span className="font-mono text-xs text-gray-400">{s.stock_id}</span>
+                    <span className="text-sm font-semibold text-gray-800 truncate">{s.name}</span>
+                    <span className="text-[10px] text-indigo-600 bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded-full">{s.sector}</span>
                   </div>
                   <div className="flex items-center gap-3 mt-1">
                     <ScoreBar score={s.total_score} max={totalMax} />
@@ -262,7 +264,7 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
                   </div>
                 </button>
                 <div className="flex flex-col items-end gap-1 shrink-0">
-                  <span className="text-sm font-mono font-bold text-white">{s.close.toLocaleString()}</span>
+                  <span className="text-sm font-mono font-bold text-gray-800">{s.close.toLocaleString()}</span>
                   <WatchlistToggleBtn stockId={s.stock_id} />
                 </div>
               </div>
@@ -272,16 +274,16 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
 
         {/* empty state */}
         {pageItems.length === 0 && (
-          <div className="py-10 text-center text-gray-600 text-xs">沒有符合條件的結果</div>
+          <div className="py-10 text-center text-gray-400 text-xs">沒有符合條件的結果</div>
         )}
 
         {/* pagination */}
         {totalPages > 1 && (
-          <div className="px-4 py-3 border-t border-gray-700/40 flex items-center justify-between text-xs text-gray-500">
+          <div className="px-4 py-3 border-t border-gray-200 bg-gray-50 flex items-center justify-between text-xs text-gray-500">
             <button
               onClick={() => setPage((p) => Math.max(1, p - 1))}
               disabled={page === 1}
-              className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg hover:bg-gray-800 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg hover:bg-gray-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
             >
               <ChevronLeft className="w-3.5 h-3.5" /> 上一頁
             </button>
@@ -291,7 +293,7 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
             <button
               onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
               disabled={page === totalPages}
-              className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg hover:bg-gray-800 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg hover:bg-gray-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
             >
               下一頁 <ChevronRight className="w-3.5 h-3.5" />
             </button>
