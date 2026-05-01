@@ -2,10 +2,13 @@
 # -*- coding: utf-8 -*-
 """
 台股五維分析掃描腳本 - 22:55 收盤報告核心引擎
-版本：v7.0 (TWSE OpenAPI 重構版)
+版本：v8.0 (TWSE + TPEx 全市場版：上市+上櫃+興櫃)
 優化項目：
   - 移除 yfinance，改用 openapi.twse.com.tw (WAF 白名單，sandbox 可存取)
-  - STOCK_DAY_ALL 單次 HTTP 呼叫取得全部 ~1,082 檔股票當日 OHLCV
+  - 上市：STOCK_DAY_ALL 單次呼叫 ~1,082 檔
+  - 上櫃：TPEx tpex_mainboard_daily_close_quotes ~800 檔
+  - 興櫃：TPEx tpex_esb_daily_close_quotes ~300 檔
+  - 合計掃描 ~2,200 檔全市場股票
   - BWIBBU_ALL 單次 HTTP 呼叫取得全部股票 PE/PBR/殖利率（基本面分析真實數據）
   - 日線快取系統：每日資料追加至 .cache/daily_ohlcv.json，累積 90 天歷史
   - 首次執行（快取空白）：以今日單日資料做簡化評分，技術面函式已處理 < 20 日情形
@@ -81,6 +84,10 @@ TWSE_HEADERS = {
 URL_STOCK_DAY_ALL = "https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL"
 URL_BWIBBU_ALL    = "https://openapi.twse.com.tw/v1/exchangeReport/BWIBBU_ALL"
 URL_MI_5MINS_HIST = "https://openapi.twse.com.tw/v1/indicesReport/MI_5MINS_HIST"
+# TPEx 上櫃 / 興櫃
+URL_OTC_DAY_ALL      = "https://www.tpex.org.tw/openapi/v1/tpex_mainboard_daily_close_quotes"
+URL_EMERGING_DAY_ALL = "https://www.tpex.org.tw/openapi/v1/tpex_esb_daily_close_quotes"
+URL_OTC_BWIBBU       = "https://www.tpex.org.tw/openapi/v1/tpex_mainboard_peratio_analysis"
 
 
 # ================================================================
@@ -190,6 +197,143 @@ def fetch_stock_day_all() -> Dict[str, Dict]:
 
     print(f"[API] STOCK_DAY_ALL 解析完成：{len(result)} 檔 (日期={ad_date})")
     return result
+
+
+def fetch_otc_day_all() -> Dict[str, Dict]:
+    """
+    從 TPEx OpenAPI 取得上櫃（OTC）當日所有股票 OHLCV。
+    回傳格式同 fetch_stock_day_all：{ stock_id: {date,open,high,low,close,volume,change,change_pct,name} }
+    """
+    print("[API] 呼叫 TPEx OTC STOCK_DAY_ALL...")
+    try:
+        r = requests.get(URL_OTC_DAY_ALL, headers=TWSE_HEADERS, timeout=30, verify=False)
+        r.raise_for_status()
+        data = r.json()
+    except Exception as e:
+        print(f"[API] TPEx OTC 失敗：{e}")
+        return {}
+
+    result = {}
+    for item in data:
+        try:
+            code = str(item.get('SecuritiesCompanyCode', item.get('Code', ''))).strip()
+            if not (len(code) == 4 and code.isdigit()):
+                continue
+
+            def clean(v):
+                return str(v or '').replace(',', '').replace('+', '').strip()
+
+            close_str = clean(item.get('Close', item.get('ClosingPrice', '')))
+            open_str  = clean(item.get('Open',  item.get('OpeningPrice',  '')))
+            high_str  = clean(item.get('High',  item.get('HighestPrice',  '')))
+            low_str   = clean(item.get('Low',   item.get('LowestPrice',   '')))
+            vol_str   = clean(item.get('TradingShares', item.get('TradeVolume', '0')))
+            chg_str   = clean(item.get('Change', '0'))
+            name      = str(item.get('CompanyName', item.get('Name', code))).strip()
+            ad_date   = str(item.get('Date', datetime.now().strftime('%Y%m%d'))).replace('-', '').replace('/', '')
+
+            if not close_str or close_str in ('--', '0', ''):
+                continue
+            close = float(close_str)
+            if close <= 0:
+                continue
+
+            open_p = float(open_str) if open_str  not in ('--', '', '0') else close
+            high_p = float(high_str) if high_str  not in ('--', '', '0') else close
+            low_p  = float(low_str)  if low_str   not in ('--', '', '0') else close
+            vol_clean = vol_str.replace(',', '')
+            volume = int(vol_clean) if vol_clean.isdigit() else 0
+            change = float(chg_str) if chg_str not in ('--', '', 'X', '0') else 0.0
+
+            prev_close = close - change
+            change_pct = round(change / prev_close * 100, 2) if prev_close > 0 else 0.0
+
+            result[code] = {
+                'date':       ad_date,
+                'open':       open_p,
+                'high':       high_p,
+                'low':        low_p,
+                'close':      close,
+                'volume':     volume,
+                'change':     change,
+                'change_pct': change_pct,
+                'name':       name,
+                'market':     'OTC',
+            }
+        except Exception:
+            continue
+
+    print(f"[API] TPEx OTC 解析完成：{len(result)} 檔")
+    return result
+
+
+def fetch_emerging_day_all() -> Dict[str, Dict]:
+    """
+    從 TPEx OpenAPI 取得興櫃（Emerging）當日所有股票 OHLCV。
+    回傳格式同 fetch_stock_day_all。
+    """
+    print("[API] 呼叫 TPEx 興櫃 EMERGING_STOCK_PRICE...")
+    try:
+        r = requests.get(URL_EMERGING_DAY_ALL, headers=TWSE_HEADERS, timeout=30, verify=False)
+        r.raise_for_status()
+        data = r.json()
+    except Exception as e:
+        print(f"[API] TPEx 興櫃失敗：{e}")
+        return {}
+
+    result = {}
+    for item in data:
+        try:
+            code = str(item.get('SecuritiesCompanyCode', item.get('Code', ''))).strip()
+            if not (len(code) == 4 and code.isdigit()):
+                continue
+
+            def clean(v):
+                return str(v or '').replace(',', '').replace('+', '').strip()
+
+            close_str = clean(item.get('Close', item.get('ClosingPrice', '')))
+            open_str  = clean(item.get('Open',  item.get('OpeningPrice',  '')))
+            high_str  = clean(item.get('High',  item.get('HighestPrice',  '')))
+            low_str   = clean(item.get('Low',   item.get('LowestPrice',   '')))
+            vol_str   = clean(item.get('TradingShares', item.get('TradeVolume', '0')))
+            chg_str   = clean(item.get('Change', '0'))
+            name      = str(item.get('CompanyName', item.get('Name', code))).strip()
+            ad_date   = str(item.get('Date', datetime.now().strftime('%Y%m%d'))).replace('-', '').replace('/', '')
+
+            if not close_str or close_str in ('--', '0', ''):
+                continue
+            close = float(close_str)
+            if close <= 0:
+                continue
+
+            open_p = float(open_str) if open_str  not in ('--', '', '0') else close
+            high_p = float(high_str) if high_str  not in ('--', '', '0') else close
+            low_p  = float(low_str)  if low_str   not in ('--', '', '0') else close
+            vol_clean = vol_str.replace(',', '')
+            volume = int(vol_clean) if vol_clean.isdigit() else 0
+            change = float(chg_str) if chg_str not in ('--', '', 'X', '0') else 0.0
+
+            prev_close = close - change
+            change_pct = round(change / prev_close * 100, 2) if prev_close > 0 else 0.0
+
+            result[code] = {
+                'date':       ad_date,
+                'open':       open_p,
+                'high':       high_p,
+                'low':        low_p,
+                'close':      close,
+                'volume':     volume,
+                'change':     change,
+                'change_pct': change_pct,
+                'name':       name,
+                'market':     'EMERGING',
+            }
+        except Exception:
+            continue
+
+    print(f"[API] TPEx 興櫃解析完成：{len(result)} 檔")
+    return result
+
 
 
 def fetch_bwibbu_all() -> Dict[str, Dict]:
@@ -1525,17 +1669,32 @@ def run_five_dimension_scan(verbose=True) -> Dict:
 
     if verbose:
         print(f"\n{'='*70}")
-        print(f"  台股五維分析掃描引擎 v7.0 (TWSE OpenAPI)  |  {today_str}")
-        print(f"  資料來源：openapi.twse.com.tw (STOCK_DAY_ALL + BWIBBU_ALL)")
+        print(f"  台股五維分析掃描引擎 v8.0 (TWSE+TPEx 全市場)  |  {today_str}")
+        print(f"  資料來源：TWSE(上市) + TPEx(上櫃+興櫃) — 全市場 ~2,200 檔")
         print(f"  權重：技術 25% + 基本面 23% + 消息 32% + 情緒 12% + 籌碼 8%")
         print(f"  ML 爆漲預測：RandomForestClassifier 隔日漲停機率 Top 5")
         print(f"{'='*70}\n")
 
-    # ── Step 1：取得今日 OHLCV（STOCK_DAY_ALL，單次呼叫）──────────
+    # ── Step 1：取得今日 OHLCV（上市 + 上櫃 + 興櫃，並列呼叫）────
     dl_start    = datetime.now()
     today_ohlcv = fetch_stock_day_all()
     if not today_ohlcv:
         print("[警告] STOCK_DAY_ALL 無資料，嘗試使用快取繼續執行")
+
+    # 上櫃（TPEx）
+    otc_ohlcv = fetch_otc_day_all()
+    # 興櫃（TPEx Emerging）
+    emerging_ohlcv = fetch_emerging_day_all()
+
+    # 合併：上市優先，上櫃補充，興櫃最後補充（避免重複 code 覆蓋）
+    for code, row in otc_ohlcv.items():
+        if code not in today_ohlcv:
+            today_ohlcv[code] = row
+    for code, row in emerging_ohlcv.items():
+        if code not in today_ohlcv:
+            today_ohlcv[code] = row
+
+    print(f"[API] 合併後總股票數：{len(today_ohlcv)} 檔（上市+上櫃+興櫃）")
 
     # ── Step 2：取得基本面數據（BWIBBU_ALL，單次呼叫）─────────────
     bwibbu_data = fetch_bwibbu_all()
