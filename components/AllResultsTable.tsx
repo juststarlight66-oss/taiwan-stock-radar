@@ -3,10 +3,10 @@ import { useState, useMemo } from 'react';
 import { ScanStock, DIMENSION_CONFIG } from '@/lib/scanTypes';
 
 function getActionColor(rec: string): string {
-  if (rec.includes('強力買進')) return 'bg-red-500/20 text-red-300 border-red-500/40';
-  if (rec.includes('買進'))    return 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40';
-  if (rec.includes('觀望'))    return 'bg-amber-500/20 text-amber-300 border-amber-500/40';
-  return 'bg-gray-700/40 text-gray-400 border-gray-600/40';
+  if (rec.includes('強力買進')) return 'text-red-600 font-bold';
+  if (rec.includes('買進'))    return 'text-orange-500 font-bold';
+  if (rec.includes('觀望'))    return 'text-gray-500';
+  return 'text-green-700';
 }
 import StockDetailModal from './StockDetailModal';
 import { WatchlistToggleBtn } from './WatchlistPanel';
@@ -37,11 +37,7 @@ function LimitBadge({ changePct }: { changePct: number }) {
   if (Math.abs(changePct) < 9.5) return null;
   const up = changePct >= 0;
   return (
-    <span
-      className={`ml-1 text-[9px] px-1 py-0.5 rounded font-bold ${
-        up ? 'bg-red-500/20 text-red-300' : 'bg-emerald-500/20 text-emerald-300'
-      }`}
-    >
+    <span className={`ml-1 text-[9px] px-1 py-0.5 rounded font-bold ${up ? 'bg-red-100 text-red-600' : 'bg-green-100 text-green-700'}`}>
       {up ? '漲停' : '跌停'}
     </span>
   );
@@ -209,7 +205,7 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
                       {s.close.toLocaleString()}
                     </td>
                     <td className="px-3 py-2.5 text-right">
-                      <span className={`font-mono flex items-center justify-end gap-0.5 ${up ? 'text-emerald-400' : 'text-red-400'}`}>
+                      <span className={`font-mono flex items-center justify-end gap-0.5 ${up ? 'text-red-500' : 'text-green-600'}`}>
                         {up ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
                         {Math.abs(s.change_pct).toFixed(2)}%
                         <LimitBadge changePct={s.change_pct} />
@@ -219,7 +215,7 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
                       <ScoreBar score={s.total_score} max={totalMax} />
                     </td>
                     <td className="px-3 py-2.5">
-                      <span className={`px-1.5 py-0.5 rounded border text-[10px] font-medium ${actionCls}`}>
+                      <span className={`text-[11px] ${actionCls}`}>
                         {s.strategy.recommendation.split(' - ')[0]}
                       </span>
                     </td>
@@ -256,7 +252,7 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
                   </div>
                   <div className="flex items-center gap-3 mt-1">
                     <ScoreBar score={s.total_score} max={totalMax} />
-                    <span className={`font-mono text-xs flex items-center ${up ? 'text-emerald-400' : 'text-red-400'}`}>
+                    <span className={`font-mono text-xs flex items-center ${up ? 'text-red-500' : 'text-green-600'}`}>
                       {up ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
                       {Math.abs(s.change_pct).toFixed(2)}%
                       <LimitBadge changePct={s.change_pct} />
