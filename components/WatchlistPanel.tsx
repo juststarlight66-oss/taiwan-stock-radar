@@ -1,8 +1,15 @@
 'use client';
 import { useState, useEffect, useMemo } from 'react';
-import { ScanStock, DIMENSION_CONFIG, getActionColor } from '@/lib/scanTypes';
+import { ScanStock, DIMENSION_CONFIG } from '@/lib/scanTypes';
 import StockDetailModal from './StockDetailModal';
 import { Star, StarOff, Search, Trash2, ArrowUpRight, ArrowDownRight } from 'lucide-react';
+
+function getActionColor(action: string) {
+  if (action === '強力買進') return 'text-red-600 font-bold';
+  if (action === '買進') return 'text-orange-500 font-bold';
+  if (action === '觀望') return 'text-gray-500';
+  return 'text-green-700';
+}
 
 const LS_KEY = 'twsr_watchlist';
 

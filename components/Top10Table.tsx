@@ -1,10 +1,17 @@
 'use client';
 import { useState } from 'react';
-import { ScanStock, DIMENSION_CONFIG, getActionColor } from '@/lib/scanTypes';
+import { ScanStock, DIMENSION_CONFIG } from '@/lib/scanTypes';
 import StockDetailModal from './StockDetailModal';
 import { WatchlistToggleBtn } from './WatchlistPanel';
 import ScoreTrendChart from './ScoreTrendChart';
 import { ChevronRight, ArrowUpRight, ArrowDownRight } from 'lucide-react';
+
+function getActionColor(action: string) {
+  if (action === '強力買進') return 'text-red-600 font-bold';
+  if (action === '買進') return 'text-orange-500 font-bold';
+  if (action === '觀望') return 'text-gray-500';
+  return 'text-green-700';
+}
 
 interface Props {
   stocks: ScanStock[];

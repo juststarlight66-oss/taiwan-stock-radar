@@ -30,7 +30,7 @@ function DimensionBadge({ label, score, maxScore = 25 }: { label: string; score:
 }
 
 function StockCard({ stock, expanded, onToggle }: { stock: ScanStock; expanded: boolean; onToggle: () => void }) {
-  const up = stock.change_pct >= 0;
+  const up = (stock.change_pct ?? 0) >= 0;
 
   return (
     <div className="rounded-lg border border-gray-700/60 bg-gray-800/50 overflow-hidden">
@@ -48,7 +48,7 @@ function StockCard({ stock, expanded, onToggle }: { stock: ScanStock; expanded: 
               {stock.close}
             </div>
             <div className={`text-[10px] font-mono ${up ? 'text-emerald-400' : 'text-red-400'}`}>
-              {up ? '+' : ''}{stock.change_pct.toFixed(2)}%
+              {up ? '+' : ''}{(stock.change_pct ?? 0).toFixed(2)}%
             </div>
           </div>
           <div className="text-sky-400 font-bold text-sm">{stock.total_score}</div>
@@ -59,35 +59,35 @@ function StockCard({ stock, expanded, onToggle }: { stock: ScanStock; expanded: 
       {expanded && (
         <div className="px-3 pb-3 space-y-3 border-t border-gray-700/40 pt-3">
           <div className="flex flex-wrap gap-1.5">
-            <DimensionBadge label="技術" score={stock.dimensions.technical} />
-            <DimensionBadge label="籌碼" score={stock.dimensions.chips} />
-            <DimensionBadge label="基本面" score={stock.dimensions.fundamental} />
-            <DimensionBadge label="消息" score={stock.dimensions.news} />
-            <DimensionBadge label="情緒" score={stock.dimensions.sentiment} />
+            <DimensionBadge label="技術" score={stock.dimensions?.technical} />
+            <DimensionBadge label="籌碼" score={stock.dimensions?.chips} />
+            <DimensionBadge label="基本面" score={stock.dimensions?.fundamental} />
+            <DimensionBadge label="消息" score={stock.dimensions?.news} />
+            <DimensionBadge label="情緒" score={stock.dimensions?.sentiment} />
           </div>
 
           <div className="grid grid-cols-2 gap-2 text-xs">
             <div className="rounded bg-gray-700/30 p-2">
               <div className="text-[10px] text-gray-500">進場價</div>
-              <div className="font-mono text-sky-300">{stock.strategy.entry}</div>
+              <div className="font-mono text-sky-300">{stock.strategy?.entry}</div>
             </div>
             <div className="rounded bg-gray-700/30 p-2">
               <div className="text-[10px] text-gray-500">目標價</div>
-              <div className="font-mono text-emerald-300">{stock.strategy.target}</div>
+              <div className="font-mono text-emerald-300">{stock.strategy?.target}</div>
             </div>
             <div className="rounded bg-gray-700/30 p-2">
               <div className="text-[10px] text-gray-500">停損價</div>
-              <div className="font-mono text-red-300">{stock.strategy.stop_loss}</div>
+              <div className="font-mono text-red-300">{stock.strategy?.stop_loss}</div>
             </div>
             <div className="rounded bg-gray-700/30 p-2">
               <div className="text-[10px] text-gray-500">上漲空間</div>
-              <div className="font-mono text-emerald-300">+{stock.strategy.upside}%</div>
+              <div className="font-mono text-emerald-300">+{stock.strategy?.upside}%</div>
             </div>
           </div>
 
           <div className="rounded bg-sky-500/10 border border-sky-500/30 p-2 text-xs">
             <div className="text-[10px] text-gray-500 mb-1">策略建議</div>
-            <div className="text-sky-300 font-medium">{stock.strategy.recommendation}</div>
+            <div className="text-sky-300 font-medium">{stock.strategy?.recommendation}</div>
           </div>
 
           <div className="grid grid-cols-2 gap-1.5 text-[10px]">
