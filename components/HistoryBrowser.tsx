@@ -1,220 +1,176 @@
 'use client';
-import { useState, useMemo } from 'react';
-import { useHistoryIndex, useDateScan } from '@/lib/useScanData';
-import { ScanStock, DIMENSION_CONFIG } from '@/lib/scanTypes';
-import { useStockPerformance } from '@/lib/useStockPerformance';
-import { PerformanceBadge, WinRateBadge } from './PerformanceBadge';
-import StockDetailModal from './StockDetailModal';
-import { Calendar, ChevronRight, Loader2, ArrowUpRight, ArrowDownRight, BarChart2 } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { useDateScan } from '@/lib/useScanData';
+import Top10Table from './Top10Table';
+import SummaryCards from './SummaryCards';
+import { demoScanResult } from '@/lib/demoScanData';
+import { Calendar, ChevronLeft, ChevronRight, Search, Clock } from 'lucide-react';
 
-const totalMax = Object.values(DIMENSION_CONFIG).reduce((s, c) => s + c.max, 0);
+const BASE = '/taiwan-stock-radar';
 
-function MiniBar({ score }: { score: number }) {
-  const pct = Math.min(100, (score / totalMax) * 100);
-  const color =
-    pct >= 70 ? 'bg-emerald-500' :
-    pct >= 50 ? 'bg-sky-500' :
-    pct >= 35 ? 'bg-amber-400' : 'bg-red-400';
-  return (
-    <div className="flex items-center gap-1.5">
-      <div className="w-16 h-1.5 rounded-full bg-gray-200 overflow-hidden">
-        <div className={`h-full rounded-full ${color}`} style={{ width: `${pct}%` }} />
-      </div>
-      <span className="text-xs font-mono text-gray-600 font-semibold">{score.toFixed(1)}</span>
-    </div>
-  );
+interface Props {
+  initialDates?: string[];
 }
 
-// ── 單股行（含 T+1/T+3/T+5 績效）────────────────────────
-function StockRow({
-  stock, rank, onClick, perfMap, perfLoading,
-}: {
-  stock: ScanStock;
-  rank: number;
-  onClick: () => void;
-  perfMap: ReturnType<typeof useStockPerformance>['perfMap'];
-  perfLoading: boolean;
-}) {
-  const up = (stock.change_pct ?? 0) >= 0;
-  const perf = perfMap[stock.stock_id];
-
-  return (
-    <div className="border-b border-gray-50 last:border-0">
-      {/* 主行 */}
-      <div
-        onClick={onClick}
-        className="flex items-center gap-3 px-4 py-2.5 hover:bg-sky-50 cursor-pointer transition-colors"
-      >
-        <span className="text-xs text-gray-300 font-mono w-5 shrink-0">{rank}</span>
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-1.5">
-            <span className="font-mono text-[10px] text-gray-400">{stock.stock_id}</span>
-            <span className="text-sm font-semibold text-gray-800 truncate">{stock.name}</span>
-            <span className="text-[10px] text-gray-400 hidden sm:inline bg-gray-100 px-1 rounded">
-              {stock.sector}
-            </span>
-          </div>
-          <MiniBar score={stock.total_score} />
-        </div>
-        <div className="text-right shrink-0">
-          <div className="text-sm font-mono font-bold text-gray-800">
-            {stock.close.toLocaleString()}
-          </div>
-          {/* 台灣：漲紅跌綠 */}
-          <div className={`text-xs font-mono flex items-center justify-end gap-0.5 ${up ? 'text-red-500' : 'text-green-600'}`}>
-            {up ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
-            {Math.abs(stock.change_pct ?? 0).toFixed(2)}%
-          </div>
-        </div>
-        <ChevronRight className="w-3.5 h-3.5 text-gray-300 shrink-0" />
-      </div>
-
-      {/* T+1/T+3/T+5 績效列 */}
-      <PerformanceBadge perf={perf} loading={perfLoading && !perf} />
-    </div>
-  );
+function formatDate(d: string) {
+  // accepts YYYYMMDD or YYYY-MM-DD
+  const s = d.replace(/-/g, '');
+  if (s.length !== 8) return d;
+  return `${s.slice(0, 4)}/${s.slice(4, 6)}/${s.slice(6, 8)}`;
 }
 
-// ── 日期面板（含整體勝率）────────────────────────────────
-function DatePanel({
-  date,
-  onSelectStock,
-}: {
-  date: string;
-  onSelectStock: (s: ScanStock) => void;
-}) {
-  const { data, isLoading } = useDateScan(date);
+function toISO(d: string) {
+  const s = d.replace(/-/g, '');
+  return `${s.slice(0, 4)}-${s.slice(4, 6)}-${s.slice(6, 8)}`;
+}
 
-  const stockInputs = useMemo(
-    () => (data?.top10 ?? []).map(s => ({ stock_id: s.stock_id, close: s.close })),
-    [data?.top10]
-  );
+export default function HistoryBrowser({ initialDates }: Props) {
+  const [dates, setDates] = useState<string[]>(initialDates ?? []);
+  const [loadingIndex, setLoadingIndex] = useState(!initialDates);
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const { perfMap, loading: perfLoading } = useStockPerformance(
-    stockInputs,
-    data?.scan_date ?? null
-  );
+  // Load index.json client-side
+  useEffect(() => {
+    if (initialDates) return;
+    fetch(`${BASE}/data/index.json`)
+      .then((r) => r.json())
+      .then((d) => {
+        const list: string[] = d.dates ?? [];
+        setDates(list.sort().reverse());
+        if (list.length > 0) setSelectedDate(list[0]);
+      })
+      .catch(() => {
+        // fallback to demo date
+        setDates(['2026-04-28']);
+        setSelectedDate('2026-04-28');
+      })
+      .finally(() => setLoadingIndex(false));
+  }, [initialDates]);
 
-  // 勝率 badge 所需的 PerformanceData 列表
-  const perfList = useMemo(
-    () => Object.values(perfMap),
-    [perfMap]
-  );
+  useEffect(() => {
+    if (initialDates && initialDates.length > 0 && !selectedDate) {
+      setSelectedDate(initialDates[0]);
+    }
+  }, [initialDates, selectedDate]);
 
-  if (isLoading) return (
-    <div className="py-10 text-center">
-      <Loader2 className="w-6 h-6 text-sky-500 animate-spin mx-auto mb-2" />
-      <p className="text-xs text-gray-400">載入 {date} 掃描結果...</p>
-    </div>
-  );
+  const { data: scanData, isLoading, error } = useDateScan(selectedDate);
 
-  if (!data) return (
-    <div className="py-8 text-center text-xs text-gray-400">找不到該日期的掃描資料</div>
-  );
+  const filteredDates = searchQuery
+    ? dates.filter((d) => d.replace(/-/g, '').includes(searchQuery.replace(/\D/g, '')))
+    : dates;
+
+  const currentIdx = selectedDate ? filteredDates.indexOf(selectedDate) : -1;
+
+  const displayData = scanData ?? (error || !selectedDate ? demoScanResult : null);
+  const isDemo = !scanData && (!!error || !selectedDate);
 
   return (
-    <div>
-      {/* 標題列 */}
-      <div className="px-4 py-2 bg-gray-50 border-b border-gray-100 flex items-center justify-between flex-wrap gap-2">
-        <div className="flex items-center gap-2">
-          <span className="text-xs text-gray-500">
-            掃描日：<span className="font-mono text-sky-600">{data.scan_date}</span>
-          </span>
-          {data.scanned_count && (
-            <span className="text-xs text-gray-400">共掃描 {data.scanned_count} 檔</span>
+    <div className="space-y-5">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-5">
+        {/* Date selector sidebar */}
+        <div className="lg:col-span-1">
+          <div className="rounded-xl border border-gray-700/60 bg-gray-900/60 overflow-hidden">
+            <div className="px-4 py-3 border-b border-gray-700/60 flex items-center gap-2">
+              <Calendar className="w-4 h-4 text-sky-400" />
+              <h3 className="text-sm font-semibold text-gray-200">歷史記錄</h3>
+            </div>
+
+            {/* Search */}
+            <div className="px-3 py-2 border-b border-gray-700/40">
+              <div className="relative">
+                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-500" />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="搜尋日期 (e.g. 20260428)"
+                  className="w-full bg-gray-800 border border-gray-600/40 rounded-lg pl-8 pr-3 py-1.5 text-xs text-gray-300 placeholder-gray-600 focus:outline-none focus:border-sky-500/60"
+                />
+              </div>
+            </div>
+
+            {/* Navigation arrows */}
+            {selectedDate && filteredDates.length > 1 && (
+              <div className="px-3 py-2 border-b border-gray-700/40 flex items-center justify-between">
+                <button
+                  onClick={() => currentIdx > 0 && setSelectedDate(filteredDates[currentIdx - 1])}
+                  disabled={currentIdx <= 0}
+                  className="p-1 rounded hover:bg-gray-700 disabled:opacity-30 text-gray-400 hover:text-gray-200 transition-colors"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+                <span className="text-[11px] text-gray-400">
+                  {currentIdx + 1} / {filteredDates.length}
+                </span>
+                <button
+                  onClick={() => currentIdx < filteredDates.length - 1 && setSelectedDate(filteredDates[currentIdx + 1])}
+                  disabled={currentIdx >= filteredDates.length - 1}
+                  className="p-1 rounded hover:bg-gray-700 disabled:opacity-30 text-gray-400 hover:text-gray-200 transition-colors"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            )}
+
+            {/* Date list */}
+            <div className="max-h-80 lg:max-h-[600px] overflow-y-auto">
+              {loadingIndex ? (
+                <div className="p-4 text-center text-xs text-gray-500">載入日期索引中...</div>
+              ) : filteredDates.length === 0 ? (
+                <div className="p-4 text-center">
+                  <Clock className="w-8 h-8 text-gray-700 mx-auto mb-2" />
+                  <p className="text-xs text-gray-500">尚無歷史記錄</p>
+                  <p className="text-[10px] text-gray-600 mt-1">每日 22:55 掃錨後自動更新</p>
+                </div>
+              ) : (
+                filteredDates.map((d) => {
+                  const isSelected = d === selectedDate;
+                  return (
+                    <button
+                      key={d}
+                      onClick={() => setSelectedDate(d)}
+                      className={`w-full text-left px-4 py-2.5 text-xs border-b border-gray-700/20 transition-colors flex items-center justify-between ${
+                        isSelected
+                          ? 'bg-sky-500/15 text-sky-300 border-sky-500/20'
+                          : 'text-gray-400 hover:bg-gray-800/60 hover:text-gray-200'
+                      }`}
+                    >
+                      <span>{formatDate(d)}</span>
+                      {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />}
+                    </button>
+                  );
+                })
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Result panel */}
+        <div className="lg:col-span-3 space-y-4">
+          {isLoading ? (
+            <div className="rounded-xl border border-gray-700/60 bg-gray-900/60 p-12 text-center">
+              <div className="w-8 h-8 border-2 border-sky-500 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+              <p className="text-sm text-gray-400">載入 {selectedDate} 資料中...</p>
+            </div>
+          ) : displayData ? (
+            <>
+              <SummaryCards data={displayData} />
+              <Top10Table
+                stocks={displayData.top10}
+                scanDate={displayData.scan_date}
+                scannedCount={displayData.scanned_count}
+                isDemo={isDemo}
+              />
+            </>
+          ) : (
+            <div className="rounded-xl border border-gray-700/60 bg-gray-900/60 p-12 text-center">
+              <Calendar className="w-10 h-10 text-gray-700 mx-auto mb-3" />
+              <p className="text-sm text-gray-400">請從左側選擇查詢日期</p>
+            </div>
           )}
         </div>
-        {/* 整體勝率 */}
-        {perfLoading && perfList.length === 0 && (
-          <div className="flex items-center gap-1 text-[10px] text-gray-400">
-            <BarChart2 className="w-3 h-3 animate-pulse text-sky-400" />
-            查詢回測績效中...
-          </div>
-        )}
-        {perfList.length > 0 && <WinRateBadge perfList={perfList} />}
-      </div>
-
-      {/* 股票列表 */}
-      <div>
-        {data.top10.map((s, i) => (
-          <StockRow
-            key={s.stock_id}
-            stock={s}
-            rank={i + 1}
-            onClick={() => onSelectStock(s)}
-            perfMap={perfMap}
-            perfLoading={perfLoading}
-          />
-        ))}
       </div>
     </div>
-  );
-}
-
-// ── 主元件 ────────────────────────────────────────────────
-export default function HistoryBrowser() {
-  const { dates, isLoading: indexLoading } = useHistoryIndex();
-  const [activeDate, setActiveDate] = useState<string | null>(null);
-  const [selectedStock, setSelectedStock] = useState<ScanStock | null>(null);
-
-  if (indexLoading) return (
-    <div className="rounded-xl border border-gray-200 bg-white p-10 text-center shadow-sm">
-      <Loader2 className="w-8 h-8 text-sky-500 animate-spin mx-auto mb-3" />
-      <p className="text-sm text-gray-500">載入歷史索引...</p>
-    </div>
-  );
-
-  if (!dates || dates.length === 0) return (
-    <div className="rounded-xl border border-gray-200 bg-white p-10 text-center shadow-sm">
-      <Calendar className="w-10 h-10 text-gray-300 mx-auto mb-3" />
-      <p className="text-sm text-gray-500">尚無歷史掃描記錄</p>
-      <p className="text-xs text-gray-400 mt-1">每日 22:55 掃描後自動建立記錄</p>
-    </div>
-  );
-
-  return (
-    <>
-      <div className="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
-        {/* 日期選單 */}
-        <div className="border-b border-gray-100 bg-gray-50 px-4 py-2.5 flex items-center gap-2">
-          <Calendar className="w-4 h-4 text-gray-400" />
-          <span className="text-xs text-gray-500 font-medium">
-            選擇日期（共 {dates.length} 筆記錄）
-          </span>
-        </div>
-        <div className="flex flex-wrap gap-2 p-4 border-b border-gray-100">
-          {dates.slice().reverse().map(d => (
-            <button
-              key={d}
-              onClick={() => setActiveDate(activeDate === d ? null : d)}
-              className={`px-3 py-1.5 text-xs rounded-lg border font-mono transition-all ${
-                activeDate === d
-                  ? 'bg-sky-500 text-white border-sky-500 shadow-sm'
-                  : 'bg-white text-gray-600 border-gray-200 hover:border-sky-300 hover:text-sky-600'
-              }`}
-            >
-              {d}
-            </button>
-          ))}
-        </div>
-
-        {/* 選中日期的結果 */}
-        {activeDate && (
-          <DatePanel date={activeDate} onSelectStock={setSelectedStock} />
-        )}
-
-        {!activeDate && (
-          <div className="py-8 text-center">
-            <BarChart2 className="w-8 h-8 text-gray-200 mx-auto mb-2" />
-            <p className="text-sm text-gray-400">點選上方日期查看當日 Top 10</p>
-            <p className="text-xs text-gray-300 mt-1">系統將自動查詢 T+1、T+3、T+5 實際漲跌幅</p>
-          </div>
-        )}
-      </div>
-
-      {selectedStock && (
-        <StockDetailModal stock={selectedStock} onClose={() => setSelectedStock(null)} />
-      )}
-    </>
   );
 }
