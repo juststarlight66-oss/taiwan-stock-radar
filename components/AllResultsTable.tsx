@@ -1,6 +1,13 @@
 'use client';
 import { useState, useMemo } from 'react';
-import { ScanStock, DIMENSION_CONFIG, getActionColor } from '@/lib/scanTypes';
+import { ScanStock, DIMENSION_CONFIG } from '@/lib/scanTypes';
+
+function getActionColor(rec: string): string {
+  if (rec.includes('強力買進')) return 'bg-red-500/20 text-red-300 border-red-500/40';
+  if (rec.includes('買進'))    return 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40';
+  if (rec.includes('觀望'))    return 'bg-amber-500/20 text-amber-300 border-amber-500/40';
+  return 'bg-gray-700/40 text-gray-400 border-gray-600/40';
+}
 import StockDetailModal from './StockDetailModal';
 import { WatchlistToggleBtn } from './WatchlistPanel';
 import { ChevronRight, ArrowUpRight, ArrowDownRight, Search, ChevronLeft } from 'lucide-react';
