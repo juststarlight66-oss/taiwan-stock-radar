@@ -1114,15 +1114,18 @@ def analyze_chips(hist) -> Dict:
             'signals': sigs_partial, 'details': det_partial}
 
 
-def analyze_fundamental(stock_id: str, bwibbu: Dict[str, Dict] = None, all_bwibbu: Dict[str, Dict] = None) -> Dict:
+def analyze_fundamental(stock_id: str, bwibbu: Dict[str, Dict] = None, all_bwibbu: Dict[str, Dict] = None, hist: List[Dict] = None) -> Dict:
     """
-    基本面分析（滿分 40 = 5 個子指標各 8 分）
-    PE 估值(8)、毛利率(8)、營收成長(8)、PBR(8)、殖利率(8)
-    TWSE OpenAPI 提供 PE/PBR/殖利率，毛利率與營收成長需 FinMind / yfinance。
+    基本面分析（滿分 40，動態 5 指標）
+    指標：PE估值(8)、財務體質(8)、量能趨勢(8)、PBR(8)、殖利率(8)
+    - PE/PBR/殖利率：BWIBBU_ALL 真實數據；無資料時跳過，不顯示「無法取得」
+    - 財務體質：由 PBR+殖利率 組合推算（替代毛利率）
+    - 量能趨勢：由近 5 日量能 vs 20 日均量推算（替代營收成長，使用 hist）
+    - 無資料的指標分數由有資料指標按比例補足，確保滿分仍為 40
     """
-    score   = 0
     signals = []
     details = {}
+    scored_items = []  # [(score, max_score)] 只記錄有資料的指標
 
     pe_val = None
     pb_val = None
@@ -1135,48 +1138,93 @@ def analyze_fundamental(stock_id: str, bwibbu: Dict[str, Dict] = None, all_bwibb
         pb_val = fb.get('pb')
         dy_val = fb.get('dy')
 
-    # 1. PE 估值 (8 分)
-    pe_s = 0
+    # ── 1. PE 估值 (8 分) ──────────────────────────────────────────
     if pe_val is not None and pe_val > 0:
         details['pe'] = round(pe_val, 2)
-        if 10 <= pe_val <= 18: pe_s = 8; signals.append(f'PE 合理 ({pe_val:.1f}x)')
-        elif pe_val < 10: pe_s = 7; signals.append(f'PE 低估 ({pe_val:.1f}x)')
-        elif pe_val < 25: pe_s = 5; signals.append(f'PE 偏高 ({pe_val:.1f}x)')
-        else: pe_s = 2; signals.append(f'PE 過高 ({pe_val:.1f}x)')
-    else:
-        pe_s = 4; signals.append('PE 無法取得(給中性分)')
+        if 10 <= pe_val <= 18:   pe_s = 8; signals.append(f'PE 合理 ({pe_val:.1f}x)')
+        elif pe_val < 10:         pe_s = 7; signals.append(f'PE 低估 ({pe_val:.1f}x)')
+        elif pe_val < 25:         pe_s = 5; signals.append(f'PE 偏高 ({pe_val:.1f}x)')
+        else:                     pe_s = 2; signals.append(f'PE 過高 ({pe_val:.1f}x)')
+        scored_items.append((pe_s, 8))
 
-    # 2. 毛利率 (8 分) — TWSE OpenAPI 無此資料，給中性
-    margin_s = 4
-    signals.append('毛利率無法取得(給中性分)')
+    # ── 2. 財務體質 (8 分) — 由 PBR+殖利率 組合推算（替代毛利率）──
+    # 邏輯：PBR 低 + 殖利率高 → 財務扎實；PBR 合理 + 殖利率中等 → 穩健
+    if pb_val is not None and pb_val > 0 and dy_val is not None and dy_val >= 0:
+        # PBR 分 (0-4)
+        if pb_val < 1:           pbr_sub = 4
+        elif pb_val <= 2.5:      pbr_sub = 3
+        elif pb_val <= 5:        pbr_sub = 2
+        else:                    pbr_sub = 1
+        # 殖利率分 (0-4)
+        if dy_val > 5:           dy_sub = 4
+        elif dy_val >= 3:        dy_sub = 3
+        elif dy_val >= 1:        dy_sub = 2
+        else:                    dy_sub = 1
+        fin_s = pbr_sub + dy_sub
+        if fin_s >= 7:   signals.append(f'財務體質優良 (PBR:{pb_val:.1f} 殖利率:{dy_val:.1f}%)')
+        elif fin_s >= 5: signals.append(f'財務穩健 (PBR:{pb_val:.1f} 殖利率:{dy_val:.1f}%)')
+        else:            signals.append(f'財務普通 (PBR:{pb_val:.1f} 殖利率:{dy_val:.1f}%)')
+        scored_items.append((fin_s, 8))
+    elif pb_val is not None and pb_val > 0:
+        # 只有 PBR
+        if pb_val < 1:    fin_s = 6
+        elif pb_val <= 2.5: fin_s = 5
+        elif pb_val <= 5:   fin_s = 3
+        else:               fin_s = 1
+        signals.append(f'PBR {pb_val:.2f}x')
+        scored_items.append((fin_s, 8))
 
-    # 3. 營收成長 (8 分) — TWSE OpenAPI 無此資料，給中性
-    rev_s = 4
-    signals.append('營收成長無法取得(給中性分)')
+    # ── 3. 量能趨勢 (8 分) — 近 5 日量能 vs 20 日均量（替代營收成長）
+    if hist and len(hist) >= 6:
+        vols = [r['volume'] for r in hist]
+        avg_vol20 = sum(vols[-21:-1]) / 20 if len(vols) >= 21 else sum(vols[:-1]) / max(len(vols)-1, 1)
+        avg_vol5  = sum(vols[-6:-1]) / 5
+        vol_trend = avg_vol5 / avg_vol20 if avg_vol20 > 0 else 1.0
+        if vol_trend >= 2.0:   rev_s = 8; signals.append(f'量能爆發 (5日均量 {vol_trend:.1f}x)')
+        elif vol_trend >= 1.5: rev_s = 7; signals.append(f'量能增溫 (5日均量 {vol_trend:.1f}x)')
+        elif vol_trend >= 1.1: rev_s = 5; signals.append(f'量能溫和放大 ({vol_trend:.1f}x)')
+        elif vol_trend >= 0.8: rev_s = 4; signals.append(f'量能持平 ({vol_trend:.1f}x)')
+        else:                  rev_s = 2; signals.append(f'量能萎縮 ({vol_trend:.1f}x)')
+        details['vol_trend'] = round(vol_trend, 2)
+        scored_items.append((rev_s, 8))
+    elif hist and len(hist) >= 2:
+        # 資料不足 20 天：用今日 vs 前幾日均量
+        vols = [r['volume'] for r in hist]
+        avg_prev = sum(vols[:-1]) / (len(vols) - 1)
+        vol_ratio = vols[-1] / avg_prev if avg_prev > 0 else 1.0
+        if vol_ratio >= 2.0:   rev_s = 7; signals.append(f'今日爆量 ({vol_ratio:.1f}x)')
+        elif vol_ratio >= 1.3: rev_s = 5; signals.append(f'量增 ({vol_ratio:.1f}x)')
+        else:                  rev_s = 3
+        scored_items.append((rev_s, 8))
 
-    # 4. PBR (8 分)
-    pb_s = 0
+    # ── 4. PBR (8 分) ──────────────────────────────────────────────
     if pb_val is not None and pb_val > 0:
         details['pb'] = round(pb_val, 2)
-        if 1 <= pb_val <= 2.5: pb_s = 8; signals.append(f'PBR 合理 ({pb_val:.2f}x)')
-        elif pb_val < 1: pb_s = 7; signals.append(f'PBR 低估 ({pb_val:.2f}x)')
-        elif pb_val < 5: pb_s = 5; signals.append(f'PBR 偏高 ({pb_val:.2f}x)')
-        else: pb_s = 2; signals.append(f'PBR 過高 ({pb_val:.2f}x)')
-    else:
-        pb_s = 4; signals.append('PBR 無法取得(給中性分)')
+        if 1 <= pb_val <= 2.5:  pb_s = 8; signals.append(f'PBR 合理 ({pb_val:.2f}x)')
+        elif pb_val < 1:         pb_s = 7; signals.append(f'PBR 低估 ({pb_val:.2f}x)')
+        elif pb_val < 5:         pb_s = 5; signals.append(f'PBR 偏高 ({pb_val:.2f}x)')
+        else:                    pb_s = 2; signals.append(f'PBR 過高 ({pb_val:.2f}x)')
+        scored_items.append((pb_s, 8))
 
-    # 5. 殖利率 (8 分)
-    dy_s = 0
+    # ── 5. 殖利率 (8 分) ───────────────────────────────────────────
     if dy_val is not None and dy_val >= 0:
         details['dy'] = round(dy_val, 2)
-        if dy_val > 5: dy_s = 8; signals.append(f'高殖利率 ({dy_val:.1f}%)')
+        if dy_val > 5:    dy_s = 8; signals.append(f'高殖利率 ({dy_val:.1f}%)')
         elif dy_val >= 3: dy_s = 7; signals.append(f'殖利率不錯 ({dy_val:.1f}%)')
         elif dy_val >= 1: dy_s = 5; signals.append(f'殖利率偏低 ({dy_val:.1f}%)')
-        else: dy_s = 2; signals.append(f'殖利率低 ({dy_val:.1f}%)')
-    else:
-        dy_s = 4; signals.append('殖利率無法取得(給中性分)')
+        else:             dy_s = 2; signals.append(f'殖利率低 ({dy_val:.1f}%)')
+        scored_items.append((dy_s, 8))
 
-    score = pe_s + margin_s + rev_s + pb_s + dy_s
+    # ── 加總：有資料指標按比例換算到 40 分滿分 ─────────────────────
+    if not scored_items:
+        # 完全無資料（OTC 且無歷史），給基本中性分
+        score = 20
+    else:
+        total_got   = sum(s for s, _ in scored_items)
+        total_max   = sum(m for _, m in scored_items)
+        # 按比例換算到 40 分
+        score = round(total_got / total_max * 40, 1)
+
     return {'score': min(max(score, 0), 40), 'signals': signals, 'details': details}
 
 
@@ -1485,7 +1533,7 @@ def run_five_dimension_scan(verbose=True) -> Dict:
 
         tech      = analyze_technical(hist)
         chips     = analyze_chips(hist)
-        fund      = analyze_fundamental(stock_id, bwibbu_data, bwibbu_data)
+        fund      = analyze_fundamental(stock_id, bwibbu_data, bwibbu_data, hist)
         news      = analyze_news(stock_id, sector)
         sentiment = analyze_sentiment(hist, stock_id)
 
