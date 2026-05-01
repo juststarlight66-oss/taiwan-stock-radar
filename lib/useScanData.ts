@@ -82,6 +82,27 @@ interface TwseBwibbuRow {
   PBratio: string;
 }
 
+// TPEx (上櫃) row shapes
+interface TpexDayRow {
+  Date: string;                    // ROC e.g. "1150430"
+  SecuritiesCompanyCode: string;
+  CompanyName: string;
+  Close: string;
+  Change: string;
+  Open: string;
+  High: string;
+  Low: string;
+  TradingShares: string;
+}
+
+interface TpexBwibbuRow {
+  SecuritiesCompanyCode: string;
+  CompanyName: string;
+  PriceEarningRatio: string;
+  DividendYield: string;
+  PriceBookRatio: string;
+}
+
 interface Candle {
   date: string;
   open: number;
@@ -136,41 +157,97 @@ async function fetchTwseHistory(stockCode: string): Promise<Candle[]> {
     }
   }
 
+  if (candles.length > 0) {
+    candles.sort((a, b) => a.date.localeCompare(b.date));
+    return candles.slice(-60);
+  }
+
+  // ── TPEx fallback（上櫃股票）─────────────────────────────────
+  try {
+    const url = 'https://www.tpex.org.tw/openapi/v1/tpex_mainboard_daily_close_quotes';
+    const resp = await fetch(url, { signal: AbortSignal.timeout(10000) });
+    if (!resp.ok) return [];
+    const rows: TpexDayRow[] = await resp.json();
+    if (!Array.isArray(rows)) return [];
+    for (const row of rows.filter((r) => r.SecuritiesCompanyCode === stockCode)) {
+      const close = parseFloat2(row.Close);
+      const open  = parseFloat2(row.Open);
+      const high  = parseFloat2(row.High);
+      const low   = parseFloat2(row.Low);
+      const vol   = parseFloat2(row.TradingShares);
+      if (close <= 0) continue;
+      const changeAmt  = parseFloat2(row.Change);
+      const prevClose  = close - changeAmt;
+      const change_pct = prevClose > 0 ? (changeAmt / prevClose) * 100 : 0;
+      // ROC date "1150430" → "20260430"
+      const roc  = row.Date.replace(/-/g, '').padStart(7, '0');
+      const yyyy = String(parseInt(roc.slice(0, 3), 10) + 1911);
+      candles.push({ date: yyyy + roc.slice(3), open, high, low, close, volume: vol, change_pct });
+    }
+  } catch { /* TPEx also failed */ }
+
   candles.sort((a, b) => a.date.localeCompare(b.date));
   return candles.slice(-60);
 }
 
 async function fetchFundamentals(stockCode: string): Promise<{ pe: number | null; pb: number | null; dy: number | null }> {
+  // Try TWSE first
   try {
     const resp = await fetch('https://openapi.twse.com.tw/v1/exchangeReport/BWIBBU_ALL', {
       signal: AbortSignal.timeout(8000),
     });
+    if (resp.ok) {
+      const rows: TwseBwibbuRow[] = await resp.json();
+      const row = rows.find((r) => r.Code === stockCode);
+      if (row) {
+        const pe = parseFloat2(row.PEratio);
+        const pb = parseFloat2(row.PBratio);
+        const dy = parseFloat2(row.DividendYield);
+        return { pe: pe > 0 ? pe : null, pb: pb > 0 ? pb : null, dy: dy >= 0 ? dy : null };
+      }
+    }
+  } catch { /* fall through to TPEx */ }
+
+  // TPEx fallback
+  try {
+    const resp = await fetch('https://www.tpex.org.tw/openapi/v1/tpex_mainboard_bwibbu_d', {
+      signal: AbortSignal.timeout(10000),
+    });
     if (!resp.ok) return { pe: null, pb: null, dy: null };
-    const rows: TwseBwibbuRow[] = await resp.json();
-    const row = rows.find((r) => r.Code === stockCode);
+    const rows: TpexBwibbuRow[] = await resp.json();
+    const row = rows.find((r) => r.SecuritiesCompanyCode === stockCode);
     if (!row) return { pe: null, pb: null, dy: null };
-    const pe = parseFloat2(row.PEratio);
-    const pb = parseFloat2(row.PBratio);
+    const pe = parseFloat2(row.PriceEarningRatio);
+    const pb = parseFloat2(row.PriceBookRatio);
     const dy = parseFloat2(row.DividendYield);
-    return {
-      pe: pe > 0 ? pe : null,
-      pb: pb > 0 ? pb : null,
-      dy: dy >= 0 ? dy : null,
-    };
+    return { pe: pe > 0 ? pe : null, pb: pb > 0 ? pb : null, dy: dy >= 0 ? dy : null };
   } catch {
     return { pe: null, pb: null, dy: null };
   }
 }
 
 async function fetchStockName(stockCode: string): Promise<string> {
+  // Try TWSE first
   try {
     const resp = await fetch('https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL', {
       signal: AbortSignal.timeout(8000),
     });
+    if (resp.ok) {
+      const rows: TwseDayRow[] = await resp.json();
+      const row = rows.find((r) => r.Code === stockCode);
+      if (row?.Name) return row.Name;
+    }
+  } catch { /* fall through to TPEx */ }
+
+  // TPEx fallback
+  try {
+    const resp = await fetch('https://www.tpex.org.tw/openapi/v1/tpex_mainboard_daily_close_quotes', {
+      signal: AbortSignal.timeout(10000),
+    });
     if (!resp.ok) return stockCode;
-    const rows: TwseDayRow[] = await resp.json();
-    const row = rows.find((r) => r.Code === stockCode);
-    return row?.Name ?? stockCode;
+    const rows: TpexDayRow[] = await resp.json();
+    const row = rows.find((r) => r.SecuritiesCompanyCode === stockCode);
+    return row?.CompanyName ?? stockCode;
   } catch {
     return stockCode;
   }
@@ -427,7 +504,7 @@ export function useOnDemandScan(stockId: string | null): {
 
         if (hist.length === 0) {
           setStatus('not_traded');
-          setError(`無法取得 ${stockId} 的交易資料，該股票可能未在 TWSE 上市或近期未交易`);
+          setError(`無法取得 ${stockId} 的交易資料，該股票可能未上市/上櫃或近期未交易`);
           return;
         }
 
