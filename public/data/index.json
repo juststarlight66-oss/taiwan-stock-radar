@@ -1,6 +1,9 @@
 {
-  "latest": "latest.json",
-  "all_scores": "all_scores.json",
-  "scan_result": "scan_result.json",
-  "updated": "2026-04-30"
+  "dates": [
+    "2026-04-28",
+    "2026-04-30",
+    "2026-05-01"
+  ],
+  "latest": "2026-05-01",
+  "updated": "2026-05-01"
 }
