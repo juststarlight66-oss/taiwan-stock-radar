@@ -481,15 +481,109 @@ def get_stock_pool(today_ohlcv: Dict[str, Dict] = None) -> Dict[str, str]:
 SECTOR_MAP = {
     '記憶體': ['2408', '2344', '2337', '2371'],
     '矽光子': ['2382', '2360', '3189', '6274', '6669'],
-    'AI 伺服器': ['2382', '6669', '2357', '2353'],
+    'AI伺服器': ['2382', '6669', '2357', '2353'],
     'PCB': ['2313', '2368', '3037', '8046', '6274'],
     '被動元件': ['2327', '2492', '2456'],
     '半導體': ['2330', '2317', '2454', '2303', '2308'],
     '電動車': ['2207', '2208', '2209', '2236'],
-    '生技': ['4161', '4120', '4142', '6929'],
+    '生技醫療': ['4161', '4120', '4142', '6929'],
     '光學': ['3008', '3019', '6271'],
     '電網': ['1507', '1504', '2427'],
 }
+
+# TWSE 官方產業別代碼 → 中文族群名稱（用於全市場分類）
+TWSE_INDUSTRY_CODE_MAP = {
+    '01': '水泥工業',
+    '02': '食品工業',
+    '03': '塑膠工業',
+    '04': '紡織纖維',
+    '05': '電機機械',
+    '06': '電器電纜',
+    '08': '玻璃陶瓷',
+    '09': '造紙工業',
+    '10': '鋼鐵工業',
+    '11': '橡膠工業',
+    '12': '汽車工業',
+    '14': '建材營造',
+    '15': '航運業',
+    '16': '觀光餐旅',
+    '17': '金融保險',
+    '18': '貿易百貨',
+    '20': '其他電子業',
+    '21': '化學工業',
+    '22': '生技醫療',
+    '23': '油電燃氣業',
+    '24': '半導體業',
+    '25': '電腦及週邊設備業',
+    '26': '光電業',
+    '27': '通信網路業',
+    '28': '電子零組件業',
+    '29': '電子通路業',
+    '30': '資訊服務業',
+    '31': '其他電子業',
+    '32': '文化創意業',
+    '33': '農業科技業',
+    '34': '電子商務業',
+    '35': '綠能環保',
+    '36': '數位雲端',
+    '37': '運動休閒',
+    '38': '居家生活',
+    '39': '管理股票',
+    '91': '存託憑證',
+}
+
+# 全市場 stock_id → TWSE官方產業別 快取（在 run_five_dimension_scan 啟動時載入）
+_TWSE_STOCK_SECTOR_CACHE: Dict[str, str] = {}
+
+
+def load_twse_industry_map() -> Dict[str, str]:
+    """
+    從 TWSE t187ap03_L 取得所有上市公司的官方產業別，
+    建立 stock_id → 產業別名稱 對照表。
+    失敗時回傳空 dict（降級到舊的 SECTOR_MAP 邏輯）。
+    """
+    global _TWSE_STOCK_SECTOR_CACHE
+    if _TWSE_STOCK_SECTOR_CACHE:
+        return _TWSE_STOCK_SECTOR_CACHE
+
+    print("[產業別] 載入 TWSE 官方產業別對照表...")
+    try:
+        r = requests.get(
+            'https://openapi.twse.com.tw/v1/opendata/t187ap03_L',
+            headers=TWSE_HEADERS, timeout=20, verify=False
+        )
+        r.raise_for_status()
+        data = r.json()
+        mapping = {}
+        for row in data:
+            code = str(row.get('公司代號', '')).strip()
+            ind_code = str(row.get('產業別', '')).strip()
+            if code and len(code) == 4 and code.isdigit():
+                ind_name = TWSE_INDUSTRY_CODE_MAP.get(ind_code, f'其他({ind_code})')
+                mapping[code] = ind_name
+        _TWSE_STOCK_SECTOR_CACHE = mapping
+        print(f"[產業別] 載入完成：{len(mapping)} 檔股票已分類，涵蓋 {len(set(mapping.values()))} 個產業別")
+        return mapping
+    except Exception as e:
+        print(f"[產業別] 載入失敗：{e}，將使用 SECTOR_MAP 後備邏輯")
+        return {}
+
+
+def get_stock_sector(stock_id: str, industry_map: Dict[str, str]) -> str:
+    """
+    取得股票的族群分類。優先順序：
+    1. SECTOR_MAP 熱門題材（用於消息面加分的特殊標記）
+    2. TWSE 官方產業別（涵蓋全市場 1000+ 檔）
+    3. 回退到「其他」
+    """
+    # 優先用熱門題材（消息面加分用）
+    hot = next((k for k, v in SECTOR_MAP.items() if stock_id in v), None)
+    if hot:
+        return hot
+    # 再用 TWSE 官方產業別
+    if stock_id in industry_map:
+        return industry_map[stock_id]
+    return '其他'
 
 
 def estimate_share_capital(stock_id):
@@ -1330,9 +1424,10 @@ def run_five_dimension_scan(verbose=True) -> Dict:
     dl_elapsed = (datetime.now() - dl_start).total_seconds()
     print(f"[API] 下載完成：今日 {len(today_ohlcv)} 檔 OHLCV + {len(bwibbu_data)} 檔 PE/PBR，耗時 {dl_elapsed:.1f}s")
 
-    # ── Step 3：更新本地日線快取，組建股票池 ─────────────────────
-    cache       = update_daily_cache(today_ohlcv)
-    STOCK_POOL  = get_stock_pool(today_ohlcv)
+    # ── Step 3：更新本地日線快取，組建股票池，載入產業別對照表 ──────
+    cache        = update_daily_cache(today_ohlcv)
+    STOCK_POOL   = get_stock_pool(today_ohlcv)
+    industry_map = load_twse_industry_map()
     print(f"[系統] 掃描範圍：{len(STOCK_POOL)} 檔股票")
 
     # ── Step 4：五維分析 ─────────────────────────────────────────
@@ -1341,7 +1436,7 @@ def run_five_dimension_scan(verbose=True) -> Dict:
     scanned_count        = 0
 
     for stock_id, name in STOCK_POOL.items():
-        sector = next((k for k, v in SECTOR_MAP.items() if stock_id in v), '其他')
+        sector = get_stock_sector(stock_id, industry_map)
 
         # 從快取組建歷史（多天）
         hist = build_history_from_cache(cache, stock_id)
