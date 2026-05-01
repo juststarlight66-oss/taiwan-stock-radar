@@ -63,3 +63,18 @@ export const DIMENSION_CONFIG: Record<
   sentiment:   { label: '市場情緒', max: 10, color: 'amber' },
   chips:       { label: '籌碼面', max: 10, color: 'rose' },
 };
+
+// T+1/T+3/T+5 實際績效（client-side 查詢 TWSE 後計算）
+export interface StockPerf {
+  pct:    number | null;   // 漲幅率 %（null = 尚未到期或查詢失敗）
+  win:    boolean | null;  // true = 漲 / false = 跌 / null = 未知
+}
+
+export interface PerformanceData {
+  stock_id:   string;
+  entry_date: string;      // 掃描日（推薦當日收盤價 = 進場價）
+  entry_price: number;
+  t1: StockPerf;
+  t3: StockPerf;
+  t5: StockPerf;
+}

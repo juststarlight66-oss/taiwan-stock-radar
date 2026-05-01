@@ -1,15 +1,20 @@
 'use client';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useHistoryIndex, useDateScan } from '@/lib/useScanData';
 import { ScanStock, DIMENSION_CONFIG } from '@/lib/scanTypes';
+import { useStockPerformance } from '@/lib/useStockPerformance';
+import { PerformanceBadge, WinRateBadge } from './PerformanceBadge';
 import StockDetailModal from './StockDetailModal';
-import { Calendar, ChevronRight, Loader2, ArrowUpRight, ArrowDownRight } from 'lucide-react';
+import { Calendar, ChevronRight, Loader2, ArrowUpRight, ArrowDownRight, BarChart2 } from 'lucide-react';
 
 const totalMax = Object.values(DIMENSION_CONFIG).reduce((s, c) => s + c.max, 0);
 
 function MiniBar({ score }: { score: number }) {
   const pct = Math.min(100, (score / totalMax) * 100);
-  const color = pct >= 70 ? 'bg-emerald-500' : pct >= 50 ? 'bg-sky-500' : pct >= 35 ? 'bg-amber-400' : 'bg-red-400';
+  const color =
+    pct >= 70 ? 'bg-emerald-500' :
+    pct >= 50 ? 'bg-sky-500' :
+    pct >= 35 ? 'bg-amber-400' : 'bg-red-400';
   return (
     <div className="flex items-center gap-1.5">
       <div className="w-16 h-1.5 rounded-full bg-gray-200 overflow-hidden">
@@ -20,37 +25,81 @@ function MiniBar({ score }: { score: number }) {
   );
 }
 
-function StockRow({ stock, rank, onClick }: { stock: ScanStock; rank: number; onClick: () => void }) {
+// ── 單股行（含 T+1/T+3/T+5 績效）────────────────────────
+function StockRow({
+  stock, rank, onClick, perfMap, perfLoading,
+}: {
+  stock: ScanStock;
+  rank: number;
+  onClick: () => void;
+  perfMap: ReturnType<typeof useStockPerformance>['perfMap'];
+  perfLoading: boolean;
+}) {
   const up = (stock.change_pct ?? 0) >= 0;
+  const perf = perfMap[stock.stock_id];
+
   return (
-    <div
-      onClick={onClick}
-      className="flex items-center gap-3 px-4 py-2.5 hover:bg-sky-50 cursor-pointer transition-colors border-b border-gray-50 last:border-0"
-    >
-      <span className="text-xs text-gray-300 font-mono w-5 shrink-0">{rank}</span>
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-1.5">
-          <span className="font-mono text-[10px] text-gray-400">{stock.stock_id}</span>
-          <span className="text-sm font-semibold text-gray-800 truncate">{stock.name}</span>
-          <span className="text-[10px] text-gray-400 hidden sm:inline bg-gray-100 px-1 rounded">{stock.sector}</span>
+    <div className="border-b border-gray-50 last:border-0">
+      {/* 主行 */}
+      <div
+        onClick={onClick}
+        className="flex items-center gap-3 px-4 py-2.5 hover:bg-sky-50 cursor-pointer transition-colors"
+      >
+        <span className="text-xs text-gray-300 font-mono w-5 shrink-0">{rank}</span>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-1.5">
+            <span className="font-mono text-[10px] text-gray-400">{stock.stock_id}</span>
+            <span className="text-sm font-semibold text-gray-800 truncate">{stock.name}</span>
+            <span className="text-[10px] text-gray-400 hidden sm:inline bg-gray-100 px-1 rounded">
+              {stock.sector}
+            </span>
+          </div>
+          <MiniBar score={stock.total_score} />
         </div>
-        <MiniBar score={stock.total_score} />
-      </div>
-      <div className="text-right shrink-0">
-        <div className="text-sm font-mono font-bold text-gray-800">{stock.close.toLocaleString()}</div>
-        {/* 台灣：漲紅跌綠 */}
-        <div className={`text-xs font-mono flex items-center justify-end gap-0.5 ${up ? 'text-red-500' : 'text-green-600'}`}>
-          {up ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
-          {Math.abs(stock.change_pct ?? 0).toFixed(2)}%
+        <div className="text-right shrink-0">
+          <div className="text-sm font-mono font-bold text-gray-800">
+            {stock.close.toLocaleString()}
+          </div>
+          {/* 台灣：漲紅跌綠 */}
+          <div className={`text-xs font-mono flex items-center justify-end gap-0.5 ${up ? 'text-red-500' : 'text-green-600'}`}>
+            {up ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
+            {Math.abs(stock.change_pct ?? 0).toFixed(2)}%
+          </div>
         </div>
+        <ChevronRight className="w-3.5 h-3.5 text-gray-300 shrink-0" />
       </div>
-      <ChevronRight className="w-3.5 h-3.5 text-gray-300 shrink-0" />
+
+      {/* T+1/T+3/T+5 績效列 */}
+      <PerformanceBadge perf={perf} loading={perfLoading && !perf} />
     </div>
   );
 }
 
-function DatePanel({ date, onSelectStock }: { date: string; onSelectStock: (s: ScanStock) => void }) {
+// ── 日期面板（含整體勝率）────────────────────────────────
+function DatePanel({
+  date,
+  onSelectStock,
+}: {
+  date: string;
+  onSelectStock: (s: ScanStock) => void;
+}) {
   const { data, isLoading } = useDateScan(date);
+
+  const stockInputs = useMemo(
+    () => (data?.top10 ?? []).map(s => ({ stock_id: s.stock_id, close: s.close })),
+    [data?.top10]
+  );
+
+  const { perfMap, loading: perfLoading } = useStockPerformance(
+    stockInputs,
+    data?.scan_date ?? null
+  );
+
+  // 勝率 badge 所需的 PerformanceData 列表
+  const perfList = useMemo(
+    () => Object.values(perfMap),
+    [perfMap]
+  );
 
   if (isLoading) return (
     <div className="py-10 text-center">
@@ -65,21 +114,44 @@ function DatePanel({ date, onSelectStock }: { date: string; onSelectStock: (s: S
 
   return (
     <div>
-      <div className="px-4 py-2 bg-gray-50 border-b border-gray-100 flex items-center justify-between">
-        <span className="text-xs text-gray-500">掃描日：<span className="font-mono text-sky-600">{data.scan_date}</span></span>
-        {data.scanned_count && (
-          <span className="text-xs text-gray-400">共掃描 {data.scanned_count} 檔</span>
+      {/* 標題列 */}
+      <div className="px-4 py-2 bg-gray-50 border-b border-gray-100 flex items-center justify-between flex-wrap gap-2">
+        <div className="flex items-center gap-2">
+          <span className="text-xs text-gray-500">
+            掃描日：<span className="font-mono text-sky-600">{data.scan_date}</span>
+          </span>
+          {data.scanned_count && (
+            <span className="text-xs text-gray-400">共掃描 {data.scanned_count} 檔</span>
+          )}
+        </div>
+        {/* 整體勝率 */}
+        {perfLoading && perfList.length === 0 && (
+          <div className="flex items-center gap-1 text-[10px] text-gray-400">
+            <BarChart2 className="w-3 h-3 animate-pulse text-sky-400" />
+            查詢回測績效中...
+          </div>
         )}
+        {perfList.length > 0 && <WinRateBadge perfList={perfList} />}
       </div>
+
+      {/* 股票列表 */}
       <div>
         {data.top10.map((s, i) => (
-          <StockRow key={s.stock_id} stock={s} rank={i + 1} onClick={() => onSelectStock(s)} />
+          <StockRow
+            key={s.stock_id}
+            stock={s}
+            rank={i + 1}
+            onClick={() => onSelectStock(s)}
+            perfMap={perfMap}
+            perfLoading={perfLoading}
+          />
         ))}
       </div>
     </div>
   );
 }
 
+// ── 主元件 ────────────────────────────────────────────────
 export default function HistoryBrowser() {
   const { dates, isLoading: indexLoading } = useHistoryIndex();
   const [activeDate, setActiveDate] = useState<string | null>(null);
@@ -106,7 +178,9 @@ export default function HistoryBrowser() {
         {/* 日期選單 */}
         <div className="border-b border-gray-100 bg-gray-50 px-4 py-2.5 flex items-center gap-2">
           <Calendar className="w-4 h-4 text-gray-400" />
-          <span className="text-xs text-gray-500 font-medium">選擇日期（共 {dates.length} 筆記錄）</span>
+          <span className="text-xs text-gray-500 font-medium">
+            選擇日期（共 {dates.length} 筆記錄）
+          </span>
         </div>
         <div className="flex flex-wrap gap-2 p-4 border-b border-gray-100">
           {dates.slice().reverse().map(d => (
@@ -131,7 +205,9 @@ export default function HistoryBrowser() {
 
         {!activeDate && (
           <div className="py-8 text-center">
+            <BarChart2 className="w-8 h-8 text-gray-200 mx-auto mb-2" />
             <p className="text-sm text-gray-400">點選上方日期查看當日 Top 10</p>
+            <p className="text-xs text-gray-300 mt-1">系統將自動查詢 T+1、T+3、T+5 實際漲跌幅</p>
           </div>
         )}
       </div>
