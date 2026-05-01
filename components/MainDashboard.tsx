@@ -60,7 +60,7 @@ export default function MainDashboard() {
                     : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
                 }`}
               >
-                <Activity className="w-3.5 h-3.5" />最新掃描
+                <Activity className="w-3.5 h-3.5" />每日推薦
               </button>
               <button
                 onClick={() => setActiveTab('all')}
@@ -70,7 +70,7 @@ export default function MainDashboard() {
                     : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
                 }`}
               >
-                <List className="w-3.5 h-3.5" />全部結果
+                <List className="w-3.5 h-3.5" />類股動態
                 {allResultsCount > 0 && (
                   <span className="text-[10px] bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded-full">{allResultsCount}</span>
                 )}
@@ -83,7 +83,7 @@ export default function MainDashboard() {
                     : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
                 }`}
               >
-                <History className="w-3.5 h-3.5" />歷史查詢
+                <History className="w-3.5 h-3.5" />歷史回測
               </button>
               <button
                 onClick={() => setActiveTab('selfcheck')}
@@ -93,7 +93,7 @@ export default function MainDashboard() {
                     : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
                 }`}
               >
-                <Search className="w-3.5 h-3.5" />自主檢查
+                <Search className="w-3.5 h-3.5" />個股五維分析
               </button>
             </nav>
             <div className="flex items-center gap-3 shrink-0 text-xs">
@@ -129,9 +129,9 @@ export default function MainDashboard() {
               <div className="flex items-start justify-between flex-wrap gap-3">
                 <div>
                   <h1 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-                    <Radar className="w-5 h-5 text-sky-500" />每日底部反轉掃描
+                    <Radar className="w-5 h-5 text-sky-500" />每日推薦
                   </h1>
-                  <p className="text-xs text-gray-500 mt-1">每日 22:55 自動掃描全市場，依五維度評分篩選最強勢標的</p>
+                  <p className="text-xs text-gray-500 mt-1">每日 19:00 自動掃描全市場，依五維度評分篩選最強勢標的</p>
                 </div>
                 {scanData && (
                   <div className="text-right">
@@ -170,9 +170,9 @@ export default function MainDashboard() {
               <div className="flex items-start justify-between flex-wrap gap-3">
                 <div>
                   <h1 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-                    <List className="w-5 h-5 text-sky-500" />全部掃描結果
+                    <List className="w-5 h-5 text-sky-500" />類股動態
                   </h1>
-                  <p className="text-xs text-gray-500 mt-1">本次掃描所有 {allResultsCount} 檔完整評分，可依分數排序與搜尋</p>
+                  <p className="text-xs text-gray-500 mt-1">本次掃描所有 {allResultsCount} 檔完整評分，類股輪動與族群強弱一覽</p>
                 </div>
                 {allResultsDate && (
                   <div className="text-right">
@@ -193,7 +193,7 @@ export default function MainDashboard() {
               <div className="rounded-xl border border-gray-200 bg-white p-16 text-center shadow-sm">
                 <List className="w-12 h-12 text-gray-300 mx-auto mb-4" />
                 <p className="text-sm text-gray-400">尚無完整結果資料</p>
-                <p className="text-xs text-gray-400 mt-1">all_scores.json 尚未就緒，請等待下一次 22:55 掃描</p>
+                <p className="text-xs text-gray-400 mt-1">all_scores.json 尚未就緒，請等待下一次 19:00 掃描</p>
               </div>
             )}
           </div>
@@ -204,9 +204,9 @@ export default function MainDashboard() {
           <div className="space-y-4">
             <div className="rounded-xl border border-gray-200 bg-white px-5 py-4 shadow-sm">
               <h1 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-                <History className="w-5 h-5 text-sky-500" />歷史掃描記錄
+                <History className="w-5 h-5 text-sky-500" />歷史回測
               </h1>
-              <p className="text-xs text-gray-500 mt-1">瀏覽過去每日掃描結果，點擊日期查看當日 Top 10 詳情</p>
+              <p className="text-xs text-gray-500 mt-1">瀏覽過去每日推薦 Top 10，查看 T+1/T+3/T+5 實際漲跌幅與勝率</p>
             </div>
             <HistoryBrowser />
           </div>
@@ -217,9 +217,9 @@ export default function MainDashboard() {
           <div className="space-y-4">
             <div className="rounded-xl border border-gray-200 bg-white px-5 py-4 shadow-sm">
               <h1 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-                <Search className="w-5 h-5 text-sky-500" />自主檢查
+                <Search className="w-5 h-5 text-sky-500" />個股五維分析
               </h1>
-              <p className="text-xs text-gray-500 mt-1">輸入任意台股代號，即時從 TWSE 取得資料並進行五維度評分</p>
+              <p className="text-xs text-gray-500 mt-1">輸入任意台股代號，即時從 TWSE 取得資料並進行五維度評分分析</p>
             </div>
             <SelfCheck />
           </div>
