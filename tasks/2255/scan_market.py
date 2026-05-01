@@ -2049,6 +2049,48 @@ if __name__ == '__main__':
         json.dump(safe_output, f, ensure_ascii=False, indent=2)
     print(f"\n[JSON 已儲存] {out_path}")
 
+    # ── 自動存日期檔 scan_result_YYYYMMDD.json 並更新 index.json ──
+    try:
+        scan_date_raw = output.get('scan_date', '')
+        # scan_date 格式可能是 '2026/04/30' 或 '2026-04-30'
+        date_clean = scan_date_raw.replace('/', '').replace('-', '').split(' ')[0][:8]
+        if date_clean.isdigit() and len(date_clean) == 8:
+            # 找 public/data 目錄（相對於專案根目錄）
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            # tasks/2255 -> 往上兩層找 public/data
+            project_root = os.path.dirname(os.path.dirname(script_dir))
+            public_data_dir = os.path.join(project_root, 'public', 'data')
+            os.makedirs(public_data_dir, exist_ok=True)
+
+            # 存日期檔
+            dated_path = os.path.join(public_data_dir, f'scan_result_{date_clean}.json')
+            with open(dated_path, 'w', encoding='utf-8') as f:
+                json.dump(safe_output, f, ensure_ascii=False, indent=2)
+            print(f"[日期檔] 已存 {dated_path}")
+
+            # 更新 index.json
+            index_path = os.path.join(public_data_dir, 'index.json')
+            if os.path.exists(index_path):
+                with open(index_path, 'r', encoding='utf-8') as f:
+                    idx = json.load(f)
+            else:
+                idx = {'dates': [], 'latest': '', 'updated': ''}
+
+            iso_date = f"{date_clean[:4]}-{date_clean[4:6]}-{date_clean[6:8]}"
+            if iso_date not in idx.get('dates', []):
+                idx.setdefault('dates', []).append(iso_date)
+                idx['dates'] = sorted(idx['dates'])
+            idx['latest'] = iso_date
+            idx['updated'] = iso_date
+
+            with open(index_path, 'w', encoding='utf-8') as f:
+                json.dump(idx, f, ensure_ascii=False, indent=2)
+            print(f"[index.json] 已更新，dates={idx['dates']}")
+        else:
+            print(f"[日期檔] 無法解析 scan_date='{scan_date_raw}'，跳過日期檔存檔")
+    except Exception as e:
+        print(f"[日期檔] 存檔失敗（不影響主流程）：{e}")
+
     # ── 輸出 all_scores.json：每檔股票五維評分快照，供前端自主檢查功能使用 ──
     all_scores_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'all_scores.json')
     all_scores_data = {
