@@ -185,7 +185,7 @@ export default function MainDashboard() {
             {allLoading ? (
               <div className="rounded-xl border border-gray-200 bg-white p-16 text-center shadow-sm">
                 <div className="w-10 h-10 border-2 border-sky-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-                <p className="text-sm text-gray-500">載入 {allResultsCount || 2102} 檔完整資料...</p>
+                <p className="text-sm text-gray-500">載入 {allResultsCount || 2103} 檔完整資料...</p>
               </div>
             ) : allResults ? (
               <AllResultsTable stocks={allResults} scanDate={allResultsDate} />
