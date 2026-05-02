@@ -1,5 +1,5 @@
 'use client';
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import { useAllScores, useOnDemandScan } from '@/lib/useScanData';
 import { ScanStock, DIMENSION_CONFIG } from '@/lib/scanTypes';
 import {
@@ -108,7 +108,6 @@ function StockCard({ stock, onRemove, showRemove }: { stock: ScanStock; onRemove
 
   return (
     <div className={`rounded-xl border ${grade.border} ${grade.bg} p-5 shadow-sm`}>
-      {/* Stock header */}
       <div className="flex items-start justify-between mb-3">
         <div>
           <div className="flex items-center gap-2">
@@ -136,7 +135,6 @@ function StockCard({ stock, onRemove, showRemove }: { stock: ScanStock; onRemove
         </div>
       </div>
 
-      {/* Price + Score */}
       <div className="flex items-end justify-between mb-3">
         <div>
           <div className="text-2xl font-bold font-mono text-gray-900">{stock.close.toLocaleString()}</div>
@@ -151,7 +149,6 @@ function StockCard({ stock, onRemove, showRemove }: { stock: ScanStock; onRemove
         </div>
       </div>
 
-      {/* Dim bars */}
       {stock.dimensions && (
         <div className="space-y-2 mb-3">
           {Object.entries(DIM_LABELS).map(([key, label]) => {
@@ -168,7 +165,6 @@ function StockCard({ stock, onRemove, showRemove }: { stock: ScanStock; onRemove
         </div>
       )}
 
-      {/* Strategy */}
       {stock.strategy && (
         <div className="rounded-lg bg-gray-100 p-3 flex gap-3 text-xs">
           <div className="text-center flex-1">
@@ -186,7 +182,6 @@ function StockCard({ stock, onRemove, showRemove }: { stock: ScanStock; onRemove
         </div>
       )}
 
-      {/* Signals toggle */}
       {stock.signals && (
         <div className="mt-3">
           <button
@@ -291,7 +286,6 @@ function SingleStockLookup({
         </button>
       </div>
 
-      {/* Autocomplete */}
       {suggestions.length > 0 && !submitted && (
         <div className="absolute top-full left-0 right-0 mt-1 z-20 bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden">
           {suggestions.map((s) => (
@@ -319,7 +313,6 @@ function SingleStockLookup({
         </div>
       )}
 
-      {/* Loading / Error */}
       {status === 'loading' && <SkeletonCard />}
       {(status === 'error' || status === 'not_traded') && error && (
         <div className="mt-3 flex items-center gap-2 text-xs text-red-500 bg-red-50 border border-red-200 rounded-xl px-3 py-2.5">
@@ -350,7 +343,6 @@ export default function SelfCheck() {
 
   return (
     <div className="space-y-5">
-      {/* Header */}
       <div className="rounded-2xl border border-gray-200 bg-gradient-to-br from-sky-50 to-white px-5 py-4 shadow-sm">
         <h1 className="text-lg font-bold text-gray-900 flex items-center gap-2">
           <Search className="w-5 h-5 text-sky-500" />自主檢查
@@ -360,7 +352,6 @@ export default function SelfCheck() {
         </p>
       </div>
 
-      {/* Search */}
       <div className="relative">
         <SingleStockLookup
           onAdd={addStock}
@@ -368,7 +359,6 @@ export default function SelfCheck() {
         />
       </div>
 
-      {/* Added stocks tags */}
       {stocks.length > 0 && (
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -389,10 +379,8 @@ export default function SelfCheck() {
         </div>
       )}
 
-      {/* Compare radar */}
       {canCompare && <CompareRadar stocks={stocks} />}
 
-      {/* Stock cards */}
       <div className={`grid gap-4 ${
         stocks.length >= 2 ? 'md:grid-cols-2' : 'grid-cols-1'
       } ${stocks.length >= 3 ? 'lg:grid-cols-3' : ''}`}>
