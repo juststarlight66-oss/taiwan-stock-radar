@@ -24,15 +24,14 @@ function ScoreBar({ score, max }: { score: number; max: number }) {
   const color = pct >= 70 ? 'bg-emerald-500' : pct >= 50 ? 'bg-sky-500' : pct >= 35 ? 'bg-amber-500' : 'bg-red-500';
   return (
     <div className="flex items-center gap-1.5 min-w-[80px]">
-      <div className="flex-1 h-1.5 rounded-full bg-gray-700 overflow-hidden">
+      <div className="flex-1 h-1.5 rounded-full bg-gray-200 overflow-hidden">
         <div className={`h-full rounded-full ${color}`} style={{ width: `${pct}%` }} />
       </div>
-      <span className="text-xs font-mono font-bold text-white w-8 text-right">{Math.round(score)}</span>
+      <span className="text-xs font-mono font-bold text-gray-900 w-8 text-right">{Math.round(score)}</span>
     </div>
   );
 }
 
-/** 漲跌停徽章 */
 function LimitBadge({ changePct }: { changePct: number }) {
   if (Math.abs(changePct) < 9.5) return null;
   const up = changePct >= 0;
@@ -52,7 +51,6 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
   const [activeSector, setActiveSector] = useState<string>('全部');
   const totalMax = Object.values(DIMENSION_CONFIG).reduce((s, c) => s + c.max, 0);
 
-  // 取得所有族群（排序按出現頻率）
   const sectors = useMemo(() => {
     const count = new Map<string, number>();
     stocks.forEach((s) => count.set(s.sector, (count.get(s.sector) ?? 0) + 1));
@@ -98,13 +96,12 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
   }
 
   const SortIndicator = ({ k }: { k: typeof sortKey }) =>
-    sortKey === k ? <span className="ml-0.5 text-sky-400">{sortDir === 'desc' ? '↓' : '↑'}</span> : null;
+    sortKey === k ? <span className="ml-0.5 text-sky-500">{sortDir === 'desc' ? '↓' : '↑'}</span> : null;
 
   return (
     <>
       <div className="rounded-xl border border-gray-200 bg-white overflow-hidden">
-        {/* header */}
-        <div className="px-4 py-3 border-b border-gray-700/60 flex items-center justify-between gap-3 flex-wrap">
+        <div className="px-4 py-3 border-b border-gray-200 flex items-center justify-between gap-3 flex-wrap">
           <div>
             <h3 className="text-sm font-semibold text-gray-800">全部掃描結果</h3>
             {scanDate && (
@@ -125,7 +122,6 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
           </div>
         </div>
 
-        {/* 族群篩選 Tabs */}
         <div className="px-4 py-2 border-b border-gray-200 flex items-center gap-1.5 overflow-x-auto scrollbar-hide bg-gray-50">
           {sectors.slice(0, 20).map((sector) => (
             <button
@@ -145,7 +141,6 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
           )}
         </div>
 
-        {/* desktop table */}
         <div className="hidden md:block overflow-x-auto">
           <table className="w-full text-xs">
             <thead>
@@ -154,19 +149,19 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
                 <th className="text-left px-3 py-2.5 font-medium">代號 / 名稱</th>
                 <th className="text-left px-3 py-2.5 font-medium">族群</th>
                 <th
-                  className="text-right px-3 py-2.5 font-medium cursor-pointer hover:text-gray-300"
+                  className="text-right px-3 py-2.5 font-medium cursor-pointer hover:text-gray-700"
                   onClick={() => handleSort('close')}
                 >
                   收盤價 <SortIndicator k="close" />
                 </th>
                 <th
-                  className="text-right px-3 py-2.5 font-medium cursor-pointer hover:text-gray-300"
+                  className="text-right px-3 py-2.5 font-medium cursor-pointer hover:text-gray-700"
                   onClick={() => handleSort('change_pct')}
                 >
                   漲跌幅 <SortIndicator k="change_pct" />
                 </th>
                 <th
-                  className="text-left px-3 py-2.5 font-medium cursor-pointer hover:text-gray-300"
+                  className="text-left px-3 py-2.5 font-medium cursor-pointer hover:text-gray-700"
                   onClick={() => handleSort('total_score')}
                 >
                   綜合分 <SortIndicator k="total_score" />
@@ -181,8 +176,8 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
                 const isLimit = Math.abs(s.change_pct) >= 9.5;
                 const rowCls = isLimit
                   ? up
-                    ? 'ring-1 ring-inset ring-red-500/50 bg-red-500/5'
-                    : 'ring-1 ring-inset ring-emerald-500/50 bg-emerald-500/5'
+                    ? 'ring-1 ring-inset ring-red-500/50 bg-red-50'
+                    : 'ring-1 ring-inset ring-emerald-500/50 bg-emerald-50'
                   : '';
                 const actionCls = getActionColor(s.strategy.recommendation);
                 return (
@@ -202,7 +197,7 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
                       <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-medium bg-indigo-50 text-indigo-600 border border-indigo-200">{s.sector}</span>
                     </td>
                     <td className="px-3 py-2.5 text-right font-mono font-bold text-gray-800">
-                      {s.close.toLocaleString()}
+                      {(s.close ?? 0) > 0 ? (s.close ?? 0).toLocaleString() : '—'}
                     </td>
                     <td className="px-3 py-2.5 text-right">
                       <span className={`font-mono flex items-center justify-end gap-0.5 ${up ? 'text-red-500' : 'text-green-600'}`}>
@@ -229,15 +224,14 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
           </table>
         </div>
 
-        {/* mobile cards */}
         <div className="block md:hidden divide-y divide-gray-100">
           {pageItems.map((s) => {
             const up = s.change_pct >= 0;
             const isLimit = Math.abs(s.change_pct) >= 9.5;
             const limitCls = isLimit
               ? up
-                ? 'ring-1 ring-red-500/60 bg-red-500/5'
-                : 'ring-1 ring-emerald-500/60 bg-emerald-500/5'
+                ? 'ring-1 ring-red-500/60 bg-red-50'
+                : 'ring-1 ring-emerald-500/60 bg-emerald-50'
               : '';
             return (
               <div key={s.stock_id} className={`flex items-center gap-3 p-3 bg-white ${limitCls}`}>
@@ -260,7 +254,7 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
                   </div>
                 </button>
                 <div className="flex flex-col items-end gap-1 shrink-0">
-                  <span className="text-sm font-mono font-bold text-gray-800">{s.close.toLocaleString()}</span>
+                  <span className="text-sm font-mono font-bold text-gray-800">{(s.close ?? 0) > 0 ? (s.close ?? 0).toLocaleString() : '—'}</span>
                   <WatchlistToggleBtn stockId={s.stock_id} />
                 </div>
               </div>
@@ -268,12 +262,10 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
           })}
         </div>
 
-        {/* empty state */}
         {pageItems.length === 0 && (
           <div className="py-10 text-center text-gray-400 text-xs">沒有符合條件的結果</div>
         )}
 
-        {/* pagination */}
         {totalPages > 1 && (
           <div className="px-4 py-3 border-t border-gray-200 bg-gray-50 flex items-center justify-between text-xs text-gray-500">
             <button

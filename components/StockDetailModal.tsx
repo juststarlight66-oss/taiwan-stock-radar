@@ -29,13 +29,6 @@ const DIM_COLORS: Record<string, string> = {
   technical: '#38bdf8', fundamental: '#34d399', news: '#fbbf24', sentiment: '#a78bfa', chips: '#f87171',
 };
 
-function PriceChart({ stockId, entryPrice }: { stockId: string; entryPrice: number }) {
-  const { data, status } = useOnDemandScan(stockId);
-  // We won't re-trigger scan — just show a simple placeholder
-  // The actual chart uses the stock's existing data from the modal prop
-  return null; // replaced by inline chart below
-}
-
 function SimpleSparkline({ candles }: { candles: { date: string; close: number }[] }) {
   if (!candles || candles.length < 2) return null;
   const min = Math.min(...candles.map((c) => c.close));
@@ -68,7 +61,6 @@ function SimpleSparkline({ candles }: { candles: { date: string; close: number }
           <XAxis dataKey="date" hide />
           <YAxis domain={[min * 0.995, max * 1.005]} hide />
           <Tooltip content={<CustomTooltip />} />
-          <ReferenceLine y={entryPrice} stroke="#38bdf8" strokeDasharray="3 3" strokeWidth={1} />
           <Line
             type="monotone" dataKey="close"
             stroke={up ? '#f87171' : '#34d399'}
@@ -105,9 +97,6 @@ export default function StockDetailModal({ stock, onClose, rank, isDemo }: Props
 
   const ac = ACTION_MAP[stock.strategy?.recommendation ?? ''] ?? ACTION_MAP['觀望'];
   const up = (stock.change_pct ?? 0) >= 0;
-
-  // Build sparkline data from details if available
-  const sparkCandles: { date: string; close: number }[] = [];
 
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4" onClick={onClose}>
@@ -210,28 +199,43 @@ export default function StockDetailModal({ stock, onClose, rank, isDemo }: Props
               <h3 className="text-[11px] font-semibold text-gray-500 mb-3 uppercase tracking-wide flex items-center gap-1.5">
                 <Target className="w-3.5 h-3.5" />操作策略
               </h3>
-              <div className="grid grid-cols-3 gap-3">
-                <div className="text-center">
+              {/* 進場 / 停損 */}
+              <div className="grid grid-cols-2 gap-3 mb-3">
+                <div className="text-center rounded-lg bg-gray-800/60 py-2.5">
                   <div className="text-[10px] text-gray-500 mb-1">進場價</div>
                   <div className="font-mono font-bold text-white text-sm">{stock.strategy.entry?.toFixed(2) ?? '—'}</div>
                 </div>
-                <div className="text-center">
-                  <div className="text-[10px] text-emerald-500 mb-1 flex items-center justify-center gap-0.5">
-                    <TrendingUp className="w-2.5 h-2.5" />目標價
-                  </div>
-                  <div className="font-mono font-bold text-emerald-400 text-sm">{stock.strategy.target?.toFixed(2) ?? '—'}</div>
-                  <div className="text-[9px] text-emerald-600">+{stock.strategy.upside}%</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-[10px] text-red-500 mb-1 flex items-center justify-center gap-0.5">
+                <div className="text-center rounded-lg bg-red-900/30 py-2.5">
+                  <div className="text-[10px] text-red-400 mb-1 flex items-center justify-center gap-0.5">
                     <Shield className="w-2.5 h-2.5" />停損價
                   </div>
                   <div className="font-mono font-bold text-red-400 text-sm">{stock.strategy.stop_loss?.toFixed(2) ?? '—'}</div>
                   <div className="text-[9px] text-red-600">-{stock.strategy.downside}%</div>
                 </div>
               </div>
+              {/* 三關目標價 */}
+              <div className="grid grid-cols-3 gap-2 mb-3">
+                {[
+                  { label: '第一關', key: 'target1', pct: stock.strategy.upside ? String(stock.strategy.upside) : null },
+                  { label: '第二關', key: 'target2', pct: stock.strategy.upside2 ? String(stock.strategy.upside2) : null },
+                  { label: '第三關', key: 'target3', pct: stock.strategy.upside3 ? String(stock.strategy.upside3) : null },
+                ].map(({ label, key, pct }) => {
+                  const val = (stock.strategy as Record<string, number>)[key] ?? (key === 'target1' ? stock.strategy.target : undefined);
+                  return (
+                    <div key={key} className="text-center rounded-lg bg-emerald-900/30 py-2.5">
+                      <div className="text-[10px] text-emerald-500 mb-1 flex items-center justify-center gap-0.5">
+                        <TrendingUp className="w-2.5 h-2.5" />{label}
+                      </div>
+                      <div className="font-mono font-bold text-emerald-400 text-sm">
+                        {val && val > 0 ? val.toFixed(2) : '—'}
+                      </div>
+                      {pct && <div className="text-[9px] text-emerald-600">+{pct}%</div>}
+                    </div>
+                  );
+                })}
+              </div>
               {/* R/R ratio */}
-              <div className="mt-3 pt-3 border-t border-gray-700/50">
+              <div className="pt-2 border-t border-gray-700/50">
                 <div className="flex items-center justify-between text-xs">
                   <span className="text-gray-500">風報比</span>
                   <span className="font-mono text-white">
@@ -307,7 +311,6 @@ export default function StockDetailModal({ stock, onClose, rank, isDemo }: Props
             </div>
           )}
 
-          {/* Yahoo Finance link */}
           <a
             href={`https://tw.stock.yahoo.com/quote/${stock.stock_id}`}
             target="_blank"
