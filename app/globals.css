@@ -1,8 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f9fafb;
-  --foreground: #111827;
+  --background: #030712;
+  --foreground: #f9fafb;
+  --card: #0f172a;
+  --card-border: #1e293b;
+  --accent: #38bdf8;
+  --accent-dim: #0ea5e9;
+  --up: #f87171;
+  --down: #34d399;
 }
 
 body {
@@ -10,23 +16,17 @@ body {
   color: var(--foreground);
 }
 
-/* Custom scrollbar for light theme */
-::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
-}
-::-webkit-scrollbar-track {
-  background: #f3f4f6;
-}
-::-webkit-scrollbar-thumb {
-  background: #d1d5db;
-  border-radius: 2px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #9ca3af;
-}
+/* Custom scrollbar — dark theme */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: #0f172a; }
+::-webkit-scrollbar-thumb { background: #334155; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #475569; }
 
-/* Line clamp utility */
+/* Hide scrollbar but keep scrollable */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Line clamp */
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -34,6 +34,47 @@ body {
   overflow: hidden;
 }
 
-/* Hide scrollbar but keep scrollable */
-.scrollbar-hide::-webkit-scrollbar { display: none; }
-.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+/* Glow effect for accent */
+.glow-sky {
+  box-shadow: 0 0 12px rgba(56,189,248,0.25);
+}
+
+/* Shimmer skeleton animation */
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+  background-size: 800px 100%;
+  animation: shimmer 1.4s infinite linear;
+  border-radius: 6px;
+}
+
+/* Fade-in */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-in { animation: fadeIn 0.35s ease both; }
+
+/* Number ticker */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.count-up { animation: countUp 0.5s ease both; }
+
+/* Pulse ring for live indicator */
+@keyframes pulseRing {
+  0%   { transform: scale(1);   opacity: 1; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+.pulse-ring::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #34d399;
+  animation: pulseRing 1.4s ease-out infinite;
+}

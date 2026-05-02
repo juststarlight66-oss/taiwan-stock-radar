@@ -1,272 +1,214 @@
 'use client';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { useAllScores, useOnDemandScan } from '@/lib/useScanData';
-import { ScanStock } from '@/lib/scanTypes';
+import { ScanStock, DIMENSION_CONFIG } from '@/lib/scanTypes';
 import {
-  Search, X, AlertCircle, Loader2, ChevronDown, ChevronUp,
+  Search, X, AlertCircle, ChevronDown, ChevronUp,
   Target, ArrowUpRight, ArrowDownRight, TrendingUp,
+  Plus, Trash2, Share2, Check, ExternalLink,
 } from 'lucide-react';
 import {
   RadarChart, Radar, PolarGrid, PolarAngleAxis, ResponsiveContainer,
+  Legend,
 } from 'recharts';
 
-/* ── 評等設定 ─────────────────────────────────────────── */
 const GRADE_CONFIG: Record<string, { label: string; color: string; bg: string; border: string }> = {
-  '強力買進': { label: '強力買進 🔥', color: 'text-red-600',      bg: 'bg-red-50',      border: 'border-red-300' },
-  '買進':     { label: '買進 ✅',      color: 'text-orange-500',   bg: 'bg-orange-50',   border: 'border-orange-300' },
-  '觀望':     { label: '觀望 ⏳',      color: 'text-gray-500',     bg: 'bg-gray-50',     border: 'border-gray-300' },
-  '偏弱':     { label: '偏弱 ⚠️',     color: 'text-green-700',    bg: 'bg-green-50',    border: 'border-green-300' },
+  '強力買進': { label: '強力買進 🔥', color: 'text-red-400',     bg: 'bg-red-500/10',     border: 'border-red-500/30' },
+  '買進':     { label: '買進 ✅',      color: 'text-orange-400',  bg: 'bg-orange-500/10',  border: 'border-orange-500/30' },
+  '觀望':     { label: '觀望 ⏳',      color: 'text-gray-400',    bg: 'bg-gray-800',       border: 'border-gray-700' },
+  '偏弱':     { label: '偏弱 ⚠️',     color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/30' },
 };
 
 const DIM_LABELS: Record<string, string> = {
   technical: '技術面', fundamental: '基本面', news: '消息面', sentiment: '市場情緒', chips: '籌碼面',
 };
-
 const DIM_MAXES: Record<string, number> = {
   technical: 40, fundamental: 40, news: 10, sentiment: 10, chips: 10,
 };
+const DIM_COLORS = ['#38bdf8', '#34d399', '#fbbf24', '#a78bfa', '#f87171'];
 
-/* ── 維度進度條 ───────────────────────────────────────── */
 function ScoreBar({ value, max }: { value: number; max: number }) {
   const pct = Math.min(100, (value / max) * 100);
-  const color =
-    pct >= 70 ? 'bg-emerald-500' :
-    pct >= 50 ? 'bg-sky-500' :
-    pct >= 30 ? 'bg-amber-400' : 'bg-red-400';
+  const color = pct >= 70 ? 'bg-emerald-500' : pct >= 50 ? 'bg-sky-500' : pct >= 30 ? 'bg-amber-400' : 'bg-red-500';
   return (
-    <div className="w-full bg-gray-100 rounded-full h-1.5">
+    <div className="w-full bg-gray-800 rounded-full h-1.5">
       <div className={`${color} h-1.5 rounded-full transition-all`} style={{ width: `${pct}%` }} />
     </div>
   );
 }
 
-/* ── 五維雷達圖 ───────────────────────────────────────── */
-function DimRadar({ dimensions }: { dimensions: Record<string, number> }) {
-  const data = Object.entries(DIM_LABELS).map(([key, label]) => {
-    const raw = (dimensions[key] as number) ?? 0;
-    const max = DIM_MAXES[key] ?? 10;
-    return { dim: label, value: Math.round((raw / max) * 100) };
-  });
-
+function SkeletonCard() {
   return (
-    <ResponsiveContainer width="100%" height={180}>
-      <RadarChart data={data} margin={{ top: 8, right: 16, bottom: 8, left: 16 }}>
-        <PolarGrid stroke="#e5e7eb" />
-        <PolarAngleAxis
-          dataKey="dim"
-          tick={{ fontSize: 10, fill: '#6b7280' }}
-        />
-        <Radar
-          name="評分"
-          dataKey="value"
-          stroke="#38bdf8"
-          fill="#38bdf8"
-          fillOpacity={0.25}
-          strokeWidth={2}
-        />
-      </RadarChart>
-    </ResponsiveContainer>
+    <div className="rounded-xl border border-gray-800 bg-gray-900/40 p-5 space-y-3 animate-pulse">
+      <div className="flex items-center justify-between">
+        <div className="skeleton h-6 w-32 rounded" />
+        <div className="skeleton h-8 w-16 rounded" />
+      </div>
+      <div className="skeleton h-4 w-full rounded" />
+      <div className="skeleton h-4 w-3/4 rounded" />
+      <div className="grid grid-cols-3 gap-2">
+        {[...Array(3)].map((_, i) => <div key={i} className="skeleton h-12 rounded" />)}
+      </div>
+      <div className="skeleton h-24 w-full rounded" />
+    </div>
   );
 }
 
-/* ── 訊號折疊卡片 ────────────────────────────────────── */
-const DIM_COLORS: Record<string, string> = {
-  technical:   'bg-sky-50 border-sky-200 text-sky-700',
-  fundamental: 'bg-emerald-50 border-emerald-200 text-emerald-700',
-  news:        'bg-amber-50 border-amber-200 text-amber-700',
-  sentiment:   'bg-purple-50 border-purple-200 text-purple-700',
-  chips:       'bg-rose-50 border-rose-200 text-rose-700',
-};
-
-function SignalsPanel({ signals }: { signals: Record<string, string[]> }) {
-  const [open, setOpen] = useState(false);
-  const total = Object.values(signals).flat().length;
+function CompareRadar({ stocks }: { stocks: ScanStock[] }) {
+  const data = Object.entries(DIM_LABELS).map(([key, label]) => {
+    const entry: Record<string, string | number> = { dim: label };
+    stocks.forEach((s) => {
+      const raw = (s.dimensions as unknown as Record<string, number>)?.[key] ?? 0;
+      entry[s.stock_id] = Math.round((raw / (DIM_MAXES[key] ?? 10)) * 100);
+    });
+    return entry;
+  });
 
   return (
-    <div className="rounded-lg border border-gray-200 overflow-hidden">
-      <button
-        onClick={() => setOpen(o => !o)}
-        className="w-full flex items-center justify-between px-3 py-2 bg-gray-50 hover:bg-gray-100 transition-colors"
-      >
-        <span className="text-[11px] font-semibold text-gray-500 flex items-center gap-1">
-          <TrendingUp className="w-3 h-3" />五維訊號明細（{total} 條）
-        </span>
-        {open ? <ChevronUp className="w-3.5 h-3.5 text-gray-400" /> : <ChevronDown className="w-3.5 h-3.5 text-gray-400" />}
-      </button>
+    <div className="rounded-xl border border-gray-800 bg-gray-900/40 p-4">
+      <h3 className="text-xs font-semibold text-gray-400 mb-3">五維度比較雷達圖</h3>
+      <ResponsiveContainer width="100%" height={220}>
+        <RadarChart data={data} margin={{ top: 8, right: 20, bottom: 8, left: 20 }}>
+          <PolarGrid stroke="#1e293b" />
+          <PolarAngleAxis dataKey="dim" tick={{ fontSize: 11, fill: '#6b7280' }} />
+          <Legend
+            formatter={(value) => <span className="text-[11px] text-gray-400">{value}</span>}
+          />
+          {stocks.map((s, i) => (
+            <Radar
+              key={s.stock_id}
+              name={`${s.stock_id} ${s.name}`}
+              dataKey={s.stock_id}
+              stroke={DIM_COLORS[i % DIM_COLORS.length]}
+              fill={DIM_COLORS[i % DIM_COLORS.length]}
+              fillOpacity={0.12}
+              strokeWidth={1.5}
+            />
+          ))}
+        </RadarChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}
 
-      {open && (
-        <div className="p-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
-          {Object.entries(signals).map(([dim, sigs]) => {
-            const cls = DIM_COLORS[dim] ?? 'bg-gray-50 border-gray-200 text-gray-600';
-            const items = sigs as string[];
-            if (!items.length) return null;
+function StockCard({ stock, onRemove, showRemove }: { stock: ScanStock; onRemove: () => void; showRemove: boolean }) {
+  const [open, setOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const up = (stock.change_pct ?? 0) >= 0;
+  const grade = GRADE_CONFIG[stock.strategy?.recommendation ?? '觀望'] ?? GRADE_CONFIG['觀望'];
+  const totalMax = Object.values(DIMENSION_CONFIG).reduce((s, c) => s + c.max, 0);
+
+  const share = () => {
+    const text = `台股雷達評分 ${stock.name}(${stock.stock_id}): ${stock.total_score.toFixed(1)} — ${stock.strategy.recommendation}`;
+    if (navigator.share) {
+      navigator.share({ title: '台股雷達', text, url: window.location.href });
+    } else {
+      navigator.clipboard.writeText(text).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2000); });
+    }
+  };
+
+  return (
+    <div className={`rounded-xl border ${grade.border} ${grade.bg} p-5 fade-in`}>
+      {/* Stock header */}
+      <div className="flex items-start justify-between mb-3">
+        <div>
+          <div className="flex items-center gap-2">
+            <span className="font-bold text-white text-base">{stock.name}</span>
+            <span className="font-mono text-xs text-gray-500">{stock.stock_id}</span>
+            <a
+              href={`https://tw.stock.yahoo.com/quote/${stock.stock_id}`}
+              target="_blank" rel="noopener noreferrer"
+              className="text-sky-500 hover:text-sky-400"
+            >
+              <ExternalLink className="w-3 h-3" />
+            </a>
+          </div>
+          <div className="text-[11px] text-gray-500 mt-0.5">{stock.sector}</div>
+        </div>
+        <div className="flex items-center gap-1">
+          <button onClick={share} className="p-1.5 rounded-lg hover:bg-gray-800 transition-colors" title="分享">
+            {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Share2 className="w-3.5 h-3.5 text-gray-500" />}
+          </button>
+          {showRemove && (
+            <button onClick={onRemove} className="p-1.5 rounded-lg hover:bg-red-500/10 transition-colors" title="移除">
+              <Trash2 className="w-3.5 h-3.5 text-gray-600 hover:text-red-400" />
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Price + Score */}
+      <div className="flex items-end justify-between mb-3">
+        <div>
+          <div className="text-2xl font-bold font-mono text-white">{stock.close.toLocaleString()}</div>
+          <div className={`text-xs font-mono flex items-center gap-0.5 mt-0.5 ${up ? 'text-red-400' : 'text-emerald-400'}`}>
+            {up ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
+            {Math.abs(stock.change_pct ?? 0).toFixed(2)}%
+          </div>
+        </div>
+        <div className="text-right">
+          <div className="text-3xl font-bold text-white">{stock.total_score.toFixed(1)}</div>
+          <div className={`text-xs font-semibold ${grade.color}`}>{grade.label}</div>
+        </div>
+      </div>
+
+      {/* Dim bars */}
+      {stock.dimensions && (
+        <div className="space-y-2 mb-3">
+          {Object.entries(DIM_LABELS).map(([key, label]) => {
+            const val = (stock.dimensions as unknown as Record<string, number>)[key] ?? 0;
+            const max = DIM_MAXES[key] ?? 10;
             return (
-              <div key={dim} className={`rounded-lg border px-3 py-2 ${cls}`}>
-                <div className="text-[10px] font-bold mb-1 uppercase tracking-wide opacity-70">
-                  {DIM_LABELS[dim] ?? dim}
-                </div>
-                <ul className="space-y-0.5">
-                  {items.map((s, i) => (
-                    <li key={i} className="text-[11px] flex items-start gap-1">
-                      <span className="opacity-40 shrink-0">•</span>
-                      <span>{s}</span>
-                    </li>
-                  ))}
-                </ul>
+              <div key={key} className="flex items-center gap-2">
+                <span className="text-[10px] text-gray-500 w-14 shrink-0">{label}</span>
+                <div className="flex-1"><ScoreBar value={val} max={max} /></div>
+                <span className="text-[10px] font-mono text-gray-400 w-8 text-right">{val.toFixed(1)}</span>
               </div>
             );
           })}
         </div>
       )}
-    </div>
-  );
-}
 
-/* ── 主卡片 ──────────────────────────────────────────── */
-function StockCard({ stock }: { stock: ScanStock & { isOnDemand?: boolean } }) {
-  const [expanded, setExpanded] = useState(true);
-  const grade = stock.strategy?.recommendation ?? '觀望';
-  const gradeKey = Object.keys(GRADE_CONFIG).find(k => grade.includes(k)) ?? '觀望';
-  const gradeConf = GRADE_CONFIG[gradeKey];
-  const up = (stock.change_pct ?? 0) >= 0;
-
-  return (
-    <div className="rounded-xl border border-gray-200 bg-white overflow-hidden shadow-sm">
-      {/* Header — 點擊折疊 */}
-      <div
-        className="flex items-center justify-between px-4 py-3 cursor-pointer hover:bg-gray-50 transition-colors"
-        onClick={() => setExpanded(e => !e)}
-      >
-        <div className="flex items-center gap-3">
-          <div>
-            <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-sm font-bold text-gray-900">{stock.name}</span>
-              <span className="text-xs text-gray-400 font-mono">{stock.stock_id}</span>
-              {stock.isOnDemand && (
-                <span className="text-[9px] bg-purple-50 text-purple-600 border border-purple-200 px-1.5 py-0.5 rounded-full">即時</span>
-              )}
-            </div>
-            <div className="text-[11px] text-gray-400 mt-0.5">{stock.sector}</div>
+      {/* Strategy */}
+      {stock.strategy && (
+        <div className="rounded-lg bg-gray-800/60 p-3 flex gap-3 text-xs">
+          <div className="text-center flex-1">
+            <div className="text-gray-500 text-[10px] mb-0.5">進場</div>
+            <div className="font-mono font-bold text-white">{stock.strategy.entry?.toFixed(2)}</div>
+          </div>
+          <div className="text-center flex-1">
+            <div className="text-emerald-500 text-[10px] mb-0.5">目標 +{stock.strategy.upside}%</div>
+            <div className="font-mono font-bold text-emerald-400">{stock.strategy.target?.toFixed(2)}</div>
+          </div>
+          <div className="text-center flex-1">
+            <div className="text-red-500 text-[10px] mb-0.5">停損 -{stock.strategy.downside}%</div>
+            <div className="font-mono font-bold text-red-400">{stock.strategy.stop_loss?.toFixed(2)}</div>
           </div>
         </div>
-        <div className="flex items-center gap-3">
-          <div className="text-right">
-            <div className="text-xl font-bold font-mono text-gray-900">{stock.total_score.toFixed(1)}</div>
-            <div className={`text-[10px] font-semibold ${gradeConf.color}`}>{gradeConf.label}</div>
-          </div>
-          {expanded
-            ? <ChevronUp className="w-4 h-4 text-gray-400" />
-            : <ChevronDown className="w-4 h-4 text-gray-400" />}
-        </div>
-      </div>
+      )}
 
-      {expanded && (
-        <div className="border-t border-gray-100 px-4 pb-5 space-y-4 pt-4">
-
-          {/* 價格列 */}
-          <div className="flex items-center justify-between">
-            <div>
-              <span className="text-2xl font-bold font-mono text-gray-900">
-                {stock.close.toLocaleString()}
-              </span>
-              <span className="text-xs text-gray-400 ml-1">TWD</span>
-            </div>
-            <div className={`text-sm font-mono font-bold flex items-center gap-1 ${up ? 'text-red-500' : 'text-green-600'}`}>
-              {up ? <ArrowUpRight className="w-4 h-4" /> : <ArrowDownRight className="w-4 h-4" />}
-              {up ? '+' : ''}{(stock.change_pct ?? 0).toFixed(2)}%
-            </div>
-          </div>
-
-          {/* 雷達圖 + 五維度條（左右並排，小螢幕疊排）*/}
-          {stock.dimensions && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
-              {/* 雷達圖 */}
-              <div className="rounded-xl border border-gray-100 bg-gray-50 py-2">
-                <DimRadar dimensions={stock.dimensions as Record<string, number>} />
-              </div>
-
-              {/* 維度條 */}
-              <div className="space-y-2.5">
-                {Object.entries(stock.dimensions).map(([dim, val]) => {
-                  const v = val as number;
-                  const max = DIM_MAXES[dim] ?? 10;
-                  const pct = Math.min(100, (v / max) * 100);
-                  return (
-                    <div key={dim}>
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="text-[11px] text-gray-500">{DIM_LABELS[dim] ?? dim}</span>
-                        <span className="text-[11px] font-mono font-semibold text-gray-700">
-                          {v.toFixed(1)} / {max}
-                          <span className="text-gray-400 ml-1">({Math.round(pct)}%)</span>
-                        </span>
-                      </div>
-                      <ScoreBar value={v} max={max} />
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-
-          {/* 訊號折疊卡片 */}
-          {stock.signals && (
-            <SignalsPanel signals={stock.signals as Record<string, string[]>} />
-          )}
-
-          {/* 交易策略區塊 */}
-          {stock.strategy && (
-            <div className="space-y-3">
-              <div className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide flex items-center gap-1">
-                <Target className="w-3 h-3" />交易策略
-              </div>
-
-              {/* 進場 / 停損 */}
-              <div className="grid grid-cols-2 gap-2">
-                <div className="rounded-xl bg-sky-50 border border-sky-200 px-3 py-2.5 text-center">
-                  <div className="text-[10px] text-gray-500 mb-0.5">進場參考</div>
-                  <div className="text-sm font-mono font-bold text-sky-700">
-                    {stock.strategy.entry ?? '—'}
+      {/* Signals toggle */}
+      {stock.signals && (
+        <div className="mt-3">
+          <button
+            onClick={() => setOpen((o) => !o)}
+            className="w-full flex items-center justify-between px-3 py-2 rounded-lg bg-gray-800/50 hover:bg-gray-800 transition-colors text-xs text-gray-500"
+          >
+            <span className="flex items-center gap-1"><TrendingUp className="w-3 h-3" />訊號明細</span>
+            {open ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+          </button>
+          {open && (
+            <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+              {Object.entries(stock.signals).map(([dim, sigs]) =>
+                Array.isArray(sigs) && sigs.length > 0 && (
+                  <div key={dim} className="rounded-lg bg-gray-800/50 p-2">
+                    <div className="text-[10px] font-semibold text-gray-500 mb-1">{DIM_LABELS[dim]}</div>
+                    {sigs.map((s, i) => (
+                      <div key={i} className="text-[10px] text-gray-400 leading-relaxed">• {s}</div>
+                    ))}
                   </div>
-                  {stock.strategy.atr != null && (
-                    <div className="text-[9px] text-gray-400 mt-0.5">ATR {stock.strategy.atr}</div>
-                  )}
-                </div>
-                <div className="rounded-xl bg-red-50 border border-red-200 px-3 py-2.5 text-center">
-                  <div className="text-[10px] text-gray-500 mb-0.5">停損</div>
-                  <div className="text-sm font-mono font-bold text-red-600">
-                    {stock.strategy.stop_loss ?? '—'}
-                  </div>
-                  {stock.strategy.downside != null && (
-                    <div className="text-[9px] text-red-400 mt-0.5">-{stock.strategy.downside}%</div>
-                  )}
-                </div>
-              </div>
-
-              {/* 三關目標價 */}
-              <div className="grid grid-cols-3 gap-1.5">
-                {[
-                  { label: '🎯 第一關', price: stock.strategy.target1 ?? stock.strategy.target, upside: stock.strategy.upside,  cls: 'bg-emerald-50 border-emerald-200 text-emerald-700' },
-                  { label: '🎯 第二關', price: stock.strategy.target2,  upside: stock.strategy.upside2, cls: 'bg-emerald-50 border-emerald-300 text-emerald-800' },
-                  { label: '🚀 第三關', price: stock.strategy.target3,  upside: stock.strategy.upside3, cls: 'bg-amber-50 border-amber-200 text-amber-700' },
-                ].map(({ label, price, upside, cls }) => (
-                  <div key={label} className={`rounded-xl border px-1.5 py-2.5 text-center ${cls}`}>
-                    <div className="text-[9px] text-gray-500 mb-0.5">{label}</div>
-                    <div className="text-xs font-mono font-bold">{price ?? '—'}</div>
-                    {upside != null && (
-                      <div className="text-[9px] opacity-70 mt-0.5">+{upside}%</div>
-                    )}
-                  </div>
-                ))}
-              </div>
-
-              {stock.strategy.target_note && (
-                <div className="text-[10px] text-gray-400 text-center">基準：{stock.strategy.target_note}</div>
+                )
               )}
-
-              {/* 評等標籤 */}
-              <div className={`text-sm font-bold text-center py-2.5 rounded-xl border ${gradeConf.bg} ${gradeConf.border} ${gradeConf.color}`}>
-                {gradeConf.label}
-              </div>
             </div>
           )}
         </div>
@@ -275,171 +217,202 @@ function StockCard({ stock }: { stock: ScanStock & { isOnDemand?: boolean } }) {
   );
 }
 
-/* ── 搜尋建議下拉 ─────────────────────────────────────── */
-function SuggestionList({
-  items,
-  onSelect,
+function SingleStockLookup({
+  onAdd, existing,
 }: {
-  items: { stock_id: string; name: string; sector: string }[];
-  onSelect: (id: string, name: string) => void;
+  onAdd: (stock: ScanStock) => void;
+  existing: string[];
 }) {
-  if (!items.length) return null;
-  return (
-    <ul className="absolute top-full left-0 right-0 z-20 mt-1 rounded-xl border border-gray-200 bg-white shadow-lg max-h-52 overflow-y-auto">
-      {items.map(s => (
-        <li key={s.stock_id}>
-          <button
-            className="w-full flex items-center justify-between px-4 py-2.5 hover:bg-sky-50 transition-colors text-left"
-            onMouseDown={() => onSelect(s.stock_id, s.name)}
-          >
-            <span className="text-sm font-medium text-gray-800">{s.name}</span>
-            <span className="text-xs text-gray-400 font-mono">{s.stock_id} · {s.sector}</span>
-          </button>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-/* ── 主元件 ──────────────────────────────────────────── */
-export default function SelfCheck() {
-  const [inputVal, setInputVal]   = useState('');
-  const [searchId, setSearchId]   = useState<string | null>(null);
-  const [showSug,  setShowSug]    = useState(false);
-
+  const [query, setQuery] = useState('');
+  const [submitted, setSubmitted] = useState<string | null>(null);
   const { data: allScores } = useAllScores();
-  const { data: onDemand, status: odStatus, error: odError } = useOnDemandScan(searchId);
+  const { data: onDemand, status, error } = useOnDemandScan(submitted);
 
-  /* 名稱 or 代號搜尋建議（從 all_scores.json 拿） */
+  const allList = useMemo(
+    () => allScores?.all_stock_scores ?? [],
+    [allScores]
+  );
+
   const suggestions = useMemo(() => {
-    const list = allScores?.all_stock_scores ?? [];
-    const q = inputVal.trim();
-    if (!q || q.length < 1) return [];
-    const lower = q.toLowerCase();
-    return list
-      .filter(s =>
-        s.stock_id.startsWith(q) ||
-        s.name.includes(q) ||
-        s.stock_id.toLowerCase().includes(lower)
+    if (!query || query.length < 1) return [];
+    return allList
+      .filter(
+        (s) =>
+          s.stock_id.startsWith(query) ||
+          s.name.includes(query)
       )
-      .slice(0, 8)
-      .map(s => ({ stock_id: s.stock_id, name: s.name, sector: s.sector }));
-  }, [inputVal, allScores]);
+      .slice(0, 6);
+  }, [query, allList]);
 
-  /* 在 all_scores 裡找到的結果 */
-  const found = useMemo(() => {
-    if (!searchId) return null;
-    const list = allScores?.all_stock_scores ?? [];
-    return list.find(s => s.stock_id === searchId) ?? null;
-  }, [searchId, allScores]);
+  const handleSearch = useCallback(() => {
+    const id = query.trim().toUpperCase();
+    if (!id) return;
+    // First check allScores
+    const found = allList.find((s) => s.stock_id === id || s.name === id);
+    if (found) {
+      onAdd(found);
+      setQuery('');
+      setSubmitted(null);
+      return;
+    }
+    setSubmitted(id);
+  }, [query, allList, onAdd]);
 
-  const displayStock: (ScanStock & { isOnDemand?: boolean }) | null = useMemo(() => {
-    if (!searchId) return null;
-    if (found) return found;
-    if (onDemand?.stock) return { ...onDemand.stock, isOnDemand: true };
-    return null;
-  }, [found, onDemand, searchId]);
-
-  const handleSearch = (idOverride?: string) => {
-    const raw = (idOverride ?? inputVal).trim();
-    if (!raw) return;
-    // 若輸入的是名稱，先去 allScores 找 stock_id
-    const list = allScores?.all_stock_scores ?? [];
-    const byName = list.find(s => s.name === raw);
-    setSearchId(byName ? byName.stock_id : raw);
-    setShowSug(false);
-  };
-
-  const handleSelect = (id: string, name: string) => {
-    setInputVal(`${name}（${id}）`);
-    setSearchId(id);
-    setShowSug(false);
-  };
-
-  const handleClear = () => {
-    setInputVal('');
-    setSearchId(null);
-    setShowSug(false);
-  };
-
-  const showLoading  = !!searchId && !found && odStatus === 'loading';
-  const showNotFound = !!searchId && !found && odStatus === 'not_traded';
-  const showError    = !!searchId && !found && odStatus === 'error';
+  useEffect(() => {
+    if (status === 'done' && onDemand) {
+      onAdd(onDemand.stock);
+      setQuery('');
+      setSubmitted(null);
+    }
+  }, [status, onDemand, onAdd]);
 
   return (
-    <div className="space-y-4">
-      {/* 搜尋框 */}
-      <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
-        <div className="flex gap-2">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-            <input
-              type="text"
-              value={inputVal}
-              onChange={e => { setInputVal(e.target.value); setShowSug(true); }}
-              onKeyDown={e => { if (e.key === 'Enter') handleSearch(); if (e.key === 'Escape') setShowSug(false); }}
-              onFocus={() => setShowSug(true)}
-              onBlur={() => setTimeout(() => setShowSug(false), 150)}
-              placeholder="輸入股票代號或名稱（如 2330 或 台積電）"
-              className="w-full bg-gray-50 border border-gray-200 rounded-lg pl-9 pr-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
-            />
-            {showSug && (
-              <SuggestionList items={suggestions} onSelect={handleSelect} />
-            )}
-          </div>
-          <button
-            onClick={() => handleSearch()}
-            className="px-4 py-2 bg-sky-500 hover:bg-sky-600 text-white text-sm font-medium rounded-lg transition-colors"
-          >
-            查詢
-          </button>
-          {searchId && (
-            <button onClick={handleClear} className="p-2 text-gray-400 hover:text-gray-600 transition-colors">
-              <X className="w-4 h-4" />
+    <div className="relative">
+      <div className="flex gap-2">
+        <div className="relative flex-1">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => { setQuery(e.target.value); setSubmitted(null); }}
+            onKeyDown={(e) => { if (e.key === 'Enter') handleSearch(); }}
+            placeholder="輸入股票代號或名稱，如 2330 或 台積電"
+            className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-gray-800 border border-gray-700 text-sm text-gray-100 placeholder-gray-600 focus:outline-none focus:border-sky-500/50 focus:ring-1 focus:ring-sky-500/20 transition-colors"
+          />
+          {query && (
+            <button onClick={() => { setQuery(''); setSubmitted(null); }} className="absolute right-3 top-1/2 -translate-y-1/2">
+              <X className="w-4 h-4 text-gray-500 hover:text-gray-300" />
             </button>
           )}
         </div>
-        <p className="text-[10px] text-gray-400 mt-2">
-          支援代號或中文名稱搜尋；今日掃描名單內即時顯示，名單外將向 TWSE 即時查詢並評分
+        <button
+          onClick={handleSearch}
+          className="px-4 py-2.5 rounded-xl bg-sky-500/15 border border-sky-500/30 text-sky-300 text-sm font-medium hover:bg-sky-500/25 transition-colors whitespace-nowrap"
+        >
+          查詢
+        </button>
+      </div>
+
+      {/* Autocomplete */}
+      {suggestions.length > 0 && !submitted && (
+        <div className="absolute top-full left-0 right-0 mt-1 z-20 bg-gray-900 border border-gray-700 rounded-xl shadow-2xl overflow-hidden">
+          {suggestions.map((s) => (
+            <button
+              key={s.stock_id}
+              onClick={() => {
+                if (!existing.includes(s.stock_id)) onAdd(s);
+                setQuery('');
+                setSubmitted(null);
+              }}
+              disabled={existing.includes(s.stock_id)}
+              className="w-full flex items-center justify-between px-3 py-2.5 hover:bg-gray-800 transition-colors disabled:opacity-40"
+            >
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-xs text-gray-500">{s.stock_id}</span>
+                <span className="text-sm text-gray-200">{s.name}</span>
+                <span className="text-[10px] text-gray-600">{s.sector}</span>
+              </div>
+              <span className={`text-xs font-mono font-bold ${
+                s.total_score >= 70 ? 'text-red-400' :
+                s.total_score >= 55 ? 'text-amber-400' : 'text-gray-500'
+              }`}>{s.total_score.toFixed(1)}</span>
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* Loading / Error */}
+      {status === 'loading' && <SkeletonCard />}
+      {(status === 'error' || status === 'not_traded') && error && (
+        <div className="mt-3 flex items-center gap-2 text-xs text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl px-3 py-2.5">
+          <AlertCircle className="w-4 h-4 shrink-0" />{error}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default function SelfCheck() {
+  const [stocks, setStocks] = useState<ScanStock[]>([]);
+  const MAX_STOCKS = 3;
+
+  const addStock = useCallback((s: ScanStock) => {
+    setStocks((prev) => {
+      if (prev.find((p) => p.stock_id === s.stock_id)) return prev;
+      if (prev.length >= MAX_STOCKS) return [...prev.slice(1), s];
+      return [...prev, s];
+    });
+  }, []);
+
+  const removeStock = useCallback((id: string) => {
+    setStocks((prev) => prev.filter((s) => s.stock_id !== id));
+  }, []);
+
+  const canCompare = stocks.length >= 2;
+
+  return (
+    <div className="space-y-5">
+      {/* Header */}
+      <div className="rounded-2xl border border-gray-800/60 bg-gradient-to-br from-gray-900 to-gray-900/50 px-5 py-4">
+        <h1 className="text-lg font-bold text-white flex items-center gap-2">
+          <Search className="w-5 h-5 text-sky-400" />自主檢查
+        </h1>
+        <p className="text-xs text-gray-400 mt-1">
+          輸入股票代號即時查詢五維度評分，最多同時比較 {MAX_STOCKS} 支股票
         </p>
       </div>
 
-      {/* 載入中 */}
-      {showLoading && (
-        <div className="rounded-xl border border-gray-200 bg-white p-10 text-center shadow-sm">
-          <Loader2 className="w-8 h-8 text-sky-500 animate-spin mx-auto mb-3" />
-          <p className="text-sm text-gray-600">正在即時查詢 {searchId} 並計算五維評分...</p>
-          <p className="text-[11px] text-gray-400 mt-1">從 TWSE OpenAPI 抓取近 60 日 K 線，約需 5–15 秒</p>
+      {/* Search */}
+      <div className="relative">
+        <SingleStockLookup
+          onAdd={addStock}
+          existing={stocks.map((s) => s.stock_id)}
+        />
+      </div>
+
+      {/* Compare button */}
+      {stocks.length > 0 && (
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            {stocks.map((s) => (
+              <span key={s.stock_id} className="flex items-center gap-1 text-xs bg-sky-500/10 border border-sky-500/20 text-sky-300 px-2 py-1 rounded-full">
+                {s.stock_id}
+                <button onClick={() => removeStock(s.stock_id)}>
+                  <X className="w-3 h-3 text-sky-400 hover:text-red-400" />
+                </button>
+              </span>
+            ))}
+          </div>
+          {stocks.length < MAX_STOCKS && (
+            <span className="text-xs text-gray-600 flex items-center gap-1">
+              <Plus className="w-3 h-3" />再搜尋可加入比較
+            </span>
+          )}
         </div>
       )}
 
-      {/* 找不到 */}
-      {showNotFound && (
-        <div className="rounded-xl border border-amber-200 bg-amber-50 p-6 text-center shadow-sm">
-          <AlertCircle className="w-8 h-8 text-amber-500 mx-auto mb-2" />
-          <p className="text-sm text-amber-700">找不到「{searchId}」的交易資料</p>
-          <p className="text-[11px] text-gray-500 mt-1">請確認代號正確，或該股票尚未在 TWSE 上市</p>
-        </div>
-      )}
+      {/* Compare radar */}
+      {canCompare && <CompareRadar stocks={stocks} />}
 
-      {/* 錯誤 */}
-      {showError && (
-        <div className="rounded-xl border border-red-200 bg-red-50 p-6 text-center shadow-sm">
-          <AlertCircle className="w-8 h-8 text-red-500 mx-auto mb-2" />
-          <p className="text-sm text-red-700">查詢失敗</p>
-          <p className="text-[11px] text-gray-500 mt-1">{odError}</p>
-        </div>
-      )}
+      {/* Stock cards */}
+      <div className={`grid gap-4 ${
+        stocks.length >= 2 ? 'md:grid-cols-2' : 'grid-cols-1'
+      } ${stocks.length >= 3 ? 'lg:grid-cols-3' : ''}`}>
+        {stocks.map((s) => (
+          <StockCard
+            key={s.stock_id}
+            stock={s}
+            onRemove={() => removeStock(s.stock_id)}
+            showRemove={stocks.length > 1}
+          />
+        ))}
+      </div>
 
-      {/* 結果卡片 */}
-      {displayStock && <StockCard stock={displayStock} />}
-
-      {/* 空狀態 */}
-      {!searchId && (
-        <div className="rounded-xl border border-gray-200 bg-white p-10 text-center shadow-sm">
-          <Search className="w-10 h-10 text-gray-200 mx-auto mb-3" />
-          <p className="text-sm text-gray-500 font-medium">輸入股票代號或名稱開始查詢</p>
-          <p className="text-[11px] text-gray-400 mt-1">支援台積電、聯發科等中文名稱，或直接輸入 2330</p>
+      {stocks.length === 0 && (
+        <div className="rounded-xl border border-gray-800 bg-gray-900/30 p-12 text-center">
+          <Search className="w-10 h-10 text-gray-700 mx-auto mb-3" />
+          <p className="text-sm text-gray-500">搜尋任意台股代號或名稱</p>
+          <p className="text-xs text-gray-700 mt-1">例如：2330、台積電、0050</p>
         </div>
       )}
     </div>

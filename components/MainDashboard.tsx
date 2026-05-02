@@ -7,15 +7,15 @@ import Top10Table from './Top10Table';
 import HistoryBrowser from './HistoryBrowser';
 import SelfCheck from './SelfCheck';
 import AllResultsTable from './AllResultsTable';
-import { Activity, RefreshCw, Clock, History, Radar, Search, List } from 'lucide-react';
+import DisclaimerModal from './DisclaimerModal';
+import { Activity, RefreshCw, Clock, History, Radar, Search, List, Github, Info } from 'lucide-react';
 
 type Tab = 'dashboard' | 'all' | 'history' | 'selfcheck';
-
-const DISCLAIMER = '本系統資料僅供參考，不構成任何投資建議。投資有風險，進入市場前請詳閱公開說明書，並審慎評估個人財務狀況。過去績效不代表未來獲利保證。';
 
 export default function MainDashboard() {
   const [activeTab, setActiveTab] = useState<Tab>('dashboard');
   const [now, setNow] = useState('');
+  const [showDisclaimer, setShowDisclaimer] = useState(false);
   const { data, isLoading, error } = useLatestScan();
   const { data: allScores, isLoading: allLoading } = useAllScores();
 
@@ -34,6 +34,14 @@ export default function MainDashboard() {
     return () => clearInterval(id);
   }, []);
 
+  // Show disclaimer once per session
+  useEffect(() => {
+    if (!sessionStorage.getItem('disclaimer_seen')) {
+      setShowDisclaimer(true);
+      sessionStorage.setItem('disclaimer_seen', '1');
+    }
+  }, []);
+
   const scanData = data ?? (error ? demoScanResult : null);
   const isDemo = !data && !!error;
   const allResults = allScores?.all_stock_scores ?? null;
@@ -41,80 +49,89 @@ export default function MainDashboard() {
   const allResultsCount = allScores?.scanned_count ?? allResults?.length ?? 0;
 
   return (
-    <div className="min-h-dvh bg-gray-50 text-gray-900 font-sans flex flex-col">
+    <div className="min-h-dvh bg-gray-950 text-gray-100 font-sans flex flex-col">
+      {showDisclaimer && <DisclaimerModal onClose={() => setShowDisclaimer(false)} />}
+
       {/* ── Header ── */}
-      <header className="sticky top-0 z-20 border-b border-gray-200 bg-white/90 backdrop-blur shadow-sm">
+      <header className="sticky top-0 z-20 border-b border-gray-800 bg-gray-950/95 backdrop-blur">
         <div className="max-w-screen-xl mx-auto px-4">
-          <div className="flex items-center h-13 gap-4 py-2">
-            <div className="flex items-center gap-2 shrink-0">
-              <Radar className="w-5 h-5 text-sky-500" />
-              <span className="font-bold text-gray-900 text-sm tracking-wide">台股雷達</span>
-              <span className="text-gray-400 text-xs hidden sm:inline">Taiwan Stock Radar</span>
-            </div>
+          <div className="flex items-center h-14 gap-3 py-2">
+            {/* Logo */}
+            <a href="/taiwan-stock-radar/" className="flex items-center gap-2 shrink-0 group">
+              <div className="relative w-7 h-7 rounded-lg bg-sky-500/20 border border-sky-500/40 flex items-center justify-center group-hover:bg-sky-500/30 transition-colors">
+                <Radar className="w-4 h-4 text-sky-400" />
+              </div>
+              <div className="flex items-baseline gap-1.5">
+                <span className="font-bold text-white text-sm tracking-wide">台股雷達</span>
+                <span className="text-gray-500 text-[10px] hidden sm:inline">Taiwan Stock Radar</span>
+              </div>
+              <span className="hidden sm:inline text-[9px] bg-sky-500/20 text-sky-400 border border-sky-500/30 px-1.5 py-0.5 rounded-full font-mono">v3.0</span>
+            </a>
+
+            {/* Nav */}
             <nav className="flex items-center gap-1 flex-1 overflow-x-auto scrollbar-hide">
-              <button
-                onClick={() => setActiveTab('dashboard')}
-                className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all whitespace-nowrap flex items-center gap-1.5 ${
-                  activeTab === 'dashboard'
-                    ? 'bg-sky-50 text-sky-600 border border-sky-200'
-                    : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
-                }`}
-              >
-                <Activity className="w-3.5 h-3.5" />每日推薦
-              </button>
-              <button
-                onClick={() => setActiveTab('all')}
-                className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all whitespace-nowrap flex items-center gap-1.5 ${
-                  activeTab === 'all'
-                    ? 'bg-sky-50 text-sky-600 border border-sky-200'
-                    : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
-                }`}
-              >
-                <List className="w-3.5 h-3.5" />類股動態
-                {allResultsCount > 0 && (
-                  <span className="text-[10px] bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded-full">{allResultsCount}</span>
-                )}
-              </button>
-              <button
-                onClick={() => setActiveTab('history')}
-                className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all whitespace-nowrap flex items-center gap-1.5 ${
-                  activeTab === 'history'
-                    ? 'bg-sky-50 text-sky-600 border border-sky-200'
-                    : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
-                }`}
-              >
-                <History className="w-3.5 h-3.5" />歷史回測
-              </button>
-              <button
-                onClick={() => setActiveTab('selfcheck')}
-                className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all whitespace-nowrap flex items-center gap-1.5 ${
-                  activeTab === 'selfcheck'
-                    ? 'bg-sky-50 text-sky-600 border border-sky-200'
-                    : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
-                }`}
-              >
-                <Search className="w-3.5 h-3.5" />個股五維分析
-              </button>
+              {([
+                { id: 'dashboard', icon: <Activity className="w-3.5 h-3.5" />, label: '每日推薦' },
+                { id: 'all',       icon: <List className="w-3.5 h-3.5" />,     label: '全部結果', badge: allResultsCount > 0 ? allResultsCount : null },
+                { id: 'history',   icon: <History className="w-3.5 h-3.5" />,  label: '歷史查詢' },
+                { id: 'selfcheck', icon: <Search className="w-3.5 h-3.5" />,   label: '自主檢查' },
+              ] as const).map((t) => (
+                <button
+                  key={t.id}
+                  onClick={() => setActiveTab(t.id)}
+                  className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all whitespace-nowrap flex items-center gap-1.5 ${
+                    activeTab === t.id
+                      ? 'bg-sky-500/15 text-sky-300 border border-sky-500/30'
+                      : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800/60'
+                  }`}
+                >
+                  {t.icon}{t.label}
+                  {'badge' in t && t.badge && (
+                    <span className="text-[9px] bg-gray-700 text-gray-400 px-1.5 py-0.5 rounded-full">{t.badge.toLocaleString()}</span>
+                  )}
+                </button>
+              ))}
             </nav>
-            <div className="flex items-center gap-3 shrink-0 text-xs">
+
+            {/* Right controls */}
+            <div className="flex items-center gap-2 shrink-0">
               {isLoading && (
-                <span className="flex items-center gap-1 text-sky-500">
+                <span className="flex items-center gap-1 text-sky-400 text-[11px]">
                   <RefreshCw className="w-3 h-3 animate-spin" />
-                  <span className="hidden sm:inline text-[11px]">載入中</span>
+                  <span className="hidden sm:inline">載入中</span>
                 </span>
               )}
               {!isLoading && !error && data && (
-                <span className="flex items-center gap-1 text-green-600">
-                  <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-                  <span className="hidden sm:inline text-[11px]">最新資料</span>
+                <span className="relative flex items-center gap-1.5 text-emerald-400 text-[11px]">
+                  <span className="relative w-1.5 h-1.5">
+                    <span className="pulse-ring absolute inset-0 rounded-full bg-emerald-400" />
+                    <span className="relative block w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                  </span>
+                  <span className="hidden sm:inline">最新資料</span>
                 </span>
               )}
-              {isDemo && <span className="text-amber-500 text-[10px] hidden sm:inline">示範模式</span>}
+              {isDemo && <span className="text-amber-400 text-[10px] hidden sm:inline px-1.5 py-0.5 bg-amber-500/10 border border-amber-500/20 rounded">示範模式</span>}
               {now && (
-                <span className="text-gray-400 text-[11px] hidden md:flex items-center gap-1 font-mono">
+                <span className="text-gray-600 text-[11px] hidden md:flex items-center gap-1 font-mono">
                   <Clock className="w-3 h-3" />{now}
                 </span>
               )}
+              <button
+                onClick={() => setShowDisclaimer(true)}
+                className="p-1.5 rounded-lg text-gray-600 hover:text-gray-400 hover:bg-gray-800 transition-colors"
+                title="免責聲明"
+              >
+                <Info className="w-3.5 h-3.5" />
+              </button>
+              <a
+                href="https://github.com/juststarlight66-oss/taiwan-stock-radar"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-1.5 rounded-lg text-gray-600 hover:text-gray-400 hover:bg-gray-800 transition-colors"
+                title="GitHub"
+              >
+                <Github className="w-3.5 h-3.5" />
+              </a>
             </div>
           </div>
         </div>
@@ -122,32 +139,45 @@ export default function MainDashboard() {
 
       {/* ── Main ── */}
       <main className="flex-1 max-w-screen-xl mx-auto w-full px-4 py-5">
-        {/* 最新掃描 */}
+
+        {/* Dashboard Tab */}
         {activeTab === 'dashboard' && (
-          <div className="space-y-5">
-            <div className="rounded-xl border border-gray-200 bg-white px-5 py-4 shadow-sm">
-              <div className="flex items-start justify-between flex-wrap gap-3">
+          <div className="space-y-5 fade-in">
+            {/* Hero banner */}
+            <div className="rounded-2xl border border-gray-800/60 bg-gradient-to-br from-gray-900 via-gray-900 to-sky-950/30 px-5 py-5 relative overflow-hidden">
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(56,189,248,0.06),transparent_60%)] pointer-events-none" />
+              <div className="flex items-start justify-between flex-wrap gap-4">
                 <div>
-                  <h1 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-                    <Radar className="w-5 h-5 text-sky-500" />每日推薦
+                  <h1 className="text-lg font-bold text-white flex items-center gap-2">
+                    <Radar className="w-5 h-5 text-sky-400" />
+                    每日底部反轉掃描
+                    <span className="text-[10px] text-sky-400 bg-sky-500/10 border border-sky-500/20 px-2 py-0.5 rounded-full font-normal">AI 驅動</span>
                   </h1>
-                  <p className="text-xs text-gray-500 mt-1">每日 19:00 自動掃描全市場，依五維度評分篩選最強勢標的</p>
+                  <p className="text-xs text-gray-400 mt-1">每日 22:55 自動掃描全市場，依五維度 AI 評分篩選最強勢標的</p>
+                  <div className="flex flex-wrap gap-2 mt-3">
+                    {['技術面', '基本面', '消息面', '市場情緒', '籌碼面'].map((d) => (
+                      <span key={d} className="text-[10px] text-sky-300/80 bg-sky-500/8 border border-sky-500/15 px-2 py-0.5 rounded-full">{d}</span>
+                    ))}
+                  </div>
                 </div>
                 {scanData && (
                   <div className="text-right">
-                    <div className="text-xs text-gray-400">掃描日期</div>
-                    <div className="text-sm font-mono font-bold text-sky-600">{scanData.scan_date}</div>
+                    <div className="text-[10px] text-gray-500 mb-1">掃描日期</div>
+                    <div className="text-base font-mono font-bold text-sky-300">{scanData.scan_date}</div>
                     {scanData.scanned_count && (
-                      <div className="text-[11px] text-gray-400">共掃描 {scanData.scanned_count} 檔</div>
+                      <div className="text-[11px] text-gray-500 mt-0.5">共掃描 <span className="text-gray-300 font-mono">{scanData.scanned_count.toLocaleString()}</span> 檔</div>
                     )}
                   </div>
                 )}
               </div>
             </div>
+
             {isLoading ? (
-              <div className="rounded-xl border border-gray-200 bg-white p-16 text-center shadow-sm">
-                <div className="w-10 h-10 border-2 border-sky-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-                <p className="text-sm text-gray-500">正在載入最新掃描資料...</p>
+              <div className="space-y-3">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                  {[...Array(4)].map((_, i) => <div key={i} className="skeleton h-24 rounded-xl" />)}
+                </div>
+                <div className="skeleton h-64 rounded-xl" />
               </div>
             ) : scanData ? (
               <>
@@ -155,85 +185,104 @@ export default function MainDashboard() {
                 <Top10Table stocks={scanData.top10} scanDate={scanData.scan_date} scannedCount={scanData.scanned_count} isDemo={isDemo} />
               </>
             ) : (
-              <div className="rounded-xl border border-gray-200 bg-white p-16 text-center shadow-sm">
-                <Radar className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                <p className="text-sm text-gray-400">尚無掃描資料</p>
+              <div className="rounded-xl border border-gray-800 bg-gray-900/40 p-16 text-center">
+                <Radar className="w-12 h-12 text-gray-700 mx-auto mb-4" />
+                <p className="text-sm text-gray-500">尚無掃描資料</p>
+                <p className="text-xs text-gray-600 mt-1">等待今日 22:55 掃描完成</p>
               </div>
             )}
           </div>
         )}
 
-        {/* 全部結果 */}
+        {/* All Results Tab */}
         {activeTab === 'all' && (
-          <div className="space-y-4">
-            <div className="rounded-xl border border-gray-200 bg-white px-5 py-4 shadow-sm">
+          <div className="space-y-4 fade-in">
+            <div className="rounded-2xl border border-gray-800/60 bg-gradient-to-br from-gray-900 to-gray-900/50 px-5 py-4">
               <div className="flex items-start justify-between flex-wrap gap-3">
                 <div>
-                  <h1 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-                    <List className="w-5 h-5 text-sky-500" />類股動態
+                  <h1 className="text-lg font-bold text-white flex items-center gap-2">
+                    <List className="w-5 h-5 text-sky-400" />全部掃描結果
                   </h1>
-                  <p className="text-xs text-gray-500 mt-1">本次掃描所有 {allResultsCount} 檔完整評分，類股輪動與族群強弱一覽</p>
+                  <p className="text-xs text-gray-400 mt-1">本次掃描所有 <span className="text-gray-200 font-mono">{allResultsCount.toLocaleString()}</span> 檔完整評分，可依分數排序與搜尋</p>
                 </div>
                 {allResultsDate && (
                   <div className="text-right">
-                    <div className="text-xs text-gray-400">掃描日期</div>
-                    <div className="text-sm font-mono font-bold text-sky-600">{allResultsDate}</div>
+                    <div className="text-[10px] text-gray-500">掃描日期</div>
+                    <div className="text-sm font-mono font-bold text-sky-300">{allResultsDate}</div>
                   </div>
                 )}
               </div>
             </div>
             {allLoading ? (
-              <div className="rounded-xl border border-gray-200 bg-white p-16 text-center shadow-sm">
-                <div className="w-10 h-10 border-2 border-sky-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-                <p className="text-sm text-gray-500">載入 {allResultsCount || 2103} 檔完整資料...</p>
+              <div className="space-y-2">
+                {[...Array(6)].map((_, i) => <div key={i} className="skeleton h-12 rounded-lg" />)}
               </div>
             ) : allResults ? (
               <AllResultsTable stocks={allResults} scanDate={allResultsDate} />
             ) : (
-              <div className="rounded-xl border border-gray-200 bg-white p-16 text-center shadow-sm">
-                <List className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                <p className="text-sm text-gray-400">尚無完整結果資料</p>
-                <p className="text-xs text-gray-400 mt-1">all_scores.json 尚未就緒，請等待下一次 19:00 掃描</p>
+              <div className="rounded-xl border border-gray-800 bg-gray-900/40 p-16 text-center">
+                <List className="w-12 h-12 text-gray-700 mx-auto mb-4" />
+                <p className="text-sm text-gray-500">尚無完整結果資料</p>
+                <p className="text-xs text-gray-600 mt-1">all_scores.json 尚未就緒，請等待 22:55 掃描</p>
               </div>
             )}
           </div>
         )}
 
-        {/* 歷史查詢 */}
+        {/* History Tab */}
         {activeTab === 'history' && (
-          <div className="space-y-4">
-            <div className="rounded-xl border border-gray-200 bg-white px-5 py-4 shadow-sm">
-              <h1 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-                <History className="w-5 h-5 text-sky-500" />歷史回測
+          <div className="space-y-4 fade-in">
+            <div className="rounded-2xl border border-gray-800/60 bg-gradient-to-br from-gray-900 to-gray-900/50 px-5 py-4">
+              <h1 className="text-lg font-bold text-white flex items-center gap-2">
+                <History className="w-5 h-5 text-sky-400" />歷史掃描記錄
               </h1>
-              <p className="text-xs text-gray-500 mt-1">瀏覽過去每日推薦 Top 10，查看 T+1/T+3/T+5 實際漲跌幅與勝率</p>
+              <p className="text-xs text-gray-400 mt-1">瀏覽過去每日掃描結果，點擊日期查看當日 Top 10 詳情</p>
             </div>
             <HistoryBrowser />
           </div>
         )}
 
-        {/* 自主檢查 */}
+        {/* SelfCheck Tab */}
         {activeTab === 'selfcheck' && (
-          <div className="space-y-4">
-            <div className="rounded-xl border border-gray-200 bg-white px-5 py-4 shadow-sm">
-              <h1 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-                <Search className="w-5 h-5 text-sky-500" />個股五維分析
-              </h1>
-              <p className="text-xs text-gray-500 mt-1">輸入任意台股代號，即時從 TWSE 取得資料並進行五維度評分分析</p>
-            </div>
+          <div className="fade-in">
             <SelfCheck />
           </div>
         )}
       </main>
 
-      {/* ── Footer + 投資警語 ── */}
-      <footer className="border-t border-gray-200 bg-white mt-4">
-        <div className="max-w-screen-xl mx-auto px-4 py-4">
-          <p className="text-[11px] text-gray-500 text-center leading-relaxed">
-            ⚠️ <strong>投資警語：</strong>{DISCLAIMER}
-          </p>
-          <p className="text-[10px] text-gray-400 text-center mt-2">
-            資料來源：TWSE OpenAPI｜Taiwan Stock Radar v2.0｜僅供資訊參考
+      {/* ── Footer ── */}
+      <footer className="border-t border-gray-800/60 py-6 mt-4">
+        <div className="max-w-screen-xl mx-auto px-4">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <Radar className="w-4 h-4 text-sky-400" />
+              <span className="text-sm font-semibold text-gray-300">台股雷達</span>
+              <span className="text-[10px] text-gray-600">Taiwan Stock Radar v3.0</span>
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-4 text-[11px] text-gray-600">
+              <span>資料來源：TWSE OpenAPI</span>
+              <span className="hidden sm:inline text-gray-700">|</span>
+              <span>每日 22:55 自動更新</span>
+              <span className="hidden sm:inline text-gray-700">|</span>
+              <button
+                onClick={() => setShowDisclaimer(true)}
+                className="text-gray-500 hover:text-gray-300 transition-colors underline underline-offset-2"
+              >
+                免責聲明
+              </button>
+              <span className="hidden sm:inline text-gray-700">|</span>
+              <a
+                href="https://github.com/juststarlight66-oss/taiwan-stock-radar"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-500 hover:text-gray-300 transition-colors flex items-center gap-1"
+              >
+                <Github className="w-3 h-3" />GitHub
+              </a>
+            </div>
+          </div>
+          <p className="text-center text-[10px] text-gray-700 mt-3">
+            本系統資料僅供參考，不構成任何投資建議。投資有風險，請審慎評估個人財務狀況。過去績效不代表未來獲利保證。
           </p>
         </div>
       </footer>
