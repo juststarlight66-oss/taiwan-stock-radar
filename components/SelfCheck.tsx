@@ -13,10 +13,10 @@ import {
 } from 'recharts';
 
 const GRADE_CONFIG: Record<string, { label: string; color: string; bg: string; border: string }> = {
-  '強力買進': { label: '強力買進 🔥', color: 'text-red-400',     bg: 'bg-red-500/10',     border: 'border-red-500/30' },
-  '買進':     { label: '買進 ✅',      color: 'text-orange-400',  bg: 'bg-orange-500/10',  border: 'border-orange-500/30' },
-  '觀望':     { label: '觀望 ⏳',      color: 'text-gray-400',    bg: 'bg-gray-800',       border: 'border-gray-700' },
-  '偏弱':     { label: '偏弱 ⚠️',     color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/30' },
+  '強力買進': { label: '強力買進 🔥', color: 'text-red-600',     bg: 'bg-red-50',        border: 'border-red-200' },
+  '買進':     { label: '買進 ✅',      color: 'text-orange-600',  bg: 'bg-orange-50',     border: 'border-orange-200' },
+  '觀望':     { label: '觀望 ⏳',      color: 'text-gray-500',    bg: 'bg-gray-50',       border: 'border-gray-200' },
+  '偏弱':     { label: '偏弱 ⚠️',     color: 'text-emerald-600', bg: 'bg-emerald-50',    border: 'border-emerald-200' },
 };
 
 const DIM_LABELS: Record<string, string> = {
@@ -25,13 +25,13 @@ const DIM_LABELS: Record<string, string> = {
 const DIM_MAXES: Record<string, number> = {
   technical: 40, fundamental: 40, news: 10, sentiment: 10, chips: 10,
 };
-const DIM_COLORS = ['#38bdf8', '#34d399', '#fbbf24', '#a78bfa', '#f87171'];
+const DIM_COLORS = ['#0ea5e9', '#10b981', '#f59e0b', '#8b5cf6', '#ef4444'];
 
 function ScoreBar({ value, max }: { value: number; max: number }) {
   const pct = Math.min(100, (value / max) * 100);
-  const color = pct >= 70 ? 'bg-emerald-500' : pct >= 50 ? 'bg-sky-500' : pct >= 30 ? 'bg-amber-400' : 'bg-red-500';
+  const color = pct >= 70 ? 'bg-emerald-500' : pct >= 50 ? 'bg-sky-500' : pct >= 30 ? 'bg-amber-400' : 'bg-red-400';
   return (
-    <div className="w-full bg-gray-800 rounded-full h-1.5">
+    <div className="w-full bg-gray-200 rounded-full h-1.5">
       <div className={`${color} h-1.5 rounded-full transition-all`} style={{ width: `${pct}%` }} />
     </div>
   );
@@ -39,17 +39,17 @@ function ScoreBar({ value, max }: { value: number; max: number }) {
 
 function SkeletonCard() {
   return (
-    <div className="rounded-xl border border-gray-800 bg-gray-900/40 p-5 space-y-3 animate-pulse">
+    <div className="rounded-xl border border-gray-200 bg-gray-50 p-5 space-y-3 animate-pulse">
       <div className="flex items-center justify-between">
-        <div className="skeleton h-6 w-32 rounded" />
-        <div className="skeleton h-8 w-16 rounded" />
+        <div className="h-6 w-32 rounded bg-gray-200" />
+        <div className="h-8 w-16 rounded bg-gray-200" />
       </div>
-      <div className="skeleton h-4 w-full rounded" />
-      <div className="skeleton h-4 w-3/4 rounded" />
+      <div className="h-4 w-full rounded bg-gray-200" />
+      <div className="h-4 w-3/4 rounded bg-gray-200" />
       <div className="grid grid-cols-3 gap-2">
-        {[...Array(3)].map((_, i) => <div key={i} className="skeleton h-12 rounded" />)}
+        {[...Array(3)].map((_, i) => <div key={i} className="h-12 rounded bg-gray-200" />)}
       </div>
-      <div className="skeleton h-24 w-full rounded" />
+      <div className="h-24 w-full rounded bg-gray-200" />
     </div>
   );
 }
@@ -65,14 +65,14 @@ function CompareRadar({ stocks }: { stocks: ScanStock[] }) {
   });
 
   return (
-    <div className="rounded-xl border border-gray-800 bg-gray-900/40 p-4">
-      <h3 className="text-xs font-semibold text-gray-400 mb-3">五維度比較雷達圖</h3>
+    <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+      <h3 className="text-xs font-semibold text-gray-500 mb-3">五維度比較雷達圖</h3>
       <ResponsiveContainer width="100%" height={220}>
         <RadarChart data={data} margin={{ top: 8, right: 20, bottom: 8, left: 20 }}>
-          <PolarGrid stroke="#1e293b" />
+          <PolarGrid stroke="#e5e7eb" />
           <PolarAngleAxis dataKey="dim" tick={{ fontSize: 11, fill: '#6b7280' }} />
           <Legend
-            formatter={(value) => <span className="text-[11px] text-gray-400">{value}</span>}
+            formatter={(value) => <span className="text-[11px] text-gray-500">{value}</span>}
           />
           {stocks.map((s, i) => (
             <Radar
@@ -96,7 +96,6 @@ function StockCard({ stock, onRemove, showRemove }: { stock: ScanStock; onRemove
   const [copied, setCopied] = useState(false);
   const up = (stock.change_pct ?? 0) >= 0;
   const grade = GRADE_CONFIG[stock.strategy?.recommendation ?? '觀望'] ?? GRADE_CONFIG['觀望'];
-  const totalMax = Object.values(DIMENSION_CONFIG).reduce((s, c) => s + c.max, 0);
 
   const share = () => {
     const text = `台股雷達評分 ${stock.name}(${stock.stock_id}): ${stock.total_score.toFixed(1)} — ${stock.strategy.recommendation}`;
@@ -108,30 +107,30 @@ function StockCard({ stock, onRemove, showRemove }: { stock: ScanStock; onRemove
   };
 
   return (
-    <div className={`rounded-xl border ${grade.border} ${grade.bg} p-5 fade-in`}>
+    <div className={`rounded-xl border ${grade.border} ${grade.bg} p-5 shadow-sm`}>
       {/* Stock header */}
       <div className="flex items-start justify-between mb-3">
         <div>
           <div className="flex items-center gap-2">
-            <span className="font-bold text-white text-base">{stock.name}</span>
-            <span className="font-mono text-xs text-gray-500">{stock.stock_id}</span>
+            <span className="font-bold text-gray-900 text-base">{stock.name}</span>
+            <span className="font-mono text-xs text-gray-400">{stock.stock_id}</span>
             <a
               href={`https://tw.stock.yahoo.com/quote/${stock.stock_id}`}
               target="_blank" rel="noopener noreferrer"
-              className="text-sky-500 hover:text-sky-400"
+              className="text-sky-500 hover:text-sky-600"
             >
               <ExternalLink className="w-3 h-3" />
             </a>
           </div>
-          <div className="text-[11px] text-gray-500 mt-0.5">{stock.sector}</div>
+          <div className="text-[11px] text-gray-400 mt-0.5">{stock.sector}</div>
         </div>
         <div className="flex items-center gap-1">
-          <button onClick={share} className="p-1.5 rounded-lg hover:bg-gray-800 transition-colors" title="分享">
-            {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Share2 className="w-3.5 h-3.5 text-gray-500" />}
+          <button onClick={share} className="p-1.5 rounded-lg hover:bg-gray-100 transition-colors" title="分享">
+            {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Share2 className="w-3.5 h-3.5 text-gray-400" />}
           </button>
           {showRemove && (
-            <button onClick={onRemove} className="p-1.5 rounded-lg hover:bg-red-500/10 transition-colors" title="移除">
-              <Trash2 className="w-3.5 h-3.5 text-gray-600 hover:text-red-400" />
+            <button onClick={onRemove} className="p-1.5 rounded-lg hover:bg-red-50 transition-colors" title="移除">
+              <Trash2 className="w-3.5 h-3.5 text-gray-400 hover:text-red-500" />
             </button>
           )}
         </div>
@@ -140,14 +139,14 @@ function StockCard({ stock, onRemove, showRemove }: { stock: ScanStock; onRemove
       {/* Price + Score */}
       <div className="flex items-end justify-between mb-3">
         <div>
-          <div className="text-2xl font-bold font-mono text-white">{stock.close.toLocaleString()}</div>
-          <div className={`text-xs font-mono flex items-center gap-0.5 mt-0.5 ${up ? 'text-red-400' : 'text-emerald-400'}`}>
+          <div className="text-2xl font-bold font-mono text-gray-900">{stock.close.toLocaleString()}</div>
+          <div className={`text-xs font-mono flex items-center gap-0.5 mt-0.5 ${up ? 'text-red-500' : 'text-emerald-600'}`}>
             {up ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
             {Math.abs(stock.change_pct ?? 0).toFixed(2)}%
           </div>
         </div>
         <div className="text-right">
-          <div className="text-3xl font-bold text-white">{stock.total_score.toFixed(1)}</div>
+          <div className="text-3xl font-bold text-gray-900">{stock.total_score.toFixed(1)}</div>
           <div className={`text-xs font-semibold ${grade.color}`}>{grade.label}</div>
         </div>
       </div>
@@ -162,7 +161,7 @@ function StockCard({ stock, onRemove, showRemove }: { stock: ScanStock; onRemove
               <div key={key} className="flex items-center gap-2">
                 <span className="text-[10px] text-gray-500 w-14 shrink-0">{label}</span>
                 <div className="flex-1"><ScoreBar value={val} max={max} /></div>
-                <span className="text-[10px] font-mono text-gray-400 w-8 text-right">{val.toFixed(1)}</span>
+                <span className="text-[10px] font-mono text-gray-500 w-8 text-right">{val.toFixed(1)}</span>
               </div>
             );
           })}
@@ -171,18 +170,18 @@ function StockCard({ stock, onRemove, showRemove }: { stock: ScanStock; onRemove
 
       {/* Strategy */}
       {stock.strategy && (
-        <div className="rounded-lg bg-gray-800/60 p-3 flex gap-3 text-xs">
+        <div className="rounded-lg bg-gray-100 p-3 flex gap-3 text-xs">
           <div className="text-center flex-1">
-            <div className="text-gray-500 text-[10px] mb-0.5">進場</div>
-            <div className="font-mono font-bold text-white">{stock.strategy.entry?.toFixed(2)}</div>
+            <div className="text-gray-400 text-[10px] mb-0.5">進場</div>
+            <div className="font-mono font-bold text-gray-800">{stock.strategy.entry?.toFixed(2)}</div>
           </div>
           <div className="text-center flex-1">
-            <div className="text-emerald-500 text-[10px] mb-0.5">目標 +{stock.strategy.upside}%</div>
-            <div className="font-mono font-bold text-emerald-400">{stock.strategy.target?.toFixed(2)}</div>
+            <div className="text-emerald-600 text-[10px] mb-0.5">目標 +{stock.strategy.upside}%</div>
+            <div className="font-mono font-bold text-emerald-600">{stock.strategy.target?.toFixed(2)}</div>
           </div>
           <div className="text-center flex-1">
             <div className="text-red-500 text-[10px] mb-0.5">停損 -{stock.strategy.downside}%</div>
-            <div className="font-mono font-bold text-red-400">{stock.strategy.stop_loss?.toFixed(2)}</div>
+            <div className="font-mono font-bold text-red-500">{stock.strategy.stop_loss?.toFixed(2)}</div>
           </div>
         </div>
       )}
@@ -192,7 +191,7 @@ function StockCard({ stock, onRemove, showRemove }: { stock: ScanStock; onRemove
         <div className="mt-3">
           <button
             onClick={() => setOpen((o) => !o)}
-            className="w-full flex items-center justify-between px-3 py-2 rounded-lg bg-gray-800/50 hover:bg-gray-800 transition-colors text-xs text-gray-500"
+            className="w-full flex items-center justify-between px-3 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors text-xs text-gray-500"
           >
             <span className="flex items-center gap-1"><TrendingUp className="w-3 h-3" />訊號明細</span>
             {open ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
@@ -201,10 +200,10 @@ function StockCard({ stock, onRemove, showRemove }: { stock: ScanStock; onRemove
             <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-1.5">
               {Object.entries(stock.signals).map(([dim, sigs]) =>
                 Array.isArray(sigs) && sigs.length > 0 && (
-                  <div key={dim} className="rounded-lg bg-gray-800/50 p-2">
+                  <div key={dim} className="rounded-lg bg-gray-50 border border-gray-200 p-2">
                     <div className="text-[10px] font-semibold text-gray-500 mb-1">{DIM_LABELS[dim]}</div>
                     {sigs.map((s, i) => (
-                      <div key={i} className="text-[10px] text-gray-400 leading-relaxed">• {s}</div>
+                      <div key={i} className="text-[10px] text-gray-600 leading-relaxed">• {s}</div>
                     ))}
                   </div>
                 )
@@ -247,7 +246,6 @@ function SingleStockLookup({
   const handleSearch = useCallback(() => {
     const id = query.trim().toUpperCase();
     if (!id) return;
-    // First check allScores
     const found = allList.find((s) => s.stock_id === id || s.name === id);
     if (found) {
       onAdd(found);
@@ -270,24 +268,24 @@ function SingleStockLookup({
     <div className="relative">
       <div className="flex gap-2">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
           <input
             type="text"
             value={query}
             onChange={(e) => { setQuery(e.target.value); setSubmitted(null); }}
             onKeyDown={(e) => { if (e.key === 'Enter') handleSearch(); }}
             placeholder="輸入股票代號或名稱，如 2330 或 台積電"
-            className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-gray-800 border border-gray-700 text-sm text-gray-100 placeholder-gray-600 focus:outline-none focus:border-sky-500/50 focus:ring-1 focus:ring-sky-500/20 transition-colors"
+            className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-white border border-gray-300 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-200 transition-colors shadow-sm"
           />
           {query && (
             <button onClick={() => { setQuery(''); setSubmitted(null); }} className="absolute right-3 top-1/2 -translate-y-1/2">
-              <X className="w-4 h-4 text-gray-500 hover:text-gray-300" />
+              <X className="w-4 h-4 text-gray-400 hover:text-gray-600" />
             </button>
           )}
         </div>
         <button
           onClick={handleSearch}
-          className="px-4 py-2.5 rounded-xl bg-sky-500/15 border border-sky-500/30 text-sky-300 text-sm font-medium hover:bg-sky-500/25 transition-colors whitespace-nowrap"
+          className="px-4 py-2.5 rounded-xl bg-sky-500 text-white text-sm font-medium hover:bg-sky-600 transition-colors whitespace-nowrap shadow-sm"
         >
           查詢
         </button>
@@ -295,7 +293,7 @@ function SingleStockLookup({
 
       {/* Autocomplete */}
       {suggestions.length > 0 && !submitted && (
-        <div className="absolute top-full left-0 right-0 mt-1 z-20 bg-gray-900 border border-gray-700 rounded-xl shadow-2xl overflow-hidden">
+        <div className="absolute top-full left-0 right-0 mt-1 z-20 bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden">
           {suggestions.map((s) => (
             <button
               key={s.stock_id}
@@ -305,16 +303,16 @@ function SingleStockLookup({
                 setSubmitted(null);
               }}
               disabled={existing.includes(s.stock_id)}
-              className="w-full flex items-center justify-between px-3 py-2.5 hover:bg-gray-800 transition-colors disabled:opacity-40"
+              className="w-full flex items-center justify-between px-3 py-2.5 hover:bg-gray-50 transition-colors disabled:opacity-40"
             >
               <div className="flex items-center gap-2">
-                <span className="font-mono text-xs text-gray-500">{s.stock_id}</span>
-                <span className="text-sm text-gray-200">{s.name}</span>
-                <span className="text-[10px] text-gray-600">{s.sector}</span>
+                <span className="font-mono text-xs text-gray-400">{s.stock_id}</span>
+                <span className="text-sm text-gray-800">{s.name}</span>
+                <span className="text-[10px] text-gray-400">{s.sector}</span>
               </div>
               <span className={`text-xs font-mono font-bold ${
-                s.total_score >= 70 ? 'text-red-400' :
-                s.total_score >= 55 ? 'text-amber-400' : 'text-gray-500'
+                s.total_score >= 70 ? 'text-red-500' :
+                s.total_score >= 55 ? 'text-amber-500' : 'text-gray-400'
               }`}>{s.total_score.toFixed(1)}</span>
             </button>
           ))}
@@ -324,7 +322,7 @@ function SingleStockLookup({
       {/* Loading / Error */}
       {status === 'loading' && <SkeletonCard />}
       {(status === 'error' || status === 'not_traded') && error && (
-        <div className="mt-3 flex items-center gap-2 text-xs text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl px-3 py-2.5">
+        <div className="mt-3 flex items-center gap-2 text-xs text-red-500 bg-red-50 border border-red-200 rounded-xl px-3 py-2.5">
           <AlertCircle className="w-4 h-4 shrink-0" />{error}
         </div>
       )}
@@ -353,11 +351,11 @@ export default function SelfCheck() {
   return (
     <div className="space-y-5">
       {/* Header */}
-      <div className="rounded-2xl border border-gray-800/60 bg-gradient-to-br from-gray-900 to-gray-900/50 px-5 py-4">
-        <h1 className="text-lg font-bold text-white flex items-center gap-2">
-          <Search className="w-5 h-5 text-sky-400" />自主檢查
+      <div className="rounded-2xl border border-gray-200 bg-gradient-to-br from-sky-50 to-white px-5 py-4 shadow-sm">
+        <h1 className="text-lg font-bold text-gray-900 flex items-center gap-2">
+          <Search className="w-5 h-5 text-sky-500" />自主檢查
         </h1>
-        <p className="text-xs text-gray-400 mt-1">
+        <p className="text-xs text-gray-500 mt-1">
           輸入股票代號即時查詢五維度評分，最多同時比較 {MAX_STOCKS} 支股票
         </p>
       </div>
@@ -370,21 +368,21 @@ export default function SelfCheck() {
         />
       </div>
 
-      {/* Compare button */}
+      {/* Added stocks tags */}
       {stocks.length > 0 && (
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             {stocks.map((s) => (
-              <span key={s.stock_id} className="flex items-center gap-1 text-xs bg-sky-500/10 border border-sky-500/20 text-sky-300 px-2 py-1 rounded-full">
+              <span key={s.stock_id} className="flex items-center gap-1 text-xs bg-sky-50 border border-sky-200 text-sky-700 px-2 py-1 rounded-full">
                 {s.stock_id}
                 <button onClick={() => removeStock(s.stock_id)}>
-                  <X className="w-3 h-3 text-sky-400 hover:text-red-400" />
+                  <X className="w-3 h-3 text-sky-400 hover:text-red-500" />
                 </button>
               </span>
             ))}
           </div>
           {stocks.length < MAX_STOCKS && (
-            <span className="text-xs text-gray-600 flex items-center gap-1">
+            <span className="text-xs text-gray-400 flex items-center gap-1">
               <Plus className="w-3 h-3" />再搜尋可加入比較
             </span>
           )}
@@ -409,10 +407,10 @@ export default function SelfCheck() {
       </div>
 
       {stocks.length === 0 && (
-        <div className="rounded-xl border border-gray-800 bg-gray-900/30 p-12 text-center">
-          <Search className="w-10 h-10 text-gray-700 mx-auto mb-3" />
+        <div className="rounded-xl border border-gray-200 bg-gray-50 p-12 text-center">
+          <Search className="w-10 h-10 text-gray-300 mx-auto mb-3" />
           <p className="text-sm text-gray-500">搜尋任意台股代號或名稱</p>
-          <p className="text-xs text-gray-700 mt-1">例如：2330、台積電、0050</p>
+          <p className="text-xs text-gray-400 mt-1">例如：2330、台積電、0050</p>
         </div>
       )}
     </div>
