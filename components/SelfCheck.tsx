@@ -12,17 +12,18 @@ import {
   Legend,
 } from 'recharts';
 
+// ── 建議等級：對齊 StockDetailModal 的 ACTION_MAP（light-theme 版）
 const ACTION_MAP: Record<string, { label: string; text: string; bg: string; border: string; dot: string }> = {
-  '強力買進': { label: '強力買進 🔕', text: 'text-red-600 font-bold',    bg: 'bg-red-50',     border: 'border-red-200',    dot: 'bg-red-500' },
+  '強力買進': { label: '強力買進 🔥', text: 'text-red-600 font-bold',    bg: 'bg-red-50',     border: 'border-red-200',    dot: 'bg-red-500' },
   '買進':     { label: '買進 ✅',      text: 'text-orange-600 font-bold', bg: 'bg-orange-50',  border: 'border-orange-200', dot: 'bg-orange-500' },
   '觀望':     { label: '觀望 ⏳',      text: 'text-gray-500',             bg: 'bg-gray-50',    border: 'border-gray-200',   dot: 'bg-gray-400' },
-  '偏弱':     { label: '协弱 ⚠️',     text: 'text-emerald-600',         bg: 'bg-emerald-50', border: 'border-emerald-200',dot: 'bg-emerald-500' },
+  '偏弱':     { label: '偏弱 ⚠️',     text: 'text-emerald-600',          bg: 'bg-emerald-50', border: 'border-emerald-200',dot: 'bg-emerald-500' },
 };
 
 const DIM_LABELS: Record<string, string> = {
-  technical: '技評杚', fundamental: '基本面', news: '消息杚', sentiment: '市場情緒', chips: '籌礸面',
+  technical: '技術面', fundamental: '基本面', news: '消息面', sentiment: '市場情緒', chips: '籌碼面',
 };
-const DIMO_MAXES: Record<string, number> = {
+const DIM_MAXES: Record<string, number> = {
   technical: 40, fundamental: 40, news: 10, sentiment: 10, chips: 10,
 };
 const DIM_COLORS = ['#0ea5e9', '#10b981', '#f59e0b', '#8b5cf6', '#ef4444'];
@@ -58,7 +59,7 @@ function CompareRadar({ stocks }: { stocks: ScanStock[] }) {
     const entry: Record<string, string | number> = { dim: label };
     stocks.forEach((s) => {
       const raw = (s.dimensions as unknown as Record<string, number>)?.[key] ?? 0;
-      entry[s.stock_id] = Math.round((raw / (DIMO_MAXES[key] ?? 10)) * 100);
+      entry[s.stock_id] = Math.round((raw / (DIM_MAXES[key] ?? 10)) * 100);
     });
     return entry;
   });
@@ -102,6 +103,7 @@ function StockCard({ stock, onRemove, showRemove }: { stock: ScanStock; onRemove
     }
   };
 
+  // 三關目標邏輯：對齊 StockDetailModal
   const targets = [
     { label: '第一關', key: 'target1', pctKey: 'upside' },
     { label: '第二關', key: 'target2', pctKey: 'upside2' },
@@ -117,7 +119,7 @@ function StockCard({ stock, onRemove, showRemove }: { stock: ScanStock; onRemove
 
   return (
     <div className={`rounded-xl border ${ac.border} ${ac.bg} p-5 shadow-sm`}>
-      {/* Header */}
+      {/* 股票標頭 */}
       <div className="flex items-start justify-between mb-3">
         <div>
           <div className="flex items-center gap-2">
@@ -141,7 +143,7 @@ function StockCard({ stock, onRemove, showRemove }: { stock: ScanStock; onRemove
         </div>
       </div>
 
-      {/* Price + Score */}
+      {/* 價格 + 評分 */}
       <div className="flex items-end justify-between mb-4">
         <div>
           <div className="text-2xl font-bold font-mono text-gray-900">{stock.close.toLocaleString()}</div>
@@ -159,12 +161,12 @@ function StockCard({ stock, onRemove, showRemove }: { stock: ScanStock; onRemove
         </div>
       </div>
 
-      {/* Dimension bars */}
+      {/* 五維度分數條 */}
       {stock.dimensions && (
         <div className="space-y-2 mb-4">
           {Object.entries(DIM_LABELS).map(([key, label]) => {
             const val = (stock.dimensions as unknown as Record<string, number>)[key] ?? 0;
-            const max = DIMO_MAXES[key] ?? 10;
+            const max = DIM_MAXES[key] ?? 10;
             return (
               <div key={key} className="flex items-center gap-2">
                 <span className="text-[10px] text-gray-500 w-14 shrink-0">{label}</span>
@@ -176,13 +178,14 @@ function StockCard({ stock, onRemove, showRemove }: { stock: ScanStock; onRemove
         </div>
       )}
 
-      {/* Strategy block */}
+      {/* ── 策略建議卡（對齊 StockDetailModal）── */}
       {hasStrategy && (
         <div className={`rounded-xl border p-4 ${ac.bg} ${ac.border} mb-3`}>
           <h3 className="text-[11px] font-semibold text-gray-500 mb-3 flex items-center gap-1.5">
             <Target className="w-3.5 h-3.5" />操作策略
           </h3>
 
+          {/* 進場價 / 停損價 */}
           <div className="grid grid-cols-2 gap-3 mb-3">
             <div className="text-center rounded-lg bg-gray-100 py-2.5">
               <div className="text-[10px] text-gray-500 mb-1">進場價</div>
@@ -201,6 +204,7 @@ function StockCard({ stock, onRemove, showRemove }: { stock: ScanStock; onRemove
             </div>
           </div>
 
+          {/* 三關目標價 */}
           <div className="grid grid-cols-3 gap-2 mb-3">
             {targets.map(({ label, val, pct }) => (
               <div key={label} className="text-center rounded-lg bg-emerald-50 border border-emerald-200 py-2.5">
@@ -215,6 +219,7 @@ function StockCard({ stock, onRemove, showRemove }: { stock: ScanStock; onRemove
             ))}
           </div>
 
+          {/* 風報比 */}
           <div className="pt-2 border-t border-gray-200">
             <div className="flex items-center justify-between text-xs">
               <span className="text-gray-500">風報比</span>
@@ -226,14 +231,14 @@ function StockCard({ stock, onRemove, showRemove }: { stock: ScanStock; onRemove
         </div>
       )}
 
-      {/* Signals */}
+      {/* 訊號明細（折疊） */}
       {stock.signals && (
         <div>
           <button
             onClick={() => setOpen((o) => !o)}
             className="w-full flex items-center justify-between px-3 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors text-xs text-gray-500"
           >
-            <span className="flex items-center gap-1"><TrendingUp className="w-3 h-3" />計號明細</span>
+            <span className="flex items-center gap-1"><TrendingUp className="w-3 h-3" />訊號明細</span>
             {open ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
           </button>
           {open && (
@@ -308,7 +313,7 @@ function SingleStockLookup({
             value={query}
             onChange={(e) => { setQuery(e.target.value); setSubmitted(null); }}
             onKeyDown={(e) => { if (e.key === 'Enter') handleSearch(); }}
-            placeholder="輸入邡票代號或名稱�쿌02330 或 台積電"
+            placeholder="輸入股票代號或名稱，如 2330 或 台積電"
             className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-white border border-gray-300 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-200 transition-colors shadow-sm"
           />
           {query && (
@@ -325,6 +330,7 @@ function SingleStockLookup({
         </button>
       </div>
 
+      {/* 自動完成 */}
       {suggestions.length > 0 && !submitted && (
         <div className="absolute top-full left-0 right-0 mt-1 z-20 bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden">
           {suggestions.map((s) => (
@@ -352,6 +358,7 @@ function SingleStockLookup({
         </div>
       )}
 
+      {/* 載入中 / 錯誤 */}
       {status === 'loading' && <SkeletonCard />}
       {(status === 'error' || status === 'not_traded') && error && (
         <div className="mt-3 flex items-center gap-2 text-xs text-red-500 bg-red-50 border border-red-200 rounded-xl px-3 py-2.5">
@@ -382,6 +389,7 @@ export default function SelfCheck() {
 
   return (
     <div className="space-y-5">
+      {/* Header */}
       <div className="rounded-2xl border border-gray-200 bg-gradient-to-br from-sky-50 to-white px-5 py-4 shadow-sm">
         <h1 className="text-lg font-bold text-gray-900 flex items-center gap-2">
           <Search className="w-5 h-5 text-sky-500" />自主檢查
@@ -391,10 +399,12 @@ export default function SelfCheck() {
         </p>
       </div>
 
+      {/* 搜尋框 */}
       <div className="relative">
         <SingleStockLookup onAdd={addStock} existing={stocks.map((s) => s.stock_id)} />
       </div>
 
+      {/* 已加入標籤列 */}
       {stocks.length > 0 && (
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -415,8 +425,10 @@ export default function SelfCheck() {
         </div>
       )}
 
+      {/* 比較雷達圖 */}
       {canCompare && <CompareRadar stocks={stocks} />}
 
+      {/* 個股卡片 */}
       <div className={`grid gap-4 ${
         stocks.length >= 2 ? 'md:grid-cols-2' : 'grid-cols-1'
       } ${stocks.length >= 3 ? 'lg:grid-cols-3' : ''}`}>
@@ -430,11 +442,12 @@ export default function SelfCheck() {
         ))}
       </div>
 
+      {/* 空白提示 */}
       {stocks.length === 0 && (
         <div className="rounded-xl border border-gray-200 bg-gray-50 p-12 text-center">
           <Search className="w-10 h-10 text-gray-300 mx-auto mb-3" />
           <p className="text-sm text-gray-500">搜尋任意台股代號或名稱</p>
-          <p className="text-xs text-gray-400 mt-1">例如：2330、0050</p>
+          <p className="text-xs text-gray-400 mt-1">例如：2330、台積電、0050</p>
         </div>
       )}
     </div>
