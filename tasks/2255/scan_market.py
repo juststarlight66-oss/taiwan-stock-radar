@@ -32,6 +32,23 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import requests
 requests.packages.urllib3.disable_warnings()
 
+
+def _http_get(url, *, headers=None, timeout=30, verify=False, retries=3, backoff=2.0):
+    """帶 retry 的 requests.get 包裝（最多重試 retries 次，指數退避 backoff 秒）"""
+    last_err = None
+    for attempt in range(1, retries + 1):
+        try:
+            r = requests.get(url, headers=headers, timeout=timeout, verify=verify)
+            r.raise_for_status()
+            return r
+        except Exception as e:
+            last_err = e
+            if attempt < retries:
+                wait = backoff * (2 ** (attempt - 1))
+                print(f"[HTTP] 第 {attempt} 次失敗，{wait:.0f}s 後重試：{e}")
+                time.sleep(wait)
+    raise last_err
+
 # ── 個股回測引擎 ──
 import sys as _bt_sys
 _bt_sys.path.insert(0, '/home/sprite/tasks')
@@ -126,11 +143,10 @@ def fetch_stock_day_all() -> Dict[str, Dict]:
     url = f"https://www.twse.com.tw/exchangeReport/STOCK_DAY_ALL?response=json&date={today}"
     print(f"[API] 呼叫 STOCK_DAY_ALL (www, {today})...")
     try:
-        r = requests.get(url, headers=TWSE_HEADERS, timeout=30, verify=False)
-        r.raise_for_status()
+        r = _http_get(url, headers=TWSE_HEADERS, timeout=30, verify=False)
         resp = r.json()
     except Exception as e:
-        print(f"[API] STOCK_DAY_ALL 失敗：{e}")
+        print(f"[API] STOCK_DAY_ALL 失敗（已重試3次）：{e}")
         return {}
 
     if resp.get('stat') != 'OK':
@@ -185,7 +201,8 @@ def fetch_stock_day_all() -> Dict[str, Dict]:
                 'change_pct': change_pct,
                 'name':       name,
             }
-        except Exception:
+        except Exception as e:
+            print(f"[WARN] STOCK_DAY_ALL 列解析失敗：{e}")
             continue
 
     print(f"[API] STOCK_DAY_ALL 解析完成：{len(result)} 檔 (日期={ad_date})")
@@ -204,11 +221,10 @@ def fetch_tpex_day_all() -> Dict[str, Dict]:
     url = 'https://www.tpex.org.tw/openapi/v1/tpex_mainboard_quotes'
     print('[API] 呼叫 TPEx tpex_mainboard_quotes...')
     try:
-        r = requests.get(url, headers=TWSE_HEADERS, timeout=30, verify=False)
-        r.raise_for_status()
+        r = _http_get(url, headers=TWSE_HEADERS, timeout=30, verify=False)
         rows = r.json()
     except Exception as e:
-        print(f'[API] TPEx OHLCV 失敗：{e}')
+        print(f'[API] TPEx OHLCV 失敗（已重試3次）：{e}')
         return {}
 
     if not isinstance(rows, list) or not rows:
@@ -260,7 +276,8 @@ def fetch_tpex_day_all() -> Dict[str, Dict]:
                 'change_pct': change_pct,
                 'name':       name,
             }
-        except Exception:
+        except Exception as e:
+            print(f"[WARN] TPEx OHLCV 列解析失敗：{e}")
             continue
 
     print(f'[API] TPEx OHLCV 解析完成：{len(result)} 檔')
@@ -274,11 +291,10 @@ def fetch_bwibbu_all() -> Dict[str, Dict]:
     """
     print("[API] 呼叫 BWIBBU_ALL...")
     try:
-        r = requests.get(URL_BWIBBU_ALL, headers=TWSE_HEADERS, timeout=30, verify=False)
-        r.raise_for_status()
+        r = _http_get(URL_BWIBBU_ALL, headers=TWSE_HEADERS, timeout=30, verify=False)
         data = r.json()
     except Exception as e:
-        print(f"[API] BWIBBU_ALL 失敗：{e}")
+        print(f"[API] BWIBBU_ALL 失敗（已重試3次）：{e}")
         return {}
 
     result = {}
@@ -295,7 +311,8 @@ def fetch_bwibbu_all() -> Dict[str, Dict]:
                 'dy':  float(dy_str)  if dy_str  not in ('--', '', '0') else None,
                 'pb':  float(pb_str)  if pb_str  not in ('--', '', '0') else None,
             }
-        except Exception:
+        except Exception as e:
+            print(f"[WARN] BWIBBU_ALL 列解析失敗：{e}")
             continue
 
     print(f"[API] BWIBBU_ALL 解析完成：{len(result)} 檔")
@@ -338,16 +355,16 @@ def fetch_taiex_trend() -> Dict:
     # ── 備用來源：TWSE FMTQIK（當月，約 19 個交易日）───────────────────
     if not closes:
         try:
-            r = requests.get(
+            r = _http_get(
                 "https://openapi.twse.com.tw/v1/exchangeReport/FMTQIK",
                 headers=TWSE_HEADERS, timeout=20, verify=False)
-            r.raise_for_status()
             for row in r.json():
                 try:
                     v = float(str(row.get('TAIEX', '')).replace(',', '').strip())
                     if v > 0:
                         closes.append(v)
-                except Exception:
+                except Exception as e:
+                    print(f"[WARN] FMTQIK 列解析失敗：{e}")
                     continue
             source = f'FMTQIK({len(closes)}d)'
             print(f"[TAIEX] FMTQIK 備用取得 {len(closes)} 個交易日")
@@ -495,7 +512,7 @@ def get_all_twse_stocks():
 
     for label, url in sources:
         try:
-            response = requests.get(url, timeout=30, verify=False)
+            response = _http_get(url, timeout=30, verify=False)
             response.encoding = 'big5'
             soup = BeautifulSoup(response.text, 'html.parser')
             table = soup.find('table', {'class': 'h4'})
@@ -623,11 +640,10 @@ def load_twse_industry_map() -> Dict[str, str]:
 
     print("[產業別] 載入 TWSE 官方產業別對照表...")
     try:
-        r = requests.get(
+        r = _http_get(
             'https://openapi.twse.com.tw/v1/opendata/t187ap03_L',
             headers=TWSE_HEADERS, timeout=20, verify=False
         )
-        r.raise_for_status()
         data = r.json()
         mapping = {}
         for row in data:
@@ -861,7 +877,8 @@ def predict_explosive_stocks(all_stock_data: List[Dict]) -> List[Dict]:
         try:
             proba = clf.predict_proba(feat_vec)[0]
             surge_prob = float(proba[1]) if len(proba) > 1 else float(proba[0])
-        except Exception:
+        except Exception as e:
+            print(f"[WARN] ML predict_proba 失敗 ({sid})：{e}")
             surge_prob = 0.0
 
         predictions.append({
@@ -1675,7 +1692,7 @@ def run_five_dimension_scan(verbose=True) -> Dict:
                     'sentiment':   [],
                 },
                 'details': {},
-                'strategy': {'recommendation': '觀望', 'entry_price': 0, 'stop_loss_price': 0, 'target_price': 0},
+                'strategy': {'recommendation': '觀望', 'entry': 0, 'stop_loss': 0, 'target': 0, 'target1': 0, 'target2': 0, 'target3': 0},
                 'grade':        'D',
                 'grade_reason': '無歷史成交資料，暫不評分',
             })
@@ -2062,13 +2079,14 @@ def push_scan_to_github(scan_result: dict, all_scores: dict, task_dir: str):
     def get_sha(path_in_repo: str) -> str:
         """取得檔案現有 SHA（更新時需要）"""
         try:
-            r = requests.get(
+            r = _http_get(
                 f'https://api.github.com/repos/{OWNER}/{REPO}/contents/{path_in_repo}',
                 headers=headers, timeout=15
             )
             if r.status_code == 200:
                 return r.json().get('sha', '')
-        except Exception:
+        except Exception as e:
+            print(f"[WARN] get_sha 失敗：{e}")
             pass
         return ''
 
@@ -2115,7 +2133,7 @@ def push_scan_to_github(scan_result: dict, all_scores: dict, task_dir: str):
         idx_sha = get_sha('public/data/index.json')
         idx_data = {'dates': []}
         if idx_sha:
-            r = requests.get(
+            r = _http_get(
                 f'https://api.github.com/repos/{OWNER}/{REPO}/contents/public/data/index.json',
                 headers=headers, timeout=15
             )
