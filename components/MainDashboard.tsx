@@ -8,7 +8,7 @@ import HistoryBrowser from './HistoryBrowser';
 import SelfCheck from './SelfCheck';
 import AllResultsTable from './AllResultsTable';
 import DisclaimerModal from './DisclaimerModal';
-import { Activity, RefreshCw, Clock, History, Radar, Search, List, Github, Info } from 'lucide-react';
+import { Activity, RefreshCw, Clock, History, Radar, Search, List, GitFork, Info } from 'lucide-react';
 
 type Tab = 'dashboard' | 'all' | 'history' | 'selfcheck';
 
@@ -130,7 +130,7 @@ export default function MainDashboard() {
                 className="p-1.5 rounded-lg text-gray-600 hover:text-gray-400 hover:bg-gray-800 transition-colors"
                 title="GitHub"
               >
-                <Github className="w-3.5 h-3.5" />
+                <GitFork className="w-3.5 h-3.5" />
               </a>
             </div>
           </div>
@@ -277,7 +277,7 @@ export default function MainDashboard() {
                 rel="noopener noreferrer"
                 className="text-gray-500 hover:text-gray-300 transition-colors flex items-center gap-1"
               >
-                <Github className="w-3 h-3" />GitHub
+                <GitFork className="w-3 h-3" />GitHub
               </a>
             </div>
           </div>
