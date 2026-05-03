@@ -6,9 +6,9 @@ import {
 } from 'recharts';
 import {
   Activity, TrendingUp, BarChart3, Target, Radar as RadarIcon,
-  GitFork, Clock, Info, ArrowUpRight, ArrowDownRight, Minus,
-  CheckCircle, XCircle, AlertCircle, Trophy, Zap,
+  GitFork, Clock, AlertCircle, Trophy, Zap,
 } from 'lucide-react';
+import TopNav from '@/components/TopNav';
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -736,6 +736,7 @@ export default function TrackingPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [now, setNow] = useState('');
+  void now; // clock is handled by TopNav
 
   useEffect(() => {
     const tick = () =>
@@ -806,55 +807,7 @@ export default function TrackingPage() {
 
   return (
     <div className="min-h-dvh bg-white text-gray-900 font-sans flex flex-col">
-      {/* ── Header ── */}
-      <header className="sticky top-0 z-20 border-b border-gray-200 bg-white/95 backdrop-blur shadow-sm">
-        <div className="max-w-screen-xl mx-auto px-4">
-          <div className="flex items-center h-14 gap-3 py-2">
-            <a href={`${BASE}/`} className="flex items-center gap-2 shrink-0 group">
-              <div className="relative w-7 h-7 rounded-lg bg-sky-500/20 border border-sky-500/40 flex items-center justify-center group-hover:bg-sky-500/30 transition-colors">
-                <RadarIcon className="w-4 h-4 text-sky-400" />
-              </div>
-              <div className="flex items-baseline gap-1.5">
-                <span className="font-bold text-gray-900 text-sm tracking-wide">台股雷達</span>
-                <span className="text-gray-500 text-[10px] hidden sm:inline">Taiwan Stock Radar</span>
-              </div>
-              <span className="hidden sm:inline text-[9px] bg-sky-500/20 text-sky-600 border border-sky-500/30 px-1.5 py-0.5 rounded-full font-mono">v3.0</span>
-            </a>
-
-            <nav className="flex items-center gap-1 flex-1 overflow-x-auto">
-              <a
-                href={`${BASE}/`}
-                className="px-3 py-1.5 text-xs font-medium rounded-lg text-gray-500 hover:text-gray-700 hover:bg-gray-100 transition-all whitespace-nowrap flex items-center gap-1.5"
-              >
-                <Activity className="w-3.5 h-3.5" />每日推薦
-              </a>
-              <a
-                href={`${BASE}/tracking`}
-                className="px-3 py-1.5 text-xs font-medium rounded-lg bg-sky-50 text-sky-700 border border-sky-300 whitespace-nowrap flex items-center gap-1.5"
-              >
-                <TrendingUp className="w-3.5 h-3.5" />追蹤儀表板
-              </a>
-            </nav>
-
-            <div className="flex items-center gap-2 shrink-0">
-              {now && (
-                <span className="text-gray-400 text-[11px] hidden md:flex items-center gap-1 font-mono">
-                  <Clock className="w-3 h-3" />{now}
-                </span>
-              )}
-              <a
-                href="https://github.com/juststarlight66-oss/taiwan-stock-radar"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-1.5 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors"
-                title="GitHub"
-              >
-                <GitFork className="w-3.5 h-3.5" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </header>
+      <TopNav />
 
       <main className="flex-1 max-w-screen-xl mx-auto w-full px-4 py-5">
 
@@ -995,7 +948,7 @@ export default function TrackingPage() {
             <div className="flex items-center gap-2">
               <RadarIcon className="w-4 h-4 text-sky-400" />
               <span className="text-sm font-semibold text-gray-700">台股雷達</span>
-              <span className="text-[10px] text-gray-400">Taiwan Stock Radar v3.0</span>
+              <span className="text-[10px] text-gray-400">Taiwan Stock Radar v3.1</span>
             </div>
             <div className="flex flex-wrap items-center justify-center gap-4 text-[11px] text-gray-500">
               <span>資料來源：TWSE OpenAPI</span>
