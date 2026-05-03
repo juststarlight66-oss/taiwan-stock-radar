@@ -1,16 +1,17 @@
 'use client';
 import { usePathname } from 'next/navigation';
-import { Activity, Radio, History, TrendingUp, List, Radar, RefreshCw, Clock, Info, GitFork } from 'lucide-react';
+import { Activity, Radio, History, TrendingUp, List, Radar, RefreshCw, Clock, Info, GitFork, Search } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 const BASE = '/taiwan-stock-radar';
 
 const NAV_ITEMS = [
-  { label: '每日推薦',   href: `${BASE}/`,         icon: <Activity className="w-3.5 h-3.5" /> },
-  { label: '盤中監控',   href: `${BASE}/intraday`,  icon: <Radio className="w-3.5 h-3.5" /> },
-  { label: '歷史查詢',   href: `${BASE}/history`,   icon: <History className="w-3.5 h-3.5" /> },
-  { label: '追蹤儀表板', href: `${BASE}/tracking`,  icon: <TrendingUp className="w-3.5 h-3.5" /> },
-  { label: '族群動態',   href: `${BASE}/all`,       icon: <List className="w-3.5 h-3.5" /> },
+  { label: '每日推薦',   href: `${BASE}/`,          icon: <Activity className="w-3.5 h-3.5" /> },
+  { label: '盤中監控',   href: `${BASE}/intraday`,   icon: <Radio className="w-3.5 h-3.5" /> },
+  { label: '歷史查詢',   href: `${BASE}/history`,    icon: <History className="w-3.5 h-3.5" /> },
+  { label: '追蹤儀表板', href: `${BASE}/tracking`,   icon: <TrendingUp className="w-3.5 h-3.5" /> },
+  { label: '族群動態',   href: `${BASE}/all`,        icon: <List className="w-3.5 h-3.5" /> },
+  { label: '自主檢查',   href: `${BASE}/selfcheck`,  icon: <Search className="w-3.5 h-3.5" /> },
 ] as const;
 
 interface TopNavProps {
