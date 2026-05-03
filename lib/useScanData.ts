@@ -276,18 +276,31 @@ function scoreTechnical(hist: Candle[]): { score: number; signals: string[] } {
   const n       = hist.length;
 
   const ma5  = closes.slice(-5).reduce((a, b) => a + b, 0) / 5;
-  const ma20 = n >= 20 ? closes.slice(-20).reduce((a, b) => a + b, 0) / 20 : ma5;
+  const ma10 = n >= 10 ? closes.slice(-10).reduce((a, b) => a + b, 0) / 10 : ma5;
+  const ma20 = n >= 20 ? closes.slice(-20).reduce((a, b) => a + b, 0) / 20 : ma10;
   const ma60 = n >= 60 ? closes.slice(-60).reduce((a, b) => a + b, 0) / 60 : ma20;
   let maScore = 0;
-  if (today.close > ma5)  maScore += 2;
-  if (today.close > ma20) maScore += 2;
-  if (ma5 > ma20)  maScore += 2;
-  if (ma20 > ma60) maScore += 2;
+  // 多頭核心：股價同時站上 10日線、月線、季線（各+3，共9分）
+  if (today.close > ma10) maScore += 3;
+  if (today.close > ma20) maScore += 3;
+  if (today.close > ma60) maScore += 3;
+  // 均線多頭排列加分（ma5 > ma20 > ma60，+2）
+  if (ma5 > ma20 && ma20 > ma60) maScore += 2;
   score += maScore;
-  if (maScore === 8) signals.push('MA5>MA20>MA60 完整多頭排列');
-  else if (maScore >= 6) signals.push(`偏多排列 (MA得分${maScore}/8)`);
-  else if (maScore >= 4) signals.push(`中性偏多 (MA得分${maScore}/8)`);
-  else signals.push('空頭排列');
+  const aboveMa10 = today.close > ma10;
+  const aboveMa20 = today.close > ma20;
+  const aboveMa60 = today.close > ma60;
+  if (aboveMa10 && aboveMa20 && aboveMa60 && ma5 > ma20 && ma20 > ma60) {
+    signals.push('站上10日/月線/季線 完整多頭排列');
+  } else if (aboveMa10 && aboveMa20 && aboveMa60) {
+    signals.push('股價站上10日/月線/季線');
+  } else if (aboveMa20 && aboveMa60) {
+    signals.push('站上月線與季線');
+  } else if (aboveMa20) {
+    signals.push('站上月線，未過季線');
+  } else {
+    signals.push('空頭排列（未站上月線）');
+  }
 
   const avgVol20 = n >= 21
     ? hist.slice(-21, -1).reduce((a, b) => a + b.volume, 0) / 20
