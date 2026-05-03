@@ -8,7 +8,7 @@ import HistoryBrowser from './HistoryBrowser';
 import SelfCheck from './SelfCheck';
 import AllResultsTable from './AllResultsTable';
 import DisclaimerModal from './DisclaimerModal';
-import { Activity, RefreshCw, Clock, History, Radar, Search, List, GitFork, Info, TrendingUp } from 'lucide-react';
+import { Activity, RefreshCw, Clock, History, Radar, Search, List, GitFork, Info, TrendingUp, Radio } from 'lucide-react';
 
 type Tab = 'dashboard' | 'all' | 'history' | 'selfcheck';
 
@@ -92,6 +92,12 @@ export default function MainDashboard() {
                 className="px-3 py-1.5 text-xs font-medium rounded-lg transition-all whitespace-nowrap flex items-center gap-1.5 text-gray-500 hover:text-gray-700 hover:bg-gray-100"
               >
                 <TrendingUp className="w-3.5 h-3.5" />追蹤儀表板
+              </a>
+              <a
+                href="/taiwan-stock-radar/intraday"
+                className="px-3 py-1.5 text-xs font-medium rounded-lg transition-all whitespace-nowrap flex items-center gap-1.5 text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+              >
+                <Radio className="w-3.5 h-3.5" />盤中即時雷達
               </a>
             </nav>
 
