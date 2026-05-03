@@ -1,5 +1,116 @@
 {
   "scan_type": "intraday_daytrade",
-  "scanned_at": "2026-05-04 05:02:46",
-  "stocks": []
+  "scanned_at": "2026-05-04 05:22:13",
+  "stocks": [
+    {
+      "stock_id": "00642U",
+      "name": "期元大S&P石油",
+      "sector": "",
+      "score": 50.0,
+      "details": {
+        "momentum": "极强",
+        "gap": "開高走高"
+      },
+      "live": {
+        "current": 33.15,
+        "open": 32.36,
+        "high": 33.53,
+        "low": 32.36,
+        "prev_close": 30.14,
+        "volume": 22189,
+        "change_pct": 9.99,
+        "time": "13:30:00",
+        "date": "20260430",
+        "source": "tse"
+      }
+    },
+    {
+      "stock_id": "00715L",
+      "name": "期街口布蘭特正2",
+      "sector": "",
+      "score": 50.0,
+      "details": {
+        "momentum": "极强",
+        "gap": "開高走高"
+      },
+      "live": {
+        "current": 74.15,
+        "open": 70.9,
+        "high": 75.45,
+        "low": 70.6,
+        "prev_close": 63.15,
+        "volume": 30050,
+        "change_pct": 17.42,
+        "time": "13:30:00",
+        "date": "20260430",
+        "source": "tse"
+      }
+    },
+    {
+      "stock_id": "1309",
+      "name": "台達化",
+      "sector": "",
+      "score": 50.0,
+      "details": {
+        "momentum": "极强",
+        "gap": "開高走高"
+      },
+      "live": {
+        "current": 20.8,
+        "open": 19.65,
+        "high": 20.8,
+        "low": 19.35,
+        "prev_close": 18.95,
+        "volume": 24434,
+        "change_pct": 9.76,
+        "time": "13:30:00",
+        "date": "20260430",
+        "source": "tse"
+      }
+    },
+    {
+      "stock_id": "1597",
+      "name": "直得",
+      "sector": "",
+      "score": 50.0,
+      "details": {
+        "momentum": "极强",
+        "gap": "開高走高"
+      },
+      "live": {
+        "current": 143.5,
+        "open": 143.5,
+        "high": 143.5,
+        "low": 140.5,
+        "prev_close": 130.5,
+        "volume": 4457,
+        "change_pct": 9.96,
+        "time": "13:30:00",
+        "date": "20260430",
+        "source": "tse"
+      }
+    },
+    {
+      "stock_id": "2380",
+      "name": "虹光",
+      "sector": "",
+      "score": 50.0,
+      "details": {
+        "momentum": "极强",
+        "gap": "開高走高"
+      },
+      "live": {
+        "current": 5.62,
+        "open": 5.54,
+        "high": 5.62,
+        "low": 5.54,
+        "prev_close": 5.11,
+        "volume": 437,
+        "change_pct": 9.98,
+        "time": "13:30:00",
+        "date": "20260430",
+        "source": "tse"
+      }
+    }
+  ]
 }
