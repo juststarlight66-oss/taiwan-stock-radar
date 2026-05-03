@@ -8,7 +8,7 @@ import HistoryBrowser from './HistoryBrowser';
 import SelfCheck from './SelfCheck';
 import AllResultsTable from './AllResultsTable';
 import DisclaimerModal from './DisclaimerModal';
-import { Activity, RefreshCw, Clock, History, Radar, Search, List, GitFork, Info } from 'lucide-react';
+import { Activity, RefreshCw, Clock, History, Radar, Search, List, GitFork, Info, TrendingUp } from 'lucide-react';
 
 type Tab = 'dashboard' | 'all' | 'history' | 'selfcheck';
 
@@ -87,6 +87,12 @@ export default function MainDashboard() {
                   )}
                 </button>
               ))}
+              <a
+                href="/taiwan-stock-radar/tracking"
+                className="px-3 py-1.5 text-xs font-medium rounded-lg transition-all whitespace-nowrap flex items-center gap-1.5 text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+              >
+                <TrendingUp className="w-3.5 h-3.5" />追蹤儀表板
+              </a>
             </nav>
 
             <div className="flex items-center gap-2 shrink-0">
