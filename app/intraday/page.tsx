@@ -727,12 +727,10 @@ export default function IntradayPage() {
                 </span>
               </h1>
               <p className="text-xs text-gray-400 mt-1">
-                {stocks.length > 0 && stocks[0].dimensions?.momentum !== undefined
-                  ? '盤中掃描 Top 5 隔日沖候選 — 即時報價 · 動能量能突破跳空四維評分'
-                  : '追蹤 Top 5 推薦標的目前價位 vs 建議進場點距離，即時判斷進場時機'}
+                每日 13:00 盤中掃描全市場，按動能/量能/突破/跳空四維評分，挑出 Top 5 隔日沖候選 — 即時報價追蹤
               </p>
               <div className="flex flex-wrap gap-2 mt-3">
-                {['即時報價', '進場距離計算', '自動刷新', 'TWSE 直連'].map((t) => (
+                {['盤中掃描', '四維評分', '即時報價', '隔日沖候選'].map((t) => (
                   <span key={t} className="text-[10px] text-sky-300/80 bg-sky-500/8 border border-sky-500/15 px-2 py-0.5 rounded-full">{t}</span>
                 ))}
               </div>
@@ -740,7 +738,7 @@ export default function IntradayPage() {
             <div className="text-right">
               {scanDate && (
                 <>
-                  <div className="text-[10px] text-gray-500 mb-1">推薦基準日</div>
+                  <div className="text-[10px] text-gray-500 mb-1">盤中掃描時間</div>
                   <div className="text-base font-mono font-bold text-sky-400">{scanDate}</div>
                 </>
               )}
@@ -792,8 +790,8 @@ export default function IntradayPage() {
               <div className="flex items-center justify-between mb-3">
                 <h2 className="text-base font-bold text-gray-900 flex items-center gap-2">
                   <Eye className="w-4 h-4 text-sky-500" />
-                  即時監控 — Top 5 標的
-                  <span className="text-[11px] text-gray-400 font-normal">（按進場距離由近至遠排列）</span>
+                  盤中即時監控 — Top 5 隔日沖候選
+                  <span className="text-[11px] text-gray-400 font-normal">（按總評分由高至低排列）</span>
                 </h2>
                 {refreshing && (
                   <span className="flex items-center gap-1 text-xs text-sky-500">
@@ -815,16 +813,16 @@ export default function IntradayPage() {
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-[11px] text-gray-600">
                 <div className="flex items-start gap-2">
+                  <Radio className="w-3.5 h-3.5 text-red-500 mt-0.5 shrink-0" />
+                  <div><span className="font-medium text-red-700">隔日沖候選</span>：13:00 盤中掃描全市場，按動能/量能/突破/跳空四維評分挑出 Top 5</div>
+                </div>
+                <div className="flex items-start gap-2">
                   <CheckCircle className="w-3.5 h-3.5 text-emerald-500 mt-0.5 shrink-0" />
                   <div><span className="font-medium text-emerald-700">已達進場區</span>：現價已達或突破建議進場點，可考慮建立部位</div>
                 </div>
                 <div className="flex items-start gap-2">
                   <AlertTriangle className="w-3.5 h-3.5 text-sky-500 mt-0.5 shrink-0" />
                   <div><span className="font-medium text-sky-700">接近進場點</span>：距進場點 3% 以內，持續關注，準備進場</div>
-                </div>
-                <div className="flex items-start gap-2">
-                  <Clock className="w-3.5 h-3.5 text-amber-500 mt-0.5 shrink-0" />
-                  <div><span className="font-medium text-amber-700">等待中</span>：距進場點超過 3%，耐心等待回落至建議區間</div>
                 </div>
                 <div className="flex items-start gap-2">
                   <RefreshCw className="w-3.5 h-3.5 text-gray-500 mt-0.5 shrink-0" />
