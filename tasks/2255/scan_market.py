@@ -1988,56 +1988,6 @@ STOCK_POOL   = _cached_pool if _cached_pool else {}
 print(f"[系統] 預載股票清單：{len(STOCK_POOL)} 檔（正式掃描時會用 STOCK_DAY_ALL 補充）")
 
 
-if __name__ == '__main__':
-    print(f"[開始] {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    output  = run_five_dimension_scan(verbose=True)
-    out_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'scan_result.json')
-
-    safe_output = json.loads(json.dumps(output, ensure_ascii=False, default=str))
-    with open(out_path, 'w', encoding='utf-8') as f:
-        json.dump(safe_output, f, ensure_ascii=False, indent=2)
-    print(f"\n[JSON 已儲存] {out_path}")
-
-    # ── 輸出 all_scores.json：每檔股票五維評分快照，供前端自主檢查功能使用 ──
-    all_scores_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'all_scores.json')
-    all_scores_data = {
-        'scan_date': output['scan_date'],
-        'scanned_count': output['scanned_count'],
-        'all_stock_scores': [
-            {
-                'stock_id':   r['stock_id'],
-                'name':       r['name'],
-                'sector':     r['sector'],
-                'close':      r['close'],
-                'change_pct': r['change_pct'],
-                'total_score': r['total_score'],
-                'dimensions': r['dimensions'],
-                'signals':    r['signals'],
-                'strategy':   r['strategy'],
-            }
-            for r in output.get('all_results', [])
-        ],
-    }
-    safe_all_scores = json.loads(json.dumps(all_scores_data, ensure_ascii=False, default=str))
-    with open(all_scores_path, 'w', encoding='utf-8') as f:
-        json.dump(safe_all_scores, f, ensure_ascii=False, indent=2)
-    print(f"[all_scores.json 已儲存] {all_scores_path}（{len(safe_all_scores['all_stock_scores'])} 檔）")
-
-    print(f"\n=== 掃描摘要 ===")
-    print(f"開始時間: {output['scan_start']}")
-    print(f"結束時間: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    print(f"STOCK_POOL 大小: {output['total_stocks']} 檔")
-    print(f"有效掃描: {output['scanned_count']} 檔")
-    print(f"總耗時: {output['scan_elapsed_sec']}s（其中 API {output['dl_elapsed_sec']}s）")
-    print(f"\nTop 10 推薦:")
-    for i, r in enumerate(output['top10'], 1):
-        print(f"  {i}. {r['name']}({r['stock_id']}) 總分:{r['total_score']:.1f} [{r['strategy']['recommendation']}]")
-    print(f"\n爆漲 Top 5:")
-    for i, p in enumerate(output.get('explosive_top5', []), 1):
-        print(f"  {i}. {p['name']}({p['stock_id']}) 漲停機率:{p['surge_probability']:.1f}%")
-    print(f"\n[結束] {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-
-
 # ================================================================
 # GitHub Pages 自動同步（每次掃描後自動 push）
 # ================================================================
@@ -2467,3 +2417,56 @@ def attach_narratives_to_top5(explosive_top5: List[Dict]) -> List[Dict]:
             }
             print(f"[Narrative] {stock.get('stock_id','?')} 生成失敗：{e}")
     return explosive_top5
+
+
+
+if __name__ == '__main__':
+    print(f"[開始] {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    output  = run_five_dimension_scan(verbose=True)
+    out_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'scan_result.json')
+
+    safe_output = json.loads(json.dumps(output, ensure_ascii=False, default=str))
+    with open(out_path, 'w', encoding='utf-8') as f:
+        json.dump(safe_output, f, ensure_ascii=False, indent=2)
+    print(f"\n[JSON 已儲存] {out_path}")
+
+    # ── 輸出 all_scores.json：每檔股票五維評分快照，供前端自主檢查功能使用 ──
+    all_scores_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'all_scores.json')
+    all_scores_data = {
+        'scan_date': output['scan_date'],
+        'scanned_count': output['scanned_count'],
+        'all_stock_scores': [
+            {
+                'stock_id':   r['stock_id'],
+                'name':       r['name'],
+                'sector':     r['sector'],
+                'close':      r['close'],
+                'change_pct': r['change_pct'],
+                'total_score': r['total_score'],
+                'dimensions': r['dimensions'],
+                'signals':    r['signals'],
+                'strategy':   r['strategy'],
+            }
+            for r in output.get('all_results', [])
+        ],
+    }
+    safe_all_scores = json.loads(json.dumps(all_scores_data, ensure_ascii=False, default=str))
+    with open(all_scores_path, 'w', encoding='utf-8') as f:
+        json.dump(safe_all_scores, f, ensure_ascii=False, indent=2)
+    print(f"[all_scores.json 已儲存] {all_scores_path}（{len(safe_all_scores['all_stock_scores'])} 檔）")
+
+    print(f"\n=== 掃描摘要 ===")
+    print(f"開始時間: {output['scan_start']}")
+    print(f"結束時間: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"STOCK_POOL 大小: {output['total_stocks']} 檔")
+    print(f"有效掃描: {output['scanned_count']} 檔")
+    print(f"總耗時: {output['scan_elapsed_sec']}s（其中 API {output['dl_elapsed_sec']}s）")
+    print(f"\nTop 10 推薦:")
+    for i, r in enumerate(output['top10'], 1):
+        print(f"  {i}. {r['name']}({r['stock_id']}) 總分:{r['total_score']:.1f} [{r['strategy']['recommendation']}]")
+    print(f"\n爆漲 Top 5:")
+    for i, p in enumerate(output.get('explosive_top5', []), 1):
+        print(f"  {i}. {p['name']}({p['stock_id']}) 漲停機率:{p['surge_probability']:.1f}%")
+    print(f"\n[結束] {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+
+
