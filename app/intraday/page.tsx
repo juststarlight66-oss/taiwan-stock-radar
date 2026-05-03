@@ -95,12 +95,15 @@ const TWSE_API = 'https://mis.twse.com.tw/stock/api/getStockInfo.jsp';
 
 const DIM_LABELS: Record<string, string> = {
   technical: '技術', fundamental: '基本', news: '消息', sentiment: '情緒', chips: '籌碼',
+  momentum: '動能', volume: '量能', breakout: '突破', gap: '跳空',
 };
 const DIM_MAX: Record<string, number> = {
   technical: 40, fundamental: 40, news: 10, sentiment: 10, chips: 10,
+  momentum: 30, volume: 25, breakout: 25, gap: 20,
 };
 const DIM_COLORS: Record<string, string> = {
   technical: '#38bdf8', fundamental: '#34d399', news: '#f59e0b', sentiment: '#a78bfa', chips: '#f87171',
+  momentum: '#ef4444', volume: '#f97316', breakout: '#8b5cf6', gap: '#06b6d4',
 };
 
 // Distance thresholds for colour coding
@@ -316,6 +319,9 @@ function StockCard({ stock, rank }: { stock: IntradayStock; rank: number }) {
             <div className="flex items-center gap-1.5 mb-0.5">
               <span className="text-[10px] text-gray-400 font-mono bg-gray-100 px-1.5 py-0.5 rounded">#{rank}</span>
               <span className="text-[10px] text-gray-400">{stock.sector}</span>
+              {typeof stock.dimensions?.momentum === 'number' && (
+                <span className="text-[9px] font-semibold text-red-500 bg-red-50 border border-red-100 px-1.5 py-0.5 rounded">隔日沖</span>
+              )}
             </div>
             <div className="font-bold text-gray-900">{stock.name}</div>
             <div className="text-xs text-gray-500 font-mono">{stock.stock_id}</div>
@@ -553,37 +559,72 @@ export default function IntradayPage() {
     return () => clearInterval(id);
   }, []);
 
-  // Load base stock data from latest.json
+  // Load base stock data — try intraday.json first (13:00 fresh scan), fall back to latest.json (19:00 scan)
   useEffect(() => {
-    fetch(`${BASE}/data/latest.json`, { cache: 'no-store' })
+    const loadIntraday = fetch(`${BASE}/data/intraday.json?ts=${Date.now()}`, { cache: 'no-store' })
       .then((r) => {
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
-        return r.json() as Promise<LatestData>;
+        if (!r.ok) throw new Error('no intraday');
+        return r.json();
       })
       .then((d) => {
-        const base: IntradayStock[] = (d.explosive_top5 ?? []).map((s) => ({
+        const base: IntradayStock[] = (d.stocks ?? []).map((s: any) => ({
           stock_id: s.stock_id,
           name: s.name,
           sector: s.sector ?? '',
-          entry: s.strategy.entry,
-          stop_loss: s.strategy.stop_loss,
-          target: s.strategy.target,
-          target1: s.strategy.target1,
-          target2: s.strategy.target2,
-          target3: s.strategy.target3,
-          upside: s.strategy.upside,
+          entry: s.entry,
+          stop_loss: s.stop_loss,
+          target: s.target1 || s.target,
+          target1: s.target1,
+          target2: s.target2,
+          target3: s.target3,
+          upside: s.upside,
           total_score: s.total_score,
-          recommendation: s.strategy.recommendation,
+          recommendation: s.recommendation,
           dimensions: s.dimensions,
         }));
         setStocks(base);
-        setScanDate(d.scan_date);
-        setLoading(false);
-      })
-      .catch((e) => {
-        setError(e.message);
+        setScanDate(d.date || d.scan_date || '');
+        setLastUpdated(
+          new Date().toLocaleTimeString('zh-TW', {
+            timeZone: 'Asia/Taipei',
+            hour: '2-digit', minute: '2-digit',
+          })
+        );
         setLoading(false);
       });
+
+    const loadLatest = loadIntraday.catch(() =>
+      fetch(`${BASE}/data/latest.json`, { cache: 'no-store' })
+        .then((r) => {
+          if (!r.ok) throw new Error(`HTTP ${r.status}`);
+          return r.json() as Promise<LatestData>;
+        })
+        .then((d) => {
+          const base: IntradayStock[] = (d.explosive_top5 ?? []).map((s) => ({
+            stock_id: s.stock_id,
+            name: s.name,
+            sector: s.sector ?? '',
+            entry: s.strategy.entry,
+            stop_loss: s.strategy.stop_loss,
+            target: s.strategy.target,
+            target1: s.strategy.target1,
+            target2: s.strategy.target2,
+            target3: s.strategy.target3,
+            upside: s.strategy.upside,
+            total_score: s.total_score,
+            recommendation: s.strategy.recommendation,
+            dimensions: s.dimensions,
+          }));
+          setStocks(base);
+          setScanDate(d.scan_date);
+          setLoading(false);
+        })
+    );
+
+    loadLatest.catch((e) => {
+      setError(e.message);
+      setLoading(false);
+    });
   }, []);
 
   // Fetch live prices
@@ -686,7 +727,9 @@ export default function IntradayPage() {
                 </span>
               </h1>
               <p className="text-xs text-gray-400 mt-1">
-                追蹤 Top 5 推薦標的目前價位 vs 建議進場點距離，即時判斷進場時機
+                {stocks.length > 0 && stocks[0].dimensions?.momentum !== undefined
+                  ? '盤中掃描 Top 5 隔日沖候選 — 即時報價 · 動能量能突破跳空四維評分'
+                  : '追蹤 Top 5 推薦標的目前價位 vs 建議進場點距離，即時判斷進場時機'}
               </p>
               <div className="flex flex-wrap gap-2 mt-3">
                 {['即時報價', '進場距離計算', '自動刷新', 'TWSE 直連'].map((t) => (
@@ -804,7 +847,7 @@ export default function IntradayPage() {
             <div className="flex flex-wrap items-center justify-center gap-4 text-[11px] text-gray-500">
               <span>即時報價：TWSE mis API</span>
               <span className="hidden sm:inline text-gray-300">|</span>
-              <span>每日 19:00 更新推薦清單</span>
+              <span>13:00 盤中掃描 · 19:00 收盤覆盤</span>
               <span className="hidden sm:inline text-gray-300">|</span>
               <a href="https://github.com/juststarlight66-oss/taiwan-stock-radar" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-gray-700 transition-colors flex items-center gap-1">
                 <GitFork className="w-3 h-3" />GitHub
