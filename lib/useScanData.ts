@@ -278,24 +278,29 @@ function scoreTechnical(hist: Candle[]): { score: number; signals: string[] } {
   const ma5  = closes.slice(-5).reduce((a, b) => a + b, 0) / 5;
   const ma10 = n >= 10 ? closes.slice(-10).reduce((a, b) => a + b, 0) / 10 : ma5;
   const ma20 = n >= 20 ? closes.slice(-20).reduce((a, b) => a + b, 0) / 20 : ma10;
-  const ma60 = n >= 60 ? closes.slice(-60).reduce((a, b) => a + b, 0) / 60 : ma20;
+  // FIX: only compute ma60 when we have >= 60 days of data; otherwise use null sentinel
+  const ma60 = n >= 60 ? closes.slice(-60).reduce((a, b) => a + b, 0) / 60 : null;
   let maScore = 0;
   // 多頭核心：股價同時站上 10日線、月線、季線（各+3，共9分）
   if (today.close > ma10) maScore += 3;
   if (today.close > ma20) maScore += 3;
-  if (today.close > ma60) maScore += 3;
+  if (ma60 !== null && today.close > ma60) { maScore += 3; }
+  else if (ma60 === null) { maScore += 1; signals.push('MA60 資料不足，給部分分'); }
   // 均線多頭排列加分（ma5 > ma20 > ma60，+2）
-  if (ma5 > ma20 && ma20 > ma60) maScore += 2;
+  if (ma60 !== null && ma5 > ma20 && ma20 > ma60) maScore += 2;
+  else if (ma60 === null && ma5 > ma20) maScore += 1;
   score += maScore;
   const aboveMa10 = today.close > ma10;
   const aboveMa20 = today.close > ma20;
-  const aboveMa60 = today.close > ma60;
-  if (aboveMa10 && aboveMa20 && aboveMa60 && ma5 > ma20 && ma20 > ma60) {
+  const aboveMa60 = ma60 !== null && today.close > ma60;
+  if (ma60 !== null && aboveMa10 && aboveMa20 && aboveMa60 && ma5 > ma20 && ma20 > ma60) {
     signals.push('站上10日/月線/季線 完整多頭排列');
   } else if (aboveMa10 && aboveMa20 && aboveMa60) {
     signals.push('股價站上10日/月線/季線');
   } else if (aboveMa20 && aboveMa60) {
     signals.push('站上月線與季線');
+  } else if (ma60 === null && aboveMa10 && aboveMa20) {
+    signals.push('站上10日/月線 (MA60資料不足)');
   } else if (aboveMa20) {
     signals.push('站上月線，未過季線');
   } else {
@@ -339,34 +344,106 @@ function scoreTechnical(hist: Candle[]): { score: number; signals: string[] } {
   return { score: Math.min(score, 40), signals };
 }
 
-function scoreChips(hist: Candle[]): { score: number; signals: string[] } {
+async function fetchT86Chips(stockCode: string): Promise<{ foreign: number; investment: number; dealer: number; total: number } | null> {
+  try {
+    const today = new Date();
+    const y = today.getFullYear();
+    const m = String(today.getMonth() + 1).padStart(2, '0');
+    const d = String(today.getDate()).padStart(2, '0');
+    const url = `https://openapi.twse.com.tw/v1/exchangeReport/T86?date=${y}${m}${d}&selectType=ALLBUT0999&response=json`;
+    const resp = await fetch(url, { signal: AbortSignal.timeout(8000) });
+    if (!resp.ok) return null;
+    const rows = await resp.json();
+    if (!Array.isArray(rows)) return null;
+    const row = rows.find((r: any) => r.Code === stockCode);
+    if (!row) return null;
+    const foreign = parseInt2(row.ForbuyBuy ?? '0') - parseInt2(row.ForBuySell ?? '0');
+    const investment = parseInt2(row.InvBuy ?? '0') - parseInt2(row.InvSell ?? '0');
+    const dealer = parseInt2(row.DlrBuy ?? '0') - parseInt2(row.DlrSell ?? '0');
+    return { foreign, investment, dealer, total: foreign + investment + dealer };
+  } catch { return null; }
+}
+
+async function fetchMarginData(stockCode: string): Promise<{ margin_balance: number | null; short_balance: number | null } | null> {
+  try {
+    const today = new Date();
+    const y = today.getFullYear();
+    const m = String(today.getMonth() + 1).padStart(2, '0');
+    const d = String(today.getDate()).padStart(2, '0');
+    const url = `https://openapi.twse.com.tw/v1/exchangeReport/MI_MARGN?date=${y}${m}${d}&selectType=ALL&response=json`;
+    const resp = await fetch(url, { signal: AbortSignal.timeout(8000) });
+    if (!resp.ok) return null;
+    const rows = await resp.json();
+    if (!Array.isArray(rows)) return null;
+    const row = rows.find((r: any) => r.Code === stockCode);
+    if (!row) return null;
+    return {
+      margin_balance: parseInt2(row.MarginPurchase ?? '0'),
+      short_balance: parseInt2(row.ShortSale ?? '0'),
+    };
+  } catch { return null; }
+}
+
+function parseInt2(s: string): number {
+  const n = parseInt(s.replace(/,/g, ''), 10);
+  return isNaN(n) ? 0 : n;
+}
+
+function scoreChips(hist: Candle[], chipsData: Awaited<ReturnType<typeof fetchT86Chips>>, marginData: Awaited<ReturnType<typeof fetchMarginData>>): { score: number; signals: string[] } {
   const signals: string[] = [];
   let score = 0;
   if (hist.length < 2) return { score: 5, signals: ['資料不足，給中性分'] };
 
-  const today    = hist[hist.length - 1];
-  const n        = hist.length;
-  const avgVolPrev = hist.slice(0, -1).reduce((a, b) => a + b.volume, 0) / (n - 1);
-  const volRatio   = avgVolPrev > 0 ? today.volume / avgVolPrev : 1;
+  // ── Part 1: T86 三大法人買賣超（真實數據）────────────────
+  if (chipsData !== null) {
+    const { foreign, investment, dealer, total } = chipsData;
+    if (total > 1000)      { score += 4; signals.push(`三大法人合計買超 ${total.toLocaleString()} 張`); }
+    else if (total > 500)  { score += 3; signals.push(`三大法人買超 ${total.toLocaleString()} 張`); }
+    else if (total > 0)    { score += 2; signals.push(`三大法人微幅買超 ${total.toLocaleString()} 張`); }
+    else if (total < -1000)  { score += 0; signals.push(`三大法人賣超 ${total.toLocaleString()} 張`); }
+    else                     { score += 1; signals.push(`三大法人微幅賣超 ${total.toLocaleString()} 張`); }
 
-  if (volRatio >= 2.0 && today.change_pct >= 2.0)       { score += 4; signals.push('主力加碼(估)'); }
-  else if (volRatio >= 1.5 && today.change_pct >= 1.0)  { score += 2; signals.push('主力承接(估)'); }
-
-  if (n >= 3) {
-    const last3 = hist.slice(-3);
-    const ups   = last3.filter((r) => r.change_pct > 0).length;
-    const downs = last3.filter((r) => r.change_pct < 0).length;
-    if (ups >= 2)   { score += 3; signals.push('連漲(融資增估)'); }
-    else if (downs >= 2) { score += 1; signals.push('連跌(融資減估)'); }
-    else score += 2;
+    if (foreign > 2000)     { score += 2; signals.push(`外資大舉買超 ${foreign.toLocaleString()} 張`); }
+    else if (foreign > 500) { score += 1; signals.push(`外資買超 ${foreign.toLocaleString()} 張`); }
+    else if (foreign < -2000) { signals.push(`外資大舉賣超 ${foreign.toLocaleString()} 張`); }
   }
 
-  if (n >= 20) {
-    const ma20 = hist.slice(-20).reduce((a, b) => a + b.close, 0) / 20;
-    if (today.close > ma20 * 1.03)       { score += 3; signals.push('法人買超(估)'); }
-    else if (today.close < ma20 * 0.97)  { score += 1; signals.push('法人賣超(估)'); }
-    else score += 2;
+  // ── Part 2: 融資融券餘額（真實數據）──────────────────────
+  if (marginData !== null) {
+    const { margin_balance, short_balance } = marginData;
+    if (margin_balance !== null && margin_balance > 0) {
+      if (short_balance !== null && short_balance > 0) {
+        const shortMarginRatio = short_balance / margin_balance;
+        if (shortMarginRatio > 0.3) { score += 2; signals.push(`券資比 ${((shortMarginRatio) * 100).toFixed(1)}% 留意軋空`); }
+      }
+    }
+    if (margin_balance === null && short_balance === null) {
+      signals.push('融資融券資料無法取得');
+    }
   }
+
+  // ── Part 3: 價量輔助（後備評分）────────────────────────────
+  if (chipsData === null) {
+    const today = hist[hist.length - 1];
+    const n = hist.length;
+    const avgVolPrev = hist.slice(0, -1).reduce((a, b) => a + b.volume, 0) / (n - 1);
+    const volRatio = avgVolPrev > 0 ? today.volume / avgVolPrev : 1;
+
+    if (volRatio >= 2.0 && today.change_pct >= 2.0)       { score += 2; signals.push('主力加碼(估)'); }
+    else if (volRatio >= 1.5 && today.change_pct >= 1.0)  { score += 1; signals.push('主力承接(估)'); }
+
+    if (n >= 3) {
+      const last3 = hist.slice(-3);
+      const ups   = last3.filter((r) => r.change_pct > 0).length;
+      const downs = last3.filter((r) => r.change_pct < 0).length;
+      if (ups >= 2)   { score += 2; signals.push('3日2陽'); }
+      else if (downs >= 2) { score += 1; signals.push('3日2陰'); }
+      else score += 1;
+    }
+  }
+
+  // Neutral floor if no data at all
+  if (chipsData === null && marginData === null) { score = Math.max(score, 3); }
 
   return { score: Math.min(Math.max(score, 0), 10), signals };
 }
@@ -507,10 +584,12 @@ export function useOnDemandScan(stockId: string | null): {
       setStatus('loading');
 
       try {
-        const [hist, fundamentals, name] = await Promise.all([
+        const [hist, fundamentals, name, chipsData, marginData] = await Promise.all([
           fetchTwseHistory(stockId!),
           fetchFundamentals(stockId!),
           fetchStockName(stockId!),
+          fetchT86Chips(stockId!),
+          fetchMarginData(stockId!),
         ]);
 
         if (cancelled) return;
@@ -532,7 +611,7 @@ export function useOnDemandScan(stockId: string | null): {
         const volRatio = avgVol5 > 0 ? today.volume / avgVol5 : 1;
 
         const techResult  = scoreTechnical(hist);
-        const chipsResult = scoreChips(hist);
+        const chipsResult = scoreChips(hist, chipsData, marginData);
         const fundResult  = scoreFundamental(fundamentals.pe, fundamentals.pb, fundamentals.dy);
         const newsResult  = scoreNews(sector);
         const sentResult  = scoreSentiment(hist, stockId!);
