@@ -1865,6 +1865,9 @@ def run_five_dimension_scan(verbose=True) -> Dict:
     else:
         explosive_top5 = explosive_top5_ml[:5]
 
+    # ── AI 白話文分析（規則式模板）────────────────────────────
+    explosive_top5 = attach_narratives_to_top5(explosive_top5)
+
     # ── 文字報告 ───────────────────────────────────────────────
     lines = [
         f"【台股五維分析報告】{today_str}",
@@ -2159,3 +2162,308 @@ def push_scan_to_github(scan_result: dict, all_scores: dict, task_dir: str):
         push_scan_to_github(safe_output, safe_all_scores, os.path.dirname(os.path.abspath(__file__)))
     except Exception as e:
         print(f'[GitHub Push] 失敗（不影響 Email 寄送）: {e}')
+
+
+# ================================================================
+# AI 白話文分析生成器（規則式模板引擎）
+# ================================================================
+def generate_narrative(stock: Dict) -> Dict:
+    """
+    根據五維評分數據與技術訊號，生成個股白話文自然語言分析。
+    輸入：單一 stock dict（來自 top10/explosive_top5）
+    輸出：{
+        "technical":  "技術面分析文字",
+        "chips":      "籌碼面分析文字",
+        "fundamental":"基本面評價文字",
+        "risk":       "風險提示文字",
+        "action":     "操作建議文字"
+    }
+    """
+    name     = stock.get('name', '')
+    sid      = stock.get('stock_id', '')
+    close    = stock.get('close', 0)
+    chg_pct  = stock.get('change_pct', 0)
+    dims     = stock.get('dimensions', {}) or {}
+    signals  = stock.get('signals',    {}) or {}
+    details  = stock.get('details',    {}) or {}
+    strategy = stock.get('strategy',   {}) or {}
+    sector   = stock.get('sector', '其他')
+    total    = stock.get('total_score', 0)
+
+    tech_score  = dims.get('technical',   0)
+    chips_score = dims.get('chips',       0)
+    fund_score  = dims.get('fundamental', 0)
+    news_score  = dims.get('news',        0)
+    sent_score  = dims.get('sentiment',   0)
+
+    tech_sigs  = signals.get('technical',   [])
+    chips_sigs = signals.get('chips',       [])
+    fund_sigs  = signals.get('fundamental', [])
+    news_sigs  = signals.get('news',        [])
+
+    rsi      = details.get('rsi',       None)
+    vol_ratio = details.get('vol_ratio', None)
+    pe_val   = details.get('pe',        None)
+    pb_val   = details.get('pb',        None)
+    dy_val   = details.get('dy',        None)
+
+    entry     = strategy.get('entry',     close)
+    stop_loss = strategy.get('stop_loss', close * 0.95)
+    target1   = strategy.get('target1',   strategy.get('target', close * 1.1))
+    target2   = strategy.get('target2',   None)
+    downside  = strategy.get('downside',  5)
+    upside    = strategy.get('upside',    10)
+    rec       = strategy.get('recommendation', '')
+
+    # ── 技術面解讀 ─────────────────────────────────────────────
+    tech_parts = []
+
+    # 均線排列
+    ma_sig = next((s for s in tech_sigs if '排列' in s or '多頭' in s or '空頭' in s), None)
+    if ma_sig:
+        if '黃金多頭' in ma_sig:
+            tech_parts.append('均線呈完美多頭排列（MA5>MA10>MA20>MA60>MA120），趨勢強度頂級')
+        elif '多頭排列' in ma_sig and '部分' not in ma_sig:
+            tech_parts.append('均線多頭排列確立，中短線方向向上')
+        elif '部分多頭' in ma_sig:
+            tech_parts.append('短均線初步多頭排列，中長線尚在整理')
+        else:
+            tech_parts.append('均線空頭排列，技術面承壓')
+
+    # 量能
+    vol_sig = next((s for s in tech_sigs if '量' in s), None)
+    if vol_sig:
+        if '爆量突破' in vol_sig:
+            vr_str = vol_sig.split('(')[-1].rstrip(')') if '(' in vol_sig else ''
+            tech_parts.append(f'今日{vol_sig}，量能大幅擴增{(" " + vr_str) if vr_str else ""}，買盤積極')
+        elif '量增' in vol_sig:
+            tech_parts.append(f'{vol_sig}，成交動能溫和放大')
+        elif '漲帶量' in vol_sig:
+            tech_parts.append('價漲量增，量價配合良好')
+        elif '跌縮量' in vol_sig:
+            tech_parts.append('拉回縮量，賣壓有限，支撐相對穩固')
+        elif '假突破' in vol_sig or '出貨' in vol_sig:
+            tech_parts.append(f'注意：{vol_sig}，量價背離需謹慎')
+
+    # RSI
+    rsi_sig = next((s for s in tech_sigs if 'RSI' in s), None)
+    if rsi_sig:
+        if '超賣反彈' in rsi_sig:
+            rsi_num = rsi if rsi is not None else ''
+            tech_parts.append(f'RSI 超賣區（{rsi_num:.0f}），技術性反彈機率高' if rsi_num != '' else 'RSI 超賣，技術性反彈機率高')
+        elif '健康強勢' in rsi_sig:
+            rsi_num = rsi if rsi is not None else ''
+            tech_parts.append(f'RSI {rsi_num:.0f} 處於健康強勢區間，動能充足' if rsi_num != '' else 'RSI 健康強勢，動能充足')
+        elif '偏強' in rsi_sig:
+            rsi_num = rsi if rsi is not None else ''
+            tech_parts.append(f'RSI {rsi_num:.0f} 偏強，短線仍有動能但需留意高檔壓力' if rsi_num != '' else 'RSI 偏強，短線仍有動能')
+        elif '過熱' in rsi_sig:
+            rsi_num = rsi if rsi is not None else ''
+            tech_parts.append(f'RSI {rsi_num:.0f} 已進入超買過熱區，短線追高風險較高' if rsi_num != '' else 'RSI 過熱，追高需謹慎')
+
+    # 創新高
+    high_sig = next((s for s in tech_sigs if '新高' in s or '60 日高' in s), None)
+    if high_sig:
+        if '創 60 日新高' in high_sig:
+            tech_parts.append('今日突破 60 日高點，價格進入相對強勢突破區')
+        elif '接近' in high_sig or '逼近' in high_sig:
+            tech_parts.append(f'{high_sig}，突破前高是關鍵觀察點')
+
+    if not tech_parts:
+        if tech_score >= 30:
+            tech_parts.append('技術面整體強勢，多項指標同步確認上漲動能')
+        elif tech_score >= 20:
+            tech_parts.append('技術面溫和偏多，短線走勢尚可，需進一步確認方向')
+        else:
+            tech_parts.append('技術面訊號偏弱，建議等待更明確進場機會')
+
+    tech_text = '；'.join(tech_parts) + '。'
+
+    # ── 籌碼面解讀 ─────────────────────────────────────────────
+    chips_parts = []
+
+    main_force = next((s for s in chips_sigs if '主力' in s), None)
+    if main_force:
+        if '加碼' in main_force:
+            chips_parts.append('量價特徵顯示主力資金積極加碼介入')
+        elif '承接' in main_force:
+            chips_parts.append('主力逢低承接跡象明顯，大單買盤持續進場')
+        else:
+            chips_parts.append('主力態度觀望，尚未見明確大單進場')
+
+    inst_sig = next((s for s in chips_sigs if '法人' in s), None)
+    if inst_sig:
+        if '買超' in inst_sig:
+            chips_parts.append('股價站穩月線上方，推估三大法人呈買超態勢')
+        elif '賣超' in inst_sig:
+            chips_parts.append('股價跌破月線，推估法人有調節壓力')
+        else:
+            chips_parts.append('法人動向中性，持股變化不大')
+
+    margin_sig = next((s for s in chips_sigs if '融資' in s), None)
+    if margin_sig:
+        if '增' in margin_sig:
+            chips_parts.append('融資餘額溫和增加，散戶參與度提升但未過熱')
+        elif '減' in margin_sig:
+            chips_parts.append('融資餘額減少，籌碼逐步清洗，浮額降低')
+
+    if vol_ratio is not None:
+        if vol_ratio >= 2.5:
+            chips_parts.append(f'今日量比 {vol_ratio:.1f}x，爆量顯示資金大規模流入')
+        elif vol_ratio >= 1.5:
+            chips_parts.append(f'量比 {vol_ratio:.1f}x，成交量明顯放大，籌碼動向積極')
+        elif vol_ratio < 0.8:
+            chips_parts.append(f'量比僅 {vol_ratio:.1f}x，成交量萎縮，籌碼觀望氣氛濃')
+
+    if not chips_parts:
+        if chips_score >= 7:
+            chips_parts.append('籌碼面呈集中趨勢，法人與主力有明顯買進動作')
+        elif chips_score >= 4:
+            chips_parts.append('籌碼面中性偏多，無明顯異常賣壓')
+        else:
+            chips_parts.append('籌碼面偏弱，建議觀察法人動向是否轉強')
+
+    chips_text = '；'.join(chips_parts) + '。'
+
+    # ── 基本面評價 ─────────────────────────────────────────────
+    fund_parts = []
+
+    if pe_val is not None and pe_val > 0:
+        if pe_val < 10:
+            fund_parts.append(f'本益比僅 {pe_val:.1f}x，估值明顯偏低，具備安全邊際')
+        elif pe_val <= 18:
+            fund_parts.append(f'本益比 {pe_val:.1f}x，估值合理，與同業相比具競爭力')
+        elif pe_val <= 25:
+            fund_parts.append(f'本益比 {pe_val:.1f}x 略偏高，反映市場對成長性的樂觀預期')
+        else:
+            fund_parts.append(f'本益比 {pe_val:.1f}x 偏高，估值已充分反映預期，需留意下修風險')
+
+    if dy_val is not None:
+        if dy_val > 5:
+            fund_parts.append(f'殖利率 {dy_val:.1f}%，配息吸引力強，具防禦性價值')
+        elif dy_val >= 3:
+            fund_parts.append(f'殖利率 {dy_val:.1f}%，配息穩定，適合存股型投資人參與')
+        elif dy_val >= 1:
+            fund_parts.append(f'殖利率 {dy_val:.1f}%，股息貢獻有限，以資本利得為主要目標')
+        else:
+            fund_parts.append('殖利率偏低，公司以成長投資為優先，股息吸引力不足')
+
+    if pb_val is not None and pb_val > 0:
+        if pb_val < 1:
+            fund_parts.append(f'股價淨值比 {pb_val:.2f}x，跌破淨值具資產保護')
+        elif pb_val <= 2.5:
+            fund_parts.append(f'股價淨值比 {pb_val:.2f}x，淨值面合理')
+        elif pb_val <= 5:
+            fund_parts.append(f'股價淨值比 {pb_val:.2f}x，成長溢價較高')
+
+    # 成交量趨勢代替營收（因無月營收 API）
+    vol_trend_sig = next((s for s in fund_sigs if '量能' in s), None)
+    if vol_trend_sig:
+        if '爆發' in vol_trend_sig or '增溫' in vol_trend_sig:
+            fund_parts.append(f'近期{vol_trend_sig}，市場交投活絡顯示資金關注度上升')
+        elif '萎縮' in vol_trend_sig:
+            fund_parts.append('近期量能萎縮，市場參與度下降，需等待量能回升確認')
+
+    if not fund_parts:
+        if fund_score >= 30:
+            fund_parts.append('基本面數據優異，估值合理且具備成長動能')
+        elif fund_score >= 20:
+            fund_parts.append('基本面穩健，無明顯財務疑慮')
+        else:
+            fund_parts.append('基本面資料有限或估值偏高，需搭配其他面向綜合判斷')
+
+    fund_text = '；'.join(fund_parts) + '。'
+
+    # ── 風險提示 ─────────────────────────────────────────────
+    risk_parts = []
+
+    # RSI 超買風險
+    if rsi is not None and rsi > 75:
+        risk_parts.append(f'RSI {rsi:.0f} 超買，短線拉回修正機率較高，追高需控制部位')
+
+    # 量價背離風險
+    if any('假突破' in s or '出貨' in s for s in tech_sigs):
+        risk_parts.append('量價背離警訊出現，需確認主力意圖，謹防假突破陷阱')
+
+    # 停損距離
+    stop_pct = abs(downside)
+    if stop_pct <= 3:
+        risk_parts.append(f'停損設於 {stop_loss:.2f} 元（距進場約 {stop_pct:.1f}%），空間偏緊，須嚴格執行')
+    elif stop_pct >= 10:
+        risk_parts.append(f'停損設於 {stop_loss:.2f} 元（距進場 {stop_pct:.1f}%），波動較大需相應縮小部位')
+    else:
+        risk_parts.append(f'停損設於 {stop_loss:.2f} 元，跌破即出，嚴守風控')
+
+    # 法人賣超風險
+    if any('賣超' in s for s in chips_sigs):
+        risk_parts.append('目前法人呈賣超態勢，需留意機構調節壓力是否持續')
+
+    # 高 PE 風險
+    if pe_val is not None and pe_val > 30:
+        risk_parts.append(f'本益比 {pe_val:.0f}x 估值偏高，若獲利不如預期將面臨較大回調壓力')
+
+    # 大盤連動風險（高連動族群）
+    high_link = {'半導體', 'AI伺服器', 'PCB', '記憶體', '矽光子'}
+    if sector in high_link:
+        risk_parts.append(f'屬美股高連動族群（{sector}），需同步留意費半指數與 NASDAQ 走向')
+
+    if not risk_parts:
+        risk_parts.append(f'目前無明顯重大風險訊號，維持停損 {stop_loss:.2f} 元紀律即可')
+
+    risk_text = '；'.join(risk_parts) + '。'
+
+    # ── 操作建議 ─────────────────────────────────────────────
+    action_parts = []
+
+    if '強力買進' in rec:
+        action_parts.append(f'建議積極進場，進場區間 {entry:.2f}～{entry * 1.005:.2f} 元')
+        if target1:
+            action_parts.append(f'第一目標 {target1:.2f} 元（+{upside:.1f}%），達標後出脫 50% 部位')
+        if target2:
+            action_parts.append(f'第二目標 {target2:.2f} 元，剩餘部位續抱至目標')
+        action_parts.append(f'跌破 {stop_loss:.2f} 元嚴格停損，持有週期以 T+3～T+5 為宜')
+    elif '積極買進' in rec:
+        action_parts.append(f'建議中型部位進場，進場區間 {entry:.2f}～{entry * 1.01:.2f} 元')
+        if target1:
+            action_parts.append(f'目標價 {target1:.2f} 元（+{upside:.1f}%）')
+        action_parts.append(f'跌破 {stop_loss:.2f} 元停損，持有 T+3～T+5')
+    elif '逢低佈局' in rec:
+        action_parts.append(f'建議分批進場，首批於 {entry:.2f} 元附近小量試單，拉回確認支撐後再加碼')
+        if target1:
+            action_parts.append(f'目標價 {target1:.2f} 元（+{upside:.1f}%）')
+        action_parts.append(f'跌破 {stop_loss:.2f} 元停損，T+3 再評估持有')
+    elif '小量試單' in rec:
+        action_parts.append(f'建議僅小量試探性建倉（不超過總資金 5%），進場價 {entry:.2f} 元附近')
+        action_parts.append(f'確認方向後再加碼；跌破 {stop_loss:.2f} 元立即停損，控制最大損失')
+    else:
+        action_parts.append('目前訊號尚未明確，建議觀望等待更佳進場時機')
+        action_parts.append('可將此檔列入觀察清單，待技術面突破或籌碼轉強後再評估')
+
+    action_text = '；'.join(action_parts) + '。'
+
+    return {
+        'technical':   tech_text,
+        'chips':       chips_text,
+        'fundamental': fund_text,
+        'risk':        risk_text,
+        'action':      action_text,
+    }
+
+
+def attach_narratives_to_top5(explosive_top5: List[Dict]) -> List[Dict]:
+    """
+    為 explosive_top5 每檔加入 'narrative' 欄位（白話文分析）。
+    """
+    for stock in explosive_top5:
+        try:
+            stock['narrative'] = generate_narrative(stock)
+        except Exception as e:
+            stock['narrative'] = {
+                'technical':   '技術面分析暫時無法生成',
+                'chips':       '籌碼面分析暫時無法生成',
+                'fundamental': '基本面評價暫時無法生成',
+                'risk':        '風險提示暫時無法生成',
+                'action':      '操作建議暫時無法生成',
+            }
+            print(f"[Narrative] {stock.get('stock_id','?')} 生成失敗：{e}")
+    return explosive_top5

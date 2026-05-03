@@ -1,5 +1,5 @@
 'use client';
-import { ScanStock, DIMENSION_CONFIG } from '@/lib/scanTypes';
+import { ScanStock, StockNarrative, DIMENSION_CONFIG } from '@/lib/scanTypes';
 import { X, Target, Shield, TrendingUp, TrendingDown, ExternalLink, Share2, Check } from 'lucide-react';
 import { useEffect, useState, useCallback } from 'react';
 import {
@@ -28,6 +28,35 @@ const DIM_LABELS: Record<string, string> = {
 const DIM_COLORS: Record<string, string> = {
   technical: '#38bdf8', fundamental: '#34d399', news: '#fbbf24', sentiment: '#a78bfa', chips: '#f87171',
 };
+
+// ── AI 白話文分析面板 ──────────────────────────────────────────
+const NARRATIVE_ROWS: { key: keyof StockNarrative; label: string; icon: string; color: string }[] = [
+  { key: 'technical',   label: '技術面解讀', icon: '📈', color: 'text-sky-300' },
+  { key: 'chips',       label: '籌碼面解讀', icon: '🏦', color: 'text-violet-300' },
+  { key: 'fundamental', label: '基本面評價', icon: '📊', color: 'text-emerald-300' },
+  { key: 'risk',        label: '風險提示',   icon: '⚠️', color: 'text-amber-300' },
+  { key: 'action',      label: '操作建議',   icon: '🎯', color: 'text-red-300' },
+];
+
+function NarrativePanel({ narrative }: { narrative: StockNarrative }) {
+  return (
+    <div className="rounded-xl bg-gray-800/40 border border-gray-700/50 p-4">
+      <h3 className="text-[11px] font-semibold text-gray-500 mb-3 uppercase tracking-wide flex items-center gap-1.5">
+        <span>🤖</span>AI 白話文分析
+      </h3>
+      <div className="space-y-3">
+        {NARRATIVE_ROWS.map(({ key, label, icon, color }) => (
+          <div key={key} className="rounded-lg bg-gray-900/60 border border-gray-700/40 px-3 py-2.5">
+            <div className={`text-[10px] font-semibold mb-1 flex items-center gap-1 ${color}`}>
+              <span>{icon}</span>{label}
+            </div>
+            <p className="text-[12px] text-gray-300 leading-relaxed">{narrative[key]}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function SimpleSparkline({ candles }: { candles: { date: string; close: number }[] }) {
   if (!candles || candles.length < 2) return null;
@@ -310,6 +339,9 @@ export default function StockDetailModal({ stock, onClose, rank, isDemo }: Props
               </div>
             </div>
           )}
+
+          {/* AI 白話文分析 */}
+          {stock.narrative && <NarrativePanel narrative={stock.narrative} />}
 
           <a
             href={`https://tw.stock.yahoo.com/quote/${stock.stock_id}`}

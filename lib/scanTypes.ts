@@ -32,6 +32,14 @@ export interface ScanStrategy {
   recommendation: string;
 }
 
+export interface StockNarrative {
+  technical:   string;   // 技術面解讀
+  chips:       string;   // 籌碼面解讀
+  fundamental: string;   // 基本面評價
+  risk:        string;   // 風險提示
+  action:      string;   // 操作建議
+}
+
 export interface ScanStock {
   stock_id:    string;
   name:        string;
@@ -45,6 +53,7 @@ export interface ScanStock {
   signals?:    ScanSignals;
   details?:    Record<string, unknown>;
   strategy?:   ScanStrategy;
+  narrative?:  StockNarrative;   // AI 白話文分析（規則式生成）
 }
 
 export interface ScanResult {
