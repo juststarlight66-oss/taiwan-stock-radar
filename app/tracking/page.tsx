@@ -31,6 +31,7 @@ interface BacktestMapEntry {
     ma_cross: StrategyData;
     breakout: StrategyData;
     pattern: StrategyData;
+    rsi_div: StrategyData;
   };
 }
 interface Dimensions {
@@ -115,11 +116,13 @@ const STRATEGY_COLORS: Record<string, string> = {
   ma_cross: '#38bdf8',
   breakout: '#34d399',
   pattern: '#f59e0b',
-};
+  rsi_div: '#f59e0b',
+}
 const STRATEGY_LABELS: Record<string, string> = {
   ma_cross: '均線交叉',
   breakout: '突破策略',
   pattern: '形態識別',
+  rsi_div: 'RSI 背離',
 };
 const DIM_LABELS: Record<string, string> = {
   technical: '技術面',
@@ -194,6 +197,10 @@ function CumulativeReturnChart({
 }) {
   const [activeStrategy, setActiveStrategy] = useState<'ma_cross' | 'breakout' | 'pattern'>('ma_cross');
 
+  // Resolve: prefer exact key, fall back rsi_div for pattern
+  const resolve = (entry: BacktestMapEntry, key: 'ma_cross' | 'breakout' | 'pattern') =>
+    entry.strategies[key] ?? (key === 'pattern' ? entry.strategies.rsi_div : null);
+
   // Build unified date axis and per-stock equity curves
   const { chartData, stocks } = useMemo(() => {
     const allDates = new Set<string>();
@@ -202,7 +209,7 @@ function CumulativeReturnChart({
     for (const stock of top5) {
       const entry = backtestMap[stock.stock_id];
       if (!entry) continue;
-      const strat = entry.strategies[activeStrategy];
+      const strat = resolve(entry, activeStrategy);
       if (!strat?.equity_curve_data?.length) continue;
 
       const points: Record<string, number> = {};
@@ -582,9 +589,9 @@ function StrategyWinRateChart({ top5, backtestMap }: { top5: ExplosiveStock[]; b
         name: `${stock.stock_id}\n${stock.name}`,
         shortName: stock.name,
         stockId: stock.stock_id,
-        ma_cross: Math.round((entry.strategies.ma_cross?.win_rate ?? 0) * 100),
-        breakout: Math.round((entry.strategies.breakout?.win_rate ?? 0) * 100),
-        pattern: Math.round((entry.strategies.pattern?.win_rate ?? 0) * 100),
+        ma_cross: Math.round((resolve(entry, 'ma_cross')?.win_rate ?? 0) * 100),
+        breakout: Math.round((resolve(entry, 'breakout')?.win_rate ?? 0) * 100),
+        pattern: Math.round((resolve(entry, 'pattern')?.win_rate ?? 0) * 100),
         trades: (entry.strategies.ma_cross?.total_trades ?? 0) +
                 (entry.strategies.breakout?.total_trades ?? 0) +
                 (entry.strategies.pattern?.total_trades ?? 0),
