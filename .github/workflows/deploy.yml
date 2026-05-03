@@ -76,6 +76,16 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Fix sub-page routing for GitHub Pages
+        run: |
+          for page in intraday tracking; do
+            if [ -f out/${page}.html ] && [ ! -f out/${page}/index.html ]; then
+              mkdir -p out/${page}
+              cp out/${page}.html out/${page}/index.html
+              echo "Copied ${page}.html -> ${page}/index.html"
+            fi
+          done
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
