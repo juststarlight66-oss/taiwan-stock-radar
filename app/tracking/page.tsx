@@ -189,6 +189,10 @@ function SectionHeader({ title, sub }: { title: React.ReactNode; sub?: string })
 
 // ── Cumulative Return Curve ──────────────────────────────────────────────────
 
+// Resolve: prefer exact key, fall back rsi_div for pattern
+const resolveStrat = (entry: BacktestMapEntry, key: 'ma_cross' | 'breakout' | 'pattern') =>
+  entry.strategies[key] ?? (key === 'pattern' ? entry.strategies.rsi_div : null);
+
 function CumulativeReturnChart({
   top5, backtestMap,
 }: {
@@ -196,10 +200,6 @@ function CumulativeReturnChart({
   backtestMap: Record<string, BacktestMapEntry>;
 }) {
   const [activeStrategy, setActiveStrategy] = useState<'ma_cross' | 'breakout' | 'pattern'>('ma_cross');
-
-  // Resolve: prefer exact key, fall back rsi_div for pattern
-  const resolve = (entry: BacktestMapEntry, key: 'ma_cross' | 'breakout' | 'pattern') =>
-    entry.strategies[key] ?? (key === 'pattern' ? entry.strategies.rsi_div : null);
 
   // Build unified date axis and per-stock equity curves
   const { chartData, stocks } = useMemo(() => {
@@ -209,7 +209,7 @@ function CumulativeReturnChart({
     for (const stock of top5) {
       const entry = backtestMap[stock.stock_id];
       if (!entry) continue;
-      const strat = resolve(entry, activeStrategy);
+      const strat = resolveStrat(entry, activeStrategy);
       if (!strat?.equity_curve_data?.length) continue;
 
       const points: Record<string, number> = {};
@@ -589,9 +589,9 @@ function StrategyWinRateChart({ top5, backtestMap }: { top5: ExplosiveStock[]; b
         name: `${stock.stock_id}\n${stock.name}`,
         shortName: stock.name,
         stockId: stock.stock_id,
-        ma_cross: Math.round((resolve(entry, 'ma_cross')?.win_rate ?? 0) * 100),
-        breakout: Math.round((resolve(entry, 'breakout')?.win_rate ?? 0) * 100),
-        pattern: Math.round((resolve(entry, 'pattern')?.win_rate ?? 0) * 100),
+        ma_cross: Math.round((resolveStrat(entry, 'ma_cross')?.win_rate ?? 0) * 100),
+        breakout: Math.round((resolveStrat(entry, 'breakout')?.win_rate ?? 0) * 100),
+        pattern: Math.round((resolveStrat(entry, 'pattern')?.win_rate ?? 0) * 100),
         trades: (entry.strategies.ma_cross?.total_trades ?? 0) +
                 (entry.strategies.breakout?.total_trades ?? 0) +
                 (entry.strategies.pattern?.total_trades ?? 0),
@@ -649,7 +649,10 @@ function Top5Cards({ top5 }: { top5: ExplosiveStock[] }) {
         sub="本日飆股雷達 Top 5 推薦，含各維度評分與策略建議"
       />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3">
-        {top5.map((s, i) => {
+        {top5
+          .filter((s) => s.total_score != null && s.total_score > 0 && Object.keys(s.dimensions ?? {}).length > 0)
+          .slice(0, 5)
+          .map((s, i) => {
           const changePosive = s.change_pct >= 0;
           const dimEntries = Object.entries(s.dimensions ?? {}) as [keyof Dimensions, number][];
           return (
