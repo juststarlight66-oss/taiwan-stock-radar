@@ -1069,18 +1069,26 @@ def analyze_technical(hist) -> Dict:
     ma5 = sum(closes[-5:]) / 5
     ma10 = sum(closes[-10:]) / 10
     ma20 = sum(closes[-20:]) / 20
-    ma60 = sum(closes[-min(len(closes),60):]) / min(len(closes),60) if len(closes) >= 20 else ma20
-    ma120 = sum(closes[-120:]) / 120 if len(closes) >= 120 else ma60
+    # FIX: only compute ma60/ma120 when enough data exists; otherwise use None sentinel
+    ma60 = sum(closes[-60:]) / 60 if len(closes) >= 60 else None
+    ma120 = sum(closes[-120:]) / 120 if len(closes) >= 120 else None
     ma_arr = 0
     # 短期排列 (3分): 收盤 > MA5(1), MA5 > MA10(2)
     if today['close'] > ma5: ma_arr += 1
     if ma5 > ma10: ma_arr += 2
     # 中期排列 (3分): MA10 > MA20(1), MA20 > MA60(2)
     if ma10 > ma20: ma_arr += 1
-    if ma20 > ma60: ma_arr += 2
+    if ma60 is not None and ma20 > ma60: ma_arr += 2
+    elif ma60 is None: ma_arr += 1
     # 長期排列 (2分): MA60 > MA120
-    if ma60 > ma120: ma_arr += 2
-    if ma_arr >= 7: signals.append('黃金多頭排列 (MA5>MA10>MA20>MA60>MA120)')
+    if ma60 is not None and ma120 is not None and ma60 > ma120: ma_arr += 2
+    elif ma60 is not None and ma120 is None: ma_arr += 1
+    # 訊號標籤
+    if ma60 is None:
+        if ma_arr >= 5: signals.append('多頭排列 (MA60 資料不足)')
+        elif ma_arr >= 3: signals.append('部分多頭排列 (MA60 資料不足)')
+        else: signals.append('短線弱勢 (MA60 資料不足)')
+    elif ma_arr >= 7: signals.append('黃金多頭排列 (MA5>MA10>MA20>MA60>MA120)')
     elif ma_arr >= 5: signals.append('多頭排列')
     elif ma_arr >= 3: signals.append('部分多頭排列')
     else: signals.append('空頭排列')
