@@ -1,114 +1,169 @@
 {
   "scan_type": "intraday_daytrade",
-  "scanned_at": "2026-05-04 05:22:13",
+  "scanned_at": "2026-05-05 00:07:52",
   "stocks": [
     {
-      "stock_id": "00642U",
-      "name": "期元大S&P石油",
+      "stock_id": "00400A",
+      "name": "主動國泰動能高息",
       "sector": "",
       "score": 50.0,
       "details": {
         "momentum": "极强",
         "gap": "開高走高"
       },
+      "total_score": 50.0,
+      "entry": 13.57,
+      "target": 14.66,
+      "stop_loss": 12.89,
+      "change_pct": 5.03,
+      "dimensions": {
+        "momentum": "极强",
+        "vol_ratio": "",
+        "breakout": "",
+        "gap": "開高走高"
+      },
       "live": {
-        "current": 33.15,
-        "open": 32.36,
-        "high": 33.53,
-        "low": 32.36,
-        "prev_close": 30.14,
-        "volume": 22189,
-        "change_pct": 9.99,
+        "current": 13.57,
+        "open": 13.2,
+        "high": 13.57,
+        "low": 13.18,
+        "prev_close": 12.92,
+        "volume": 74708,
+        "change_pct": 5.03,
         "time": "13:30:00",
-        "date": "20260430",
+        "date": "20260504",
         "source": "tse"
       }
     },
     {
-      "stock_id": "00715L",
-      "name": "期街口布蘭特正2",
+      "stock_id": "0052",
+      "name": "富邦科技",
       "sector": "",
       "score": 50.0,
       "details": {
         "momentum": "极强",
         "gap": "開高走高"
       },
+      "total_score": 50.0,
+      "entry": 55.4,
+      "target": 59.83,
+      "stop_loss": 52.63,
+      "change_pct": 5.22,
+      "dimensions": {
+        "momentum": "极强",
+        "vol_ratio": "",
+        "breakout": "",
+        "gap": "開高走高"
+      },
       "live": {
-        "current": 74.15,
-        "open": 70.9,
-        "high": 75.45,
-        "low": 70.6,
-        "prev_close": 63.15,
-        "volume": 30050,
-        "change_pct": 17.42,
+        "current": 55.4,
+        "open": 53.95,
+        "high": 55.5,
+        "low": 53.85,
+        "prev_close": 52.65,
+        "volume": 50314,
+        "change_pct": 5.22,
         "time": "13:30:00",
-        "date": "20260430",
+        "date": "20260504",
         "source": "tse"
       }
     },
     {
-      "stock_id": "1309",
-      "name": "台達化",
+      "stock_id": "00631L",
+      "name": "元大台灣50正2",
       "sector": "",
       "score": 50.0,
       "details": {
         "momentum": "极强",
         "gap": "開高走高"
       },
+      "total_score": 50.0,
+      "entry": 31.0,
+      "target": 33.48,
+      "stop_loss": 29.45,
+      "change_pct": 8.35,
+      "dimensions": {
+        "momentum": "极强",
+        "vol_ratio": "",
+        "breakout": "",
+        "gap": "開高走高"
+      },
       "live": {
-        "current": 20.8,
-        "open": 19.65,
-        "high": 20.8,
-        "low": 19.35,
-        "prev_close": 18.95,
-        "volume": 24434,
-        "change_pct": 9.76,
+        "current": 31.0,
+        "open": 29.77,
+        "high": 31.0,
+        "low": 29.77,
+        "prev_close": 28.61,
+        "volume": 248261,
+        "change_pct": 8.35,
         "time": "13:30:00",
-        "date": "20260430",
+        "date": "20260504",
         "source": "tse"
       }
     },
     {
-      "stock_id": "1597",
-      "name": "直得",
+      "stock_id": "00663L",
+      "name": "國泰臺灣加權正2",
       "sector": "",
       "score": 50.0,
       "details": {
         "momentum": "极强",
         "gap": "開高走高"
       },
+      "total_score": 50.0,
+      "entry": 89.2,
+      "target": 96.34,
+      "stop_loss": 84.74,
+      "change_pct": 8.78,
+      "dimensions": {
+        "momentum": "极强",
+        "vol_ratio": "",
+        "breakout": "",
+        "gap": "開高走高"
+      },
       "live": {
-        "current": 143.5,
-        "open": 143.5,
-        "high": 143.5,
-        "low": 140.5,
-        "prev_close": 130.5,
-        "volume": 4457,
-        "change_pct": 9.96,
+        "current": 89.2,
+        "open": 85.7,
+        "high": 89.2,
+        "low": 85.65,
+        "prev_close": 82.0,
+        "volume": 11841,
+        "change_pct": 8.78,
         "time": "13:30:00",
-        "date": "20260430",
+        "date": "20260504",
         "source": "tse"
       }
     },
     {
-      "stock_id": "2380",
-      "name": "虹光",
+      "stock_id": "00670L",
+      "name": "富邦NASDAQ正2",
       "sector": "",
       "score": 50.0,
       "details": {
         "momentum": "极强",
         "gap": "開高走高"
       },
+      "total_score": 50.0,
+      "entry": 186.95,
+      "target": 201.91,
+      "stop_loss": 177.6,
+      "change_pct": 5.24,
+      "dimensions": {
+        "momentum": "极强",
+        "vol_ratio": "",
+        "breakout": "",
+        "gap": "開高走高"
+      },
       "live": {
-        "current": 5.62,
-        "open": 5.54,
-        "high": 5.62,
-        "low": 5.54,
-        "prev_close": 5.11,
-        "volume": 437,
-        "change_pct": 9.98,
+        "current": 186.95,
+        "open": 185.6,
+        "high": 186.95,
+        "low": 185.5,
+        "prev_close": 177.65,
+        "volume": 1494,
+        "change_pct": 5.24,
         "time": "13:30:00",
-        "date": "20260430",
+        "date": "20260504",
         "source": "tse"
       }
     }
