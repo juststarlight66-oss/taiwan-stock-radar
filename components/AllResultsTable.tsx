@@ -167,6 +167,7 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
                   綜合分 <SortIndicator k="total_score" />
                 </th>
                 <th className="text-left px-3 py-2.5 font-medium">建議</th>
+                <th className="text-right px-3 py-2.5 font-medium">三關價</th>
                 <th className="px-3 py-2.5 w-8"></th>
               </tr>
             </thead>
@@ -213,6 +214,17 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
                       <span className={`text-[11px] ${actionCls}`}>
                         {s.strategy.recommendation.split(' - ')[0]}
                       </span>
+                    </td>
+                    <td className="px-3 py-2.5 text-right font-mono text-[11px] text-gray-600">
+                      {s.strategy.entry ? (
+                        <div className="flex items-center justify-end gap-1">
+                          <span className="text-sky-600">進{s.strategy.entry.toFixed(1)}</span>
+                          <span className="text-gray-300">|</span>
+                          <span className="text-red-400">損{s.strategy.stop_loss.toFixed(1)}</span>
+                          <span className="text-gray-300">|</span>
+                          <span className="text-emerald-600">目{s.strategy.target.toFixed(1)}</span>
+                        </div>
+                      ) : '—'}
                     </td>
                     <td className="px-3 py-2.5" onClick={(e) => e.stopPropagation()}>
                       <WatchlistToggleBtn stockId={s.stock_id} />

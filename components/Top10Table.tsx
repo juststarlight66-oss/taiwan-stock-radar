@@ -199,7 +199,7 @@ export default function Top10Table({ stocks, scanDate, scannedCount, isDemo, tre
                 <th className="text-left px-3 py-2.5 text-[11px] text-gray-500 font-medium w-36">綜合評分</th>
                 <th className="text-center px-3 py-2.5 text-[11px] text-gray-500 font-medium">雷達</th>
                 <th className="text-left px-3 py-2.5 text-[11px] text-gray-500 font-medium">建議</th>
-                <th className="text-right px-3 py-2.5 text-[11px] text-gray-500 font-medium">三關目標</th>
+                <th className="text-right px-3 py-2.5 text-[11px] text-gray-500 font-medium">三關價</th>
                 <th className="px-3 py-2.5 w-20" />
               </tr>
             </thead>
@@ -251,18 +251,21 @@ export default function Top10Table({ stocks, scanDate, scannedCount, isDemo, tre
                       </div>
                     </td>
                     <td className="px-3 py-3 text-right">
-                      <div className="flex flex-col items-end gap-1">
-                        {(['target1', 'target2', 'target3'] as const).map((k, idx) => {
-                          const val = (s.strategy as Record<string, number>)[k] ?? (idx === 0 ? s.strategy.target : undefined);
-                          const upside = idx === 0 ? s.strategy.upside : idx === 1 ? (s.strategy as Record<string, number>).upside2 : (s.strategy as Record<string, number>).upside3;
-                          if (!val || val <= 0) return null;
-                          return (
-                            <span key={k} className="text-[10px] font-mono bg-emerald-50 text-emerald-700 border border-emerald-200 px-1.5 py-0.5 rounded whitespace-nowrap">
-                              T{idx + 1} {val.toFixed(0)} {upside ? `+${upside}%` : ''}
-                            </span>
-                          );
-                        })}
-                      </div>
+                      {s.strategy ? (
+                        <div className="flex flex-col items-end gap-0.5">
+                          <span className="text-[10px] font-mono bg-sky-50 text-sky-700 border border-sky-200 px-1.5 py-0.5 rounded whitespace-nowrap">
+                            進 {s.strategy.entry.toFixed(1)}
+                          </span>
+                          <span className="text-[10px] font-mono bg-rose-50 text-rose-700 border border-rose-200 px-1.5 py-0.5 rounded whitespace-nowrap">
+                            停 {s.strategy.stop_loss.toFixed(1)}
+                          </span>
+                          <span className="text-[10px] font-mono bg-emerald-50 text-emerald-700 border border-emerald-200 px-1.5 py-0.5 rounded whitespace-nowrap">
+                            目 {s.strategy.target.toFixed(1)} {s.strategy.upside ? `+${s.strategy.upside}%` : ''}
+                          </span>
+                        </div>
+                      ) : (
+                        <span className="text-[11px] text-gray-400">—</span>
+                      )}
                     </td>
                     <td className="px-3 py-3">
                       <div className="flex items-center justify-end gap-1">
