@@ -6,7 +6,7 @@ set -e
 SCAN_FILE="$1"
 DATE="$2"
 ALL_SCORES_FILE="${3:-}"
-REPO_DIR="/home/sprite/projects/taiwan-stock-radar"
+REPO_DIR="/home/sprite/taiwan-stock-radar"
 
 cd "$REPO_DIR"
 
