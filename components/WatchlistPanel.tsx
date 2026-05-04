@@ -4,7 +4,7 @@ import { ScanStock, DIMENSION_CONFIG } from '@/lib/scanTypes';
 import StockDetailModal from './StockDetailModal';
 import { Star, StarOff, Search, Trash2, ArrowUpRight, ArrowDownRight } from 'lucide-react';
 
-function getActionColor(action: string) {
+function getActionColor(action: string | undefined) {
   if (action === '強力買進') return 'text-red-600 font-bold';
   if (action === '買進') return 'text-orange-500 font-bold';
   if (action === '觀望') return 'text-gray-500';
@@ -46,7 +46,7 @@ function ScoreBar({ score, max }: { score: number; max: number }) {
 }
 
 /** 加入/移除自選股按鈕，可在任何表格裡單獨使用 */
-export function WatchlistToggleBtn({ stockId }: { stockId: string }) {
+export function WatchlistToggleBtn({ stockId, stockName: _stockName }: { stockId: string; stockName?: string }) {
   const [ids, setIds] = useState<string[]>([]);
 
   useEffect(() => {
@@ -171,8 +171,8 @@ export default function WatchlistPanel({ stocks }: Props) {
         {/* mobile cards */}
         <div className="block md:hidden divide-y divide-gray-700/30">
           {filtered.map((s) => {
-            const up = s.change_pct >= 0;
-            const isLimit = Math.abs(s.change_pct) >= 9.5;
+            const up = ((s.change_pct ?? 0) ?? 0) >= 0;
+            const isLimit = Math.abs((s.change_pct ?? 0)) >= 9.5;
             const limitCls = isLimit
               ? up
                 ? 'ring-1 ring-red-500/60 bg-red-500/5'
@@ -197,7 +197,7 @@ export default function WatchlistPanel({ stocks }: Props) {
                   <div className="text-sm font-mono font-bold text-white">{s.close.toLocaleString()}</div>
                   <div className={`text-xs font-mono flex items-center justify-end ${up ? 'text-emerald-400' : 'text-red-400'}`}>
                     {up ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
-                    {Math.abs(s.change_pct).toFixed(2)}%
+                    {Math.abs((s.change_pct ?? 0)).toFixed(2)}%
                   </div>
                 </div>
                 <button
@@ -228,14 +228,14 @@ export default function WatchlistPanel({ stocks }: Props) {
             </thead>
             <tbody className="divide-y divide-gray-700/20">
               {filtered.map((s, i) => {
-                const up = s.change_pct >= 0;
-                const isLimit = Math.abs(s.change_pct) >= 9.5;
+                const up = ((s.change_pct ?? 0) ?? 0) >= 0;
+                const isLimit = Math.abs((s.change_pct ?? 0)) >= 9.5;
                 const rowCls = isLimit
                   ? up
                     ? 'ring-1 ring-inset ring-red-500/50 bg-red-500/5'
                     : 'ring-1 ring-inset ring-emerald-500/50 bg-emerald-500/5'
                   : '';
-                const actionCls = getActionColor(s.strategy.recommendation);
+                const actionCls = getActionColor(s.strategy?.recommendation);
                 return (
                   <tr
                     key={s.stock_id}
@@ -254,7 +254,7 @@ export default function WatchlistPanel({ stocks }: Props) {
                     <td className="px-3 py-2.5 text-right">
                       <span className={`font-mono flex items-center justify-end gap-0.5 ${up ? 'text-emerald-400' : 'text-red-400'}`}>
                         {up ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
-                        {Math.abs(s.change_pct).toFixed(2)}%
+                        {Math.abs((s.change_pct ?? 0)).toFixed(2)}%
                         {isLimit && (
                           <span className={`ml-1 text-[9px] px-1 py-0.5 rounded font-bold ${up ? 'bg-red-500/20 text-red-300' : 'bg-emerald-500/20 text-emerald-300'}`}>
                             {up ? '漲停' : '跌停'}
@@ -267,7 +267,7 @@ export default function WatchlistPanel({ stocks }: Props) {
                     </td>
                     <td className="px-3 py-2.5">
                       <span className={`px-1.5 py-0.5 rounded border text-[10px] font-medium ${actionCls}`}>
-                        {s.strategy.recommendation.split(' - ')[0]}
+                        {s.strategy?.recommendation.split(' - ')[0]}
                       </span>
                     </td>
                     <td className="px-3 py-2.5">

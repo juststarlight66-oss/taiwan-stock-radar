@@ -95,12 +95,16 @@ interface BacktestRecord {
 interface LatestData {
   scan_date: string;
   scanned_count: number;
-  explosive_top5: ExplosiveStock[];
-  backtest_map: Record<string, BacktestMapEntry>;
-  all_results: AllResult[];
+  top10: ExplosiveStock[];
+  total_stocks?: number;
   market_trend?: string;
   trend_label?: string;
   bull_ratio?: number;
+}
+interface AllScoresData {
+  scan_date: string;
+  scanned_count: number;
+  all_stock_scores: ExplosiveStock[];
 }
 interface BacktestData {
   version: number;
@@ -270,7 +274,7 @@ function CumulativeReturnChart({
               width={48}
             />
             <Tooltip
-              formatter={(v: number) => [`${v?.toFixed(1) ?? '—'}%`, '']}
+              formatter={(v) => [`${typeof v === 'number' ? v.toFixed(1) : '—'}%`, '']}
               labelStyle={{ fontSize: 11 }}
               contentStyle={{ fontSize: 11, borderRadius: 8, border: '1px solid #e5e7eb' }}
             />
@@ -296,7 +300,7 @@ function CumulativeReturnChart({
 
 // ── Win Rate Heatmap by Sector ───────────────────────────────────────────────
 
-function SectorWinRateHeatmap({ allResults }: { allResults: AllResult[] }) {
+function SectorWinRateHeatmap({ allResults }: { allResults: ExplosiveStock[] }) {
   const sectorData = useMemo(() => {
     const map: Record<string, { win: number; total: number; avgScore: number; scores: number[] }> = {};
     for (const s of allResults) {
@@ -371,7 +375,7 @@ function SectorWinRateHeatmap({ allResults }: { allResults: AllResult[] }) {
 
 // ── Dimension Accuracy Stats ─────────────────────────────────────────────────
 
-function DimensionAccuracyStats({ allResults }: { allResults: AllResult[] }) {
+function DimensionAccuracyStats({ allResults }: { allResults: ExplosiveStock[] }) {
   const dimData = useMemo(() => {
     const dims = ['technical', 'fundamental', 'news', 'sentiment', 'chips'] as const;
     return dims.map((dim) => {
@@ -625,7 +629,7 @@ function StrategyWinRateChart({ top5, backtestMap }: { top5: ExplosiveStock[]; b
               width={40}
             />
             <Tooltip
-              formatter={(v: number, name: string) => [`${v}%`, STRATEGY_LABELS[name] ?? name]}
+              formatter={(v, name) => [`${typeof v === 'number' ? v : v}%`, STRATEGY_LABELS[String(name)] ?? String(name)]}
               contentStyle={{ fontSize: 11, borderRadius: 8, border: '1px solid #e5e7eb' }}
             />
             <Legend formatter={(v) => STRATEGY_LABELS[v] ?? v} wrapperStyle={{ fontSize: 11 }} />
@@ -732,6 +736,7 @@ function Top5Cards({ top5 }: { top5: ExplosiveStock[] }) {
 
 export default function TrackingPage() {
   const [latestData, setLatestData] = useState<LatestData | null>(null);
+  const [allScoresData, setAllScoresData] = useState<AllScoresData | null>(null);
   const [backtestData, setBacktestData] = useState<BacktestData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -775,23 +780,23 @@ export default function TrackingPage() {
   // ── Summary stats ──────────────────────────────────────────────────────────
   const summaryStats = useMemo(() => {
     if (!latestData) return null;
-    const { backtest_map, all_results, scanned_count } = latestData;
+    const allResults = allScoresData?.all_stock_scores ?? [];
 
-    // Average win rate across all backtest strategies
+    // Average win rate from backtest data
+    const completedRecords = (backtestData?.records ?? []).filter((r) => !r.periods.T1.pending);
     let totalWinRate = 0;
     let winRateCount = 0;
-    let totalTrades = 0;
-    for (const entry of Object.values(backtest_map)) {
-      for (const strat of Object.values(entry.strategies)) {
-        if (strat.win_rate > 0) { totalWinRate += strat.win_rate; winRateCount++; }
-        totalTrades += strat.total_trades;
-      }
+    for (const rec of completedRecords) {
+      if (rec.periods.T1.win_rate != null) { totalWinRate += rec.periods.T1.win_rate * 100; winRateCount++; }
+      if (rec.periods.T3.win_rate != null) { totalWinRate += rec.periods.T3.win_rate * 100; winRateCount++; }
+      if (rec.periods.T5.win_rate != null) { totalWinRate += rec.periods.T5.win_rate * 100; winRateCount++; }
     }
-    const avgWinRate = winRateCount > 0 ? Math.round((totalWinRate / winRateCount) * 100) : 0;
+    const avgWinRate = winRateCount > 0 ? Math.round(totalWinRate / winRateCount) : 0;
+    const totalTrades = completedRecords.reduce((acc, r) => acc + r.periods.T1.stocks.length, 0);
 
     // Best sector by average score
     const sectorScores: Record<string, number[]> = {};
-    for (const s of all_results) {
+    for (const s of allResults) {
       if (!sectorScores[s.sector]) sectorScores[s.sector] = [];
       sectorScores[s.sector].push(s.total_score);
     }
@@ -802,8 +807,8 @@ export default function TrackingPage() {
       if (avg > bestAvg && scores.length >= 3) { bestAvg = avg; bestSector = sec; }
     }
 
-    return { scanned_count, avgWinRate, bestSector, totalTrades };
-  }, [latestData]);
+    return { scanned_count: latestData.scanned_count, avgWinRate, bestSector, totalTrades };
+  }, [latestData, allScoresData, backtestData]);
 
   return (
     <div className="min-h-dvh bg-white text-gray-900 font-sans flex flex-col">
@@ -898,33 +903,17 @@ export default function TrackingPage() {
             )}
 
             {/* Top5 detail cards */}
-            {latestData.explosive_top5?.length > 0 && (
-              <Top5Cards top5={latestData.explosive_top5} />
-            )}
-
-            {/* Cumulative Return Curve */}
-            {latestData.explosive_top5?.length > 0 && Object.keys(latestData.backtest_map ?? {}).length > 0 && (
-              <CumulativeReturnChart
-                top5={latestData.explosive_top5}
-                backtestMap={latestData.backtest_map}
-              />
-            )}
-
-            {/* Strategy win rate bar chart */}
-            {latestData.explosive_top5?.length > 0 && Object.keys(latestData.backtest_map ?? {}).length > 0 && (
-              <StrategyWinRateChart
-                top5={latestData.explosive_top5}
-                backtestMap={latestData.backtest_map}
-              />
+            {latestData.top10?.length > 0 && (
+              <Top5Cards top5={latestData.top10.slice(0, 5)} />
             )}
 
             {/* Sector Heatmap + Dimension Accuracy side by side on large screens */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-              {latestData.all_results?.length > 0 && (
-                <SectorWinRateHeatmap allResults={latestData.all_results} />
+              {allScoresData?.all_stock_scores && allScoresData.all_stock_scores.length > 0 && (
+                <SectorWinRateHeatmap allResults={allScoresData.all_stock_scores} />
               )}
-              {latestData.all_results?.length > 0 && (
-                <DimensionAccuracyStats allResults={latestData.all_results} />
+              {allScoresData?.all_stock_scores && allScoresData.all_stock_scores.length > 0 && (
+                <DimensionAccuracyStats allResults={allScoresData.all_stock_scores} />
               )}
             </div>
 

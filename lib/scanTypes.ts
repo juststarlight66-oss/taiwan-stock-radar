@@ -51,7 +51,7 @@ export interface ScanStock {
   vol_ratio?:  number;
   dimensions?: ScanDimensions;
   signals?:    ScanSignals;
-  details?:    Record<string, unknown>;
+  details?:    { rsi?: number; vol_ratio?: number; pe?: number; [key: string]: unknown };
   strategy?:   ScanStrategy;
   narrative?:  StockNarrative;   // AI 白話文分析（規則式生成）
 }

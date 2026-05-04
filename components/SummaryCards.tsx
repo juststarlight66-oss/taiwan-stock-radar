@@ -38,11 +38,11 @@ export default function SummaryCards({ data }: Props) {
     ? stocks.reduce((s, st) => s + st.total_score, 0) / stocks.length
     : 0;
   const strongBuy = stocks.filter(
-    (s) => s.strategy.recommendation.includes('強力') || s.strategy.recommendation.includes('積極')
+    (s) => s?.strategy?.recommendation.includes('強力') || s?.strategy?.recommendation.includes('積極')
   ).length;
   const topSectors = [...new Set(stocks.map((s) => s.sector))].slice(0, 3);
   const avgUpside = stocks.length
-    ? stocks.reduce((s, st) => s + st.strategy.upside, 0) / stocks.length
+    ? stocks.reduce((s, st) => s + (st?.strategy?.upside ?? 0), 0) / stocks.length
     : 0;
   const scannedPct = data.scanned_count ? Math.min((data.scanned_count / 2200) * 100, 100) : 0;
   const scorePct = (avgScore / totalMax) * 100;

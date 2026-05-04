@@ -2,9 +2,7 @@ import { ScanResult } from './scanTypes';
 
 export const demoScanResult: ScanResult = {
   scan_date: '2026-04-28',
-  scan_start: '2026-04-28 22:55:00',
   scanned_count: 2103,
-  total_stocks: 200,
   top10: [
     {
       stock_id: '3008',

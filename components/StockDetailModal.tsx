@@ -116,7 +116,7 @@ export default function StockDetailModal({ stock, onClose, rank, isDemo }: Props
   }, [onClose]);
 
   const share = useCallback(() => {
-    const text = `台股雷達推薦 ${stock.name}(${stock.stock_id}) 評分 ${stock.total_score.toFixed(1)} — ${stock.strategy.recommendation}`;
+    const text = `台股雷達推薦 ${stock.name}(${stock.stock_id}) 評分 ${stock.total_score.toFixed(1)} — ${stock.strategy?.recommendation ?? ''}`;
     if (navigator.share) {
       navigator.share({ title: '台股雷達', text, url: window.location.href });
     } else {
@@ -249,7 +249,7 @@ export default function StockDetailModal({ stock, onClose, rank, isDemo }: Props
                   { label: '第二關', key: 'target2', pct: stock.strategy.upside2 ? String(stock.strategy.upside2) : null },
                   { label: '第三關', key: 'target3', pct: stock.strategy.upside3 ? String(stock.strategy.upside3) : null },
                 ].map(({ label, key, pct }) => {
-                  const val = (stock.strategy as Record<string, number>)[key] ?? (key === 'target1' ? stock.strategy.target : undefined);
+                  const val = ((stock.strategy ?? {}) as Record<string, number>)[key] ?? (key === 'target1' ? stock.strategy?.target : undefined);
                   return (
                     <div key={key} className="text-center rounded-lg bg-emerald-900/30 py-2.5">
                       <div className="text-[10px] text-emerald-500 mb-1 flex items-center justify-center gap-0.5">

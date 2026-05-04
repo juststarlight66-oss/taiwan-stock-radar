@@ -15,7 +15,7 @@ const DIM_MAXES: Record<string, number> = {
   technical: 40, fundamental: 40, news: 10, sentiment: 10, chips: 10,
 };
 
-function getActionStyle(action: string) {
+function getActionStyle(action: string | undefined) {
   if (action === '強力買進') return { cls: 'text-red-600 font-bold', dot: 'bg-red-500' };
   if (action === '買進')   return { cls: 'text-orange-500 font-bold', dot: 'bg-orange-500' };
   if (action === '觀望')   return { cls: 'text-gray-500', dot: 'bg-gray-400' };
@@ -136,7 +136,7 @@ export default function Top10Table({ stocks, scanDate, scannedCount, isDemo, tre
         <div className="block md:hidden divide-y divide-gray-100">
           {stocks.map((s, i) => {
             const up = (s.change_pct ?? 0) >= 0;
-            const actionStyle = getActionStyle(s.strategy.recommendation);
+            const actionStyle = getActionStyle(s.strategy?.recommendation);
             const isExpanded = expandedId === s.stock_id;
             return (
               <div key={s.stock_id} className="p-3 bg-white">
@@ -154,7 +154,7 @@ export default function Top10Table({ stocks, scanDate, scannedCount, isDemo, tre
                     </div>
                     <div className="flex items-center gap-2 mt-0.5">
                       <span className="text-[10px] text-gray-500">{s.sector}</span>
-                      <span className={`text-[10px] ${actionStyle.cls}`}>{s.strategy.recommendation}</span>
+                      <span className={`text-[10px] ${actionStyle.cls}`}>{s.strategy?.recommendation}</span>
                     </div>
                   </div>
                   <div className="text-right shrink-0">
@@ -206,7 +206,7 @@ export default function Top10Table({ stocks, scanDate, scannedCount, isDemo, tre
             <tbody className="divide-y divide-gray-100">
               {stocks.map((s, i) => {
                 const up = (s.change_pct ?? 0) >= 0;
-                const actionStyle = getActionStyle(s.strategy.recommendation);
+                const actionStyle = getActionStyle(s.strategy?.recommendation);
                 return (
                   <tr
                     key={s.stock_id}
@@ -247,20 +247,20 @@ export default function Top10Table({ stocks, scanDate, scannedCount, isDemo, tre
                     <td className="px-3 py-3">
                       <div className="flex items-center gap-1.5">
                         <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${actionStyle.dot}`} />
-                        <span className={`text-xs ${actionStyle.cls}`}>{s.strategy.recommendation}</span>
+                        <span className={`text-xs ${actionStyle.cls}`}>{s.strategy?.recommendation}</span>
                       </div>
                     </td>
                     <td className="px-3 py-3 text-right">
                       {s.strategy ? (
                         <div className="flex flex-col items-end gap-0.5">
                           <span className="text-[10px] font-mono bg-sky-50 text-sky-700 border border-sky-200 px-1.5 py-0.5 rounded whitespace-nowrap">
-                            進 {s.strategy.entry.toFixed(1)}
+                            進 {s.strategy?.entry.toFixed(1)}
                           </span>
                           <span className="text-[10px] font-mono bg-rose-50 text-rose-700 border border-rose-200 px-1.5 py-0.5 rounded whitespace-nowrap">
-                            停 {s.strategy.stop_loss.toFixed(1)}
+                            停 {s.strategy?.stop_loss.toFixed(1)}
                           </span>
                           <span className="text-[10px] font-mono bg-emerald-50 text-emerald-700 border border-emerald-200 px-1.5 py-0.5 rounded whitespace-nowrap">
-                            目 {s.strategy.target.toFixed(1)} {s.strategy.upside ? `+${s.strategy.upside}%` : ''}
+                            目 {s.strategy?.target.toFixed(1)} {s.strategy?.upside ? `+${s.strategy?.upside}%` : ''}
                           </span>
                         </div>
                       ) : (

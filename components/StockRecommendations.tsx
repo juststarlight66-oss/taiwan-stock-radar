@@ -16,8 +16,8 @@ interface ScanRawData {
   explosive_top5: ScanStock[];
 }
 
-function DimensionBadge({ label, score, maxScore = 25 }: { label: string; score: number; maxScore?: number }) {
-  const pct = score / maxScore;
+function DimensionBadge({ label, score, maxScore = 25 }: { label: string; score: number | undefined; maxScore?: number }) {
+  const pct = (score ?? 0) / maxScore;
   const color = pct >= 0.8 ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40' :
                 pct >= 0.6 ? 'bg-blue-500/20 text-blue-300 border-blue-500/40' :
                 pct >= 0.4 ? 'bg-yellow-500/20 text-yellow-300 border-yellow-500/40' :
@@ -91,7 +91,7 @@ function StockCard({ stock, expanded, onToggle }: { stock: ScanStock; expanded: 
           </div>
 
           <div className="grid grid-cols-2 gap-1.5 text-[10px]">
-            {(Object.entries(stock.signals) as [string, string[]][]).map(([key, signals]) =>
+            {(Object.entries(stock.signals ?? {}) as [string, string[]][]).map(([key, signals]) =>
               signals.map((s: string, i: number) => (
                 <div key={`${key}-${i}`} className="text-gray-400 flex items-start gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-sky-400/60 mt-1 flex-shrink-0" />
@@ -104,9 +104,9 @@ function StockCard({ stock, expanded, onToggle }: { stock: ScanStock; expanded: 
           </div>
 
           <div className="flex gap-2 text-[10px] text-gray-500">
-            <span>RSI: {stock.details.rsi.toFixed(1)}</span>
-            <span>量比: {stock.details.vol_ratio.toFixed(1)}x</span>
-            {stock.details.pe != null && <span>PE: {stock.details.pe.toFixed(1)}</span>}
+            <span>RSI: {(stock.details?.rsi ?? 0).toFixed(1)}</span>
+            <span>量比: {(stock.details?.vol_ratio ?? 0).toFixed(1)}x</span>
+            {stock.details?.pe != null && <span>PE: {(stock.details?.pe ?? 0).toFixed(1)}</span>}
           </div>
         </div>
       )}

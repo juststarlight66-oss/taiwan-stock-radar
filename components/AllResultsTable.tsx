@@ -173,14 +173,14 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
             </thead>
             <tbody className="divide-y divide-gray-100">
               {pageItems.map((s, i) => {
-                const up = s.change_pct >= 0;
-                const isLimit = Math.abs(s.change_pct) >= 9.5;
+                const up = (s.change_pct ?? 0) >= 0;
+                const isLimit = Math.abs(s.change_pct ?? 0) >= 9.5;
                 const rowCls = isLimit
                   ? up
                     ? 'ring-1 ring-inset ring-red-500/50 bg-red-50'
                     : 'ring-1 ring-inset ring-emerald-500/50 bg-emerald-50'
                   : '';
-                const actionCls = getActionColor(s.strategy.recommendation);
+                const actionCls = getActionColor(s.strategy?.recommendation ?? '');
                 return (
                   <tr
                     key={s.stock_id}
@@ -203,8 +203,8 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
                     <td className="px-3 py-2.5 text-right">
                       <span className={`font-mono flex items-center justify-end gap-0.5 ${up ? 'text-red-500' : 'text-green-600'}`}>
                         {up ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
-                        {Math.abs(s.change_pct).toFixed(2)}%
-                        <LimitBadge changePct={s.change_pct} />
+                        {Math.abs(s.change_pct ?? 0).toFixed(2)}%
+                        <LimitBadge changePct={s.change_pct ?? 0} />
                       </span>
                     </td>
                     <td className="px-3 py-2.5">
@@ -212,17 +212,17 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
                     </td>
                     <td className="px-3 py-2.5">
                       <span className={`text-[11px] ${actionCls}`}>
-                        {s.strategy.recommendation.split(' - ')[0]}
+                        {(s.strategy?.recommendation ?? '').split(' - ')[0]}
                       </span>
                     </td>
                     <td className="px-3 py-2.5 text-right font-mono text-[11px] text-gray-600">
-                      {s.strategy.entry ? (
+                      {s.strategy?.entry ? (
                         <div className="flex items-center justify-end gap-1">
                           <span className="text-sky-600">進{s.strategy.entry.toFixed(1)}</span>
                           <span className="text-gray-300">|</span>
-                          <span className="text-red-400">損{s.strategy.stop_loss.toFixed(1)}</span>
+                          <span className="text-red-400">損{(s.strategy.stop_loss ?? 0).toFixed(1)}</span>
                           <span className="text-gray-300">|</span>
-                          <span className="text-emerald-600">目{s.strategy.target.toFixed(1)}</span>
+                          <span className="text-emerald-600">目{(s.strategy.target ?? 0).toFixed(1)}</span>
                         </div>
                       ) : '—'}
                     </td>
@@ -238,8 +238,8 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
 
         <div className="block md:hidden divide-y divide-gray-100">
           {pageItems.map((s) => {
-            const up = s.change_pct >= 0;
-            const isLimit = Math.abs(s.change_pct) >= 9.5;
+            const up = (s.change_pct ?? 0) >= 0;
+            const isLimit = Math.abs(s.change_pct ?? 0) >= 9.5;
             const limitCls = isLimit
               ? up
                 ? 'ring-1 ring-red-500/60 bg-red-50'
@@ -260,8 +260,8 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
                     <ScoreBar score={s.total_score} max={totalMax} />
                     <span className={`font-mono text-xs flex items-center ${up ? 'text-red-500' : 'text-green-600'}`}>
                       {up ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
-                      {Math.abs(s.change_pct).toFixed(2)}%
-                      <LimitBadge changePct={s.change_pct} />
+                      {Math.abs(s.change_pct ?? 0).toFixed(2)}%
+                      <LimitBadge changePct={s.change_pct ?? 0} />
                     </span>
                   </div>
                 </button>
