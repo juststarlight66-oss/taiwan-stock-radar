@@ -430,6 +430,33 @@ function StockCard({ stock, rank }: { stock: IntradayStock; rank: number }) {
           </div>
         </div>
 
+        {/* 三關目標價晶片 */}
+        {(stock.target1 != null || stock.target2 != null || stock.target3 != null) && (
+          <div className="flex gap-1 flex-wrap">
+            <span className="text-[9px] font-mono bg-sky-50 text-sky-700 border border-sky-200 px-1.5 py-0.5 rounded whitespace-nowrap">
+              進 {stock.entry.toFixed(1)}
+            </span>
+            <span className="text-[9px] font-mono bg-rose-50 text-rose-700 border border-rose-200 px-1.5 py-0.5 rounded whitespace-nowrap">
+              停 {stock.stop_loss.toFixed(1)}
+            </span>
+            {stock.target1 != null && stock.target1 > 0 && (
+              <span className="text-[9px] font-mono bg-emerald-50 text-emerald-700 border border-emerald-200 px-1.5 py-0.5 rounded whitespace-nowrap">
+                ①{stock.target1.toFixed(1)}(+{((stock.target1 - stock.entry) / stock.entry * 100).toFixed(1)}%)
+              </span>
+            )}
+            {stock.target2 != null && stock.target2 > 0 && (
+              <span className="text-[9px] font-mono bg-teal-50 text-teal-700 border border-teal-200 px-1.5 py-0.5 rounded whitespace-nowrap">
+                ②{stock.target2.toFixed(1)}(+{((stock.target2 - stock.entry) / stock.entry * 100).toFixed(1)}%)
+              </span>
+            )}
+            {stock.target3 != null && stock.target3 > 0 && (
+              <span className="text-[9px] font-mono bg-violet-50 text-violet-700 border border-violet-200 px-1.5 py-0.5 rounded whitespace-nowrap">
+                ③{stock.target3.toFixed(1)}(+{((stock.target3 - stock.entry) / stock.entry * 100).toFixed(1)}%)
+              </span>
+            )}
+          </div>
+        )}
+
         {/* OHLV row */}
         {live && hasCur && (
           <div className="grid grid-cols-4 gap-1 text-[10px] bg-gray-50 rounded-lg p-2">

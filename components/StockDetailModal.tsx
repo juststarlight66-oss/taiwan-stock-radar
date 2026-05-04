@@ -272,9 +272,10 @@ export default function StockDetailModal({ stock, onClose, rank, isDemo }: Props
                         <TrendingUp className="w-2.5 h-2.5" />{label}
                       </div>
                       <div className="font-mono font-bold text-emerald-400 text-sm">
-                        {val != null && val > 0 ? val.toFixed(2) : '—'}
+                        {val != null && val > 0
+                          ? `${val.toFixed(2)}${pct ? ` (+${pct}%)` : ''}`
+                          : '—'}
                       </div>
-                      {pct && <div className="text-[9px] text-emerald-600">+{pct}%</div>}
                       {note && (
                         <div className="text-[8px] text-gray-500 mt-0.5 leading-tight px-0.5 truncate" title={note}>
                           {note}

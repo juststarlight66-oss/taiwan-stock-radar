@@ -217,21 +217,16 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
                     </td>
                     <td className="px-3 py-2.5 text-right font-mono text-[11px] text-gray-600">
                       {s.strategy?.entry ? (
-                        <div className="space-y-0.5">
-                          <div className="flex items-center justify-end gap-1">
-                            <span className="text-sky-600">進{s.strategy.entry.toFixed(1)}</span>
-                            <span className="text-gray-300">|</span>
-                            <span className="text-red-400">停{(s.strategy?.stop_loss ?? 0).toFixed(1)}</span>
-                          </div>
-                          <div className="flex items-center justify-end gap-1 flex-wrap">
-                            <span className="text-emerald-600">①{(s.strategy?.target1 ?? s.strategy?.target ?? 0).toFixed(1)}{s.strategy?.upside != null ? `(+${s.strategy.upside.toFixed(1)}%)` : ''}</span>
-                            {s.strategy?.target2 != null && (
-                              <span className="text-emerald-500">②{s.strategy.target2.toFixed(1)}{s.strategy?.upside2 != null ? `(+${s.strategy.upside2.toFixed(1)}%)` : ''}</span>
-                            )}
-                            {s.strategy?.target3 != null && (
-                              <span className="text-teal-500">③{s.strategy.target3.toFixed(1)}{s.strategy?.upside3 != null ? `(+${s.strategy.upside3.toFixed(1)}%)` : ''}</span>
-                            )}
-                          </div>
+                        <div className="flex items-center justify-end gap-1 flex-wrap">
+                          <span className="text-sky-600">進{s.strategy.entry.toFixed(1)}</span>
+                          <span className="text-red-400">停{(s.strategy?.stop_loss ?? 0).toFixed(1)}</span>
+                          <span className="text-emerald-600">①{(s.strategy?.target1 ?? s.strategy?.target ?? 0).toFixed(1)}{s.strategy?.upside != null ? `(+${s.strategy.upside.toFixed(1)}%)` : ''}</span>
+                          {s.strategy?.target2 != null && (
+                            <span className="text-emerald-500">②{s.strategy.target2.toFixed(1)}{s.strategy?.upside2 != null ? `(+${s.strategy.upside2.toFixed(1)}%)` : ''}</span>
+                          )}
+                          {s.strategy?.target3 != null && (
+                            <span className="text-teal-500">③{s.strategy.target3.toFixed(1)}{s.strategy?.upside3 != null ? `(+${s.strategy.upside3.toFixed(1)}%)` : ''}</span>
+                          )}
                         </div>
                       ) : '-'}
                     </td>
@@ -273,6 +268,29 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
                       <LimitBadge changePct={s.change_pct ?? 0} />
                     </span>
                   </div>
+                  {s.strategy?.entry && (
+                    <div className="flex gap-1 flex-wrap mt-1.5">
+                      <span className="text-[10px] font-mono bg-sky-50 text-sky-700 border border-sky-200 px-1.5 py-0.5 rounded whitespace-nowrap">
+                        進 {s.strategy.entry.toFixed(1)}
+                      </span>
+                      <span className="text-[10px] font-mono bg-rose-50 text-rose-700 border border-rose-200 px-1.5 py-0.5 rounded whitespace-nowrap">
+                        停 {(s.strategy?.stop_loss ?? 0).toFixed(1)}
+                      </span>
+                      <span className="text-[10px] font-mono bg-emerald-50 text-emerald-700 border border-emerald-200 px-1.5 py-0.5 rounded whitespace-nowrap">
+                        ①{(s.strategy?.target1 ?? s.strategy?.target ?? 0).toFixed(1)}{s.strategy?.upside != null ? `(+${s.strategy.upside.toFixed(1)}%)` : ''}
+                      </span>
+                      {s.strategy?.target2 != null && (
+                        <span className="text-[10px] font-mono bg-teal-50 text-teal-700 border border-teal-200 px-1.5 py-0.5 rounded whitespace-nowrap">
+                          ②{s.strategy.target2.toFixed(1)}{s.strategy?.upside2 != null ? `(+${s.strategy.upside2.toFixed(1)}%)` : ''}
+                        </span>
+                      )}
+                      {s.strategy?.target3 != null && (
+                        <span className="text-[10px] font-mono bg-violet-50 text-violet-700 border border-violet-200 px-1.5 py-0.5 rounded whitespace-nowrap">
+                          ③{s.strategy.target3.toFixed(1)}{s.strategy?.upside3 != null ? `(+${s.strategy.upside3.toFixed(1)}%)` : ''}
+                        </span>
+                      )}
+                    </div>
+                  )}
                 </button>
                 <div className="flex flex-col items-end gap-1 shrink-0">
                   <span className="text-sm font-mono font-bold text-gray-800">{(s.close ?? 0) > 0 ? (s.close ?? 0).toLocaleString() : '—'}</span>
