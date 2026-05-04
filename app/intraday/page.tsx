@@ -61,7 +61,8 @@ interface IntradaySnapshot {
 interface LatestData {
   scan_date: string;
   scanned_count: number;
-  explosive_top5: {
+  // v2 scanner uses top10; legacy used explosive_top5
+  top10?: {
     stock_id: string;
     name: string;
     sector: string;
@@ -86,6 +87,7 @@ interface LatestData {
       recommendation: string;
     };
   }[];
+  explosive_top5?: LatestData['top10'];
 }
 
 // ── Constants ────────────────────────────────────────────────────────────────
@@ -568,23 +570,61 @@ export default function IntradayPage() {
         return r.json();
       })
       .then((d) => {
-        const base: IntradayStock[] = (d.stocks ?? []).map((s: any) => ({
-          stock_id: s.stock_id,
-          name: s.name,
-          sector: s.sector ?? '',
-          entry: s.entry,
-          stop_loss: s.stop_loss,
-          target: s.target1 || s.target,
-          target1: s.target1,
-          target2: s.target2,
-          target3: s.target3,
-          upside: s.upside,
-          total_score: s.total_score,
-          recommendation: s.recommendation,
-          dimensions: s.dimensions,
-        }));
+        // intraday.json from 13:00 scanner has: stock_id, name, sector, score, details, live
+        // It does NOT have entry/stop_loss/target — derive from live.current or score
+        const base: IntradayStock[] = (d.stocks ?? []).map((s: any) => {
+          const liveClose = s.live?.current ?? s.live?.prev_close ?? 0;
+          const close = liveClose || 0;
+          // Use scanner-provided fields if present, otherwise derive from close
+          const entry     = s.entry      ?? (close > 0 ? Math.round(close * 0.99 * 100) / 100 : 0);
+          const stop_loss = s.stop_loss  ?? (close > 0 ? Math.round(close * 0.95 * 100) / 100 : 0);
+          const target    = s.target1 ?? s.target ?? (close > 0 ? Math.round(close * 1.08 * 100) / 100 : 0);
+          // Map intraday dimensions: {momentum, gap} → 5-dim schema
+          const rawDims = s.dimensions ?? {};
+          const dims = (typeof rawDims.technical === 'number')
+            ? rawDims
+            : {
+                technical:   s.score ?? 50,
+                fundamental: 20,
+                news:        5,
+                sentiment:   5,
+                chips:       5,
+                // keep intraday-specific dims for display
+                ...rawDims,
+              };
+          return {
+            stock_id:       s.stock_id,
+            name:           s.name,
+            sector:         s.sector ?? '',
+            entry,
+            stop_loss,
+            target,
+            target1:        s.target1,
+            target2:        s.target2,
+            target3:        s.target3,
+            upside:         s.upside ?? 8,
+            total_score:    s.total_score ?? s.score ?? 50,
+            recommendation: s.recommendation ?? (s.score >= 70 ? '強力買進' : s.score >= 55 ? '買進' : '觀望'),
+            dimensions:     dims,
+            // Pre-populate live from embedded snapshot data
+            live: s.live ? {
+              stock_id:   s.stock_id,
+              name:       s.name,
+              current:    s.live.current ?? s.live.prev_close,
+              open:       s.live.open,
+              high:       s.live.high,
+              low:        s.live.low,
+              prev_close: s.live.prev_close,
+              volume:     s.live.volume,
+              time:       s.live.time ?? '',
+              date:       s.live.date ?? '',
+              change_pct: s.live.change_pct,
+            } : undefined,
+          };
+        });
         setStocks(base);
-        setScanDate(d.date || d.scan_date || '');
+        // intraday.json uses scanned_at, not scan_date
+        setScanDate(d.scanned_at || d.scan_date || d.date || '');
         setLastUpdated(
           new Date().toLocaleTimeString('zh-TW', {
             timeZone: 'Asia/Taipei',
@@ -601,20 +641,22 @@ export default function IntradayPage() {
           return r.json() as Promise<LatestData>;
         })
         .then((d) => {
-          const base: IntradayStock[] = (d.explosive_top5 ?? []).map((s) => ({
-            stock_id: s.stock_id,
-            name: s.name,
-            sector: s.sector ?? '',
-            entry: s.strategy.entry,
-            stop_loss: s.strategy.stop_loss,
-            target: s.strategy.target,
-            target1: s.strategy.target1,
-            target2: s.strategy.target2,
-            target3: s.strategy.target3,
-            upside: s.strategy.upside,
-            total_score: s.total_score,
+          // latest.json uses top10 (v2) or explosive_top5 (legacy)
+          const list = d.top10 ?? d.explosive_top5 ?? [];
+          const base: IntradayStock[] = list.map((s) => ({
+            stock_id:       s.stock_id,
+            name:           s.name,
+            sector:         s.sector ?? '',
+            entry:          s.strategy.entry,
+            stop_loss:      s.strategy.stop_loss,
+            target:         s.strategy.target1 ?? s.strategy.target,
+            target1:        s.strategy.target1,
+            target2:        s.strategy.target2,
+            target3:        s.strategy.target3,
+            upside:         s.strategy.upside,
+            total_score:    s.total_score,
             recommendation: s.strategy.recommendation,
-            dimensions: s.dimensions,
+            dimensions:     s.dimensions,
           }));
           setStocks(base);
           setScanDate(d.scan_date);
