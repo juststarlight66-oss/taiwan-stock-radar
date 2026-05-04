@@ -178,11 +178,20 @@ export default function WatchlistPanel({ stocks }: Props) {
                 ? 'ring-1 ring-red-500/60 bg-red-500/5'
                 : 'ring-1 ring-emerald-500/60 bg-emerald-500/5'
               : '';
+            const entry = s.strategy?.entry;
+            const stop = s.strategy?.stop_loss;
+            const t1 = s.strategy?.target1;
+            const t2 = s.strategy?.target2;
+            const t3 = s.strategy?.target3;
+            const base = entry ?? s.close;
+            const up1 = t1 && base ? (((t1 - base) / base) * 100).toFixed(1) : null;
+            const up2 = t2 && base ? (((t2 - base) / base) * 100).toFixed(1) : null;
+            const up3 = t3 && base ? (((t3 - base) / base) * 100).toFixed(1) : null;
             return (
               <button
                 key={s.stock_id}
                 onClick={() => setSelectedStock(s)}
-                className={`w-full text-left p-3 hover:bg-gray-800/50 transition-colors flex items-center gap-3 ${limitCls}`}
+                className={`w-full text-left p-3 hover:bg-gray-800/50 transition-colors flex items-start gap-3 ${limitCls}`}
               >
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
@@ -192,6 +201,21 @@ export default function WatchlistPanel({ stocks }: Props) {
                   <div className="flex items-center gap-3 mt-1">
                     <ScoreBar score={s.total_score} max={totalMax} />
                   </div>
+                  {/* entry / stop */}
+                  {(entry || stop) && (
+                    <div className="mt-1 text-[10px] font-mono text-gray-400 space-x-2">
+                      {entry && <span className="text-sky-400">進{entry}</span>}
+                      {stop && <span className="text-red-400">停{stop}</span>}
+                    </div>
+                  )}
+                  {/* three-level targets */}
+                  {(t1 || t2 || t3) && (
+                    <div className="mt-0.5 text-[10px] font-mono space-x-1.5">
+                      {t1 && <span className="text-emerald-400">①{t1}{up1 ? `(+${up1}%)` : ''}</span>}
+                      {t2 && <span className="text-amber-400">②{t2}{up2 ? `(+${up2}%)` : ''}</span>}
+                      {t3 && <span className="text-rose-400">③{t3}{up3 ? `(+${up3}%)` : ''}</span>}
+                    </div>
+                  )}
                 </div>
                 <div className="text-right shrink-0 flex flex-col items-end gap-1">
                   <div className="text-sm font-mono font-bold text-white">{s.close.toLocaleString()}</div>
@@ -223,6 +247,8 @@ export default function WatchlistPanel({ stocks }: Props) {
                 <th className="text-right px-3 py-2.5 font-medium">漲跌</th>
                 <th className="text-left px-3 py-2.5 font-medium">綜合分</th>
                 <th className="text-left px-3 py-2.5 font-medium">建議</th>
+                <th className="text-left px-3 py-2.5 font-medium">進場 / 停損</th>
+                <th className="text-left px-3 py-2.5 font-medium">目標三關</th>
                 <th className="px-3 py-2.5 w-8"></th>
               </tr>
             </thead>
@@ -236,6 +262,15 @@ export default function WatchlistPanel({ stocks }: Props) {
                     : 'ring-1 ring-inset ring-emerald-500/50 bg-emerald-500/5'
                   : '';
                 const actionCls = getActionColor(s.strategy?.recommendation);
+                const entry = s.strategy?.entry;
+                const stop = s.strategy?.stop_loss;
+                const t1 = s.strategy?.target1;
+                const t2 = s.strategy?.target2;
+                const t3 = s.strategy?.target3;
+                const base = entry ?? s.close;
+                const up1 = t1 && base ? (((t1 - base) / base) * 100).toFixed(1) : null;
+                const up2 = t2 && base ? (((t2 - base) / base) * 100).toFixed(1) : null;
+                const up3 = t3 && base ? (((t3 - base) / base) * 100).toFixed(1) : null;
                 return (
                   <tr
                     key={s.stock_id}
@@ -267,8 +302,17 @@ export default function WatchlistPanel({ stocks }: Props) {
                     </td>
                     <td className="px-3 py-2.5">
                       <span className={`px-1.5 py-0.5 rounded border text-[10px] font-medium ${actionCls}`}>
-                        {s.strategy?.recommendation.split(' - ')[0]}
+                        {s.strategy?.recommendation?.split(' - ')[0] ?? '-'}
                       </span>
+                    </td>
+                    <td className="px-3 py-2.5 font-mono text-[11px] whitespace-nowrap">
+                      <div className="text-sky-400">進{entry ?? '-'}</div>
+                      <div className="text-red-400">停{stop ?? '-'}</div>
+                    </td>
+                    <td className="px-3 py-2.5 font-mono text-[11px] whitespace-nowrap">
+                      <div className="text-emerald-400">①{t1 ?? '-'}{up1 ? `(+${up1}%)` : ''}</div>
+                      <div className="text-amber-400">②{t2 ?? '-'}{up2 ? `(+${up2}%)` : ''}</div>
+                      <div className="text-rose-400">③{t3 ?? '-'}{up3 ? `(+${up3}%)` : ''}</div>
                     </td>
                     <td className="px-3 py-2.5">
                       <button

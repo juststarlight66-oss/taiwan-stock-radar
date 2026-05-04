@@ -174,6 +174,29 @@ export default function Top10Table({ stocks, scanDate, scannedCount, isDemo, tre
                         <div className="text-[10px] text-gray-500">綜合評分</div>
                       </div>
                     </div>
+                    {s.strategy && (
+                      <div className="flex flex-col gap-1">
+                        <div className="flex gap-1">
+                          <span className="text-[10px] font-mono bg-sky-50 text-sky-700 border border-sky-200 px-1.5 py-0.5 rounded whitespace-nowrap">
+                            進 {s.strategy?.entry != null ? s.strategy.entry.toFixed(2) : '-'}
+                          </span>
+                          <span className="text-[10px] font-mono bg-rose-50 text-rose-700 border border-rose-200 px-1.5 py-0.5 rounded whitespace-nowrap">
+                            停 {s.strategy?.stop_loss != null ? s.strategy.stop_loss.toFixed(2) : '-'}
+                          </span>
+                        </div>
+                        <div className="flex gap-1 flex-wrap">
+                          <span className="text-[10px] font-mono bg-emerald-50 text-emerald-700 border border-emerald-200 px-1.5 py-0.5 rounded whitespace-nowrap">
+                            ①{s.strategy?.target1 != null ? s.strategy.target1.toFixed(2) : '-'}{s.strategy?.upside != null ? `(+${s.strategy.upside}%)` : ''}
+                          </span>
+                          <span className="text-[10px] font-mono bg-teal-50 text-teal-700 border border-teal-200 px-1.5 py-0.5 rounded whitespace-nowrap">
+                            ②{s.strategy?.target2 != null ? s.strategy.target2.toFixed(2) : '-'}{s.strategy?.upside2 != null ? `(+${s.strategy.upside2}%)` : ''}
+                          </span>
+                          <span className="text-[10px] font-mono bg-violet-50 text-violet-700 border border-violet-200 px-1.5 py-0.5 rounded whitespace-nowrap">
+                            ③{s.strategy?.target3 != null ? s.strategy.target3.toFixed(2) : '-'}{s.strategy?.upside3 != null ? `(+${s.strategy.upside3}%)` : ''}
+                          </span>
+                        </div>
+                      </div>
+                    )}
                     <button
                       onClick={() => setSelectedStock(s)}
                       className="w-full py-2 rounded-lg bg-sky-50 border border-sky-200 text-sky-600 text-xs font-medium hover:bg-sky-100 transition-colors"
@@ -199,7 +222,7 @@ export default function Top10Table({ stocks, scanDate, scannedCount, isDemo, tre
                 <th className="text-left px-3 py-2.5 text-[11px] text-gray-500 font-medium w-36">綜合評分</th>
                 <th className="text-center px-3 py-2.5 text-[11px] text-gray-500 font-medium">雷達</th>
                 <th className="text-left px-3 py-2.5 text-[11px] text-gray-500 font-medium">建議</th>
-                <th className="text-right px-3 py-2.5 text-[11px] text-gray-500 font-medium">三關價</th>
+                <th className="text-right px-3 py-2.5 text-[11px] text-gray-500 font-medium">進場/停損/目標</th>
                 <th className="px-3 py-2.5 w-20" />
               </tr>
             </thead>
@@ -252,16 +275,26 @@ export default function Top10Table({ stocks, scanDate, scannedCount, isDemo, tre
                     </td>
                     <td className="px-3 py-3 text-right">
                       {s.strategy ? (
-                        <div className="flex flex-col items-end gap-0.5">
-                          <span className="text-[10px] font-mono bg-sky-50 text-sky-700 border border-sky-200 px-1.5 py-0.5 rounded whitespace-nowrap">
-                            進 {s.strategy?.entry.toFixed(1)}
-                          </span>
-                          <span className="text-[10px] font-mono bg-rose-50 text-rose-700 border border-rose-200 px-1.5 py-0.5 rounded whitespace-nowrap">
-                            停 {s.strategy?.stop_loss.toFixed(1)}
-                          </span>
-                          <span className="text-[10px] font-mono bg-emerald-50 text-emerald-700 border border-emerald-200 px-1.5 py-0.5 rounded whitespace-nowrap">
-                            目 {s.strategy?.target.toFixed(1)} {s.strategy?.upside ? `+${s.strategy?.upside}%` : ''}
-                          </span>
+                        <div className="flex flex-col items-end gap-1">
+                          <div className="flex gap-1">
+                            <span className="text-[10px] font-mono bg-sky-50 text-sky-700 border border-sky-200 px-1.5 py-0.5 rounded whitespace-nowrap">
+                              進 {s.strategy?.entry != null ? s.strategy.entry.toFixed(2) : '-'}
+                            </span>
+                            <span className="text-[10px] font-mono bg-rose-50 text-rose-700 border border-rose-200 px-1.5 py-0.5 rounded whitespace-nowrap">
+                              停 {s.strategy?.stop_loss != null ? s.strategy.stop_loss.toFixed(2) : '-'}
+                            </span>
+                          </div>
+                          <div className="flex gap-1 flex-wrap justify-end">
+                            <span className="text-[10px] font-mono bg-emerald-50 text-emerald-700 border border-emerald-200 px-1.5 py-0.5 rounded whitespace-nowrap">
+                              ①{s.strategy?.target1 != null ? s.strategy.target1.toFixed(2) : '-'}{s.strategy?.upside != null ? `(+${s.strategy.upside}%)` : ''}
+                            </span>
+                            <span className="text-[10px] font-mono bg-teal-50 text-teal-700 border border-teal-200 px-1.5 py-0.5 rounded whitespace-nowrap">
+                              ②{s.strategy?.target2 != null ? s.strategy.target2.toFixed(2) : '-'}{s.strategy?.upside2 != null ? `(+${s.strategy.upside2}%)` : ''}
+                            </span>
+                            <span className="text-[10px] font-mono bg-violet-50 text-violet-700 border border-violet-200 px-1.5 py-0.5 rounded whitespace-nowrap">
+                              ③{s.strategy?.target3 != null ? s.strategy.target3.toFixed(2) : '-'}{s.strategy?.upside3 != null ? `(+${s.strategy.upside3}%)` : ''}
+                            </span>
+                          </div>
                         </div>
                       ) : (
                         <span className="text-[11px] text-gray-400">—</span>

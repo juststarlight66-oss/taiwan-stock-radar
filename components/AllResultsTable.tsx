@@ -167,7 +167,7 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
                   綜合分 <SortIndicator k="total_score" />
                 </th>
                 <th className="text-left px-3 py-2.5 font-medium">建議</th>
-                <th className="text-right px-3 py-2.5 font-medium">三關價</th>
+                <th className="text-right px-3 py-2.5 font-medium">策略(進/停/目標)</th>
                 <th className="px-3 py-2.5 w-8"></th>
               </tr>
             </thead>
@@ -217,14 +217,23 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
                     </td>
                     <td className="px-3 py-2.5 text-right font-mono text-[11px] text-gray-600">
                       {s.strategy?.entry ? (
-                        <div className="flex items-center justify-end gap-1">
-                          <span className="text-sky-600">進{s.strategy.entry.toFixed(1)}</span>
-                          <span className="text-gray-300">|</span>
-                          <span className="text-red-400">損{(s.strategy.stop_loss ?? 0).toFixed(1)}</span>
-                          <span className="text-gray-300">|</span>
-                          <span className="text-emerald-600">目{(s.strategy.target ?? 0).toFixed(1)}</span>
+                        <div className="space-y-0.5">
+                          <div className="flex items-center justify-end gap-1">
+                            <span className="text-sky-600">進{s.strategy.entry.toFixed(1)}</span>
+                            <span className="text-gray-300">|</span>
+                            <span className="text-red-400">停{(s.strategy?.stop_loss ?? 0).toFixed(1)}</span>
+                          </div>
+                          <div className="flex items-center justify-end gap-1 flex-wrap">
+                            <span className="text-emerald-600">①{(s.strategy?.target1 ?? s.strategy?.target ?? 0).toFixed(1)}{s.strategy?.upside != null ? `(+${s.strategy.upside.toFixed(1)}%)` : ''}</span>
+                            {s.strategy?.target2 != null && (
+                              <span className="text-emerald-500">②{s.strategy.target2.toFixed(1)}{s.strategy?.upside2 != null ? `(+${s.strategy.upside2.toFixed(1)}%)` : ''}</span>
+                            )}
+                            {s.strategy?.target3 != null && (
+                              <span className="text-teal-500">③{s.strategy.target3.toFixed(1)}{s.strategy?.upside3 != null ? `(+${s.strategy.upside3.toFixed(1)}%)` : ''}</span>
+                            )}
+                          </div>
                         </div>
-                      ) : '—'}
+                      ) : '-'}
                     </td>
                     <td className="px-3 py-2.5" onClick={(e) => e.stopPropagation()}>
                       <WatchlistToggleBtn stockId={s.stock_id} />

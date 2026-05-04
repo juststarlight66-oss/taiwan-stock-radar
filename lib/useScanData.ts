@@ -645,9 +645,75 @@ export function useOnDemandScan(stockId: string | null): {
           chips:       chipsResult.signals,
         };
 
-        const entryPrice   = today.close;
-        const targetPrice  = Math.round(entryPrice * 1.08 * 100) / 100;
-        const stopLoss     = Math.round(entryPrice * 0.95 * 100) / 100;
+        // ── Three-level target computation (mirrors scan_market.py) ─────────
+        const closePrice = today.close;
+
+        // 1. ATR (14-period)
+        const atrPeriod = Math.min(14, hist.length - 1);
+        let atrValue = 0;
+        if (atrPeriod > 0) {
+          const trs: number[] = [];
+          for (let i = hist.length - atrPeriod; i < hist.length; i++) {
+            const h = hist[i].high;
+            const l = hist[i].low;
+            const prevC = hist[i - 1].close;
+            trs.push(Math.max(h - l, Math.abs(h - prevC), Math.abs(l - prevC)));
+          }
+          atrValue = trs.reduce((a, b) => a + b, 0) / trs.length;
+        }
+        const atrPct = closePrice > 0 ? atrValue / closePrice : 0;
+
+        // 2. Entry price
+        const entryPrice = Math.round(closePrice * (1 + atrPct * 0.3) * 100) / 100;
+
+        // 3. Stop loss
+        const stopLoss = Math.round(Math.max(closePrice - atrValue * 2, closePrice * 0.85) * 100) / 100;
+
+        // 4. 60-day high
+        const high60 = Math.max(...hist.slice(-Math.min(hist.length, 60)).map((r) => r.high));
+
+        // 5. Target 1: new high → Bollinger upper, else 60d high
+        let t1: number;
+        let target_note: string;
+        if (today.high >= high60 * 0.995) {
+          // At new high: use Bollinger upper (20-period MA + 2σ)
+          const bPeriod = Math.min(20, hist.length);
+          const bCloses = hist.slice(-bPeriod).map((r) => r.close);
+          const bMa = bCloses.reduce((a, b) => a + b, 0) / bPeriod;
+          const bVariance = bCloses.reduce((a, c) => a + (c - bMa) ** 2, 0) / bPeriod;
+          const bStd = Math.sqrt(bVariance);
+          const bollingerUpper = bMa + 2 * bStd;
+          t1 = Math.max(bollingerUpper, closePrice * 1.05);
+          target_note = '布林上軌(已創新高)';
+        } else {
+          t1 = high60;
+          target_note = '60日前高';
+        }
+
+        // 6. t2 and t3
+        let t2 = t1 * 1.15;
+        let t3 = t1 * 1.35;
+
+        // 7. Fallback if t1 too close to entry
+        if (t1 <= entryPrice * 1.03) {
+          t1 = entryPrice * 1.08;
+          t2 = entryPrice * 1.18;
+          t3 = entryPrice * 1.35;
+          target_note = '動態基準';
+        }
+
+        // Round targets to 2 decimal places
+        const target1 = Math.round(t1 * 100) / 100;
+        const target2 = Math.round(t2 * 100) / 100;
+        const target3 = Math.round(t3 * 100) / 100;
+        const atrRounded = Math.round(atrValue * 100) / 100;
+
+        // 8. Upside / downside percentages (1 decimal)
+        const upside  = Math.round(((target1 - entryPrice) / entryPrice) * 1000) / 10;
+        const upside2 = Math.round(((target2 - entryPrice) / entryPrice) * 1000) / 10;
+        const upside3 = Math.round(((target3 - entryPrice) / entryPrice) * 1000) / 10;
+        const downside = Math.round(((entryPrice - stopLoss) / entryPrice) * 1000) / 10;
+
         const grade =
           totalScore >= 75 ? '強力買進' :
           totalScore >= 60 ? '買進' :
@@ -671,10 +737,17 @@ export function useOnDemandScan(stockId: string | null): {
           },
           strategy: {
             entry:          entryPrice,
-            target:         targetPrice,
+            target:         target1,   // backward compat
+            target1,
+            target2,
+            target3,
+            target_note,
             stop_loss:      stopLoss,
-            upside:         8,
-            downside:       5,
+            upside,
+            upside2,
+            upside3,
+            downside,
+            atr:            atrRounded,
             recommendation: grade,
           },
         };

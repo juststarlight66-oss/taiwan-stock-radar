@@ -245,20 +245,41 @@ export default function StockDetailModal({ stock, onClose, rank, isDemo }: Props
               {/* 三關目標價 */}
               <div className="grid grid-cols-3 gap-2 mb-3">
                 {[
-                  { label: '第一關', key: 'target1', pct: stock.strategy.upside ? String(stock.strategy.upside) : null },
-                  { label: '第二關', key: 'target2', pct: stock.strategy.upside2 ? String(stock.strategy.upside2) : null },
-                  { label: '第三關', key: 'target3', pct: stock.strategy.upside3 ? String(stock.strategy.upside3) : null },
-                ].map(({ label, key, pct }) => {
-                  const val = ((stock.strategy ?? {}) as Record<string, number>)[key] ?? (key === 'target1' ? stock.strategy?.target : undefined);
+                  {
+                    label: '第一關',
+                    key: 'target1',
+                    pct: stock.strategy?.upside != null ? String(stock.strategy.upside) : null,
+                    note: stock.strategy?.target_note ?? null,
+                  },
+                  {
+                    label: '第二關',
+                    key: 'target2',
+                    pct: stock.strategy?.upside2 != null ? String(stock.strategy.upside2) : null,
+                    note: null,
+                  },
+                  {
+                    label: '第三關',
+                    key: 'target3',
+                    pct: stock.strategy?.upside3 != null ? String(stock.strategy.upside3) : null,
+                    note: null,
+                  },
+                ].map(({ label, key, pct, note }) => {
+                  const val = ((stock.strategy ?? {}) as Record<string, number | undefined>)[key]
+                    ?? (key === 'target1' ? stock.strategy?.target : undefined);
                   return (
-                    <div key={key} className="text-center rounded-lg bg-emerald-900/30 py-2.5">
+                    <div key={key} className="text-center rounded-lg bg-emerald-900/30 py-2.5 px-1">
                       <div className="text-[10px] text-emerald-500 mb-1 flex items-center justify-center gap-0.5">
                         <TrendingUp className="w-2.5 h-2.5" />{label}
                       </div>
                       <div className="font-mono font-bold text-emerald-400 text-sm">
-                        {val && val > 0 ? val.toFixed(2) : '—'}
+                        {val != null && val > 0 ? val.toFixed(2) : '—'}
                       </div>
                       {pct && <div className="text-[9px] text-emerald-600">+{pct}%</div>}
+                      {note && (
+                        <div className="text-[8px] text-gray-500 mt-0.5 leading-tight px-0.5 truncate" title={note}>
+                          {note}
+                        </div>
+                      )}
                     </div>
                   );
                 })}
