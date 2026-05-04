@@ -261,13 +261,14 @@ function PriceDistanceChart({ stocks }: { stocks: IntradayStock[] }) {
           />
           <ReferenceLine y={0} stroke="#e5e7eb" strokeDasharray="3 3" />
           <Tooltip
-            formatter={(v: number, key: string) => {
+            formatter={(v, key) => {
               const labels: Record<string, string> = {
                 distToEntry: '距進場點',
                 distToTarget: '剩餘上漲空間',
                 distToStop: '停損緩衝',
               };
-              return [`${v.toFixed(1)}%`, labels[key] ?? key];
+              const num = typeof v === 'number' ? v : parseFloat(String(v));
+              return [`${isNaN(num) ? '-' : num.toFixed(1)}%`, labels[key as string] ?? key];
             }}
             contentStyle={{ fontSize: 11, borderRadius: 8, border: '1px solid #e5e7eb' }}
           />
@@ -319,7 +320,7 @@ function StockCard({ stock, rank }: { stock: IntradayStock; rank: number }) {
             <div className="flex items-center gap-1.5 mb-0.5">
               <span className="text-[10px] text-gray-400 font-mono bg-gray-100 px-1.5 py-0.5 rounded">#{rank}</span>
               <span className="text-[10px] text-gray-400">{stock.sector}</span>
-              {typeof stock.dimensions?.momentum === 'number' && (
+              {typeof (stock.dimensions as Record<string, number | undefined>)?.momentum === 'number' && (
                 <span className="text-[9px] font-semibold text-red-500 bg-red-50 border border-red-100 px-1.5 py-0.5 rounded">隔日沖</span>
               )}
             </div>
