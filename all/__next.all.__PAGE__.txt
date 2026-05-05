@@ -3,7 +3,7 @@
 3:I[70589,["/taiwan-stock-radar/_next/static/chunks/0o~269zocnb95.js","/taiwan-stock-radar/_next/static/chunks/0sshmi-zyusoo.js","/taiwan-stock-radar/_next/static/chunks/0~7qd3jmhg8k5.js","/taiwan-stock-radar/_next/static/chunks/10rqn.aalr.q9.js"],"default"]
 6:I[97367,["/taiwan-stock-radar/_next/static/chunks/0o~269zocnb95.js"],"OutletBoundary"]
 7:"$Sreact.suspense"
-0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"Component":"$3","serverProvidedParams":{"searchParams":{},"params":{},"promises":["$@4","$@5"]}}],[["$","script","script-0",{"src":"/taiwan-stock-radar/_next/static/chunks/0sshmi-zyusoo.js","async":true}],["$","script","script-1",{"src":"/taiwan-stock-radar/_next/static/chunks/0~7qd3jmhg8k5.js","async":true}],["$","script","script-2",{"src":"/taiwan-stock-radar/_next/static/chunks/10rqn.aalr.q9.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"mtpHi5lAg2v2_WHldHbQv"}
+0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"Component":"$3","serverProvidedParams":{"searchParams":{},"params":{},"promises":["$@4","$@5"]}}],[["$","script","script-0",{"src":"/taiwan-stock-radar/_next/static/chunks/0sshmi-zyusoo.js","async":true}],["$","script","script-1",{"src":"/taiwan-stock-radar/_next/static/chunks/0~7qd3jmhg8k5.js","async":true}],["$","script","script-2",{"src":"/taiwan-stock-radar/_next/static/chunks/10rqn.aalr.q9.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"uN57apKCPPN-QXpysTJ6Z"}
 4:{}
 5:"$0:rsc:props:children:0:props:serverProvidedParams:params"
 8:null
