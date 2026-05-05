@@ -99,7 +99,7 @@ TWSE_HEADERS = {
 URL_STOCK_DAY_ALL = "https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL"
 URL_BWIBBU_ALL    = "https://openapi.twse.com.tw/v1/exchangeReport/BWIBBU_ALL"
 URL_MI_5MINS_HIST = "https://openapi.twse.com.tw/v1/indicesReport/MI_5MINS_HIST"
-URL_T86           = "https://openapi.twse.com.tw/v1/exchangeReport/T86"
+URL_T86           = "https://www.twse.com.tw/rwd/zh/fund/T86?response=json&date={date}&selectType=ALLBUT0999"
 URL_MI_MARGN      = "https://openapi.twse.com.tw/v1/exchangeReport/MI_MARGN"
 
 
@@ -339,35 +339,46 @@ def fetch_tpex_bwibbu_all() -> Dict[str, Dict]:
 
 def fetch_t86_chips() -> Dict[str, Dict]:
     """
-    從 TWSE T86 端點取得當日三大法人買賣超日報（上市股票）。
-    端點：https://openapi.twse.com.tw/v1/exchangeReport/T86
-    欄位：
-      證券代號、證券名稱、外陸資買賣超股數、投信買賣超股數、自營商買賣超股數、三大法人買賣超股數
-    回傳格式：
+    從 TWSE RWD T86 端點取得當日三大法人買賣超日報（上市股票）。
+    端點：https://www.twse.com.tw/rwd/zh/fund/T86?response=json&date=YYYYMMDD&selectType=ALLBUT0999
+    回傳格式：{stat, date, fields, data: [[col0..col18]...], notes}
+    欄位 (array index):
+      [0]=證券代號, [4]=外陸資買賣超股數, [10]=投信買賣超股數
+      [11]=自營商買賣超股數(合計), [18]=三大法人買賣超股數
+    回傳：
       { stock_id: {
           foreign_net: int,   # 外資（含陸資）買賣超張數（正=買超，負=賣超）
           trust_net:   int,   # 投信買賣超張數
-          dealer_net:  int,   # 自營商買賣超張數
+          dealer_net:  int,   # 自營商買賣超張數（合計）
           total_net:   int,   # 三大法人合計買賣超張數
       } }
     非交易日或 API 失敗時回傳空 dict，analyze_chips 會降級到啟發式估算。
     """
-    print("[API] 呼叫 T86 三大法人買賣超...")
+    today = datetime.now().strftime('%Y%m%d')
+    url = URL_T86.format(date=today)
+    print(f"[API] 呼叫 T86 三大法人買賣超... {url}")
     try:
-        r = _http_get(URL_T86, headers=TWSE_HEADERS, timeout=30, verify=False)
-        data = r.json()
+        r = _http_get(url, headers=TWSE_HEADERS, timeout=30, verify=False)
+        payload = r.json()
     except Exception as e:
         print(f"[API] T86 失敗（已重試3次）：{e}")
         return {}
 
-    if not isinstance(data, list) or not data:
-        print("[API] T86 無資料（可能為非交易日）")
+    if not isinstance(payload, dict) or payload.get('stat') != 'OK':
+        print(f"[API] T86 無資料（可能為非交易日）stat={payload.get('stat') if isinstance(payload, dict) else '?'}")
+        return {}
+
+    rows = payload.get('data')
+    if not rows or not isinstance(rows, list):
+        print("[API] T86 data 為空")
         return {}
 
     result = {}
-    for row in data:
+    for row in rows:
         try:
-            code = str(row.get('證券代號', '') or row.get('Code', '')).strip()
+            if not isinstance(row, list) or len(row) < 19:
+                continue
+            code = str(row[0]).strip()
             if not (len(code) == 4 and code.isdigit()):
                 continue
 
@@ -376,16 +387,14 @@ def fetch_t86_chips() -> Dict[str, Dict]:
                 if not s or s in ('--', ''):
                     return 0
                 try:
-                    # API 回傳股數，除以 1000 轉為張數
                     return int(float(s) / 1000)
                 except Exception:
                     return 0
 
-            foreign_net = _parse_net(row.get('外陸資買賣超股數(不含外資自營商)', row.get('外陸資買賣超股數', 0)))
-            trust_net   = _parse_net(row.get('投信買賣超股數', 0))
-            dealer_net  = _parse_net(row.get('自營商買賣超股數(自行買賣)', row.get('自營商買賣超股數', 0)))
-            total_net   = _parse_net(row.get('三大法人買賣超股數', 0))
-            # 若 total_net 欄位缺失，用三者加總
+            foreign_net = _parse_net(row[4])   # 外陸資買賣超股數(不含外資自營商)
+            trust_net   = _parse_net(row[10])  # 投信買賣超股數
+            dealer_net  = _parse_net(row[11])  # 自營商買賣超股數(合計)
+            total_net   = _parse_net(row[18])  # 三大法人買賣超股數
             if total_net == 0 and (foreign_net or trust_net or dealer_net):
                 total_net = foreign_net + trust_net + dealer_net
 
