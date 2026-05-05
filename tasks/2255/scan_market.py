@@ -1175,7 +1175,7 @@ def _rule_based_fallback(all_stock_data: List[Dict]) -> List[Dict]:
 # ================================================================
 # 五維分析函式 — v2 暴漲預測模型 (2026/04/28)
 # 權重：技術面 25%、基本面 23%、消息面 32%、情緒面 12%、籌碼面 8%
-# 滿分：技術面 40、基本面 40、消息面 10、情緒面 10、籌碼面 10
+# 滿分：技術面 40、基本面 28、消息面 10、情緒面 10、籌碼面 10
 # ================================================================
 def analyze_technical(hist) -> Dict:
     """技術面分析（滿分 40 = 5 個子指標各 8 分）
@@ -1354,6 +1354,7 @@ def analyze_chips(hist, t86_row: Dict = None, margin_row: Dict = None) -> Dict:
     score       = 0
     sigs        = []
     det         = {}
+    chips_score_cap = 10
 
     if not hist:
         return {'score': 0, 'signals': [], 'details': {}}
@@ -1397,7 +1398,7 @@ def analyze_chips(hist, t86_row: Dict = None, margin_row: Dict = None) -> Dict:
             else:
                 score += 2; sigs.append('法人中性(估，無T86資料)')
         else:
-            score += 1; sigs.append('法人方向未知(資料不足)')
+            score += 1; sigs.append('法人方向未知(資料不足)'); chips_score_cap = 3
 
     # ── 2. 融資變化 (3 分) ────────────────────────────────────────────
     if margin_row:
@@ -1456,12 +1457,12 @@ def analyze_chips(hist, t86_row: Dict = None, margin_row: Dict = None) -> Dict:
         else:
             score += 1
 
-    return {'score': min(max(score, 0), 10), 'signals': sigs, 'details': det}
+    return {'score': min(max(score, 0), chips_score_cap), 'signals': sigs, 'details': det}
 
 
 def analyze_fundamental(stock_id: str, bwibbu: Dict[str, Dict] = None, all_bwibbu: Dict[str, Dict] = None, hist: List[Dict] = None) -> Dict:
     """
-    基本面分析（滿分 40，動態 5 指標）
+    基本面分析（滿分 28，動態 5 指標）
     指標：PE估值(8)、財務體質(8)、量能趨勢(8)、PBR(8)、殖利率(8)
     - PE/PBR/殖利率：BWIBBU_ALL 真實數據；無資料時跳過，不顯示「無法取得」
     - 財務體質：由 PBR+殖利率 組合推算（替代毛利率）
@@ -1568,9 +1569,9 @@ def analyze_fundamental(stock_id: str, bwibbu: Dict[str, Dict] = None, all_bwibb
         total_got   = sum(s for s, _ in scored_items)
         total_max   = sum(m for _, m in scored_items)
         # 按比例換算到 40 分
-        score = round(total_got / total_max * 40, 1)
+        score = round(total_got / total_max * 28, 1)
 
-    return {'score': min(max(score, 0), 40), 'signals': signals, 'details': details}
+    return {'score': min(max(score, 0), 28), 'signals': signals, 'details': details}
 
 
 def analyze_news(stock_id, sector) -> Dict:
@@ -1982,10 +1983,10 @@ def run_five_dimension_scan(verbose=True) -> Dict:
 
         # ── 加權總分 (v2 暴漲預測模型) ──
         # 權重: 技術 25%、基本面 23%、消息 32%、情緒 12%、籌碼 8%
-        # 滿分: 40/40/10/10/10
+        # 滿分: 40/28/10/10/10
         _pct = {
             'tech': tech['score'] / 40.0,
-            'fund': fund['score'] / 40.0,
+            'fund': fund['score'] / 28.0,
             'news': news['score'] / 10.0,
             'sent': sentiment['score'] / 10.0,
             'chip': chips['score'] / 10.0,
@@ -2068,6 +2069,8 @@ def run_five_dimension_scan(verbose=True) -> Dict:
             continue
         filtered_top.append(r)
 
+    # 情緒最低門檻：情緒分 < 5 的股票不進 Top 10
+    filtered_top = [r for r in filtered_top if r['dimensions']['sentiment'] >= 5]
     top10           = filtered_top[:10]
     extra_watchlist = limit_up_watchlist
 
