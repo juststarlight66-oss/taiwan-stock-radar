@@ -1,6 +1,5 @@
 'use client';
-import { usePathname } from 'next/navigation';
-import { Activity, Radio, History, TrendingUp, List, Radar, RefreshCw, Clock, Info, GitFork, Search } from 'lucide-react';
+import { Activity, Radio, History, TrendingUp, List, Radar, Clock, GitFork, Search } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 const BASE = '/taiwan-stock-radar';
@@ -15,15 +14,18 @@ const NAV_ITEMS = [
 ] as const;
 
 interface TopNavProps {
-  /** Extra controls rendered in the right slot (e.g. refresh button, demo badge) */
   rightSlot?: React.ReactNode;
-  /** Show the disclaimer info button */
   onInfoClick?: () => void;
 }
 
 export default function TopNav({ rightSlot, onInfoClick }: TopNavProps) {
-  const pathname = usePathname();
   const [now, setNow] = useState('');
+  const [pathname, setPathname] = useState('');
+
+  useEffect(() => {
+    // Use window.location instead of usePathname() for static export compatibility
+    setPathname(window.location.pathname);
+  }, []);
 
   useEffect(() => {
     const tick = () =>
@@ -40,8 +42,8 @@ export default function TopNav({ rightSlot, onInfoClick }: TopNavProps) {
     return () => clearInterval(id);
   }, []);
 
-  // Determine active link: exact match for home, prefix match for others
   function isActive(href: string) {
+    if (!pathname) return false;
     if (href === `${BASE}/`) {
       return pathname === `${BASE}/` || pathname === BASE || pathname === '/';
     }
@@ -94,24 +96,24 @@ export default function TopNav({ rightSlot, onInfoClick }: TopNavProps) {
                 <Clock className="w-3 h-3" />{now}
               </span>
             )}
-            {rightSlot}
             {onInfoClick && (
               <button
                 onClick={onInfoClick}
-                className="p-1.5 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors"
+                className="w-7 h-7 rounded-lg border border-gray-200 bg-gray-50 hover:bg-gray-100 flex items-center justify-center transition-colors"
                 title="免責聲明"
               >
-                <Info className="w-3.5 h-3.5" />
+                <span className="text-[10px] text-gray-500 font-medium">i</span>
               </button>
             )}
+            {rightSlot}
             <a
               href="https://github.com/juststarlight66-oss/taiwan-stock-radar"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-1.5 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors"
+              className="w-7 h-7 rounded-lg border border-gray-200 bg-gray-50 hover:bg-gray-100 flex items-center justify-center transition-colors"
               title="GitHub"
             >
-              <GitFork className="w-3.5 h-3.5" />
+              <GitFork className="w-3.5 h-3.5 text-gray-500" />
             </a>
           </div>
         </div>
