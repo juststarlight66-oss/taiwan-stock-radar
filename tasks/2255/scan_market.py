@@ -178,11 +178,14 @@ def fetch_stock_day_all() -> Dict[str, Dict]:
             chg_str   = clean(row[8])
             name      = str(row[1]).strip()
 
-            if not close_str or close_str in ('--', '0', ''):
+            if not close_str or close_str in ('--', ''):
                 continue
-            close = float(close_str)
+            close = float(close_str) if close_str != '0' else 0.0
             if close <= 0:
-                continue
+                # close=0 可能是 API 延遲或暫停交易，嘗試從開盤價復原
+                if open_str and open_str not in ('--', '', '0'):
+                    close = float(open_str)
+                # 即使 close 仍為 0，不跳過：保留 volume 等欄位，後續可由快取補充
 
             open_p = float(open_str) if open_str  not in ('--', '', '0') else close
             high_p = float(high_str) if high_str  not in ('--', '', '0') else close
@@ -252,11 +255,14 @@ def fetch_tpex_day_all() -> Dict[str, Dict]:
             chg_str    = clean_tpex(row.get('Change', ''))
             name       = str(row.get('CompanyName', row.get('Name', code))).strip()
 
-            if not close_str or close_str in ('--', '0', '', 'N/A'):
+            if not close_str or close_str in ('--', '', 'N/A'):
                 continue
-            close = float(close_str)
+            close = float(close_str) if close_str != '0' else 0.0
             if close <= 0:
-                continue
+                # close=0 可能是 API 延遲或暫停交易，嘗試從開盤價復原
+                if open_str and open_str not in ('--', '', '0', 'N/A'):
+                    close = float(open_str)
+                # 即使 close 仍為 0，不跳過：保留 volume 等欄位，後續可由快取補充
 
             open_p = float(open_str)  if open_str  not in ('--', '', '0', 'N/A') else close
             high_p = float(high_str)  if high_str  not in ('--', '', '0', 'N/A') else close
