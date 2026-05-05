@@ -38,7 +38,46 @@ const NARRATIVE_ROWS: { key: keyof StockNarrative; label: string; icon: string; 
   { key: 'action',      label: '操作建議',   icon: '🎯', color: 'text-red-300' },
 ];
 
-function NarrativePanel({ narrative }: { narrative: StockNarrative }) {
+function generateNarrative(stock: ScanStock): StockNarrative {
+  const t = stock.dimensions?.technical ?? 0;
+  const c = stock.dimensions?.chips ?? 0;
+  const f = stock.dimensions?.fundamental ?? 0;
+  const { entry, stop_loss, downside, upside, upside2, upside3, recommendation } = stock.strategy ?? {};
+  const rr = ((upside ?? 0) / Math.max(downside ?? 1, 1)).toFixed(1);
+  const entryStr = entry?.toFixed(2) ?? '—';
+  const slStr = stop_loss?.toFixed(2) ?? '—';
+  const dsStr = downside ?? '?';
+
+  return {
+    technical: t >= 30
+      ? `技術面評分 ${t.toFixed(0)}/40，多頭趨勢明確，站穩短中期均線之上，動能強勁`
+      : t >= 20
+        ? `技術面評分 ${t.toFixed(0)}/40，短線偏多但上方壓力待消化，注意量能變化`
+        : `技術面評分 ${t.toFixed(0)}/40，走勢偏弱，建議等待止跌訊號再進場`,
+    chips: c >= 7
+      ? `籌碼面評分 ${c.toFixed(0)}/10，法人持續買超，籌碼集中度佳，支撐力道足`
+      : c >= 4
+        ? `籌碼面評分 ${c.toFixed(0)}/10，法人動向分歧，籌碼尚屬中性`
+        : `籌碼面評分 ${c.toFixed(0)}/10，籌碼鬆動，法人減碼明顯，短線壓力大`,
+    fundamental: f >= 30
+      ? `基本面評分 ${f.toFixed(0)}/40，營收獲利穩健成長，本益比處合理區間`
+      : f >= 15
+        ? `基本面評分 ${f.toFixed(0)}/40，體質尚可惟成長動能趨緩，中線持有需觀察`
+        : `基本面評分 ${f.toFixed(0)}/40，營收獲利偏弱，建議短線操作為主`,
+    risk: stop_loss
+      ? `建議停損設於 ${slStr}（約 -${dsStr}%），務必控制單筆風險在總資金 2% 以內。`
+        + (upside2 ? ` 若突破第一關可上移停損至成本價保護。` : '')
+      : `尚無明確停損價位，若進場請自行設定技術面支撐（如月線或前低）作為防守。`,
+    action: recommendation && entry
+      ? `綜合評分 ${stock.total_score.toFixed(1)}，建議「${recommendation}」。進場 ${entryStr}，目標 +${upside ?? '?'}%`
+        + (upside2 ? `/ +${upside2}%` : '') + (upside3 ? `/ +${upside3}%` : '')
+        + `，風報比 1:${rr}，適合${downside && downside < 5 ? '短線積極' : '波段持有'}操作。`
+      : `綜合評分 ${stock.total_score.toFixed(1)}，訊號尚不明確，建議觀望等待更佳進場點。`,
+  };
+}
+
+function NarrativePanel({ stock }: { stock: ScanStock }) {
+  const narrative = stock.narrative ?? generateNarrative(stock);
   return (
     <div className="rounded-xl bg-gray-800/40 border border-gray-700/50 p-4">
       <h3 className="text-[11px] font-semibold text-gray-500 mb-3 uppercase tracking-wide flex items-center gap-1.5">
