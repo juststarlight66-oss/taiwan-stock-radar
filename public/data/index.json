@@ -1,6 +1,9 @@
 {
-  "dates": [
-    "2026-05-05",
-    "20260505"
+  "last_updated": "20260505",
+  "files": [
+    "latest.json",
+    "all_scores.json",
+    "backtest.json",
+    "scan_result_20260505.json"
   ]
 }

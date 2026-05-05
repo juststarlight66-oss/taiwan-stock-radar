@@ -1183,7 +1183,7 @@ def _rule_based_fallback(all_stock_data: List[Dict]) -> List[Dict]:
 
 # ================================================================
 # 五維分析函式 — v2 暴漲預測模型 (2026/04/28)
-# 權重：技術面 25%、基本面 23%、消息面 32%、情緒面 12%、籌碼面 8%
+# 權重：技術面 25%、基本面 18%、消息面 32%、情緒面 10%、籌碼面 15%
 # 滿分：技術面 40、基本面 28、消息面 10、情緒面 10、籌碼面 10
 # ================================================================
 def analyze_technical(hist) -> Dict:
@@ -1380,16 +1380,19 @@ def analyze_chips(hist, t86_row: Dict = None, margin_row: Dict = None) -> Dict:
         det['t86_foreign_net'] = foreign_net
         det['t86_trust_net']   = trust_net
 
-        if total_net >= 1000:
-            score += 4; sigs.append(f'三大法人大買 (+{total_net:,}張)')
-        elif total_net >= 300:
-            score += 3; sigs.append(f'三大法人買超 (+{total_net:,}張)')
-        elif total_net >= 0:
-            score += 2; sigs.append(f'三大法人小買/持平 ({total_net:+,}張)')
-        elif total_net >= -300:
-            score += 1; sigs.append(f'三大法人小賣 ({total_net:+,}張)')
+        if total_net >= 2000:
+            score += 4; sigs.append(f'三大法人積極大買 (+{total_net:,}張)')
+        elif total_net >= 1000:
+            score += 3; sigs.append(f'三大法人大買 (+{total_net:,}張)')
+        elif total_net >= 500:
+            score += 2; sigs.append(f'三大法人買超 (+{total_net:,}張)')
         else:
-            score += 0; sigs.append(f'三大法人大賣 ({total_net:+,}張)')
+            # 淨買超 < 500張：不給籌碼分（小單不計）
+            score += 0; sigs.append(f'三大法人買超不足500張 ({total_net:+,}張)')
+
+        # ── 全域籌碼門檻：T86 淨買超不足 500 張 → 籌碼上限 3 分 ──
+        if t86_row and total_net < 500:
+            chips_score_cap = 3
 
         # 投信連買加分（投信動向對中小型股影響大）
         if trust_net >= 200:
@@ -1888,7 +1891,7 @@ def run_five_dimension_scan(verbose=True) -> Dict:
         print(f"\n{'='*70}")
         print(f"  台股五維分析掃描引擎 v7.1 (TWSE+TPEx 全市場)  |  {today_str}")
         print(f"  資料來源：TWSE (STOCK_DAY_ALL+BWIBBU_ALL) + TPEx (daily_close+peratio_analysis)")
-        print(f"  權重：技術 25% + 基本面 23% + 消息 32% + 情緒 12% + 籌碼 8%")
+        print(f"  權重：技術 25% + 基本面 18% + 消息 32% + 情緒 10% + 籌碼 15%")
         print(f"  ML 爆漲預測：RandomForestClassifier 隔日漲停機率 Top 5")
         print(f"{'='*70}\n")
 
@@ -1979,6 +1982,15 @@ def run_five_dimension_scan(verbose=True) -> Dict:
             })
             continue
 
+        # ── 過濾：當日成交量 < 1000張直接排除（流動性不足）──
+        if hist and hist[-1].get('volume', 0) < 1000:
+            continue
+
+        # ── 過濾：市值過小／無基本面資料且股價過低的微小型股 ──
+        if bwibbu_data and stock_id not in bwibbu_data:
+            if hist and hist[-1].get('close', 0) < 15:
+                continue
+
         scanned_count += 1
         all_stock_data_for_ml.append({'stock_id': stock_id, 'name': name, 'sector': sector, 'hist': hist})
 
@@ -1991,7 +2003,7 @@ def run_five_dimension_scan(verbose=True) -> Dict:
         sentiment = analyze_sentiment(hist, stock_id)
 
         # ── 加權總分 (v2 暴漲預測模型) ──
-        # 權重: 技術 25%、基本面 23%、消息 32%、情緒 12%、籌碼 8%
+        # 權重: 技術 25%、基本面 18%、消息 32%、情緒 10%、籌碼 15%
         # 滿分: 40/28/10/10/10
         _pct = {
             'tech': tech['score'] / 40.0,
@@ -2000,8 +2012,13 @@ def run_five_dimension_scan(verbose=True) -> Dict:
             'sent': sentiment['score'] / 10.0,
             'chip': chips['score'] / 10.0,
         }
-        total_score = (_pct['tech'] * 25 + _pct['fund'] * 23 + _pct['news'] * 32 +
-                       _pct['sent'] * 12 + _pct['chip'] * 8)
+        total_score = (_pct['tech'] * 25 + _pct['fund'] * 18 + _pct['news'] * 32 +
+                       _pct['sent'] * 10 + _pct['chip'] * 15)
+
+        # ── T86 籌碼門檻懲罰：淨買超不足 500 張 → 總分打 75 折 ──
+        _t86_net = (t86_data.get(stock_id, {}) or {}).get('total_net', 0)
+        if _t86_net < 500:
+            total_score *= 0.75
 
         today_data  = hist[-1]
         entry_exit  = calculate_entry_exit(today_data, tech, hist)
@@ -2153,7 +2170,7 @@ def run_five_dimension_scan(verbose=True) -> Dict:
     # ── 文字報告 ───────────────────────────────────────────────
     lines = [
         f"【台股五維分析報告】{today_str}",
-        f"掃描：{scanned_count}/{len(STOCK_POOL)} 檔 | 權重：技術 25%+ 基本面 23%+ 消息 32%+ 情緒 12%+ 籌碼 8%",
+        f"掃描：{scanned_count}/{len(STOCK_POOL)} 檔 | 權重：技術 25%+ 基本面 18%+ 消息 32%+ 情緒 10%+ 籌碼 15%",
         f"資料來源：TWSE+TPEx 全市場 (STOCK_DAY_ALL+BWIBBU_ALL+TPEx daily+peratio) | 總耗時：{scan_elapsed:.0f}s（API {dl_elapsed:.0f}s）",
         "",
         "── Top 10 推薦 ──",
