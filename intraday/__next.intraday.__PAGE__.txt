@@ -1,0 +1,9 @@
+1:"$Sreact.fragment"
+2:I[47257,["/taiwan-stock-radar/_next/static/chunks/0o~269zocnb95.js"],"ClientPageRoot"]
+3:I[45522,["/taiwan-stock-radar/_next/static/chunks/0o~269zocnb95.js","/taiwan-stock-radar/_next/static/chunks/0p8ilghfak_xk.js","/taiwan-stock-radar/_next/static/chunks/04t_97r7hbdo5.js","/taiwan-stock-radar/_next/static/chunks/0g98mh.mgo_t5.js"],"default"]
+6:I[97367,["/taiwan-stock-radar/_next/static/chunks/0o~269zocnb95.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"Component":"$3","serverProvidedParams":{"searchParams":{},"params":{},"promises":["$@4","$@5"]}}],[["$","script","script-0",{"src":"/taiwan-stock-radar/_next/static/chunks/0p8ilghfak_xk.js","async":true}],["$","script","script-1",{"src":"/taiwan-stock-radar/_next/static/chunks/04t_97r7hbdo5.js","async":true}],["$","script","script-2",{"src":"/taiwan-stock-radar/_next/static/chunks/0g98mh.mgo_t5.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"G9olIyLtP3Bpi2D9j6w87"}
+4:{}
+5:"$0:rsc:props:children:0:props:serverProvidedParams:params"
+8:null
