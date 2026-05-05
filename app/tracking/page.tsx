@@ -756,9 +756,10 @@ export default function TrackingPage() {
   useEffect(() => {
     async function load() {
       try {
-        const [latestRes, backtestRes] = await Promise.all([
+        const [latestRes, backtestRes, allScoresRes] = await Promise.all([
           fetch(`${BASE}/data/latest.json`),
           fetch(`${BASE}/data/backtest.json`),
+          fetch(`${BASE}/data/all_scores.json`),
         ]);
         if (!latestRes.ok) throw new Error(`latest.json: HTTP ${latestRes.status}`);
         const latest: LatestData = await latestRes.json();
@@ -767,6 +768,11 @@ export default function TrackingPage() {
         if (backtestRes.ok) {
           const bt: BacktestData = await backtestRes.json();
           setBacktestData(bt);
+        }
+
+        if (allScoresRes.ok) {
+          const asData: AllScoresData = await allScoresRes.json();
+          setAllScoresData(asData);
         }
       } catch (e) {
         setError(e instanceof Error ? e.message : '資料載入失敗');
@@ -919,7 +925,7 @@ export default function TrackingPage() {
 
             {/* Backtest performance table */}
             {backtestData && (
-              <BacktestPerformanceTable records={backtestData.records} />
+              <BacktestPerformanceTable records={backtestData?.records ?? []} />
             )}
 
           </div>

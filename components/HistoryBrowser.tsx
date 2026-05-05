@@ -99,7 +99,7 @@ export default function HistoryBrowser({ initialDates }: Props) {
   const displayData = scanData ?? (error || !selectedDate ? demoScanResult : null);
   const isDemo      = !scanData && (!!error || !selectedDate);
 
-  const btRecord = backtest?.records.find(
+  const btRecord = backtest?.records?.find(
     r => selectedDate && normDate(r.scan_date) === normDate(selectedDate)
   ) ?? null;
 
@@ -174,7 +174,7 @@ export default function HistoryBrowser({ initialDates }: Props) {
               ) : (
                 filteredDates.map(d => {
                   const isSelected = d === selectedDate;
-                  const bt = backtest?.records.find(r => normDate(r.scan_date) === normDate(d));
+                  const bt = backtest?.records?.find(r => normDate(r.scan_date) === normDate(d));
                   const t1 = bt?.periods?.T1;
                   return (
                     <button
