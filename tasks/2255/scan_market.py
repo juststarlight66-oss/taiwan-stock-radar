@@ -1726,6 +1726,12 @@ def calculate_entry_exit(stock_data, technical, hist: List[Dict] = None) -> Dict
       已創60日新高時：改用布林上軌（MA20+2σ）作為第一關
     """
     close = stock_data['close']
+    if close <= 0:
+        return {
+            'entry': 0, 'stop_loss': 0, 'target': 0, 'target1': 0,
+            'target2': 0, 'target3': 0, 'target_note': '無收盤價',
+            'atr': 0, 'upside': 0, 'upside2': 0, 'upside3': 0, 'downside': 0
+        }
 
     # ── 計算 ATR（14日真實波幅均值）─────────────────────────
     atr = close * 0.025  # 預設 2.5%（無歷史資料時）
