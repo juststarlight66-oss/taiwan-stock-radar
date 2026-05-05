@@ -363,7 +363,7 @@ export default function StockDetailModal({ stock, onClose, rank, isDemo }: Props
           )}
 
           {/* AI 白話文分析 */}
-          {stock.narrative && <NarrativePanel narrative={stock.narrative} />}
+          <NarrativePanel stock={stock} />
 
           <a
             href={`https://tw.stock.yahoo.com/quote/${stock.stock_id}`}
