@@ -6,16 +6,14 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -25,9 +23,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
 
       - name: Generate all_stocks_index.json
         run: |
@@ -78,7 +73,7 @@ jobs:
 
       - name: Fix sub-page routing for GitHub Pages
         run: |
-          for page in intraday tracking; do
+          for page in intraday tracking history all selfcheck; do
             if [ -f out/${page}.html ] && [ ! -f out/${page}/index.html ]; then
               mkdir -p out/${page}
               cp out/${page}.html out/${page}/index.html
@@ -86,18 +81,13 @@ jobs:
             fi
           done
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./out
+      - name: Add .nojekyll
+        run: touch out/.nojekyll
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Deploy to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./out
+          publish_branch: gh-pages
+          force_orphan: false
