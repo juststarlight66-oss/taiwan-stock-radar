@@ -1,9 +1,12 @@
 {
   "last_updated": "20260505",
-  "files": [
-    "latest.json",
-    "all_scores.json",
-    "backtest.json",
-    "scan_result_20260505.json"
-  ]
+  "dates": [
+    "2026-04-28",
+    "2026-04-30",
+    "2026-05-01",
+    "2026-05-02",
+    "2026-05-04",
+    "2026-05-05"
+  ],
+  "file_count": 6
 }
