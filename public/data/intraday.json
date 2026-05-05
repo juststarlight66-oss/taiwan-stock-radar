@@ -1,20 +1,20 @@
 {
   "scan_type": "intraday_daytrade",
-  "scanned_at": "2026-05-05 15:04:35",
+  "scanned_at": "2026-05-05 15:07:08",
   "stocks": [
     {
       "stock_id": "1303",
       "name": "南亞",
       "sector": "",
-      "score": 71,
+      "score": 84,
       "details": {
         "momentum": "最強動能",
         "rsi": 100.0,
         "ma5_status": "強勢突破",
-        "vol_ratio": "量縮",
+        "vol_ratio": "爆發",
         "breakout": "創新高"
       },
-      "total_score": 71,
+      "total_score": 84,
       "entry": 94.0,
       "target": 101.52,
       "stop_loss": 89.3,
@@ -23,7 +23,7 @@
         "momentum": "最強動能",
         "rsi": 100.0,
         "ma5_status": "強勢突破",
-        "vol_ratio": "量縮",
+        "vol_ratio": "爆發",
         "breakout": "創新高"
       },
       "live": {
@@ -43,15 +43,15 @@
       "stock_id": "2369",
       "name": "菱生",
       "sector": "",
-      "score": 71,
+      "score": 84,
       "details": {
         "momentum": "最強動能",
         "rsi": 100.0,
         "ma5_status": "強勢突破",
-        "vol_ratio": "量縮",
+        "vol_ratio": "爆發",
         "breakout": "創新高"
       },
-      "total_score": 71,
+      "total_score": 84,
       "entry": 33.2,
       "target": 35.86,
       "stop_loss": 31.54,
@@ -60,7 +60,7 @@
         "momentum": "最強動能",
         "rsi": 100.0,
         "ma5_status": "強勢突破",
-        "vol_ratio": "量縮",
+        "vol_ratio": "爆發",
         "breakout": "創新高"
       },
       "live": {
@@ -80,15 +80,15 @@
       "stock_id": "2423",
       "name": "固緯",
       "sector": "",
-      "score": 71,
+      "score": 84,
       "details": {
         "momentum": "最強動能",
         "rsi": 100.0,
         "ma5_status": "強勢突破",
-        "vol_ratio": "量縮",
+        "vol_ratio": "爆發",
         "breakout": "創新高"
       },
-      "total_score": 71,
+      "total_score": 84,
       "entry": 66.5,
       "target": 71.82,
       "stop_loss": 63.17,
@@ -97,7 +97,7 @@
         "momentum": "最強動能",
         "rsi": 100.0,
         "ma5_status": "強勢突破",
-        "vol_ratio": "量縮",
+        "vol_ratio": "爆發",
         "breakout": "創新高"
       },
       "live": {
@@ -117,15 +117,15 @@
       "stock_id": "2449",
       "name": "京元電子",
       "sector": "",
-      "score": 71,
+      "score": 84,
       "details": {
         "momentum": "最強動能",
         "rsi": 100.0,
         "ma5_status": "強勢突破",
-        "vol_ratio": "量縮",
+        "vol_ratio": "爆發",
         "breakout": "創新高"
       },
-      "total_score": 71,
+      "total_score": 84,
       "entry": 354.0,
       "target": 382.32,
       "stop_loss": 336.3,
@@ -134,7 +134,7 @@
         "momentum": "最強動能",
         "rsi": 100.0,
         "ma5_status": "強勢突破",
-        "vol_ratio": "量縮",
+        "vol_ratio": "爆發",
         "breakout": "創新高"
       },
       "live": {
@@ -154,15 +154,15 @@
       "stock_id": "2451",
       "name": "創見",
       "sector": "",
-      "score": 71,
+      "score": 84,
       "details": {
         "momentum": "最強動能",
         "rsi": 100.0,
         "ma5_status": "強勢突破",
-        "vol_ratio": "量縮",
+        "vol_ratio": "爆發",
         "breakout": "創新高"
       },
-      "total_score": 71,
+      "total_score": 84,
       "entry": 283.0,
       "target": 305.64,
       "stop_loss": 268.85,
@@ -171,7 +171,7 @@
         "momentum": "最強動能",
         "rsi": 100.0,
         "ma5_status": "強勢突破",
-        "vol_ratio": "量縮",
+        "vol_ratio": "爆發",
         "breakout": "創新高"
       },
       "live": {
