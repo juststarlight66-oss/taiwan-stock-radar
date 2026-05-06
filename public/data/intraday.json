@@ -1,10 +1,10 @@
 {
   "scan_type": "intraday_daytrade",
-  "scanned_at": "2026-05-06 13:10:41",
+  "scanned_at": "2026-05-06 13:14:26",
   "stocks": [
     {
-      "stock_id": "00830",
-      "name": "國泰費城半導體",
+      "stock_id": "1809",
+      "name": "中釉",
       "sector": "",
       "score": 50.0,
       "details": {
@@ -12,10 +12,10 @@
         "gap": "開高走高"
       },
       "total_score": 50.0,
-      "entry": 78.35,
-      "target": 84.62,
-      "stop_loss": 74.43,
-      "change_pct": 5.31,
+      "entry": 34.15,
+      "target": 36.88,
+      "stop_loss": 32.44,
+      "change_pct": 9.98,
       "dimensions": {
         "momentum": "极强",
         "vol_ratio": "",
@@ -23,21 +23,21 @@
         "gap": "開高走高"
       },
       "live": {
-        "current": 78.35,
-        "open": 78.1,
-        "high": 78.35,
-        "low": 77.9,
-        "prev_close": 74.4,
-        "volume": 7191,
-        "change_pct": 5.31,
-        "time": "13:10:54",
+        "current": 34.15,
+        "open": 34.15,
+        "high": 34.15,
+        "low": 32.9,
+        "prev_close": 31.05,
+        "volume": 18957,
+        "change_pct": 9.98,
+        "time": "13:14:36",
         "date": "20260506",
         "source": "tse"
       }
     },
     {
-      "stock_id": "2301",
-      "name": "光寶科",
+      "stock_id": "2344",
+      "name": "華邦電",
       "sector": "",
       "score": 50.0,
       "details": {
@@ -45,10 +45,10 @@
         "gap": "開高走高"
       },
       "total_score": 50.0,
-      "entry": 186.0,
-      "target": 200.88,
-      "stop_loss": 176.7,
-      "change_pct": 8.77,
+      "entry": 108.5,
+      "target": 117.18,
+      "stop_loss": 103.07,
+      "change_pct": 9.82,
       "dimensions": {
         "momentum": "极强",
         "vol_ratio": "",
@@ -56,21 +56,21 @@
         "gap": "開高走高"
       },
       "live": {
-        "current": 186.0,
-        "open": 175.0,
-        "high": 187.0,
-        "low": 173.5,
-        "prev_close": 171.0,
-        "volume": 81737,
-        "change_pct": 8.77,
-        "time": "13:10:55",
+        "current": 108.5,
+        "open": 108.5,
+        "high": 108.5,
+        "low": 104.0,
+        "prev_close": 98.8,
+        "volume": 237580,
+        "change_pct": 9.82,
+        "time": "13:14:39",
         "date": "20260506",
         "source": "tse"
       }
     },
     {
-      "stock_id": "2357",
-      "name": "華碩",
+      "stock_id": "2354",
+      "name": "鴻準",
       "sector": "",
       "score": 50.0,
       "details": {
@@ -78,10 +78,10 @@
         "gap": "開高走高"
       },
       "total_score": 50.0,
-      "entry": 627.0,
-      "target": 677.16,
-      "stop_loss": 595.65,
-      "change_pct": 6.27,
+      "entry": 64.3,
+      "target": 69.44,
+      "stop_loss": 61.08,
+      "change_pct": 9.91,
       "dimensions": {
         "momentum": "极强",
         "vol_ratio": "",
@@ -89,21 +89,21 @@
         "gap": "開高走高"
       },
       "live": {
-        "current": 627.0,
-        "open": 598.0,
-        "high": 634.0,
-        "low": 596.0,
-        "prev_close": 590.0,
-        "volume": 7400,
-        "change_pct": 6.27,
-        "time": "13:10:56",
+        "current": 64.3,
+        "open": 62.0,
+        "high": 64.3,
+        "low": 60.2,
+        "prev_close": 58.5,
+        "volume": 82437,
+        "change_pct": 9.91,
+        "time": "13:14:41",
         "date": "20260506",
         "source": "tse"
       }
     },
     {
-      "stock_id": "2376",
-      "name": "技嘉",
+      "stock_id": "3026",
+      "name": "禾伸堂",
       "sector": "",
       "score": 50.0,
       "details": {
@@ -111,10 +111,10 @@
         "gap": "開高走高"
       },
       "total_score": 50.0,
-      "entry": 301.0,
-      "target": 325.08,
-      "stop_loss": 285.95,
-      "change_pct": 7.69,
+      "entry": 273.0,
+      "target": 294.84,
+      "stop_loss": 259.35,
+      "change_pct": 9.86,
       "dimensions": {
         "momentum": "极强",
         "vol_ratio": "",
@@ -122,21 +122,21 @@
         "gap": "開高走高"
       },
       "live": {
-        "current": 301.0,
-        "open": 283.0,
-        "high": 304.5,
-        "low": 283.0,
-        "prev_close": 279.5,
-        "volume": 21464,
-        "change_pct": 7.69,
-        "time": "13:10:58",
+        "current": 273.0,
+        "open": 273.0,
+        "high": 273.0,
+        "low": 260.0,
+        "prev_close": 248.5,
+        "volume": 21155,
+        "change_pct": 9.86,
+        "time": "13:14:38",
         "date": "20260506",
         "source": "tse"
       }
     },
     {
-      "stock_id": "2382",
-      "name": "廣達",
+      "stock_id": "3028",
+      "name": "增你強",
       "sector": "",
       "score": 50.0,
       "details": {
@@ -144,10 +144,10 @@
         "gap": "開高走高"
       },
       "total_score": 50.0,
-      "entry": 344.5,
-      "target": 372.06,
-      "stop_loss": 327.27,
-      "change_pct": 7.32,
+      "entry": 76.5,
+      "target": 82.62,
+      "stop_loss": 72.67,
+      "change_pct": 9.91,
       "dimensions": {
         "momentum": "极强",
         "vol_ratio": "",
@@ -155,14 +155,14 @@
         "gap": "開高走高"
       },
       "live": {
-        "current": 344.5,
-        "open": 328.0,
-        "high": 345.0,
-        "low": 328.0,
-        "prev_close": 321.0,
-        "volume": 37525,
-        "change_pct": 7.32,
-        "time": "13:11:01",
+        "current": 76.5,
+        "open": 72.2,
+        "high": 76.5,
+        "low": 72.0,
+        "prev_close": 69.6,
+        "volume": 6544,
+        "change_pct": 9.91,
+        "time": "13:14:11",
         "date": "20260506",
         "source": "tse"
       }
