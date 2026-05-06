@@ -62,10 +62,10 @@
   ],
   "records": [
     {
-      "stock_id": "6412",
-      "name": "群電",
-      "entry_date": "2026/05/05",
-      "entry_price": 90.02,
+      "stock_id": "6666",
+      "name": "羅麗芬-KY",
+      "entry_date": "2026/05/06",
+      "entry_price": 41.67,
       "t1": {
         "pct": null,
         "win": null
@@ -80,10 +80,10 @@
       }
     },
     {
-      "stock_id": "4807",
-      "name": "日成-KY",
-      "entry_date": "2026/05/05",
-      "entry_price": 23.15,
+      "stock_id": "6534",
+      "name": "正瀚-創",
+      "entry_date": "2026/05/06",
+      "entry_price": 95.3,
       "t1": {
         "pct": null,
         "win": null
@@ -98,10 +98,10 @@
       }
     },
     {
-      "stock_id": "4585",
-      "name": "達明",
-      "entry_date": "2026/05/05",
-      "entry_price": 348.32,
+      "stock_id": "4771",
+      "name": "望隼",
+      "entry_date": "2026/05/06",
+      "entry_price": 195.85,
       "t1": {
         "pct": null,
         "win": null
@@ -116,10 +116,10 @@
       }
     },
     {
-      "stock_id": "3669",
-      "name": "圓展",
-      "entry_date": "2026/05/05",
-      "entry_price": 43.56,
+      "stock_id": "4736",
+      "name": "泰博",
+      "entry_date": "2026/05/06",
+      "entry_price": 130.2,
       "t1": {
         "pct": null,
         "win": null
@@ -134,10 +134,10 @@
       }
     },
     {
-      "stock_id": "3037",
-      "name": "欣興",
-      "entry_date": "2026/05/05",
-      "entry_price": 929.0,
+      "stock_id": "4148",
+      "name": "全宇生技-KY",
+      "entry_date": "2026/05/06",
+      "entry_price": 36.73,
       "t1": {
         "pct": null,
         "win": null
@@ -152,10 +152,10 @@
       }
     },
     {
-      "stock_id": "2360",
-      "name": "致茂",
-      "entry_date": "2026/05/05",
-      "entry_price": 2355.75,
+      "stock_id": "3716",
+      "name": "中化控股",
+      "entry_date": "2026/05/06",
+      "entry_price": 34.19,
       "t1": {
         "pct": null,
         "win": null
@@ -170,10 +170,46 @@
       }
     },
     {
-      "stock_id": "2327",
-      "name": "國巨*",
-      "entry_date": "2026/05/05",
-      "entry_price": 348.49,
+      "stock_id": "2454",
+      "name": "聯發科",
+      "entry_date": "2026/05/06",
+      "entry_price": 3524.5,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      }
+    },
+    {
+      "stock_id": "2382",
+      "name": "廣達",
+      "entry_date": "2026/05/06",
+      "entry_price": 354.6,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      }
+    },
+    {
+      "stock_id": "2357",
+      "name": "華碩",
+      "entry_date": "2026/05/06",
+      "entry_price": 642.2,
       "t1": {
         "pct": null,
         "win": null
@@ -190,11 +226,155 @@
     {
       "stock_id": "2317",
       "name": "鴻海",
-      "entry_date": "2026/05/05",
-      "entry_price": 230.3,
+      "entry_date": "2026/05/06",
+      "entry_price": 256.05,
       "t1": {
         "pct": null,
         "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      }
+    },
+    {
+      "stock_id": "6412",
+      "name": "群電",
+      "entry_date": "2026/05/05",
+      "entry_price": 90.02,
+      "t1": {
+        "pct": -3.13,
+        "win": false
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      }
+    },
+    {
+      "stock_id": "4807",
+      "name": "日成-KY",
+      "entry_date": "2026/05/05",
+      "entry_price": 23.15,
+      "t1": {
+        "pct": -7.78,
+        "win": false
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      }
+    },
+    {
+      "stock_id": "4585",
+      "name": "達明",
+      "entry_date": "2026/05/05",
+      "entry_price": 348.32,
+      "t1": {
+        "pct": -2.96,
+        "win": false
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      }
+    },
+    {
+      "stock_id": "3669",
+      "name": "圓展",
+      "entry_date": "2026/05/05",
+      "entry_price": 43.56,
+      "t1": {
+        "pct": -7.71,
+        "win": false
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      }
+    },
+    {
+      "stock_id": "3037",
+      "name": "欣興",
+      "entry_date": "2026/05/05",
+      "entry_price": 929.0,
+      "t1": {
+        "pct": -7.64,
+        "win": false
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      }
+    },
+    {
+      "stock_id": "2360",
+      "name": "致茂",
+      "entry_date": "2026/05/05",
+      "entry_price": 2355.75,
+      "t1": {
+        "pct": -0.46,
+        "win": false
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      }
+    },
+    {
+      "stock_id": "2327",
+      "name": "國巨*",
+      "entry_date": "2026/05/05",
+      "entry_price": 348.49,
+      "t1": {
+        "pct": -3.01,
+        "win": false
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      }
+    },
+    {
+      "stock_id": "2317",
+      "name": "鴻海",
+      "entry_date": "2026/05/05",
+      "entry_price": 230.3,
+      "t1": {
+        "pct": 9.42,
+        "win": true
       },
       "t3": {
         "pct": null,
@@ -211,8 +391,8 @@
       "entry_date": "2026/05/05",
       "entry_price": 82.84,
       "t1": {
-        "pct": null,
-        "win": null
+        "pct": 10.33,
+        "win": true
       },
       "t3": {
         "pct": null,
@@ -229,8 +409,8 @@
       "entry_date": "2026/05/05",
       "entry_price": 122.45,
       "t1": {
-        "pct": null,
-        "win": null
+        "pct": -3.23,
+        "win": false
       },
       "t3": {
         "pct": null,
