@@ -1,4 +1,3 @@
-'use client';
 import TopNav from '@/components/TopNav';
 import HistoryBrowser from '@/components/HistoryBrowser';
 import { History, GitFork, Radar } from 'lucide-react';
