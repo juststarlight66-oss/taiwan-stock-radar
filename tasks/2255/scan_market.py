@@ -99,7 +99,7 @@ TWSE_HEADERS = {
 URL_STOCK_DAY_ALL = "https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL"
 URL_BWIBBU_ALL    = "https://openapi.twse.com.tw/v1/exchangeReport/BWIBBU_ALL"
 URL_MI_5MINS_HIST = "https://openapi.twse.com.tw/v1/indicesReport/MI_5MINS_HIST"
-URL_T86           = "https://www.twse.com.tw/rwd/zh/fund/T86?response=json&date={date}&selectType=ALLBUT0999"
+URL_T86           = "https://openapi.twse.com.tw/v1/exchangeReport/T86"
 URL_MI_MARGN      = "https://openapi.twse.com.tw/v1/exchangeReport/MI_MARGN"
 
 
@@ -178,14 +178,11 @@ def fetch_stock_day_all() -> Dict[str, Dict]:
             chg_str   = clean(row[8])
             name      = str(row[1]).strip()
 
-            if not close_str or close_str in ('--', ''):
+            if not close_str or close_str in ('--', '0', ''):
                 continue
-            close = float(close_str) if close_str != '0' else 0.0
+            close = float(close_str)
             if close <= 0:
-                # close=0 可能是 API 延遲或暫停交易，嘗試從開盤價復原
-                if open_str and open_str not in ('--', '', '0'):
-                    close = float(open_str)
-                # 即使 close 仍為 0，不跳過：保留 volume 等欄位，後續可由快取補充
+                continue
 
             open_p = float(open_str) if open_str  not in ('--', '', '0') else close
             high_p = float(high_str) if high_str  not in ('--', '', '0') else close
@@ -255,14 +252,11 @@ def fetch_tpex_day_all() -> Dict[str, Dict]:
             chg_str    = clean_tpex(row.get('Change', ''))
             name       = str(row.get('CompanyName', row.get('Name', code))).strip()
 
-            if not close_str or close_str in ('--', '', 'N/A'):
+            if not close_str or close_str in ('--', '0', '', 'N/A'):
                 continue
-            close = float(close_str) if close_str != '0' else 0.0
+            close = float(close_str)
             if close <= 0:
-                # close=0 可能是 API 延遲或暫停交易，嘗試從開盤價復原
-                if open_str and open_str not in ('--', '', '0', 'N/A'):
-                    close = float(open_str)
-                # 即使 close 仍為 0，不跳過：保留 volume 等欄位，後續可由快取補充
+                continue
 
             open_p = float(open_str)  if open_str  not in ('--', '', '0', 'N/A') else close
             high_p = float(high_str)  if high_str  not in ('--', '', '0', 'N/A') else close
@@ -339,46 +333,35 @@ def fetch_tpex_bwibbu_all() -> Dict[str, Dict]:
 
 def fetch_t86_chips() -> Dict[str, Dict]:
     """
-    從 TWSE RWD T86 端點取得當日三大法人買賣超日報（上市股票）。
-    端點：https://www.twse.com.tw/rwd/zh/fund/T86?response=json&date=YYYYMMDD&selectType=ALLBUT0999
-    回傳格式：{stat, date, fields, data: [[col0..col18]...], notes}
-    欄位 (array index):
-      [0]=證券代號, [4]=外陸資買賣超股數, [10]=投信買賣超股數
-      [11]=自營商買賣超股數(合計), [18]=三大法人買賣超股數
-    回傳：
+    從 TWSE T86 端點取得當日三大法人買賣超日報（上市股票）。
+    端點：https://openapi.twse.com.tw/v1/exchangeReport/T86
+    欄位：
+      證券代號、證券名稱、外陸資買賣超股數、投信買賣超股數、自營商買賣超股數、三大法人買賣超股數
+    回傳格式：
       { stock_id: {
           foreign_net: int,   # 外資（含陸資）買賣超張數（正=買超，負=賣超）
           trust_net:   int,   # 投信買賣超張數
-          dealer_net:  int,   # 自營商買賣超張數（合計）
+          dealer_net:  int,   # 自營商買賣超張數
           total_net:   int,   # 三大法人合計買賣超張數
       } }
     非交易日或 API 失敗時回傳空 dict，analyze_chips 會降級到啟發式估算。
     """
-    today = datetime.now().strftime('%Y%m%d')
-    url = URL_T86.format(date=today)
-    print(f"[API] 呼叫 T86 三大法人買賣超... {url}")
+    print("[API] 呼叫 T86 三大法人買賣超...")
     try:
-        r = _http_get(url, headers=TWSE_HEADERS, timeout=30, verify=False)
-        payload = r.json()
+        r = _http_get(URL_T86, headers=TWSE_HEADERS, timeout=30, verify=False)
+        data = r.json()
     except Exception as e:
         print(f"[API] T86 失敗（已重試3次）：{e}")
         return {}
 
-    if not isinstance(payload, dict) or payload.get('stat') != 'OK':
-        print(f"[API] T86 無資料（可能為非交易日）stat={payload.get('stat') if isinstance(payload, dict) else '?'}")
-        return {}
-
-    rows = payload.get('data')
-    if not rows or not isinstance(rows, list):
-        print("[API] T86 data 為空")
+    if not isinstance(data, list) or not data:
+        print("[API] T86 無資料（可能為非交易日）")
         return {}
 
     result = {}
-    for row in rows:
+    for row in data:
         try:
-            if not isinstance(row, list) or len(row) < 19:
-                continue
-            code = str(row[0]).strip()
+            code = str(row.get('證券代號', '') or row.get('Code', '')).strip()
             if not (len(code) == 4 and code.isdigit()):
                 continue
 
@@ -387,14 +370,16 @@ def fetch_t86_chips() -> Dict[str, Dict]:
                 if not s or s in ('--', ''):
                     return 0
                 try:
+                    # API 回傳股數，除以 1000 轉為張數
                     return int(float(s) / 1000)
                 except Exception:
                     return 0
 
-            foreign_net = _parse_net(row[4])   # 外陸資買賣超股數(不含外資自營商)
-            trust_net   = _parse_net(row[10])  # 投信買賣超股數
-            dealer_net  = _parse_net(row[11])  # 自營商買賣超股數(合計)
-            total_net   = _parse_net(row[18])  # 三大法人買賣超股數
+            foreign_net = _parse_net(row.get('外陸資買賣超股數(不含外資自營商)', row.get('外陸資買賣超股數', 0)))
+            trust_net   = _parse_net(row.get('投信買賣超股數', 0))
+            dealer_net  = _parse_net(row.get('自營商買賣超股數(自行買賣)', row.get('自營商買賣超股數', 0)))
+            total_net   = _parse_net(row.get('三大法人買賣超股數', 0))
+            # 若 total_net 欄位缺失，用三者加總
             if total_net == 0 and (foreign_net or trust_net or dealer_net):
                 total_net = foreign_net + trust_net + dealer_net
 
@@ -1183,8 +1168,8 @@ def _rule_based_fallback(all_stock_data: List[Dict]) -> List[Dict]:
 
 # ================================================================
 # 五維分析函式 — v2 暴漲預測模型 (2026/04/28)
-# 權重：技術面 25%、基本面 18%、消息面 32%、情緒面 10%、籌碼面 15%
-# 滿分：技術面 40、基本面 28、消息面 10、情緒面 10、籌碼面 10
+# 權重：技術面 25%、基本面 23%、消息面 32%、情緒面 12%、籌碼面 8%
+# 滿分：技術面 40、基本面 40、消息面 10、情緒面 10、籌碼面 10
 # ================================================================
 def analyze_technical(hist) -> Dict:
     """技術面分析（滿分 40 = 5 個子指標各 8 分）
@@ -1363,7 +1348,6 @@ def analyze_chips(hist, t86_row: Dict = None, margin_row: Dict = None) -> Dict:
     score       = 0
     sigs        = []
     det         = {}
-    chips_score_cap = 10
 
     if not hist:
         return {'score': 0, 'signals': [], 'details': {}}
@@ -1380,19 +1364,16 @@ def analyze_chips(hist, t86_row: Dict = None, margin_row: Dict = None) -> Dict:
         det['t86_foreign_net'] = foreign_net
         det['t86_trust_net']   = trust_net
 
-        if total_net >= 2000:
-            score += 4; sigs.append(f'三大法人積極大買 (+{total_net:,}張)')
-        elif total_net >= 1000:
-            score += 3; sigs.append(f'三大法人大買 (+{total_net:,}張)')
-        elif total_net >= 500:
-            score += 2; sigs.append(f'三大法人買超 (+{total_net:,}張)')
+        if total_net >= 1000:
+            score += 4; sigs.append(f'三大法人大買 (+{total_net:,}張)')
+        elif total_net >= 300:
+            score += 3; sigs.append(f'三大法人買超 (+{total_net:,}張)')
+        elif total_net >= 0:
+            score += 2; sigs.append(f'三大法人小買/持平 ({total_net:+,}張)')
+        elif total_net >= -300:
+            score += 1; sigs.append(f'三大法人小賣 ({total_net:+,}張)')
         else:
-            # 淨買超 < 500張：不給籌碼分（小單不計）
-            score += 0; sigs.append(f'三大法人買超不足500張 ({total_net:+,}張)')
-
-        # ── 全域籌碼門檻：T86 淨買超不足 500 張 → 籌碼上限 3 分 ──
-        if t86_row and total_net < 500:
-            chips_score_cap = 3
+            score += 0; sigs.append(f'三大法人大賣 ({total_net:+,}張)')
 
         # 投信連買加分（投信動向對中小型股影響大）
         if trust_net >= 200:
@@ -1410,7 +1391,7 @@ def analyze_chips(hist, t86_row: Dict = None, margin_row: Dict = None) -> Dict:
             else:
                 score += 2; sigs.append('法人中性(估，無T86資料)')
         else:
-            score += 1; sigs.append('法人方向未知(資料不足)'); chips_score_cap = 3
+            score += 1; sigs.append('法人方向未知(資料不足)')
 
     # ── 2. 融資變化 (3 分) ────────────────────────────────────────────
     if margin_row:
@@ -1469,12 +1450,12 @@ def analyze_chips(hist, t86_row: Dict = None, margin_row: Dict = None) -> Dict:
         else:
             score += 1
 
-    return {'score': min(max(score, 0), chips_score_cap), 'signals': sigs, 'details': det}
+    return {'score': min(max(score, 0), 10), 'signals': sigs, 'details': det}
 
 
 def analyze_fundamental(stock_id: str, bwibbu: Dict[str, Dict] = None, all_bwibbu: Dict[str, Dict] = None, hist: List[Dict] = None) -> Dict:
     """
-    基本面分析（滿分 28，動態 5 指標）
+    基本面分析（滿分 40，動態 5 指標）
     指標：PE估值(8)、財務體質(8)、量能趨勢(8)、PBR(8)、殖利率(8)
     - PE/PBR/殖利率：BWIBBU_ALL 真實數據；無資料時跳過，不顯示「無法取得」
     - 財務體質：由 PBR+殖利率 組合推算（替代毛利率）
@@ -1581,9 +1562,9 @@ def analyze_fundamental(stock_id: str, bwibbu: Dict[str, Dict] = None, all_bwibb
         total_got   = sum(s for s, _ in scored_items)
         total_max   = sum(m for _, m in scored_items)
         # 按比例換算到 40 分
-        score = round(total_got / total_max * 28, 1)
+        score = round(total_got / total_max * 40, 1)
 
-    return {'score': min(max(score, 0), 28), 'signals': signals, 'details': details}
+    return {'score': min(max(score, 0), 40), 'signals': signals, 'details': details}
 
 
 def analyze_news(stock_id, sector) -> Dict:
@@ -1739,12 +1720,6 @@ def calculate_entry_exit(stock_data, technical, hist: List[Dict] = None) -> Dict
       已創60日新高時：改用布林上軌（MA20+2σ）作為第一關
     """
     close = stock_data['close']
-    if close <= 0:
-        return {
-            'entry': 0, 'stop_loss': 0, 'target': 0, 'target1': 0,
-            'target2': 0, 'target3': 0, 'target_note': '無收盤價',
-            'atr': 0, 'upside': 0, 'upside2': 0, 'upside3': 0, 'downside': 0
-        }
 
     # ── 計算 ATR（14日真實波幅均值）─────────────────────────
     atr = close * 0.025  # 預設 2.5%（無歷史資料時）
@@ -1891,7 +1866,7 @@ def run_five_dimension_scan(verbose=True) -> Dict:
         print(f"\n{'='*70}")
         print(f"  台股五維分析掃描引擎 v7.1 (TWSE+TPEx 全市場)  |  {today_str}")
         print(f"  資料來源：TWSE (STOCK_DAY_ALL+BWIBBU_ALL) + TPEx (daily_close+peratio_analysis)")
-        print(f"  權重：技術 25% + 基本面 18% + 消息 32% + 情緒 10% + 籌碼 15%")
+        print(f"  權重：技術 25% + 基本面 23% + 消息 32% + 情緒 12% + 籌碼 8%")
         print(f"  ML 爆漲預測：RandomForestClassifier 隔日漲停機率 Top 5")
         print(f"{'='*70}\n")
 
@@ -1982,15 +1957,6 @@ def run_five_dimension_scan(verbose=True) -> Dict:
             })
             continue
 
-        # ── 過濾：當日成交量 < 1000張直接排除（流動性不足）──
-        if hist and hist[-1].get('volume', 0) < 1000:
-            continue
-
-        # ── 過濾：市值過小／無基本面資料且股價過低的微小型股 ──
-        if bwibbu_data and stock_id not in bwibbu_data:
-            if hist and hist[-1].get('close', 0) < 15:
-                continue
-
         scanned_count += 1
         all_stock_data_for_ml.append({'stock_id': stock_id, 'name': name, 'sector': sector, 'hist': hist})
 
@@ -2003,22 +1969,17 @@ def run_five_dimension_scan(verbose=True) -> Dict:
         sentiment = analyze_sentiment(hist, stock_id)
 
         # ── 加權總分 (v2 暴漲預測模型) ──
-        # 權重: 技術 25%、基本面 18%、消息 32%、情緒 10%、籌碼 15%
-        # 滿分: 40/28/10/10/10
+        # 權重: 技術 25%、基本面 23%、消息 32%、情緒 12%、籌碼 8%
+        # 滿分: 40/40/10/10/10
         _pct = {
             'tech': tech['score'] / 40.0,
-            'fund': fund['score'] / 28.0,
+            'fund': fund['score'] / 40.0,
             'news': news['score'] / 10.0,
             'sent': sentiment['score'] / 10.0,
             'chip': chips['score'] / 10.0,
         }
-        total_score = (_pct['tech'] * 25 + _pct['fund'] * 18 + _pct['news'] * 32 +
-                       _pct['sent'] * 10 + _pct['chip'] * 15)
-
-        # ── T86 籌碼門檻懲罰：淨買超不足 500 張 → 總分打 75 折 ──
-        _t86_net = (t86_data.get(stock_id, {}) or {}).get('total_net', 0)
-        if _t86_net < 500:
-            total_score *= 0.75
+        total_score = (_pct['tech'] * 25 + _pct['fund'] * 23 + _pct['news'] * 32 +
+                       _pct['sent'] * 12 + _pct['chip'] * 8)
 
         today_data  = hist[-1]
         entry_exit  = calculate_entry_exit(today_data, tech, hist)
@@ -2095,8 +2056,6 @@ def run_five_dimension_scan(verbose=True) -> Dict:
             continue
         filtered_top.append(r)
 
-    # 情緒最低門檻：情緒分 < 5 的股票不進 Top 10
-    filtered_top = [r for r in filtered_top if r['dimensions']['sentiment'] >= 5]
     top10           = filtered_top[:10]
     extra_watchlist = limit_up_watchlist
 
@@ -2170,7 +2129,7 @@ def run_five_dimension_scan(verbose=True) -> Dict:
     # ── 文字報告 ───────────────────────────────────────────────
     lines = [
         f"【台股五維分析報告】{today_str}",
-        f"掃描：{scanned_count}/{len(STOCK_POOL)} 檔 | 權重：技術 25%+ 基本面 18%+ 消息 32%+ 情緒 10%+ 籌碼 15%",
+        f"掃描：{scanned_count}/{len(STOCK_POOL)} 檔 | 權重：技術 25%+ 基本面 23%+ 消息 32%+ 情緒 12%+ 籌碼 8%",
         f"資料來源：TWSE+TPEx 全市場 (STOCK_DAY_ALL+BWIBBU_ALL+TPEx daily+peratio) | 總耗時：{scan_elapsed:.0f}s（API {dl_elapsed:.0f}s）",
         "",
         "── Top 10 推薦 ──",
@@ -2479,8 +2438,4 @@ def push_scan_to_github(scan_result: dict, all_scores: dict, task_dir: str):
 
     print('[GitHub Push] 同步完成 🚀')
 
-    # ── 自動 push 到 GitHub Pages ────────────────────────────────
-    try:
-        push_scan_to_github(safe_output, safe_all_scores, os.path.dirname(os.path.abspath(__file__)))
-    except Exception as e:
-        print(f'[GitHub Push] 失敗（不影響 Email 寄送）: {e}')
+    # ── GitHub Pages push 已由 trigger 獨立 github-agent 步驟處理 ──
