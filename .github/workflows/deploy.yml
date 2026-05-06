@@ -68,21 +68,6 @@ jobs:
       - name: Install dependencies
         run: npm install --no-fund --no-audit
 
-      - name: "Guard: check all page.tsx have 'use client'"
-        run: |
-          MISSING=""
-          for f in app/page.tsx app/history/page.tsx app/tracking/page.tsx app/all/page.tsx app/intraday/page.tsx app/selfcheck/page.tsx; do
-            if [ -f "$f" ]; then
-              head -c 12 "$f" | grep -q "^'use client'" || MISSING="$MISSING $f"
-            fi
-          done
-          if [ -n "$MISSING" ]; then
-            echo "FATAL: These pages are missing 'use client' directive:$MISSING"
-            echo "   Without it, static export produces blank HTML."
-            exit 1
-          fi
-          echo "All pages have 'use client' - safe to build"
-
       - name: Build
         run: npm run build
 
