@@ -57,7 +57,58 @@
     },
     {
       "date": "2026/05/06",
-      "results": {}
+      "results": {
+        "2357": {
+          "stock_id": "2357",
+          "error": "無法取得 OHLCV 資料（cache + TWSE STOCK_DAY 均失敗）",
+          "data_source": "none"
+        },
+        "3716": {
+          "stock_id": "3716",
+          "error": "無法取得 OHLCV 資料（cache + TWSE STOCK_DAY 均失敗）",
+          "data_source": "none"
+        },
+        "4736": {
+          "stock_id": "4736",
+          "error": "無法取得 OHLCV 資料（cache + TWSE STOCK_DAY 均失敗）",
+          "data_source": "none"
+        },
+        "2382": {
+          "stock_id": "2382",
+          "error": "無法取得 OHLCV 資料（cache + TWSE STOCK_DAY 均失敗）",
+          "data_source": "none"
+        },
+        "6666": {
+          "stock_id": "6666",
+          "error": "無法取得 OHLCV 資料（cache + TWSE STOCK_DAY 均失敗）",
+          "data_source": "none"
+        },
+        "4771": {
+          "stock_id": "4771",
+          "error": "無法取得 OHLCV 資料（cache + TWSE STOCK_DAY 均失敗）",
+          "data_source": "none"
+        },
+        "6534": {
+          "stock_id": "6534",
+          "error": "無法取得 OHLCV 資料（cache + TWSE STOCK_DAY 均失敗）",
+          "data_source": "none"
+        },
+        "2317": {
+          "stock_id": "2317",
+          "error": "無法取得 OHLCV 資料（cache + TWSE STOCK_DAY 均失敗）",
+          "data_source": "none"
+        },
+        "2454": {
+          "stock_id": "2454",
+          "error": "無法取得 OHLCV 資料（cache + TWSE STOCK_DAY 均失敗）",
+          "data_source": "none"
+        },
+        "4148": {
+          "stock_id": "4148",
+          "error": "無法取得 OHLCV 資料（cache + TWSE STOCK_DAY 均失敗）",
+          "data_source": "none"
+        }
+      }
     }
   ],
   "records": [
