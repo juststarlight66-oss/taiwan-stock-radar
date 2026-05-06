@@ -99,7 +99,7 @@ interface AllScoresData {
 }
 interface BacktestData {
   version: number;
-  records: BacktestRecord[];
+  grouped_records: BacktestRecord[];
 }
 
 // ── Constants ────────────────────────────────────────────────────────────────
@@ -761,7 +761,7 @@ export default function TrackingDashboard() {
     if (!latestData) return null;
     const allResults = allScoresData?.all_stock_scores ?? [];
 
-    const completedRecords = (backtestData?.records ?? []).filter((r) => !r.periods.T1.pending);
+    const completedRecords = (backtestData?.grouped_records ?? []).filter((r) => !r.periods.T1.pending);
     let totalWinRate = 0;
     let winRateCount = 0;
     for (const rec of completedRecords) {
@@ -896,7 +896,7 @@ export default function TrackingDashboard() {
 
             {/* Backtest performance table */}
             {backtestData && (
-              <BacktestPerformanceTable records={backtestData?.records ?? []} />
+              <BacktestPerformanceTable records={backtestData?.grouped_records ?? []} />
             )}
 
           </div>

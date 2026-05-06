@@ -1,6 +1,9 @@
-import TopNav from '@/components/TopNav';
-import HistoryBrowser from '@/components/HistoryBrowser';
+'use client';
+import dynamic from 'next/dynamic';
 import { History, GitFork, Radar } from 'lucide-react';
+
+const TopNav = dynamic(() => import('@/components/TopNav'), { ssr: false });
+const HistoryBrowser = dynamic(() => import('@/components/HistoryBrowser'), { ssr: false });
 
 export default function HistoryPage() {
   return (
