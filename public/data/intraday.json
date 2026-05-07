@@ -1,7 +1,44 @@
 {
   "scan_type": "intraday_daytrade",
-  "scanned_at": "2026-05-07 13:00:47",
+  "scanned_at": "2026-05-08 05:01:00",
   "stocks": [
+    {
+      "stock_id": "1319",
+      "name": "東陽",
+      "sector": "",
+      "score": 84,
+      "details": {
+        "momentum": "最強動能",
+        "rsi": 100.0,
+        "ma5_status": "強勢突破",
+        "vol_ratio": "爆發",
+        "breakout": "創新高"
+      },
+      "total_score": 84,
+      "entry": 80.0,
+      "target": 86.4,
+      "stop_loss": 76.0,
+      "change_pct": 6.1,
+      "dimensions": {
+        "momentum": "最強動能",
+        "rsi": 100.0,
+        "ma5_status": "強勢突破",
+        "vol_ratio": "爆發",
+        "breakout": "創新高"
+      },
+      "live": {
+        "current": 80.0,
+        "open": 76.1,
+        "high": 80.2,
+        "low": 75.6,
+        "prev_close": 75.4,
+        "volume": 6218,
+        "change_pct": 6.1,
+        "time": "13:30:00",
+        "date": "20260507",
+        "source": "tse"
+      }
+    },
     {
       "stock_id": "1524",
       "name": "耿鼎",
@@ -15,10 +52,10 @@
         "breakout": "創新高"
       },
       "total_score": 84,
-      "entry": 30.2,
-      "target": 32.62,
-      "stop_loss": 28.69,
-      "change_pct": 6.34,
+      "entry": 30.25,
+      "target": 32.67,
+      "stop_loss": 28.74,
+      "change_pct": 6.51,
       "dimensions": {
         "momentum": "最強動能",
         "rsi": 100.0,
@@ -27,14 +64,51 @@
         "breakout": "創新高"
       },
       "live": {
-        "current": 30.2,
+        "current": 30.25,
         "open": 28.7,
         "high": 30.8,
         "low": 28.4,
         "prev_close": 28.4,
-        "volume": 3353,
-        "change_pct": 6.34,
-        "time": "13:01:20",
+        "volume": 3662,
+        "change_pct": 6.51,
+        "time": "13:30:00",
+        "date": "20260507",
+        "source": "tse"
+      }
+    },
+    {
+      "stock_id": "2032",
+      "name": "新鋼",
+      "sector": "",
+      "score": 84,
+      "details": {
+        "momentum": "最強動能",
+        "rsi": 100.0,
+        "ma5_status": "強勢突破",
+        "vol_ratio": "爆發",
+        "breakout": "創新高"
+      },
+      "total_score": 84,
+      "entry": 16.75,
+      "target": 18.09,
+      "stop_loss": 15.91,
+      "change_pct": 6.01,
+      "dimensions": {
+        "momentum": "最強動能",
+        "rsi": 100.0,
+        "ma5_status": "強勢突破",
+        "vol_ratio": "爆發",
+        "breakout": "創新高"
+      },
+      "live": {
+        "current": 16.75,
+        "open": 16.25,
+        "high": 16.75,
+        "low": 16.15,
+        "prev_close": 15.8,
+        "volume": 1443,
+        "change_pct": 6.01,
+        "time": "13:30:00",
         "date": "20260507",
         "source": "tse"
       }
@@ -69,120 +143,46 @@
         "high": 170.5,
         "low": 155.5,
         "prev_close": 156.5,
-        "volume": 11083,
+        "volume": 11976,
         "change_pct": 6.39,
-        "time": "13:01:20",
+        "time": "13:30:00",
         "date": "20260507",
         "source": "tse"
       }
     },
     {
-      "stock_id": "4960",
-      "name": "誠美材",
+      "stock_id": "2406",
+      "name": "國碩",
       "sector": "",
-      "score": 81,
+      "score": 84,
       "details": {
-        "momentum": "強勢推進",
+        "momentum": "最強動能",
         "rsi": 100.0,
         "ma5_status": "強勢突破",
         "vol_ratio": "爆發",
         "breakout": "創新高"
       },
-      "total_score": 81,
-      "entry": 43.1,
-      "target": 46.55,
-      "stop_loss": 40.95,
-      "change_pct": 4.99,
+      "total_score": 84,
+      "entry": 34.9,
+      "target": 37.69,
+      "stop_loss": 33.15,
+      "change_pct": 7.22,
       "dimensions": {
-        "momentum": "強勢推進",
+        "momentum": "最強動能",
         "rsi": 100.0,
         "ma5_status": "強勢突破",
         "vol_ratio": "爆發",
         "breakout": "創新高"
       },
       "live": {
-        "current": 43.1,
-        "open": 41.05,
-        "high": 43.6,
-        "low": 41.05,
-        "prev_close": 41.05,
-        "volume": 3622,
-        "change_pct": 4.99,
-        "time": "13:01:35",
-        "date": "20260507",
-        "source": "tse"
-      }
-    },
-    {
-      "stock_id": "6213",
-      "name": "聯茂",
-      "sector": "",
-      "score": 81,
-      "details": {
-        "momentum": "強勢推進",
-        "rsi": 100.0,
-        "ma5_status": "強勢突破",
-        "vol_ratio": "爆發",
-        "breakout": "創新高"
-      },
-      "total_score": 81,
-      "entry": 298.0,
-      "target": 321.84,
-      "stop_loss": 283.1,
-      "change_pct": 4.56,
-      "dimensions": {
-        "momentum": "強勢推進",
-        "rsi": 100.0,
-        "ma5_status": "強勢突破",
-        "vol_ratio": "爆發",
-        "breakout": "創新高"
-      },
-      "live": {
-        "current": 298.0,
-        "open": 289.0,
-        "high": 303.0,
-        "low": 288.5,
-        "prev_close": 285.0,
-        "volume": 8699,
-        "change_pct": 4.56,
-        "time": "13:01:37",
-        "date": "20260507",
-        "source": "tse"
-      }
-    },
-    {
-      "stock_id": "6257",
-      "name": "矽格",
-      "sector": "",
-      "score": 81,
-      "details": {
-        "momentum": "強勢推進",
-        "rsi": 100.0,
-        "ma5_status": "強勢突破",
-        "vol_ratio": "爆發",
-        "breakout": "創新高"
-      },
-      "total_score": 81,
-      "entry": 215.5,
-      "target": 232.74,
-      "stop_loss": 204.72,
-      "change_pct": 5.9,
-      "dimensions": {
-        "momentum": "強勢推進",
-        "rsi": 100.0,
-        "ma5_status": "強勢突破",
-        "vol_ratio": "爆發",
-        "breakout": "創新高"
-      },
-      "live": {
-        "current": 215.5,
-        "open": 205.0,
-        "high": 218.0,
-        "low": 197.0,
-        "prev_close": 203.5,
-        "volume": 24624,
-        "change_pct": 5.9,
-        "time": "13:01:36",
+        "current": 34.9,
+        "open": 33.2,
+        "high": 35.7,
+        "low": 32.65,
+        "prev_close": 32.55,
+        "volume": 19532,
+        "change_pct": 7.22,
+        "time": "13:30:00",
         "date": "20260507",
         "source": "tse"
       }
