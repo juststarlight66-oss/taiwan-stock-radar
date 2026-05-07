@@ -28,7 +28,7 @@ ML 爆漲股預測（RandomForestClassifier）：
 import json, os, sys, time, warnings
 warnings.filterwarnings('ignore')
 from datetime import datetime, timedelta, date
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import requests
 requests.packages.urllib3.disable_warnings()
@@ -842,6 +842,216 @@ def load_twse_industry_map() -> Dict[str, str]:
     except Exception as e:
         print(f"[產業別] 載入失敗：{e}，將使用 SECTOR_MAP 後備邏輯")
         return {}
+
+
+# ================================================================
+# 族群強弱排名：從 MI_INDEX 抓取 37 個官方產業類指數漲跌幅
+# ================================================================
+_SECTOR_RANKING_CACHE: Dict[str, Any] = {}  # 當日快取，避免重複呼叫
+
+# MI_INDEX 指數名稱 → TWSE 官方產業別名稱 mapping
+_MI_INDEX_TO_SECTOR: Dict[str, str] = {
+    '水泥類指數':       '水泥工業',
+    '食品類指數':       '食品工業',
+    '塑膠類指數':       '塑膠工業',
+    '紡織纖維類指數':   '紡織纖維',
+    '電機機械類指數':   '電機機械',
+    '電器電纜類指數':   '電器電纜',
+    '化學類指數':       '化學工業',
+    '生技醫療類指數':   '生技醫療業',
+    '玻璃陶瓷類指數':   '玻璃陶瓷',
+    '造紙類指數':       '造紙工業',
+    '鋼鐵類指數':       '鋼鐵工業',
+    '橡膠類指數':       '橡膠工業',
+    '汽車類指數':       '汽車工業',
+    '電子工業類指數':   '電子工業',
+    '半導體類指數':     '半導體業',
+    '電腦及週邊設備類指數': '電腦及週邊設備業',
+    '光電類指數':       '光電業',
+    '通信網路類指數':   '通信網路業',
+    '電子零組件類指數': '電子零組件業',
+    '電子通路類指數':   '電子通路業',
+    '資訊服務類指數':   '資訊服務業',
+    '其他電子類指數':   '其他電子業',
+    '建材營造類指數':   '建材營造業',
+    '航運類指數':       '航運業',
+    '觀光餐旅類指數':   '觀光餐旅業',
+    '金融保險類指數':   '金融保險業',
+    '貿易百貨類指數':   '貿易百貨業',
+    '油電燃氣類指數':   '油電燃氣業',
+    '綠能環保類指數':   '綠能環保業',
+    '數位雲端類指數':   '數位雲端業',
+    '運動休閒類指數':   '運動休閒業',
+    '居家生活類指數':   '居家生活業',
+    '其他類指數':       '其他業',
+    '化學生技醫療類指數': '化學生技醫療',
+    '機電類指數':       '機電',
+    '塑膠化工類指數':   '塑膠化工',
+    '水泥窯製類指數':   '水泥窯製',
+}
+
+
+def fetch_sector_ranking() -> Dict[str, Any]:
+    """
+    從 TWSE MI_INDEX 抓取各產業類指數漲跌幅，
+    回傳 sector_name → {change_pct, rank, index_name} 的字典，
+    以及 sector_ranking 清單（依漲跌幅由高到低）。
+    結果當日快取（避免同一次掃描重複呼叫）。
+    """
+    global _SECTOR_RANKING_CACHE
+    today = datetime.now().strftime('%Y%m%d')
+    if _SECTOR_RANKING_CACHE.get('date') == today:
+        return _SECTOR_RANKING_CACHE
+
+    print('[族群排名] 從 MI_INDEX 抓取產業類指數漲跌幅...')
+    sector_map: Dict[str, Dict] = {}
+    ranking_list: list = []
+    try:
+        r = _http_get(
+            'https://openapi.twse.com.tw/v1/exchangeReport/MI_INDEX',
+            headers=TWSE_HEADERS, timeout=20, verify=False
+        )
+        data = r.json()
+        rows = [
+            row for row in data
+            if '類指數' in row.get('指數', '')
+            and '報酬' not in row.get('指數', '')
+            and '兩倍' not in row.get('指數', '')
+            and '反向' not in row.get('指數', '')
+            and '槓桿' not in row.get('指數', '')
+        ]
+        # 解析漲跌幅
+        parsed = []
+        for row in rows:
+            idx_name = row.get('指數', '')
+            try:
+                pct_raw = str(row.get('漲跌百分比', '0')).replace(',', '').replace('%', '').strip()
+                pct = float(pct_raw)
+                sign = row.get('漲跌', '+')
+                if sign == '-' and pct > 0:
+                    pct = -pct
+            except Exception:
+                pct = 0.0
+            sector_name = _MI_INDEX_TO_SECTOR.get(idx_name, idx_name.replace('類指數', '').replace('類', ''))
+            parsed.append({'index_name': idx_name, 'sector_name': sector_name, 'change_pct': pct})
+
+        # 依漲跌幅由高到低排名
+        parsed.sort(key=lambda x: x['change_pct'], reverse=True)
+        for rank, item in enumerate(parsed, 1):
+            item['rank'] = rank
+            sector_map[item['sector_name']] = {
+                'change_pct': item['change_pct'],
+                'rank':       rank,
+                'index_name': item['index_name'],
+            }
+            ranking_list.append({
+                'rank':        rank,
+                'sector_name': item['sector_name'],
+                'change_pct':  item['change_pct'],
+                'index_name':  item['index_name'],
+            })
+
+        print(f'[族群排名] 解析完成：{len(ranking_list)} 個產業 | '
+              f'Top2：{ranking_list[0]["sector_name"]}({ranking_list[0]["change_pct"]:+.2f}%) '
+              f'{ranking_list[1]["sector_name"]}({ranking_list[1]["change_pct"]:+.2f}%)')
+    except Exception as e:
+        print(f'[族群排名] 抓取失敗：{e}，跳過族群加成')
+
+    _SECTOR_RANKING_CACHE = {
+        'date':           today,
+        'sector_map':     sector_map,
+        'ranking_list':   ranking_list,
+    }
+    return _SECTOR_RANKING_CACHE
+
+
+def apply_sector_boost(results: list, sector_ranking: Dict[str, Any]) -> list:
+    """
+    對五維評分後的結果套用族群加成（動態配額版）：
+
+    設計意圖：
+    - Top2 強勢族群（漲跌幅最高的 2 個，且 > 0）內的個股統一 +3 分
+    - 動態配額限制：族群漲跌幅 >= 3% → 最多讓 5 檔受益；否則最多 3 檔
+      （避免「其他電子業」這類大類別壟斷 Top10）
+    - 配額按五維原始評分由高到低分配（只有分數夠高才拿到加成資格）
+    - 在 signals['technical'] 中標記「族群強勢」
+    - 在 r['sector_boost'] 記錄加成資訊
+    """
+    ranking_list = sector_ranking.get('ranking_list', [])
+    if not ranking_list:
+        return results  # 無族群資料，跳過加成
+
+    # 取 Top2 強勢族群（漲跌幅 > 0 才算強勢）
+    top2_sectors = [s for s in ranking_list[:2] if s['change_pct'] > 0]
+    if not top2_sectors:
+        return results
+
+    # 為每個 Top2 族群計算配額上限（動態佔比）
+    sector_quota: Dict[str, int] = {}
+    for s in top2_sectors:
+        quota = 5 if s['change_pct'] >= 3.0 else 3
+        sector_quota[s['sector_name']] = quota
+
+    # 追蹤每個族群已加成的檔數
+    sector_used: Dict[str, int] = {s['sector_name']: 0 for s in top2_sectors}
+
+    # results 已按五維評分由高到低排列，依序分配加成配額
+    boosted_count = 0
+    for r in results:
+        r_sector      = r.get('sector', '')
+        r_twse_sector = r.get('twse_sector', '')
+
+        # 嘗試 match：先用 TWSE 官方產業別（精確），再用熱門題材 fallback
+        matched_sector = None
+        for top_s in top2_sectors:
+            top_name = top_s['sector_name']
+            # 1) TWSE 官方產業別精確 match
+            if r_twse_sector and (r_twse_sector == top_name or
+                                   top_name in r_twse_sector or
+                                   r_twse_sector in top_name):
+                matched_sector = top_s
+                break
+            # 2) 熱門題材 fallback
+            if r_sector == top_name or top_name in r_sector or r_sector in top_name:
+                matched_sector = top_s
+                break
+
+        if matched_sector:
+            sname = matched_sector['sector_name']
+            # 檢查配額是否還有剩餘
+            if sector_used[sname] < sector_quota[sname]:
+                boost_pct = matched_sector['change_pct']
+                boost_pts = 3.0  # 固定加 3 分；配額才是差異關鍵
+                r['total_score'] = round(r['total_score'] + boost_pts, 2)
+                r['sector_boost'] = {
+                    'boosted':      True,
+                    'sector_name':  sname,
+                    'sector_rank':  matched_sector['rank'],
+                    'sector_pct':   boost_pct,
+                    'boost_points': boost_pts,
+                    'quota_used':   sector_used[sname] + 1,
+                    'quota_max':    sector_quota[sname],
+                }
+                # 在 signals 中標記
+                tech_signals = r.get('signals', {}).get('technical', [])
+                boost_label  = (f"[族群強勢+{boost_pts:.0f}] {sname}"
+                                f"({boost_pct:+.2f}%)"
+                                f" {sector_used[sname]+1}/{sector_quota[sname]}")
+                if boost_label not in tech_signals:
+                    tech_signals.insert(0, boost_label)
+                r.setdefault('signals', {})['technical'] = tech_signals
+                sector_used[sname] += 1
+                boosted_count += 1
+            else:
+                # 配額已滿，不加成
+                r.setdefault('sector_boost', {'boosted': False, 'quota_full': True, 'sector_name': sname})
+        else:
+            r.setdefault('sector_boost', {'boosted': False})
+
+    quota_summary = ', '.join(f'{k}:{v}/{sector_quota[k]}' for k, v in sector_used.items())
+    print(f'[族群加成] Top2：{[s["sector_name"] for s in top2_sectors]} | '
+          f'配額使用：{quota_summary} | 實際加成：{boosted_count} 檔')
+    return results
 
 
 def get_stock_sector(stock_id: str, industry_map: Dict[str, str]) -> str:
@@ -1807,6 +2017,8 @@ def calculate_entry_exit(stock_data, technical, hist: List[Dict] = None) -> Dict
         t3 = round(entry * 1.35, 2)
         target_note = '動態基準'
 
+    # 防止 entry 為 0 造成 ZeroDivisionError
+    safe_entry = entry if entry > 0 else 1.0
     return {
         'entry':       entry,
         'stop_loss':   stop_loss,
@@ -1816,10 +2028,10 @@ def calculate_entry_exit(stock_data, technical, hist: List[Dict] = None) -> Dict
         'target3':     t3,
         'target_note': target_note,
         'atr':         round(atr, 2),
-        'upside':      round((t1 - entry) / entry * 100, 1),
-        'upside2':     round((t2 - entry) / entry * 100, 1),
-        'upside3':     round((t3 - entry) / entry * 100, 1),
-        'downside':    round((entry - stop_loss) / entry * 100, 1),
+        'upside':      round((t1 - safe_entry) / safe_entry * 100, 1),
+        'upside2':     round((t2 - safe_entry) / safe_entry * 100, 1),
+        'upside3':     round((t3 - safe_entry) / safe_entry * 100, 1),
+        'downside':    round((safe_entry - stop_loss) / safe_entry * 100, 1),
     }
 
 
@@ -1968,6 +2180,7 @@ def run_five_dimension_scan(verbose=True) -> Dict:
                 'stock_id':   stock_id,
                 'name':       name,
                 'sector':     sector,
+                'twse_sector': industry_map.get(stock_id, ''),
                 'close':      0,
                 'change_pct': 0,
                 'total_score': 0,
@@ -2025,6 +2238,7 @@ def run_five_dimension_scan(verbose=True) -> Dict:
             'stock_id':   stock_id,
             'name':       name,
             'sector':     sector,
+            'twse_sector': industry_map.get(stock_id, ''),
             'close':      today_data['close'],
             'change_pct': today_data['change_pct'],
             'total_score': round(total_score, 1),
@@ -2048,6 +2262,14 @@ def run_five_dimension_scan(verbose=True) -> Dict:
             'grade_reason': grade_reason,
         })
 
+    results.sort(key=lambda x: x['total_score'], reverse=True)
+
+    # ════════════════════════════════════════════════════
+    # 族群強弱加成層（五維評分後、Top10 選取前）
+    # ════════════════════════════════════════════════════
+    sector_ranking_data = fetch_sector_ranking()
+    results = apply_sector_boost(results, sector_ranking_data)
+    # 加成後重新排序
     results.sort(key=lambda x: x['total_score'], reverse=True)
 
     # ════════════════════════════════════════════════════
@@ -2138,7 +2360,7 @@ def run_five_dimension_scan(verbose=True) -> Dict:
             print(f"[飆股] 快篩命中 {len(explosive_top5_manual)} 檔：{[r['stock_id'] for r in explosive_top5_manual]}")
         # 重新排序 results（含加分後的飆股）
         results.sort(key=lambda x: x['total_score'], reverse=True)
-        # 重建 filtered_top（排除漲停/空頭過濾但保留飆股）
+        # 重建 filtered_top（排除漲停/空頭過濾但保留飆股，族群加成已含在 total_score）
         filtered_top_ids = {r['stock_id'] for r in filtered_top}
         explosive_ids    = {r['stock_id'] for r in explosive_top5_manual}
         # 飆股強制加入 filtered_top（即使漲幅>=9.5% 也放行，因已是爆發確認）
@@ -2249,6 +2471,7 @@ def run_five_dimension_scan(verbose=True) -> Dict:
         'dl_elapsed_sec':   round(dl_elapsed, 1),
         'scanned_count':    scanned_count,
         'total_stocks':     len(STOCK_POOL),
+        'sector_ranking':   sector_ranking_data.get('ranking_list', []),
         'top10':            top10,
         'all_results':      results,
         'explosive_top5':   explosive_top5,
