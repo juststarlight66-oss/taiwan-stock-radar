@@ -53,6 +53,44 @@ function toISO(d: string) {
 }
 function normDate(d: string) { return toISO(d.replace(/\//g,'').replace(/-/g,'')); }
 
+// ── Schema normalization (old → new field mapping) ────────────────
+function normalizeBacktest(raw: unknown): BacktestData {
+  const data = raw as Record<string, unknown> | null;
+  const grouped: BacktestRecord[] = ((data?.grouped_records as any[]) || []).map((rec: any) => {
+    const periods: Record<string, PeriodData> = {} as any;
+    for (const key of ['T1','T3','T5'] as const) {
+      const p = rec.periods?.[key] as any;
+      if (!p) continue;
+      periods[key] = {
+        label: p.label ?? ({ T1: 'T+1', T3: 'T+3', T5: 'T+5' } as any)[key],
+        backtest_date: p.backtest_date ?? '',
+        win_rate: (p.win_rate ?? null) as number | null,
+        avg_return: (p.avg_return ?? p.avg_pct ?? null) as number | null,
+        pending: (p.pending ?? (p.verified === null || p.verified === 0)) as boolean,
+        stocks: ((p.stocks ?? []) as any[]).map((s: any): BacktestStock => {
+          const entry: number = s.entry ?? s.entry_price ?? 0;
+          const rpct: number | null = s.return_pct ?? s.pct ?? null;
+          const closeFallback = entry && rpct != null
+            ? Math.round(entry * (1 + rpct / 100) * 100) / 100
+            : null;
+          return {
+            stock_id: s.stock_id ?? '',
+            name:     s.name ?? '',
+            entry,
+            close:           (s.close ?? closeFallback) as number | null,
+            return_pct:      rpct,
+            hit_target:      (s.hit_target ?? s.win ?? false) as boolean,
+            hit_stoploss:    (s.hit_stoploss ?? false) as boolean,
+            pending:         (s.pending ?? (rpct === null)) as boolean,
+          };
+        }),
+      };
+    }
+    return { scan_date: rec.scan_date ?? '', periods: periods as BacktestRecord['periods'] };
+  });
+  return { version: (data?.version ?? 2) as number, grouped_records: grouped };
+}
+
 // ── Component ────────────────────────────────────────────────────
 export default function HistoryBrowser({ initialDates }: Props) {
   const [dates, setDates]             = useState<string[]>(initialDates ?? []);
@@ -85,7 +123,7 @@ export default function HistoryBrowser({ initialDates }: Props) {
   useEffect(() => {
     fetch(`${BASE}/data/backtest.json`)
       .then(r => r.json())
-      .then((d: BacktestData) => setBacktest(d))
+      .then((d) => setBacktest(normalizeBacktest(d)))
       .catch(() => {});
   }, []);
 
