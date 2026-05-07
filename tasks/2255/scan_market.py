@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 台股五維分析掃描腳本 - 22:55 收盤報告核心引擎
-版本：v7.1 (TWSE+TPEx 全市場覆蓋)
+版本：v7.2 (TWSE+TPEx 全市場覆蓋)
 優化項目：
   - 移除 yfinance，改用 openapi.twse.com.tw (WAF 白名單，sandbox 可存取)
   - STOCK_DAY_ALL 單次 HTTP 呼叫取得全部 ~1,082 檔上市股票當日 OHLCV
@@ -1567,57 +1567,95 @@ def analyze_fundamental(stock_id: str, bwibbu: Dict[str, Dict] = None, all_bwibb
     return {'score': min(max(score, 0), 40), 'signals': signals, 'details': details}
 
 
-def analyze_news(stock_id, sector) -> Dict:
-    """消息面分析（10%）：拆分三子維度加權計算"""
+def analyze_news(stock_id, sector, hist=None) -> Dict:
+    """消息面分析（10%）：拆分三子維度加權計算（v7.2 — 個股差異化）"""
     signals = []
     details = {'sector': sector}
 
-    # ── 子維度 1：產業消息 (權重 40%) ──────────────────────
-    industry_score = 5
-    in_hot_sector  = (
-        sector in SECTOR_MAP or
-        stock_id in [s for stocks in SECTOR_MAP.values() for s in stocks]
-    )
-    if in_hot_sector:
-        industry_score = 9
-        signals.append('熱門族群題材')
+    # ── 子維度 1：量能加速度 (權重 40%) ──────────────────────
+    # 計算最近 5 日量能加速度：後 2 日均量 vs 前 3 日均量
+    vol_accel_score = 5
+    if hist is not None and len(hist) >= 5:
+        try:
+            vols = [h['volume'] for h in hist[-5:]]
+            avg_first3 = (vols[0] + vols[1] + vols[2]) / 3.0
+            avg_last2  = (vols[3] + vols[4]) / 2.0
+            vol_accel  = (avg_last2 - avg_first3) / max(avg_first3, 1)
+            if vol_accel > 0.5:
+                vol_accel_score = 9
+                signals.append('量能強勁加速(>50%)')
+            elif vol_accel > 0.2:
+                vol_accel_score = 7
+                signals.append('量能加速(>20%)')
+            elif vol_accel > 0:
+                vol_accel_score = 6
+                signals.append('量能溫和增加')
+            elif vol_accel > -0.2:
+                vol_accel_score = 5
+                signals.append('量能持平')
+            else:
+                vol_accel_score = 4
+                signals.append('量能萎縮')
+            details['vol_accel'] = round(vol_accel, 3)
+        except Exception:
+            signals.append('量能資料不足')
     else:
-        signals.append('產業消息中性')
-    details['industry_score'] = industry_score
+        signals.append('量能資料不足，使用中性分')
+    details['vol_accel_score'] = vol_accel_score
 
-    # ── 子維度 2：法說/財報事件 (權重 35%) ─────────────────
-    import datetime as _dt
-    current_month  = _dt.datetime.now().month
-    earnings_months = {3, 4, 6, 7, 9, 10, 12, 1}
-    if current_month in earnings_months:
-        earnings_score = 8
-        signals.append('財報/法說季')
+    # ── 子維度 2：TWSE 新聞命中率啟發式 (權重 35%) ──────────
+    news_score = 5
+    today_chg  = hist[-1]['change_pct'] if (hist and len(hist) >= 1) else 0.0
+    # 檢查近 5 日是否有漲停（change_pct >= 9.5%）
+    recent_limit_up = False
+    if hist and len(hist) >= 5:
+        recent_limit_up = any(h['change_pct'] >= 9.5 for h in hist[-5:])
+    # 計算今日量比（今日量 vs 近 20 日均量）
+    vol_ratio_today = 1.0
+    if hist and len(hist) >= 21:
+        try:
+            avg_20 = sum(h['volume'] for h in hist[-21:-1]) / 20.0
+            vol_ratio_today = hist[-1]['volume'] / max(avg_20, 1)
+        except Exception:
+            pass
+    if recent_limit_up:
+        news_score = min(news_score + 1, 10)
+        signals.append('近期漲停消息觸媒')
+    if vol_ratio_today > 3.0:
+        news_score = 8
+        signals.append('爆量(>3x 均量)，疑似消息驅動')
+    elif today_chg > 5.0:
+        news_score = 7
+        signals.append(f'大漲 {today_chg:.1f}%，消息面偏強')
+    elif today_chg > 0:
+        if news_score == 5:
+            signals.append('消息面中性偏多')
     else:
-        earnings_score = 5
-        signals.append('法說事件中性')
-    details['earnings_score'] = earnings_score
+        if news_score == 5:
+            signals.append('消息面中性')
+    details['news_score']       = news_score
+    details['vol_ratio_today']  = round(vol_ratio_today, 2)
+    details['recent_limit_up']  = recent_limit_up
 
-    # ── 子維度 3：美股連動 (權重 25%) ───────────────────────
-    high_us_linkage_sectors = {'半導體', 'AI伺服器', '電源管理', 'PCB', '散熱模組', '記憶體', '矽光子', '低軌衛星'}
-    if sector in high_us_linkage_sectors:
-        us_linkage_score = 8
-        signals.append('美股高連動')
-    elif in_hot_sector:
-        us_linkage_score = 6
-        signals.append('美股中連動')
+    # ── 子維度 3：族群輪動訊號 (權重 25%) ───────────────────
+    rotation_score = 5
+    if today_chg > 2.0:
+        rotation_score = 8
+        signals.append('個股強於族群，輪動加分')
+    elif today_chg > 0:
+        rotation_score = 6
+        signals.append('族群輪動中性偏多')
     else:
-        us_linkage_score = 5
-        signals.append('美股連動中性')
-    details['us_linkage_score'] = us_linkage_score
+        signals.append('族群輪動中性')
+    details['rotation_score'] = rotation_score
 
     weighted_score = (
-        industry_score   * 0.40 +
-        earnings_score   * 0.35 +
-        us_linkage_score * 0.25
+        vol_accel_score * 0.40 +
+        news_score      * 0.35 +
+        rotation_score  * 0.25
     )
-    # 線性映射：加權總分理論範圍 [5*0.4+5*0.35+5*0.25, 9*0.4+8*0.35+8*0.25] = [5.0, 8.4]
-    # 映射到 0-10：normalized = (weighted - min_possible) / (max_possible - min_possible) * 10
-    min_possible = 5.0 * 0.40 + 5.0 * 0.35 + 5.0 * 0.25  # = 5.0
+    # 線性映射：理論範圍 [4*0.4+5*0.35+5*0.25, 9*0.4+8*0.35+8*0.25] = [4.85, 8.4]
+    min_possible = 4.0 * 0.40 + 5.0 * 0.35 + 5.0 * 0.25  # = 4.85
     max_possible = 9.0 * 0.40 + 8.0 * 0.35 + 8.0 * 0.25  # = 8.4
     if max_possible > min_possible:
         normalized = (weighted_score - min_possible) / (max_possible - min_possible) * 10.0
@@ -1625,9 +1663,9 @@ def analyze_news(stock_id, sector) -> Dict:
         normalized = 5.0
     final_score = round(max(0.0, min(10.0, normalized)), 2)
     details['sub_scores'] = {
-        'industry(40%)':   industry_score,
-        'earnings(35%)':   earnings_score,
-        'us_linkage(25%)': us_linkage_score,
+        'vol_accel(40%)':  vol_accel_score,
+        'news_hit(35%)':   news_score,
+        'rotation(25%)':   rotation_score,
         'weighted_raw':    round(weighted_score, 2),
         'normalized_0_10': final_score,
     }
@@ -1859,14 +1897,36 @@ def run_five_dimension_scan(verbose=True) -> Dict:
     執行五維分析掃描 + ML 爆漲股預測。
     資料來源：TWSE OpenAPI (STOCK_DAY_ALL + BWIBBU_ALL) + TPEx OpenAPI (daily_close + peratio_analysis)，本地日線快取累積歷史。
     """
+    import json as _json
+    import os as _os
+    _weights_path = _os.path.expanduser('/home/sprite/tasks/2255/dimension_weights.json')
+    _dynamic_weights = None
+    try:
+        if _os.path.exists(_weights_path):
+            with open(_weights_path, 'r') as _f:
+                _dw = _json.load(_f)
+            _dynamic_weights = {
+                'tech': _dw.get('技術面', 0.16),
+                'fund': _dw.get('基本面', 0.24),
+                'news': _dw.get('消息面', 0.26),
+                'sent': _dw.get('情緒面', 0.20),
+                'chip': _dw.get('籌碼面', 0.14),
+            }
+            print(f'[權重] 已載入回測優化權重: {_dynamic_weights}')
+    except Exception as _e:
+        print(f'[權重] 載入失敗，使用預設: {_e}')
+
     scan_start = datetime.now()
     today_str  = scan_start.strftime('%Y/%m/%d')
 
     if verbose:
         print(f"\n{'='*70}")
-        print(f"  台股五維分析掃描引擎 v7.1 (TWSE+TPEx 全市場)  |  {today_str}")
+        print(f"  台股五維分析掃描引擎 v7.2 (TWSE+TPEx 全市場)  |  {today_str}")
         print(f"  資料來源：TWSE (STOCK_DAY_ALL+BWIBBU_ALL) + TPEx (daily_close+peratio_analysis)")
-        print(f"  權重：技術 25% + 基本面 23% + 消息 32% + 情緒 12% + 籌碼 8%")
+        if _dynamic_weights:
+            print(f"  權重：回測優化 技術{_dynamic_weights['tech']*100:.0f}% + 基本面{_dynamic_weights['fund']*100:.0f}% + 消息{_dynamic_weights['news']*100:.0f}% + 情緒{_dynamic_weights['sent']*100:.0f}% + 籌碼{_dynamic_weights['chip']*100:.0f}%")
+        else:
+            print(f"  權重：技術 25% + 基本面 23% + 消息 32% + 情緒 12% + 籌碼 8%（預設）")
         print(f"  ML 爆漲預測：RandomForestClassifier 隔日漲停機率 Top 5")
         print(f"{'='*70}\n")
 
@@ -1965,7 +2025,7 @@ def run_five_dimension_scan(verbose=True) -> Dict:
                               t86_row    = t86_data.get(stock_id),
                               margin_row = margin_data.get(stock_id))
         fund      = analyze_fundamental(stock_id, bwibbu_data, bwibbu_data, hist)
-        news      = analyze_news(stock_id, sector)
+        news      = analyze_news(stock_id, sector, hist)
         sentiment = analyze_sentiment(hist, stock_id)
 
         # ── 加權總分 (v2 暴漲預測模型) ──
@@ -1978,8 +2038,15 @@ def run_five_dimension_scan(verbose=True) -> Dict:
             'sent': sentiment['score'] / 10.0,
             'chip': chips['score'] / 10.0,
         }
-        total_score = (_pct['tech'] * 25 + _pct['fund'] * 23 + _pct['news'] * 32 +
-                       _pct['sent'] * 12 + _pct['chip'] * 8)
+        if _dynamic_weights:
+            total_score = (_pct['tech'] * _dynamic_weights['tech'] * 100 +
+                           _pct['fund'] * _dynamic_weights['fund'] * 100 +
+                           _pct['news'] * _dynamic_weights['news'] * 100 +
+                           _pct['sent'] * _dynamic_weights['sent'] * 100 +
+                           _pct['chip'] * _dynamic_weights['chip'] * 100)
+        else:
+            total_score = (_pct['tech'] * 25 + _pct['fund'] * 23 + _pct['news'] * 32 +
+                           _pct['sent'] * 12 + _pct['chip'] * 8)
 
         today_data  = hist[-1]
         entry_exit  = calculate_entry_exit(today_data, tech, hist)
@@ -2056,6 +2123,16 @@ def run_five_dimension_scan(verbose=True) -> Dict:
             continue
         filtered_top.append(r)
 
+    # ── 空頭防禦模式：套用 0.6x 防禦係數並標記推薦 ─────────────
+    if is_bear_market:
+        print("[⚠️ 空頭防禦模式] 已套用 0.6x 防禦係數，降低激進評分")
+        for r in filtered_top:
+            r['total_score'] = round(r['total_score'] * 0.6, 1)
+            strat = r.get('strategy', {})
+            if strat.get('recommendation'):
+                strat['recommendation'] = '⚠️空頭防禦：' + strat['recommendation']
+        filtered_top.sort(key=lambda x: x['total_score'], reverse=True)
+
     top10           = filtered_top[:10]
     extra_watchlist = limit_up_watchlist
 
@@ -2129,7 +2206,7 @@ def run_five_dimension_scan(verbose=True) -> Dict:
     # ── 文字報告 ───────────────────────────────────────────────
     lines = [
         f"【台股五維分析報告】{today_str}",
-        f"掃描：{scanned_count}/{len(STOCK_POOL)} 檔 | 權重：技術 25%+ 基本面 23%+ 消息 32%+ 情緒 12%+ 籌碼 8%",
+        f"掃描：{scanned_count}/{len(STOCK_POOL)} 檔 | 權重：{'回測優化 技術{:.0f}%+基本面{:.0f}%+消息{:.0f}%+情緒{:.0f}%+籌碼{:.0f}%'.format(_dynamic_weights['tech']*100, _dynamic_weights['fund']*100, _dynamic_weights['news']*100, _dynamic_weights['sent']*100, _dynamic_weights['chip']*100) if _dynamic_weights else '技術 25%+ 基本面 23%+ 消息 32%+ 情緒 12%+ 籌碼 8%'}",
         f"資料來源：TWSE+TPEx 全市場 (STOCK_DAY_ALL+BWIBBU_ALL+TPEx daily+peratio) | 總耗時：{scan_elapsed:.0f}s（API {dl_elapsed:.0f}s）",
         "",
         "── Top 10 推薦 ──",
@@ -2439,3 +2516,4 @@ def push_scan_to_github(scan_result: dict, all_scores: dict, task_dir: str):
     print('[GitHub Push] 同步完成 🚀')
 
     # ── GitHub Pages push 已由 trigger 獨立 github-agent 步驟處理 ──
+
