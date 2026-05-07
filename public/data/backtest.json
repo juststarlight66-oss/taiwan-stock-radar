@@ -1,4 +1,6 @@
 {
+  "version": 2,
+  "updated_at": "2026-05-07T14:51:04",
   "history": [
     {
       "date": "2026/05/05",
@@ -835,394 +837,427 @@
   ],
   "grouped_records": [
     {
-      "scan_date": "2026/05/02",
+      "scan_date": "2026/05/07",
       "periods": {
         "T1": {
+          "label": "T+1",
+          "backtest_date": "",
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
           "stocks": [
             {
-              "stock_id": "4746",
-              "name": "台耀",
-              "entry_price": 54.6,
-              "pct": 2.75,
-              "win": true
-            },
-            {
-              "stock_id": "4576",
-              "name": "大銀微系統",
-              "entry_price": 227.05,
-              "pct": 4.16,
-              "win": true
-            },
-            {
-              "stock_id": "4540",
-              "name": "全球傳動",
-              "entry_price": 70.06,
-              "pct": -1.08,
-              "win": false
-            },
-            {
-              "stock_id": "3037",
-              "name": "欣興",
-              "entry_price": 899.54,
-              "pct": 0.38,
-              "win": true
-            },
-            {
-              "stock_id": "2467",
-              "name": "志聖",
-              "entry_price": 624.78,
-              "pct": -8.61,
-              "win": false
-            },
-            {
-              "stock_id": "2417",
-              "name": "圓剛",
-              "entry_price": 47.8,
-              "pct": 19.04,
-              "win": true
-            },
-            {
-              "stock_id": "2317",
-              "name": "鴻海",
-              "entry_price": 222.52,
-              "pct": 7.63,
-              "win": true
+              "stock_id": "2357",
+              "name": "華碩",
+              "entry": 650.1,
+              "return_pct": null,
+              "hit_target": null,
+              "pending": true
             },
             {
               "stock_id": "2303",
               "name": "聯電",
-              "entry_price": 78.98,
-              "pct": 5.22,
-              "win": true
+              "entry": 98.85,
+              "return_pct": null,
+              "hit_target": null,
+              "pending": true
             },
             {
-              "stock_id": "2233",
-              "name": "宇隆",
-              "entry_price": 306.85,
-              "pct": 2.49,
-              "win": true
+              "stock_id": "2492",
+              "name": "華新科",
+              "entry": 163.82,
+              "return_pct": null,
+              "hit_target": null,
+              "pending": true
             },
             {
-              "stock_id": "1504",
-              "name": "東元",
-              "entry_price": 63.1,
-              "pct": 8.56,
-              "win": true
+              "stock_id": "6534",
+              "name": "正瀚-創",
+              "entry": 97.7,
+              "return_pct": null,
+              "hit_target": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3716",
+              "name": "中化控股",
+              "entry": 35.25,
+              "return_pct": null,
+              "hit_target": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1795",
+              "name": "美時",
+              "entry": 234.95,
+              "return_pct": null,
+              "hit_target": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2371",
+              "name": "大同",
+              "entry": 31.08,
+              "return_pct": null,
+              "hit_target": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2207",
+              "name": "和泰車",
+              "entry": 490.82,
+              "return_pct": null,
+              "hit_target": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2344",
+              "name": "華邦電",
+              "entry": 117.03,
+              "return_pct": null,
+              "hit_target": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1731",
+              "name": "美吾華",
+              "entry": 21.79,
+              "return_pct": null,
+              "hit_target": null,
+              "pending": true
             }
-          ],
-          "win_rate": 80.0,
-          "avg_pct": 4.05,
-          "count": 10,
-          "verified": 10
+          ]
         },
         "T3": {
+          "label": "T+3",
+          "backtest_date": "",
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
           "stocks": [
             {
-              "stock_id": "4746",
-              "name": "台耀",
-              "entry_price": 54.6,
-              "pct": null,
-              "win": null
-            },
-            {
-              "stock_id": "4576",
-              "name": "大銀微系統",
-              "entry_price": 227.05,
-              "pct": null,
-              "win": null
-            },
-            {
-              "stock_id": "4540",
-              "name": "全球傳動",
-              "entry_price": 70.06,
-              "pct": null,
-              "win": null
-            },
-            {
-              "stock_id": "3037",
-              "name": "欣興",
-              "entry_price": 899.54,
-              "pct": null,
-              "win": null
-            },
-            {
-              "stock_id": "2467",
-              "name": "志聖",
-              "entry_price": 624.78,
-              "pct": null,
-              "win": null
-            },
-            {
-              "stock_id": "2417",
-              "name": "圓剛",
-              "entry_price": 47.8,
-              "pct": null,
-              "win": null
-            },
-            {
-              "stock_id": "2317",
-              "name": "鴻海",
-              "entry_price": 222.52,
-              "pct": null,
-              "win": null
+              "stock_id": "2357",
+              "name": "華碩",
+              "entry": 650.1,
+              "return_pct": null,
+              "hit_target": null,
+              "pending": true
             },
             {
               "stock_id": "2303",
               "name": "聯電",
-              "entry_price": 78.98,
-              "pct": null,
-              "win": null
+              "entry": 98.85,
+              "return_pct": null,
+              "hit_target": null,
+              "pending": true
             },
             {
-              "stock_id": "2233",
-              "name": "宇隆",
-              "entry_price": 306.85,
-              "pct": null,
-              "win": null
+              "stock_id": "2492",
+              "name": "華新科",
+              "entry": 163.82,
+              "return_pct": null,
+              "hit_target": null,
+              "pending": true
             },
             {
-              "stock_id": "1504",
-              "name": "東元",
-              "entry_price": 63.1,
-              "pct": null,
-              "win": null
+              "stock_id": "6534",
+              "name": "正瀚-創",
+              "entry": 97.7,
+              "return_pct": null,
+              "hit_target": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3716",
+              "name": "中化控股",
+              "entry": 35.25,
+              "return_pct": null,
+              "hit_target": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1795",
+              "name": "美時",
+              "entry": 234.95,
+              "return_pct": null,
+              "hit_target": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2371",
+              "name": "大同",
+              "entry": 31.08,
+              "return_pct": null,
+              "hit_target": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2207",
+              "name": "和泰車",
+              "entry": 490.82,
+              "return_pct": null,
+              "hit_target": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2344",
+              "name": "華邦電",
+              "entry": 117.03,
+              "return_pct": null,
+              "hit_target": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1731",
+              "name": "美吾華",
+              "entry": 21.79,
+              "return_pct": null,
+              "hit_target": null,
+              "pending": true
             }
-          ],
-          "win_rate": null,
-          "avg_pct": null,
-          "count": 10,
-          "verified": 0
+          ]
         },
         "T5": {
+          "label": "T+5",
+          "backtest_date": "",
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
           "stocks": [
             {
-              "stock_id": "4746",
-              "name": "台耀",
-              "entry_price": 54.6,
-              "pct": null,
-              "win": null
-            },
-            {
-              "stock_id": "4576",
-              "name": "大銀微系統",
-              "entry_price": 227.05,
-              "pct": null,
-              "win": null
-            },
-            {
-              "stock_id": "4540",
-              "name": "全球傳動",
-              "entry_price": 70.06,
-              "pct": null,
-              "win": null
-            },
-            {
-              "stock_id": "3037",
-              "name": "欣興",
-              "entry_price": 899.54,
-              "pct": null,
-              "win": null
-            },
-            {
-              "stock_id": "2467",
-              "name": "志聖",
-              "entry_price": 624.78,
-              "pct": null,
-              "win": null
-            },
-            {
-              "stock_id": "2417",
-              "name": "圓剛",
-              "entry_price": 47.8,
-              "pct": null,
-              "win": null
-            },
-            {
-              "stock_id": "2317",
-              "name": "鴻海",
-              "entry_price": 222.52,
-              "pct": null,
-              "win": null
+              "stock_id": "2357",
+              "name": "華碩",
+              "entry": 650.1,
+              "return_pct": null,
+              "hit_target": null,
+              "pending": true
             },
             {
               "stock_id": "2303",
               "name": "聯電",
-              "entry_price": 78.98,
-              "pct": null,
-              "win": null
+              "entry": 98.85,
+              "return_pct": null,
+              "hit_target": null,
+              "pending": true
             },
             {
-              "stock_id": "2233",
-              "name": "宇隆",
-              "entry_price": 306.85,
-              "pct": null,
-              "win": null
+              "stock_id": "2492",
+              "name": "華新科",
+              "entry": 163.82,
+              "return_pct": null,
+              "hit_target": null,
+              "pending": true
             },
             {
-              "stock_id": "1504",
-              "name": "東元",
-              "entry_price": 63.1,
-              "pct": null,
-              "win": null
+              "stock_id": "6534",
+              "name": "正瀚-創",
+              "entry": 97.7,
+              "return_pct": null,
+              "hit_target": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3716",
+              "name": "中化控股",
+              "entry": 35.25,
+              "return_pct": null,
+              "hit_target": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1795",
+              "name": "美時",
+              "entry": 234.95,
+              "return_pct": null,
+              "hit_target": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2371",
+              "name": "大同",
+              "entry": 31.08,
+              "return_pct": null,
+              "hit_target": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2207",
+              "name": "和泰車",
+              "entry": 490.82,
+              "return_pct": null,
+              "hit_target": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2344",
+              "name": "華邦電",
+              "entry": 117.03,
+              "return_pct": null,
+              "hit_target": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1731",
+              "name": "美吾華",
+              "entry": 21.79,
+              "return_pct": null,
+              "hit_target": null,
+              "pending": true
             }
-          ],
-          "win_rate": null,
-          "avg_pct": null,
-          "count": 10,
-          "verified": 0
+          ]
         }
       }
     },
     {
-      "scan_date": "2026/05/04",
+      "scan_date": "2026/05/06",
       "periods": {
         "T1": {
           "stocks": [
             {
-              "stock_id": "6412",
-              "name": "群電",
-              "entry_price": 89.91,
-              "pct": 0.54,
-              "win": true
+              "stock_id": "6666",
+              "name": "羅麗芬-KY",
+              "entry_price": 41.67,
+              "pct": null,
+              "win": null
             },
             {
-              "stock_id": "3037",
-              "name": "欣興",
-              "entry_price": 927.33,
-              "pct": -2.62,
-              "win": false
+              "stock_id": "6534",
+              "name": "正瀚-創",
+              "entry_price": 95.3,
+              "pct": null,
+              "win": null
             },
             {
-              "stock_id": "2486",
-              "name": "一詮",
-              "entry_price": 304.38,
-              "pct": 0.86,
-              "win": true
+              "stock_id": "4771",
+              "name": "望隼",
+              "entry_price": 195.85,
+              "pct": null,
+              "win": null
             },
             {
-              "stock_id": "2465",
-              "name": "麗臺",
-              "entry_price": 83.02,
-              "pct": 7.81,
-              "win": true
+              "stock_id": "4736",
+              "name": "泰博",
+              "entry_price": 130.2,
+              "pct": null,
+              "win": null
             },
             {
-              "stock_id": "2426",
-              "name": "鼎元",
-              "entry_price": 64.44,
-              "pct": 7.54,
-              "win": true
+              "stock_id": "4148",
+              "name": "全宇生技-KY",
+              "entry_price": 36.73,
+              "pct": null,
+              "win": null
             },
             {
-              "stock_id": "2360",
-              "name": "致茂",
-              "entry_price": 2352.32,
-              "pct": -4.99,
-              "win": false
+              "stock_id": "3716",
+              "name": "中化控股",
+              "entry_price": 34.19,
+              "pct": null,
+              "win": null
             },
             {
-              "stock_id": "2344",
-              "name": "華邦電",
-              "entry_price": 96.95,
-              "pct": 1.91,
-              "win": true
+              "stock_id": "2454",
+              "name": "聯發科",
+              "entry_price": 3524.5,
+              "pct": null,
+              "win": null
             },
             {
-              "stock_id": "2327",
-              "name": "國巨*",
-              "entry_price": 347.74,
-              "pct": 0.22,
-              "win": true
+              "stock_id": "2382",
+              "name": "廣達",
+              "entry_price": 354.6,
+              "pct": null,
+              "win": null
+            },
+            {
+              "stock_id": "2357",
+              "name": "華碩",
+              "entry_price": 642.2,
+              "pct": null,
+              "win": null
             },
             {
               "stock_id": "2317",
               "name": "鴻海",
-              "entry_price": 230.51,
-              "pct": 3.9,
-              "win": true
-            },
-            {
-              "stock_id": "1514",
-              "name": "亞力",
-              "entry_price": 122.21,
-              "pct": -1.81,
-              "win": false
+              "entry_price": 256.05,
+              "pct": null,
+              "win": null
             }
           ],
-          "win_rate": 70.0,
-          "avg_pct": 1.34,
+          "win_rate": null,
+          "avg_pct": null,
           "count": 10,
-          "verified": 10
+          "verified": 0
         },
         "T3": {
           "stocks": [
             {
-              "stock_id": "6412",
-              "name": "群電",
-              "entry_price": 89.91,
+              "stock_id": "6666",
+              "name": "羅麗芬-KY",
+              "entry_price": 41.67,
               "pct": null,
               "win": null
             },
             {
-              "stock_id": "3037",
-              "name": "欣興",
-              "entry_price": 927.33,
+              "stock_id": "6534",
+              "name": "正瀚-創",
+              "entry_price": 95.3,
               "pct": null,
               "win": null
             },
             {
-              "stock_id": "2486",
-              "name": "一詮",
-              "entry_price": 304.38,
+              "stock_id": "4771",
+              "name": "望隼",
+              "entry_price": 195.85,
               "pct": null,
               "win": null
             },
             {
-              "stock_id": "2465",
-              "name": "麗臺",
-              "entry_price": 83.02,
+              "stock_id": "4736",
+              "name": "泰博",
+              "entry_price": 130.2,
               "pct": null,
               "win": null
             },
             {
-              "stock_id": "2426",
-              "name": "鼎元",
-              "entry_price": 64.44,
+              "stock_id": "4148",
+              "name": "全宇生技-KY",
+              "entry_price": 36.73,
               "pct": null,
               "win": null
             },
             {
-              "stock_id": "2360",
-              "name": "致茂",
-              "entry_price": 2352.32,
+              "stock_id": "3716",
+              "name": "中化控股",
+              "entry_price": 34.19,
               "pct": null,
               "win": null
             },
             {
-              "stock_id": "2344",
-              "name": "華邦電",
-              "entry_price": 96.95,
+              "stock_id": "2454",
+              "name": "聯發科",
+              "entry_price": 3524.5,
               "pct": null,
               "win": null
             },
             {
-              "stock_id": "2327",
-              "name": "國巨*",
-              "entry_price": 347.74,
+              "stock_id": "2382",
+              "name": "廣達",
+              "entry_price": 354.6,
+              "pct": null,
+              "win": null
+            },
+            {
+              "stock_id": "2357",
+              "name": "華碩",
+              "entry_price": 642.2,
               "pct": null,
               "win": null
             },
             {
               "stock_id": "2317",
               "name": "鴻海",
-              "entry_price": 230.51,
-              "pct": null,
-              "win": null
-            },
-            {
-              "stock_id": "1514",
-              "name": "亞力",
-              "entry_price": 122.21,
+              "entry_price": 256.05,
               "pct": null,
               "win": null
             }
@@ -1235,72 +1270,72 @@
         "T5": {
           "stocks": [
             {
-              "stock_id": "6412",
-              "name": "群電",
-              "entry_price": 89.91,
+              "stock_id": "6666",
+              "name": "羅麗芬-KY",
+              "entry_price": 41.67,
               "pct": null,
               "win": null
             },
             {
-              "stock_id": "3037",
-              "name": "欣興",
-              "entry_price": 927.33,
+              "stock_id": "6534",
+              "name": "正瀚-創",
+              "entry_price": 95.3,
               "pct": null,
               "win": null
             },
             {
-              "stock_id": "2486",
-              "name": "一詮",
-              "entry_price": 304.38,
+              "stock_id": "4771",
+              "name": "望隼",
+              "entry_price": 195.85,
               "pct": null,
               "win": null
             },
             {
-              "stock_id": "2465",
-              "name": "麗臺",
-              "entry_price": 83.02,
+              "stock_id": "4736",
+              "name": "泰博",
+              "entry_price": 130.2,
               "pct": null,
               "win": null
             },
             {
-              "stock_id": "2426",
-              "name": "鼎元",
-              "entry_price": 64.44,
+              "stock_id": "4148",
+              "name": "全宇生技-KY",
+              "entry_price": 36.73,
               "pct": null,
               "win": null
             },
             {
-              "stock_id": "2360",
-              "name": "致茂",
-              "entry_price": 2352.32,
+              "stock_id": "3716",
+              "name": "中化控股",
+              "entry_price": 34.19,
               "pct": null,
               "win": null
             },
             {
-              "stock_id": "2344",
-              "name": "華邦電",
-              "entry_price": 96.95,
+              "stock_id": "2454",
+              "name": "聯發科",
+              "entry_price": 3524.5,
               "pct": null,
               "win": null
             },
             {
-              "stock_id": "2327",
-              "name": "國巨*",
-              "entry_price": 347.74,
+              "stock_id": "2382",
+              "name": "廣達",
+              "entry_price": 354.6,
+              "pct": null,
+              "win": null
+            },
+            {
+              "stock_id": "2357",
+              "name": "華碩",
+              "entry_price": 642.2,
               "pct": null,
               "win": null
             },
             {
               "stock_id": "2317",
               "name": "鴻海",
-              "entry_price": 230.51,
-              "pct": null,
-              "win": null
-            },
-            {
-              "stock_id": "1514",
-              "name": "亞力",
-              "entry_price": 122.21,
+              "entry_price": 256.05,
               "pct": null,
               "win": null
             }
@@ -1552,155 +1587,155 @@
       }
     },
     {
-      "scan_date": "2026/05/06",
+      "scan_date": "2026/05/04",
       "periods": {
         "T1": {
           "stocks": [
             {
-              "stock_id": "6666",
-              "name": "羅麗芬-KY",
-              "entry_price": 41.67,
-              "pct": null,
-              "win": null
+              "stock_id": "6412",
+              "name": "群電",
+              "entry_price": 89.91,
+              "pct": 0.54,
+              "win": true
             },
             {
-              "stock_id": "6534",
-              "name": "正瀚-創",
-              "entry_price": 95.3,
-              "pct": null,
-              "win": null
+              "stock_id": "3037",
+              "name": "欣興",
+              "entry_price": 927.33,
+              "pct": -2.62,
+              "win": false
             },
             {
-              "stock_id": "4771",
-              "name": "望隼",
-              "entry_price": 195.85,
-              "pct": null,
-              "win": null
+              "stock_id": "2486",
+              "name": "一詮",
+              "entry_price": 304.38,
+              "pct": 0.86,
+              "win": true
             },
             {
-              "stock_id": "4736",
-              "name": "泰博",
-              "entry_price": 130.2,
-              "pct": null,
-              "win": null
+              "stock_id": "2465",
+              "name": "麗臺",
+              "entry_price": 83.02,
+              "pct": 7.81,
+              "win": true
             },
             {
-              "stock_id": "4148",
-              "name": "全宇生技-KY",
-              "entry_price": 36.73,
-              "pct": null,
-              "win": null
+              "stock_id": "2426",
+              "name": "鼎元",
+              "entry_price": 64.44,
+              "pct": 7.54,
+              "win": true
             },
             {
-              "stock_id": "3716",
-              "name": "中化控股",
-              "entry_price": 34.19,
-              "pct": null,
-              "win": null
+              "stock_id": "2360",
+              "name": "致茂",
+              "entry_price": 2352.32,
+              "pct": -4.99,
+              "win": false
             },
             {
-              "stock_id": "2454",
-              "name": "聯發科",
-              "entry_price": 3524.5,
-              "pct": null,
-              "win": null
+              "stock_id": "2344",
+              "name": "華邦電",
+              "entry_price": 96.95,
+              "pct": 1.91,
+              "win": true
             },
             {
-              "stock_id": "2382",
-              "name": "廣達",
-              "entry_price": 354.6,
-              "pct": null,
-              "win": null
-            },
-            {
-              "stock_id": "2357",
-              "name": "華碩",
-              "entry_price": 642.2,
-              "pct": null,
-              "win": null
+              "stock_id": "2327",
+              "name": "國巨*",
+              "entry_price": 347.74,
+              "pct": 0.22,
+              "win": true
             },
             {
               "stock_id": "2317",
               "name": "鴻海",
-              "entry_price": 256.05,
-              "pct": null,
-              "win": null
+              "entry_price": 230.51,
+              "pct": 3.9,
+              "win": true
+            },
+            {
+              "stock_id": "1514",
+              "name": "亞力",
+              "entry_price": 122.21,
+              "pct": -1.81,
+              "win": false
             }
           ],
-          "win_rate": null,
-          "avg_pct": null,
+          "win_rate": 70.0,
+          "avg_pct": 1.34,
           "count": 10,
-          "verified": 0
+          "verified": 10
         },
         "T3": {
           "stocks": [
             {
-              "stock_id": "6666",
-              "name": "羅麗芬-KY",
-              "entry_price": 41.67,
+              "stock_id": "6412",
+              "name": "群電",
+              "entry_price": 89.91,
               "pct": null,
               "win": null
             },
             {
-              "stock_id": "6534",
-              "name": "正瀚-創",
-              "entry_price": 95.3,
+              "stock_id": "3037",
+              "name": "欣興",
+              "entry_price": 927.33,
               "pct": null,
               "win": null
             },
             {
-              "stock_id": "4771",
-              "name": "望隼",
-              "entry_price": 195.85,
+              "stock_id": "2486",
+              "name": "一詮",
+              "entry_price": 304.38,
               "pct": null,
               "win": null
             },
             {
-              "stock_id": "4736",
-              "name": "泰博",
-              "entry_price": 130.2,
+              "stock_id": "2465",
+              "name": "麗臺",
+              "entry_price": 83.02,
               "pct": null,
               "win": null
             },
             {
-              "stock_id": "4148",
-              "name": "全宇生技-KY",
-              "entry_price": 36.73,
+              "stock_id": "2426",
+              "name": "鼎元",
+              "entry_price": 64.44,
               "pct": null,
               "win": null
             },
             {
-              "stock_id": "3716",
-              "name": "中化控股",
-              "entry_price": 34.19,
+              "stock_id": "2360",
+              "name": "致茂",
+              "entry_price": 2352.32,
               "pct": null,
               "win": null
             },
             {
-              "stock_id": "2454",
-              "name": "聯發科",
-              "entry_price": 3524.5,
+              "stock_id": "2344",
+              "name": "華邦電",
+              "entry_price": 96.95,
               "pct": null,
               "win": null
             },
             {
-              "stock_id": "2382",
-              "name": "廣達",
-              "entry_price": 354.6,
-              "pct": null,
-              "win": null
-            },
-            {
-              "stock_id": "2357",
-              "name": "華碩",
-              "entry_price": 642.2,
+              "stock_id": "2327",
+              "name": "國巨*",
+              "entry_price": 347.74,
               "pct": null,
               "win": null
             },
             {
               "stock_id": "2317",
               "name": "鴻海",
-              "entry_price": 256.05,
+              "entry_price": 230.51,
+              "pct": null,
+              "win": null
+            },
+            {
+              "stock_id": "1514",
+              "name": "亞力",
+              "entry_price": 122.21,
               "pct": null,
               "win": null
             }
@@ -1713,72 +1748,311 @@
         "T5": {
           "stocks": [
             {
-              "stock_id": "6666",
-              "name": "羅麗芬-KY",
-              "entry_price": 41.67,
+              "stock_id": "6412",
+              "name": "群電",
+              "entry_price": 89.91,
               "pct": null,
               "win": null
             },
             {
-              "stock_id": "6534",
-              "name": "正瀚-創",
-              "entry_price": 95.3,
+              "stock_id": "3037",
+              "name": "欣興",
+              "entry_price": 927.33,
               "pct": null,
               "win": null
             },
             {
-              "stock_id": "4771",
-              "name": "望隼",
-              "entry_price": 195.85,
+              "stock_id": "2486",
+              "name": "一詮",
+              "entry_price": 304.38,
               "pct": null,
               "win": null
             },
             {
-              "stock_id": "4736",
-              "name": "泰博",
-              "entry_price": 130.2,
+              "stock_id": "2465",
+              "name": "麗臺",
+              "entry_price": 83.02,
               "pct": null,
               "win": null
             },
             {
-              "stock_id": "4148",
-              "name": "全宇生技-KY",
-              "entry_price": 36.73,
+              "stock_id": "2426",
+              "name": "鼎元",
+              "entry_price": 64.44,
               "pct": null,
               "win": null
             },
             {
-              "stock_id": "3716",
-              "name": "中化控股",
-              "entry_price": 34.19,
+              "stock_id": "2360",
+              "name": "致茂",
+              "entry_price": 2352.32,
               "pct": null,
               "win": null
             },
             {
-              "stock_id": "2454",
-              "name": "聯發科",
-              "entry_price": 3524.5,
+              "stock_id": "2344",
+              "name": "華邦電",
+              "entry_price": 96.95,
               "pct": null,
               "win": null
             },
             {
-              "stock_id": "2382",
-              "name": "廣達",
-              "entry_price": 354.6,
-              "pct": null,
-              "win": null
-            },
-            {
-              "stock_id": "2357",
-              "name": "華碩",
-              "entry_price": 642.2,
+              "stock_id": "2327",
+              "name": "國巨*",
+              "entry_price": 347.74,
               "pct": null,
               "win": null
             },
             {
               "stock_id": "2317",
               "name": "鴻海",
-              "entry_price": 256.05,
+              "entry_price": 230.51,
+              "pct": null,
+              "win": null
+            },
+            {
+              "stock_id": "1514",
+              "name": "亞力",
+              "entry_price": 122.21,
+              "pct": null,
+              "win": null
+            }
+          ],
+          "win_rate": null,
+          "avg_pct": null,
+          "count": 10,
+          "verified": 0
+        }
+      }
+    },
+    {
+      "scan_date": "2026/05/02",
+      "periods": {
+        "T1": {
+          "stocks": [
+            {
+              "stock_id": "4746",
+              "name": "台耀",
+              "entry_price": 54.6,
+              "pct": 2.75,
+              "win": true
+            },
+            {
+              "stock_id": "4576",
+              "name": "大銀微系統",
+              "entry_price": 227.05,
+              "pct": 4.16,
+              "win": true
+            },
+            {
+              "stock_id": "4540",
+              "name": "全球傳動",
+              "entry_price": 70.06,
+              "pct": -1.08,
+              "win": false
+            },
+            {
+              "stock_id": "3037",
+              "name": "欣興",
+              "entry_price": 899.54,
+              "pct": 0.38,
+              "win": true
+            },
+            {
+              "stock_id": "2467",
+              "name": "志聖",
+              "entry_price": 624.78,
+              "pct": -8.61,
+              "win": false
+            },
+            {
+              "stock_id": "2417",
+              "name": "圓剛",
+              "entry_price": 47.8,
+              "pct": 19.04,
+              "win": true
+            },
+            {
+              "stock_id": "2317",
+              "name": "鴻海",
+              "entry_price": 222.52,
+              "pct": 7.63,
+              "win": true
+            },
+            {
+              "stock_id": "2303",
+              "name": "聯電",
+              "entry_price": 78.98,
+              "pct": 5.22,
+              "win": true
+            },
+            {
+              "stock_id": "2233",
+              "name": "宇隆",
+              "entry_price": 306.85,
+              "pct": 2.49,
+              "win": true
+            },
+            {
+              "stock_id": "1504",
+              "name": "東元",
+              "entry_price": 63.1,
+              "pct": 8.56,
+              "win": true
+            }
+          ],
+          "win_rate": 80.0,
+          "avg_pct": 4.05,
+          "count": 10,
+          "verified": 10
+        },
+        "T3": {
+          "stocks": [
+            {
+              "stock_id": "4746",
+              "name": "台耀",
+              "entry_price": 54.6,
+              "pct": null,
+              "win": null
+            },
+            {
+              "stock_id": "4576",
+              "name": "大銀微系統",
+              "entry_price": 227.05,
+              "pct": null,
+              "win": null
+            },
+            {
+              "stock_id": "4540",
+              "name": "全球傳動",
+              "entry_price": 70.06,
+              "pct": null,
+              "win": null
+            },
+            {
+              "stock_id": "3037",
+              "name": "欣興",
+              "entry_price": 899.54,
+              "pct": null,
+              "win": null
+            },
+            {
+              "stock_id": "2467",
+              "name": "志聖",
+              "entry_price": 624.78,
+              "pct": null,
+              "win": null
+            },
+            {
+              "stock_id": "2417",
+              "name": "圓剛",
+              "entry_price": 47.8,
+              "pct": null,
+              "win": null
+            },
+            {
+              "stock_id": "2317",
+              "name": "鴻海",
+              "entry_price": 222.52,
+              "pct": null,
+              "win": null
+            },
+            {
+              "stock_id": "2303",
+              "name": "聯電",
+              "entry_price": 78.98,
+              "pct": null,
+              "win": null
+            },
+            {
+              "stock_id": "2233",
+              "name": "宇隆",
+              "entry_price": 306.85,
+              "pct": null,
+              "win": null
+            },
+            {
+              "stock_id": "1504",
+              "name": "東元",
+              "entry_price": 63.1,
+              "pct": null,
+              "win": null
+            }
+          ],
+          "win_rate": null,
+          "avg_pct": null,
+          "count": 10,
+          "verified": 0
+        },
+        "T5": {
+          "stocks": [
+            {
+              "stock_id": "4746",
+              "name": "台耀",
+              "entry_price": 54.6,
+              "pct": null,
+              "win": null
+            },
+            {
+              "stock_id": "4576",
+              "name": "大銀微系統",
+              "entry_price": 227.05,
+              "pct": null,
+              "win": null
+            },
+            {
+              "stock_id": "4540",
+              "name": "全球傳動",
+              "entry_price": 70.06,
+              "pct": null,
+              "win": null
+            },
+            {
+              "stock_id": "3037",
+              "name": "欣興",
+              "entry_price": 899.54,
+              "pct": null,
+              "win": null
+            },
+            {
+              "stock_id": "2467",
+              "name": "志聖",
+              "entry_price": 624.78,
+              "pct": null,
+              "win": null
+            },
+            {
+              "stock_id": "2417",
+              "name": "圓剛",
+              "entry_price": 47.8,
+              "pct": null,
+              "win": null
+            },
+            {
+              "stock_id": "2317",
+              "name": "鴻海",
+              "entry_price": 222.52,
+              "pct": null,
+              "win": null
+            },
+            {
+              "stock_id": "2303",
+              "name": "聯電",
+              "entry_price": 78.98,
+              "pct": null,
+              "win": null
+            },
+            {
+              "stock_id": "2233",
+              "name": "宇隆",
+              "entry_price": 306.85,
+              "pct": null,
+              "win": null
+            },
+            {
+              "stock_id": "1504",
+              "name": "東元",
+              "entry_price": 63.1,
               "pct": null,
               "win": null
             }
