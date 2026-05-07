@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 台股五維分析掃描腳本 - 22:55 收盤報告核心引擎
-版本：v7.2 (TWSE+TPEx 全市場覆蓋)
+版本：v7.1 (TWSE+TPEx 全市場覆蓋)
 優化項目：
   - 移除 yfinance，改用 openapi.twse.com.tw (WAF 白名單，sandbox 可存取)
   - STOCK_DAY_ALL 單次 HTTP 呼叫取得全部 ~1,082 檔上市股票當日 OHLCV
@@ -586,26 +586,19 @@ def fetch_taiex_trend() -> Dict:
     else:
         trend = 'neutral'; label = '中性'
 
-    # 點數變動（單日 / 三日累計）
-    point_change = taiex_close - closes[-2] if len(closes) >= 2 else 0
-    three_day_change = taiex_close - closes[-4] if len(closes) >= 4 else 0
-
     print(f"[TAIEX] 收盤:{taiex_close:.0f} MA20:{ma20:.0f}({ma20_bias:+.1f}%) "
-          f"MA60:{ma60:.0f}({ma60_bias:+.1f}%) → 趨勢:{label} "
-          f"單日:{point_change:+.0f} 三日:{three_day_change:+.0f} [{source}]")
+          f"MA60:{ma60:.0f}({ma60_bias:+.1f}%) → 趨勢:{label} [{source}]")
 
     return {
-        'trend':           trend,
-        'trend_label':     label,
-        'taiex_close':     round(taiex_close, 2),
-        'ma20':            round(ma20, 2),
-        'ma60':            round(ma60, 2),
-        'ma20_bias_pct':   round(ma20_bias, 2),
-        'ma60_bias_pct':   round(ma60_bias, 2),
-        'data_points':     n,
-        'source':          source,
-        'point_change':    round(point_change, 2),
-        'three_day_change': round(three_day_change, 2),
+        'trend':         trend,
+        'trend_label':   label,
+        'taiex_close':   round(taiex_close, 2),
+        'ma20':          round(ma20, 2),
+        'ma60':          round(ma60, 2),
+        'ma20_bias_pct': round(ma20_bias, 2),
+        'ma60_bias_pct': round(ma60_bias, 2),
+        'data_points':   n,
+        'source':        source,
     }
 
 
@@ -1575,134 +1568,103 @@ def analyze_fundamental(stock_id: str, bwibbu: Dict[str, Dict] = None, all_bwibb
 
 
 def analyze_news(stock_id, sector, hist=None) -> Dict:
-    """消息面分析（v7.3 — 三子維度各自映射到 0-10，修正區別力不足問題）"""
+    """消息面分析（v2）：三子維度直接 0-10 評分，避免舊版歸一化公式導致 95% 股票得 0 分的問題"""
     signals = []
     details = {'sector': sector}
+    import datetime as _dt
 
-    today_chg = hist[-1]['change_pct'] if (hist and len(hist) >= 1) else 0.0
+    # ── 子維度 1：族群熱度 (權重 40%) ──────────────────────
+    # 直接映射到 0-10：熱門族群=8, 高美股連動熱門=6, 中性=3
+    in_hot_sector = (
+        sector in SECTOR_MAP or
+        stock_id in [s for stocks in SECTOR_MAP.values() for s in stocks]
+    )
+    high_us_linkage_sectors = {'半導體', 'AI伺服器', '電源管理', 'PCB', '散熱模組', '記憶體', '矽光子', '低軌衛星'}
+    if in_hot_sector and sector in high_us_linkage_sectors:
+        industry_score_10 = 9.0
+        signals.append('熱門族群×美股高連動')
+    elif in_hot_sector:
+        industry_score_10 = 7.0
+        signals.append('熱門族群題材')
+    elif sector in high_us_linkage_sectors:
+        industry_score_10 = 5.5
+        signals.append('美股高連動')
+    else:
+        industry_score_10 = 3.0
+        signals.append('產業消息中性')
+    details['industry_score'] = round(industry_score_10, 2)
 
-    # ── 子維度 1：量能加速度 (權重 40%) → 0-10 scale ────────
-    # 計算最近 5 日量能加速度：後 2 日均量 vs 前 3 日均量
-    # 映射：萎縮(<-20%)=0, 持平=4, 溫和增加=6, 加速(>20%)=8, 強勁(>50%)=10
-    vol_accel_score_raw = 5.0  # 無資料時中性 → 5
-    if hist is not None and len(hist) >= 5:
-        try:
-            vols = [h['volume'] for h in hist[-5:]]
-            avg_first3 = (vols[0] + vols[1] + vols[2]) / 3.0
-            avg_last2  = (vols[3] + vols[4]) / 2.0
-            vol_accel  = (avg_last2 - avg_first3) / max(avg_first3, 1)
-            if vol_accel > 0.5:
-                vol_accel_score_raw = 10.0
-                signals.append('量能強勁加速(>50%)')
-            elif vol_accel > 0.2:
-                vol_accel_score_raw = 8.0
-                signals.append('量能加速(>20%)')
-            elif vol_accel > 0:
-                vol_accel_score_raw = 6.0
-                signals.append('量能溫和增加')
-            elif vol_accel > -0.2:
-                vol_accel_score_raw = 4.0
-                signals.append('量能持平')
+    # ── 子維度 2：財報/法說季 + 近期價格動能 (權重 35%) ────
+    current_month = _dt.datetime.now().month
+    earnings_months = {3, 4, 6, 7, 9, 10, 12, 1}
+    in_earnings_season = current_month in earnings_months
+
+    # 使用 hist 的近期漲幅提升鑑別力（需 >= 2 天資料即可）
+    recent_change = 0.0
+    if hist and len(hist) >= 2:
+        recent_prices = [h['close'] for h in hist if 'close' in h]
+        if len(recent_prices) >= 2 and recent_prices[0] > 0:
+            recent_change = (recent_prices[-1] - recent_prices[0]) / recent_prices[0] * 100
+
+    # 5 日漲幅映射 0-10
+    if recent_change >= 15:
+        momentum_10 = 10.0
+    elif recent_change >= 10:
+        momentum_10 = 8.5
+    elif recent_change >= 6:
+        momentum_10 = 7.0
+    elif recent_change >= 3:
+        momentum_10 = 5.5
+    elif recent_change >= 0:
+        momentum_10 = 4.0
+    elif recent_change >= -3:
+        momentum_10 = 2.5
+    else:
+        momentum_10 = 1.0
+
+    earnings_bonus = 1.5 if in_earnings_season else 0.0
+    earnings_score_10 = min(10.0, momentum_10 + earnings_bonus)
+    if in_earnings_season:
+        signals.append('財報/法說季')
+    details['earnings_score'] = round(earnings_score_10, 2)
+    details['recent_5d_change_pct'] = round(recent_change, 2)
+
+    # ── 子維度 3：量能加速 (權重 25%) ───────────────────────
+    vol_score_10 = 4.0  # 預設中性
+    if hist and len(hist) >= 2:
+        vols = [h.get('volume', 0) for h in hist]
+        # 最近 1 天 vs 之前所有天的平均（cache只有3天時有效）
+        recent_vol = vols[-1]
+        base_vol   = sum(vols[:-1]) / max(len(vols) - 1, 1)
+        if base_vol > 0:
+            vol_ratio = recent_vol / base_vol
+            if vol_ratio >= 3.0:
+                vol_score_10 = 10.0; signals.append('爆量(3x+)')
+            elif vol_ratio >= 2.0:
+                vol_score_10 = 8.0;  signals.append('大量(2x+)')
+            elif vol_ratio >= 1.5:
+                vol_score_10 = 6.5;  signals.append('放量(1.5x)')
+            elif vol_ratio >= 1.2:
+                vol_score_10 = 5.5
+            elif vol_ratio >= 0.8:
+                vol_score_10 = 4.0
             else:
-                vol_accel_score_raw = 1.0
-                signals.append('量能萎縮')
-            details['vol_accel'] = round(vol_accel, 3)
-        except Exception:
-            signals.append('量能資料不足')
-    else:
-        signals.append('量能資料不足，使用中性分')
-    details['vol_accel_score'] = vol_accel_score_raw
+                vol_score_10 = 2.0;  signals.append('量能萎縮')
+    details['vol_score'] = round(vol_score_10, 2)
 
-    # ── 子維度 2：價格動能 / 消息命中率 (權重 35%) → 0-10 scale ──
-    # 計算今日量比（今日量 vs 近 20 日均量）
-    vol_ratio_today = 1.0
-    if hist and len(hist) >= 21:
-        try:
-            avg_20 = sum(h['volume'] for h in hist[-21:-1]) / 20.0
-            vol_ratio_today = hist[-1]['volume'] / max(avg_20, 1)
-        except Exception:
-            pass
-    # 近 5 日漲停
-    recent_limit_up = False
-    if hist and len(hist) >= 5:
-        recent_limit_up = any(h['change_pct'] >= 9.5 for h in hist[-5:])
-    # 映射：以量比和漲幅雙重定義分數（0-10 寬分佈）
-    if vol_ratio_today > 5.0:
-        news_score_raw = 10.0
-        signals.append('極度爆量(>5x 均量)，強消息驅動')
-    elif vol_ratio_today > 3.0:
-        news_score_raw = 8.5
-        signals.append('爆量(>3x 均量)，疑似消息驅動')
-    elif today_chg > 7.0:
-        news_score_raw = 8.0
-        signals.append(f'強勁大漲 {today_chg:.1f}%，消息面強')
-    elif vol_ratio_today > 2.0:
-        news_score_raw = 7.0
-        signals.append('放量(>2x 均量)，消息偏強')
-    elif today_chg > 5.0:
-        news_score_raw = 7.0
-        signals.append(f'大漲 {today_chg:.1f}%，消息面偏強')
-    elif today_chg > 3.0:
-        news_score_raw = 6.0
-        signals.append(f'漲幅 {today_chg:.1f}%，消息面中性偏強')
-    elif vol_ratio_today > 1.5:
-        news_score_raw = 5.5
-        signals.append('溫和放量，消息面中性偏多')
-    elif today_chg > 1.0:
-        news_score_raw = 5.0
-        signals.append('消息面中性偏多')
-    elif today_chg > 0:
-        news_score_raw = 4.0
-        signals.append('消息面中性')
-    elif today_chg > -2.0:
-        news_score_raw = 3.0
-        signals.append('消息面中性偏空')
-    elif today_chg > -5.0:
-        news_score_raw = 2.0
-        signals.append(f'跌幅 {today_chg:.1f}%，消息面偏弱')
-    else:
-        news_score_raw = 0.5
-        signals.append(f'大跌 {today_chg:.1f}%，消息面偏空')
-    if recent_limit_up:
-        news_score_raw = min(news_score_raw + 1.0, 10.0)
-        signals.append('近期漲停消息觸媒(+1)')
-    details['news_score']      = news_score_raw
-    details['vol_ratio_today'] = round(vol_ratio_today, 2)
-    details['recent_limit_up'] = recent_limit_up
-
-    # ── 子維度 3：族群輪動訊號 (權重 25%) → 0-10 scale ──────
-    # 映射：大跌=0, 小跌=3, 持平=4.5, 小漲=6, 中漲=8, 大漲=10
-    if today_chg > 5.0:
-        rotation_score_raw = 10.0
-        signals.append('個股領漲族群')
-    elif today_chg > 2.0:
-        rotation_score_raw = 8.0
-        signals.append('個股強於族群，輪動加分')
-    elif today_chg > 0.5:
-        rotation_score_raw = 6.0
-        signals.append('族群輪動中性偏多')
-    elif today_chg > -0.5:
-        rotation_score_raw = 4.5
-        signals.append('族群輪動中性')
-    elif today_chg > -2.0:
-        rotation_score_raw = 3.0
-        signals.append('族群輪動偏弱')
-    else:
-        rotation_score_raw = 1.0
-        signals.append('族群輪動偏空')
-    details['rotation_score'] = rotation_score_raw
-
-    # ── 加權平均（各子維度已在 0-10，直接加權）─────────────
-    final_score = round(max(0.0, min(10.0,
-        vol_accel_score_raw * 0.40 +
-        news_score_raw      * 0.35 +
-        rotation_score_raw  * 0.25
-    )), 2)
+    # ── 加權平均 (直接 0-10) ─────────────────────────────
+    final_score = round(
+        industry_score_10 * 0.40 +
+        earnings_score_10 * 0.35 +
+        vol_score_10      * 0.25,
+        2
+    )
+    final_score = max(0.0, min(10.0, final_score))
     details['sub_scores'] = {
-        'vol_accel(40%)':  vol_accel_score_raw,
-        'news_hit(35%)':   news_score_raw,
-        'rotation(25%)':   rotation_score_raw,
-        'final_0_10':      final_score,
+        'industry(40%)':   round(industry_score_10, 2),
+        'earnings(35%)':   round(earnings_score_10, 2),
+        'vol_accel(25%)':  round(vol_score_10, 2),
+        'final':           final_score,
     }
 
     return {'score': final_score, 'signals': signals, 'details': details}
@@ -1794,15 +1756,6 @@ def calculate_entry_exit(stock_data, technical, hist: List[Dict] = None) -> Dict
     """
     close = stock_data['close']
 
-    # 防護：close 無效（0 或無交易）時回傳安全預設
-    if not close or close <= 0:
-        return {
-            'entry': 0, 'stop_loss': 0, 'target': 0,
-            'target1': 0, 'target2': 0, 'target3': 0,
-            'target_note': '無效收盤價', 'atr': 0,
-            'upside': 0, 'upside2': 0, 'upside3': 0, 'downside': 0,
-        }
-
     # ── 計算 ATR（14日真實波幅均值）─────────────────────────
     atr = close * 0.025  # 預設 2.5%（無歷史資料時）
     if hist and len(hist) >= 2:
@@ -1853,14 +1806,6 @@ def calculate_entry_exit(stock_data, technical, hist: List[Dict] = None) -> Dict
         t2 = round(entry * 1.18, 2)
         t3 = round(entry * 1.35, 2)
         target_note = '動態基準'
-
-    if entry == 0:
-        return {
-            'entry': 0, 'stop_loss': 0, 'target': 0,
-            'target1': 0, 'target2': 0, 'target3': 0,
-            'target_note': '無法計算（收盤價異常）', 'atr': round(atr, 2),
-            'upside': 0, 'upside2': 0, 'upside3': 0, 'downside': 0,
-        }
 
     return {
         'entry':       entry,
@@ -1942,38 +1887,6 @@ def momentum_grade(tech_score: float, chips_score: float, fund_score: float) -> 
 
 
 # ================================================================
-# 強勢族群掃描 — 空頭時提取 Top3 族群 × 2 領漲股
-# ================================================================
-def strong_sector_scan(top10_list: List[Dict]) -> List[Dict]:
-    """
-    從 Top N 挑選結果中，按產業族群分組，計算平均得分，
-    回傳 Top 3 族群，每個族群帶 2 檔最高分領漲股。
-    回傳格式：[{sector, avg_score, stocks: [{symbol, name, score}]}]
-    """
-    from collections import defaultdict
-    sector_groups = defaultdict(list)
-    for stock in top10_list:
-        sector = stock.get('sector', '其他')
-        sector_groups[sector].append(stock)
-
-    # 計算每個族群的平均分數，取 Top 3
-    sector_scores = []
-    for sector, stocks in sector_groups.items():
-        avg = sum(s['total_score'] for s in stocks) / len(stocks)
-        leader = sorted(stocks, key=lambda s: s['total_score'], reverse=True)[:2]
-        sector_scores.append({
-            'sector': sector,
-            'avg_score': round(avg, 1),
-            'stocks': [
-                {'symbol': s.get('symbol', ''), 'name': s.get('name', ''), 'score': s['total_score']}
-                for s in leader
-            ],
-        })
-    sector_scores.sort(key=lambda x: x['avg_score'], reverse=True)
-    return sector_scores[:3]
-
-
-# ================================================================
 # 主掃描引擎
 # ================================================================
 def run_five_dimension_scan(verbose=True) -> Dict:
@@ -1981,36 +1894,14 @@ def run_five_dimension_scan(verbose=True) -> Dict:
     執行五維分析掃描 + ML 爆漲股預測。
     資料來源：TWSE OpenAPI (STOCK_DAY_ALL + BWIBBU_ALL) + TPEx OpenAPI (daily_close + peratio_analysis)，本地日線快取累積歷史。
     """
-    import json as _json
-    import os as _os
-    _weights_path = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), 'dimension_weights.json')
-    _dynamic_weights = None
-    try:
-        if _os.path.exists(_weights_path):
-            with open(_weights_path, 'r') as _f:
-                _dw = _json.load(_f)
-            _dynamic_weights = {
-                'tech': _dw.get('技術面', 0.16),
-                'fund': _dw.get('基本面', 0.24),
-                'news': _dw.get('消息面', 0.26),
-                'sent': _dw.get('情緒面', 0.20),
-                'chip': _dw.get('籌碼面', 0.14),
-            }
-            print(f'[權重] 已載入回測優化權重: {_dynamic_weights}')
-    except Exception as _e:
-        print(f'[權重] 載入失敗，使用預設: {_e}')
-
     scan_start = datetime.now()
     today_str  = scan_start.strftime('%Y/%m/%d')
 
     if verbose:
         print(f"\n{'='*70}")
-        print(f"  台股五維分析掃描引擎 v7.2 (TWSE+TPEx 全市場)  |  {today_str}")
+        print(f"  台股五維分析掃描引擎 v7.1 (TWSE+TPEx 全市場)  |  {today_str}")
         print(f"  資料來源：TWSE (STOCK_DAY_ALL+BWIBBU_ALL) + TPEx (daily_close+peratio_analysis)")
-        if _dynamic_weights:
-            print(f"  權重：回測優化 技術{_dynamic_weights['tech']*100:.0f}% + 基本面{_dynamic_weights['fund']*100:.0f}% + 消息{_dynamic_weights['news']*100:.0f}% + 情緒{_dynamic_weights['sent']*100:.0f}% + 籌碼{_dynamic_weights['chip']*100:.0f}%")
-        else:
-            print(f"  權重：技術 25% + 基本面 23% + 消息 32% + 情緒 12% + 籌碼 8%（預設）")
+        print(f"  權重：技術 25% + 基本面 23% + 消息 32% + 情緒 12% + 籌碼 8%")
         print(f"  ML 爆漲預測：RandomForestClassifier 隔日漲停機率 Top 5")
         print(f"{'='*70}\n")
 
@@ -2109,12 +2000,12 @@ def run_five_dimension_scan(verbose=True) -> Dict:
                               t86_row    = t86_data.get(stock_id),
                               margin_row = margin_data.get(stock_id))
         fund      = analyze_fundamental(stock_id, bwibbu_data, bwibbu_data, hist)
-        news      = analyze_news(stock_id, sector, hist)
+        news      = analyze_news(stock_id, sector, hist=hist)
         sentiment = analyze_sentiment(hist, stock_id)
 
-        # ── 加權總分 (v2.1 暴漲預測模型) ──
+        # ── 加權總分 (v2 暴漲預測模型) ──
         # 權重: 技術 28%、基本面 23%、消息 20%、情緒 19%、籌碼 10%
-        # 滿分: 40/40/10/10/10  最高總分 = 100
+        # 滿分: 40/40/10/10/10
         _pct = {
             'tech': tech['score'] / 40.0,
             'fund': fund['score'] / 40.0,
@@ -2122,15 +2013,8 @@ def run_five_dimension_scan(verbose=True) -> Dict:
             'sent': sentiment['score'] / 10.0,
             'chip': chips['score'] / 10.0,
         }
-        if _dynamic_weights:
-            total_score = (_pct['tech'] * _dynamic_weights['tech'] * 100 +
-                           _pct['fund'] * _dynamic_weights['fund'] * 100 +
-                           _pct['news'] * _dynamic_weights['news'] * 100 +
-                           _pct['sent'] * _dynamic_weights['sent'] * 100 +
-                           _pct['chip'] * _dynamic_weights['chip'] * 100)
-        else:
-            total_score = (_pct['tech'] * 28 + _pct['fund'] * 23 + _pct['news'] * 20 +
-                           _pct['sent'] * 19 + _pct['chip'] * 10)
+        total_score = (_pct['tech'] * 28 + _pct['fund'] * 23 + _pct['news'] * 20 +
+                       _pct['sent'] * 19 + _pct['chip'] * 10)
 
         today_data  = hist[-1]
         entry_exit  = calculate_entry_exit(today_data, tech, hist)
@@ -2172,10 +2056,8 @@ def run_five_dimension_scan(verbose=True) -> Dict:
     taiex_info = fetch_taiex_trend()
     market_trend = taiex_info['trend']           # 'strongly_bullish'/'bullish'/'neutral'/'bearish'/'strongly_bearish'
     trend_label  = taiex_info['trend_label']     # '強多頭'/'多頭'/'中性'/'空頭'/'強空頭'
-    point_change      = taiex_info.get('point_change', 0)
-    three_day_change  = taiex_info.get('three_day_change', 0)
-    # 點數閾值判定：單日跌 >700 點 OR 三日累計跌 >1,000 點
-    is_bear_market = (point_change < -700) or (three_day_change < -1000)
+    # 只在大盤真的站在 MA20/MA60 下方才算空頭
+    is_bear_market = market_trend in ('bearish', 'strongly_bearish')
 
     # 今日盤面（漲跌家數比例，僅供報告顯示用，不影響多空判定）
     up_count   = sum(1 for r in results if r['change_pct'] > 0)
@@ -2208,20 +2090,6 @@ def run_five_dimension_scan(verbose=True) -> Dict:
             limit_up_watchlist.append(r)
             continue
         filtered_top.append(r)
-
-    # ── 空頭防禦模式：套用 0.6x 防禦係數並標記推薦 ─────────────
-    strong_sectors = []
-    if is_bear_market:
-        print("[⚠️ 空頭防禦模式] 已套用 0.6x 防禦係數，降低激進評分")
-        for r in filtered_top:
-            r['total_score'] = round(r['total_score'] * 0.6, 1)
-            strat = r.get('strategy', {})
-            if strat.get('recommendation'):
-                strat['recommendation'] = '⚠️空頭防禦：' + strat['recommendation']
-        filtered_top.sort(key=lambda x: x['total_score'], reverse=True)
-        # 掃描強勢族群領漲股
-        strong_sectors = strong_sector_scan(filtered_top)
-        print(f"[族群] 強勢族群 Top3：{', '.join(s['sector'] for s in strong_sectors)}")
 
     top10           = filtered_top[:10]
     extra_watchlist = limit_up_watchlist
@@ -2296,7 +2164,7 @@ def run_five_dimension_scan(verbose=True) -> Dict:
     # ── 文字報告 ───────────────────────────────────────────────
     lines = [
         f"【台股五維分析報告】{today_str}",
-        f"掃描：{scanned_count}/{len(STOCK_POOL)} 檔 | 權重：{'回測優化 技術{:.0f}%+基本面{:.0f}%+消息{:.0f}%+情緒{:.0f}%+籌碼{:.0f}%'.format(_dynamic_weights['tech']*100, _dynamic_weights['fund']*100, _dynamic_weights['news']*100, _dynamic_weights['sent']*100, _dynamic_weights['chip']*100) if _dynamic_weights else '技術 25%+ 基本面 23%+ 消息 32%+ 情緒 12%+ 籌碼 8%'}",
+        f"掃描：{scanned_count}/{len(STOCK_POOL)} 檔 | 權重：技術 25%+ 基本面 23%+ 消息 32%+ 情緒 12%+ 籌碼 8%",
         f"資料來源：TWSE+TPEx 全市場 (STOCK_DAY_ALL+BWIBBU_ALL+TPEx daily+peratio) | 總耗時：{scan_elapsed:.0f}s（API {dl_elapsed:.0f}s）",
         "",
         "── Top 10 推薦 ──",
@@ -2391,17 +2259,14 @@ def run_five_dimension_scan(verbose=True) -> Dict:
         'up_count':         up_count,
         'down_count':       down_count,
         'day_breadth_label': day_breadth_label,
-        'is_bear_market':     is_bear_market,
-        'market_trend':       market_trend,
-        'trend_label':        trend_label,
-        'taiex_close':        taiex_info['taiex_close'],
-        'taiex_ma20':         taiex_info['ma20'],
-        'taiex_ma60':         taiex_info['ma60'],
-        'taiex_ma20_bias':    taiex_info['ma20_bias_pct'],
-        'taiex_ma60_bias':    taiex_info['ma60_bias_pct'],
-        'taiex_point_change': point_change,
-        'taiex_3d_change':    three_day_change,
-        'strong_sectors':     strong_sectors,
+        'is_bear_market':   is_bear_market,
+        'market_trend':     market_trend,
+        'trend_label':      trend_label,
+        'taiex_close':      taiex_info['taiex_close'],
+        'taiex_ma20':       taiex_info['ma20'],
+        'taiex_ma60':       taiex_info['ma60'],
+        'taiex_ma20_bias':  taiex_info['ma20_bias_pct'],
+        'taiex_ma60_bias':  taiex_info['ma60_bias_pct'],
     }
 
 
@@ -2414,6 +2279,56 @@ print("[系統] 載入台股股票清單（TWSE OpenAPI v7.0）...")
 _cached_pool = load_stock_list_cache()
 STOCK_POOL   = _cached_pool if _cached_pool else {}
 print(f"[系統] 預載股票清單：{len(STOCK_POOL)} 檔（正式掃描時會用 STOCK_DAY_ALL 補充）")
+
+
+if __name__ == '__main__':
+    print(f"[開始] {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    output  = run_five_dimension_scan(verbose=True)
+    out_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'scan_result.json')
+
+    safe_output = json.loads(json.dumps(output, ensure_ascii=False, default=str))
+    with open(out_path, 'w', encoding='utf-8') as f:
+        json.dump(safe_output, f, ensure_ascii=False, indent=2)
+    print(f"\n[JSON 已儲存] {out_path}")
+
+    # ── 輸出 all_scores.json：每檔股票五維評分快照，供前端自主檢查功能使用 ──
+    all_scores_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'all_scores.json')
+    all_scores_data = {
+        'scan_date': output['scan_date'],
+        'scanned_count': output['scanned_count'],
+        'all_stock_scores': [
+            {
+                'stock_id':   r['stock_id'],
+                'name':       r['name'],
+                'sector':     r['sector'],
+                'close':      r['close'],
+                'change_pct': r['change_pct'],
+                'total_score': r['total_score'],
+                'dimensions': r['dimensions'],
+                'signals':    r['signals'],
+                'strategy':   r['strategy'],
+            }
+            for r in output.get('all_results', [])
+        ],
+    }
+    safe_all_scores = json.loads(json.dumps(all_scores_data, ensure_ascii=False, default=str))
+    with open(all_scores_path, 'w', encoding='utf-8') as f:
+        json.dump(safe_all_scores, f, ensure_ascii=False, indent=2)
+    print(f"[all_scores.json 已儲存] {all_scores_path}（{len(safe_all_scores['all_stock_scores'])} 檔）")
+
+    print(f"\n=== 掃描摘要 ===")
+    print(f"開始時間: {output['scan_start']}")
+    print(f"結束時間: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"STOCK_POOL 大小: {output['total_stocks']} 檔")
+    print(f"有效掃描: {output['scanned_count']} 檔")
+    print(f"總耗時: {output['scan_elapsed_sec']}s（其中 API {output['dl_elapsed_sec']}s）")
+    print(f"\nTop 10 推薦:")
+    for i, r in enumerate(output['top10'], 1):
+        print(f"  {i}. {r['name']}({r['stock_id']}) 總分:{r['total_score']:.1f} [{r['strategy']['recommendation']}]")
+    print(f"\n爆漲 Top 5:")
+    for i, p in enumerate(output.get('explosive_top5', []), 1):
+        print(f"  {i}. {p['name']}({p['stock_id']}) 漲停機率:{p['surge_probability']:.1f}%")
+    print(f"\n[結束] {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
 
 # ================================================================
@@ -2558,62 +2473,4 @@ def push_scan_to_github(scan_result: dict, all_scores: dict, task_dir: str):
 
     print('[GitHub Push] 同步完成 🚀')
 
-
-if __name__ == '__main__':
-    print(f"[開始] {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    output  = run_five_dimension_scan(verbose=True)
-    out_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'scan_result.json')
-
-    safe_output = json.loads(json.dumps(output, ensure_ascii=False, default=str))
-    with open(out_path, 'w', encoding='utf-8') as f:
-        json.dump(safe_output, f, ensure_ascii=False, indent=2)
-    print(f"\n[JSON 已儲存] {out_path}")
-
-    # ── 輸出 all_scores.json：每檔股票五維評分快照，供前端自主檢查功能使用 ──
-    all_scores_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'all_scores.json')
-    all_scores_data = {
-        'scan_date': output['scan_date'],
-        'scanned_count': output['scanned_count'],
-        'all_stock_scores': [
-            {
-                'stock_id':   r['stock_id'],
-                'name':       r['name'],
-                'sector':     r['sector'],
-                'close':      r['close'],
-                'change_pct': r['change_pct'],
-                'total_score': r['total_score'],
-                'dimensions': r['dimensions'],
-                'signals':    r['signals'],
-                'strategy':   r['strategy'],
-            }
-            for r in output.get('all_results', [])
-        ],
-    }
-    safe_all_scores = json.loads(json.dumps(all_scores_data, ensure_ascii=False, default=str))
-    with open(all_scores_path, 'w', encoding='utf-8') as f:
-        json.dump(safe_all_scores, f, ensure_ascii=False, indent=2)
-    print(f"[all_scores.json 已儲存] {all_scores_path}（{len(safe_all_scores['all_stock_scores'])} 檔）")
-
-    print(f"\n=== 掃描摘要 ===")
-    print(f"開始時間: {output['scan_start']}")
-    print(f"結束時間: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    print(f"STOCK_POOL 大小: {output['total_stocks']} 檔")
-    print(f"有效掃描: {output['scanned_count']} 檔")
-    print(f"總耗時: {output['scan_elapsed_sec']}s（其中 API {output['dl_elapsed_sec']}s）")
-    print(f"\nTop 10 推薦:")
-    for i, r in enumerate(output['top10'], 1):
-        print(f"  {i}. {r['name']}({r['stock_id']}) 總分:{r['total_score']:.1f} [{r['strategy']['recommendation']}]")
-    print(f"\n爆漲 Top 5:")
-    for i, p in enumerate(output.get('explosive_top5', []), 1):
-        print(f"  {i}. {p['name']}({p['stock_id']}) 漲停機率:{p['surge_probability']:.1f}%")
-    print(f"\n[結束] {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-
-    # GitHub Pages 上傳
-    print("\n[GitHub Push] 上傳掃描結果到 GitHub Pages...")
-    try:
-        push_scan_to_github(safe_output, safe_all_scores, os.path.dirname(os.path.abspath(__file__)))
-    except Exception as e:
-        print(f"[GitHub Push 失敗] {e}")
-
-
-
+    # ── GitHub Pages push 已由 trigger 獨立 github-agent 步驟處理 ──
