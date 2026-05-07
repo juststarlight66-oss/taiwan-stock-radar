@@ -341,7 +341,7 @@ export default function StockDetailModal({ stock, onClose, rank, isDemo }: Props
             <div className="rounded-xl bg-gray-800/40 border border-gray-700/50 p-4">
               <h3 className="text-[11px] font-semibold text-gray-500 mb-3 uppercase tracking-wide">技術指標</h3>
               <div className="grid grid-cols-3 gap-3">
-                {stock.details.rsi !== undefined && (
+                {stock.details.rsi != null && (
                   <div className="text-center">
                     <div className="text-[10px] text-gray-500 mb-1">RSI</div>
                     <div className={`font-mono font-bold text-sm ${

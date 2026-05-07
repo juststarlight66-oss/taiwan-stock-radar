@@ -57,9 +57,10 @@ export interface ScanStock {
 }
 
 export interface ScanResult {
-  scan_date:     string;
-  scanned_count?: number;
-  top10:         ScanStock[];
+  scan_date:       string;
+  scanned_count?:  number;
+  top10:           ScanStock[];
+  extra_watchlist?: ScanStock[];
 }
 
 export const DIMENSION_CONFIG: Record<
