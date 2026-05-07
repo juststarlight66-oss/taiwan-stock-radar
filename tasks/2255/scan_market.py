@@ -1938,7 +1938,7 @@ def run_five_dimension_scan(verbose=True) -> Dict:
     """
     import json as _json
     import os as _os
-    _weights_path = _os.path.expanduser('/home/sprite/tasks/2255/dimension_weights.json')
+    _weights_path = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), 'dimension_weights.json')
     _dynamic_weights = None
     try:
         if _os.path.exists(_weights_path):
@@ -2419,6 +2419,13 @@ if __name__ == '__main__':
     for i, p in enumerate(output.get('explosive_top5', []), 1):
         print(f"  {i}. {p['name']}({p['stock_id']}) 漲停機率:{p['surge_probability']:.1f}%")
     print(f"\n[結束] {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+
+    # GitHub Pages 上傳（透過 REST API push JSON 到 repo）
+    print("\n[GitHub Push] 上傳掃描結果到 GitHub Pages...")
+    try:
+        push_scan_to_github(safe_output, safe_all_scores, os.path.dirname(os.path.abspath(__file__)))
+    except Exception as e:
+        print(f"[GitHub Push 失敗] {e}")
 
 
 # ================================================================
