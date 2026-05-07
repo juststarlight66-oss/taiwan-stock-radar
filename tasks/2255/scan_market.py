@@ -586,19 +586,26 @@ def fetch_taiex_trend() -> Dict:
     else:
         trend = 'neutral'; label = '中性'
 
+    # 點數變動（單日 / 三日累計）
+    point_change = taiex_close - closes[-2] if len(closes) >= 2 else 0
+    three_day_change = taiex_close - closes[-4] if len(closes) >= 4 else 0
+
     print(f"[TAIEX] 收盤:{taiex_close:.0f} MA20:{ma20:.0f}({ma20_bias:+.1f}%) "
-          f"MA60:{ma60:.0f}({ma60_bias:+.1f}%) → 趨勢:{label} [{source}]")
+          f"MA60:{ma60:.0f}({ma60_bias:+.1f}%) → 趨勢:{label} "
+          f"單日:{point_change:+.0f} 三日:{three_day_change:+.0f} [{source}]")
 
     return {
-        'trend':         trend,
-        'trend_label':   label,
-        'taiex_close':   round(taiex_close, 2),
-        'ma20':          round(ma20, 2),
-        'ma60':          round(ma60, 2),
-        'ma20_bias_pct': round(ma20_bias, 2),
-        'ma60_bias_pct': round(ma60_bias, 2),
-        'data_points':   n,
-        'source':        source,
+        'trend':           trend,
+        'trend_label':     label,
+        'taiex_close':     round(taiex_close, 2),
+        'ma20':            round(ma20, 2),
+        'ma60':            round(ma60, 2),
+        'ma20_bias_pct':   round(ma20_bias, 2),
+        'ma60_bias_pct':   round(ma60_bias, 2),
+        'data_points':     n,
+        'source':          source,
+        'point_change':    round(point_change, 2),
+        'three_day_change': round(three_day_change, 2),
     }
 
 
@@ -1890,6 +1897,38 @@ def momentum_grade(tech_score: float, chips_score: float, fund_score: float) -> 
 
 
 # ================================================================
+# 強勢族群掃描 — 空頭時提取 Top3 族群 × 2 領漲股
+# ================================================================
+def strong_sector_scan(top10_list: List[Dict]) -> List[Dict]:
+    """
+    從 Top N 挑選結果中，按產業族群分組，計算平均得分，
+    回傳 Top 3 族群，每個族群帶 2 檔最高分領漲股。
+    回傳格式：[{sector, avg_score, stocks: [{symbol, name, score}]}]
+    """
+    from collections import defaultdict
+    sector_groups = defaultdict(list)
+    for stock in top10_list:
+        sector = stock.get('sector', '其他')
+        sector_groups[sector].append(stock)
+
+    # 計算每個族群的平均分數，取 Top 3
+    sector_scores = []
+    for sector, stocks in sector_groups.items():
+        avg = sum(s['total_score'] for s in stocks) / len(stocks)
+        leader = sorted(stocks, key=lambda s: s['total_score'], reverse=True)[:2]
+        sector_scores.append({
+            'sector': sector,
+            'avg_score': round(avg, 1),
+            'stocks': [
+                {'symbol': s.get('symbol', ''), 'name': s.get('name', ''), 'score': s['total_score']}
+                for s in leader
+            ],
+        })
+    sector_scores.sort(key=lambda x: x['avg_score'], reverse=True)
+    return sector_scores[:3]
+
+
+# ================================================================
 # 主掃描引擎
 # ================================================================
 def run_five_dimension_scan(verbose=True) -> Dict:
@@ -2088,8 +2127,10 @@ def run_five_dimension_scan(verbose=True) -> Dict:
     taiex_info = fetch_taiex_trend()
     market_trend = taiex_info['trend']           # 'strongly_bullish'/'bullish'/'neutral'/'bearish'/'strongly_bearish'
     trend_label  = taiex_info['trend_label']     # '強多頭'/'多頭'/'中性'/'空頭'/'強空頭'
-    # 只在大盤真的站在 MA20/MA60 下方才算空頭
-    is_bear_market = market_trend in ('bearish', 'strongly_bearish')
+    point_change      = taiex_info.get('point_change', 0)
+    three_day_change  = taiex_info.get('three_day_change', 0)
+    # 點數閾值判定：單日跌 >700 點 OR 三日累計跌 >1,000 點
+    is_bear_market = (point_change < -700) or (three_day_change < -1000)
 
     # 今日盤面（漲跌家數比例，僅供報告顯示用，不影響多空判定）
     up_count   = sum(1 for r in results if r['change_pct'] > 0)
@@ -2124,6 +2165,7 @@ def run_five_dimension_scan(verbose=True) -> Dict:
         filtered_top.append(r)
 
     # ── 空頭防禦模式：套用 0.6x 防禦係數並標記推薦 ─────────────
+    strong_sectors = []
     if is_bear_market:
         print("[⚠️ 空頭防禦模式] 已套用 0.6x 防禦係數，降低激進評分")
         for r in filtered_top:
@@ -2132,6 +2174,9 @@ def run_five_dimension_scan(verbose=True) -> Dict:
             if strat.get('recommendation'):
                 strat['recommendation'] = '⚠️空頭防禦：' + strat['recommendation']
         filtered_top.sort(key=lambda x: x['total_score'], reverse=True)
+        # 掃描強勢族群領漲股
+        strong_sectors = strong_sector_scan(filtered_top)
+        print(f"[族群] 強勢族群 Top3：{', '.join(s['sector'] for s in strong_sectors)}")
 
     top10           = filtered_top[:10]
     extra_watchlist = limit_up_watchlist
@@ -2301,14 +2346,17 @@ def run_five_dimension_scan(verbose=True) -> Dict:
         'up_count':         up_count,
         'down_count':       down_count,
         'day_breadth_label': day_breadth_label,
-        'is_bear_market':   is_bear_market,
-        'market_trend':     market_trend,
-        'trend_label':      trend_label,
-        'taiex_close':      taiex_info['taiex_close'],
-        'taiex_ma20':       taiex_info['ma20'],
-        'taiex_ma60':       taiex_info['ma60'],
-        'taiex_ma20_bias':  taiex_info['ma20_bias_pct'],
-        'taiex_ma60_bias':  taiex_info['ma60_bias_pct'],
+        'is_bear_market':     is_bear_market,
+        'market_trend':       market_trend,
+        'trend_label':        trend_label,
+        'taiex_close':        taiex_info['taiex_close'],
+        'taiex_ma20':         taiex_info['ma20'],
+        'taiex_ma60':         taiex_info['ma60'],
+        'taiex_ma20_bias':    taiex_info['ma20_bias_pct'],
+        'taiex_ma60_bias':    taiex_info['ma60_bias_pct'],
+        'taiex_point_change': point_change,
+        'taiex_3d_change':    three_day_change,
+        'strong_sectors':     strong_sectors,
     }
 
 
