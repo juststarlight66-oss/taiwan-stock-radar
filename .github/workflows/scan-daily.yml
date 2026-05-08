@@ -1,0 +1,167 @@
+name: Daily Market Scan (Manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      scan_date:
+        description: 'Scan date (YYYYMMDD)'
+        required: false
+        default: ''
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install requests pytz numpy pandas
+
+      - name: Run market scan
+        run: |
+          cd tasks/2255
+          python scan_market.py
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+
+      - name: Copy results to public/data
+        run: |
+          set -e
+          DATE=$(python3 -c "import datetime, pytz; tz=pytz.timezone('Asia/Taipei'); print(datetime.datetime.now(tz).strftime('%Y%m%d'))")
+          echo "Scan date: $DATE"
+
+          mkdir -p public/data
+
+          # Copy core result files
+          if [ -f tasks/2255/scan_result.json ]; then
+            cp tasks/2255/scan_result.json public/data/scan_result_${DATE}.json
+            echo "Copied scan_result.json -> scan_result_${DATE}.json"
+          fi
+
+          if [ -f tasks/2255/latest.json ]; then
+            cp tasks/2255/latest.json public/data/latest.json
+            echo "Copied latest.json"
+          fi
+
+          if [ -f tasks/2255/all_scores.json ]; then
+            cp tasks/2255/all_scores.json public/data/all_scores.json
+            echo "Copied all_scores.json"
+          fi
+
+          # Update index.json
+          python3 - <<'PYEOF'
+          import json, os, glob, datetime, pytz
+
+          tz = pytz.timezone('Asia/Taipei')
+          now = datetime.datetime.now(tz)
+          date_str = now.strftime('%Y%m%d')
+
+          # Build index from existing scan_result_*.json files
+          index_path = 'public/data/index.json'
+          if os.path.exists(index_path):
+              with open(index_path) as f:
+                  index = json.load(f)
+          else:
+              index = {"scans": []}
+
+          # Add today if not already there
+          entry = {
+              "date": date_str,
+              "file": f"scan_result_{date_str}.json",
+              "scan_time": now.strftime('%H:%M:%S')
+          }
+          dates = [s["date"] for s in index.get("scans", [])]
+          if date_str not in dates:
+              index.setdefault("scans", []).append(entry)
+          else:
+              # Update existing entry
+              for s in index["scans"]:
+                  if s["date"] == date_str:
+                      s.update(entry)
+
+          # Keep last 60 entries sorted descending
+          index["scans"] = sorted(index.get("scans", []), key=lambda x: x["date"], reverse=True)[:60]
+          index["updated_at"] = now.isoformat()
+
+          with open(index_path, 'w', encoding='utf-8') as f:
+              json.dump(index, f, ensure_ascii=False, indent=2)
+          print(f"Updated index.json with {len(index['scans'])} entries")
+          PYEOF
+
+          # Update backtest.json
+          python3 - <<'PYEOF'
+          import json, os, datetime, pytz
+
+          tz = pytz.timezone('Asia/Taipei')
+          now = datetime.datetime.now(tz)
+          date_str = now.strftime('%Y/%m/%d')
+
+          backtest_path = 'public/data/backtest.json'
+          if os.path.exists(backtest_path):
+              with open(backtest_path) as f:
+                  backtest = json.load(f)
+          else:
+              backtest = {"history": []}
+
+          # Load today's scan result
+          scan_path = 'tasks/2255/scan_result.json'
+          if os.path.exists(scan_path):
+              with open(scan_path) as f:
+                  scan = json.load(f)
+              top10 = scan.get('top10', [])[:10]
+              stocks_map = {s.get('stock_id', s.get('code','')): {
+                  "name": s.get('name',''),
+                  "score": s.get('total_score', s.get('score', 0)),
+                  "close": s.get('close', 0)
+              } for s in top10}
+
+              # Add today entry
+              new_entry = {
+                  "date": date_str,
+                  "results": stocks_map
+              }
+              history = backtest.get('history', [])
+              # Remove existing entry for today if any
+              history = [h for h in history if h.get('date') != date_str]
+              history.append(new_entry)
+              history.sort(key=lambda x: x['date'], reverse=True)
+              backtest['history'] = history[:90]
+
+              with open(backtest_path, 'w', encoding='utf-8') as f:
+                  json.dump(backtest, f, ensure_ascii=False, indent=2)
+              print(f"Updated backtest.json, history count: {len(backtest['history'])}")
+          PYEOF
+
+      - name: Git commit and push results
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add public/data/ tasks/2255/scan_result.json tasks/2255/all_scores.json tasks/2255/latest.json || true
+          git diff --staged --quiet || git commit -m "data: 20260508 evening scan results (v7.1 五維分析)
+
+Co-Authored-By: Nebula <noreply@nebula.gg>"
+          git push origin main
+
+      - name: Trigger GitHub Pages deploy
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'deploy.yml',
+              ref: 'main'
+            });
+            console.log('Deploy workflow triggered');
