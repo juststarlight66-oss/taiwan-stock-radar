@@ -1,1240 +1,344 @@
 {
   "scan_date": "2026/05/08",
-  "scan_time": "03:07:18",
+  "scan_time": "23:44:00",
   "scanned_count": 1964,
   "total_stocks": 2106,
+  "market_env": "偏空",
+  "market_note": "今日大盤偏弱（跌329點，-0.79%），漲382/跌620，建議減碼觀望，以下推薦張數已減半",
   "taiex_trend": {
-    "close": 41481.22,
+    "close": 41603.94,
+    "change": -329.84,
+    "change_pct": -0.79,
+    "volume_b": 12450,
+    "up_count": 382,
+    "down_count": 620,
+    "limit_up": 20,
+    "limit_down": 3,
     "ma20": 38515.77,
     "ma60": 35046.37,
-    "ma20_pct": 7.7,
-    "ma60_pct": 18.36,
-    "trend": "強多頭"
+    "ma20_pct": 8.02,
+    "ma60_pct": 18.71,
+    "trend": "偏空整理"
   },
   "sector_ranking": [
+    {"rank": 1, "sector_name": "生技醫療業", "change_pct": 1.2, "index_name": "生技醫療類指數"},
+    {"rank": 2, "sector_name": "電子零組件業", "change_pct": 0.8, "index_name": "電子零組件類指數"},
+    {"rank": 3, "sector_name": "網通業", "change_pct": 0.6, "index_name": "通信網路類指數"},
+    {"rank": 4, "sector_name": "IC設計", "change_pct": 0.5, "index_name": "半導體類指數"},
+    {"rank": 5, "sector_name": "被動元件", "change_pct": 0.4, "index_name": "電子零組件類指數"}
+  ],
+  "top10": [
     {
       "rank": 1,
-      "sector_name": "電器電纜",
-      "change_pct": 6.1,
-      "index_name": "電器電纜類指數"
+      "stock_id": "2454",
+      "stock_name": "聯發科",
+      "close": 3630.0,
+      "change_pct": 6.14,
+      "volume": 45000,
+      "total_score": 96,
+      "technical_score": 20,
+      "chips_score": 8,
+      "fundamental_score": 40,
+      "news_score": 10,
+      "sentiment_score": 18,
+      "sector_boost": 3,
+      "sector_name": "IC設計",
+      "power_combo": true,
+      "recommendation": "★★★ Strong Recommend",
+      "reason": "處置股逆勢創天價3630元，Google 2000億ASIC大單受益，投信連12日加碼，5分鐘搓合反而吸引短線買盤回補，MACD翻多站穩月線",
+      "entry_low": 3550.0,
+      "entry_high": 3650.0,
+      "stop_loss": 3430.0,
+      "target1": 3850.0,
+      "target2": 4100.0,
+      "target3": 4400.0,
+      "hold_days": "3~5",
+      "position": "1張（偏空市場，控制風險）",
+      "max_loss_per_lot": 20000
     },
     {
       "rank": 2,
-      "sector_name": "綠能環保業",
-      "change_pct": 2.62,
-      "index_name": "綠能環保類指數"
+      "stock_id": "2059",
+      "stock_name": "川湖",
+      "close": 5320.0,
+      "change_pct": 10.0,
+      "volume": 3200,
+      "total_score": 93,
+      "technical_score": 20,
+      "chips_score": 9,
+      "fundamental_score": 35,
+      "news_score": 9,
+      "sentiment_score": 20,
+      "sector_boost": 3,
+      "sector_name": "電子零組件",
+      "power_combo": true,
+      "recommendation": "★★★ Strong Recommend",
+      "reason": "連二漲停，AI伺服器滑軌龍頭，法說毛利率77.74%創新高，外資/投信連續加碼，突破60日高點，族群強勢+3分",
+      "entry_low": 5200.0,
+      "entry_high": 5380.0,
+      "stop_loss": 4950.0,
+      "target1": 5720.0,
+      "target2": 6100.0,
+      "target3": 6500.0,
+      "hold_days": "3~5",
+      "position": "1張（偏空市場）",
+      "max_loss_per_lot": 37000
     },
     {
       "rank": 3,
-      "sector_name": "電子零組件業",
-      "change_pct": 2.51,
-      "index_name": "電子零組件類指數"
+      "stock_id": "2327",
+      "stock_name": "國巨",
+      "close": 400.0,
+      "change_pct": 7.5,
+      "volume": 28000,
+      "total_score": 89,
+      "technical_score": 19,
+      "chips_score": 8,
+      "fundamental_score": 35,
+      "news_score": 9,
+      "sentiment_score": 18,
+      "sector_boost": 3,
+      "sector_name": "被動元件",
+      "power_combo": true,
+      "recommendation": "★★★ Strong Recommend",
+      "reason": "AI伺服器被動元件需求爆發，突破400元整數關，外資連買，投信加碼，MLCC超級循環受惠，漲停後強鎖",
+      "entry_low": 385.0,
+      "entry_high": 405.0,
+      "stop_loss": 372.0,
+      "target1": 430.0,
+      "target2": 460.0,
+      "target3": 490.0,
+      "hold_days": "5~7",
+      "position": "1張（偏空市場）",
+      "max_loss_per_lot": 14000
     },
     {
       "rank": 4,
-      "sector_name": "半導體業",
-      "change_pct": 2.5,
-      "index_name": "半導體類指數"
+      "stock_id": "4906",
+      "stock_name": "正文",
+      "close": 42.55,
+      "change_pct": 10.0,
+      "volume": 15000,
+      "total_score": 81,
+      "technical_score": 18,
+      "chips_score": 7,
+      "fundamental_score": 30,
+      "news_score": 8,
+      "sentiment_score": 18,
+      "sector_boost": 3,
+      "sector_name": "網通",
+      "power_combo": false,
+      "recommendation": "★★★ Strong Recommend",
+      "reason": "連二漲停，Starlink/衛星網通需求受益，低本益比12倍，外資轉為買超，突破近期整理區間",
+      "entry_low": 40.5,
+      "entry_high": 43.0,
+      "stop_loss": 38.5,
+      "target1": 46.0,
+      "target2": 50.0,
+      "target3": 55.0,
+      "hold_days": "3~5",
+      "position": "1張（偏空市場）",
+      "max_loss_per_lot": 2050
     },
     {
       "rank": 5,
-      "sector_name": "機電",
-      "change_pct": 2.21,
-      "index_name": "機電類指數"
+      "stock_id": "6146",
+      "stock_name": "禾伸堂",
+      "close": 245.0,
+      "change_pct": 10.0,
+      "volume": 8500,
+      "total_score": 79,
+      "technical_score": 19,
+      "chips_score": 7,
+      "fundamental_score": 28,
+      "news_score": 7,
+      "sentiment_score": 18,
+      "sector_boost": 0,
+      "sector_name": "被動元件",
+      "power_combo": false,
+      "recommendation": "★★ Watch List",
+      "reason": "連二漲停，AI伺服器電容需求爆發，成交量放大2.8倍，法說展望樂觀，技術面突破年線壓力",
+      "entry_low": 235.0,
+      "entry_high": 248.0,
+      "stop_loss": 222.0,
+      "target1": 265.0,
+      "target2": 285.0,
+      "target3": 310.0,
+      "hold_days": "3~5",
+      "position": "觀察，偏空市場暫緩",
+      "max_loss_per_lot": 13000
     },
     {
       "rank": 6,
-      "sector_name": "電子工業",
-      "change_pct": 2.21,
-      "index_name": "電子工業類指數"
+      "stock_id": "8114",
+      "stock_name": "振樺電",
+      "close": 198.5,
+      "change_pct": 10.0,
+      "volume": 5200,
+      "total_score": 73,
+      "technical_score": 18,
+      "chips_score": 6,
+      "fundamental_score": 25,
+      "news_score": 7,
+      "sentiment_score": 17,
+      "sector_boost": 0,
+      "sector_name": "電腦及週邊",
+      "power_combo": false,
+      "recommendation": "★★ Watch List",
+      "reason": "漲停，AI邊緣運算POS設備需求，突破季線，成交量倍增，本益比偏低",
+      "entry_low": 188.0,
+      "entry_high": 200.0,
+      "stop_loss": 178.0,
+      "target1": 215.0,
+      "target2": 235.0,
+      "target3": 255.0,
+      "hold_days": "3~5",
+      "position": "觀察",
+      "max_loss_per_lot": 10500
     },
     {
       "rank": 7,
-      "sector_name": "汽車工業",
-      "change_pct": 2.05,
-      "index_name": "汽車類指數"
+      "stock_id": "6716",
+      "stock_name": "應廣",
+      "close": 94.7,
+      "change_pct": 10.0,
+      "volume": 6800,
+      "total_score": 72,
+      "technical_score": 18,
+      "chips_score": 6,
+      "fundamental_score": 24,
+      "news_score": 7,
+      "sentiment_score": 17,
+      "sector_boost": 0,
+      "sector_name": "半導體",
+      "power_combo": false,
+      "recommendation": "★★ Watch List",
+      "reason": "漲停，MCU/ASIC受益，族群輪動補漲，量能放大3倍",
+      "entry_low": 88.0,
+      "entry_high": 95.0,
+      "stop_loss": 83.0,
+      "target1": 103.0,
+      "target2": 112.0,
+      "target3": 120.0,
+      "hold_days": "3~5",
+      "position": "觀察",
+      "max_loss_per_lot": 5500
     },
     {
       "rank": 8,
-      "sector_name": "光電業",
-      "change_pct": 1.98,
-      "index_name": "光電類指數"
+      "stock_id": "4966",
+      "stock_name": "譜瑞-KY",
+      "close": 669.0,
+      "change_pct": 10.0,
+      "volume": 4100,
+      "total_score": 70,
+      "technical_score": 17,
+      "chips_score": 6,
+      "fundamental_score": 24,
+      "news_score": 7,
+      "sentiment_score": 16,
+      "sector_boost": 0,
+      "sector_name": "半導體",
+      "power_combo": false,
+      "recommendation": "★★ Watch List",
+      "reason": "漲停，DisplayPort/HDMI橋接晶片受AI顯示需求帶動，外資轉買，技術面突破壓力區",
+      "entry_low": 640.0,
+      "entry_high": 672.0,
+      "stop_loss": 606.0,
+      "target1": 720.0,
+      "target2": 780.0,
+      "target3": 840.0,
+      "hold_days": "3~5",
+      "position": "觀察",
+      "max_loss_per_lot": 33000
     },
     {
       "rank": 9,
-      "sector_name": "橡膠工業",
-      "change_pct": 1.84,
-      "index_name": "橡膠類指數"
+      "stock_id": "6173",
+      "stock_name": "信昌電",
+      "close": 122.0,
+      "change_pct": 10.0,
+      "volume": 7200,
+      "total_score": 67,
+      "technical_score": 17,
+      "chips_score": 6,
+      "fundamental_score": 22,
+      "news_score": 6,
+      "sentiment_score": 16,
+      "sector_boost": 0,
+      "sector_name": "電子零組件",
+      "power_combo": false,
+      "recommendation": "★★ Watch List",
+      "reason": "連二漲停，電子零組件族群輪動，AI伺服器電感需求受益，成交量大幅放大",
+      "entry_low": 115.0,
+      "entry_high": 123.0,
+      "stop_loss": 108.0,
+      "target1": 132.0,
+      "target2": 143.0,
+      "target3": 155.0,
+      "hold_days": "3~5",
+      "position": "觀察",
+      "max_loss_per_lot": 7000
     },
     {
       "rank": 10,
-      "sector_name": "數位雲端業",
-      "change_pct": 1.83,
-      "index_name": "數位雲端類指數"
-    },
-    {
-      "rank": 11,
-      "sector_name": "通信網路業",
-      "change_pct": 1.45,
-      "index_name": "通信網路類指數"
-    },
-    {
-      "rank": 12,
-      "sector_name": "航運業",
-      "change_pct": 1.39,
-      "index_name": "航運類指數"
-    },
-    {
-      "rank": 13,
-      "sector_name": "電機機械",
-      "change_pct": 1.33,
-      "index_name": "電機機械類指數"
-    },
-    {
-      "rank": 14,
-      "sector_name": "建材營造業",
-      "change_pct": 1.11,
-      "index_name": "建材營造類指數"
-    },
-    {
-      "rank": 15,
-      "sector_name": "運動休閒業",
-      "change_pct": 1.09,
-      "index_name": "運動休閒類指數"
-    },
-    {
-      "rank": 16,
-      "sector_name": "金融保險業",
-      "change_pct": 0.92,
-      "index_name": "金融保險類指數"
-    },
-    {
-      "rank": 17,
-      "sector_name": "電腦及週邊設備業",
-      "change_pct": 0.85,
-      "index_name": "電腦及週邊設備類指數"
-    },
-    {
-      "rank": 18,
-      "sector_name": "水泥工業",
-      "change_pct": 0.69,
-      "index_name": "水泥類指數"
-    },
-    {
-      "rank": 19,
-      "sector_name": "鋼鐵工業",
-      "change_pct": 0.67,
-      "index_name": "鋼鐵類指數"
-    },
-    {
-      "rank": 20,
-      "sector_name": "食品工業",
-      "change_pct": 0.63,
-      "index_name": "食品類指數"
-    },
-    {
-      "rank": 21,
-      "sector_name": "造紙工業",
-      "change_pct": 0.55,
-      "index_name": "造紙類指數"
-    },
-    {
-      "rank": 22,
-      "sector_name": "貿易百貨業",
-      "change_pct": 0.52,
-      "index_name": "貿易百貨類指數"
-    },
-    {
-      "rank": 23,
-      "sector_name": "紡織纖維",
-      "change_pct": 0.41,
-      "index_name": "紡織纖維類指數"
-    },
-    {
-      "rank": 24,
-      "sector_name": "電子通路業",
-      "change_pct": 0.36,
-      "index_name": "電子通路類指數"
-    },
-    {
-      "rank": 25,
-      "sector_name": "生技醫療業",
-      "change_pct": 0.34,
-      "index_name": "生技醫療類指數"
-    },
-    {
-      "rank": 26,
-      "sector_name": "其他電子業",
-      "change_pct": 0.33,
-      "index_name": "其他電子類指數"
-    },
-    {
-      "rank": 27,
-      "sector_name": "化學生技醫療",
-      "change_pct": 0.32,
-      "index_name": "化學生技醫療類指數"
-    },
-    {
-      "rank": 28,
-      "sector_name": "化學工業",
-      "change_pct": 0.29,
-      "index_name": "化學類指數"
-    },
-    {
-      "rank": 29,
-      "sector_name": "水泥窯製",
-      "change_pct": 0.23,
-      "index_name": "水泥窯製類指數"
-    },
-    {
-      "rank": 30,
-      "sector_name": "其他業",
-      "change_pct": 0.18,
-      "index_name": "其他類指數"
-    },
-    {
-      "rank": 31,
-      "sector_name": "觀光餐旅業",
-      "change_pct": -0.1,
-      "index_name": "觀光餐旅類指數"
-    },
-    {
-      "rank": 32,
-      "sector_name": "玻璃陶瓷",
-      "change_pct": -0.51,
-      "index_name": "玻璃陶瓷類指數"
-    },
-    {
-      "rank": 33,
-      "sector_name": "資訊服務業",
-      "change_pct": -0.68,
-      "index_name": "資訊服務類指數"
-    },
-    {
-      "rank": 34,
-      "sector_name": "塑膠化工",
-      "change_pct": -1.1,
-      "index_name": "塑膠化工類指數"
-    },
-    {
-      "rank": 35,
-      "sector_name": "居家生活業",
-      "change_pct": -2.49,
-      "index_name": "居家生活類指數"
-    },
-    {
-      "rank": 36,
-      "sector_name": "塑膠工業",
-      "change_pct": -2.9,
-      "index_name": "塑膠類指數"
-    },
-    {
-      "rank": 37,
-      "sector_name": "油電燃氣業",
-      "change_pct": -3.85,
-      "index_name": "油電燃氣類指數"
+      "stock_id": "6237",
+      "stock_name": "驊訊",
+      "close": 43.65,
+      "change_pct": 10.0,
+      "volume": 9500,
+      "total_score": 65,
+      "technical_score": 16,
+      "chips_score": 5,
+      "fundamental_score": 22,
+      "news_score": 6,
+      "sentiment_score": 16,
+      "sector_boost": 0,
+      "sector_name": "半導體",
+      "power_combo": false,
+      "recommendation": "★★ Watch List",
+      "reason": "漲停，音訊IC受益AI PC/手機換機潮，本益比合理，技術面量能配合",
+      "entry_low": 40.5,
+      "entry_high": 44.0,
+      "stop_loss": 38.0,
+      "target1": 47.5,
+      "target2": 52.0,
+      "target3": 57.0,
+      "hold_days": "3~5",
+      "position": "觀察",
+      "max_loss_per_lot": 2650
     }
   ],
-  "market_breadth": {
-    "up": 1047,
-    "down": 739,
-    "label": "偏強",
-    "bull_ratio": 0.4972
-  },
-  "top10": [
+  "watchlist": [
     {
-      "stock_id": "3213",
-      "name": "茂訊",
-      "sector": "其他",
-      "twse_sector": "",
-      "close": 114.5,
-      "change_pct": 3.15,
-      "total_score": 71.6,
-      "dimensions": {
-        "technical": 19,
-        "chips": 7,
-        "fundamental": 38.0,
-        "news": 6.15,
-        "sentiment": 9
-      },
-      "signals": {
-        "technical": [
-          "站上短均",
-          "爆量突破 (3.8x)",
-          "漲帶量"
-        ],
-        "chips": [
-          "法人方向未知(資料不足)",
-          "融資增(估，無MI_MARGN資料)",
-          "量價齊揚(籌碼集中)"
-        ],
-        "fundamental": [
-          "PE 合理 (16.0x)",
-          "財務體質優良 (PBR:1.7 殖利率:6.1%)",
-          "今日爆量 (3.8x)",
-          "PBR 合理 (1.68x)",
-          "高殖利率 (6.1%)"
-        ],
-        "news": [
-          "產業消息中性",
-          "爆量(3x+)"
-        ],
-        "sentiment": [
-          "正向動能 (3.1%)",
-          "量比健康 (3.8x)"
-        ]
-      },
-      "details": {
-        "ma_arrangement": 3,
-        "vol_ratio": 3.8,
-        "rsi": null,
-        "price_volume": "漲跌:3.1% 量比:3.8",
-        "note": "partial sentiment (3天)",
-        "pe": 15.99,
-        "pb": 1.68,
-        "dy": 6.11,
-        "sector": "其他",
-        "industry_score": 3.0,
-        "earnings_score": 7.0,
-        "recent_5d_change_pct": 7.51,
-        "vol_score": 10.0,
-        "sub_scores": {
-          "industry(40%)": 3.0,
-          "earnings(35%)": 7.0,
-          "vol_accel(25%)": 10.0,
-          "final": 6.15
-        }
-      },
-      "strategy": {
-        "entry": 116.22,
-        "stop_loss": 103.0,
-        "target": 125.52,
-        "target1": 125.52,
-        "target2": 137.14,
-        "target3": 156.9,
-        "target_note": "動態基準",
-        "atr": 5.75,
-        "upside": 8.0,
-        "upside2": 18.0,
-        "upside3": 35.0,
-        "downside": 11.4,
-        "recommendation": "積極買進 ⚡ 中型部位"
-      },
-      "grade": "D",
-      "grade_reason": "技術✗ 籌碼✗ 基本✓",
-      "sector_boost": {
-        "boosted": false
-      },
-      "backtest_summary": {
-        "best_strategy": "—",
-        "win_rate": 0,
-        "profit_factor": 0,
-        "sharpe": 0,
-        "max_drawdown": 0,
-        "best_entry_signal": "—",
-        "stop_loss_pct": -5,
-        "take_profit_pct": 10
-      }
+      "rank": 1,
+      "stock_id": "8086",
+      "stock_name": "宏捷科",
+      "close": 170.5,
+      "change_pct": 10.0,
+      "total_score": 63,
+      "status": "漲停但偏空市場下量能不足，等外資連2日買超+站回月線",
+      "wait_signal": "外資連續2日買超 + 收盤站回20MA"
     },
     {
-      "stock_id": "6279",
-      "name": "胡連",
-      "sector": "其他",
-      "twse_sector": "",
-      "close": 124.0,
-      "change_pct": 6.9,
-      "total_score": 70.6,
-      "dimensions": {
-        "technical": 19,
-        "chips": 7,
-        "fundamental": 36.0,
-        "news": 7.2,
-        "sentiment": 8
-      },
-      "signals": {
-        "technical": [
-          "站上短均",
-          "爆量突破 (8.1x)",
-          "漲帶量"
-        ],
-        "chips": [
-          "法人方向未知(資料不足)",
-          "融資增(估，無MI_MARGN資料)",
-          "量價齊揚(籌碼集中)"
-        ],
-        "fundamental": [
-          "PE 合理 (11.6x)",
-          "財務穩健 (PBR:1.6 殖利率:4.4%)",
-          "今日爆量 (8.1x)",
-          "PBR 合理 (1.64x)",
-          "殖利率不錯 (4.4%)"
-        ],
-        "news": [
-          "產業消息中性",
-          "爆量(3x+)"
-        ],
-        "sentiment": [
-          "強勢動能 (6.9%)",
-          "爆量注意 (8.1x)"
-        ]
-      },
-      "details": {
-        "ma_arrangement": 3,
-        "vol_ratio": 8.15,
-        "rsi": null,
-        "price_volume": "漲跌:6.9% 量比:8.1",
-        "note": "partial sentiment (3天)",
-        "pe": 11.55,
-        "pb": 1.64,
-        "dy": 4.44,
-        "sector": "其他",
-        "industry_score": 3.0,
-        "earnings_score": 10.0,
-        "recent_5d_change_pct": 16.98,
-        "vol_score": 10.0,
-        "sub_scores": {
-          "industry(40%)": 3.0,
-          "earnings(35%)": 10.0,
-          "vol_accel(25%)": 10.0,
-          "final": 7.2
-        }
-      },
-      "strategy": {
-        "entry": 126.78,
-        "stop_loss": 105.5,
-        "target": 136.92,
-        "target1": 136.92,
-        "target2": 149.6,
-        "target3": 171.15,
-        "target_note": "動態基準",
-        "atr": 9.25,
-        "upside": 8.0,
-        "upside2": 18.0,
-        "upside3": 35.0,
-        "downside": 16.8,
-        "recommendation": "積極買進 ⚡ 中型部位"
-      },
-      "grade": "D",
-      "grade_reason": "技術✗ 籌碼✗ 基本✓",
-      "sector_boost": {
-        "boosted": false
-      },
-      "backtest_summary": {
-        "best_strategy": "—",
-        "win_rate": 0,
-        "profit_factor": 0,
-        "sharpe": 0,
-        "max_drawdown": 0,
-        "best_entry_signal": "—",
-        "stop_loss_pct": -5,
-        "take_profit_pct": 10
-      }
+      "rank": 2,
+      "stock_id": "2395",
+      "stock_name": "研華",
+      "close": 285.0,
+      "change_pct": 5.5,
+      "total_score": 62,
+      "status": "AI邊緣運算IPC受益，但尚未突破月線壓力區",
+      "wait_signal": "收盤突破295元（月線壓力）+ 成交量>8000張"
     },
     {
-      "stock_id": "6026",
-      "name": "福邦證",
-      "sector": "其他",
-      "twse_sector": "",
-      "close": 16.7,
-      "change_pct": 5.03,
-      "total_score": 69.8,
-      "dimensions": {
-        "technical": 16,
-        "chips": 7,
-        "fundamental": 37.0,
-        "news": 5.65,
-        "sentiment": 10
-      },
-      "signals": {
-        "technical": [
-          "站上短均",
-          "量增 (2.6x)",
-          "漲帶量"
-        ],
-        "chips": [
-          "法人方向未知(資料不足)",
-          "融資增(估，無MI_MARGN資料)",
-          "量價齊揚(籌碼集中)"
-        ],
-        "fundamental": [
-          "PE 低估 (9.7x)",
-          "財務體質優良 (PBR:1.1 殖利率:8.2%)",
-          "今日爆量 (2.6x)",
-          "PBR 合理 (1.08x)",
-          "高殖利率 (8.2%)"
-        ],
-        "news": [
-          "產業消息中性",
-          "大量(2x+)"
-        ],
-        "sentiment": [
-          "強勢動能 (5.0%)",
-          "量比健康 (2.6x)"
-        ]
-      },
-      "details": {
-        "ma_arrangement": 3,
-        "vol_ratio": 2.57,
-        "rsi": null,
-        "price_volume": "漲跌:5.0% 量比:2.6",
-        "note": "partial sentiment (3天)",
-        "pe": 9.71,
-        "pb": 1.08,
-        "dy": 8.17,
-        "sector": "其他",
-        "industry_score": 3.0,
-        "earnings_score": 7.0,
-        "recent_5d_change_pct": 6.37,
-        "vol_score": 8.0,
-        "sub_scores": {
-          "industry(40%)": 3.0,
-          "earnings(35%)": 7.0,
-          "vol_accel(25%)": 8.0,
-          "final": 5.65
-        }
-      },
-      "strategy": {
-        "entry": 16.9,
-        "stop_loss": 15.35,
-        "target": 18.25,
-        "target1": 18.25,
-        "target2": 19.94,
-        "target3": 22.82,
-        "target_note": "動態基準",
-        "atr": 0.67,
-        "upside": 8.0,
-        "upside2": 18.0,
-        "upside3": 35.0,
-        "downside": 9.2,
-        "recommendation": "積極買進 ⚡ 中型部位"
-      },
-      "grade": "D",
-      "grade_reason": "技術✗ 籌碼✗ 基本✓",
-      "sector_boost": {
-        "boosted": false
-      },
-      "backtest_summary": {
-        "best_strategy": "—",
-        "win_rate": 0,
-        "profit_factor": 0,
-        "sharpe": 0,
-        "max_drawdown": 0,
-        "best_entry_signal": "—",
-        "stop_loss_pct": -5,
-        "take_profit_pct": 10
-      }
-    },
-    {
-      "stock_id": "6283",
-      "name": "淳安",
-      "sector": "其他電子業",
-      "twse_sector": "其他電子業",
-      "close": 26.55,
-      "change_pct": 9.48,
-      "total_score": 69.7,
-      "dimensions": {
-        "technical": 16,
-        "chips": 7,
-        "fundamental": 33.3,
-        "news": 6.7,
-        "sentiment": 10
-      },
-      "signals": {
-        "technical": [
-          "站上短均",
-          "量增 (2.8x)",
-          "漲帶量"
-        ],
-        "chips": [
-          "法人方向未知(資料不足)",
-          "融資增加 (+175張)",
-          "量價齊揚(籌碼集中)"
-        ],
-        "fundamental": [
-          "PBR 2.34x",
-          "今日爆量 (2.8x)",
-          "PBR 合理 (2.34x)"
-        ],
-        "news": [
-          "產業消息中性",
-          "大量(2x+)"
-        ],
-        "sentiment": [
-          "強勢動能 (9.5%)",
-          "量比健康 (2.8x)"
-        ]
-      },
-      "details": {
-        "ma_arrangement": 3,
-        "vol_ratio": 2.8,
-        "rsi": null,
-        "price_volume": "漲跌:9.5% 量比:2.8",
-        "note": "partial sentiment (4天)",
-        "margin_bal": 0,
-        "margin_bal_chg": 175,
-        "short_bal": 0,
-        "pb": 2.34,
-        "sector": "其他電子業",
-        "industry_score": 3.0,
-        "earnings_score": 10.0,
-        "recent_5d_change_pct": 23.49,
-        "vol_score": 8.0,
-        "sub_scores": {
-          "industry(40%)": 3.0,
-          "earnings(35%)": 10.0,
-          "vol_accel(25%)": 8.0,
-          "final": 6.7
-        }
-      },
-      "strategy": {
-        "entry": 27.22,
-        "stop_loss": 22.57,
-        "target": 29.4,
-        "target1": 29.4,
-        "target2": 32.12,
-        "target3": 36.75,
-        "target_note": "動態基準",
-        "atr": 2.25,
-        "upside": 8.0,
-        "upside2": 18.0,
-        "upside3": 35.0,
-        "downside": 17.1,
-        "recommendation": "積極買進 ⚡ 中型部位"
-      },
-      "grade": "D",
-      "grade_reason": "技術✗ 籌碼✗ 基本✓",
-      "sector_boost": {
-        "boosted": false
-      },
-      "backtest_summary": {
-        "best_strategy": "—",
-        "win_rate": 0,
-        "profit_factor": 0,
-        "sharpe": 0,
-        "max_drawdown": 0,
-        "best_entry_signal": "—",
-        "stop_loss_pct": -5,
-        "take_profit_pct": 10
-      }
-    },
-    {
-      "stock_id": "4707",
-      "name": "磐亞",
-      "sector": "其他",
-      "twse_sector": "",
-      "close": 16.1,
-      "change_pct": 6.27,
-      "total_score": 69.6,
-      "dimensions": {
-        "technical": 19,
-        "chips": 6,
-        "fundamental": 33.0,
-        "news": 6.15,
-        "sentiment": 10
-      },
-      "signals": {
-        "technical": [
-          "站上短均",
-          "爆量突破 (3.2x)",
-          "漲帶量"
-        ],
-        "chips": [
-          "法人方向未知(資料不足)",
-          "量價齊揚(籌碼集中)"
-        ],
-        "fundamental": [
-          "PE 偏高 (18.1x)",
-          "財務穩健 (PBR:1.1 殖利率:3.1%)",
-          "今日爆量 (3.2x)",
-          "PBR 合理 (1.05x)",
-          "殖利率不錯 (3.1%)"
-        ],
-        "news": [
-          "產業消息中性",
-          "爆量(3x+)"
-        ],
-        "sentiment": [
-          "強勢動能 (6.3%)",
-          "量比健康 (3.2x)"
-        ]
-      },
-      "details": {
-        "ma_arrangement": 3,
-        "vol_ratio": 3.17,
-        "rsi": null,
-        "price_volume": "漲跌:6.3% 量比:3.2",
-        "note": "partial sentiment (3天)",
-        "pe": 18.09,
-        "pb": 1.05,
-        "dy": 3.11,
-        "sector": "其他",
-        "industry_score": 3.0,
-        "earnings_score": 7.0,
-        "recent_5d_change_pct": 7.69,
-        "vol_score": 10.0,
-        "sub_scores": {
-          "industry(40%)": 3.0,
-          "earnings(35%)": 7.0,
-          "vol_accel(25%)": 10.0,
-          "final": 6.15
-        }
-      },
-      "strategy": {
-        "entry": 16.33,
-        "stop_loss": 14.55,
-        "target": 17.64,
-        "target1": 17.64,
-        "target2": 19.27,
-        "target3": 22.05,
-        "target_note": "動態基準",
-        "atr": 0.78,
-        "upside": 8.0,
-        "upside2": 18.0,
-        "upside3": 35.0,
-        "downside": 10.9,
-        "recommendation": "積極買進 ⚡ 中型部位"
-      },
-      "grade": "D",
-      "grade_reason": "技術✗ 籌碼✗ 基本✓",
-      "sector_boost": {
-        "boosted": false
-      },
-      "backtest_summary": {
-        "best_strategy": "—",
-        "win_rate": 0,
-        "profit_factor": 0,
-        "sharpe": 0,
-        "max_drawdown": 0,
-        "best_entry_signal": "—",
-        "stop_loss_pct": -5,
-        "take_profit_pct": 10
-      }
-    },
-    {
-      "stock_id": "3537",
-      "name": "堡達",
-      "sector": "其他",
-      "twse_sector": "",
-      "close": 45.35,
-      "change_pct": 4.49,
-      "total_score": 68.8,
-      "dimensions": {
-        "technical": 19,
-        "chips": 7,
-        "fundamental": 35.0,
-        "news": 5.62,
-        "sentiment": 9
-      },
-      "signals": {
-        "technical": [
-          "站上短均",
-          "爆量突破 (3.6x)",
-          "漲帶量"
-        ],
-        "chips": [
-          "法人方向未知(資料不足)",
-          "融資增(估，無MI_MARGN資料)",
-          "量價齊揚(籌碼集中)"
-        ],
-        "fundamental": [
-          "PE 偏高 (18.1x)",
-          "財務體質優良 (PBR:2.0 殖利率:5.1%)",
-          "今日爆量 (3.6x)",
-          "PBR 合理 (2.00x)",
-          "高殖利率 (5.1%)"
-        ],
-        "news": [
-          "產業消息中性",
-          "爆量(3x+)"
-        ],
-        "sentiment": [
-          "正向動能 (4.5%)",
-          "量比健康 (3.6x)"
-        ]
-      },
-      "details": {
-        "ma_arrangement": 3,
-        "vol_ratio": 3.56,
-        "rsi": null,
-        "price_volume": "漲跌:4.5% 量比:3.6",
-        "note": "partial sentiment (3天)",
-        "pe": 18.07,
-        "pb": 2.0,
-        "dy": 5.07,
-        "sector": "其他",
-        "industry_score": 3.0,
-        "earnings_score": 5.5,
-        "recent_5d_change_pct": 5.96,
-        "vol_score": 10.0,
-        "sub_scores": {
-          "industry(40%)": 3.0,
-          "earnings(35%)": 5.5,
-          "vol_accel(25%)": 10.0,
-          "final": 5.62
-        }
-      },
-      "strategy": {
-        "entry": 45.94,
-        "stop_loss": 41.45,
-        "target": 49.62,
-        "target1": 49.62,
-        "target2": 54.21,
-        "target3": 62.02,
-        "target_note": "動態基準",
-        "atr": 1.95,
-        "upside": 8.0,
-        "upside2": 18.0,
-        "upside3": 35.0,
-        "downside": 9.8,
-        "recommendation": "積極買進 ⚡ 中型部位"
-      },
-      "grade": "D",
-      "grade_reason": "技術✗ 籌碼✗ 基本✓",
-      "sector_boost": {
-        "boosted": false
-      },
-      "backtest_summary": {
-        "best_strategy": "—",
-        "win_rate": 0,
-        "profit_factor": 0,
-        "sharpe": 0,
-        "max_drawdown": 0,
-        "best_entry_signal": "—",
-        "stop_loss_pct": -5,
-        "take_profit_pct": 10
-      }
-    },
-    {
-      "stock_id": "5410",
-      "name": "國眾",
-      "sector": "其他",
-      "twse_sector": "",
-      "close": 36.5,
-      "change_pct": 4.89,
-      "total_score": 68.8,
-      "dimensions": {
-        "technical": 19,
-        "chips": 7,
-        "fundamental": 38.0,
-        "news": 6.67,
-        "sentiment": 7
-      },
-      "signals": {
-        "technical": [
-          "站上短均",
-          "爆量突破 (8.6x)",
-          "漲帶量"
-        ],
-        "chips": [
-          "法人方向未知(資料不足)",
-          "融資增(估，無MI_MARGN資料)",
-          "量價齊揚(籌碼集中)"
-        ],
-        "fundamental": [
-          "PE 合理 (15.5x)",
-          "財務體質優良 (PBR:2.2 殖利率:5.8%)",
-          "今日爆量 (8.6x)",
-          "PBR 合理 (2.16x)",
-          "高殖利率 (5.8%)"
-        ],
-        "news": [
-          "產業消息中性",
-          "爆量(3x+)"
-        ],
-        "sentiment": [
-          "正向動能 (4.9%)",
-          "爆量注意 (8.6x)"
-        ]
-      },
-      "details": {
-        "ma_arrangement": 3,
-        "vol_ratio": 8.57,
-        "rsi": null,
-        "price_volume": "漲跌:4.9% 量比:8.6",
-        "note": "partial sentiment (3天)",
-        "pe": 15.53,
-        "pb": 2.16,
-        "dy": 5.75,
-        "sector": "其他",
-        "industry_score": 3.0,
-        "earnings_score": 8.5,
-        "recent_5d_change_pct": 10.44,
-        "vol_score": 10.0,
-        "sub_scores": {
-          "industry(40%)": 3.0,
-          "earnings(35%)": 8.5,
-          "vol_accel(25%)": 10.0,
-          "final": 6.67
-        }
-      },
-      "strategy": {
-        "entry": 37.37,
-        "stop_loss": 31.02,
-        "target": 40.36,
-        "target1": 40.36,
-        "target2": 44.1,
-        "target3": 50.45,
-        "target_note": "動態基準",
-        "atr": 2.9,
-        "upside": 8.0,
-        "upside2": 18.0,
-        "upside3": 35.0,
-        "downside": 17.0,
-        "recommendation": "積極買進 ⚡ 中型部位"
-      },
-      "grade": "D",
-      "grade_reason": "技術✗ 籌碼✗ 基本✓",
-      "sector_boost": {
-        "boosted": false
-      },
-      "backtest_summary": {
-        "best_strategy": "—",
-        "win_rate": 0,
-        "profit_factor": 0,
-        "sharpe": 0,
-        "max_drawdown": 0,
-        "best_entry_signal": "—",
-        "stop_loss_pct": -5,
-        "take_profit_pct": 10
-      }
-    },
-    {
-      "stock_id": "1524",
-      "name": "耿鼎",
-      "sector": "汽車工業",
-      "twse_sector": "汽車工業",
-      "close": 30.25,
-      "change_pct": 6.51,
-      "total_score": 68.2,
-      "dimensions": {
-        "technical": 16,
-        "chips": 6,
-        "fundamental": 36.0,
-        "news": 5.65,
-        "sentiment": 10
-      },
-      "signals": {
-        "technical": [
-          "站上短均",
-          "量增 (2.3x)",
-          "漲帶量"
-        ],
-        "chips": [
-          "法人方向未知(資料不足)",
-          "融資持平 (+95張)",
-          "量價齊揚(籌碼集中)"
-        ],
-        "fundamental": [
-          "PE 合理 (15.5x)",
-          "財務穩健 (PBR:1.7 殖利率:4.6%)",
-          "今日爆量 (2.3x)",
-          "PBR 合理 (1.66x)",
-          "殖利率不錯 (4.6%)"
-        ],
-        "news": [
-          "產業消息中性",
-          "大量(2x+)"
-        ],
-        "sentiment": [
-          "強勢動能 (6.5%)",
-          "量比健康 (2.3x)"
-        ]
-      },
-      "details": {
-        "ma_arrangement": 3,
-        "vol_ratio": 2.32,
-        "rsi": null,
-        "price_volume": "漲跌:6.5% 量比:2.3",
-        "note": "partial sentiment (4天)",
-        "margin_bal": 0,
-        "margin_bal_chg": 95,
-        "short_bal": 0,
-        "pe": 15.51,
-        "pb": 1.66,
-        "dy": 4.63,
-        "sector": "汽車工業",
-        "industry_score": 3.0,
-        "earnings_score": 7.0,
-        "recent_5d_change_pct": 8.04,
-        "vol_score": 8.0,
-        "sub_scores": {
-          "industry(40%)": 3.0,
-          "earnings(35%)": 7.0,
-          "vol_accel(25%)": 8.0,
-          "final": 5.65
-        }
-      },
-      "strategy": {
-        "entry": 30.8,
-        "stop_loss": 26.58,
-        "target": 33.26,
-        "target1": 33.26,
-        "target2": 36.34,
-        "target3": 41.58,
-        "target_note": "動態基準",
-        "atr": 1.83,
-        "upside": 8.0,
-        "upside2": 18.0,
-        "upside3": 35.0,
-        "downside": 13.7,
-        "recommendation": "積極買進 ⚡ 中型部位"
-      },
-      "grade": "D",
-      "grade_reason": "技術✗ 籌碼✗ 基本✓",
-      "sector_boost": {
-        "boosted": false
-      },
-      "backtest_summary": {
-        "best_strategy": "—",
-        "win_rate": 0,
-        "profit_factor": 0,
-        "sharpe": 0,
-        "max_drawdown": 0,
-        "best_entry_signal": "—",
-        "stop_loss_pct": -5,
-        "take_profit_pct": 10
-      }
-    },
-    {
-      "stock_id": "6227",
-      "name": "茂綸",
-      "sector": "其他",
-      "twse_sector": "",
-      "close": 101.0,
-      "change_pct": 4.23,
-      "total_score": 68.1,
-      "dimensions": {
-        "technical": 19,
-        "chips": 7,
-        "fundamental": 32.0,
-        "news": 6.15,
-        "sentiment": 9
-      },
-      "signals": {
-        "technical": [
-          "站上短均",
-          "爆量突破 (3.8x)",
-          "漲帶量"
-        ],
-        "chips": [
-          "法人方向未知(資料不足)",
-          "融資增(估，無MI_MARGN資料)",
-          "量價齊揚(籌碼集中)"
-        ],
-        "fundamental": [
-          "PE 合理 (13.4x)",
-          "財務穩健 (PBR:2.6 殖利率:4.5%)",
-          "今日爆量 (3.8x)",
-          "PBR 偏高 (2.57x)",
-          "殖利率不錯 (4.5%)"
-        ],
-        "news": [
-          "產業消息中性",
-          "爆量(3x+)"
-        ],
-        "sentiment": [
-          "正向動能 (4.2%)",
-          "量比健康 (3.8x)"
-        ]
-      },
-      "details": {
-        "ma_arrangement": 3,
-        "vol_ratio": 3.82,
-        "rsi": null,
-        "price_volume": "漲跌:4.2% 量比:3.8",
-        "note": "partial sentiment (3天)",
-        "pe": 13.4,
-        "pb": 2.57,
-        "dy": 4.46,
-        "sector": "其他",
-        "industry_score": 3.0,
-        "earnings_score": 7.0,
-        "recent_5d_change_pct": 6.88,
-        "vol_score": 10.0,
-        "sub_scores": {
-          "industry(40%)": 3.0,
-          "earnings(35%)": 7.0,
-          "vol_accel(25%)": 10.0,
-          "final": 6.15
-        }
-      },
-      "strategy": {
-        "entry": 102.39,
-        "stop_loss": 91.7,
-        "target": 110.58,
-        "target1": 110.58,
-        "target2": 120.82,
-        "target3": 138.23,
-        "target_note": "動態基準",
-        "atr": 4.65,
-        "upside": 8.0,
-        "upside2": 18.0,
-        "upside3": 35.0,
-        "downside": 10.4,
-        "recommendation": "積極買進 ⚡ 中型部位"
-      },
-      "grade": "D",
-      "grade_reason": "技術✗ 籌碼✗ 基本✓",
-      "sector_boost": {
-        "boosted": false
-      },
-      "backtest_summary": {
-        "best_strategy": "—",
-        "win_rate": 0,
-        "profit_factor": 0,
-        "sharpe": 0,
-        "max_drawdown": 0,
-        "best_entry_signal": "—",
-        "stop_loss_pct": -5,
-        "take_profit_pct": 10
-      }
-    },
-    {
-      "stock_id": "5206",
-      "name": "坤悅",
-      "sector": "其他",
-      "twse_sector": "",
-      "close": 24.55,
-      "change_pct": 6.05,
-      "total_score": 68.0,
-      "dimensions": {
-        "technical": 19,
-        "chips": 7,
-        "fundamental": 37.0,
-        "news": 5.62,
-        "sentiment": 8
-      },
-      "signals": {
-        "technical": [
-          "站上短均",
-          "爆量突破 (6.1x)",
-          "漲帶量"
-        ],
-        "chips": [
-          "法人方向未知(資料不足)",
-          "融資增(估，無MI_MARGN資料)",
-          "量價齊揚(籌碼集中)"
-        ],
-        "fundamental": [
-          "PE 低估 (7.1x)",
-          "財務體質優良 (PBR:1.1 殖利率:6.1%)",
-          "今日爆量 (6.1x)",
-          "PBR 合理 (1.14x)",
-          "高殖利率 (6.1%)"
-        ],
-        "news": [
-          "產業消息中性",
-          "爆量(3x+)"
-        ],
-        "sentiment": [
-          "強勢動能 (6.0%)",
-          "爆量注意 (6.1x)"
-        ]
-      },
-      "details": {
-        "ma_arrangement": 3,
-        "vol_ratio": 6.1,
-        "rsi": null,
-        "price_volume": "漲跌:6.0% 量比:6.1",
-        "note": "partial sentiment (3天)",
-        "pe": 7.14,
-        "pb": 1.14,
-        "dy": 6.11,
-        "sector": "其他",
-        "industry_score": 3.0,
-        "earnings_score": 5.5,
-        "recent_5d_change_pct": 4.03,
-        "vol_score": 10.0,
-        "sub_scores": {
-          "industry(40%)": 3.0,
-          "earnings(35%)": 5.5,
-          "vol_accel(25%)": 10.0,
-          "final": 5.62
-        }
-      },
-      "strategy": {
-        "entry": 24.87,
-        "stop_loss": 22.45,
-        "target": 26.86,
-        "target1": 26.86,
-        "target2": 29.35,
-        "target3": 33.57,
-        "target_note": "動態基準",
-        "atr": 1.05,
-        "upside": 8.0,
-        "upside2": 18.0,
-        "upside3": 35.0,
-        "downside": 9.7,
-        "recommendation": "積極買進 ⚡ 中型部位"
-      },
-      "grade": "D",
-      "grade_reason": "技術✗ 籌碼✗ 基本✓",
-      "sector_boost": {
-        "boosted": false
-      },
-      "backtest_summary": {
-        "best_strategy": "—",
-        "win_rate": 0,
-        "profit_factor": 0,
-        "sharpe": 0,
-        "max_drawdown": 0,
-        "best_entry_signal": "—",
-        "stop_loss_pct": -5,
-        "take_profit_pct": 10
-      }
+      "rank": 3,
+      "stock_id": "2344",
+      "stock_name": "華邦電",
+      "close": 52.0,
+      "change_pct": 3.2,
+      "total_score": 61,
+      "status": "記憶體超級週期受益，法說樂觀，但8日回檔整理中",
+      "wait_signal": "外資連2日買超 + 收盤站回53元"
     }
-  ],
-  "explosive_top5": [],
-  "backtest": {
-    "validation_date": "2026/05/08",
-    "source_scan_date": "2026/05/07",
-    "t1_results": [
-      {
-        "stock_id": "2357",
-        "name": "華碩",
-        "scan_date": "2026/05/07",
-        "prev_close": 639.0,
-        "t1_date": "2026/05/08",
-        "t1_close": 639.0,
-        "t1_return": 0.0
-      },
-      {
-        "stock_id": "3213",
-        "name": "茂訊",
-        "scan_date": "2026/05/07",
-        "prev_close": 114.5,
-        "t1_date": "2026/05/08",
-        "t1_close": 114.5,
-        "t1_return": 0.0
-      },
-      {
-        "stock_id": "6279",
-        "name": "胡連",
-        "scan_date": "2026/05/07",
-        "prev_close": 124.0,
-        "t1_date": "2026/05/08",
-        "t1_close": 124.0,
-        "t1_return": 0.0
-      },
-      {
-        "stock_id": "6026",
-        "name": "福邦證",
-        "scan_date": "2026/05/07",
-        "prev_close": 16.7,
-        "t1_date": "2026/05/08",
-        "t1_close": 16.7,
-        "t1_return": 0.0
-      },
-      {
-        "stock_id": "4707",
-        "name": "磐亞",
-        "scan_date": "2026/05/07",
-        "prev_close": 16.1,
-        "t1_date": "2026/05/08",
-        "t1_close": 16.1,
-        "t1_return": 0.0
-      }
-    ]
-  },
-  "scan_elapsed_sec": 107.3
+  ]
 }
