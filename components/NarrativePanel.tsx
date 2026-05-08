@@ -7,6 +7,24 @@ interface Props {
   stock: ScanStock;
 }
 
+// ── 推薦格式輔助函數（支援所有 Python 輸出格式）──
+// "★★★ Strong Recommend" / "強力買進" / "積極買進 ⚡ 中型部位" / "買進" / "觀望" / "偏弱"
+function isStrongBuy(rec: string): boolean {
+  const r = rec.toLowerCase();
+  return r.includes('★★★') || r.includes('strong') || r.includes('強力');
+}
+function isAggressive(rec: string): boolean {
+  return rec.includes('積極');
+}
+function isBuy(rec: string): boolean {
+  const r = rec.toLowerCase();
+  return (r.includes('買進') || r.includes('buy') || r.includes('逢低')) && !isStrongBuy(rec) && !isAggressive(rec);
+}
+function isWatch(rec: string): boolean {
+  const r = rec.toLowerCase();
+  return r.includes('觀望') || r.includes('wait') || r.includes('hold');
+}
+
 /** 從五維分數 + 策略 + 技術指標自動生成白話文解析 */
 function generateNarrative(stock: ScanStock): StockNarrative {
   const dims = stock.dimensions;
@@ -20,6 +38,17 @@ function generateNarrative(stock: ScanStock): StockNarrative {
   const rec = stock.strategy?.recommendation ?? '觀望';
   const upside = stock.strategy?.upside ?? 0;
   const downside = stock.strategy?.downside ?? 0;
+
+  // 進場價範圍
+  const entryLow = stock.strategy?.entry_low;
+  const entryHigh = stock.strategy?.entry_high;
+  const entryMid = stock.strategy?.entry;
+  const entryStr = (entryLow && entryHigh)
+    ? `${entryLow.toFixed(2)}～${entryHigh.toFixed(2)}`
+    : entryMid
+      ? entryMid.toFixed(2)
+      : '開盤價';
+  const stopStr = stock.strategy?.stop_loss?.toFixed(2) ?? '支撐位';
 
   // ── 技術面 ──
   let techText = '';
@@ -81,15 +110,15 @@ function generateNarrative(stock: ScanStock): StockNarrative {
   if (risks.length === 0) risks.push('短線波動風險可控，但仍需設好停損');
   const riskText = risks.slice(0, 3).join('；') + '。';
 
-  // ── 操作建議 ──
+  // ── 操作建議（支援所有 Python 格式）──
   let actionText = '';
-  if (rec === '強力買進') {
-    actionText = `強勢股突破訊號明確，建議於 ${stock.strategy?.entry?.toFixed(2) ?? '開盤價'} 附近進場，停損嚴守 ${stock.strategy?.stop_loss?.toFixed(2) ?? '支撐位'}（約 -${downside}%），目標上看 +${upside}%，持股 3-5 天短打為主。`;
-  } else if (rec === '買進') {
-    actionText = `趨勢偏多且籌碼穩定，可於 ${stock.strategy?.entry?.toFixed(2) ?? '現價'} 附近分批布局，停損設 ${stock.strategy?.stop_loss?.toFixed(2) ?? '支撐位'}，目標 +${upside}%，持股 5-7 天。`;
-  } else if (rec === '逢低佈局') {
-    actionText = `短線雖弱但具反彈條件，可小量試單，於 ${stock.strategy?.entry?.toFixed(2) ?? '支撐區'} 分批承接，停損嚴設 ${stock.strategy?.stop_loss?.toFixed(2) ?? '前低'}，持股不超過 5 天。`;
-  } else if (rec === '觀望') {
+  if (isStrongBuy(rec)) {
+    actionText = `強勢突破訊號明確，建議於 ${entryStr} 附近進場，停損嚴守 ${stopStr}（約 -${downside}%），目標上看 +${upside}%，持股 3-5 天短打為主。`;
+  } else if (isAggressive(rec)) {
+    actionText = `積極買進訊號，建議於 ${entryStr} 分批布局，停損設 ${stopStr}，目標 +${upside}%，持股 3-7 天。`;
+  } else if (isBuy(rec)) {
+    actionText = `趨勢偏多且籌碼穩定，可於 ${entryStr} 附近分批布局，停損設 ${stopStr}，目標 +${upside}%，持股 5-7 天。`;
+  } else if (isWatch(rec)) {
     actionText = '多空訊號混雜，建議觀望等待方向明確，若已持有則嚴守停損。';
   } else {
     actionText = '技術面偏弱，暫時避開，等待止跌訊號出現再考慮進場。';
@@ -110,22 +139,16 @@ export default function NarrativePanel({ stock }: Props) {
   ];
 
   return (
-    <div className="rounded-xl bg-gray-800/40 border border-gray-700/50 p-4">
-      <h3 className="text-[11px] font-semibold text-gray-500 mb-3 uppercase tracking-wide flex items-center gap-1.5">
-        <Brain className="w-3.5 h-3.5 text-purple-400" />
-        AI 白話文解析
-      </h3>
-      <div className="space-y-3">
-        {sections.map(({ icon: Icon, label, text, color, bg, border }) => (
-          <div key={label} className={`rounded-lg border p-3 ${bg} ${border}`}>
-            <div className={`flex items-center gap-1.5 mb-1.5 ${color}`}>
-              <Icon className="w-3 h-3" />
-              <span className="text-[10px] font-semibold uppercase tracking-wide">{label}</span>
-            </div>
-            <p className="text-[11px] text-gray-300 leading-relaxed">{text}</p>
+    <div className="space-y-3">
+      {sections.map(({ icon: Icon, label, text, color, bg, border }) => (
+        <div key={label} className={`rounded-xl border ${border} ${bg} p-3`}>
+          <div className="flex items-center gap-2 mb-1.5">
+            <Icon className={`w-3.5 h-3.5 ${color}`} />
+            <span className={`text-xs font-semibold ${color}`}>{label}</span>
           </div>
-        ))}
-      </div>
+          <p className="text-xs text-gray-300 leading-relaxed">{text}</p>
+        </div>
+      ))}
     </div>
   );
 }
