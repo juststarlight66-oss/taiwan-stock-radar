@@ -14,20 +14,20 @@ update_tn_records.py
 backtest.json schema:
   {
     "version": 2,
-    "grouped_records": [
-      {
-        "scan_date": "2026-05-02",
-        "periods": {
-          "T1": { "label": "T+1", "backtest_date": "2026-05-05", "win_rate": 80.0,
-                  "avg_return": 4.05, "pending": false,
-                  "stocks": [{"stock_id": "...", "name": "...", "entry": 100.0,
-                              "close": 105.0, "return_pct": 5.0,
-                              "hit_target": true, "hit_stoploss": false,
-                              "pending": false}] },
-          "T3": { ... },
-          "T5": { ... }
-        }
-      }
+    "grouped_records": [\
+      {\
+        "scan_date": "2026-05-02",\
+        "periods": {\
+          "T1": { "label": "T+1", "backtest_date": "2026-05-05", "win_rate": 80.0,\
+                  "avg_return": 4.05, "pending": false,\
+                  "stocks": [{"stock_id": "...", "name": "...", "entry": 100.0,\
+                              "close": 105.0, "return_pct": 5.0,\
+                              "hit_target": true, "hit_stoploss": false,\
+                              "pending": false}] },\
+          "T3": { ... },\
+          "T5": { ... }\
+        }\
+      }\
     ],
     "records": [...],   # legacy flat format kept for backward compat
     "history": [...]    # old format, kept as-is
@@ -41,8 +41,11 @@ import json
 import os
 import re
 import base64
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from collections import defaultdict
+
+# 台灣時區 UTC+8
+_TW_TZ = timezone(timedelta(hours=8))
 
 try:
     import httpx as _httpx
@@ -55,11 +58,11 @@ except ImportError:
     _requests = None
 
 # ── Paths ─────────────────────────────────────────────────────────────────────
-TASK_DIR    = os.path.dirname(os.path.abspath(__file__))
-LATEST_JSON = os.path.join(TASK_DIR, 'latest.json')
-BACKTEST    = os.path.join(TASK_DIR, 'backtest.json')
+TASK_DIR       = os.path.dirname(os.path.abspath(__file__))
+LATEST_JSON    = os.path.join(TASK_DIR, 'latest.json')
+BACKTEST       = os.path.join(TASK_DIR, 'backtest.json')
 PUBLIC_BACKTEST = os.path.join(os.path.dirname(os.path.dirname(TASK_DIR)), 'taiwan-stock-radar', 'public', 'data', 'backtest.json')
-OHLCV       = os.path.join(TASK_DIR, '.cache', 'daily_ohlcv.json')
+OHLCV          = os.path.join(TASK_DIR, '.cache', 'daily_ohlcv.json')
 
 # Also try the repo-relative path
 REPO_BACKTEST_CANDIDATES = [
@@ -75,7 +78,6 @@ BRANCH = 'main'
 GH_BACKTEST_PATH = 'public/data/backtest.json'
 
 TN_DAYS = {'t1': 1, 't3': 3, 't5': 5}
-
 
 # ── HTTP helpers ──────────────────────────────────────────────────────────────
 
@@ -149,7 +151,6 @@ def push_file_to_github(path_in_repo: str, content_str: str, commit_msg: str) ->
         print(f'[GitHub Push] ERROR: {e}')
     return False
 
-
 # ── OHLCV helpers ─────────────────────────────────────────────────────────────
 
 def load_ohlcv() -> dict:
@@ -191,12 +192,11 @@ def get_close_after_n_days(ohlcv: dict, entry_date_str: str, stock_id: str, n: i
     if target_idx >= len(days):
         return None
     target_day = days[target_idx]
-    day_data = ohlcv.get(target_day, {})
+    day_data   = ohlcv.get(target_day, {})
     stock_data = day_data.get(stock_id, {})
     if isinstance(stock_data, dict):
         return stock_data.get('close')
     return None
-
 
 # ── Trading day calendar helper ───────────────────────────────────────────────
 
@@ -222,11 +222,10 @@ def add_trading_days(entry_date_str: str, n: int, ohlcv: dict) -> str | None:
     target_idx = idx + n
     if target_idx >= len(days):
         # Estimate: last known day + n*2 calendar days
-        last = datetime.strptime(days[-1], '%Y%m%d')
+        last      = datetime.strptime(days[-1], '%Y%m%d')
         remaining = target_idx - len(days) + 1
         return (last + timedelta(days=remaining * 2)).strftime('%Y-%m-%d')
     return datetime.strptime(days[target_idx], '%Y%m%d').strftime('%Y-%m-%d')
-
 
 # ── Core logic ────────────────────────────────────────────────────────────────
 
@@ -276,15 +275,15 @@ def normalize_date(d: str) -> str:
 
 def step1_add_today_top10(backtest: dict, latest: dict) -> int:
     """Add today's Top10 to records if not already present. Returns count added."""
-    records = backtest.setdefault('records', [])
+    records   = backtest.setdefault('records', [])
     scan_date = latest.get('scan_date', '')
     if not scan_date:
         print('[step1] No scan_date in latest.json, skipping')
         return 0
-    scan_date_norm = normalize_date(scan_date)
-    existing_keys = {(r['stock_id'], normalize_date(r['entry_date'])) for r in records}
-    top10 = latest.get('top10', latest.get('stocks', []))[:10]
-    added = 0
+    scan_date_norm  = normalize_date(scan_date)
+    existing_keys   = {(r['stock_id'], normalize_date(r['entry_date'])) for r in records}
+    top10   = latest.get('top10', latest.get('stocks', []))[:10]
+    added   = 0
     for s in top10:
         sid = str(s.get('stock_id', s.get('id', '')))
         if not sid:
@@ -294,8 +293,8 @@ def step1_add_today_top10(backtest: dict, latest: dict) -> int:
             continue
         entry_price = s.get('close', s.get('price', s.get('entry_price')))
         records.append({
-            'stock_id': sid,
-            'name': s.get('name', ''),
+            'stock_id':   sid,
+            'name':       s.get('name', ''),
             'entry_date': scan_date,
             'entry_price': entry_price,
             't1': {'pct': None, 'win': None},
@@ -313,9 +312,9 @@ def step2_fill_tn_pcts(backtest: dict, ohlcv: dict) -> int:
     records = backtest.get('records', [])
     updated = 0
     for r in records:
-        entry_date = r.get('entry_date', '')
+        entry_date  = r.get('entry_date', '')
         entry_price = r.get('entry_price')
-        sid = r.get('stock_id', '')
+        sid         = r.get('stock_id', '')
         if not entry_price or not entry_date or not sid:
             continue
         for tn_key, n_days in TN_DAYS.items():
@@ -325,11 +324,11 @@ def step2_fill_tn_pcts(backtest: dict, ohlcv: dict) -> int:
             close = get_close_after_n_days(ohlcv, entry_date, sid, n_days)
             if close is None:
                 continue
-            pct = round((close - entry_price) / entry_price * 100, 2)
+            pct      = round((close - entry_price) / entry_price * 100, 2)
             tn['pct'] = pct
             tn['win'] = pct > 0
             r[tn_key] = tn
-            updated += 1
+            updated  += 1
     print(f'[step2] Filled {updated} T+N pct values')
     return updated
 
@@ -350,46 +349,46 @@ def step3_build_grouped_records(backtest: dict, ohlcv: dict):
 
     grouped = []
     for scan_date in sorted(by_date.keys(), reverse=True):
-        recs = by_date[scan_date]
+        recs    = by_date[scan_date]
         periods = {}
         for tn_key, n_days, label in [('t1', 1, 'T+1'), ('t3', 3, 'T+3'), ('t5', 5, 'T+5')]:
             backtest_date = add_trading_days(scan_date, n_days, ohlcv)
             stocks = []
-            pcts = []
+            pcts   = []
             for r in recs:
-                tn = r.get(tn_key, {})
-                pct = tn.get('pct') if tn else None
+                tn        = r.get(tn_key, {})
+                pct       = tn.get('pct') if tn else None
                 close_val = None
-                ep = r.get('entry_price')
+                ep        = r.get('entry_price')
                 if pct is not None and ep:
                     close_val = round(ep * (1 + pct / 100), 2)
                 pending = pct is None
                 stocks.append({
-                    'stock_id': r.get('stock_id', ''),
-                    'name': r.get('name', ''),
-                    'entry': ep,
-                    'close': close_val,
-                    'return_pct': pct,
-                    'hit_target': pct is not None and pct >= 3.0,
+                    'stock_id':    r.get('stock_id', ''),
+                    'name':        r.get('name', ''),
+                    'entry':       ep,
+                    'close':       close_val,
+                    'return_pct':  pct,
+                    'hit_target':  pct is not None and pct >= 3.0,
                     'hit_stoploss': pct is not None and pct <= -5.0,
-                    'pending': pending,
+                    'pending':     pending,
                 })
                 if pct is not None:
                     pcts.append(pct)
             pending_period = len(pcts) == 0
-            win_rate = None
+            win_rate   = None
             avg_return = None
             if pcts:
-                wins = sum(1 for p in pcts if p > 0)
-                win_rate = round(wins / len(pcts) * 100, 1)
+                wins       = sum(1 for p in pcts if p > 0)
+                win_rate   = round(wins / len(pcts) * 100, 1)
                 avg_return = round(sum(pcts) / len(pcts), 2)
             periods[tn_key.upper()] = {
-                'label': label,
+                'label':        label,
                 'backtest_date': backtest_date or '',
-                'win_rate': win_rate,
-                'avg_return': avg_return,
-                'pending': pending_period,
-                'stocks': stocks,
+                'win_rate':     win_rate,
+                'avg_return':   avg_return,
+                'pending':      pending_period,
+                'stocks':       stocks,
             }
         grouped.append({'scan_date': scan_date, 'periods': periods})
 
@@ -401,8 +400,8 @@ def step3_build_grouped_records(backtest: dict, ohlcv: dict):
 def main():
     print('=== update_tn_records.py start ===')
     backtest = load_backtest()
-    latest = load_latest()
-    ohlcv = load_ohlcv()
+    latest   = load_latest()
+    ohlcv    = load_ohlcv()
     print(f'Loaded: {len(backtest.get("records", []))} records, '
           f'{len(ohlcv)} OHLCV days, '
           f'latest scan_date={latest.get("scan_date", "N/A")}')
@@ -417,7 +416,7 @@ def main():
     save_backtest(backtest)
 
     content_str = json.dumps(backtest, ensure_ascii=False, separators=(',', ':'))
-    today = datetime.now().strftime('%Y-%m-%d')
+    today = datetime.now(_TW_TZ).strftime('%Y-%m-%d')
     push_file_to_github(
         GH_BACKTEST_PATH,
         content_str,
