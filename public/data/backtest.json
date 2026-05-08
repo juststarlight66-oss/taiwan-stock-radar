@@ -111,6 +111,57 @@
           "data_source": "none"
         }
       }
+    },
+    {
+      "validation_date": "2026/05/08",
+      "source_scan_date": "2026/05/07",
+      "results": [
+        {
+          "stock_id": "2357",
+          "name": "華碩",
+          "scan_date": "2026/05/07",
+          "prev_close": 639.0,
+          "t1_date": "2026/05/08",
+          "t1_close": 639.0,
+          "t1_return": 0.0
+        },
+        {
+          "stock_id": "3213",
+          "name": "茂訊",
+          "scan_date": "2026/05/07",
+          "prev_close": 114.5,
+          "t1_date": "2026/05/08",
+          "t1_close": 114.5,
+          "t1_return": 0.0
+        },
+        {
+          "stock_id": "6279",
+          "name": "胡連",
+          "scan_date": "2026/05/07",
+          "prev_close": 124.0,
+          "t1_date": "2026/05/08",
+          "t1_close": 124.0,
+          "t1_return": 0.0
+        },
+        {
+          "stock_id": "6026",
+          "name": "福邦證",
+          "scan_date": "2026/05/07",
+          "prev_close": 16.7,
+          "t1_date": "2026/05/08",
+          "t1_close": 16.7,
+          "t1_return": 0.0
+        },
+        {
+          "stock_id": "4707",
+          "name": "磐亞",
+          "scan_date": "2026/05/07",
+          "prev_close": 16.1,
+          "t1_date": "2026/05/08",
+          "t1_close": 16.1,
+          "t1_return": 0.0
+        }
+      ]
     }
   ],
   "records": [
