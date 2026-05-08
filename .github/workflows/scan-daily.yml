@@ -25,10 +25,17 @@ jobs:
           python-version: '3.11'
 
       - name: Install deps
-        run: pip install requests pytz numpy pandas
+        run: pip install requests pytz numpy pandas scikit-learn yfinance beautifulsoup4 lxml
+
+      - name: Create shared stub
+        run: |
+          mkdir -p /home/runner/work/tasks/shared
+          echo "def run_backtest(stock_id, strategy='all', days=60): return {}" > /home/runner/work/tasks/shared/per_stock_backtest.py
 
       - name: Run scan
         run: python tasks/2255/scan_market.py
+        env:
+          PYTHONPATH: /home/runner/work
 
       - name: Copy and update data files
         run: python tasks/2255/post_scan.py
