@@ -1,10 +1,10 @@
 name: Scan Quality Check
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'tasks/2255/**'
+  schedule:
+    # 每日 16:00 台灣時間（UTC 08:00）執行，確保盤後資料已更新
+    - cron: '0 8 * * 1-5'
+  workflow_dispatch:  # 保留手動觸發
 
 jobs:
   quality-check:
@@ -18,23 +18,36 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install requests
+        run: pip install requests pytz
 
       - name: Check TPEx API endpoints
         run: |
           python3 - <<'EOF'
-          import requests, sys, warnings
+          import requests, sys, warnings, datetime
+          import pytz
           warnings.filterwarnings('ignore')
+
+          # 判斷台灣時間是否已過盤後 15:30
+          tz = pytz.timezone('Asia/Taipei')
+          now_tw = datetime.datetime.now(tz)
+          is_weekday = now_tw.weekday() < 5  # Mon-Fri
+          is_after_close = (now_tw.hour > 15) or (now_tw.hour == 15 and now_tw.minute >= 30)
+
+          if not is_weekday:
+              print(f"SKIP: 非交易日（{now_tw.strftime('%Y-%m-%d %H:%M')} 台灣時間），略過 API 檢查")
+              sys.exit(0)
+
+          if not is_after_close:
+              print(f"SKIP: 盤前/盤中（{now_tw.strftime('%Y-%m-%d %H:%M')} 台灣時間，未過 15:30），略過 API 檢查")
+              sys.exit(0)
+
+          print(f"執行 API 檢查（{now_tw.strftime('%Y-%m-%d %H:%M')} 台灣時間，交易日盤後）")
 
           ENDPOINTS = {
               'TWSE STOCK_DAY_ALL':  'https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL',
               'TPEx OTC daily':      'https://www.tpex.org.tw/openapi/v1/tpex_mainboard_daily_close_quotes',
               'TPEx Emerging daily': 'https://www.tpex.org.tw/openapi/v1/tpex_esb_daily_close_quotes',
           }
-
-          import datetime
-          today = datetime.date.today()
-          is_weekday = today.weekday() < 5  # Mon-Fri
 
           failed = []
           for name, url in ENDPOINTS.items():
@@ -44,28 +57,26 @@ jobs:
                   if r.status_code == 200:
                       data = r.json()
                       count = len(data) if isinstance(data, list) else 0
-                      print(f"OK  {name}: {count} 筆")
+                      if count == 0:
+                          # 200 但無資料，視為 warning 不 fail
+                          print(f"WARN {name}: 200 但回傳 0 筆（可能今日無交易）")
+                      else:
+                          print(f"OK   {name}: {count} 筆")
                   else:
                       msg = f"HTTP {r.status_code}"
-                      if is_weekday:
-                          failed.append(f"{name}: {msg}")
-                          print(f"FAIL {name}: {msg}")
-                      else:
-                          print(f"SKIP {name}: {msg} (非交易日，忽略)")
+                      failed.append(f"{name}: {msg}")
+                      print(f"FAIL {name}: {msg}")
               except Exception as e:
-                  if is_weekday:
-                      failed.append(f"{name}: {e}")
-                      print(f"FAIL {name}: {e}")
-                  else:
-                      print(f"SKIP {name}: {e} (非交易日，忽略)")
+                  failed.append(f"{name}: {e}")
+                  print(f"FAIL {name}: {e}")
 
           if failed:
-              print("\n=== 交易日 API 異常 ===")
+              print("\n=== API 異常（盤後確認失敗）===")
               for f in failed:
                   print(f"  - {f}")
               sys.exit(1)
           else:
-              print("\nAll API checks passed (or skipped for non-trading day).")
+              print("\nAll API checks passed.")
           EOF
 
       - name: Validate scan_market.py key functions
