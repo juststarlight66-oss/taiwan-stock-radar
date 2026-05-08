@@ -1,6 +1,6 @@
 {
   "scan_type": "intraday_daytrade",
-  "scanned_at": "2026-05-08 13:01:40",
+  "scanned_at": "2026-05-08 13:02:14",
   "stocks": [
     {
       "stock_id": "3592",
@@ -114,6 +114,43 @@
       }
     },
     {
+      "stock_id": "1216",
+      "name": "統一",
+      "sector": "",
+      "score": 81,
+      "details": {
+        "momentum": "強勢推進",
+        "rsi": 100.0,
+        "ma5_status": "強勢突破",
+        "vol_ratio": "爆發",
+        "breakout": "創新高"
+      },
+      "total_score": 81,
+      "entry": 72.9,
+      "target": 78.73,
+      "stop_loss": 69.25,
+      "change_pct": 5.04,
+      "dimensions": {
+        "momentum": "強勢推進",
+        "rsi": 100.0,
+        "ma5_status": "強勢突破",
+        "vol_ratio": "爆發",
+        "breakout": "創新高"
+      },
+      "live": {
+        "current": 72.9,
+        "open": 70.2,
+        "high": 73.0,
+        "low": 70.0,
+        "prev_close": 69.4,
+        "volume": 27804,
+        "change_pct": 5.04,
+        "time": "13:02:24",
+        "date": "20260508",
+        "source": "tse"
+      }
+    },
+    {
       "stock_id": "2454",
       "name": "聯發科",
       "sector": "",
@@ -146,43 +183,6 @@
         "volume": 7319,
         "change_pct": 4.68,
         "time": "13:02:15",
-        "date": "20260508",
-        "source": "tse"
-      }
-    },
-    {
-      "stock_id": "2923",
-      "name": "鼎固-KY",
-      "sector": "",
-      "score": 74,
-      "details": {
-        "momentum": "溫和強勢",
-        "rsi": 100.0,
-        "ma5_status": "強勢突破",
-        "vol_ratio": "爆發",
-        "breakout": "創新高"
-      },
-      "total_score": 74,
-      "entry": 28.0,
-      "target": 30.24,
-      "stop_loss": 26.6,
-      "change_pct": 3.7,
-      "dimensions": {
-        "momentum": "溫和強勢",
-        "rsi": 100.0,
-        "ma5_status": "強勢突破",
-        "vol_ratio": "爆發",
-        "breakout": "創新高"
-      },
-      "live": {
-        "current": 28.0,
-        "open": 27.0,
-        "high": 28.0,
-        "low": 26.55,
-        "prev_close": 27.0,
-        "volume": 135,
-        "change_pct": 3.7,
-        "time": "13:01:44",
         "date": "20260508",
         "source": "tse"
       }
