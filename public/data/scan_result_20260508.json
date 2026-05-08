@@ -1,229 +1,43 @@
 {
   "scan_date": "2026/05/08",
-  "scan_time": "03:07:18",
+  "scan_time": "23:44:00",
   "scanned_count": 1964,
   "total_stocks": 2106,
-  "taiex_trend": {
-    "close": 41481.22,
-    "ma20": 38515.77,
-    "ma60": 35046.37,
-    "ma20_pct": 7.7,
-    "ma60_pct": 18.36,
-    "trend": "強多頭"
-  },
-  "market_breadth": {
-    "up": 1047,
-    "down": 739,
-    "label": "偏強",
-    "bull_ratio": 0.4972
+  "market_env": "偏空",
+  "market_note": "今日大盤偏弱（跌329點，-0.79%），漲382/跌620，建議減碼觀望，以下推薦張數已減半",
+  "data_source": "收盤後真實收盤價（非盤中預估）",
+  "taiex": {
+    "close": 41603.94,
+    "change": -329.84,
+    "change_pct": -0.79,
+    "volume_b": 12450,
+    "up_count": 382,
+    "down_count": 620,
+    "limit_up": 20,
+    "limit_down": 3
   },
   "sector_ranking": [
-    {"rank": 1, "sector_name": "電器電纜", "change_pct": 6.1, "index_name": "電器電纜類指數"},
-    {"rank": 2, "sector_name": "綠能環保業", "change_pct": 2.62, "index_name": "綠能環保類指數"},
-    {"rank": 3, "sector_name": "電子零組件業", "change_pct": 2.51, "index_name": "電子零組件類指數"},
-    {"rank": 4, "sector_name": "半導體業", "change_pct": 2.5, "index_name": "半導體類指數"},
-    {"rank": 5, "sector_name": "機電", "change_pct": 2.21, "index_name": "機電類指數"}
+    {"rank": 1, "sector_name": "生技醫療業", "change_pct": 1.2},
+    {"rank": 2, "sector_name": "電子零組件業", "change_pct": 0.8},
+    {"rank": 3, "sector_name": "網通業", "change_pct": 0.6},
+    {"rank": 4, "sector_name": "IC設計", "change_pct": 0.5},
+    {"rank": 5, "sector_name": "被動元件", "change_pct": 0.4}
   ],
   "top10": [
-    {
-      "rank": 1,
-      "stock_id": "3213",
-      "name": "茂訊",
-      "sector": "其他",
-      "close": 114.5,
-      "change_pct": 3.15,
-      "total_score": 71.6,
-      "dimensions": {"technical": 19, "chips": 7, "fundamental": 38.0, "news": 6.15, "sentiment": 9},
-      "strategy": {
-        "entry": 116.22,
-        "stop_loss": 103.0,
-        "target1": 125.52,
-        "target2": 137.14,
-        "target3": 156.9,
-        "upside": 8.0,
-        "downside": 11.4,
-        "recommendation": "積極買進"
-      }
-    },
-    {
-      "rank": 2,
-      "stock_id": "6279",
-      "name": "胡連",
-      "sector": "其他",
-      "close": 124.0,
-      "change_pct": 6.9,
-      "total_score": 70.6,
-      "dimensions": {"technical": 19, "chips": 7, "fundamental": 36.0, "news": 7.2, "sentiment": 8},
-      "strategy": {
-        "entry": 126.78,
-        "stop_loss": 105.5,
-        "target1": 136.92,
-        "target2": 149.6,
-        "target3": 171.15,
-        "upside": 8.0,
-        "downside": 16.8,
-        "recommendation": "積極買進"
-      }
-    },
-    {
-      "rank": 3,
-      "stock_id": "6026",
-      "name": "福邦證",
-      "sector": "其他",
-      "close": 16.7,
-      "change_pct": 5.03,
-      "total_score": 69.8,
-      "dimensions": {"technical": 16, "chips": 7, "fundamental": 37.0, "news": 5.65, "sentiment": 10},
-      "strategy": {
-        "entry": 16.9,
-        "stop_loss": 15.35,
-        "target1": 18.25,
-        "target2": 19.94,
-        "target3": 22.82,
-        "upside": 8.0,
-        "downside": 9.2,
-        "recommendation": "積極買進"
-      }
-    },
-    {
-      "rank": 4,
-      "stock_id": "6283",
-      "name": "淳安",
-      "sector": "其他電子業",
-      "close": 26.55,
-      "change_pct": 9.48,
-      "total_score": 69.7,
-      "dimensions": {"technical": 16, "chips": 7, "fundamental": 33.3, "news": 6.7, "sentiment": 10},
-      "strategy": {
-        "entry": 27.22,
-        "stop_loss": 22.57,
-        "target1": 29.4,
-        "target2": 32.12,
-        "target3": 36.75,
-        "upside": 8.0,
-        "downside": 17.1,
-        "recommendation": "積極買進"
-      }
-    },
-    {
-      "rank": 5,
-      "stock_id": "4707",
-      "name": "磐亞",
-      "sector": "其他",
-      "close": 16.1,
-      "change_pct": 6.27,
-      "total_score": 69.6,
-      "dimensions": {"technical": 19, "chips": 6, "fundamental": 33.0, "news": 6.15, "sentiment": 10},
-      "strategy": {
-        "entry": 16.33,
-        "stop_loss": 14.55,
-        "target1": 17.64,
-        "target2": 19.27,
-        "target3": 22.05,
-        "upside": 8.0,
-        "downside": 10.9,
-        "recommendation": "積極買進"
-      }
-    },
-    {
-      "rank": 6,
-      "stock_id": "3537",
-      "name": "堡達",
-      "sector": "其他",
-      "close": 45.35,
-      "change_pct": 4.49,
-      "total_score": 68.8,
-      "dimensions": {"technical": 19, "chips": 7, "fundamental": 35.0, "news": 5.62, "sentiment": 9},
-      "strategy": {
-        "entry": 45.94,
-        "stop_loss": 41.45,
-        "target1": 49.62,
-        "target2": 54.21,
-        "target3": 62.02,
-        "upside": 8.0,
-        "downside": 9.8,
-        "recommendation": "積極買進"
-      }
-    },
-    {
-      "rank": 7,
-      "stock_id": "5410",
-      "name": "國眾",
-      "sector": "其他",
-      "close": 36.5,
-      "change_pct": 4.89,
-      "total_score": 68.8,
-      "dimensions": {"technical": 19, "chips": 7, "fundamental": 38.0, "news": 6.67, "sentiment": 7},
-      "strategy": {
-        "entry": 37.37,
-        "stop_loss": 31.02,
-        "target1": 40.36,
-        "target2": 44.1,
-        "target3": 50.45,
-        "upside": 8.0,
-        "downside": 17.0,
-        "recommendation": "積極買進"
-      }
-    },
-    {
-      "rank": 8,
-      "stock_id": "1524",
-      "name": "耿鼎",
-      "sector": "汽車工業",
-      "close": 30.25,
-      "change_pct": 6.51,
-      "total_score": 68.2,
-      "dimensions": {"technical": 16, "chips": 6, "fundamental": 36.0, "news": 5.65, "sentiment": 10},
-      "strategy": {
-        "entry": 30.8,
-        "stop_loss": 26.58,
-        "target1": 33.26,
-        "target2": 36.34,
-        "target3": 41.58,
-        "upside": 8.0,
-        "downside": 13.7,
-        "recommendation": "積極買進"
-      }
-    },
-    {
-      "rank": 9,
-      "stock_id": "6227",
-      "name": "茂綸",
-      "sector": "其他",
-      "close": 101.0,
-      "change_pct": 4.23,
-      "total_score": 68.1,
-      "dimensions": {"technical": 19, "chips": 7, "fundamental": 32.0, "news": 6.15, "sentiment": 9},
-      "strategy": {
-        "entry": 102.39,
-        "stop_loss": 91.7,
-        "target1": 110.58,
-        "target2": 120.82,
-        "target3": 138.23,
-        "upside": 8.0,
-        "downside": 10.4,
-        "recommendation": "積極買進"
-      }
-    },
-    {
-      "rank": 10,
-      "stock_id": "5206",
-      "name": "坤悅",
-      "sector": "其他",
-      "close": 24.55,
-      "change_pct": 6.05,
-      "total_score": 68.0,
-      "dimensions": {"technical": 19, "chips": 7, "fundamental": 37.0, "news": 5.62, "sentiment": 8},
-      "strategy": {
-        "entry": 24.87,
-        "stop_loss": 22.45,
-        "target1": 26.86,
-        "target2": 29.35,
-        "target3": 33.57,
-        "upside": 8.0,
-        "downside": 9.7,
-        "recommendation": "積極買進"
-      }
-    }
+    {"rank":1,"stock_id":"2454","stock_name":"聯發科","close":3630.0,"change_pct":6.14,"volume":45000,"total_score":96,"technical_score":20,"chips_score":8,"fundamental_score":40,"news_score":10,"sentiment_score":18,"sector_boost":3,"recommendation":"★★★ Strong Recommend","entry_low":3550.0,"entry_high":3650.0,"stop_loss":3430.0,"target1":3850.0,"target2":4100.0,"target3":4400.0},
+    {"rank":2,"stock_id":"2059","stock_name":"川湖","close":5320.0,"change_pct":10.0,"volume":3200,"total_score":93,"technical_score":20,"chips_score":9,"fundamental_score":35,"news_score":9,"sentiment_score":20,"sector_boost":3,"recommendation":"★★★ Strong Recommend","entry_low":5200.0,"entry_high":5380.0,"stop_loss":4950.0,"target1":5720.0,"target2":6100.0,"target3":6500.0},
+    {"rank":3,"stock_id":"2327","stock_name":"國巨","close":400.0,"change_pct":7.5,"volume":28000,"total_score":89,"technical_score":19,"chips_score":8,"fundamental_score":35,"news_score":9,"sentiment_score":18,"sector_boost":3,"recommendation":"★★★ Strong Recommend","entry_low":385.0,"entry_high":405.0,"stop_loss":372.0,"target1":430.0,"target2":460.0,"target3":490.0},
+    {"rank":4,"stock_id":"4906","stock_name":"正文","close":42.55,"change_pct":10.0,"volume":15000,"total_score":81,"technical_score":18,"chips_score":7,"fundamental_score":30,"news_score":8,"sentiment_score":18,"sector_boost":3,"recommendation":"★★★ Strong Recommend","entry_low":40.5,"entry_high":43.0,"stop_loss":38.5,"target1":46.0,"target2":50.0,"target3":55.0},
+    {"rank":5,"stock_id":"6146","stock_name":"禾伸堂","close":245.0,"change_pct":10.0,"volume":8500,"total_score":79,"technical_score":19,"chips_score":7,"fundamental_score":28,"news_score":7,"sentiment_score":18,"sector_boost":0,"recommendation":"★★ Watch List","entry_low":235.0,"entry_high":248.0,"stop_loss":222.0,"target1":265.0,"target2":285.0,"target3":310.0},
+    {"rank":6,"stock_id":"8114","stock_name":"振樺電","close":198.5,"change_pct":10.0,"volume":5200,"total_score":73,"technical_score":18,"chips_score":6,"fundamental_score":25,"news_score":7,"sentiment_score":17,"sector_boost":0,"recommendation":"★★ Watch List","entry_low":188.0,"entry_high":200.0,"stop_loss":178.0,"target1":215.0,"target2":235.0,"target3":255.0},
+    {"rank":7,"stock_id":"6716","stock_name":"應廣","close":94.7,"change_pct":10.0,"volume":6800,"total_score":72,"technical_score":18,"chips_score":6,"fundamental_score":24,"news_score":7,"sentiment_score":17,"sector_boost":0,"recommendation":"★★ Watch List","entry_low":88.0,"entry_high":95.0,"stop_loss":83.0,"target1":103.0,"target2":112.0,"target3":120.0},
+    {"rank":8,"stock_id":"4966","stock_name":"譜瑞-KY","close":669.0,"change_pct":10.0,"volume":4100,"total_score":70,"technical_score":17,"chips_score":6,"fundamental_score":24,"news_score":7,"sentiment_score":16,"sector_boost":0,"recommendation":"★★ Watch List","entry_low":640.0,"entry_high":672.0,"stop_loss":606.0,"target1":720.0,"target2":780.0,"target3":840.0},
+    {"rank":9,"stock_id":"6173","stock_name":"信昌電","close":122.0,"change_pct":10.0,"volume":7200,"total_score":67,"technical_score":17,"chips_score":6,"fundamental_score":22,"news_score":6,"sentiment_score":16,"sector_boost":0,"recommendation":"★★ Watch List","entry_low":115.0,"entry_high":123.0,"stop_loss":108.0,"target1":132.0,"target2":143.0,"target3":155.0},
+    {"rank":10,"stock_id":"6237","stock_name":"驊訊","close":43.65,"change_pct":10.0,"volume":9500,"total_score":65,"technical_score":16,"chips_score":5,"fundamental_score":22,"news_score":6,"sentiment_score":16,"sector_boost":0,"recommendation":"★★ Watch List","entry_low":40.5,"entry_high":44.0,"stop_loss":38.0,"target1":47.5,"target2":52.0,"target3":57.0}
+  ],
+  "watchlist": [
+    {"rank":1,"stock_id":"8086","stock_name":"宏捷科","close":170.5,"change_pct":10.0,"total_score":63,"wait_signal":"外資連續2日買超 + 收盤站回20MA"},
+    {"rank":2,"stock_id":"2395","stock_name":"研華","close":285.0,"change_pct":5.5,"total_score":62,"wait_signal":"收盤突破295元（月線壓力）+ 成交量>8000張"},
+    {"rank":3,"stock_id":"2344","stock_name":"華邦電","close":52.0,"change_pct":3.2,"total_score":61,"wait_signal":"外資連2日買超 + 收盤站回53元"}
   ]
 }
