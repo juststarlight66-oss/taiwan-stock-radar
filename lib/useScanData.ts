@@ -23,21 +23,122 @@ const fetcher = (url: string) =>
     return r.json();
   });
 
+// ---------------------------------------------------------------------------
+// normalizeScanResult: maps flat latest.json / scan_result_*.json structure
+// to the nested ScanStock shape the frontend components expect.
+// Flat fields:  stock_name, *_score, recommendation, entry_low/high, stop_loss, target1/2/3
+// Nested shape: name, dimensions{}, strategy{}
+// ---------------------------------------------------------------------------
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function normalizeStock(s: any): ScanStock {
+  // If already normalised (has dimensions object), return as-is
+  if (s.dimensions && typeof s.dimensions === 'object') return s as ScanStock;
+
+  const entryLow: number = s.entry_low ?? s.entry ?? s.close ?? 0;
+  const entryHigh: number = s.entry_high ?? s.entry ?? s.close ?? 0;
+  const entryMid: number = entryLow > 0 && entryHigh > 0
+    ? Math.round(((entryLow + entryHigh) / 2) * 100) / 100
+    : entryLow || entryHigh;
+
+  const target1: number = s.target1 ?? s.target ?? 0;
+  const target2: number = s.target2 ?? target1;
+  const target3: number = s.target3 ?? target1;
+  const stopLoss: number = s.stop_loss ?? 0;
+
+  const upside: number = entryMid > 0 && target1 > 0
+    ? Math.round(((target1 - entryMid) / entryMid) * 1000) / 10
+    : (s.upside ?? 0);
+
+  const downside: number = entryMid > 0 && stopLoss > 0
+    ? Math.round(((entryMid - stopLoss) / entryMid) * 1000) / 10
+    : (s.downside ?? 0);
+
+  const dimensions: ScanDimensions = {
+    technical:   s.technical_score   ?? s.dimensions?.technical   ?? 0,
+    fundamental: s.fundamental_score ?? s.dimensions?.fundamental ?? 0,
+    news:        s.news_score        ?? s.dimensions?.news        ?? 0,
+    sentiment:   s.sentiment_score   ?? s.dimensions?.sentiment   ?? 0,
+    chips:       s.chips_score       ?? s.dimensions?.chips       ?? 0,
+  };
+
+  const signals: ScanSignals = s.signals ?? {
+    technical:   [],
+    fundamental: [],
+    news:        [],
+    sentiment:   [],
+    chips:       [],
+  };
+
+  return {
+    stock_id:    s.stock_id,
+    name:        s.stock_name ?? s.name ?? s.stock_id,
+    sector:      s.sector_name ?? s.sector ?? '—',
+    close:       s.close ?? 0,
+    change_pct:  s.change_pct ?? 0,
+    total_score: s.total_score ?? 0,
+    rsi:         s.rsi ?? 50,
+    vol_ratio:   s.vol_ratio ?? s.volume_ratio ?? 1,
+    dimensions,
+    signals,
+    details: s.details ?? {
+      rsi:       s.rsi ?? 50,
+      vol_ratio: s.vol_ratio ?? 1,
+    },
+    strategy: {
+      entry:        entryMid,
+      entry_low:    entryLow,
+      entry_high:   entryHigh,
+      target:       target1,
+      target1,
+      target2,
+      target3,
+      target_note:  s.target_note ?? '',
+      stop_loss:    stopLoss,
+      upside,
+      upside2:      s.upside2 ?? 0,
+      upside3:      s.upside3 ?? 0,
+      downside,
+      atr:          s.atr ?? 0,
+      recommendation: s.recommendation ?? '',
+      hold_days:    s.hold_days ?? '',
+      position:     s.position ?? '',
+      max_loss_per_lot: s.max_loss_per_lot ?? 0,
+      reason:       s.reason ?? '',
+      power_combo:  s.power_combo ?? false,
+    },
+  };
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function normalizeScanResult(raw: any): ScanResult {
+  if (!raw) return raw;
+  return {
+    ...raw,
+    top10: Array.isArray(raw.top10)
+      ? raw.top10.map(normalizeStock)
+      : [],
+  };
+}
+
 export function useLatestScan() {
-  const { data, error, isLoading } = useSWR<ScanResult>(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data: raw, error, isLoading } = useSWR<any>(
     `${BASE}/data/latest.json`,
     fetcher,
     { refreshInterval: 0, revalidateOnFocus: false }
   );
+  const data: ScanResult | undefined = raw ? normalizeScanResult(raw) : undefined;
   return { data, error, isLoading };
 }
 
 export function useDateScan(date: string | null) {
   const key = date ? `${BASE}/data/scan_result_${date.replace(/-/g, '')}.json` : null;
-  const { data, error, isLoading } = useSWR<ScanResult>(key, fetcher, {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data: raw, error, isLoading } = useSWR<any>(key, fetcher, {
     refreshInterval: 0,
     revalidateOnFocus: false,
   });
+  const data: ScanResult | undefined = raw ? normalizeScanResult(raw) : undefined;
   return { data, error, isLoading };
 }
 
@@ -176,11 +277,11 @@ async function fetchTwseHistory(stockCode: string): Promise<Candle[]> {
       const low   = parseFloat2(row.Low);
       const vol   = parseFloat2(row.TradingShares);
       if (close <= 0) continue;
-      const changeAmt  = parseFloat2(row.Change);
-      const prevClose  = close - changeAmt;
+      const changeAmt = parseFloat2(row.Change);
+      const prevClose = close - changeAmt;
       const change_pct = prevClose > 0 ? (changeAmt / prevClose) * 100 : 0;
       // ROC date "1150430" → "20260430"
-      const roc  = row.Date.replace(/-/g, '').padStart(7, '0');
+      const roc = row.Date.replace(/-/g, '').padStart(7, '0');
       const yyyy = String(parseInt(roc.slice(0, 3), 10) + 1911);
       candles.push({ date: yyyy + roc.slice(3), open, high, low, close, volume: vol, change_pct });
     }
@@ -256,7 +357,7 @@ async function fetchStockName(stockCode: string): Promise<string> {
 function computeRsi(closes: number[], period = 14): number {
   if (closes.length < period + 1) return 50;
   const deltas = closes.slice(1).map((c, i) => c - closes[i]);
-  const gains  = deltas.map((d) => (d > 0 ? d : 0));
+  const gains = deltas.map((d) => (d > 0 ? d : 0));
   const losses = deltas.map((d) => (d < 0 ? -d : 0));
   const avgGain = gains.slice(-period).reduce((a, b) => a + b, 0) / period;
   const avgLoss = losses.slice(-period).reduce((a, b) => a + b, 0) / period;
@@ -271,22 +372,19 @@ function scoreTechnical(hist: Candle[]): { score: number; signals: string[] } {
 
   if (hist.length < 5) return { score: 12, signals: ['資料不足，給中性分'] };
 
-  const closes  = hist.map((r) => r.close);
-  const today   = hist[hist.length - 1];
-  const n       = hist.length;
+  const closes = hist.map((r) => r.close);
+  const today = hist[hist.length - 1];
+  const n = hist.length;
 
   const ma5  = closes.slice(-5).reduce((a, b) => a + b, 0) / 5;
   const ma10 = n >= 10 ? closes.slice(-10).reduce((a, b) => a + b, 0) / 10 : ma5;
   const ma20 = n >= 20 ? closes.slice(-20).reduce((a, b) => a + b, 0) / 20 : ma10;
-  // FIX: only compute ma60 when we have >= 60 days of data; otherwise use null sentinel
   const ma60 = n >= 60 ? closes.slice(-60).reduce((a, b) => a + b, 0) / 60 : null;
   let maScore = 0;
-  // 多頭核心：股價同時站上 10日線、月線、季線（各+3，共9分）
   if (today.close > ma10) maScore += 3;
   if (today.close > ma20) maScore += 3;
   if (ma60 !== null && today.close > ma60) { maScore += 3; }
   else if (ma60 === null) { maScore += 1; signals.push('MA60 資料不足，給部分分'); }
-  // 均線多頭排列加分（ma5 > ma20 > ma60，+2）
   if (ma60 !== null && ma5 > ma20 && ma20 > ma60) maScore += 2;
   else if (ma60 === null && ma5 > ma20) maScore += 1;
   score += maScore;
@@ -311,7 +409,7 @@ function scoreTechnical(hist: Candle[]): { score: number; signals: string[] } {
     ? hist.slice(-21, -1).reduce((a, b) => a + b.volume, 0) / 20
     : hist.slice(0, -1).reduce((a, b) => a + b.volume, 0) / Math.max(hist.length - 1, 1);
   const volRatio = avgVol20 > 0 ? today.volume / avgVol20 : 1;
-  const vbScore  = volRatio >= 3 ? 8 : volRatio >= 2 ? 5 : volRatio >= 1.5 ? 3 : 0;
+  const vbScore = volRatio >= 3 ? 8 : volRatio >= 2 ? 5 : volRatio >= 1.5 ? 3 : 0;
   score += vbScore;
   if (volRatio >= 3) signals.push(`爆量突破 (${volRatio.toFixed(1)}x)`);
   else if (volRatio >= 2) signals.push(`量增 (${volRatio.toFixed(1)}x)`);
@@ -326,19 +424,19 @@ function scoreTechnical(hist: Candle[]): { score: number; signals: string[] } {
 
   const rsi = computeRsi(closes);
   let rsiScore = 4;
-  if (rsi >= 50 && rsi <= 70)       { rsiScore = 8; signals.push(`RSI 健康強勢 (${rsi.toFixed(0)})`); }
-  else if (rsi < 30)                 { rsiScore = 7; signals.push(`RSI 超賣反彈 (${rsi.toFixed(0)})`); }
-  else if (rsi > 70 && rsi <= 80)   { rsiScore = 6; signals.push(`RSI 偏強 (${rsi.toFixed(0)})`); }
-  else if (rsi > 80)                 { rsiScore = 2; signals.push(`RSI 過熱 (${rsi.toFixed(0)})`); }
-  else                               { signals.push(`RSI 中性 (${rsi.toFixed(0)})`); }
+  if (rsi >= 50 && rsi <= 70) { rsiScore = 8; signals.push(`RSI 健康強勢 (${rsi.toFixed(0)})`); }
+  else if (rsi < 30) { rsiScore = 7; signals.push(`RSI 超賣反彈 (${rsi.toFixed(0)})`); }
+  else if (rsi > 70 && rsi <= 80) { rsiScore = 6; signals.push(`RSI 偏強 (${rsi.toFixed(0)})`); }
+  else if (rsi > 80) { rsiScore = 2; signals.push(`RSI 過熱 (${rsi.toFixed(0)})`); }
+  else { signals.push(`RSI 中性 (${rsi.toFixed(0)})`); }
   score += rsiScore;
 
   const chg = today.change_pct;
   let pvScore = 4;
-  if (chg > 1 && volRatio > 1.2)       { pvScore = 8; signals.push('漲帶量'); }
+  if (chg > 1 && volRatio > 1.2) { pvScore = 8; signals.push('漲帶量'); }
   else if (chg < -0.5 && volRatio < 0.9) { pvScore = 6; signals.push('跌縮量'); }
-  else if (chg > 1 && volRatio < 0.8)   { pvScore = 2; signals.push('漲量縮(假突破)'); }
-  else if (chg < -1 && volRatio > 1.5)  { pvScore = 1; signals.push('跌量增(出貨)'); }
+  else if (chg > 1 && volRatio < 0.8) { pvScore = 2; signals.push('漲量縮(假突破)'); }
+  else if (chg < -1 && volRatio > 1.5) { pvScore = 1; signals.push('跌量增(出貨)'); }
   score += pvScore;
 
   return { score: Math.min(score, 40), signals };
@@ -379,7 +477,7 @@ async function fetchMarginData(stockCode: string): Promise<{ margin_balance: num
     if (!row) return null;
     return {
       margin_balance: parseInt2(row.MarginPurchase ?? '0'),
-      short_balance: parseInt2(row.ShortSale ?? '0'),
+      short_balance:  parseInt2(row.ShortSale ?? '0'),
     };
   } catch { return null; }
 }
@@ -394,21 +492,20 @@ function scoreChips(hist: Candle[], chipsData: Awaited<ReturnType<typeof fetchT8
   let score = 0;
   if (hist.length < 2) return { score: 5, signals: ['資料不足，給中性分'] };
 
-  // ── Part 1: T86 三大法人買賣超（真實數據）────────────────
   if (chipsData !== null) {
     const { foreign, investment, dealer, total } = chipsData;
-    if (total > 1000)      { score += 4; signals.push(`三大法人合計買超 ${total.toLocaleString()} 張`); }
-    else if (total > 500)  { score += 3; signals.push(`三大法人買超 ${total.toLocaleString()} 張`); }
-    else if (total > 0)    { score += 2; signals.push(`三大法人微幅買超 ${total.toLocaleString()} 張`); }
-    else if (total < -1000)  { score += 0; signals.push(`三大法人賣超 ${total.toLocaleString()} 張`); }
-    else                     { score += 1; signals.push(`三大法人微幅賣超 ${total.toLocaleString()} 張`); }
+    void investment; void dealer;
+    if (total > 1000) { score += 4; signals.push(`三大法人合計買超 ${total.toLocaleString()} 張`); }
+    else if (total > 500) { score += 3; signals.push(`三大法人買超 ${total.toLocaleString()} 張`); }
+    else if (total > 0) { score += 2; signals.push(`三大法人微幅買超 ${total.toLocaleString()} 張`); }
+    else if (total < -1000) { score += 0; signals.push(`三大法人賣超 ${total.toLocaleString()} 張`); }
+    else { score += 1; signals.push(`三大法人微幅賣超 ${total.toLocaleString()} 張`); }
 
-    if (foreign > 2000)     { score += 2; signals.push(`外資大舉買超 ${foreign.toLocaleString()} 張`); }
+    if (foreign > 2000) { score += 2; signals.push(`外資大舉買超 ${foreign.toLocaleString()} 張`); }
     else if (foreign > 500) { score += 1; signals.push(`外資買超 ${foreign.toLocaleString()} 張`); }
     else if (foreign < -2000) { signals.push(`外資大舉賣超 ${foreign.toLocaleString()} 張`); }
   }
 
-  // ── Part 2: 融資融券餘額（真實數據）──────────────────────
   if (marginData !== null) {
     const { margin_balance, short_balance } = marginData;
     if (margin_balance !== null && margin_balance > 0) {
@@ -422,27 +519,25 @@ function scoreChips(hist: Candle[], chipsData: Awaited<ReturnType<typeof fetchT8
     }
   }
 
-  // ── Part 3: 價量輔助（後備評分）────────────────────────────
   if (chipsData === null) {
     const today = hist[hist.length - 1];
     const n = hist.length;
     const avgVolPrev = hist.slice(0, -1).reduce((a, b) => a + b.volume, 0) / (n - 1);
     const volRatio = avgVolPrev > 0 ? today.volume / avgVolPrev : 1;
 
-    if (volRatio >= 2.0 && today.change_pct >= 2.0)       { score += 2; signals.push('主力加碼(估)'); }
-    else if (volRatio >= 1.5 && today.change_pct >= 1.0)  { score += 1; signals.push('主力承接(估)'); }
+    if (volRatio >= 2.0 && today.change_pct >= 2.0) { score += 2; signals.push('主力加碼(估)'); }
+    else if (volRatio >= 1.5 && today.change_pct >= 1.0) { score += 1; signals.push('主力承接(估)'); }
 
     if (n >= 3) {
       const last3 = hist.slice(-3);
-      const ups   = last3.filter((r) => r.change_pct > 0).length;
+      const ups = last3.filter((r) => r.change_pct > 0).length;
       const downs = last3.filter((r) => r.change_pct < 0).length;
-      if (ups >= 2)   { score += 2; signals.push('3日2陽'); }
+      if (ups >= 2) { score += 2; signals.push('3日2陽'); }
       else if (downs >= 2) { score += 1; signals.push('3日2陰'); }
       else score += 1;
     }
   }
 
-  // Neutral floor if no data at all
   if (chipsData === null && marginData === null) { score = Math.max(score, 3); }
 
   return { score: Math.min(Math.max(score, 0), 10), signals };
@@ -453,27 +548,27 @@ function scoreFundamental(pe: number | null, pb: number | null, dy: number | nul
   let score = 0;
 
   if (pe !== null && pe > 0) {
-    if (pe >= 10 && pe <= 18)      { score += 8; signals.push(`PE 合理 (${pe.toFixed(1)}x)`); }
-    else if (pe < 10)              { score += 7; signals.push(`PE 低估 (${pe.toFixed(1)}x)`); }
-    else if (pe < 25)              { score += 5; signals.push(`PE 偏高 (${pe.toFixed(1)}x)`); }
-    else                           { score += 2; signals.push(`PE 過高 (${pe.toFixed(1)}x)`); }
+    if (pe >= 10 && pe <= 18) { score += 8; signals.push(`PE 合理 (${pe.toFixed(1)}x)`); }
+    else if (pe < 10) { score += 7; signals.push(`PE 低估 (${pe.toFixed(1)}x)`); }
+    else if (pe < 25) { score += 5; signals.push(`PE 偏高 (${pe.toFixed(1)}x)`); }
+    else { score += 2; signals.push(`PE 過高 (${pe.toFixed(1)}x)`); }
   } else { score += 4; signals.push('PE 無法取得(中性分)'); }
 
   score += 4; signals.push('毛利率無法取得(中性分)');
   score += 4; signals.push('營收成長無法取得(中性分)');
 
   if (pb !== null && pb > 0) {
-    if (pb >= 1 && pb <= 2.5)     { score += 8; signals.push(`PBR 合理 (${pb.toFixed(2)}x)`); }
-    else if (pb < 1)              { score += 7; signals.push(`PBR 低估 (${pb.toFixed(2)}x)`); }
-    else if (pb < 5)              { score += 5; signals.push(`PBR 偏高 (${pb.toFixed(2)}x)`); }
-    else                          { score += 2; signals.push(`PBR 過高 (${pb.toFixed(2)}x)`); }
+    if (pb >= 1 && pb <= 2.5) { score += 8; signals.push(`PBR 合理 (${pb.toFixed(2)}x)`); }
+    else if (pb < 1) { score += 7; signals.push(`PBR 低估 (${pb.toFixed(2)}x)`); }
+    else if (pb < 5) { score += 5; signals.push(`PBR 偏高 (${pb.toFixed(2)}x)`); }
+    else { score += 2; signals.push(`PBR 過高 (${pb.toFixed(2)}x)`); }
   } else { score += 4; signals.push('PBR 無法取得(中性分)'); }
 
   if (dy !== null && dy >= 0) {
-    if (dy > 5)      { score += 8; signals.push(`高殖利率 (${dy.toFixed(1)}%)`); }
+    if (dy > 5) { score += 8; signals.push(`高殖利率 (${dy.toFixed(1)}%)`); }
     else if (dy >= 3) { score += 7; signals.push(`殖利率不錯 (${dy.toFixed(1)}%)`); }
     else if (dy >= 1) { score += 5; signals.push(`殖利率偏低 (${dy.toFixed(1)}%)`); }
-    else              { score += 2; signals.push(`殖利率低 (${dy.toFixed(1)}%)`); }
+    else { score += 2; signals.push(`殖利率低 (${dy.toFixed(1)}%)`); }
   } else { score += 4; signals.push('殖利率無法取得(中性分)'); }
 
   return { score: Math.min(Math.max(score, 0), 40), signals };
@@ -512,27 +607,28 @@ function scoreNews(sector: string): { score: number; signals: string[] } {
 }
 
 function scoreSentiment(hist: Candle[], stockCode: string): { score: number; signals: string[] } {
+  void stockCode;
   const signals: string[] = [];
   let score = 0;
 
   if (hist.length < 2) return { score: 5, signals: ['資料不足，給中性分'] };
 
   const today = hist[hist.length - 1];
-  const n     = hist.length;
+  const n = hist.length;
 
   const estimatedCapital = 500000;
   const turnover = (today.volume / 1000) / estimatedCapital * 100;
   if (turnover >= 5 && turnover <= 15) { score += 5; signals.push(`周轉率健康 (${turnover.toFixed(1)}%)`); }
-  else if (turnover >= 3)              { score += 3; signals.push(`周轉率溫和 (${turnover.toFixed(1)}%)`); }
-  else if (turnover >= 1)              { score += 2; signals.push(`周轉率低 (${turnover.toFixed(1)}%)`); }
+  else if (turnover >= 3) { score += 3; signals.push(`周轉率溫和 (${turnover.toFixed(1)}%)`); }
+  else if (turnover >= 1) { score += 2; signals.push(`周轉率低 (${turnover.toFixed(1)}%)`); }
 
   const avgVol20 = n >= 21
     ? hist.slice(-21, -1).reduce((a, b) => a + b.volume, 0) / 20
     : hist.slice(0, -1).reduce((a, b) => a + b.volume, 0) / Math.max(n - 1, 1);
   const volRatio = avgVol20 > 0 ? today.volume / avgVol20 : 1;
-  if (volRatio >= 1.5 && volRatio <= 4)  { score += 5; signals.push(`量比健康 (${volRatio.toFixed(1)}x)`); }
-  else if (volRatio > 4)                  { score += 3; signals.push(`爆量注意 (${volRatio.toFixed(1)}x)`); }
-  else if (volRatio >= 1.2)               { score += 2; signals.push(`量微增 (${volRatio.toFixed(1)}x)`); }
+  if (volRatio >= 1.5 && volRatio <= 4) { score += 5; signals.push(`量比健康 (${volRatio.toFixed(1)}x)`); }
+  else if (volRatio > 4) { score += 3; signals.push(`爆量注意 (${volRatio.toFixed(1)}x)`); }
+  else if (volRatio >= 1.2) { score += 2; signals.push(`量微增 (${volRatio.toFixed(1)}x)`); }
 
   return { score: Math.min(Math.max(score, 0), 10), signals };
 }
@@ -564,9 +660,9 @@ export function useOnDemandScan(stockId: string | null): {
   status: OnDemandStatus;
   error: string | null;
 } {
-  const [data, setData]     = useState<OnDemandResult | null>(null);
+  const [data, setData] = useState<OnDemandResult | null>(null);
   const [status, setStatus] = useState<OnDemandStatus>('idle');
-  const [error, setError]   = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!stockId) {
@@ -600,10 +696,10 @@ export function useOnDemandScan(stockId: string | null): {
           return;
         }
 
-        const today   = hist[hist.length - 1];
-        const sector  = inferSector(stockId!);
-        const closes  = hist.map((r) => r.close);
-        const rsi     = computeRsi(closes);
+        const today = hist[hist.length - 1];
+        const sector = inferSector(stockId!);
+        const closes = hist.map((r) => r.close);
+        const rsi = computeRsi(closes);
 
         const avgVol5 = hist.length >= 6
           ? hist.slice(-6, -1).reduce((a, b) => a + b.volume, 0) / 5
@@ -616,10 +712,10 @@ export function useOnDemandScan(stockId: string | null): {
         const newsResult  = scoreNews(sector);
         const sentResult  = scoreSentiment(hist, stockId!);
 
-        const techNorm  = (techResult.score / 40) * 100;
-        const fundNorm  = (fundResult.score / 40) * 100;
-        const newsNorm  = (newsResult.score / 10) * 100;
-        const sentNorm  = (sentResult.score / 10) * 100;
+        const techNorm  = (techResult.score  / 40) * 100;
+        const fundNorm  = (fundResult.score  / 40) * 100;
+        const newsNorm  = (newsResult.score  / 10) * 100;
+        const sentNorm  = (sentResult.score  / 10) * 100;
         const chipsNorm = (chipsResult.score / 10) * 100;
 
         const totalScore =
@@ -645,10 +741,7 @@ export function useOnDemandScan(stockId: string | null): {
           chips:       chipsResult.signals,
         };
 
-        // ── Three-level target computation (mirrors scan_market.py) ─────────
         const closePrice = today.close;
-
-        // 1. ATR (14-period)
         const atrPeriod = Math.min(14, hist.length - 1);
         let atrValue = 0;
         if (atrPeriod > 0) {
@@ -662,21 +755,13 @@ export function useOnDemandScan(stockId: string | null): {
           atrValue = trs.reduce((a, b) => a + b, 0) / trs.length;
         }
         const atrPct = closePrice > 0 ? atrValue / closePrice : 0;
-
-        // 2. Entry price
         const entryPrice = Math.round(closePrice * (1 + atrPct * 0.3) * 100) / 100;
-
-        // 3. Stop loss
         const stopLoss = Math.round(Math.max(closePrice - atrValue * 2, closePrice * 0.85) * 100) / 100;
-
-        // 4. 60-day high
         const high60 = Math.max(...hist.slice(-Math.min(hist.length, 60)).map((r) => r.high));
 
-        // 5. Target 1: new high → Bollinger upper, else 60d high
         let t1: number;
         let target_note: string;
         if (today.high >= high60 * 0.995) {
-          // At new high: use Bollinger upper (20-period MA + 2σ)
           const bPeriod = Math.min(20, hist.length);
           const bCloses = hist.slice(-bPeriod).map((r) => r.close);
           const bMa = bCloses.reduce((a, b) => a + b, 0) / bPeriod;
@@ -690,11 +775,8 @@ export function useOnDemandScan(stockId: string | null): {
           target_note = '60日前高';
         }
 
-        // 6. t2 and t3
         let t2 = t1 * 1.15;
         let t3 = t1 * 1.35;
-
-        // 7. Fallback if t1 too close to entry
         if (t1 <= entryPrice * 1.03) {
           t1 = entryPrice * 1.08;
           t2 = entryPrice * 1.18;
@@ -702,16 +784,14 @@ export function useOnDemandScan(stockId: string | null): {
           target_note = '動態基準';
         }
 
-        // Round targets to 2 decimal places
         const target1 = Math.round(t1 * 100) / 100;
         const target2 = Math.round(t2 * 100) / 100;
         const target3 = Math.round(t3 * 100) / 100;
         const atrRounded = Math.round(atrValue * 100) / 100;
 
-        // 8. Upside / downside percentages (1 decimal)
-        const upside  = Math.round(((target1 - entryPrice) / entryPrice) * 1000) / 10;
-        const upside2 = Math.round(((target2 - entryPrice) / entryPrice) * 1000) / 10;
-        const upside3 = Math.round(((target3 - entryPrice) / entryPrice) * 1000) / 10;
+        const upside   = Math.round(((target1 - entryPrice) / entryPrice) * 1000) / 10;
+        const upside2  = Math.round(((target2 - entryPrice) / entryPrice) * 1000) / 10;
+        const upside3  = Math.round(((target3 - entryPrice) / entryPrice) * 1000) / 10;
         const downside = Math.round(((entryPrice - stopLoss) / entryPrice) * 1000) / 10;
 
         const grade =
@@ -720,35 +800,42 @@ export function useOnDemandScan(stockId: string | null): {
           totalScore >= 50 ? '觀望' : '偏弱';
 
         const stock: ScanStock = {
-          stock_id:    stockId!,
+          stock_id: stockId!,
           name,
           sector,
-          close:       today.close,
-          change_pct:  today.change_pct,
+          close: today.close,
+          change_pct: today.change_pct,
           total_score: Math.round(totalScore * 10) / 10,
           rsi,
-          vol_ratio:   Math.round(volRatio * 100) / 100,
+          vol_ratio: Math.round(volRatio * 100) / 100,
           dimensions,
           signals,
           details: {
             rsi,
             vol_ratio: volRatio,
-            pe:        fundamentals.pe ?? undefined,
+            pe: fundamentals.pe ?? undefined,
           },
           strategy: {
-            entry:          entryPrice,
-            target:         target1,   // backward compat
+            entry: entryPrice,
+            entry_low: entryPrice,
+            entry_high: entryPrice,
+            target: target1,
             target1,
             target2,
             target3,
             target_note,
-            stop_loss:      stopLoss,
+            stop_loss: stopLoss,
             upside,
             upside2,
             upside3,
             downside,
-            atr:            atrRounded,
+            atr: atrRounded,
             recommendation: grade,
+            hold_days: '',
+            position: '',
+            max_loss_per_lot: 0,
+            reason: '',
+            power_combo: false,
           },
         };
 

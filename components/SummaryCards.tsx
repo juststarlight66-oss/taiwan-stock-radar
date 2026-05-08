@@ -31,24 +31,45 @@ function CircleProgress({ pct, color = '#38bdf8', size = 44 }: { pct: number; co
   );
 }
 
+// Detect strong-buy recommendation from any Python output format:
+// "★★★ Strong Recommend", "強力買進", "積極買進 ⚡ ...", "Strong", etc.
+function isStrongBuy(rec: string | undefined): boolean {
+  if (!rec) return false;
+  const r = rec.toLowerCase();
+  return (
+    r.includes('★★★') ||
+    r.includes('strong') ||
+    r.includes('強力') ||
+    r.includes('積極')
+  );
+}
+
 export default function SummaryCards({ data }: Props) {
   const stocks = data.top10 ?? [];
   const totalMax = Object.values(DIMENSION_CONFIG).reduce((s, c) => s + c.max, 0);
   const avgScore = stocks.length
     ? stocks.reduce((s, st) => s + st.total_score, 0) / stocks.length
     : 0;
-  const strongBuy = stocks.filter(
-    (s) => s?.strategy?.recommendation.includes('強力') || s?.strategy?.recommendation.includes('積極')
-  ).length;
+
+  const strongBuy = stocks.filter((s) => isStrongBuy(s?.strategy?.recommendation)).length;
+
   const topSectors = [...new Set(stocks.map((s) => s.sector))].slice(0, 3);
+
+  // upside: prefer strategy.upside; fallback: compute from target1 vs entry
   const avgUpside = stocks.length
-    ? stocks.reduce((s, st) => s + (st?.strategy?.upside ?? 0), 0) / stocks.length
+    ? stocks.reduce((sum, st) => {
+        const u = st?.strategy?.upside;
+        if (u !== undefined && u !== 0) return sum + u;
+        const t1  = st?.strategy?.target1 ?? st?.strategy?.target ?? 0;
+        const ent = st?.strategy?.entry_low ?? st?.strategy?.entry ?? 0;
+        if (t1 > 0 && ent > 0) return sum + ((t1 - ent) / ent) * 100;
+        return sum;
+      }, 0) / stocks.length
     : 0;
-  const scannedPct = data.scanned_count ? Math.min((data.scanned_count / 2200) * 100, 100) : 0;
-  const scorePct = (avgScore / totalMax) * 100;
-  const sentimentScore = Math.round(
-    (strongBuy / Math.max(stocks.length, 1)) * 100
-  );
+
+  const scannedPct  = data.scanned_count ? Math.min((data.scanned_count / 2200) * 100, 100) : 0;
+  const scorePct    = (avgScore / totalMax) * 100;
+  const sentimentScore = Math.round((strongBuy / Math.max(stocks.length, 1)) * 100);
 
   const cards = [
     {
@@ -100,17 +121,15 @@ export default function SummaryCards({ data }: Props) {
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-1.5">
               {c.icon}
-              <span className="text-[11px] text-gray-400 font-medium">{c.label}</span>
+              <span className="text-xs text-gray-500 font-medium">{c.label}</span>
             </div>
-            {c.trend}
-          </div>
-          <div className="flex items-end justify-between">
-            <div>
-              <div className={`text-xl font-bold font-mono count-up ${c.valueColor}`}>{c.value}</div>
-              <div className="text-[10px] text-gray-600 mt-0.5 truncate max-w-[100px]">{c.sub}</div>
+            <div className="flex items-center gap-1">
+              {c.trend}
+              {c.progress}
             </div>
-            <div className="opacity-80">{c.progress}</div>
           </div>
+          <p className={`text-xl font-bold ${c.valueColor}`}>{c.value}</p>
+          <p className="text-[11px] text-gray-500 mt-0.5 truncate">{c.sub}</p>
         </div>
       ))}
     </div>

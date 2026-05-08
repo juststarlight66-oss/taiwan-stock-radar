@@ -15,11 +15,24 @@ const DIM_MAXES: Record<string, number> = {
   technical: 40, fundamental: 40, news: 10, sentiment: 10, chips: 10,
 };
 
+// Handle all Python recommendation formats:
+// "★★★ Strong Recommend" / "強力買進" / "積極買進 ⚡ 中型部位" / "買進" / "觀望" / "偏弱"
 function getActionStyle(action: string | undefined) {
-  if (action === '強力買進') return { cls: 'text-red-600 font-bold', dot: 'bg-red-500' };
-  if (action === '買進')   return { cls: 'text-orange-500 font-bold', dot: 'bg-orange-500' };
-  if (action === '觀望')   return { cls: 'text-gray-500', dot: 'bg-gray-400' };
-  return { cls: 'text-emerald-600', dot: 'bg-emerald-500' };
+  if (!action) return { cls: 'text-gray-400', dot: 'bg-gray-400', label: '—' };
+  const a = action.toLowerCase();
+  if (a.includes('★★★') || a.includes('strong') || a.includes('強力')) {
+    return { cls: 'text-red-600 font-bold', dot: 'bg-red-500', label: action };
+  }
+  if (a.includes('積極')) {
+    return { cls: 'text-orange-500 font-bold', dot: 'bg-orange-500', label: action };
+  }
+  if (a.includes('買進')) {
+    return { cls: 'text-orange-400 font-semibold', dot: 'bg-orange-400', label: action };
+  }
+  if (a.includes('觀望')) {
+    return { cls: 'text-gray-500', dot: 'bg-gray-400', label: action };
+  }
+  return { cls: 'text-emerald-600', dot: 'bg-emerald-500', label: action };
 }
 
 function ScoreBar({ score, max }: { score: number; max: number }) {
@@ -104,215 +117,153 @@ interface Props {
   trendMap?: Record<string, { date: string; score: number }[]>;
 }
 
-export default function Top10Table({ stocks, scanDate, scannedCount, isDemo, trendMap }: Props) {
-  const [selectedStock, setSelectedStock] = useState<ScanStock | null>(null);
+export default function Top10Table({ stocks, scanDate, scannedCount, isDemo = false, trendMap }: Props) {
+  void trendMap;
+  const [selected, setSelected] = useState<ScanStock | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const totalMax = Object.values(DIMENSION_CONFIG).reduce((s, c) => s + c.max, 0);
 
   return (
     <>
-      <div className="rounded-xl border border-gray-200 bg-white overflow-hidden">
-        {/* Header */}
-        <div className="px-4 py-3 border-b border-gray-200 flex items-center justify-between gap-2 flex-wrap bg-gray-50">
-          <div>
-            <h3 className="text-sm font-semibold text-gray-800 flex items-center gap-2">
-              <Flame className="w-4 h-4 text-red-500" />
-              Top 10 強勢股
-              {isDemo && (
-                <span className="text-[10px] bg-amber-50 text-amber-600 border border-amber-200 px-1.5 py-0.5 rounded font-normal">示範資料</span>
-              )}
-            </h3>
-            {scanDate && (
-              <div className="text-[11px] text-gray-500 mt-0.5">
-                掃描日期：<span className="font-mono text-gray-600">{scanDate}</span>
-                {scannedCount ? <span>　掃描標的：<span className="font-mono text-gray-600">{scannedCount.toLocaleString()}</span> 檔</span> : ''}
-              </div>
-            )}
-          </div>
-          <span className="text-xs text-gray-400">{stocks.length} 檔入選</span>
+      {isDemo && (
+        <div className="mb-3 px-3 py-2 rounded-lg bg-amber-50 border border-amber-200 text-xs text-amber-700 flex items-center gap-2">
+          <span>⚠️</span>
+          <span>目前顯示示範資料。請等待今日掃描完成，或選擇歷史日期查看真實數據。</span>
         </div>
+      )}
+      {scanDate && (
+        <div className="mb-2 text-xs text-gray-400">
+          掃描日期：{scanDate}　掃描標的：{scannedCount?.toLocaleString() ?? '—'} 檔
+        </div>
+      )}
+      <div className="divide-y divide-gray-100">
+        {stocks.map((stock, idx) => {
+          const rank = (stock as any).rank ?? idx + 1;
+          const actionStyle = getActionStyle(stock.strategy?.recommendation);
+          const isExpanded = expandedId === stock.stock_id;
 
-        {/* Mobile cards */}
-        <div className="block md:hidden divide-y divide-gray-100">
-          {stocks.map((s, i) => {
-            const up = (s.change_pct ?? 0) >= 0;
-            const actionStyle = getActionStyle(s.strategy?.recommendation);
-            const isExpanded = expandedId === s.stock_id;
-            return (
-              <div key={s.stock_id} className="p-3 bg-white">
-                <div
-                  className="flex items-center gap-2 cursor-pointer"
-                  onClick={() => setExpandedId(isExpanded ? null : s.stock_id)}
-                >
-                  <RankBadge rank={i + 1} />
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-1.5">
-                      <span className="font-bold text-sm text-gray-900 truncate">{s.name}</span>
-                      <span className="font-mono text-[10px] text-gray-400">{s.stock_id}</span>
-                      <CopyBtn text={s.stock_id} />
-                      <LimitBadge changePct={s.change_pct ?? 0} />
-                    </div>
-                    <div className="flex items-center gap-2 mt-0.5">
-                      <span className="text-[10px] text-gray-500">{s.sector}</span>
-                      <span className={`text-[10px] ${actionStyle.cls}`}>{s.strategy?.recommendation}</span>
-                    </div>
+          // Entry display: prefer entry_low~entry_high range, fallback to single entry
+          const entryLow  = stock.strategy?.entry_low  ?? stock.strategy?.entry ?? 0;
+          const entryHigh = stock.strategy?.entry_high ?? stock.strategy?.entry ?? 0;
+          const entryDisplay = entryLow > 0 && entryHigh > 0 && entryLow !== entryHigh
+            ? `${entryLow.toLocaleString()}~${entryHigh.toLocaleString()}`
+            : entryLow > 0 ? entryLow.toLocaleString() : '—';
+
+          const dims = stock.dimensions ?? {};
+
+          return (
+            <div
+              key={stock.stock_id}
+              className="py-3 px-1 hover:bg-gray-50 cursor-pointer transition-colors"
+              onClick={() => setExpandedId(isExpanded ? null : stock.stock_id)}
+            >
+              {/* ── Row: rank + name + badges + score ── */}
+              <div className="flex items-center gap-2">
+                <RankBadge rank={rank} />
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    <span className="font-bold text-sm text-gray-800">{stock.name}</span>
+                    <span className="text-xs text-gray-400">{stock.stock_id}</span>
+                    <LimitBadge changePct={stock.change_pct} />
+                    {(stock as any).power_combo && (
+                      <span className="text-[9px] px-1 py-0.5 rounded bg-purple-100 text-purple-700 font-bold flex items-center gap-0.5">
+                        <Flame className="w-2.5 h-2.5" />強勢組合
+                      </span>
+                    )}
+                    <span className="text-[10px] text-gray-400">{stock.sector}</span>
                   </div>
-                  <div className="text-right shrink-0">
-                    <div className="font-mono font-bold text-gray-900 text-sm">{(s.close ?? 0) > 0 ? (s.close ?? 0).toLocaleString() : '—'}</div>
-                    <div className={`text-[11px] font-mono ${up ? 'text-red-500' : 'text-green-600'}`}>
-                      {up ? '▲' : '▼'}{Math.abs(s.change_pct ?? 0).toFixed(2)}%
-                    </div>
+                  <div className="flex items-center gap-2 mt-0.5">
+                    <span className={`text-xs ${stock.change_pct >= 0 ? 'text-red-500' : 'text-green-600'} font-mono`}>
+                      {stock.change_pct >= 0 ? <ArrowUpRight className="w-3 h-3 inline" /> : <ArrowDownRight className="w-3 h-3 inline" />}
+                      {Math.abs(stock.change_pct).toFixed(2)}%
+                    </span>
+                    <span className="text-xs text-gray-500 font-mono">{stock.close.toLocaleString()}</span>
+                    {/* Recommendation badge */}
+                    <span className={`text-[10px] ${actionStyle.cls} truncate max-w-[140px]`} title={stock.strategy?.recommendation}>
+                      <span className={`inline-block w-1.5 h-1.5 rounded-full ${actionStyle.dot} mr-0.5`} />
+                      {stock.strategy?.recommendation ?? '—'}
+                    </span>
                   </div>
-                  <ChevronRight className={`w-4 h-4 text-gray-400 shrink-0 transition-transform ${isExpanded ? 'rotate-90' : ''}`} />
                 </div>
-                {isExpanded && (
-                  <div className="mt-3 pt-3 border-t border-gray-100 space-y-2">
-                    <div className="flex items-center gap-3">
-                      {s.dimensions && <MiniRadar dimensions={s.dimensions as unknown as Record<string, number>} />}
-                      <div className="flex-1 space-y-1">
-                        <ScoreBar score={s.total_score} max={totalMax} />
-                        <div className="text-[10px] text-gray-500">綜合評分</div>
-                      </div>
-                    </div>
-                    {s.strategy && (
-                      <div className="flex gap-1 flex-wrap">
-                        <span className="text-[10px] font-mono bg-sky-50 text-sky-700 border border-sky-200 px-1.5 py-0.5 rounded whitespace-nowrap">
-                          進 {s.strategy?.entry != null ? s.strategy.entry.toFixed(2) : '-'}
-                        </span>
-                        <span className="text-[10px] font-mono bg-rose-50 text-rose-700 border border-rose-200 px-1.5 py-0.5 rounded whitespace-nowrap">
-                          停 {s.strategy?.stop_loss != null ? s.strategy.stop_loss.toFixed(2) : '-'}
-                        </span>
-                        <span className="text-[10px] font-mono bg-emerald-50 text-emerald-700 border border-emerald-200 px-1.5 py-0.5 rounded whitespace-nowrap">
-                          ①{s.strategy?.target1 != null ? s.strategy.target1.toFixed(2) : '-'}{s.strategy?.upside != null ? `(+${s.strategy.upside}%)` : ''}
-                        </span>
-                        <span className="text-[10px] font-mono bg-teal-50 text-teal-700 border border-teal-200 px-1.5 py-0.5 rounded whitespace-nowrap">
-                          ②{s.strategy?.target2 != null ? s.strategy.target2.toFixed(2) : '-'}{s.strategy?.upside2 != null ? `(+${s.strategy.upside2}%)` : ''}
-                        </span>
-                        <span className="text-[10px] font-mono bg-violet-50 text-violet-700 border border-violet-200 px-1.5 py-0.5 rounded whitespace-nowrap">
-                          ③{s.strategy?.target3 != null ? s.strategy.target3.toFixed(2) : '-'}{s.strategy?.upside3 != null ? `(+${s.strategy.upside3}%)` : ''}
-                        </span>
+                <div className="flex items-center gap-2 shrink-0">
+                  <ScoreBar score={stock.total_score} max={totalMax} />
+                  <WatchlistToggleBtn stockId={stock.stock_id} stockName={stock.name} />
+                  <button
+                    onClick={(e) => { e.stopPropagation(); setSelected(stock); }}
+                    className="p-1 rounded hover:bg-gray-100"
+                    title="詳細分析"
+                  >
+                    <ChevronRight className="w-4 h-4 text-gray-400" />
+                  </button>
+                </div>
+              </div>
+
+              {/* ── Expanded row ── */}
+              {isExpanded && (
+                <div className="mt-3 ml-7 grid grid-cols-2 gap-x-6 gap-y-1.5 text-xs text-gray-600">
+                  {/* Left: radar + dims */}
+                  <div className="flex items-start gap-2">
+                    {Object.keys(dims).length > 0 && (
+                      <div className="shrink-0">
+                        <MiniRadar dimensions={dims as Record<string, number>} />
                       </div>
                     )}
-                    <button
-                      onClick={() => setSelectedStock(s)}
-                      className="w-full py-2 rounded-lg bg-sky-50 border border-sky-200 text-sky-600 text-xs font-medium hover:bg-sky-100 transition-colors"
-                    >
-                      查看完整分析
-                    </button>
+                    <div className="space-y-1">
+                      {Object.entries(DIM_LABELS).map(([key, label]) => (
+                        <div key={key} className="flex items-center gap-1">
+                          <span className="text-gray-400 w-4">{label}</span>
+                          <ScoreBar score={(dims as any)[key] ?? 0} max={DIM_MAXES[key] ?? 10} />
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
 
-        {/* Desktop table */}
-        <div className="hidden md:block overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-gray-200 bg-gray-50">
-                <th className="text-left px-4 py-2.5 text-[11px] text-gray-500 font-medium w-8">#</th>
-                <th className="text-left px-3 py-2.5 text-[11px] text-gray-500 font-medium">股票</th>
-                <th className="text-right px-3 py-2.5 text-[11px] text-gray-500 font-medium">收盤</th>
-                <th className="text-right px-3 py-2.5 text-[11px] text-gray-500 font-medium">漲跌</th>
-                <th className="text-left px-3 py-2.5 text-[11px] text-gray-500 font-medium w-36">綜合評分</th>
-                <th className="text-center px-3 py-2.5 text-[11px] text-gray-500 font-medium">雷達</th>
-                <th className="text-left px-3 py-2.5 text-[11px] text-gray-500 font-medium">建議</th>
-                <th className="text-right px-3 py-2.5 text-[11px] text-gray-500 font-medium">進場/停損/目標</th>
-                <th className="px-3 py-2.5 w-20" />
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-100">
-              {stocks.map((s, i) => {
-                const up = (s.change_pct ?? 0) >= 0;
-                const actionStyle = getActionStyle(s.strategy?.recommendation);
-                return (
-                  <tr
-                    key={s.stock_id}
-                    className="hover:bg-sky-50/60 cursor-pointer transition-colors group"
-                    onClick={() => setSelectedStock(s)}
-                  >
-                    <td className="px-4 py-3">
-                      <RankBadge rank={i + 1} />
-                    </td>
-                    <td className="px-3 py-3">
-                      <div className="flex items-center gap-1.5">
-                        <span className="font-bold text-gray-900">{s.name}</span>
-                        <span className="font-mono text-[10px] text-gray-400">{s.stock_id}</span>
-                        <CopyBtn text={s.stock_id} />
-                        <LimitBadge changePct={s.change_pct ?? 0} />
+                  {/* Right: strategy */}
+                  <div className="space-y-1">
+                    <div className="flex gap-1">
+                      <span className="text-gray-400 w-12 shrink-0">進場</span>
+                      <span className="font-mono">{entryDisplay}</span>
+                    </div>
+                    <div className="flex gap-1">
+                      <span className="text-gray-400 w-12 shrink-0">停損</span>
+                      <span className="font-mono text-red-500">{stock.strategy?.stop_loss?.toLocaleString() ?? '—'}</span>
+                    </div>
+                    <div className="flex gap-1">
+                      <span className="text-gray-400 w-12 shrink-0">目標1</span>
+                      <span className="font-mono text-green-600">{stock.strategy?.target1?.toLocaleString() ?? stock.strategy?.target?.toLocaleString() ?? '—'}</span>
+                    </div>
+                    <div className="flex gap-1">
+                      <span className="text-gray-400 w-12 shrink-0">目標2</span>
+                      <span className="font-mono text-green-700">{stock.strategy?.target2?.toLocaleString() ?? '—'}</span>
+                    </div>
+                    <div className="flex gap-1">
+                      <span className="text-gray-400 w-12 shrink-0">目標3</span>
+                      <span className="font-mono text-green-800">{stock.strategy?.target3?.toLocaleString() ?? '—'}</span>
+                    </div>
+                    {stock.strategy?.hold_days && (
+                      <div className="flex gap-1">
+                        <span className="text-gray-400 w-12 shrink-0">持有</span>
+                        <span>{stock.strategy.hold_days} 天</span>
                       </div>
-                      <div className="text-[10px] text-gray-500 mt-0.5">{s.sector}</div>
-                    </td>
-                    <td className="px-3 py-3 text-right">
-                      <span className="font-mono font-bold text-gray-900">{(s.close ?? 0) > 0 ? (s.close ?? 0).toLocaleString() : '—'}</span>
-                    </td>
-                    <td className="px-3 py-3 text-right">
-                      <span className={`font-mono text-xs flex items-center justify-end gap-0.5 ${up ? 'text-red-500' : 'text-green-600'}`}>
-                        {up ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
-                        {Math.abs(s.change_pct ?? 0).toFixed(2)}%
-                      </span>
-                    </td>
-                    <td className="px-3 py-3">
-                      <ScoreBar score={s.total_score} max={totalMax} />
-                    </td>
-                    <td className="px-3 py-3">
-                      {s.dimensions && (
-                        <div className="flex justify-center" onClick={(e) => e.stopPropagation()}>
-                          <MiniRadar dimensions={s.dimensions as unknown as Record<string, number>} />
-                        </div>
-                      )}
-                    </td>
-                    <td className="px-3 py-3">
-                      <div className="flex items-center gap-1.5">
-                        <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${actionStyle.dot}`} />
-                        <span className={`text-xs ${actionStyle.cls}`}>{s.strategy?.recommendation}</span>
+                    )}
+                    {stock.strategy?.reason && (
+                      <div className="mt-1 text-[10px] text-gray-500 leading-relaxed">
+                        {stock.strategy.reason}
                       </div>
-                    </td>
-                    <td className="px-3 py-3 text-right">
-                      {s.strategy ? (
-                        <div className="flex gap-1 flex-wrap justify-end">
-                          <span className="text-[10px] font-mono bg-sky-50 text-sky-700 border border-sky-200 px-1.5 py-0.5 rounded whitespace-nowrap">
-                            進 {s.strategy?.entry != null ? s.strategy.entry.toFixed(2) : '-'}
-                          </span>
-                          <span className="text-[10px] font-mono bg-rose-50 text-rose-700 border border-rose-200 px-1.5 py-0.5 rounded whitespace-nowrap">
-                            停 {s.strategy?.stop_loss != null ? s.strategy.stop_loss.toFixed(2) : '-'}
-                          </span>
-                          <span className="text-[10px] font-mono bg-emerald-50 text-emerald-700 border border-emerald-200 px-1.5 py-0.5 rounded whitespace-nowrap">
-                            ①{s.strategy?.target1 != null ? s.strategy.target1.toFixed(2) : '-'}{s.strategy?.upside != null ? `(+${s.strategy.upside}%)` : ''}
-                          </span>
-                          <span className="text-[10px] font-mono bg-teal-50 text-teal-700 border border-teal-200 px-1.5 py-0.5 rounded whitespace-nowrap">
-                            ②{s.strategy?.target2 != null ? s.strategy.target2.toFixed(2) : '-'}{s.strategy?.upside2 != null ? `(+${s.strategy.upside2}%)` : ''}
-                          </span>
-                          <span className="text-[10px] font-mono bg-violet-50 text-violet-700 border border-violet-200 px-1.5 py-0.5 rounded whitespace-nowrap">
-                            ③{s.strategy?.target3 != null ? s.strategy.target3.toFixed(2) : '-'}{s.strategy?.upside3 != null ? `(+${s.strategy.upside3}%)` : ''}
-                          </span>
-                        </div>
-                      ) : (
-                        <span className="text-[11px] text-gray-400">—</span>
-                      )}
-                    </td>
-                    <td className="px-3 py-3">
-                      <div className="flex items-center justify-end gap-1">
-                        <WatchlistToggleBtn stockId={s.stock_id} stockName={s.name} />
-                        <ChevronRight className="w-4 h-4 text-gray-300 group-hover:text-gray-500 transition-colors" />
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+                    )}
+                  </div>
+                  <div className="col-span-2 flex items-center gap-2 pt-1">
+                    <CopyBtn text={stock.stock_id} />
+                    <span className="text-gray-400">複製代號</span>
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
-
-      {selectedStock && (
-        <StockDetailModal
-          stock={selectedStock}
-          onClose={() => setSelectedStock(null)}
-          rank={stocks.findIndex((s) => s.stock_id === selectedStock.stock_id) + 1}
-          isDemo={isDemo}
-        />
+      {selected && (
+        <StockDetailModal stock={selected} onClose={() => setSelected(null)} />
       )}
     </>
   );
