@@ -1,169 +1,189 @@
 {
   "scan_type": "intraday_daytrade",
-  "scanned_at": "2026-05-06 13:14:26",
+  "scanned_at": "2026-05-08 13:01:40",
   "stocks": [
     {
-      "stock_id": "1809",
-      "name": "中釉",
+      "stock_id": "3592",
+      "name": "瑞鼎",
       "sector": "",
-      "score": 50.0,
+      "score": 84,
       "details": {
-        "momentum": "极强",
-        "gap": "開高走高"
+        "momentum": "最強動能",
+        "rsi": 100.0,
+        "ma5_status": "強勢突破",
+        "vol_ratio": "爆發",
+        "breakout": "創新高"
       },
-      "total_score": 50.0,
-      "entry": 34.15,
-      "target": 36.88,
-      "stop_loss": 32.44,
-      "change_pct": 9.98,
+      "total_score": 84,
+      "entry": 259.0,
+      "target": 279.72,
+      "stop_loss": 246.05,
+      "change_pct": 6.8,
       "dimensions": {
-        "momentum": "极强",
-        "vol_ratio": "",
-        "breakout": "",
-        "gap": "開高走高"
+        "momentum": "最強動能",
+        "rsi": 100.0,
+        "ma5_status": "強勢突破",
+        "vol_ratio": "爆發",
+        "breakout": "創新高"
       },
       "live": {
-        "current": 34.15,
-        "open": 34.15,
-        "high": 34.15,
-        "low": 32.9,
+        "current": 259.0,
+        "open": 247.0,
+        "high": 262.0,
+        "low": 247.0,
+        "prev_close": 242.5,
+        "volume": 2382,
+        "change_pct": 6.8,
+        "time": "13:02:06",
+        "date": "20260508",
+        "source": "tse"
+      }
+    },
+    {
+      "stock_id": "6225",
+      "name": "天瀚",
+      "sector": "",
+      "score": 84,
+      "details": {
+        "momentum": "最強動能",
+        "rsi": 100.0,
+        "ma5_status": "強勢突破",
+        "vol_ratio": "爆發",
+        "breakout": "創新高"
+      },
+      "total_score": 84,
+      "entry": 25.6,
+      "target": 27.65,
+      "stop_loss": 24.32,
+      "change_pct": 6.44,
+      "dimensions": {
+        "momentum": "最強動能",
+        "rsi": 100.0,
+        "ma5_status": "強勢突破",
+        "vol_ratio": "爆發",
+        "breakout": "創新高"
+      },
+      "live": {
+        "current": 25.6,
+        "open": 23.3,
+        "high": 25.6,
+        "low": 23.25,
+        "prev_close": 24.05,
+        "volume": 19,
+        "change_pct": 6.44,
+        "time": "13:00:35",
+        "date": "20260508",
+        "source": "tse"
+      }
+    },
+    {
+      "stock_id": "6698",
+      "name": "旭暉應材",
+      "sector": "",
+      "score": 84,
+      "details": {
+        "momentum": "最強動能",
+        "rsi": 100.0,
+        "ma5_status": "強勢突破",
+        "vol_ratio": "爆發",
+        "breakout": "創新高"
+      },
+      "total_score": 84,
+      "entry": 33.0,
+      "target": 35.64,
+      "stop_loss": 31.35,
+      "change_pct": 6.28,
+      "dimensions": {
+        "momentum": "最強動能",
+        "rsi": 100.0,
+        "ma5_status": "強勢突破",
+        "vol_ratio": "爆發",
+        "breakout": "創新高"
+      },
+      "live": {
+        "current": 33.0,
+        "open": 31.05,
+        "high": 33.5,
+        "low": 30.8,
         "prev_close": 31.05,
-        "volume": 18957,
-        "change_pct": 9.98,
-        "time": "13:14:36",
-        "date": "20260506",
+        "volume": 1489,
+        "change_pct": 6.28,
+        "time": "13:02:04",
+        "date": "20260508",
         "source": "tse"
       }
     },
     {
-      "stock_id": "2344",
-      "name": "華邦電",
+      "stock_id": "2454",
+      "name": "聯發科",
       "sector": "",
-      "score": 50.0,
+      "score": 81,
       "details": {
-        "momentum": "极强",
-        "gap": "開高走高"
+        "momentum": "強勢推進",
+        "rsi": 100.0,
+        "ma5_status": "強勢突破",
+        "vol_ratio": "爆發",
+        "breakout": "創新高"
       },
-      "total_score": 50.0,
-      "entry": 108.5,
-      "target": 117.18,
-      "stop_loss": 103.07,
-      "change_pct": 9.82,
+      "total_score": 81,
+      "entry": 3580.0,
+      "target": 3866.4,
+      "stop_loss": 3401.0,
+      "change_pct": 4.68,
       "dimensions": {
-        "momentum": "极强",
-        "vol_ratio": "",
-        "breakout": "",
-        "gap": "開高走高"
+        "momentum": "強勢推進",
+        "rsi": 100.0,
+        "ma5_status": "強勢突破",
+        "vol_ratio": "爆發",
+        "breakout": "創新高"
       },
       "live": {
-        "current": 108.5,
-        "open": 108.5,
-        "high": 108.5,
-        "low": 104.0,
-        "prev_close": 98.8,
-        "volume": 237580,
-        "change_pct": 9.82,
-        "time": "13:14:39",
-        "date": "20260506",
+        "current": 3580.0,
+        "open": 3320.0,
+        "high": 3670.0,
+        "low": 3320.0,
+        "prev_close": 3420.0,
+        "volume": 7319,
+        "change_pct": 4.68,
+        "time": "13:02:15",
+        "date": "20260508",
         "source": "tse"
       }
     },
     {
-      "stock_id": "2354",
-      "name": "鴻準",
+      "stock_id": "2923",
+      "name": "鼎固-KY",
       "sector": "",
-      "score": 50.0,
+      "score": 74,
       "details": {
-        "momentum": "极强",
-        "gap": "開高走高"
+        "momentum": "溫和強勢",
+        "rsi": 100.0,
+        "ma5_status": "強勢突破",
+        "vol_ratio": "爆發",
+        "breakout": "創新高"
       },
-      "total_score": 50.0,
-      "entry": 64.3,
-      "target": 69.44,
-      "stop_loss": 61.08,
-      "change_pct": 9.91,
+      "total_score": 74,
+      "entry": 28.0,
+      "target": 30.24,
+      "stop_loss": 26.6,
+      "change_pct": 3.7,
       "dimensions": {
-        "momentum": "极强",
-        "vol_ratio": "",
-        "breakout": "",
-        "gap": "開高走高"
+        "momentum": "溫和強勢",
+        "rsi": 100.0,
+        "ma5_status": "強勢突破",
+        "vol_ratio": "爆發",
+        "breakout": "創新高"
       },
       "live": {
-        "current": 64.3,
-        "open": 62.0,
-        "high": 64.3,
-        "low": 60.2,
-        "prev_close": 58.5,
-        "volume": 82437,
-        "change_pct": 9.91,
-        "time": "13:14:41",
-        "date": "20260506",
-        "source": "tse"
-      }
-    },
-    {
-      "stock_id": "3026",
-      "name": "禾伸堂",
-      "sector": "",
-      "score": 50.0,
-      "details": {
-        "momentum": "极强",
-        "gap": "開高走高"
-      },
-      "total_score": 50.0,
-      "entry": 273.0,
-      "target": 294.84,
-      "stop_loss": 259.35,
-      "change_pct": 9.86,
-      "dimensions": {
-        "momentum": "极强",
-        "vol_ratio": "",
-        "breakout": "",
-        "gap": "開高走高"
-      },
-      "live": {
-        "current": 273.0,
-        "open": 273.0,
-        "high": 273.0,
-        "low": 260.0,
-        "prev_close": 248.5,
-        "volume": 21155,
-        "change_pct": 9.86,
-        "time": "13:14:38",
-        "date": "20260506",
-        "source": "tse"
-      }
-    },
-    {
-      "stock_id": "3028",
-      "name": "增你強",
-      "sector": "",
-      "score": 50.0,
-      "details": {
-        "momentum": "极强",
-        "gap": "開高走高"
-      },
-      "total_score": 50.0,
-      "entry": 76.5,
-      "target": 82.62,
-      "stop_loss": 72.67,
-      "change_pct": 9.91,
-      "dimensions": {
-        "momentum": "极强",
-        "vol_ratio": "",
-        "breakout": "",
-        "gap": "開高走高"
-      },
-      "live": {
-        "current": 76.5,
-        "open": 72.2,
-        "high": 76.5,
-        "low": 72.0,
-        "prev_close": 69.6,
-        "volume": 6544,
-        "change_pct": 9.91,
-        "time": "13:14:11",
-        "date": "20260506",
+        "current": 28.0,
+        "open": 27.0,
+        "high": 28.0,
+        "low": 26.55,
+        "prev_close": 27.0,
+        "volume": 135,
+        "change_pct": 3.7,
+        "time": "13:01:44",
+        "date": "20260508",
         "source": "tse"
       }
     }

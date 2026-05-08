@@ -48,9 +48,14 @@ with open(idx_path, 'w') as f:
 print(f'index.json updated: {dates}')
 " "$DATE"
 
+# ── NEW: Update T+N backtest records and generate grouped_records ──────────────
+echo "Running update_tn_records.py to update T+N tracking and grouped_records..."
+python3 /home/sprite/tasks/2255/update_tn_records.py && echo "update_tn_records.py completed OK" || echo "[WARN] update_tn_records.py failed (non-blocking)"
+# ──────────────────────────────────────────────────────────────────────────────
+
 # Git commit and push
 git add public/data/
-git commit -m "📊 Auto-update: Daily scan result ${DATE} ($(date '+%Y-%m-%d %H:%M:%S'))
+git commit -m "Auto-update: Daily scan result ${DATE} ($(date '+%Y-%m-%d %H:%M:%S'))
 
 Co-Authored-By: Nebula <noreply@nebula.gg>"
 git push origin main
