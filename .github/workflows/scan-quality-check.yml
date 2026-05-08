@@ -80,7 +80,7 @@ jobs:
           tree = ast.parse(src)
           funcs = {n.name for n in ast.walk(tree) if isinstance(n, ast.FunctionDef)}
 
-          required = ['fetch_otc_day_all', 'analyze_technical', 'analyze_chips',
+          required = ['fetch_tpex_day_all', 'analyze_technical', 'analyze_chips',
                       'analyze_fundamental', 'analyze_news', 'analyze_sentiment']
           missing = [fn for fn in required if fn not in funcs]
 
