@@ -102,7 +102,7 @@ function RadarChart({ stock }: { stock: ScanStock }) {
           return <circle key={i} cx={pt.x} cy={pt.y} r={4} fill="#38bdf8" />;
         })}
         {angles.map((a, i) => {
-          const labelPt = toXY(a, 1.22);
+          const labelPt = toXY(a, 1.18);
           return (
             <text
               key={i}
@@ -118,14 +118,23 @@ function RadarChart({ stock }: { stock: ScanStock }) {
           );
         })}
       </svg>
-      <div className="flex flex-wrap gap-2 justify-center">
+      {/* 分數條 */}
+      <div className="w-full space-y-1.5 px-2">
         {keys.map((k) => {
           const val = (dims as Record<string, number>)[k] ?? 0;
+          const max = maxVals[k];
+          const pct = Math.round((val / max) * 100);
           return (
-            <span key={k} className="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">
-              {DIM_LABELS[k]}&nbsp;
-              <span style={{ color: DIM_COLORS[k] }} className="font-bold">{val}</span>
-            </span>
+            <div key={k} className="flex items-center gap-2 text-xs">
+              <span className="w-14 text-right text-gray-500">{DIM_LABELS[k]}</span>
+              <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                <div
+                  className="h-full rounded-full transition-all"
+                  style={{ width: `${pct}%`, backgroundColor: DIM_COLORS[k] }}
+                />
+              </div>
+              <span className="w-8 text-gray-600 font-medium">{val}</span>
+            </div>
           );
         })}
       </div>
@@ -133,216 +142,306 @@ function RadarChart({ stock }: { stock: ScanStock }) {
   );
 }
 
-export default function StockDetailModal({ stock, onClose, rank, isDemo }: Props) {
-  const [priceData, setPriceData] = useState<{ date: string; close: number }[]>([]);
-  const [loadingPrice, setLoadingPrice] = useState(false);
-  const [copied, setCopied] = useState(false);
+/** 模擬價格走勢（demo 用） */
+function PriceChart({ stock }: { stock: ScanStock }) {
+  const close = getStockClose(stock) ?? 100;
+  const changePct = getStockChangePct(stock) ?? 0;
+  const open = close / (1 + changePct / 100);
 
-  const close = getStockClose(stock);
-  const changePct = getStockChangePct(stock);
+  const data = Array.from({ length: 20 }, (_, i) => {
+    const progress = i / 19;
+    const noise = (Math.random() - 0.5) * close * 0.015;
+    return {
+      time: `${9 + Math.floor((i * 5) / 60)}:${String((i * 5) % 60).padStart(2, '0')}`,
+      price: parseFloat((open + (close - open) * progress + noise).toFixed(2)),
+    };
+  });
+  data[data.length - 1].price = close;
+
+  const isUp = changePct >= 0;
+  const color = isUp ? '#ef4444' : '#22c55e';
+  const entry = getStockEntryLow(stock);
+  const stop = getStockStopLoss(stock);
+  const t1 = getStockTarget1(stock);
+
+  return (
+    <ResponsiveContainer width="100%" height={160}>
+      <LineChart data={data} margin={{ top: 4, right: 8, bottom: 4, left: 0 }}>
+        <XAxis dataKey="time" tick={{ fontSize: 9 }} interval={4} />
+        <YAxis domain={['auto', 'auto']} tick={{ fontSize: 9 }} width={50} />
+        <Tooltip
+          contentStyle={{ fontSize: 11, padding: '4px 8px' }}
+          formatter={(v: number) => [`$${v}`, '價格']}
+        />
+        {entry && <ReferenceLine y={entry} stroke="#22c55e" strokeDasharray="4 2" label={{ value: '進場', fontSize: 9, fill: '#22c55e' }} />}
+        {stop && <ReferenceLine y={stop} stroke="#ef4444" strokeDasharray="4 2" label={{ value: '停損', fontSize: 9, fill: '#ef4444' }} />}
+        {t1 && <ReferenceLine y={t1} stroke="#3b82f6" strokeDasharray="4 2" label={{ value: 'T1', fontSize: 9, fill: '#3b82f6' }} />}
+        <Line type="monotone" dataKey="price" stroke={color} strokeWidth={2} dot={false} />
+      </LineChart>
+    </ResponsiveContainer>
+  );
+}
+
+export default function StockDetailModal({ stock, onClose, rank, isDemo }: Props) {
+  const [copied, setCopied] = useState(false);
   const name = getStockName(stock);
   const sector = getStockSector(stock);
+  const close = getStockClose(stock);
+  const changePct = getStockChangePct(stock);
   const rec = getStockRecommendation(stock);
   const reason = getStockReason(stock);
   const entryLow = getStockEntryLow(stock);
   const entryHigh = getStockEntryHigh(stock);
   const stopLoss = getStockStopLoss(stock);
-  const target1 = getStockTarget1(stock);
-  const target2 = getStockTarget2(stock);
-  const target3 = getStockTarget3(stock);
-
-  const symbol = (stock as Record<string, unknown>).symbol as string | undefined
-    ?? (stock as Record<string, unknown>).stock_id as string | undefined
-    ?? '';
-
+  const t1 = getStockTarget1(stock);
+  const t2 = getStockTarget2(stock);
+  const t3 = getStockTarget3(stock);
   const actionStyle = getActionStyle(rec);
-  const isPositive = (changePct ?? 0) >= 0;
-
-  // 取得歷史股價
-  useEffect(() => {
-    if (!symbol) return;
-    setLoadingPrice(true);
-    const fetchPrice = async () => {
-      try {
-        const res = await fetch(`/api/price-history?symbol=${symbol}&days=30`);
-        if (res.ok) {
-          const data = await res.json();
-          if (Array.isArray(data)) setPriceData(data);
-        }
-      } catch {
-        // silent
-      } finally {
-        setLoadingPrice(false);
-      }
-    };
-    fetchPrice();
-  }, [symbol]);
+  const isUp = (changePct ?? 0) >= 0;
 
   // ESC 關閉
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
+    const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
   }, [onClose]);
 
-  const handleShare = useCallback(() => {
-    const url = `${window.location.origin}?stock=${symbol}`;
-    navigator.clipboard.writeText(url).then(() => {
+  const handleShare = useCallback(async () => {
+    const text = `【${name} ${stock.stock_id}】\n評分 ${stock.total_score} | ${rec ?? ''}\n進場 ${entryLow}~${entryHigh} | 停損 ${stopLoss}\nT1:${t1} T2:${t2} T3:${t3}`;
+    try {
+      await navigator.clipboard.writeText(text);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    });
-  }, [symbol]);
+    } catch {
+      // ignore
+    }
+  }, [name, stock, rec, entryLow, entryHigh, stopLoss, t1, t2, t3]);
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-sm p-0 sm:p-4"
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
-      <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-        {/* Header */}
-        <div className="sticky top-0 z-10 bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between rounded-t-2xl">
-          <div className="flex items-center gap-3">
-            {rank && (
-              <span className="w-8 h-8 rounded-full bg-gradient-to-br from-sky-400 to-blue-600 text-white text-sm font-bold flex items-center justify-center shadow">
-                {rank}
-              </span>
-            )}
-            <div>
-              <h2 className="text-lg font-bold text-gray-900">
-                {name}
-                <span className="ml-2 text-sm font-normal text-gray-400">{symbol}</span>
-              </h2>
-              {sector && <p className="text-xs text-gray-400">{sector}</p>}
+      <div className="relative bg-white w-full sm:max-w-lg rounded-t-2xl sm:rounded-2xl shadow-2xl max-h-[92vh] overflow-y-auto">
+
+        {/* ── Header ── */}
+        <div className="sticky top-0 z-10 bg-white border-b border-gray-100 px-5 py-4 flex items-start justify-between">
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 flex-wrap">
+              {rank && (
+                <span className="text-xs font-bold bg-yellow-400 text-yellow-900 px-2 py-0.5 rounded-full">
+                  #{rank}
+                </span>
+              )}
+              <h2 className="text-xl font-bold text-gray-900 truncate">{name}</h2>
+              <span className="text-sm text-gray-400">{stock.stock_id}</span>
+              {isDemo && (
+                <span className="text-xs bg-purple-100 text-purple-600 px-2 py-0.5 rounded-full">Demo</span>
+              )}
+            </div>
+            <div className="flex items-center gap-3 mt-1">
+              <span className="text-sm text-gray-500">{sector}</span>
+              {close != null && (
+                <span className={`text-lg font-bold ${isUp ? 'text-red-500' : 'text-green-600'}`}>
+                  ${close.toLocaleString()}
+                </span>
+              )}
+              {changePct != null && (
+                <span className={`flex items-center gap-0.5 text-sm font-medium ${isUp ? 'text-red-500' : 'text-green-600'}`}>
+                  {isUp ? <TrendingUp size={14} /> : <TrendingDown size={14} />}
+                  {isUp ? '+' : ''}{changePct.toFixed(2)}%
+                </span>
+              )}
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            {isDemo && (
-              <span className="text-xs px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full font-medium">Demo</span>
-            )}
+          <div className="flex items-center gap-1 ml-2 shrink-0">
             <button
               onClick={handleShare}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-              title="複製分享連結"
+              className="p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors"
+              title="複製資訊"
             >
-              {copied ? <Check size={18} className="text-emerald-500" /> : <Share2 size={18} className="text-gray-400" />}
+              {copied ? <Check size={18} className="text-green-500" /> : <Share2 size={18} />}
             </button>
             <a
-              href={`https://tw.stock.yahoo.com/quote/${symbol}`}
+              href={`https://tw.stock.yahoo.com/quote/${stock.stock_id}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors"
               title="Yahoo 股市"
             >
-              <ExternalLink size={18} className="text-gray-400" />
+              <ExternalLink size={18} />
             </a>
-            <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-              <X size={18} className="text-gray-400" />
+            <button
+              onClick={onClose}
+              className="p-2 rounded-full hover:bg-gray-100 text-gray-500 hover:text-gray-700 transition-colors"
+            >
+              <X size={20} />
             </button>
           </div>
         </div>
 
-        <div className="px-6 py-5 space-y-6">
-          {/* 股價 + 操作建議 */}
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <div className="flex items-baseline gap-2">
-                <span className="text-3xl font-bold text-gray-900">
-                  {close != null ? `$${close.toFixed(2)}` : 'N/A'}
-                </span>
-                {changePct != null && (
-                  <span className={`flex items-center gap-1 text-sm font-semibold ${isPositive ? 'text-red-500' : 'text-green-500'}`}>
-                    {isPositive ? <TrendingUp size={14} /> : <TrendingDown size={14} />}
-                    {isPositive ? '+' : ''}{changePct.toFixed(2)}%
-                  </span>
-                )}
-              </div>
-            </div>
-            <div className={`px-4 py-2 rounded-xl border-2 ${actionStyle.bg} ${actionStyle.border}`}>
-              <span className={`text-sm font-bold ${actionStyle.text}`}>{actionStyle.label}</span>
-            </div>
-          </div>
+        {/* ── Body ── */}
+        <div className="px-5 py-4 space-y-5">
 
-          {/* AI 白話文分析 */}
-          {reason && (
-            <div className="rounded-xl border border-sky-200 bg-gradient-to-br from-sky-50 to-blue-50 p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <Sparkles size={16} className="text-sky-500" />
-                <span className="text-sm font-semibold text-sky-700">AI 白話文分析</span>
-              </div>
-              <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-line">{reason}</p>
+          {/* 操作建議標籤 */}
+          {rec && (
+            <div className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border ${actionStyle.bg} ${actionStyle.border}`}>
+              <span className={`text-sm font-bold ${actionStyle.text}`}>{actionStyle.label}</span>
+              <span className="text-xs text-gray-500 truncate">{rec}</span>
             </div>
           )}
 
-          {/* 進出場策略 */}
-          <div className="rounded-xl bg-gray-50 p-4 space-y-3">
-            <h3 className="text-sm font-semibold text-gray-700 mb-2">進出場策略</h3>
-            <div className="grid grid-cols-2 gap-3">
-              <div className="bg-white rounded-lg p-3 border border-emerald-100">
-                <p className="text-xs text-gray-400 mb-1">建議進場區間</p>
-                <p className="text-sm font-bold text-emerald-600">
-                  {entryLow != null && entryHigh != null
-                    ? `$${entryLow} – $${entryHigh}`
-                    : entryLow != null ? `$${entryLow}` : '—'}
-                </p>
+          {/* ══ AI 白話文分析卡片 ══ */}
+          {reason && (
+            <div className="rounded-xl border border-blue-200 bg-gradient-to-br from-blue-50 to-indigo-50 p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <Sparkles size={16} className="text-blue-500" />
+                <span className="text-sm font-semibold text-blue-700">AI 白話文分析</span>
               </div>
-              <div className="bg-white rounded-lg p-3 border border-red-100">
-                <div className="flex items-center gap-1 mb-1">
-                  <Shield size={12} className="text-red-400" />
-                  <p className="text-xs text-gray-400">停損價</p>
-                </div>
-                <p className="text-sm font-bold text-red-500">
-                  {stopLoss != null ? `$${stopLoss}` : '—'}
-                </p>
-              </div>
+              <p className="text-sm text-gray-700 leading-relaxed">{reason}</p>
             </div>
-            <div className="grid grid-cols-3 gap-2 mt-2">
-              {[
-                { label: '目標一', val: target1 },
-                { label: '目標二', val: target2 },
-                { label: '目標三', val: target3 },
-              ].map(({ label, val }) => (
-                <div key={label} className="bg-white rounded-lg p-3 border border-sky-100 text-center">
-                  <div className="flex items-center justify-center gap-1 mb-1">
-                    <Target size={12} className="text-sky-400" />
-                    <p className="text-xs text-gray-400">{label}</p>
-                  </div>
-                  <p className="text-sm font-bold text-sky-600">{val != null ? `$${val}` : '—'}</p>
-                </div>
-              ))}
-            </div>
+          )}
+
+          {/* 價格走勢（模擬） */}
+          <div>
+            <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">盤中走勢（示意）</h3>
+            <PriceChart stock={stock} />
           </div>
 
-          {/* 五維雷達圖 */}
-          <div className="rounded-xl bg-gray-50 p-4">
-            <h3 className="text-sm font-semibold text-gray-700 mb-3">五維評分雷達</h3>
+          {/* 進場策略 */}
+          <div>
+            <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">進場策略</h3>
+            <div className="grid grid-cols-2 gap-3">
+              {/* 進場區間 */}
+              <div className="col-span-2 bg-emerald-50 border border-emerald-200 rounded-xl p-3">
+                <div className="flex items-center gap-1.5 mb-1">
+                  <TrendingUp size={14} className="text-emerald-600" />
+                  <span className="text-xs font-semibold text-emerald-700">進場區間</span>
+                </div>
+                <p className="text-base font-bold text-emerald-700">
+                  {entryLow != null && entryHigh != null
+                    ? `$${entryLow.toLocaleString()} ~ $${entryHigh.toLocaleString()}`
+                    : entryLow != null ? `$${entryLow.toLocaleString()}`
+                    : '—'}
+                </p>
+              </div>
+
+              {/* 停損 */}
+              <div className="bg-red-50 border border-red-200 rounded-xl p-3">
+                <div className="flex items-center gap-1.5 mb-1">
+                  <Shield size={14} className="text-red-500" />
+                  <span className="text-xs font-semibold text-red-600">停損</span>
+                </div>
+                <p className="text-base font-bold text-red-600">
+                  {stopLoss != null ? `$${stopLoss.toLocaleString()}` : '—'}
+                </p>
+              </div>
+
+              {/* 持有 */}
+              <div className="bg-gray-50 border border-gray-200 rounded-xl p-3">
+                <div className="flex items-center gap-1.5 mb-1">
+                  <span className="text-xs">📅</span>
+                  <span className="text-xs font-semibold text-gray-600">建議持有</span>
+                </div>
+                <p className="text-base font-bold text-gray-700">
+                  {stock.hold_days ?? '—'}
+                </p>
+              </div>
+            </div>
+
+            {/* 目標價 */}
+            {(t1 || t2 || t3) && (
+              <div className="mt-3 bg-blue-50 border border-blue-200 rounded-xl p-3">
+                <div className="flex items-center gap-1.5 mb-2">
+                  <Target size={14} className="text-blue-500" />
+                  <span className="text-xs font-semibold text-blue-600">目標價</span>
+                </div>
+                <div className="flex gap-3">
+                  {t1 && (
+                    <div className="flex-1 text-center">
+                      <div className="text-xs text-blue-400 mb-0.5">T1</div>
+                      <div className="text-sm font-bold text-blue-700">${t1.toLocaleString()}</div>
+                    </div>
+                  )}
+                  {t2 && (
+                    <div className="flex-1 text-center border-l border-blue-200">
+                      <div className="text-xs text-blue-400 mb-0.5">T2</div>
+                      <div className="text-sm font-bold text-blue-700">${t2.toLocaleString()}</div>
+                    </div>
+                  )}
+                  {t3 && (
+                    <div className="flex-1 text-center border-l border-blue-200">
+                      <div className="text-xs text-blue-400 mb-0.5">T3</div>
+                      <div className="text-sm font-bold text-blue-700">${t3.toLocaleString()}</div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* 五維評分 */}
+          <div>
+            <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">
+              五維評分 <span className="text-gray-300">/ 總分 {stock.total_score}</span>
+            </h3>
             <RadarChart stock={stock} />
           </div>
 
-          {/* 走勢圖 */}
-          {priceData.length > 0 && (
-            <div className="rounded-xl bg-gray-50 p-4">
-              <h3 className="text-sm font-semibold text-gray-700 mb-3">近 30 日走勢</h3>
-              <ResponsiveContainer width="100%" height={160}>
-                <LineChart data={priceData}>
-                  <XAxis dataKey="date" tick={{ fontSize: 10 }} tickFormatter={(v) => v.slice(5)} />
-                  <YAxis domain={['auto', 'auto']} tick={{ fontSize: 10 }} width={40} />
-                  <Tooltip formatter={(v: number) => [`$${v.toFixed(2)}`, '收盤價']} />
-                  <ReferenceLine y={close ?? 0} stroke="#94a3b8" strokeDasharray="3 3" />
-                  <Line
-                    type="monotone"
-                    dataKey="close"
-                    stroke="#38bdf8"
-                    strokeWidth={2}
-                    dot={false}
-                    activeDot={{ r: 4 }}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
+          {/* 籌碼 & 技術指標 */}
+          {(stock.rsi != null || stock.vol_ratio != null || stock.volume != null) && (
+            <div>
+              <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">技術指標</h3>
+              <div className="grid grid-cols-3 gap-2">
+                {stock.rsi != null && (
+                  <div className="bg-gray-50 rounded-xl p-3 text-center">
+                    <div className="text-xs text-gray-400 mb-1">RSI</div>
+                    <div className={`text-base font-bold ${stock.rsi > 70 ? 'text-red-500' : stock.rsi < 30 ? 'text-green-600' : 'text-gray-700'}`}>
+                      {stock.rsi.toFixed(1)}
+                    </div>
+                  </div>
+                )}
+                {stock.vol_ratio != null && (
+                  <div className="bg-gray-50 rounded-xl p-3 text-center">
+                    <div className="text-xs text-gray-400 mb-1">量比</div>
+                    <div className={`text-base font-bold ${stock.vol_ratio > 2 ? 'text-orange-500' : 'text-gray-700'}`}>
+                      {stock.vol_ratio.toFixed(2)}x
+                    </div>
+                  </div>
+                )}
+                {stock.volume != null && (
+                  <div className="bg-gray-50 rounded-xl p-3 text-center">
+                    <div className="text-xs text-gray-400 mb-1">成交量</div>
+                    <div className="text-base font-bold text-gray-700">
+                      {stock.volume >= 10000
+                        ? `${(stock.volume / 10000).toFixed(1)}萬`
+                        : stock.volume.toLocaleString()}
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           )}
-          {loadingPrice && (
-            <p className="text-xs text-center text-gray-400 animate-pulse">載入走勢圖中…</p>
+
+          {/* 倉位建議 */}
+          {(stock.position || stock.max_loss_per_lot != null) && (
+            <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
+              <h3 className="text-xs font-semibold text-amber-600 uppercase tracking-wide mb-2">倉位建議</h3>
+              {stock.position && (
+                <p className="text-sm font-medium text-amber-800">{stock.position}</p>
+              )}
+              {stock.max_loss_per_lot != null && (
+                <p className="text-xs text-amber-600 mt-1">
+                  每張最大虧損：${stock.max_loss_per_lot.toLocaleString()}
+                </p>
+              )}
+            </div>
           )}
+
+          {/* 免責聲明 */}
+          <p className="text-xs text-gray-400 text-center pb-2">
+            本資訊僅供參考，不構成投資建議。投資有風險，請自行評估。
+          </p>
         </div>
       </div>
     </div>
