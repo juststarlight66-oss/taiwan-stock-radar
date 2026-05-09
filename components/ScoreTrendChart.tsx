@@ -3,10 +3,7 @@
 /**
  * ScoreTrendChart
  * 迷你 SVG 折線圖，顯示某支股票在歷史掃描中的 total_score 趨勢。
- * Props:
- *   stockId  — 股票代號
- *   history  — { date: string; score: number }[] (最舊 → 最新)
- *   width / height — 可選，預設 80×28
+ * 顏色遵循台灣慣例：上漲（分數提升）→ 紅色，下跌（分數下降）→ 綠色
  */
 
 interface DataPoint {
@@ -50,7 +47,8 @@ export default function ScoreTrendChart({
   const last = history[history.length - 1].score;
   const prev = history[history.length - 2].score;
   const trend = last >= prev ? 'up' : 'down';
-  const lineColor = trend === 'up' ? '#34d399' : '#f87171'; // emerald-400 / red-400
+  // 台灣慣例：分數上升 → 紅色，分數下降 → 綠色
+  const lineColor = trend === 'up' ? '#ef4444' : '#22c55e'; // red-500 / green-500
 
   // gradient fill under the line
   const fillPoints = [

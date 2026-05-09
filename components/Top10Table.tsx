@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { ScanStock, DIMENSION_CONFIG } from '@/lib/scanTypes';
 import StockDetailModal from './StockDetailModal';
 import { WatchlistToggleBtn } from './WatchlistPanel';
+import ScoreTrendChart from './ScoreTrendChart';
 import { ChevronRight, ArrowUpRight, ArrowDownRight, Copy, Check, Flame } from 'lucide-react';
 import {
   RadarChart, Radar, PolarGrid, PolarAngleAxis, ResponsiveContainer,
@@ -30,10 +31,10 @@ function getActionStyle(action: string | undefined) {
     return { cls: 'text-orange-400 font-semibold', dot: 'bg-orange-400', label: '買進' };
   }
   if (a.includes('觀望') || a.includes('watch') || a.includes('hold')) {
-    return { cls: 'text-gray-500', dot: 'bg-gray-400', label: '觀望' };
+    return { cls: 'text-gray-600', dot: 'bg-gray-400', label: '觀望' };
   }
   if (a.includes('偏弱') || a.includes('weak') || a.includes('avoid')) {
-    return { cls: 'text-gray-400', dot: 'bg-gray-300', label: '偏弱' };
+    return { cls: 'text-gray-500', dot: 'bg-gray-300', label: '偏弱' };
   }
   return { cls: 'text-emerald-600', dot: 'bg-emerald-500', label: action.split(' - ')[0] };
 }
@@ -46,7 +47,7 @@ function ScoreBar({ score, max }: { score: number; max: number }) {
       <div className="flex-1 h-1.5 rounded-full bg-gray-200 overflow-hidden">
         <div className={`h-full rounded-full ${color} transition-all`} style={{ width: `${pct}%` }} />
       </div>
-      <span className="text-xs font-mono font-bold text-gray-700 w-8 text-right">{Math.round(score)}</span>
+      <span className="text-xs font-mono font-bold text-gray-800 w-8 text-right">{Math.round(score)}</span>
     </div>
   );
 }
@@ -60,7 +61,7 @@ function MiniRadar({ dimensions }: { dimensions: Record<string, number> }) {
     <ResponsiveContainer width={72} height={72}>
       <RadarChart data={data} margin={{ top: 4, right: 4, bottom: 4, left: 4 }}>
         <PolarGrid stroke="#e5e7eb" />
-        <PolarAngleAxis dataKey="dim" tick={{ fontSize: 8, fill: '#6b7280' }} />
+        <PolarAngleAxis dataKey="dim" tick={{ fontSize: 8, fill: '#374151' }} />
         <Radar dataKey="value" stroke="#0284c7" fill="#0284c7" fillOpacity={0.15} strokeWidth={1.5} />
       </RadarChart>
     </ResponsiveContainer>
@@ -84,7 +85,7 @@ function CopyBtn({ text }: { text: string }) {
     >
       {copied
         ? <Check className="w-3 h-3 text-emerald-500" />
-        : <Copy className="w-3 h-3 text-gray-400 hover:text-gray-600" />}
+        : <Copy className="w-3 h-3 text-gray-500 hover:text-gray-700" />}
     </button>
   );
 }
@@ -93,137 +94,161 @@ function LimitBadge({ changePct }: { changePct: number }) {
   if (Math.abs(changePct) < 9.5) return null;
   const up = changePct >= 0;
   return (
-    <span className={`text-[9px] px-1 py-0.5 rounded font-bold ${up ? 'bg-red-100 text-red-600' : 'bg-green-100 text-green-700'}`}>
+    // 台灣慣例：漲停紅底、跌停綠底
+    <span className={`text-[9px] px-1 py-0.5 rounded font-bold ${up ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-800'}`}>
       {up ? '漲停' : '跌停'}
     </span>
   );
 }
 
-function RankBadge({ rank }: { rank: number }) {
-  return (
-    <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 ${
-      rank === 1 ? 'bg-amber-100 text-amber-700 border border-amber-300' :
-      rank === 2 ? 'bg-gray-100 text-gray-600 border border-gray-300' :
-      rank === 3 ? 'bg-orange-50 text-orange-700 border border-orange-200' :
-      'text-gray-400'
-    }`}>
-      {rank <= 3 ? rank : rank}
-    </span>
-  );
-}
-
-interface ScoreTrendPoint { score: number; }
-function ScoreTrendChart({ stockId, history, width, height }: {
-  stockId: string;
-  history: ScoreTrendPoint[];
-  width: number;
-  height: number;
-}) {
-  if (!history || history.length < 2) return null;
-  const scores = history.map(h => h.score);
-  const min = Math.min(...scores);
-  const max = Math.max(...scores);
-  const range = max - min || 1;
-  const pts = scores.map((s, i) => {
-    const x = (i / (scores.length - 1)) * width;
-    const y = height - ((s - min) / range) * (height - 4) - 2;
-    return `${x},${y}`;
-  }).join(' ');
-  const last = scores[scores.length - 1];
-  const prev = scores[scores.length - 2];
-  const color = last >= prev ? '#10b981' : '#ef4444';
-  return (
-    <svg width={width} height={height} className="overflow-visible">
-      <polyline points={pts} fill="none" stroke={color} strokeWidth={1.5} strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-export default function Top10Table({
-  stocks,
-  history,
-}: {
+interface Props {
   stocks: ScanStock[];
-  history?: Record<string, ScoreTrendPoint[]>;
-}) {
-  const [selectedStock, setSelectedStock] = useState<ScanStock | null>(null);
+  scoreHistory?: Record<string, { date: string; score: number }[]>;
+}
 
-  if (!stocks || stocks.length === 0) {
-    return (
-      <div className="text-center py-12 text-gray-500">
-        <p className="text-lg">尚無掃描資料</p>
-        <p className="text-sm mt-1 text-gray-400">等待下次掃描結果...</p>
-      </div>
-    );
-  }
-
-  const totalMax = Math.max(...stocks.map(s => s.total_score));
+export default function Top10Table({ stocks, scoreHistory = {} }: Props) {
+  const [selected, setSelected] = useState<ScanStock | null>(null);
 
   return (
     <>
-      <div className="overflow-x-auto rounded-xl border border-gray-100 shadow-sm">
-        <table className="min-w-full text-sm">
+      <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
+        <table className="w-full text-sm border-collapse">
           <thead>
-            <tr className="bg-gray-50/80 border-b border-gray-100">
-              <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider w-8">#</th>
-              <th className="px-3 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">股票</th>
-              <th className="px-3 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider hidden lg:table-cell">族群</th>
-              <th className="px-3 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">收盤</th>
-              <th className="px-3 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">漲跌</th>
-              <th className="px-3 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">評分</th>
-              <th className="px-3 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider hidden md:table-cell">趨勢</th>
-              <th className="px-3 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">操作</th>
-              <th className="px-3 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider w-8"></th>
+            <tr className="bg-gray-50 border-b border-gray-200">
+              <th className="px-3 py-2.5 text-left text-xs font-semibold text-gray-700 w-8">#</th>
+              <th className="px-3 py-2.5 text-left text-xs font-semibold text-gray-700">股票</th>
+              <th className="px-3 py-2.5 text-left text-xs font-semibold text-gray-700">族群</th>
+              <th className="px-3 py-2.5 text-right text-xs font-semibold text-gray-700">收盤價</th>
+              <th className="px-3 py-2.5 text-right text-xs font-semibold text-gray-700">漲跌%</th>
+              <th className="px-3 py-2.5 text-left text-xs font-semibold text-gray-700 min-w-[100px]">評分</th>
+              <th className="px-3 py-2.5 text-left text-xs font-semibold text-gray-700">建議</th>
+              <th className="px-3 py-2.5 text-right text-xs font-semibold text-gray-700">目標1</th>
+              <th className="px-3 py-2.5 text-right text-xs font-semibold text-gray-700">目標2</th>
+              <th className="px-3 py-2.5 text-right text-xs font-semibold text-gray-700">目標3</th>
+              <th className="px-3 py-2.5 text-left text-xs font-semibold text-gray-700">趨勢</th>
+              <th className="px-3 py-2.5 text-left text-xs font-semibold text-gray-700 hidden lg:table-cell">AI 分析</th>
+              <th className="px-3 py-2.5 w-8"></th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-50 bg-white">
-            {stocks.map((s, i) => {
-              const up = s.change_pct >= 0;
-              const rec = s.strategy?.recommendation ?? '';
-              const { cls: actionCls } = getActionStyle(rec);
-              const { label: actionLabel } = getActionStyle(rec);
-              const trend = history?.[s.stock_id];
-              const rowCls = i === 0 ? 'bg-amber-50/30' : '';
+          <tbody className="divide-y divide-gray-100">
+            {stocks.map((s, idx) => {
+              const actionStyle = getActionStyle(s.strategy?.recommendation);
+              // 台灣慣例：上漲紅色、下跌綠色
+              const changePct = s.price?.change_pct ?? 0;
+              const isUp = changePct >= 0;
+              const changeColor = isUp ? 'text-red-600' : 'text-green-700';
+              const changeBg = isUp ? 'bg-red-50' : 'bg-green-50';
+              const ChangeIcon = isUp ? ArrowUpRight : ArrowDownRight;
+
+              // 三關價
+              const t1 = s.strategy?.target1;
+              const t2 = s.strategy?.target2;
+              const t3 = s.strategy?.target3;
+
+              // 趨勢歷史
+              const history = scoreHistory[s.code] ?? scoreHistory[s.stock_id] ?? [];
 
               return (
                 <tr
-                  key={s.stock_id}
-                  onClick={() => setSelectedStock(s)}
-                  className={`hover:bg-gray-800/40 cursor-pointer transition-colors group ${rowCls}`}
+                  key={s.code ?? s.stock_id}
+                  className="hover:bg-blue-50/40 cursor-pointer transition-colors"
+                  onClick={() => setSelected(s)}
                 >
-                  <td className="px-4 py-2.5 text-gray-600 font-mono">{i + 1}</td>
+                  {/* 排名 */}
                   <td className="px-3 py-2.5">
-                    <div className="font-mono text-gray-500 text-[11px]">{s.stock_id}</div>
-                    <div className="font-semibold text-gray-200">{s.name}</div>
+                    {idx < 3
+                      ? <Flame className={`w-4 h-4 ${idx === 0 ? 'text-red-500' : idx === 1 ? 'text-orange-400' : 'text-amber-400'}`} />
+                      : <span className="text-xs font-mono text-gray-500">{idx + 1}</span>
+                    }
                   </td>
-                  <td className="px-3 py-2.5 text-gray-400 hidden lg:table-cell">{s.sector}</td>
-                  <td className="px-3 py-2.5 text-right font-mono font-bold text-white">
-                    {s.close.toLocaleString()}
+
+                  {/* 股票代號 + 名稱 */}
+                  <td className="px-3 py-2.5">
+                    <div className="flex items-center gap-1">
+                      <div>
+                        <div className="flex items-center gap-1">
+                          <span className="font-mono font-bold text-gray-900 text-sm">{s.code ?? s.stock_id}</span>
+                          <CopyBtn text={s.code ?? s.stock_id ?? ''} />
+                        </div>
+                        <div className="text-xs font-medium text-gray-700">{s.name}</div>
+                      </div>
+                    </div>
+                  </td>
+
+                  {/* 族群 */}
+                  <td className="px-3 py-2.5">
+                    <span className="text-xs font-medium text-gray-700 bg-gray-100 px-1.5 py-0.5 rounded">
+                      {s.sector ?? s.industry ?? '—'}
+                    </span>
+                  </td>
+
+                  {/* 收盤價 */}
+                  <td className="px-3 py-2.5 text-right">
+                    <span className="font-mono font-bold text-gray-900 text-sm">
+                      {s.price?.close != null ? s.price.close.toFixed(2) : '—'}
+                    </span>
+                  </td>
+
+                  {/* 漲跌% — 台灣慣例：紅漲綠跌 */}
+                  <td className="px-3 py-2.5 text-right">
+                    <div className={`inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-xs font-bold ${changeBg} ${changeColor}`}>
+                      <ChangeIcon className="w-3 h-3" />
+                      {Math.abs(changePct).toFixed(2)}%
+                      <LimitBadge changePct={changePct} />
+                    </div>
+                  </td>
+
+                  {/* 評分 + 雷達圖 */}
+                  <td className="px-3 py-2.5">
+                    <div className="flex items-center gap-2">
+                      {s.dimensions && <MiniRadar dimensions={s.dimensions} />}
+                      <ScoreBar score={s.total_score ?? 0} max={110} />
+                    </div>
+                  </td>
+
+                  {/* 建議 */}
+                  <td className="px-3 py-2.5">
+                    <div className="flex items-center gap-1.5">
+                      <span className={`w-1.5 h-1.5 rounded-full ${actionStyle.dot} shrink-0`} />
+                      <span className={`text-xs ${actionStyle.cls}`}>{actionStyle.label}</span>
+                    </div>
+                  </td>
+
+                  {/* 三關價：目標1/2/3 */}
+                  <td className="px-3 py-2.5 text-right">
+                    <span className="font-mono text-xs font-semibold text-orange-600">
+                      {t1 != null ? t1.toFixed(2) : '—'}
+                    </span>
                   </td>
                   <td className="px-3 py-2.5 text-right">
-                    <span className={`font-mono flex items-center justify-end gap-1 ${up ? 'text-emerald-400' : 'text-red-400'}`}>
-                      {up ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
-                      {Math.abs(s.change_pct).toFixed(2)}%
-                      <LimitBadge changePct={s.change_pct} />
+                    <span className="font-mono text-xs font-semibold text-red-600">
+                      {t2 != null ? t2.toFixed(2) : '—'}
                     </span>
                   </td>
-                  <td className="px-3 py-2.5">
-                    <ScoreBar score={s.total_score} max={totalMax} />
-                  </td>
-                  <td className="px-3 py-2.5">
-                    {trend && trend.length >= 2 ? (
-                      <ScoreTrendChart stockId={s.stock_id} history={trend} width={80} height={28} />
-                    ) : (
-                      <span className="text-[10px] text-gray-700">—</span>
-                    )}
-                  </td>
-                  <td className="px-3 py-2.5">
-                    <span className={`px-1.5 py-0.5 rounded border text-[10px] font-medium ${actionCls}`}>
-                      {actionLabel}
+                  <td className="px-3 py-2.5 text-right">
+                    <span className="font-mono text-xs font-semibold text-red-700">
+                      {t3 != null ? t3.toFixed(2) : '—'}
                     </span>
                   </td>
-                  <td className="px-3 py-2.5" onClick={(e) => e.stopPropagation()}>
-                    <WatchlistToggleBtn stockId={s.stock_id} />
+
+                  {/* 趨勢 */}
+                  <td className="px-3 py-2.5">
+                    {history.length >= 2
+                      ? <ScoreTrendChart stockId={s.code ?? s.stock_id ?? ''} history={history} width={80} height={28} />
+                      : <span className="text-xs text-gray-500 font-mono">—</span>
+                    }
+                  </td>
+
+                  {/* AI 分析 */}
+                  <td className="px-3 py-2.5 max-w-[220px] hidden lg:table-cell">
+                    <p className="text-xs text-gray-800 leading-relaxed line-clamp-2">
+                      {s.strategy?.narrative ?? s.strategy?.summary ?? '—'}
+                    </p>
+                  </td>
+
+                  {/* 詳情箭頭 */}
+                  <td className="px-3 py-2.5">
+                    <ChevronRight className="w-4 h-4 text-gray-400" />
                   </td>
                 </tr>
               );
@@ -232,8 +257,8 @@ export default function Top10Table({
         </table>
       </div>
 
-      {selectedStock && (
-        <StockDetailModal stock={selectedStock} onClose={() => setSelectedStock(null)} />
+      {selected && (
+        <StockDetailModal stock={selected} onClose={() => setSelected(null)} />
       )}
     </>
   );
