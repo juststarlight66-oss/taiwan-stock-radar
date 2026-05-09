@@ -1,17 +1,16 @@
 'use client';
 import {
-  ScanStock, StockNarrative, DIMENSION_CONFIG,
+  ScanStock, DIMENSION_CONFIG,
   getStockName, getStockSector, getStockClose, getStockChangePct,
   getStockRecommendation, getStockReason, getStockDimensions,
   getStockEntryLow, getStockEntryHigh, getStockStopLoss,
   getStockTarget1, getStockTarget2, getStockTarget3,
 } from '@/lib/scanTypes';
-import { X, Target, Shield, TrendingUp, TrendingDown, ExternalLink, Share2, Check } from 'lucide-react';
+import { X, Target, Shield, TrendingUp, TrendingDown, ExternalLink, Share2, Check, Sparkles } from 'lucide-react';
 import { useEffect, useState, useCallback } from 'react';
 import {
   LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine,
 } from 'recharts';
-import { useOnDemandScan } from '@/lib/useScanData';
 
 interface Props {
   stock: ScanStock;
@@ -102,286 +101,248 @@ function RadarChart({ stock }: { stock: ScanStock }) {
           const pt = toXY(angles[i], s);
           return <circle key={i} cx={pt.x} cy={pt.y} r={4} fill="#38bdf8" />;
         })}
-        {labels.map((lbl, i) => {
-          const pt = toXY(angles[i], 1.18);
+        {angles.map((a, i) => {
+          const labelPt = toXY(a, 1.22);
           return (
             <text
               key={i}
-              x={pt.x}
-              y={pt.y}
+              x={labelPt.x}
+              y={labelPt.y}
               textAnchor="middle"
               dominantBaseline="middle"
-              fontSize={11}
+              fontSize={10}
               fill="#6b7280"
             >
-              {lbl}
+              {labels[i]}
             </text>
           );
         })}
       </svg>
-      <div className="flex flex-wrap justify-center gap-2">
+      <div className="flex flex-wrap gap-2 justify-center">
         {keys.map((k) => {
           const val = (dims as Record<string, number>)[k] ?? 0;
-          const pct = Math.round((val / maxVals[k]) * 100);
           return (
-            <div key={k} className="flex items-center gap-1 text-xs">
-              <span className="w-2 h-2 rounded-full inline-block" style={{ background: DIM_COLORS[k] }} />
-              <span className="text-gray-500">{DIM_LABELS[k]}</span>
-              <span className="font-semibold text-gray-700">{pct}%</span>
-            </div>
+            <span key={k} className="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">
+              {DIM_LABELS[k]}&nbsp;
+              <span style={{ color: DIM_COLORS[k] }} className="font-bold">{val}</span>
+            </span>
           );
         })}
       </div>
-    </div>
-  );
-}
-
-/** AI 白話文區塊 */
-function NarrativeSection({ ticker, narrative }: { ticker: string; narrative: StockNarrative | null | undefined }) {
-  if (!narrative) return null;
-  return (
-    <div className="mt-4 rounded-xl border border-blue-100 bg-gradient-to-br from-blue-50 to-indigo-50 p-4">
-      <div className="flex items-center gap-2 mb-3">
-        <span className="text-lg">🤖</span>
-        <span className="text-sm font-semibold text-blue-700">AI 白話文分析</span>
-        <span className="ml-auto text-xs text-blue-400 bg-blue-100 px-2 py-0.5 rounded-full">AI Generated</span>
-      </div>
-      {narrative.summary && (
-        <p className="text-sm text-gray-700 leading-relaxed mb-3">{narrative.summary}</p>
-      )}
-      {narrative.key_points && narrative.key_points.length > 0 && (
-        <div className="mb-3">
-          <p className="text-xs font-semibold text-blue-600 mb-1.5">關鍵亮點</p>
-          <ul className="space-y-1">
-            {narrative.key_points.map((pt, i) => (
-              <li key={i} className="flex items-start gap-1.5 text-xs text-gray-600">
-                <span className="text-blue-400 mt-0.5">•</span>
-                <span>{pt}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-      {narrative.risk_warning && (
-        <div className="rounded-lg bg-amber-50 border border-amber-200 px-3 py-2">
-          <p className="text-xs text-amber-700">
-            <span className="font-semibold">⚠️ 風險提示：</span>{narrative.risk_warning}
-          </p>
-        </div>
-      )}
     </div>
   );
 }
 
 export default function StockDetailModal({ stock, onClose, rank, isDemo }: Props) {
-  const name = getStockName(stock);
-  const sector = getStockSector(stock);
+  const [priceData, setPriceData] = useState<{ date: string; close: number }[]>([]);
+  const [loadingPrice, setLoadingPrice] = useState(false);
+  const [copied, setCopied] = useState(false);
+
   const close = getStockClose(stock);
   const changePct = getStockChangePct(stock);
+  const name = getStockName(stock);
+  const sector = getStockSector(stock);
   const rec = getStockRecommendation(stock);
   const reason = getStockReason(stock);
-  const dims = getStockDimensions(stock);
   const entryLow = getStockEntryLow(stock);
   const entryHigh = getStockEntryHigh(stock);
   const stopLoss = getStockStopLoss(stock);
   const target1 = getStockTarget1(stock);
   const target2 = getStockTarget2(stock);
   const target3 = getStockTarget3(stock);
-  const ticker = (stock as Record<string, unknown>).ticker as string ?? (stock as Record<string, unknown>).code as string ?? '';
+
+  const symbol = (stock as Record<string, unknown>).symbol as string | undefined
+    ?? (stock as Record<string, unknown>).stock_id as string | undefined
+    ?? '';
 
   const actionStyle = getActionStyle(rec);
-  const isUp = (changePct ?? 0) >= 0;
+  const isPositive = (changePct ?? 0) >= 0;
 
-  const [copied, setCopied] = useState(false);
-
-  // AI 白話文（按需掃描）
-  const { narrative, loading: narrativeLoading } = useOnDemandScan(ticker);
-
+  // 取得歷史股價
   useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    return () => { document.body.style.overflow = ''; };
-  }, []);
+    if (!symbol) return;
+    setLoadingPrice(true);
+    const fetchPrice = async () => {
+      try {
+        const res = await fetch(`/api/price-history?symbol=${symbol}&days=30`);
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data)) setPriceData(data);
+        }
+      } catch {
+        // silent
+      } finally {
+        setLoadingPrice(false);
+      }
+    };
+    fetchPrice();
+  }, [symbol]);
+
+  // ESC 關閉
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [onClose]);
 
   const handleShare = useCallback(() => {
-    const url = window.location.href;
+    const url = `${window.location.origin}?stock=${symbol}`;
     navigator.clipboard.writeText(url).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     });
-  }, []);
-
-  const dimEntries = Object.entries(DIMENSION_CONFIG ?? {});
+  }, [symbol]);
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
-      <div className="relative w-full sm:max-w-lg max-h-[92vh] overflow-y-auto bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl">
+      <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
         {/* Header */}
-        <div className="sticky top-0 z-10 bg-white/95 backdrop-blur px-4 pt-4 pb-3 border-b border-gray-100">
-          <div className="flex items-start justify-between gap-2">
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 flex-wrap">
-                {rank && (
-                  <span className="text-xs font-bold bg-gradient-to-r from-amber-400 to-orange-400 text-white px-2 py-0.5 rounded-full">
-                    #{rank}
-                  </span>
-                )}
-                {isDemo && (
-                  <span className="text-xs bg-purple-100 text-purple-600 px-2 py-0.5 rounded-full font-medium">
-                    Demo
-                  </span>
-                )}
-                <span className="text-lg font-bold text-gray-900 truncate">{name}</span>
-                <span className="text-sm text-gray-400 font-mono">{ticker}</span>
-              </div>
-              <div className="flex items-center gap-2 mt-1 flex-wrap">
-                {sector && (
-                  <span className="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full">{sector}</span>
-                )}
-                <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${actionStyle.bg} ${actionStyle.text}`}>
-                  {actionStyle.label}
-                </span>
-              </div>
+        <div className="sticky top-0 z-10 bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between rounded-t-2xl">
+          <div className="flex items-center gap-3">
+            {rank && (
+              <span className="w-8 h-8 rounded-full bg-gradient-to-br from-sky-400 to-blue-600 text-white text-sm font-bold flex items-center justify-center shadow">
+                {rank}
+              </span>
+            )}
+            <div>
+              <h2 className="text-lg font-bold text-gray-900">
+                {name}
+                <span className="ml-2 text-sm font-normal text-gray-400">{symbol}</span>
+              </h2>
+              {sector && <p className="text-xs text-gray-400">{sector}</p>}
             </div>
-            <div className="flex items-center gap-2 shrink-0">
-              <div className="text-right">
-                <div className="text-xl font-bold text-gray-900">
-                  {close != null ? `$${close.toFixed(2)}` : '—'}
-                </div>
-                <div className={`text-sm font-semibold ${isUp ? 'text-red-500' : 'text-green-600'}`}>
-                  {changePct != null ? `${isUp ? '+' : ''}${changePct.toFixed(2)}%` : '—'}
-                </div>
-              </div>
-              <button
-                onClick={onClose}
-                className="p-1.5 rounded-full hover:bg-gray-100 transition-colors"
-                aria-label="關閉"
-              >
-                <X size={18} className="text-gray-400" />
-              </button>
-            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            {isDemo && (
+              <span className="text-xs px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full font-medium">Demo</span>
+            )}
+            <button
+              onClick={handleShare}
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              title="複製分享連結"
+            >
+              {copied ? <Check size={18} className="text-emerald-500" /> : <Share2 size={18} className="text-gray-400" />}
+            </button>
+            <a
+              href={`https://tw.stock.yahoo.com/quote/${symbol}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              title="Yahoo 股市"
+            >
+              <ExternalLink size={18} className="text-gray-400" />
+            </a>
+            <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+              <X size={18} className="text-gray-400" />
+            </button>
           </div>
         </div>
 
-        <div className="px-4 py-4 space-y-4">
-          {/* 操作建議 */}
-          {rec && (
-            <div className={`rounded-xl border-2 ${actionStyle.border} ${actionStyle.bg} p-3`}>
-              <p className={`text-xs font-semibold mb-1 ${actionStyle.text}`}>操作建議</p>
-              <p className="text-sm text-gray-700 leading-relaxed">{rec}</p>
-            </div>
-          )}
-
-          {/* 推薦理由 */}
-          {reason && (
-            <div className="rounded-xl bg-gray-50 border border-gray-200 p-3">
-              <p className="text-xs font-semibold text-gray-500 mb-1">推薦理由</p>
-              <p className="text-sm text-gray-700 leading-relaxed">{reason}</p>
-            </div>
-          )}
-
-          {/* AI 白話文 */}
-          {narrativeLoading ? (
-            <div className="mt-4 rounded-xl border border-blue-100 bg-blue-50 p-4 flex items-center gap-3">
-              <div className="w-4 h-4 border-2 border-blue-400 border-t-transparent rounded-full animate-spin" />
-              <span className="text-sm text-blue-500">AI 正在分析中…</span>
-            </div>
-          ) : (
-            <NarrativeSection ticker={ticker} narrative={narrative} />
-          )}
-
-          {/* 三關價 */}
-          <div className="rounded-xl bg-gray-50 border border-gray-200 p-3">
-            <p className="text-xs font-semibold text-gray-500 mb-3">三關價</p>
-            <div className="grid grid-cols-3 gap-2">
-              <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-2 text-center">
-                <div className="flex items-center justify-center gap-1 mb-1">
-                  <TrendingUp size={12} className="text-emerald-500" />
-                  <span className="text-xs text-emerald-600 font-medium">進場區間</span>
-                </div>
-                <div className="text-sm font-bold text-emerald-700">
-                  {entryLow != null && entryHigh != null
-                    ? `${entryLow}–${entryHigh}`
-                    : entryLow != null ? `${entryLow}` : '—'}
-                </div>
+        <div className="px-6 py-5 space-y-6">
+          {/* 股價 + 操作建議 */}
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <div className="flex items-baseline gap-2">
+                <span className="text-3xl font-bold text-gray-900">
+                  {close != null ? `$${close.toFixed(2)}` : 'N/A'}
+                </span>
+                {changePct != null && (
+                  <span className={`flex items-center gap-1 text-sm font-semibold ${isPositive ? 'text-red-500' : 'text-green-500'}`}>
+                    {isPositive ? <TrendingUp size={14} /> : <TrendingDown size={14} />}
+                    {isPositive ? '+' : ''}{changePct.toFixed(2)}%
+                  </span>
+                )}
               </div>
-              <div className="rounded-lg bg-red-50 border border-red-200 p-2 text-center">
-                <div className="flex items-center justify-center gap-1 mb-1">
-                  <Shield size={12} className="text-red-400" />
-                  <span className="text-xs text-red-500 font-medium">停損</span>
-                </div>
-                <div className="text-sm font-bold text-red-600">{stopLoss != null ? stopLoss : '—'}</div>
-              </div>
-              <div className="rounded-lg bg-blue-50 border border-blue-200 p-2 text-center">
-                <div className="flex items-center justify-center gap-1 mb-1">
-                  <Target size={12} className="text-blue-500" />
-                  <span className="text-xs text-blue-600 font-medium">目標</span>
-                </div>
-                <div className="text-xs font-bold text-blue-700 space-y-0.5">
-                  {target1 != null && <div>T1: {target1}</div>}
-                  {target2 != null && <div>T2: {target2}</div>}
-                  {target3 != null && <div>T3: {target3}</div>}
-                  {target1 == null && '—'}
-                </div>
-              </div>
+            </div>
+            <div className={`px-4 py-2 rounded-xl border-2 ${actionStyle.bg} ${actionStyle.border}`}>
+              <span className={`text-sm font-bold ${actionStyle.text}`}>{actionStyle.label}</span>
             </div>
           </div>
 
-          {/* 五維分析 */}
-          <div className="rounded-xl bg-gray-50 border border-gray-200 p-3">
-            <p className="text-xs font-semibold text-gray-500 mb-3">五維分析</p>
+          {/* AI 白話文分析 */}
+          {reason && (
+            <div className="rounded-xl border border-sky-200 bg-gradient-to-br from-sky-50 to-blue-50 p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <Sparkles size={16} className="text-sky-500" />
+                <span className="text-sm font-semibold text-sky-700">AI 白話文分析</span>
+              </div>
+              <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-line">{reason}</p>
+            </div>
+          )}
+
+          {/* 進出場策略 */}
+          <div className="rounded-xl bg-gray-50 p-4 space-y-3">
+            <h3 className="text-sm font-semibold text-gray-700 mb-2">進出場策略</h3>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="bg-white rounded-lg p-3 border border-emerald-100">
+                <p className="text-xs text-gray-400 mb-1">建議進場區間</p>
+                <p className="text-sm font-bold text-emerald-600">
+                  {entryLow != null && entryHigh != null
+                    ? `$${entryLow} – $${entryHigh}`
+                    : entryLow != null ? `$${entryLow}` : '—'}
+                </p>
+              </div>
+              <div className="bg-white rounded-lg p-3 border border-red-100">
+                <div className="flex items-center gap-1 mb-1">
+                  <Shield size={12} className="text-red-400" />
+                  <p className="text-xs text-gray-400">停損價</p>
+                </div>
+                <p className="text-sm font-bold text-red-500">
+                  {stopLoss != null ? `$${stopLoss}` : '—'}
+                </p>
+              </div>
+            </div>
+            <div className="grid grid-cols-3 gap-2 mt-2">
+              {[
+                { label: '目標一', val: target1 },
+                { label: '目標二', val: target2 },
+                { label: '目標三', val: target3 },
+              ].map(({ label, val }) => (
+                <div key={label} className="bg-white rounded-lg p-3 border border-sky-100 text-center">
+                  <div className="flex items-center justify-center gap-1 mb-1">
+                    <Target size={12} className="text-sky-400" />
+                    <p className="text-xs text-gray-400">{label}</p>
+                  </div>
+                  <p className="text-sm font-bold text-sky-600">{val != null ? `$${val}` : '—'}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* 五維雷達圖 */}
+          <div className="rounded-xl bg-gray-50 p-4">
+            <h3 className="text-sm font-semibold text-gray-700 mb-3">五維評分雷達</h3>
             <RadarChart stock={stock} />
           </div>
 
-          {/* 維度細分 */}
-          {dimEntries.length > 0 && (
-            <div className="rounded-xl bg-gray-50 border border-gray-200 p-3">
-              <p className="text-xs font-semibold text-gray-500 mb-3">維度細分</p>
-              <div className="space-y-2">
-                {dimEntries.map(([dimKey, dimCfg]: [string, unknown]) => {
-                  const cfg = dimCfg as { label: string; max: number; color: string };
-                  const val = (dims as Record<string, number>)[dimKey] ?? 0;
-                  const pct = Math.min(Math.round((val / cfg.max) * 100), 100);
-                  return (
-                    <div key={dimKey}>
-                      <div className="flex justify-between text-xs mb-1">
-                        <span className="text-gray-600">{cfg.label}</span>
-                        <span className="font-semibold text-gray-700">{val} / {cfg.max}</span>
-                      </div>
-                      <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
-                        <div
-                          className="h-full rounded-full transition-all duration-500"
-                          style={{ width: `${pct}%`, background: cfg.color }}
-                        />
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
+          {/* 走勢圖 */}
+          {priceData.length > 0 && (
+            <div className="rounded-xl bg-gray-50 p-4">
+              <h3 className="text-sm font-semibold text-gray-700 mb-3">近 30 日走勢</h3>
+              <ResponsiveContainer width="100%" height={160}>
+                <LineChart data={priceData}>
+                  <XAxis dataKey="date" tick={{ fontSize: 10 }} tickFormatter={(v) => v.slice(5)} />
+                  <YAxis domain={['auto', 'auto']} tick={{ fontSize: 10 }} width={40} />
+                  <Tooltip formatter={(v: number) => [`$${v.toFixed(2)}`, '收盤價']} />
+                  <ReferenceLine y={close ?? 0} stroke="#94a3b8" strokeDasharray="3 3" />
+                  <Line
+                    type="monotone"
+                    dataKey="close"
+                    stroke="#38bdf8"
+                    strokeWidth={2}
+                    dot={false}
+                    activeDot={{ r: 4 }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
             </div>
           )}
-
-          {/* 外部連結 + 分享 */}
-          <div className="flex gap-2 pt-1">
-            <a
-              href={`https://tw.stock.yahoo.com/quote/${ticker}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-gray-100 hover:bg-gray-200 transition-colors text-sm text-gray-600 font-medium"
-            >
-              <ExternalLink size={14} />
-              Yahoo 股市
-            </a>
-            <button
-              onClick={handleShare}
-              className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-gray-100 hover:bg-gray-200 transition-colors text-sm text-gray-600 font-medium"
-            >
-              {copied ? <Check size={14} className="text-green-500" /> : <Share2 size={14} />}
-              {copied ? '已複製' : '分享'}
-            </button>
-          </div>
+          {loadingPrice && (
+            <p className="text-xs text-center text-gray-400 animate-pulse">載入走勢圖中…</p>
+          )}
         </div>
       </div>
     </div>
