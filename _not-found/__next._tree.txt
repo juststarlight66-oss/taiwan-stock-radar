@@ -1,2 +1,2 @@
-:HL["/taiwan-stock-radar/_next/static/chunks/12c24nyzx.i16.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"bJNGwkY_ynLEy-6KcL6h2"}
+:HL["/taiwan-stock-radar/_next/static/chunks/0.bhr8bg2qvs_.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"nswz1ARJdP4_Lkxb2wtNN"}
