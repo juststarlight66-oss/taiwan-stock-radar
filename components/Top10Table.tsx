@@ -71,7 +71,18 @@ function getActionColor(rec: string | undefined): string {
 
 export default function Top10Table({ stocks, scanDate, scannedCount, isDemo }: Props) {
   const [selectedStock, setSelectedStock] = useState<ScanStock | null>(null);
+  const [selectedRank, setSelectedRank] = useState<number | undefined>();
   const totalMax = Object.values(DIMENSION_CONFIG).reduce((s, c) => s + c.max, 0);
+
+  const handleOpen = (stock: ScanStock, rank: number) => {
+    setSelectedStock(stock);
+    setSelectedRank(rank);
+  };
+
+  const handleClose = () => {
+    setSelectedStock(null);
+    setSelectedRank(undefined);
+  };
 
   return (
     <>
@@ -98,44 +109,40 @@ export default function Top10Table({ stocks, scanDate, scannedCount, isDemo }: P
         <div className="md:hidden divide-y divide-gray-50">
           {stocks.map((s, i) => {
             const up = (s.change_pct ?? 0) >= 0;
-            const changePct = s.change_pct ?? 0;
-            const isLimit = Math.abs(changePct) >= 9.5;
-            const limitCls = isLimit
-              ? up
-                ? 'ring-1 ring-red-500/60 bg-red-500/5'
-                : 'ring-1 ring-emerald-500/60 bg-emerald-500/5'
-              : '';
             const rec = getStockRecommendation(s);
-            const actionCls = getActionColor(rec);
             return (
-              <div key={s.stock_id} className={`px-4 py-3 flex items-center gap-3 ${limitCls}`}>
-                <button
-                  className="flex-1 text-left"
-                  onClick={() => setSelectedStock(s)}
-                >
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-sm font-bold text-gray-500 w-6">
-                      {i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : i + 1}
+              <div
+                key={s.stock_id}
+                className="px-4 py-3 flex items-center gap-3 active:bg-gray-50 cursor-pointer"
+                onClick={() => handleOpen(s, i + 1)}
+              >
+                <span className="text-xs font-bold text-gray-300 w-4 shrink-0">#{i + 1}</span>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    <span className="font-semibold text-sm text-gray-900 truncate">{getStockName(s)}</span>
+                    <span className="text-xs text-gray-400">{s.stock_id}</span>
+                    {s.change_pct !== undefined && <LimitBadge changePct={s.change_pct} />}
+                  </div>
+                  <div className="flex items-center gap-2 mt-0.5">
+                    <span className={`text-xs px-1.5 py-0.5 rounded font-medium ${getActionColor(rec)}`}>
+                      {rec ?? '—'}
                     </span>
-                    <span className="text-sm font-bold text-gray-800">{s.stock_id}</span>
-                    <span className="text-sm text-gray-600">{getStockName(s)}</span>
                     <span className="text-xs text-gray-400">{getStockSector(s)}</span>
-                    <LimitBadge changePct={changePct} />
                   </div>
-                  <div className="flex items-center gap-3 pl-8">
-                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${actionCls}`}>
-                      {rec ? rec.split(' - ')[0] : '—'}
-                    </span>
-                    <span className={`text-sm font-semibold ${up ? 'text-red-500' : 'text-green-600'}`}>
-                      {(s.close ?? 0).toLocaleString()}
-                    </span>
-                    <span className={`text-xs flex items-center gap-0.5 ${up ? 'text-red-500' : 'text-green-600'}`}>
+                </div>
+                <div className="text-right shrink-0">
+                  <div className="text-sm font-bold text-gray-900">
+                    {s.close !== undefined ? s.close.toLocaleString() : (s.price !== undefined ? s.price.toLocaleString() : '—')}
+                  </div>
+                  {s.change_pct !== undefined && (
+                    <div className={`flex items-center justify-end gap-0.5 text-xs font-semibold ${up ? 'text-red-500' : 'text-green-600'}`}>
                       {up ? <ArrowUpRight size={12} /> : <ArrowDownRight size={12} />}
-                      {Math.abs(changePct).toFixed(2)}%
-                    </span>
-                  </div>
-                </button>
-                <WatchlistToggleBtn stockId={s.stock_id} />
+                      {up ? '+' : ''}{s.change_pct.toFixed(2)}%
+                    </div>
+                  )}
+                  <ScoreBar score={s.total_score} max={totalMax} />
+                </div>
+                <WatchlistToggleBtn stock={s} size="sm" />
               </div>
             );
           })}
@@ -146,66 +153,52 @@ export default function Top10Table({ stocks, scanDate, scannedCount, isDemo }: P
           <table className="w-full text-sm">
             <thead>
               <tr className="text-xs text-gray-400 border-b border-gray-100">
-                <th className="px-3 py-2 text-left w-8">#</th>
-                <th className="px-3 py-2 text-left">代號 / 名稱</th>
-                <th className="px-3 py-2 text-left">族群</th>
-                <th className="px-3 py-2 text-right">收盤</th>
-                <th className="px-3 py-2 text-right">漲跌</th>
-                <th className="px-3 py-2 text-right">綜合分</th>
-                <th className="px-3 py-2 text-left">三關價</th>
-                <th className="px-3 py-2 text-center">建議</th>
-                <th className="px-3 py-2 w-8"></th>
+                <th className="px-4 py-2 text-left font-medium">#</th>
+                <th className="px-4 py-2 text-left font-medium">股票</th>
+                <th className="px-4 py-2 text-right font-medium">收盤/漲跌</th>
+                <th className="px-4 py-2 text-left font-medium">進停目</th>
+                <th className="px-4 py-2 text-right font-medium">評分</th>
+                <th className="px-4 py-2 text-center font-medium">操作</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
               {stocks.map((s, i) => {
                 const up = (s.change_pct ?? 0) >= 0;
-                const changePct = s.change_pct ?? 0;
-                const isLimit = Math.abs(changePct) >= 9.5;
-                const rowCls = isLimit
-                  ? up
-                    ? 'ring-1 ring-inset ring-red-500/50 bg-red-500/5'
-                    : 'ring-1 ring-inset ring-emerald-500/50 bg-emerald-500/5'
-                  : '';
                 const rec = getStockRecommendation(s);
-                const actionCls = getActionColor(rec);
                 return (
                   <tr
                     key={s.stock_id}
-                    onClick={() => setSelectedStock(s)}
-                    className={`hover:bg-gray-50 cursor-pointer transition-colors group ${rowCls}`}
+                    className="hover:bg-gray-50 cursor-pointer transition-colors"
+                    onClick={() => handleOpen(s, i + 1)}
                   >
-                    <td className="px-3 py-3 text-gray-400 font-medium">
-                      {i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : i + 1}
-                    </td>
-                    <td className="px-3 py-3">
-                      <div className="font-bold text-gray-800">{s.stock_id}</div>
-                      <div className="text-xs text-gray-500">{getStockName(s)}</div>
-                    </td>
-                    <td className="px-3 py-3 text-xs text-gray-500">{getStockSector(s)}</td>
-                    <td className="px-3 py-3 text-right font-semibold text-gray-800">
-                      {(s.close ?? 0).toLocaleString()}
-                    </td>
-                    <td className="px-3 py-3 text-right">
-                      <div className={`flex items-center justify-end gap-0.5 ${up ? 'text-red-500' : 'text-green-600'}`}>
-                        {up ? <ArrowUpRight size={14} /> : <ArrowDownRight size={14} />}
-                        <span className="text-xs">{Math.abs(changePct).toFixed(2)}%</span>
-                        <LimitBadge changePct={changePct} />
+                    <td className="px-4 py-3 text-xs font-bold text-gray-300">#{i + 1}</td>
+                    <td className="px-4 py-3">
+                      <div className="flex items-center gap-2">
+                        <div>
+                          <div className="font-semibold text-gray-900">{getStockName(s)}</div>
+                          <div className="text-xs text-gray-400">{s.stock_id} · {getStockSector(s)}</div>
+                        </div>
+                        {s.change_pct !== undefined && <LimitBadge changePct={s.change_pct} />}
                       </div>
-                    </td>
-                    <td className="px-3 py-3 text-right">
-                      <ScoreBar score={s.total_score} max={totalMax} />
-                    </td>
-                    <td className="px-3 py-3">
-                      <ThreeKeyPrices stock={s} />
-                    </td>
-                    <td className="px-3 py-3 text-center">
-                      <span className={`text-xs px-2 py-1 rounded-full font-medium ${actionCls}`}>
-                        {rec ? rec.split(' - ')[0] : '—'}
+                      <span className={`mt-1 inline-block text-xs px-1.5 py-0.5 rounded font-medium ${getActionColor(rec)}`}>
+                        {rec ?? '—'}
                       </span>
                     </td>
-                    <td className="px-3 py-3" onClick={(e) => e.stopPropagation()}>
-                      <WatchlistToggleBtn stockId={s.stock_id} />
+                    <td className="px-4 py-3 text-right">
+                      <div className="font-bold text-gray-900">
+                        {s.close !== undefined ? s.close.toLocaleString() : (s.price !== undefined ? s.price.toLocaleString() : '—')}
+                      </div>
+                      {s.change_pct !== undefined && (
+                        <div className={`flex items-center justify-end gap-0.5 text-xs font-semibold ${up ? 'text-red-500' : 'text-green-600'}`}>
+                          {up ? <ArrowUpRight size={12} /> : <ArrowDownRight size={12} />}
+                          {up ? '+' : ''}{s.change_pct.toFixed(2)}%
+                        </div>
+                      )}
+                    </td>
+                    <td className="px-4 py-3"><ThreeKeyPrices stock={s} /></td>
+                    <td className="px-4 py-3 text-right"><ScoreBar score={s.total_score} max={totalMax} /></td>
+                    <td className="px-4 py-3 text-center" onClick={(e) => e.stopPropagation()}>
+                      <WatchlistToggleBtn stock={s} size="sm" />
                     </td>
                   </tr>
                 );
@@ -215,12 +208,14 @@ export default function Top10Table({ stocks, scanDate, scannedCount, isDemo }: P
         </div>
       </div>
 
+      {/* Modal */}
       {selectedStock && (
         <StockDetailModal
           stock={selectedStock}
-          rank={stocks.indexOf(selectedStock) + 1}
-          onClose={() => setSelectedStock(null)}
+          onClose={handleClose}
+          rank={selectedRank}
           isDemo={isDemo}
+          scanDate={scanDate}
         />
       )}
     </>
