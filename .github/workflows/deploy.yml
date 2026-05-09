@@ -39,20 +39,28 @@ jobs:
           with open(src, 'r', encoding='utf-8') as f:
               data = json.load(f)
 
-          stocks = data.get('all_stock_scores', data.get('stocks', []))
+          # Support both flat array format and object format
+          if isinstance(data, list):
+              stocks = data
+              scan_date = ''
+              scanned_count = len(stocks)
+          else:
+              stocks = data.get('all_stock_scores', data.get('stocks', []))
+              scan_date = data.get('scan_date', '')
+              scanned_count = data.get('scanned_count', len(stocks))
 
           index = {
-              'scan_date': data.get('scan_date', ''),
-              'scanned_count': data.get('scanned_count', len(stocks)),
+              'scan_date': scan_date,
+              'scanned_count': scanned_count,
               'stocks': [
                   {
-                      'stock_id': s['stock_id'],
-                      'name': s['name'],
+                      'stock_id': s.get('stock_id', ''),
+                      'name': s.get('stock_name', s.get('name', '')),
                       'sector': s.get('sector', ''),
                       'close': s.get('close', 0),
                       'change_pct': s.get('change_pct', 0),
                       'total_score': s.get('total_score', 0),
-                      'recommendation': s.get('strategy', {}).get('recommendation', ''),
+                      'recommendation': s.get('recommendation', s.get('strategy', {}).get('recommendation', '') if isinstance(s.get('strategy'), dict) else ''),
                   }
                   for s in stocks
               ]
