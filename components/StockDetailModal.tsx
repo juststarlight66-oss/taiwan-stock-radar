@@ -102,99 +102,54 @@ function RadarChart({ stock }: { stock: ScanStock }) {
           const pt = toXY(angles[i], s);
           return <circle key={i} cx={pt.x} cy={pt.y} r={3} fill="#38bdf8" />;
         })}
-        {labels.map((lbl, i) => {
-          const pt = toXY(angles[i], 1.22);
-          return (
-            <text
-              key={i}
-              x={pt.x}
-              y={pt.y}
-              textAnchor="middle"
-              dominantBaseline="middle"
-              fontSize={10}
-              fill="#6b7280"
-            >
-              {lbl}
-            </text>
-          );
-        })}
       </svg>
-      <div className="flex flex-wrap justify-center gap-2">
-        {keys.map((k, i) => {
-          const val = (dims as Record<string, number>)[k] ?? 0;
-          const max = maxVals[k];
-          const pct = Math.round((val / max) * 100);
-          return (
-            <div key={k} className="flex items-center gap-1 text-[11px]">
-              <span className="w-2 h-2 rounded-full inline-block" style={{ background: ['#38bdf8','#34d399','#f87171','#fbbf24','#a78bfa'][i] }} />
-              <span className="text-gray-500">{labels[i]}</span>
-              <span className="font-bold text-gray-700">{pct}%</span>
+      <div className="grid grid-cols-5 gap-1 w-full">
+        {keys.map((k, i) => (
+          <div key={k} className="flex flex-col items-center gap-0.5">
+            <div className="text-[9px] text-gray-500">{labels[i]}</div>
+            <div className="text-xs font-bold" style={{ color: DIM_COLORS[k] }}>
+              {Math.round((dims as Record<string, number>)[k] ?? 0)}
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
     </div>
   );
 }
 
-function generateNarrative(stock: ScanStock): StockNarrative {
-  const dims = getStockDimensions(stock);
-  const close = getStockClose(stock);
-  const changePct = getStockChangePct(stock);
+export default function StockDetailModal({ stock, onClose, rank, isDemo }: Props) {
   const rec = getStockRecommendation(stock);
   const reason = getStockReason(stock);
+  const actionStyle = getActionStyle(rec);
+  const dims = getStockDimensions(stock);
   const entryLow = getStockEntryLow(stock);
   const entryHigh = getStockEntryHigh(stock);
   const stopLoss = getStockStopLoss(stock);
   const target1 = getStockTarget1(stock);
   const target2 = getStockTarget2(stock);
   const target3 = getStockTarget3(stock);
-
-  const dimEntries = Object.entries(dims ?? {});
-  const topDims = dimEntries
-    .sort(([, a], [, b]) => (b as number) - (a as number))
-    .slice(0, 3)
-    .map(([k]) => DIM_LABELS[k] ?? k);
-
-  const summary = reason
-    ? reason
-    : `${stock.name ?? stock.stock_id} 在${topDims.join('、')}表現突出，綜合評分 ${Math.round(stock.total_score)} 分。`;
-
-  return {
-    summary,
-    entryLow,
-    entryHigh,
-    stopLoss,
-    targets: [target1, target2, target3].filter(Boolean) as number[],
-    rec,
-  };
-}
-
-export default function StockDetailModal({ stock, onClose, rank, isDemo }: Props) {
-  const [copied, setCopied] = useState(false);
-  const { refresh, loading } = useOnDemandScan?.() ?? { refresh: null, loading: false };
-
   const close = getStockClose(stock);
   const changePct = getStockChangePct(stock);
-  const up = (changePct ?? 0) >= 0;
-  const actionStyle = getActionStyle(getStockRecommendation(stock));
-  const narrative = generateNarrative(stock);
-  const dims = getStockDimensions(stock);
+  const up = changePct >= 0;
+  const [copied, setCopied] = useState(false);
+
+  // 取得 AI 白話文敘事
+  const narrative: StockNarrative | undefined = (stock as any).narrative ?? (stock as any).ai_analysis;
 
   useEffect(() => {
-    const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
-    window.addEventListener('keydown', handler);
-    return () => window.removeEventListener('keydown', handler);
+    const handleKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', handleKey);
+    return () => document.removeEventListener('keydown', handleKey);
   }, [onClose]);
 
   const handleShare = useCallback(async () => {
-    const text = `${stock.name ?? stock.stock_id} (${stock.stock_id}) — 台股雷達推薦\n評分：${Math.round(stock.total_score)}分\n建議：${getStockRecommendation(stock)}\n${narrative.summary}`;
+    const text = `${getStockName(stock)}（${stock.stock_id}）\n建議：${rec}\n進場：${entryLow}–${entryHigh}　停損：${stopLoss}　目標：${target1}`;
     try {
       await navigator.clipboard.writeText(text);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {}
-  }, [stock, narrative]);
+  }, [stock, rec, entryLow, entryHigh, stopLoss, target1]);
 
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
@@ -202,153 +157,160 @@ export default function StockDetailModal({ stock, onClose, rank, isDemo }: Props
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
 
       {/* Modal */}
-      <div className="relative w-full sm:max-w-lg bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
+      <div className="relative z-10 w-full sm:max-w-lg bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl overflow-hidden max-h-[92dvh] flex flex-col">
+
         {/* Header */}
-        <div className="px-4 pt-4 pb-3 border-b border-gray-100 flex items-start justify-between gap-3">
-          <div className="flex items-start gap-3">
-            {rank && (
-              <span className="text-2xl mt-0.5">
-                {rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : `#${rank}`}
-              </span>
-            )}
-            <div>
+        <div className={`px-5 pt-5 pb-4 border-b border-gray-100 ${actionStyle.bg}`}>
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="font-bold text-gray-900 text-lg leading-tight">{stock.name ?? stock.stock_id}</span>
-                <span className="font-mono text-sm text-gray-400">{stock.stock_id}</span>
+                {rank && (
+                  <span className="text-lg">
+                    {rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : `#${rank}`}
+                  </span>
+                )}
+                <span className="font-mono text-sm text-gray-500">{stock.stock_id}</span>
+                <h2 className="text-lg font-bold text-gray-900 truncate">{getStockName(stock)}</h2>
                 {isDemo && (
-                  <span className="text-[10px] bg-amber-50 text-amber-600 border border-amber-200 px-1.5 py-0.5 rounded">示範</span>
+                  <span className="text-[10px] bg-amber-100 text-amber-700 border border-amber-300 px-1.5 py-0.5 rounded">示範</span>
                 )}
               </div>
-              {getStockSector(stock) && (
-                <div className="text-xs text-gray-400 mt-0.5">{getStockSector(stock)}</div>
-              )}
+              <div className="flex items-center gap-3 mt-1">
+                <span className="text-sm text-gray-500">{getStockSector(stock)}</span>
+                <span className={`text-base font-mono font-bold ${up ? 'text-emerald-600' : 'text-red-500'}`}>
+                  {close.toLocaleString()}
+                  <span className="text-sm ml-1">{up ? '+' : ''}{changePct.toFixed(2)}%</span>
+                </span>
+              </div>
+            </div>
+            <div className="flex items-center gap-1 shrink-0">
+              <button
+                onClick={handleShare}
+                className="p-2 rounded-lg hover:bg-black/5 transition-colors text-gray-400"
+                title="複製摘要"
+              >
+                {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Share2 className="w-4 h-4" />}
+              </button>
+              <a
+                href={`https://tw.stock.yahoo.com/quote/${stock.stock_id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-lg hover:bg-black/5 transition-colors text-gray-400"
+                title="Yahoo 股市"
+              >
+                <ExternalLink className="w-4 h-4" />
+              </a>
+              <button onClick={onClose} className="p-2 rounded-lg hover:bg-black/5 transition-colors text-gray-400">
+                <X className="w-5 h-5" />
+              </button>
             </div>
           </div>
-          <div className="flex items-center gap-1.5 shrink-0">
-            <button
-              onClick={handleShare}
-              className="p-1.5 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors"
-              title="複製分享"
-            >
-              {copied ? <Check size={16} className="text-emerald-500" /> : <Share2 size={16} />}
-            </button>
-            <a
-              href={`https://tw.stock.yahoo.com/quote/${stock.stock_id}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-1.5 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors"
-              title="Yahoo 股市"
-            >
-              <ExternalLink size={16} />
-            </a>
-            <button
-              onClick={onClose}
-              className="p-1.5 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors"
-            >
-              <X size={18} />
-            </button>
+
+          {/* 操作建議徽章 */}
+          <div className={`mt-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border ${actionStyle.bg} ${actionStyle.border}`}>
+            <span className={`text-sm font-bold ${actionStyle.text}`}>{actionStyle.label}</span>
+            {rec && rec !== actionStyle.label && (
+              <span className="text-xs text-gray-500">{rec.split(' - ').slice(1).join(' - ')}</span>
+            )}
           </div>
         </div>
 
         {/* Scrollable body */}
-        <div className="overflow-y-auto flex-1 px-4 py-3 space-y-4">
-          {/* Price row */}
-          <div className="flex items-center gap-4">
-            <div>
-              <div className={`text-3xl font-bold font-mono ${up ? 'text-red-600' : 'text-emerald-600'}`}>
-                {close?.toFixed(2) ?? '—'}
+        <div className="overflow-y-auto flex-1 px-5 py-4 space-y-5">
+
+          {/* AI 白話文區塊 */}
+          {narrative && (
+            <div className="rounded-xl border border-sky-200 bg-sky-50 px-4 py-3">
+              <div className="text-xs font-semibold text-sky-700 mb-2 flex items-center gap-1.5">
+                <span>🤖</span>
+                <span>AI 白話文分析</span>
               </div>
-              <div className={`text-sm flex items-center gap-1 ${up ? 'text-red-500' : 'text-emerald-500'}`}>
-                {up ? <TrendingUp size={14} /> : <TrendingDown size={14} />}
-                {up ? '+' : ''}{changePct?.toFixed(2) ?? '—'}%
-              </div>
+              {narrative.summary && (
+                <p className="text-sm text-gray-800 leading-relaxed mb-2">{narrative.summary}</p>
+              )}
+              {narrative.why_now && (
+                <div className="mt-2">
+                  <div className="text-xs font-medium text-sky-600 mb-1">為什麼現在？</div>
+                  <p className="text-sm text-gray-700 leading-relaxed">{narrative.why_now}</p>
+                </div>
+              )}
+              {narrative.risk_warning && (
+                <div className="mt-2 flex items-start gap-1.5">
+                  <span className="text-amber-500 text-xs mt-0.5">⚠️</span>
+                  <p className="text-xs text-amber-700 leading-relaxed">{narrative.risk_warning}</p>
+                </div>
+              )}
             </div>
-            <div className={`ml-auto px-3 py-1.5 rounded-xl border font-bold text-sm ${actionStyle.bg} ${actionStyle.border} ${actionStyle.text}`}>
-              {actionStyle.label}
-            </div>
-          </div>
+          )}
 
           {/* 三關價 */}
-          <div className="bg-gray-50 rounded-xl p-3">
-            <div className="text-xs font-semibold text-gray-500 mb-2 flex items-center gap-1.5">
-              <Target size={13} />三關價
-            </div>
-            <div className="grid grid-cols-3 gap-2 text-center">
-              <div className="bg-white rounded-lg p-2 border border-gray-100">
-                <div className="text-[10px] text-gray-400 mb-1">進場區間</div>
-                <div className="text-xs font-bold text-gray-700">
-                  {narrative.entryLow && narrative.entryHigh
-                    ? `${narrative.entryLow}–${narrative.entryHigh}`
-                    : narrative.entryLow ?? narrative.entryHigh ?? '—'}
-                </div>
+          <div className="grid grid-cols-3 gap-3">
+            <div className="rounded-xl border border-gray-200 bg-gray-50 p-3 flex flex-col items-center gap-1">
+              <div className="flex items-center gap-1 text-sky-600">
+                <Target className="w-3.5 h-3.5" />
+                <span className="text-[11px] font-medium">進場區間</span>
               </div>
-              <div className="bg-white rounded-lg p-2 border border-red-100">
-                <div className="text-[10px] text-red-400 mb-1 flex items-center justify-center gap-0.5"><Shield size={9} />停損</div>
-                <div className="text-xs font-bold text-red-600">{narrative.stopLoss ?? '—'}</div>
-              </div>
-              <div className="bg-white rounded-lg p-2 border border-emerald-100">
-                <div className="text-[10px] text-emerald-500 mb-1 flex items-center justify-center gap-0.5"><Target size={9} />目標</div>
-                <div className="text-xs font-bold text-emerald-600">
-                  {narrative.targets.length > 0 ? narrative.targets[0] : '—'}
-                </div>
+              <div className="text-sm font-mono font-bold text-gray-800">
+                {entryLow && entryHigh ? `${entryLow}–${entryHigh}` : entryLow || entryHigh || '—'}
               </div>
             </div>
-            {narrative.targets.length > 1 && (
-              <div className="mt-2 flex items-center gap-2 justify-center">
-                {narrative.targets.slice(1).map((t, i) => (
-                  <span key={i} className="text-[11px] text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100">
-                    T{i + 2}: {t}
-                  </span>
-                ))}
+            <div className="rounded-xl border border-red-100 bg-red-50 p-3 flex flex-col items-center gap-1">
+              <div className="flex items-center gap-1 text-red-500">
+                <Shield className="w-3.5 h-3.5" />
+                <span className="text-[11px] font-medium">停損價</span>
               </div>
-            )}
+              <div className="text-sm font-mono font-bold text-red-600">{stopLoss ?? '—'}</div>
+            </div>
+            <div className="rounded-xl border border-emerald-100 bg-emerald-50 p-3 flex flex-col items-center gap-1">
+              <div className="flex items-center gap-1 text-emerald-600">
+                <TrendingUp className="w-3.5 h-3.5" />
+                <span className="text-[11px] font-medium">目標價</span>
+              </div>
+              <div className="text-sm font-mono font-bold text-emerald-700">
+                {[target1, target2, target3].filter(Boolean).join(' / ') || '—'}
+              </div>
+            </div>
           </div>
 
+          {/* 操作理由 */}
+          {reason && (
+            <div className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-3">
+              <div className="text-xs font-semibold text-gray-500 mb-1.5">操作理由</div>
+              <p className="text-sm text-gray-700 leading-relaxed">{reason}</p>
+            </div>
+          )}
+
           {/* 五維雷達圖 */}
-          <div className="bg-white border border-gray-100 rounded-xl p-3">
-            <div className="text-xs font-semibold text-gray-500 mb-2">五維評分</div>
+          <div className="rounded-xl border border-gray-200 bg-white px-4 py-3">
+            <div className="text-xs font-semibold text-gray-500 mb-3">五維分析</div>
             <RadarChart stock={stock} />
           </div>
 
-          {/* 維度評分條 */}
-          <div className="space-y-2">
-            <div className="text-xs font-semibold text-gray-500">各維度評分</div>
-            {Object.entries(DIMENSION_CONFIG).map(([key, cfg]) => {
-              const val = (dims as Record<string, number>)?.[key] ?? 0;
-              const pct = Math.min((val / cfg.max) * 100, 100);
-              const color = DIM_COLORS[key] ?? '#38bdf8';
-              return (
-                <div key={key} className="flex items-center gap-2">
-                  <span className="text-[11px] text-gray-500 w-16 shrink-0">{DIM_LABELS[key] ?? key}</span>
-                  <div className="flex-1 h-2 rounded-full bg-gray-100 overflow-hidden">
-                    <div
-                      className="h-full rounded-full transition-all"
-                      style={{ width: `${pct}%`, background: color }}
-                    />
+          {/* 維度細分 */}
+          <div className="rounded-xl border border-gray-200 bg-white px-4 py-3">
+            <div className="text-xs font-semibold text-gray-500 mb-2">維度評分明細</div>
+            <div className="space-y-2">
+              {Object.entries(DIMENSION_CONFIG).map(([key, cfg]) => {
+                const val = (dims as Record<string, number>)[key] ?? 0;
+                const pct = Math.min((val / cfg.max) * 100, 100);
+                return (
+                  <div key={key} className="flex items-center gap-2">
+                    <div className="w-14 text-[11px] text-gray-500 shrink-0">{DIM_LABELS[key] ?? key}</div>
+                    <div className="flex-1 h-1.5 rounded-full bg-gray-100 overflow-hidden">
+                      <div
+                        className="h-full rounded-full transition-all"
+                        style={{ width: `${pct}%`, backgroundColor: DIM_COLORS[key] ?? '#94a3b8' }}
+                      />
+                    </div>
+                    <div className="w-12 text-right text-[11px] font-mono text-gray-600">
+                      {Math.round(val)} / {cfg.max}
+                    </div>
                   </div>
-                  <span className="text-[11px] font-mono text-gray-600 w-10 text-right">
-                    {val.toFixed(1)}/{cfg.max}
-                  </span>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
 
-          {/* 分析摘要 */}
-          {narrative.summary && (
-            <div className="bg-sky-50 border border-sky-100 rounded-xl p-3">
-              <div className="text-xs font-semibold text-sky-600 mb-1.5">分析摘要</div>
-              <p className="text-xs text-gray-700 leading-relaxed">{narrative.summary}</p>
-            </div>
-          )}
-
-          {/* 操作建議 */}
-          {getStockReason(stock) && getStockReason(stock) !== narrative.summary && (
-            <div className="bg-amber-50 border border-amber-100 rounded-xl p-3">
-              <div className="text-xs font-semibold text-amber-600 mb-1.5">操作建議</div>
-              <p className="text-xs text-gray-700 leading-relaxed">{getStockReason(stock)}</p>
-            </div>
-          )}
         </div>
       </div>
     </div>
