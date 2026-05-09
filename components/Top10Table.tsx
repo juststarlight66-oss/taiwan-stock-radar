@@ -1,6 +1,12 @@
 'use client';
 import { useState } from 'react';
-import { ScanStock, DIMENSION_CONFIG } from '@/lib/scanTypes';
+import {
+  ScanStock, DIMENSION_CONFIG,
+  getStockName, getStockSector, getStockClose, getStockChangePct,
+  getStockRecommendation, getStockReason, getStockDimensions,
+  getStockTarget1, getStockTarget2, getStockTarget3,
+  getStockEntryLow, getStockEntryHigh, getStockStopLoss,
+} from '@/lib/scanTypes';
 import StockDetailModal from './StockDetailModal';
 import { WatchlistToggleBtn } from './WatchlistPanel';
 import ScoreTrendChart from './ScoreTrendChart';
@@ -16,10 +22,8 @@ const DIM_MAXES: Record<string, number> = {
   technical: 40, fundamental: 40, news: 10, sentiment: 10, chips: 10,
 };
 
-// Handle all Python recommendation formats:
-// "★★★ Strong Recommend" / "強力買進" / "積極買進 ⚡ 中型部位" / "買進" / "觀望" / "偏弱"
 function getActionStyle(action: string | undefined) {
-  if (!action) return { cls: 'text-gray-400', dot: 'bg-gray-400', label: '—' };
+  if (!action) return { cls: 'text-gray-500', dot: 'bg-gray-400', label: '—' };
   const a = action.toLowerCase();
   if (a.includes('★★★') || a.includes('strong') || a.includes('強力')) {
     return { cls: 'text-red-600 font-bold', dot: 'bg-red-500', label: '強力買進' };
@@ -78,11 +82,7 @@ function CopyBtn({ text }: { text: string }) {
     });
   };
   return (
-    <button
-      onClick={copy}
-      className="p-1 rounded hover:bg-gray-100 transition-colors"
-      title="複製股票代號"
-    >
+    <button onClick={copy} className="p-1 rounded hover:bg-gray-100 transition-colors" title="複製股票代號">
       {copied
         ? <Check className="w-3 h-3 text-emerald-500" />
         : <Copy className="w-3 h-3 text-gray-500 hover:text-gray-700" />}
@@ -94,8 +94,9 @@ function LimitBadge({ changePct }: { changePct: number }) {
   if (Math.abs(changePct) < 9.5) return null;
   const up = changePct >= 0;
   return (
-    // 台灣慣例：漲停紅底、跌停綠底
-    <span className={`text-[9px] px-1 py-0.5 rounded font-bold ${up ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-800'}`}>
+    <span className={`text-[9px] px-1 py-0.5 rounded font-bold ${
+      up ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'
+    }`}>
       {up ? '漲停' : '跌停'}
     </span>
   );
@@ -103,151 +104,155 @@ function LimitBadge({ changePct }: { changePct: number }) {
 
 interface Props {
   stocks: ScanStock[];
-  scoreHistory?: Record<string, { date: string; score: number }[]>;
+  scoreHistory?: Record<string, number[]>;
 }
 
 export default function Top10Table({ stocks, scoreHistory = {} }: Props) {
   const [selected, setSelected] = useState<ScanStock | null>(null);
+  const [selectedRank, setSelectedRank] = useState<number>(1);
 
   return (
     <>
-      <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
+      <div className="overflow-x-auto">
         <table className="w-full text-sm border-collapse">
           <thead>
-            <tr className="bg-gray-50 border-b border-gray-200">
-              <th className="px-3 py-2.5 text-left text-xs font-semibold text-gray-700 w-8">#</th>
-              <th className="px-3 py-2.5 text-left text-xs font-semibold text-gray-700">股票</th>
-              <th className="px-3 py-2.5 text-left text-xs font-semibold text-gray-700">族群</th>
-              <th className="px-3 py-2.5 text-right text-xs font-semibold text-gray-700">收盤價</th>
-              <th className="px-3 py-2.5 text-right text-xs font-semibold text-gray-700">漲跌%</th>
-              <th className="px-3 py-2.5 text-left text-xs font-semibold text-gray-700 min-w-[100px]">評分</th>
-              <th className="px-3 py-2.5 text-left text-xs font-semibold text-gray-700">建議</th>
-              <th className="px-3 py-2.5 text-right text-xs font-semibold text-gray-700">目標1</th>
-              <th className="px-3 py-2.5 text-right text-xs font-semibold text-gray-700">目標2</th>
-              <th className="px-3 py-2.5 text-right text-xs font-semibold text-gray-700">目標3</th>
-              <th className="px-3 py-2.5 text-left text-xs font-semibold text-gray-700">趨勢</th>
-              <th className="px-3 py-2.5 text-left text-xs font-semibold text-gray-700 hidden lg:table-cell">AI 分析</th>
-              <th className="px-3 py-2.5 w-8"></th>
+            <tr className="border-b-2 border-gray-200 bg-gray-50 text-left">
+              <th className="px-3 py-2 text-xs font-semibold text-gray-600 w-8">#</th>
+              <th className="px-3 py-2 text-xs font-semibold text-gray-600">股票</th>
+              <th className="px-3 py-2 text-xs font-semibold text-gray-600">族群</th>
+              <th className="px-3 py-2 text-xs font-semibold text-gray-600 text-right">收盤價</th>
+              <th className="px-3 py-2 text-xs font-semibold text-gray-600 text-right">漲跌幅</th>
+              <th className="px-3 py-2 text-xs font-semibold text-gray-600">推薦</th>
+              <th className="px-3 py-2 text-xs font-semibold text-gray-600">目標1</th>
+              <th className="px-3 py-2 text-xs font-semibold text-gray-600">目標2</th>
+              <th className="px-3 py-2 text-xs font-semibold text-gray-600">目標3</th>
+              <th className="px-3 py-2 text-xs font-semibold text-gray-600">總分</th>
+              <th className="px-3 py-2 text-xs font-semibold text-gray-600 hidden lg:table-cell">趨勢</th>
+              <th className="px-3 py-2 text-xs font-semibold text-gray-600 hidden xl:table-cell">AI分析</th>
+              <th className="px-3 py-2 text-xs font-semibold text-gray-600 w-8"></th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
             {stocks.map((s, idx) => {
-              const actionStyle = getActionStyle(s.strategy?.recommendation);
-              // 台灣慣例：上漲紅色、下跌綠色
-              const changePct = s.price?.change_pct ?? 0;
-              const isUp = changePct >= 0;
-              const changeColor = isUp ? 'text-red-600' : 'text-green-700';
-              const changeBg = isUp ? 'bg-red-50' : 'bg-green-50';
-              const ChangeIcon = isUp ? ArrowUpRight : ArrowDownRight;
-
-              // 三關價
-              const t1 = s.strategy?.target1;
-              const t2 = s.strategy?.target2;
-              const t3 = s.strategy?.target3;
-
-              // 趨勢歷史
-              const history = scoreHistory[s.code] ?? scoreHistory[s.stock_id] ?? [];
+              const name = getStockName(s);
+              const sector = getStockSector(s);
+              const close = getStockClose(s);
+              const changePct = getStockChangePct(s);
+              const rec = getStockRecommendation(s);
+              const reason = getStockReason(s);
+              const dims = getStockDimensions(s);
+              const t1 = getStockTarget1(s);
+              const t2 = getStockTarget2(s);
+              const t3 = getStockTarget3(s);
+              const actionStyle = getActionStyle(rec);
+              const isUp = (changePct ?? 0) >= 0;
+              const history = scoreHistory[s.stock_id] ?? [];
 
               return (
                 <tr
-                  key={s.code ?? s.stock_id}
-                  className="hover:bg-blue-50/40 cursor-pointer transition-colors"
-                  onClick={() => setSelected(s)}
+                  key={s.stock_id}
+                  className="hover:bg-blue-50 cursor-pointer transition-colors"
+                  onClick={() => { setSelected(s); setSelectedRank(idx + 1); }}
                 >
-                  {/* 排名 */}
-                  <td className="px-3 py-2.5">
-                    {idx < 3
-                      ? <Flame className={`w-4 h-4 ${idx === 0 ? 'text-red-500' : idx === 1 ? 'text-orange-400' : 'text-amber-400'}`} />
-                      : <span className="text-xs font-mono text-gray-500">{idx + 1}</span>
-                    }
+                  {/* # */}
+                  <td className="px-3 py-3">
+                    <span className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold ${
+                      idx === 0 ? 'bg-yellow-100 text-yellow-700'
+                      : idx === 1 ? 'bg-gray-100 text-gray-600'
+                      : idx === 2 ? 'bg-orange-100 text-orange-600'
+                      : 'bg-gray-50 text-gray-500'
+                    }`}>{idx + 1}</span>
                   </td>
 
-                  {/* 股票代號 + 名稱 */}
-                  <td className="px-3 py-2.5">
+                  {/* 股票 */}
+                  <td className="px-3 py-3">
                     <div className="flex items-center gap-1">
                       <div>
                         <div className="flex items-center gap-1">
-                          <span className="font-mono font-bold text-gray-900 text-sm">{s.code ?? s.stock_id}</span>
-                          <CopyBtn text={s.code ?? s.stock_id ?? ''} />
+                          <span className="font-mono font-bold text-gray-900 text-sm">{s.stock_id}</span>
+                          {s.power_combo && <Flame className="w-3 h-3 text-orange-500" title="Power Combo" />}
+                          <CopyBtn text={s.stock_id} />
                         </div>
-                        <div className="text-xs font-medium text-gray-700">{s.name}</div>
+                        <div className="text-xs text-gray-700 font-medium">{name}</div>
                       </div>
                     </div>
                   </td>
 
                   {/* 族群 */}
-                  <td className="px-3 py-2.5">
-                    <span className="text-xs font-medium text-gray-700 bg-gray-100 px-1.5 py-0.5 rounded">
-                      {s.sector ?? s.industry ?? '—'}
-                    </span>
+                  <td className="px-3 py-3">
+                    <span className="text-xs px-1.5 py-0.5 rounded bg-gray-100 text-gray-700 font-medium">{sector}</span>
                   </td>
 
                   {/* 收盤價 */}
-                  <td className="px-3 py-2.5 text-right">
+                  <td className="px-3 py-3 text-right">
                     <span className="font-mono font-bold text-gray-900 text-sm">
-                      {s.price?.close != null ? s.price.close.toFixed(2) : '—'}
+                      {close != null ? close.toFixed(2) : '—'}
                     </span>
                   </td>
 
-                  {/* 漲跌% — 台灣慣例：紅漲綠跌 */}
-                  <td className="px-3 py-2.5 text-right">
-                    <div className={`inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-xs font-bold ${changeBg} ${changeColor}`}>
-                      <ChangeIcon className="w-3 h-3" />
-                      {Math.abs(changePct).toFixed(2)}%
-                      <LimitBadge changePct={changePct} />
-                    </div>
+                  {/* 漲跌幅 */}
+                  <td className="px-3 py-3 text-right">
+                    {changePct != null ? (
+                      <div className="flex items-center justify-end gap-0.5">
+                        {isUp
+                          ? <ArrowUpRight className="w-3.5 h-3.5 text-red-500" />
+                          : <ArrowDownRight className="w-3.5 h-3.5 text-green-600" />}
+                        <span className={`font-mono font-bold text-sm ${
+                          isUp ? 'text-red-600' : 'text-green-600'
+                        }`}>
+                          {isUp ? '+' : ''}{changePct.toFixed(2)}%
+                        </span>
+                        <LimitBadge changePct={changePct} />
+                      </div>
+                    ) : <span className="text-gray-400">—</span>}
                   </td>
 
-                  {/* 評分 + 雷達圖 */}
-                  <td className="px-3 py-2.5">
-                    <div className="flex items-center gap-2">
-                      {s.dimensions && <MiniRadar dimensions={s.dimensions} />}
-                      <ScoreBar score={s.total_score ?? 0} max={110} />
-                    </div>
-                  </td>
-
-                  {/* 建議 */}
-                  <td className="px-3 py-2.5">
+                  {/* 推薦 */}
+                  <td className="px-3 py-3">
                     <div className="flex items-center gap-1.5">
-                      <span className={`w-1.5 h-1.5 rounded-full ${actionStyle.dot} shrink-0`} />
-                      <span className={`text-xs ${actionStyle.cls}`}>{actionStyle.label}</span>
+                      <span className={`w-2 h-2 rounded-full ${actionStyle.dot}`} />
+                      <span className={`text-sm ${actionStyle.cls}`}>{actionStyle.label}</span>
                     </div>
                   </td>
 
-                  {/* 三關價：目標1/2/3 */}
-                  <td className="px-3 py-2.5 text-right">
-                    <span className="font-mono text-xs font-semibold text-orange-600">
-                      {t1 != null ? t1.toFixed(2) : '—'}
+                  {/* 目標1/2/3 */}
+                  <td className="px-3 py-3">
+                    <span className="font-mono text-sm font-semibold text-orange-600">
+                      {t1 != null ? t1.toFixed(0) : '—'}
                     </span>
                   </td>
-                  <td className="px-3 py-2.5 text-right">
-                    <span className="font-mono text-xs font-semibold text-red-600">
-                      {t2 != null ? t2.toFixed(2) : '—'}
+                  <td className="px-3 py-3">
+                    <span className="font-mono text-sm font-semibold text-red-500">
+                      {t2 != null ? t2.toFixed(0) : '—'}
                     </span>
                   </td>
-                  <td className="px-3 py-2.5 text-right">
-                    <span className="font-mono text-xs font-semibold text-red-700">
-                      {t3 != null ? t3.toFixed(2) : '—'}
+                  <td className="px-3 py-3">
+                    <span className="font-mono text-sm font-semibold text-red-700">
+                      {t3 != null ? t3.toFixed(0) : '—'}
                     </span>
+                  </td>
+
+                  {/* 總分 */}
+                  <td className="px-3 py-3">
+                    <ScoreBar score={s.total_score} max={100} />
                   </td>
 
                   {/* 趨勢 */}
-                  <td className="px-3 py-2.5">
+                  <td className="px-3 py-3 hidden lg:table-cell">
                     {history.length >= 2
-                      ? <ScoreTrendChart stockId={s.code ?? s.stock_id ?? ''} history={history} width={80} height={28} />
-                      : <span className="text-xs text-gray-500 font-mono">—</span>
-                    }
+                      ? <ScoreTrendChart history={history} />
+                      : <span className="text-gray-400 text-xs">—</span>}
                   </td>
 
-                  {/* AI 分析 */}
-                  <td className="px-3 py-2.5 max-w-[220px] hidden lg:table-cell">
-                    <p className="text-xs text-gray-800 leading-relaxed line-clamp-2">
-                      {s.strategy?.narrative ?? s.strategy?.summary ?? '—'}
+                  {/* AI分析 */}
+                  <td className="px-3 py-3 hidden xl:table-cell max-w-[200px]">
+                    <p className="text-xs text-gray-700 leading-relaxed line-clamp-2">
+                      {reason ?? '—'}
                     </p>
                   </td>
 
-                  {/* 詳情箭頭 */}
-                  <td className="px-3 py-2.5">
+                  {/* 箭頭 */}
+                  <td className="px-3 py-3">
                     <ChevronRight className="w-4 h-4 text-gray-400" />
                   </td>
                 </tr>
@@ -258,7 +263,11 @@ export default function Top10Table({ stocks, scoreHistory = {} }: Props) {
       </div>
 
       {selected && (
-        <StockDetailModal stock={selected} onClose={() => setSelected(null)} />
+        <StockDetailModal
+          stock={selected}
+          rank={selectedRank}
+          onClose={() => setSelected(null)}
+        />
       )}
     </>
   );

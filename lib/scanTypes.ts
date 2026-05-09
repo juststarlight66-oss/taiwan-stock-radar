@@ -17,43 +17,116 @@ export interface ScanSignals {
 }
 
 export interface ScanStrategy {
-  entry:        number;
-  target:       number;    // 相容舊欄位，同 target1
-  target1?:     number;    // 第一關：60日前高 or 布林上軌
-  target2?:     number;    // 第二關：target1 × 1.15
-  target3?:     number;    // 第三關：target1 × 1.35
-  target_note?: string;    // 基準說明（60日前高 / 布林上軌 / 動態基準）
-  stop_loss:    number;
-  upside:       number;    // target1 vs entry 漲幅%
-  upside2?:     number;    // target2 vs entry 漲幅%
-  upside3?:     number;    // target3 vs entry 漲幅%
-  downside:     number;
-  atr?:         number;    // 14日 ATR 絕對值
-  recommendation: string;
+  entry?:       number;
+  entry_low?:   number;
+  entry_high?:  number;
+  target?:      number;    // 相容舊欄位，同 target1
+  target1?:     number;
+  target2?:     number;
+  target3?:     number;
+  target_note?: string;
+  stop_loss?:   number;
+  upside?:      number;
+  upside2?:     number;
+  upside3?:     number;
+  downside?:    number;
+  atr?:         number;
+  recommendation?: string;
 }
 
 export interface StockNarrative {
-  technical:   string;   // 技術面解讀
-  chips:       string;   // 籌碼面解讀
-  fundamental: string;   // 基本面評價
-  risk:        string;   // 風險提示
-  action:      string;   // 操作建議
+  technical:   string;
+  chips:       string;
+  fundamental: string;
+  risk:        string;
+  action:      string;
 }
 
 export interface ScanStock {
+  // ── 主要欄位（latest.json 平坦格式）──
   stock_id:    string;
-  name:        string;
-  sector:      string;
-  close:       number;
+  stock_name?: string;   // latest.json 用 stock_name
+  name?:       string;   // 舊格式相容
+  sector_name?: string;  // latest.json 用 sector_name
+  sector?:     string;   // 舊格式相容
+  close?:      number;
   change_pct?: number;
   total_score: number;
-  rsi?:        number;
-  vol_ratio?:  number;
+  technical_score?:   number;
+  chips_score?:       number;
+  fundamental_score?: number;
+  news_score?:        number;
+  sentiment_score?:   number;
+  sector_boost?:      number;
+  power_combo?:       boolean;
+  recommendation?:    string;  // 頂層直接有（不在 strategy 巢狀內）
+  reason?:            string;  // AI 分析文字（頂層）
+  entry_low?:         number;  // 頂層進場低點
+  entry_high?:        number;  // 頂層進場高點
+  stop_loss?:         number;  // 頂層停損
+  target1?:           number;
+  target2?:           number;
+  target3?:           number;
+  hold_days?:         string;
+  position?:          string;
+  max_loss_per_lot?:  number;
+  volume?:            number;
+  rsi?:               number;
+  vol_ratio?:         number;
+  // ── 巢狀結構（舊格式相容）──
   dimensions?: ScanDimensions;
   signals?:    ScanSignals;
   details?:    { rsi?: number; vol_ratio?: number; pe?: number; [key: string]: unknown };
   strategy?:   ScanStrategy;
-  narrative?:  StockNarrative;   // AI 白話文分析（規則式生成）
+  narrative?:  StockNarrative;
+}
+
+// ── 輔助函式：統一取值（相容平坦 & 巢狀兩種格式）──
+export function getStockName(s: ScanStock): string {
+  return s.stock_name ?? s.name ?? s.stock_id;
+}
+export function getStockSector(s: ScanStock): string {
+  return s.sector_name ?? s.sector ?? '—';
+}
+export function getStockClose(s: ScanStock): number | undefined {
+  return s.close;
+}
+export function getStockChangePct(s: ScanStock): number | undefined {
+  return s.change_pct;
+}
+export function getStockRecommendation(s: ScanStock): string | undefined {
+  return s.recommendation ?? s.strategy?.recommendation;
+}
+export function getStockReason(s: ScanStock): string | undefined {
+  return s.reason ?? undefined;
+}
+export function getStockEntryLow(s: ScanStock): number | undefined {
+  return s.entry_low ?? s.strategy?.entry_low ?? s.strategy?.entry;
+}
+export function getStockEntryHigh(s: ScanStock): number | undefined {
+  return s.entry_high ?? s.strategy?.entry_high ?? s.strategy?.entry;
+}
+export function getStockStopLoss(s: ScanStock): number | undefined {
+  return s.stop_loss ?? s.strategy?.stop_loss;
+}
+export function getStockTarget1(s: ScanStock): number | undefined {
+  return s.target1 ?? s.strategy?.target1 ?? s.strategy?.target;
+}
+export function getStockTarget2(s: ScanStock): number | undefined {
+  return s.target2 ?? s.strategy?.target2;
+}
+export function getStockTarget3(s: ScanStock): number | undefined {
+  return s.target3 ?? s.strategy?.target3;
+}
+export function getStockDimensions(s: ScanStock): ScanDimensions {
+  if (s.dimensions) return s.dimensions;
+  return {
+    technical:   s.technical_score   ?? 0,
+    fundamental: s.fundamental_score ?? 0,
+    news:        s.news_score        ?? 0,
+    sentiment:   s.sentiment_score   ?? 0,
+    chips:       s.chips_score       ?? 0,
+  };
 }
 
 export interface ScanResult {
@@ -74,15 +147,14 @@ export const DIMENSION_CONFIG: Record<
   chips:       { label: '籌碼面', max: 10, color: 'rose' },
 };
 
-// T+1/T+3/T+5 實際績效（client-side 查詢 TWSE 後計算）
 export interface StockPerf {
-  pct:    number | null;   // 漲幅率 %（null = 尚未到期或查詢失敗）
-  win:    boolean | null;  // true = 漲 / false = 跌 / null = 未知
+  pct:    number | null;
+  win:    boolean | null;
 }
 
 export interface PerformanceData {
   stock_id:   string;
-  entry_date: string;      // 掃描日（推薦當日收盤價 = 進場價）
+  entry_date: string;
   entry_price: number;
   t1: StockPerf;
   t3: StockPerf;

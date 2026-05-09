@@ -1,5 +1,11 @@
 'use client';
-import { ScanStock, StockNarrative, DIMENSION_CONFIG } from '@/lib/scanTypes';
+import {
+  ScanStock, StockNarrative, DIMENSION_CONFIG,
+  getStockName, getStockSector, getStockClose, getStockChangePct,
+  getStockRecommendation, getStockReason, getStockDimensions,
+  getStockEntryLow, getStockEntryHigh, getStockStopLoss,
+  getStockTarget1, getStockTarget2, getStockTarget3,
+} from '@/lib/scanTypes';
 import { X, Target, Shield, TrendingUp, TrendingDown, ExternalLink, Share2, Check } from 'lucide-react';
 import { useEffect, useState, useCallback } from 'react';
 import {
@@ -14,26 +20,25 @@ interface Props {
   isDemo?: boolean;
 }
 
-// ── 推薦格式輔助（支援所有 Python 輸出格式）──
 function getActionStyle(rec: string | undefined) {
-  if (!rec) return { bg: 'bg-gray-800', border: 'border-gray-700', text: 'text-gray-400', label: '觀望' };
+  if (!rec) return { bg: 'bg-gray-700', border: 'border-gray-600', text: 'text-gray-300', label: '觀望' };
   const r = rec.toLowerCase();
   if (r.includes('★★★') || r.includes('strong') || r.includes('強力')) {
-    return { bg: 'bg-red-500/10', border: 'border-red-500/30', text: 'text-red-400', label: '強力買進' };
+    return { bg: 'bg-red-900/60', border: 'border-red-500', text: 'text-red-300', label: '強力買進' };
   }
   if (r.includes('積極')) {
-    return { bg: 'bg-orange-500/10', border: 'border-orange-500/30', text: 'text-orange-400', label: '積極買進' };
+    return { bg: 'bg-orange-900/60', border: 'border-orange-500', text: 'text-orange-300', label: '積極買進' };
   }
   if (r.includes('買進') || r.includes('buy')) {
-    return { bg: 'bg-emerald-500/10', border: 'border-emerald-500/30', text: 'text-emerald-400', label: '買進' };
+    return { bg: 'bg-emerald-900/60', border: 'border-emerald-500', text: 'text-emerald-300', label: '買進' };
   }
   if (r.includes('逢低')) {
-    return { bg: 'bg-sky-500/10', border: 'border-sky-500/30', text: 'text-sky-400', label: '逢低佈局' };
+    return { bg: 'bg-sky-900/60', border: 'border-sky-500', text: 'text-sky-300', label: '逢低佈局' };
   }
   if (r.includes('觀望') || r.includes('wait') || r.includes('hold')) {
-    return { bg: 'bg-amber-500/10', border: 'border-amber-500/30', text: 'text-amber-400', label: '觀望' };
+    return { bg: 'bg-amber-900/60', border: 'border-amber-500', text: 'text-amber-300', label: '觀望' };
   }
-  return { bg: 'bg-gray-800', border: 'border-gray-700', text: 'text-gray-400', label: '偏弱' };
+  return { bg: 'bg-gray-700', border: 'border-gray-600', text: 'text-gray-300', label: '偏弱' };
 }
 
 const DIM_LABELS: Record<string, string> = {
@@ -43,117 +48,84 @@ const DIM_COLORS: Record<string, string> = {
   technical: '#38bdf8', fundamental: '#34d399', news: '#fbbf24', sentiment: '#a78bfa', chips: '#f87171',
 };
 
-// ── AI 白話文分析面板 ────────────────────────────────
-const NARRATIVE_ROWS: { key: keyof StockNarrative; label: string; icon: string; color: string }[] = [
-  { key: 'technical',   label: '技術面解讀', icon: '📈', color: 'text-sky-300' },
-  { key: 'chips',       label: '籌碼面解讀', icon: '🏦', color: 'text-violet-300' },
-  { key: 'fundamental', label: '基本面評價', icon: '📊', color: 'text-emerald-300' },
-  { key: 'risk',        label: '風險提示',   icon: '⚠️', color: 'text-amber-300' },
-  { key: 'action',      label: '操作建議',   icon: '🎯', color: 'text-red-300' },
+const NARRATIVE_ROWS: { key: keyof StockNarrative; label: string; icon: string; color: string; bg: string }[] = [
+  { key: 'technical',   label: '技術面解讀', icon: '📈', color: 'text-sky-200',     bg: 'bg-sky-900/40 border-sky-700' },
+  { key: 'chips',       label: '籌碼面解讀', icon: '🏦', color: 'text-violet-200',  bg: 'bg-violet-900/40 border-violet-700' },
+  { key: 'fundamental', label: '基本面評價', icon: '📊', color: 'text-emerald-200', bg: 'bg-emerald-900/40 border-emerald-700' },
+  { key: 'risk',        label: '風險提示',   icon: '⚠️', color: 'text-amber-200',   bg: 'bg-amber-900/40 border-amber-700' },
+  { key: 'action',      label: '操作建議',   icon: '🎯', color: 'text-red-200',     bg: 'bg-red-900/40 border-red-700' },
 ];
 
 function generateNarrative(stock: ScanStock): StockNarrative {
-  const t = stock.dimensions?.technical ?? 0;
-  const c = stock.dimensions?.chips ?? 0;
-  const f = stock.dimensions?.fundamental ?? 0;
-  const strategy = stock.strategy ?? {};
-  const { stop_loss, downside, upside, upside2, upside3, recommendation } = strategy;
-  const entry = strategy.entry;
-  const entryLow = strategy.entry_low;
-  const entryHigh = strategy.entry_high;
-  const rr = ((upside ?? 0) / Math.max(downside ?? 1, 1)).toFixed(1);
+  const dims = getStockDimensions(stock);
+  const t = dims.technical;
+  const c = dims.chips;
+  const f = dims.fundamental;
+  const rec = getStockRecommendation(stock);
+  const entryLow = getStockEntryLow(stock);
+  const entryHigh = getStockEntryHigh(stock);
+  const stopLoss = getStockStopLoss(stock);
+  const target1 = getStockTarget1(stock);
 
-  // 進場價範圍顯示
   const entryStr = (entryLow && entryHigh)
     ? `${entryLow.toFixed(2)}～${entryHigh.toFixed(2)}`
-    : entry
-      ? entry.toFixed(2)
-      : '—';
-  const slStr = stop_loss?.toFixed(2) ?? '—';
-  const dsStr = downside ?? '?';
+    : entryLow?.toFixed(2) ?? '—';
+  const slStr = stopLoss?.toFixed(2) ?? '—';
+  const recLabel = getActionStyle(rec).label;
 
-  // 推薦操作說明（支援所有格式）
-  const recLabel = getActionStyle(recommendation).label;
+  const upside = target1 && entryLow ? (((target1 - entryLow) / entryLow) * 100).toFixed(1) : '?';
 
   return {
     technical: t >= 30
-      ? `技術面評分 ${t.toFixed(0)}/40，多頭趨勢明確，站穩短中期均線之上，動能強勁`
+      ? `技術面評分 ${t}/40，多頭趨勢明確，站穩短中期均線之上，動能強勁`
       : t >= 20
-        ? `技術面評分 ${t.toFixed(0)}/40，短線偏多但上方壓力待消化，注意量能變化`
-        : `技術面評分 ${t.toFixed(0)}/40，走勢偏弱，建議等待止跌訊號再進場`,
+        ? `技術面評分 ${t}/40，短線偏多但上方壓力待消化，注意量能變化`
+        : `技術面評分 ${t}/40，走勢偏弱，建議等待止跌訊號再進場`,
     chips: c >= 7
-      ? `籌碼面評分 ${c.toFixed(0)}/10，法人持續買超，籌碼集中度佳，支撐力道足`
+      ? `籌碼面評分 ${c}/10，法人持續買超，籌碼集中度佳，支撐力道足`
       : c >= 4
-        ? `籌碼面評分 ${c.toFixed(0)}/10，法人動向分歧，籌碼尚屬中性`
-        : `籌碼面評分 ${c.toFixed(0)}/10，籌碼鬆動，法人減碼明顯，短線壓力大`,
+        ? `籌碼面評分 ${c}/10，法人動向分歧，籌碼尚屬中性`
+        : `籌碼面評分 ${c}/10，籌碼鬆動，法人減碼明顯，短線壓力大`,
     fundamental: f >= 30
-      ? `基本面評分 ${f.toFixed(0)}/40，營收獲利穩健成長，本益比處合理區間`
+      ? `基本面評分 ${f}/40，營收獲利穩健成長，本益比處合理區間`
       : f >= 15
-        ? `基本面評分 ${f.toFixed(0)}/40，體質尚可惧成長動能趨緩，中線持有需觀察`
-        : `基本面評分 ${f.toFixed(0)}/40，營收獲利偏弱，建議短線操作為主`,
-    risk: stop_loss
-      ? `建護停損設於 ${slStr}（約 -${dsStr}%），務必控制單筆風險在總資金 2% 以內。`
-        + (upside2 ? ` 若突破第一關可上移停損至成本價保護。` : '')
-      : `尚無明確停損價位，若進場請自行設定技術面支撐（如月線或前低）作為防守。`,
-    action: (recommendation && (entry || entryLow))
-      ? `綜合評分 ${stock.total_score.toFixed(1)}，建護「${recLabel}」。進場 ${entryStr}，目標 +${upside ?? '?'}%`
-        + (upside2 ? `/ +${upside2}%` : '') + (upside3 ? `/ +${upside3}%` : '')
-        + `，風報比 1:${rr}，適合${downside && downside < 5 ? '短線積極' : '波段持有'}操作。`
-      : `綜合評分 ${stock.total_score.toFixed(1)}，訊號尚不明確，建護觀望等待更佳進場點。`,
+        ? `基本面評分 ${f}/40，體質尚可但成長動能趨緩，中線持有需觀察`
+        : `基本面評分 ${f}/40，營收獲利偏弱，建議短線操作為主`,
+    risk: stopLoss
+      ? `停損設於 ${slStr}，破此價位應立即出場，嚴守風控紀律`
+      : `尚無明確停損價，建議以成本 -5% 作為保護停損`,
+    action: `操作建議：${recLabel}，進場區間 ${entryStr}，目標1上看 ${target1?.toFixed(0) ?? '?'}（+${upside}%）`,
   };
 }
 
-function NarrativePanel({ stock }: { stock: ScanStock }) {
+export default function StockDetailModal({ stock, onClose, rank = 1, isDemo = false }: Props) {
+  const [shared, setShared] = useState(false);
+  const { data: liveData, loading } = useOnDemandScan(stock.stock_id);
+
+  const name = getStockName(stock);
+  const sector = getStockSector(stock);
+  const close = getStockClose(stock);
+  const changePct = getStockChangePct(stock);
+  const rec = getStockRecommendation(stock);
+  const reason = getStockReason(stock);
+  const dims = getStockDimensions(stock);
+  const entryLow = getStockEntryLow(stock);
+  const entryHigh = getStockEntryHigh(stock);
+  const stopLoss = getStockStopLoss(stock);
+  const target1 = getStockTarget1(stock);
+  const target2 = getStockTarget2(stock);
+  const target3 = getStockTarget3(stock);
+
+  const actionStyle = getActionStyle(rec);
+  const isUp = (changePct ?? 0) >= 0;
   const narrative = stock.narrative ?? generateNarrative(stock);
-  return (
-    <div className="rounded-xl bg-gray-800/40 border border-gray-700/50 p-4">
-      <h3 className="text-[11px] font-semibold text-gray-500 mb-3 uppercase tracking-wide flex items-center gap-1.5">
-        <span>🤖</span>AI 白話文分析
-      </h3>
-      <div className="space-y-2.5">
-        {NARRATIVE_ROWS.map(({ key, label, icon, color }) => (
-          <div key={key} className="text-[12px]">
-            <span className={`font-semibold ${color}`}>{icon} {label}：</span>
-            <span className="text-gray-300 ml-1">{narrative[key]}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
 
-// ── 主元件 ───────────────────────────────────────
-function TargetRow({ label, price, pct, color }: { label: string; price?: number; pct?: number; color: string }) {
-  if (!price) return null;
-  return (
-    <div className="flex items-center justify-between">
-      <span className="text-[11px] text-gray-500">{label}</span>
-      <div className="flex items-center gap-2">
-        {pct !== undefined && (
-          <span className={`text-[10px] font-semibold ${color}`}>+{pct}%</span>
-        )}
-        <span className={`text-sm font-bold ${color}`}>{price.toFixed(2)}</span>
-      </div>
-    </div>
-  );
-}
-
-export default function StockDetailModal({ stock, onClose, rank, isDemo }: Props) {
-  const [copied, setCopied] = useState(false);
-  const [tab, setTab] = useState<'overview' | 'chart' | 'narrative'>('overview');
-  const { scan, loading: scanLoading, data: scanData } = useOnDemandScan();
-
-  const actionStyle = getActionStyle(stock.strategy?.recommendation);
-
-  // 進場價範圍
-  const entryLow = stock.strategy?.entry_low;
-  const entryHigh = stock.strategy?.entry_high;
-  const entryMid = stock.strategy?.entry;
-  const entryDisplay = (entryLow && entryHigh)
-    ? `${entryLow.toFixed(2)}～${entryHigh.toFixed(2)}`
-    : entryMid
-      ? entryMid.toFixed(2)
-      : '—';
+  const handleShare = useCallback(async () => {
+    const url = `${window.location.origin}?stock=${stock.stock_id}`;
+    await navigator.clipboard.writeText(url);
+    setShared(true);
+    setTimeout(() => setShared(false), 2000);
+  }, [stock.stock_id]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
@@ -161,190 +133,155 @@ export default function StockDetailModal({ stock, onClose, rank, isDemo }: Props
     return () => window.removeEventListener('keydown', onKey);
   }, [onClose]);
 
-  const handleCopy = useCallback(async () => {
-    await navigator.clipboard.writeText(stock.code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1500);
-  }, [stock.code]);
-
-  const dims = stock.dimensions ?? {};
-  const dimEntries = Object.entries(DIMENSION_CONFIG);
-  const strategy = stock.strategy ?? {};
-
-  // 价格圖資料
-  const chartData = (() => {
-    if (!entryMid && !entryLow) return [];
-    const base = entryMid ?? ((entryLow! + (entryHigh ?? entryLow!)) / 2);
-    const t1 = strategy.target1 ?? base * 1.05;
-    const t2 = strategy.target2 ?? base * 1.10;
-    const t3 = strategy.target3 ?? base * 1.15;
-    const sl = strategy.stop_loss ?? base * 0.95;
-    return [
-      { name: '停損', price: sl, ref: true },
-      { name: '進場', price: base, ref: false },
-      { name: 'T1', price: t1, ref: false },
-      { name: 'T2', price: t2, ref: false },
-      { name: 'T3', price: t3, ref: false },
-    ];
-  })();
-
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
-      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
-    >
-      <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto relative">
-        {/* 標題列 */}
-        <div className={`sticky top-0 z-10 rounded-t-2xl border-b ${actionStyle.border} ${actionStyle.bg} px-5 py-4`}>
-          <div className="flex items-start justify-between">
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 flex-wrap">
-                {rank && (
-                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-gray-200/80 dark:bg-gray-700/80 text-gray-500 font-mono">#{rank}</span>
-                )}
-                <span className="text-base font-bold text-gray-900 dark:text-white truncate">{stock.name}</span>
-                <span className="text-[11px] text-gray-400 font-mono">{stock.code}</span>
-                {isDemo && (
-                  <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-700 font-semibold">DEMO</span>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+      <div className="bg-gray-900 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto border border-gray-700">
+
+        {/* Header */}
+        <div className="sticky top-0 bg-gray-900 border-b border-gray-700 px-6 py-4 flex items-start justify-between z-10 rounded-t-2xl">
+          <div className="flex items-center gap-3">
+            <span className="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-xs font-bold text-gray-200">#{rank}</span>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="font-mono font-bold text-white text-lg">{stock.stock_id}</span>
+                <span className="text-gray-300 font-medium text-base">{name}</span>
+                {changePct != null && (
+                  <span className={`text-sm font-bold ${ isUp ? 'text-red-400' : 'text-green-400' }`}>
+                    {isUp ? '+' : ''}{changePct.toFixed(2)}%
+                  </span>
                 )}
               </div>
-              <div className="flex items-center gap-2 mt-1 flex-wrap">
-                <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-full border ${actionStyle.border} ${actionStyle.bg} ${actionStyle.text}`}>
-                  {actionStyle.label}
-                </span>
-                {stock.sector && (
-                  <span className="text-[10px] text-gray-400">{stock.sector}</span>
+              <div className="flex items-center gap-2 mt-0.5">
+                <span className="text-xs text-gray-400">{sector}</span>
+                {close != null && (
+                  <span className="text-xs font-mono text-gray-300">收盤 {close.toFixed(2)}</span>
                 )}
               </div>
             </div>
-            <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors ml-2">
-              <X className="w-4 h-4 text-gray-400" />
-            </button>
           </div>
-
-          {/* 分頁標簽 */}
-          <div className="flex gap-1 mt-3">
-            {(['overview', 'chart', 'narrative'] as const).map((t) => (
-              <button
-                key={t}
-                onClick={() => setTab(t)}
-                className={`text-[11px] px-3 py-1 rounded-full transition-colors ${
-                  tab === t
-                    ? 'bg-sky-500/20 text-sky-400 font-semibold border border-sky-500/30'
-                    : 'text-gray-500 hover:text-gray-300'
-                }`}
-              >
-                {t === 'overview' ? '概覽' : t === 'chart' ? '價格圖' : 'AI 白話文'}
-              </button>
-            ))}
+          <div className="flex items-center gap-2">
+            <button onClick={handleShare} className="p-2 rounded-lg hover:bg-gray-700 text-gray-400 hover:text-gray-200 transition-colors" title="分享">
+              {shared ? <Check className="w-4 h-4 text-emerald-400" /> : <Share2 className="w-4 h-4" />}
+            </button>
+            <a href={`https://tw.stock.yahoo.com/quote/${stock.stock_id}`} target="_blank" rel="noopener noreferrer"
+              className="p-2 rounded-lg hover:bg-gray-700 text-gray-400 hover:text-gray-200 transition-colors" title="Yahoo奇摩股市">
+              <ExternalLink className="w-4 h-4" />
+            </a>
+            <button onClick={onClose} className="p-2 rounded-lg hover:bg-gray-700 text-gray-400 hover:text-gray-200 transition-colors">
+              <X className="w-5 h-5" />
+            </button>
           </div>
         </div>
 
-        <div className="p-5 space-y-4">
-          {/* 概覽頁籤 */}
-          {tab === 'overview' && (
-            <>
-              {/* 進場 / 停損 / 三關價 */}
-              <div className="rounded-xl border border-gray-200 dark:border-gray-700/50 bg-gray-50 dark:bg-gray-800/40 p-4 space-y-3">
-                <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">入場策略</h3>
+        <div className="px-6 py-5 space-y-5">
 
-                <div className="flex items-center justify-between">
-                  <span className="text-[11px] text-gray-500">進場區間</span>
-                  <span className="text-sm font-bold text-sky-400">{entryDisplay}</span>
-                </div>
+          {/* 推薦標籤 */}
+          <div className={`rounded-xl border-2 px-4 py-3 ${actionStyle.bg} ${actionStyle.border}`}>
+            <div className="flex items-center gap-2">
+              <span className={`text-base font-bold ${actionStyle.text}`}>{actionStyle.label}</span>
+              <span className="text-gray-400 text-xs">|</span>
+              <span className="text-gray-300 text-xs">總分 {stock.total_score}/100</span>
+            </div>
+            {reason && (
+              <p className="mt-1.5 text-gray-100 text-sm leading-relaxed">{reason}</p>
+            )}
+          </div>
 
-                <div className="flex items-center justify-between">
-                  <span className="text-[11px] text-gray-500">停損價</span>
-                  <div className="flex items-center gap-2">
-                    {strategy.downside !== undefined && (
-                      <span className="text-[10px] font-semibold text-red-400">-{strategy.downside}%</span>
-                    )}
-                    <span className="text-sm font-bold text-red-400">
-                      {strategy.stop_loss?.toFixed(2) ?? '—'}
-                    </span>
+          {/* 三關價 + 進場區間 + 停損 */}
+          <div className="grid grid-cols-2 gap-3">
+            <div className="bg-gray-800 rounded-xl p-3 border border-gray-600">
+              <div className="text-xs text-gray-400 mb-1">進場區間</div>
+              <div className="font-mono font-bold text-white text-sm">
+                {(entryLow && entryHigh)
+                  ? `${entryLow.toFixed(2)} ～ ${entryHigh.toFixed(2)}`
+                  : entryLow?.toFixed(2) ?? '—'}
+              </div>
+            </div>
+            <div className="bg-gray-800 rounded-xl p-3 border border-gray-600">
+              <div className="text-xs text-gray-400 mb-1 flex items-center gap-1"><Shield className="w-3 h-3" />停損價</div>
+              <div className="font-mono font-bold text-green-400 text-sm">{stopLoss?.toFixed(2) ?? '—'}</div>
+            </div>
+            <div className="bg-gray-800 rounded-xl p-3 border border-orange-700">
+              <div className="text-xs text-orange-300 mb-1 flex items-center gap-1"><Target className="w-3 h-3" />目標一</div>
+              <div className="font-mono font-bold text-orange-300 text-sm">{target1?.toFixed(0) ?? '—'}</div>
+            </div>
+            <div className="bg-gray-800 rounded-xl p-3 border border-red-700">
+              <div className="text-xs text-red-300 mb-1 flex items-center gap-1"><Target className="w-3 h-3" />目標二</div>
+              <div className="font-mono font-bold text-red-300 text-sm">{target2?.toFixed(0) ?? '—'}</div>
+            </div>
+            <div className="col-span-2 bg-gray-800 rounded-xl p-3 border border-red-900">
+              <div className="text-xs text-red-200 mb-1 flex items-center gap-1"><Target className="w-3 h-3" />目標三（夢想價）</div>
+              <div className="font-mono font-bold text-red-200 text-sm">{target3?.toFixed(0) ?? '—'}</div>
+            </div>
+          </div>
+
+          {/* 五維分數條 */}
+          <div className="bg-gray-800 rounded-xl p-4 border border-gray-600">
+            <div className="text-xs font-semibold text-gray-300 mb-3">五維評分</div>
+            <div className="space-y-2">
+              {(Object.keys(DIMENSION_CONFIG) as Array<keyof typeof DIMENSION_CONFIG>).map(key => {
+                const cfg = DIMENSION_CONFIG[key];
+                const val = dims[key] ?? 0;
+                const pct = Math.min((val / cfg.max) * 100, 100);
+                return (
+                  <div key={key} className="flex items-center gap-2">
+                    <span className="text-xs text-gray-400 w-16">{cfg.label}</span>
+                    <div className="flex-1 h-2 rounded-full bg-gray-700 overflow-hidden">
+                      <div
+                        className="h-full rounded-full transition-all"
+                        style={{ width: `${pct}%`, backgroundColor: DIM_COLORS[key] }}
+                      />
+                    </div>
+                    <span className="text-xs font-mono font-bold text-gray-200 w-10 text-right">{val}/{cfg.max}</span>
                   </div>
-                </div>
+                );
+              })}
+            </div>
+          </div>
 
-                <div className="border-t border-gray-200 dark:border-gray-700/40 pt-3 space-y-1.5">
-                  <TargetRow label="第一關" price={strategy.target1} pct={strategy.upside} color="text-emerald-400" />
-                  <TargetRow label="第二關" price={strategy.target2} pct={strategy.upside2} color="text-emerald-500" />
-                  <TargetRow label="第三關" price={strategy.target3} pct={strategy.upside3} color="text-emerald-600" />
+          {/* AI 白話文分析 */}
+          <div className="bg-gray-800 rounded-xl p-4 border border-gray-600">
+            <div className="text-sm font-semibold text-gray-200 mb-3">AI 白話文分析</div>
+            <div className="space-y-2">
+              {NARRATIVE_ROWS.map(({ key, label, icon, color, bg }) => (
+                <div key={key} className={`rounded-lg border px-3 py-2.5 ${bg}`}>
+                  <div className="flex items-center gap-1.5 mb-1">
+                    <span>{icon}</span>
+                    <span className={`text-xs font-semibold ${color}`}>{label}</span>
+                  </div>
+                  <p className="text-sm text-gray-100 leading-relaxed">{narrative[key]}</p>
                 </div>
+              ))}
+            </div>
+          </div>
+
+          {/* 持股建議 */}
+          {(stock.hold_days || stock.position) && (
+            <div className="bg-gray-800 rounded-xl p-4 border border-gray-600">
+              <div className="text-xs font-semibold text-gray-300 mb-2">持股建議</div>
+              <div className="flex gap-4 text-sm">
+                {stock.hold_days && (
+                  <div>
+                    <span className="text-gray-400 text-xs">建議持有</span>
+                    <div className="font-semibold text-white">{stock.hold_days} 天</div>
+                  </div>
+                )}
+                {stock.position && (
+                  <div>
+                    <span className="text-gray-400 text-xs">部位建議</span>
+                    <div className="font-semibold text-white">{stock.position}</div>
+                  </div>
+                )}
+                {stock.max_loss_per_lot && (
+                  <div>
+                    <span className="text-gray-400 text-xs">每張最大損失</span>
+                    <div className="font-semibold text-red-300">{stock.max_loss_per_lot.toLocaleString()} 元</div>
+                  </div>
+                )}
               </div>
-
-              {/* 五維評分 */}
-              <div className="rounded-xl border border-gray-200 dark:border-gray-700/50 bg-gray-50 dark:bg-gray-800/40 p-4">
-                <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">五維評分</h3>
-                <div className="space-y-2">
-                  {dimEntries.map(([key, cfg]) => {
-                    const score = dims[key as keyof typeof dims] as number ?? 0;
-                    const pct = Math.min((score / cfg.max) * 100, 100);
-                    const color = DIM_COLORS[key] ?? '#6b7280';
-                    return (
-                      <div key={key} className="flex items-center gap-2">
-                        <span className="text-[11px] text-gray-500 w-14 shrink-0">{DIM_LABELS[key] ?? key}</span>
-                        <div className="flex-1 h-1.5 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
-                          <div
-                            className="h-full rounded-full transition-all"
-                            style={{ width: `${pct}%`, backgroundColor: color }}
-                          />
-                        </div>
-                        <span className="text-[11px] font-mono font-bold text-gray-600 dark:text-gray-300 w-12 text-right">
-                          {score.toFixed(1)}/{cfg.max}
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
-                <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700/40 flex justify-between items-center">
-                  <span className="text-[11px] text-gray-500">綜合評分</span>
-                  <span className="text-base font-bold text-gray-900 dark:text-white">{stock.total_score.toFixed(1)}</span>
-                </div>
-              </div>
-            </>
-          )}
-
-          {/* 價格圖頁籤 */}
-          {tab === 'chart' && (
-            <div className="rounded-xl border border-gray-700/50 bg-gray-800/40 p-4">
-              <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">目標價位指引</h3>
-              {chartData.length > 0 ? (
-                <ResponsiveContainer width="100%" height={200}>
-                  <LineChart data={chartData} margin={{ top: 8, right: 16, bottom: 8, left: 8 }}>
-                    <XAxis dataKey="name" tick={{ fontSize: 11 }} />
-                    <YAxis domain={['auto', 'auto']} tick={{ fontSize: 10 }} />
-                    <Tooltip formatter={(v: number) => v.toFixed(2)} />
-                    <ReferenceLine y={strategy.stop_loss} stroke="#ef4444" strokeDasharray="4 2" />
-                    <Line type="monotone" dataKey="price" stroke="#38bdf8" strokeWidth={2} dot={{ r: 4 }} />
-                  </LineChart>
-                </ResponsiveContainer>
-              ) : (
-                <p className="text-center text-sm text-gray-500 py-8">無法取得價格資料</p>
-              )}
             </div>
           )}
 
-          {/* AI 白話文頁籤 */}
-          {tab === 'narrative' && <NarrativePanel stock={stock} />}
-
-          {/* 底部按鈕 */}
-          <div className="flex gap-2 pt-2">
-            <button
-              onClick={handleCopy}
-              className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl border border-gray-200 dark:border-gray-700 text-xs text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-            >
-              {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Share2 className="w-3.5 h-3.5" />}
-              {copied ? '已複製' : '複製代號'}
-            </button>
-            <a
-              href={`https://tw.stock.yahoo.com/quote/${stock.code}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl border border-sky-500/30 bg-sky-500/5 text-xs text-sky-400 hover:bg-sky-500/10 transition-colors"
-            >
-              <ExternalLink className="w-3.5 h-3.5" /> Yahoo 行情
-            </a>
-          </div>
         </div>
       </div>
     </div>
