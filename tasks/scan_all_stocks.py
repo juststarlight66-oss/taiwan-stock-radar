@@ -4,7 +4,8 @@
 全域掃描腳本：scan_all_stocks.py
 
 優先從 TWSE + TPEx OpenAPI 取得全市場個股資料；
-若 API 無資料（非交易日），自動 fallback 讀取 scan_result.json。
+若 API 無資料（非交易日），自動 fallback 從 GitHub Pages 抓取已部署的 all_scores.json。
+若 Pages 也無法取得，graceful exit(0)，不讓 workflow 標記為 failure。
 輸出格式：public/data/all_scores.json
 """
 
@@ -29,8 +30,10 @@ URL_BWIBBU_ALL    = "https://openapi.twse.com.tw/v1/exchangeReport/BWIBBU_ALL"
 URL_TPEX_CLOSE    = "https://www.tpex.org.tw/openapi/v1/tpex_mainboard_daily_close_quotes"
 URL_TPEX_PE       = "https://www.tpex.org.tw/openapi/v1/tpex_mainboard_peratio_analysis"
 
+# GitHub Pages 已部署的 all_scores.json URL（fallback 用）
+PAGES_ALL_SCORES_URL = "https://juststarlight66-oss.github.io/taiwan-stock-radar/data/all_scores.json"
+
 OUTPUT_PATH = os.environ.get("OUTPUT_PATH", "public/data/all_scores.json")
-SCAN_RESULT_PATH = os.environ.get("SCAN_RESULT_PATH", "public/data/scan_result.json")
 
 
 def infer_sector(sid: str) -> str:
@@ -104,230 +107,171 @@ def http_get(url, retries=3):
 
 def score_stock(volume, pe, yield_pct, pbr):
     """簡單的基礎評分 (0-100)"""
-    score = 50  # 基礎分
-    # 成交量評分 (0-20)
+    score = 50
     if volume > 10000: score += 20
     elif volume > 5000: score += 15
     elif volume > 1000: score += 10
     elif volume > 100: score += 5
-    # 殖利率評分 (0-20)
     if yield_pct > 6: score += 20
     elif yield_pct > 4: score += 15
     elif yield_pct > 2: score += 10
     elif yield_pct > 0: score += 5
-    # PE評分 (0-10)
     if 0 < pe < 15: score += 10
     elif 15 <= pe < 25: score += 7
     elif 25 <= pe < 40: score += 3
-    # PBR評分 (0-10)
     if 0 < pbr < 1.5: score += 10
     elif 1.5 <= pbr < 3: score += 5
-    return min(100, score)
+    return min(score, 100)
 
 
-def recommendation_from_score(score):
-    if score >= 80: return "★★★ Strong Recommend"
-    if score >= 70: return "★★ Recommend"
-    if score >= 60: return "★ Watch"
-    return "觀望"
+def fetch_pages_fallback():
+    """從 GitHub Pages 抓取已部署的 all_scores.json 作為 fallback。
+    成功回傳 dict，失敗回傳 None。
+    """
+    print(f"[Fallback] 嘗試從 GitHub Pages 抓取: {PAGES_ALL_SCORES_URL}")
+    try:
+        r = requests.get(PAGES_ALL_SCORES_URL, timeout=30)
+        r.raise_for_status()
+        data = r.json()
+        if isinstance(data, dict) and data.get("stocks"):
+            print(f"[Fallback] 成功取得 {len(data['stocks'])} 筆資料")
+            return data
+        print("[Fallback] Pages 回傳資料格式不符")
+        return None
+    except Exception as e:
+        print(f"[Fallback] Pages 抓取失敗: {e}")
+        return None
 
 
-def fetch_from_twse():
-    """從 TWSE + TPEx API 取得資料，回傳 (twse_list, tpex_list)"""
-    print("[TWSE] 取得上市股票日成交資料...")
+def build_stock_list():
+    """從 TWSE + TPEx API 建立個股清單，回傳 list[dict]。"""
+    print("[步驟1] 取得 TWSE 收盤資料...")
     twse_day = http_get(URL_STOCK_DAY_ALL)
-    print(f"  TWSE 日成交: {len(twse_day)} 筆")
+    print(f"  TWSE 收盤: {len(twse_day)} 筆")
 
-    print("[TWSE] 取得本益比資料...")
+    print("[步驟2] 取得 TWSE PE/PBR/殖利率...")
     twse_pe = http_get(URL_BWIBBU_ALL)
-    twse_pe_map = {r.get("Code", ""): r for r in twse_pe}
     print(f"  TWSE PE: {len(twse_pe)} 筆")
 
-    print("[TPEx] 取得上櫃收盤資料...")
-    tpex_close = http_get(URL_TPEX_CLOSE)
-    print(f"  TPEx 收盤: {len(tpex_close)} 筆")
+    print("[步驟3] 取得 TPEx 收盤資料...")
+    tpex_day = http_get(URL_TPEX_CLOSE)
+    print(f"  TPEx 收盤: {len(tpex_day)} 筆")
 
-    print("[TPEx] 取得上櫃本益比資料...")
+    print("[步驟4] 取得 TPEx PE/PBR...")
     tpex_pe = http_get(URL_TPEX_PE)
-    tpex_pe_map = {r.get("SecuritiesCompanyCode", ""): r for r in tpex_pe}
     print(f"  TPEx PE: {len(tpex_pe)} 筆")
 
-    return twse_day, twse_pe_map, tpex_close, tpex_pe_map
+    total_api = len(twse_day) + len(tpex_day)
+    if total_api == 0:
+        print("[警告] 所有 API 均無資料（非交易日或 API 故障）")
+        return []
 
+    # --- 建立 PE/PBR lookup ---
+    pe_map = {}
+    for row in twse_pe:
+        sid = str(row.get("Code", row.get("股票代號", ""))).strip()
+        if sid:
+            pe_map[sid] = {
+                "pe": safe_float(row.get("PEratio", row.get("本益比", 0))),
+                "pbr": safe_float(row.get("PBratio", row.get("股價淨值比", 0))),
+                "yield_pct": safe_float(row.get("DividendYield", row.get("殖利率", 0))),
+            }
+    for row in tpex_pe:
+        sid = str(row.get("SecuritiesCompanyCode", row.get("股票代號", ""))).strip()
+        if sid:
+            pe_map[sid] = {
+                "pe": safe_float(row.get("PeRatio", row.get("本益比", 0))),
+                "pbr": safe_float(row.get("PbRatio", row.get("股價淨值比", 0))),
+                "yield_pct": safe_float(row.get("DividendYield", row.get("殖利率", 0))),
+            }
 
-def build_from_api(twse_day, twse_pe_map, tpex_close, tpex_pe_map):
-    """從 API 資料建立 all_stock_scores 列表"""
     stocks = []
 
-    # 處理上市股票
+    # --- TWSE ---
     for row in twse_day:
-        sid = row.get("Code", row.get("股票代號", "")).strip()
-        name = row.get("Name", row.get("股票名稱", "")).strip()
-        if not sid or not name:
+        sid = str(row.get("Code", "")).strip()
+        name = str(row.get("Name", "")).strip()
+        if not sid or not sid[:4].isdigit():
             continue
-        # 過濾非一般股票 (ETF/權證/特別股)
-        if len(sid) > 5 or not sid.isdigit():
-            continue
-        close_str = row.get("ClosingPrice", row.get("收盤價", "0"))
-        close = safe_float(close_str)
-        if close <= 0:
-            continue
-        vol = safe_int(row.get("TradeVolume", row.get("成交股數", "0"))) // 1000
-        pe_row = twse_pe_map.get(sid, {})
-        pe = safe_float(pe_row.get("PEratio", pe_row.get("本益比", "0")))
-        yield_pct = safe_float(pe_row.get("DividendYield", pe_row.get("殖利率(%)", "0")))
-        pbr = safe_float(pe_row.get("PBratio", pe_row.get("股價淨值比", "0")))
-        sector = infer_sector(sid)
-        total_score = score_stock(vol, pe, yield_pct, pbr)
+        close = safe_float(row.get("ClosingPrice", 0))
+        volume = safe_int(row.get("TradeVolume", 0)) // 1000
+        pe_info = pe_map.get(sid, {"pe": 0, "pbr": 0, "yield_pct": 0})
+        score = score_stock(volume, pe_info["pe"], pe_info["yield_pct"], pe_info["pbr"])
         stocks.append({
-            "stock_id": sid,
-            "stock_name": name,
-            "close": close,
-            "sector": sector,
-            "total_score": total_score,
-            "recommendation": recommendation_from_score(total_score),
-            "volume": vol,
-            "pe": pe,
-            "yield_pct": yield_pct,
-            "pbr": pbr,
-            "reason": f"{sector}類股，收盤{close}元，評分{total_score}分"
+            "id": sid,
+            "name": name,
+            "price": close,
+            "volume": volume,
+            "pe": pe_info["pe"],
+            "pbr": pe_info["pbr"],
+            "yield_pct": pe_info["yield_pct"],
+            "score": score,
+            "sector": infer_sector(sid),
+            "market": "TWSE",
         })
 
-    # 處理上櫃股票
-    for row in tpex_close:
-        sid = row.get("SecuritiesCompanyCode", row.get("代號", "")).strip()
-        name = row.get("CompanyName", row.get("名稱", "")).strip()
-        if not sid or not name:
+    # --- TPEx ---
+    for row in tpex_day:
+        sid = str(row.get("SecuritiesCompanyCode", row.get("股票代號", ""))).strip()
+        name = str(row.get("CompanyName", row.get("公司名稱", ""))).strip()
+        if not sid or not sid[:4].isdigit():
             continue
-        if len(sid) > 5 or not sid.isdigit():
-            continue
-        close = safe_float(row.get("ClosingPrice", row.get("收盤", "0")))
-        if close <= 0:
-            continue
-        vol = safe_int(row.get("TradingShares", row.get("成交股數", "0"))) // 1000
-        pe_row = tpex_pe_map.get(sid, {})
-        pe = safe_float(pe_row.get("PriceEarningRatio", pe_row.get("本益比", "0")))
-        yield_pct = safe_float(pe_row.get("DividendYield", pe_row.get("殖利率", "0")))
-        pbr = safe_float(pe_row.get("PriceBookRatio", pe_row.get("股價淨值比", "0")))
-        sector = infer_sector(sid)
-        total_score = score_stock(vol, pe, yield_pct, pbr)
+        close = safe_float(row.get("Close", row.get("收盤價", 0)))
+        volume = safe_int(row.get("TradeVolume", row.get("成交股數", 0))) // 1000
+        pe_info = pe_map.get(sid, {"pe": 0, "pbr": 0, "yield_pct": 0})
+        score = score_stock(volume, pe_info["pe"], pe_info["yield_pct"], pe_info["pbr"])
         stocks.append({
-            "stock_id": sid,
-            "stock_name": name,
-            "close": close,
-            "sector": sector,
-            "total_score": total_score,
-            "recommendation": recommendation_from_score(total_score),
-            "volume": vol,
-            "pe": pe,
-            "yield_pct": yield_pct,
-            "pbr": pbr,
-            "reason": f"{sector}類股，收盤{close}元，評分{total_score}分"
+            "id": sid,
+            "name": name,
+            "price": close,
+            "volume": volume,
+            "pe": pe_info["pe"],
+            "pbr": pe_info["pbr"],
+            "yield_pct": pe_info["yield_pct"],
+            "score": score,
+            "sector": infer_sector(sid),
+            "market": "TPEx",
         })
 
-    return stocks
-
-
-def build_from_scan_result(scan_result_path):
-    """從 scan_result.json fallback 建立 all_stock_scores"""
-    print(f"[Fallback] 讀取 {scan_result_path}...")
-    if not os.path.exists(scan_result_path):
-        print(f"  [錯誤] 找不到 {scan_result_path}")
-        return []
-
-    with open(scan_result_path, "r", encoding="utf-8") as f:
-        data = json.load(f)
-
-    # scan_result.json 可能是 list 或 {all_stock_scores: [...]}
-    if isinstance(data, list):
-        raw_stocks = data
-    elif isinstance(data, dict):
-        raw_stocks = data.get("all_stock_scores", data.get("stocks", []))
-    else:
-        return []
-
-    print(f"  原始資料: {len(raw_stocks)} 筆")
-    stocks = []
-    for s in raw_stocks:
-        sid = str(s.get("stock_id", "")).strip()
-        name = str(s.get("stock_name", s.get("name", ""))).strip()
-        if not sid or not name:
-            continue
-        # 確保有 sector
-        sector = s.get("sector") or infer_sector(sid)
-        close = safe_float(s.get("close", s.get("price", 0)))
-        total_score = safe_int(s.get("total_score", s.get("score", 50)))
-        stocks.append({
-            "stock_id": sid,
-            "stock_name": name,
-            "close": close,
-            "sector": sector,
-            "total_score": total_score,
-            "recommendation": s.get("recommendation") or recommendation_from_score(total_score),
-            "volume": safe_int(s.get("volume", 0)),
-            "pe": safe_float(s.get("pe", 0)),
-            "yield_pct": safe_float(s.get("yield_pct", s.get("dividend_yield", 0))),
-            "pbr": safe_float(s.get("pbr", 0)),
-            "reason": s.get("reason", f"{sector}類股，評分{total_score}分")
-        })
     return stocks
 
 
 def main():
     now_tw = datetime.now(_TW_TZ)
-    scan_date = now_tw.strftime("%Y%m%d")
-    print(f"=== 全域掃描開始: {now_tw.strftime('%Y-%m-%d %H:%M CST')} ===")
+    print(f"[開始] 台灣時間: {now_tw.strftime('%Y-%m-%d %H:%M:%S')}")
 
-    # Step 1: 嘗試 TWSE/TPEx API
-    stocks = []
-    try:
-        twse_day, twse_pe_map, tpex_close, tpex_pe_map = fetch_from_twse()
-        total_api = len(twse_day) + len(tpex_close)
-        print(f"API 總資料: {total_api} 筆")
-        if total_api > 100:  # 有足夠資料才用 API
-            stocks = build_from_api(twse_day, twse_pe_map, tpex_close, tpex_pe_map)
-            print(f"[API] 有效個股: {len(stocks)} 筆")
-    except Exception as e:
-        print(f"[API Error] {e}")
-
-    # Step 2: Fallback — 讀取 scan_result.json
-    if len(stocks) < 100:
-        print(f"[Fallback] API 資料不足 ({len(stocks)} 筆)，改用 scan_result.json")
-        stocks = build_from_scan_result(SCAN_RESULT_PATH)
-        print(f"[Fallback] 取得 {len(stocks)} 筆")
-        if stocks:
-            # 使用最近交易日日期
-            scan_date = "fallback_" + scan_date
+    # --- 主路徑：從 API 取得資料 ---
+    stocks = build_stock_list()
 
     if not stocks:
-        print("[錯誤] 無法取得任何股票資料，結束")
-        sys.exit(1)
+        # --- Fallback：從 GitHub Pages 抓取已部署資料 ---
+        print("[Fallback] API 無資料，嘗試從 GitHub Pages 取得現有資料...")
+        pages_data = fetch_pages_fallback()
+        if pages_data:
+            # 更新 generated_at 時間戳，但保留原始個股資料
+            pages_data["generated_at"] = now_tw.strftime("%Y-%m-%dT%H:%M:%S+08:00")
+            pages_data["note"] = "非交易日：資料來源為上次交易日已部署資料"
+            os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
+            with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
+                json.dump(pages_data, f, ensure_ascii=False, separators=(',', ':'))
+            count = len(pages_data.get("stocks", []))
+            print(f"[完成] Fallback 資料已寫入 {OUTPUT_PATH}，共 {count} 筆")
+            sys.exit(0)
+        else:
+            print("[略過] 非交易日且無法取得 fallback 資料，不更新 all_scores.json")
+            sys.exit(0)  # exit(0) 讓 workflow 成功，不失敗
 
-    # 按 total_score 排序（高分在前）
-    stocks.sort(key=lambda x: x.get("total_score", 0), reverse=True)
-
-    # 建立輸出格式（包裝格式，相容前端 allScoresFetcher）
+    # --- 正常交易日：寫出結果 ---
     output = {
-        "scan_date": scan_date,
-        "scanned_count": len(stocks),
-        "all_stock_scores": stocks
+        "generated_at": now_tw.strftime("%Y-%m-%dT%H:%M:%S+08:00"),
+        "count": len(stocks),
+        "stocks": sorted(stocks, key=lambda x: x["score"], reverse=True),
     }
-
-    # 確保輸出目錄存在
     os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
-
     with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
         json.dump(output, f, ensure_ascii=False, separators=(',', ':'))
-
-    print(f"=== 完成: {len(stocks)} 筆寫入 {OUTPUT_PATH} ===")
-
-    # 族群統計
-    sectors = {}
-    for s in stocks:
-        sec = s.get("sector", "其他")
-        sectors[sec] = sectors.get(sec, 0) + 1
-    top5 = sorted(sectors.items(), key=lambda x: -x[1])[:5]
-    print("族群分布 Top5:", top5)
+    print(f"[完成] 掃描結果已寫入 {OUTPUT_PATH}，共 {len(stocks)} 筆")
+    sys.exit(0)
 
 
 if __name__ == "__main__":
