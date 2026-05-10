@@ -1,6 +1,10 @@
 {
   "scan_type": "intraday_daytrade",
-  "scanned_at": "2026-05-08 13:02:14",
+  "scanned_at": "2026-05-11 05:09:00",
+  "scan_status": "pre_market_fallback",
+  "note": "Trigger fired at 05:00 Taiwan time (pre-market). Market opens at 09:00. Using last trading day (2026-05-08) reference data. Live intraday scan will be available after 09:00.",
+  "last_trading_day": "2026-05-08",
+  "trigger_cron_issue": "Cron 0 5 * * 1-5 interpreted in Taiwan time fires at 05:00 (pre-market). Should fire at 13:00 Taiwan (cron 0 13 * * 1-5 or 0 5 * * 1-5 UTC).",
   "stocks": [
     {
       "stock_id": "3592",
