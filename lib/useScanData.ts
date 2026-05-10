@@ -26,7 +26,7 @@ const fetcher = (url: string) =>
 // ---------------------------------------------------------------------------
 // normalizeScanResult: maps flat latest.json / scan_result_*.json structure
 // to the nested ScanStock shape the frontend components expect.
-// Flat fields:  stock_name, *_score, recommendation, entry_low/high, stop_loss, target1/2/3
+// Flat fields: stock_name, *_score, recommendation, entry_low/high, stop_loss, target1/2/3
 // Nested shape: name, dimensions{}, strategy{}
 // ---------------------------------------------------------------------------
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -54,57 +54,57 @@ function normalizeStock(s: any): ScanStock {
     : (s.downside ?? 0);
 
   const dimensions: ScanDimensions = {
-    technical:   s.technical_score   ?? s.dimensions?.technical   ?? 0,
+    technical: s.technical_score ?? s.dimensions?.technical ?? 0,
     fundamental: s.fundamental_score ?? s.dimensions?.fundamental ?? 0,
-    news:        s.news_score        ?? s.dimensions?.news        ?? 0,
-    sentiment:   s.sentiment_score   ?? s.dimensions?.sentiment   ?? 0,
-    chips:       s.chips_score       ?? s.dimensions?.chips       ?? 0,
+    news: s.news_score ?? s.dimensions?.news ?? 0,
+    sentiment: s.sentiment_score ?? s.dimensions?.sentiment ?? 0,
+    chips: s.chips_score ?? s.dimensions?.chips ?? 0,
   };
 
   const signals: ScanSignals = s.signals ?? {
-    technical:   [],
+    technical: [],
     fundamental: [],
-    news:        [],
-    sentiment:   [],
-    chips:       [],
+    news: [],
+    sentiment: [],
+    chips: [],
   };
 
   return {
-    stock_id:    s.stock_id,
-    name:        s.stock_name ?? s.name ?? s.stock_id,
-    sector:      s.sector_name ?? s.sector ?? '—',
-    close:       s.close ?? 0,
-    change_pct:  s.change_pct ?? 0,
+    stock_id: s.stock_id,
+    name: s.stock_name ?? s.name ?? s.stock_id,
+    sector: s.sector_name ?? s.sector ?? '—',
+    close: s.close ?? 0,
+    change_pct: s.change_pct ?? 0,
     total_score: s.total_score ?? 0,
-    rsi:         s.rsi ?? 50,
-    vol_ratio:   s.vol_ratio ?? s.volume_ratio ?? 1,
+    rsi: s.rsi ?? 50,
+    vol_ratio: s.vol_ratio ?? s.volume_ratio ?? 1,
     dimensions,
     signals,
     details: s.details ?? {
-      rsi:       s.rsi ?? 50,
+      rsi: s.rsi ?? 50,
       vol_ratio: s.vol_ratio ?? 1,
     },
     strategy: {
-      entry:        entryMid,
-      entry_low:    entryLow,
-      entry_high:   entryHigh,
-      target:       target1,
+      entry: entryMid,
+      entry_low: entryLow,
+      entry_high: entryHigh,
+      target: target1,
       target1,
       target2,
       target3,
-      target_note:  s.target_note ?? '',
-      stop_loss:    stopLoss,
+      target_note: s.target_note ?? '',
+      stop_loss: stopLoss,
       upside,
-      upside2:      s.upside2 ?? 0,
-      upside3:      s.upside3 ?? 0,
+      upside2: s.upside2 ?? 0,
+      upside3: s.upside3 ?? 0,
       downside,
-      atr:          s.atr ?? 0,
+      atr: s.atr ?? 0,
       recommendation: s.recommendation ?? '',
-      hold_days:    s.hold_days ?? '',
-      position:     s.position ?? '',
+      hold_days: s.hold_days ?? '',
+      position: s.position ?? '',
       max_loss_per_lot: s.max_loss_per_lot ?? 0,
-      reason:       s.reason ?? '',
-      power_combo:  s.power_combo ?? false,
+      reason: s.reason ?? '',
+      power_combo: s.power_combo ?? false,
     },
   };
 }
@@ -122,7 +122,7 @@ export function normalizeScanResult(raw: any): ScanResult {
 
 export function useLatestScan() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { data: raw, error, isLoading } = useSWR<any>(
+  const { data: raw, error, isLoading } = useSWR(
     `${BASE}/data/latest.json`,
     fetcher,
     { refreshInterval: 0, revalidateOnFocus: false }
@@ -134,7 +134,7 @@ export function useLatestScan() {
 export function useDateScan(date: string | null) {
   const key = date ? `${BASE}/data/scan_result_${date.replace(/-/g, '')}.json` : null;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { data: raw, error, isLoading } = useSWR<any>(key, fetcher, {
+  const { data: raw, error, isLoading } = useSWR(key, fetcher, {
     refreshInterval: 0,
     revalidateOnFocus: false,
   });
@@ -152,11 +152,18 @@ export function useHistoryIndex() {
 }
 
 export function useAllScores() {
-  const { data, error, isLoading } = useSWR<AllScoresData>(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data: raw, error, isLoading } = useSWR(
     `${BASE}/data/all_scores.json`,
     fetcher,
     { refreshInterval: 0, revalidateOnFocus: false }
   );
+  // If raw data is a bare array, wrap it
+  const data: AllScoresData | undefined = raw
+    ? (Array.isArray(raw)
+        ? { all_stock_scores: raw, scan_date: null, scanned_count: raw.length }
+        : raw)
+    : undefined;
   return { data, error, isLoading };
 }
 
@@ -185,7 +192,7 @@ interface TwseBwibbuRow {
 
 // TPEx (上櫃) row shapes
 interface TpexDayRow {
-  Date: string;                    // ROC e.g. "1150430"
+  Date: string; // ROC e.g. "1150430"
   SecuritiesCompanyCode: string;
   CompanyName: string;
   Close: string;
@@ -241,10 +248,10 @@ async function fetchTwseHistory(stockCode: string): Promise<Candle[]> {
 
       for (const row of rows) {
         const close = parseFloat2(row.ClosingPrice);
-        const open  = parseFloat2(row.OpeningPrice);
-        const high  = parseFloat2(row.HighestPrice);
-        const low   = parseFloat2(row.LowestPrice);
-        const vol   = parseFloat2(row.TradeVolume);
+        const open = parseFloat2(row.OpeningPrice);
+        const high = parseFloat2(row.HighestPrice);
+        const low = parseFloat2(row.LowestPrice);
+        const vol = parseFloat2(row.TradeVolume);
         if (close <= 0) continue;
 
         const changeAmt = parseFloat2(row.Change);
@@ -272,10 +279,10 @@ async function fetchTwseHistory(stockCode: string): Promise<Candle[]> {
     if (!Array.isArray(rows)) return [];
     for (const row of rows.filter((r) => r.SecuritiesCompanyCode === stockCode)) {
       const close = parseFloat2(row.Close);
-      const open  = parseFloat2(row.Open);
-      const high  = parseFloat2(row.High);
-      const low   = parseFloat2(row.Low);
-      const vol   = parseFloat2(row.TradingShares);
+      const open = parseFloat2(row.Open);
+      const high = parseFloat2(row.High);
+      const low = parseFloat2(row.Low);
+      const vol = parseFloat2(row.TradingShares);
       if (close <= 0) continue;
       const changeAmt = parseFloat2(row.Change);
       const prevClose = close - changeAmt;
@@ -376,7 +383,7 @@ function scoreTechnical(hist: Candle[]): { score: number; signals: string[] } {
   const today = hist[hist.length - 1];
   const n = hist.length;
 
-  const ma5  = closes.slice(-5).reduce((a, b) => a + b, 0) / 5;
+  const ma5 = closes.slice(-5).reduce((a, b) => a + b, 0) / 5;
   const ma10 = n >= 10 ? closes.slice(-10).reduce((a, b) => a + b, 0) / 10 : ma5;
   const ma20 = n >= 20 ? closes.slice(-20).reduce((a, b) => a + b, 0) / 20 : ma10;
   const ma60 = n >= 60 ? closes.slice(-60).reduce((a, b) => a + b, 0) / 60 : null;
@@ -477,7 +484,7 @@ async function fetchMarginData(stockCode: string): Promise<{ margin_balance: num
     if (!row) return null;
     return {
       margin_balance: parseInt2(row.MarginPurchase ?? '0'),
-      short_balance:  parseInt2(row.ShortSale ?? '0'),
+      short_balance: parseInt2(row.ShortSale ?? '0'),
     };
   } catch { return null; }
 }
@@ -706,39 +713,39 @@ export function useOnDemandScan(stockId: string | null): {
           : today.volume;
         const volRatio = avgVol5 > 0 ? today.volume / avgVol5 : 1;
 
-        const techResult  = scoreTechnical(hist);
+        const techResult = scoreTechnical(hist);
         const chipsResult = scoreChips(hist, chipsData, marginData);
-        const fundResult  = scoreFundamental(fundamentals.pe, fundamentals.pb, fundamentals.dy);
-        const newsResult  = scoreNews(sector);
-        const sentResult  = scoreSentiment(hist, stockId!);
+        const fundResult = scoreFundamental(fundamentals.pe, fundamentals.pb, fundamentals.dy);
+        const newsResult = scoreNews(sector);
+        const sentResult = scoreSentiment(hist, stockId!);
 
-        const techNorm  = (techResult.score  / 40) * 100;
-        const fundNorm  = (fundResult.score  / 40) * 100;
-        const newsNorm  = (newsResult.score  / 10) * 100;
-        const sentNorm  = (sentResult.score  / 10) * 100;
+        const techNorm = (techResult.score / 40) * 100;
+        const fundNorm = (fundResult.score / 40) * 100;
+        const newsNorm = (newsResult.score / 10) * 100;
+        const sentNorm = (sentResult.score / 10) * 100;
         const chipsNorm = (chipsResult.score / 10) * 100;
 
         const totalScore =
-          techNorm  * 0.25 +
-          fundNorm  * 0.23 +
-          newsNorm  * 0.32 +
-          sentNorm  * 0.12 +
+          techNorm * 0.25 +
+          fundNorm * 0.23 +
+          newsNorm * 0.32 +
+          sentNorm * 0.12 +
           chipsNorm * 0.08;
 
         const dimensions: ScanDimensions = {
-          technical:   Math.round(techResult.score  * 10) / 10,
-          fundamental: Math.round(fundResult.score  * 10) / 10,
-          news:        Math.round(newsResult.score  * 10) / 10,
-          sentiment:   Math.round(sentResult.score  * 10) / 10,
-          chips:       Math.round(chipsResult.score * 10) / 10,
+          technical: Math.round(techResult.score * 10) / 10,
+          fundamental: Math.round(fundResult.score * 10) / 10,
+          news: Math.round(newsResult.score * 10) / 10,
+          sentiment: Math.round(sentResult.score * 10) / 10,
+          chips: Math.round(chipsResult.score * 10) / 10,
         };
 
         const signals: ScanSignals = {
-          technical:   techResult.signals,
+          technical: techResult.signals,
           fundamental: fundResult.signals,
-          news:        newsResult.signals,
-          sentiment:   sentResult.signals,
-          chips:       chipsResult.signals,
+          news: newsResult.signals,
+          sentiment: sentResult.signals,
+          chips: chipsResult.signals,
         };
 
         const closePrice = today.close;
@@ -789,9 +796,9 @@ export function useOnDemandScan(stockId: string | null): {
         const target3 = Math.round(t3 * 100) / 100;
         const atrRounded = Math.round(atrValue * 100) / 100;
 
-        const upside   = Math.round(((target1 - entryPrice) / entryPrice) * 1000) / 10;
-        const upside2  = Math.round(((target2 - entryPrice) / entryPrice) * 1000) / 10;
-        const upside3  = Math.round(((target3 - entryPrice) / entryPrice) * 1000) / 10;
+        const upside = Math.round(((target1 - entryPrice) / entryPrice) * 1000) / 10;
+        const upside2 = Math.round(((target2 - entryPrice) / entryPrice) * 1000) / 10;
+        const upside3 = Math.round(((target3 - entryPrice) / entryPrice) * 1000) / 10;
         const downside = Math.round(((entryPrice - stopLoss) / entryPrice) * 1000) / 10;
 
         const grade =
