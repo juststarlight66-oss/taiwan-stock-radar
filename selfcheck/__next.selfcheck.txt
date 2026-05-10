@@ -2,4 +2,4 @@
 2:I[39756,["/taiwan-stock-radar/_next/static/chunks/0o~269zocnb95.js"],"default"]
 3:I[37457,["/taiwan-stock-radar/_next/static/chunks/0o~269zocnb95.js"],"default"]
 4:[]
-0:{"rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"isPartial":false,"staleTime":300,"varyParams":"$W4","buildId":"9rK-X3s8fMxCIZpbgfjb0"}
+0:{"rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"isPartial":false,"staleTime":300,"varyParams":"$W4","buildId":"TV4Vo7l8REbE5-k8LDNVD"}
