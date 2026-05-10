@@ -1,14 +1,14 @@
-name: 全域掃描 - 更新 all_scores.json
+name: scan-all-stocks
 
 on:
   workflow_dispatch:
     inputs:
       force:
-        description: '強制重新掃描（即使非交易日）'
+        description: 'Force re-scan even on non-trading day'
         required: false
         default: 'true'
   schedule:
-    # 每週一台股開盤後 09:15 (UTC+8) = UTC 01:15
+    # Every Monday 09:15 CST (UTC+8) = 01:15 UTC
     - cron: '15 1 * * 1'
 
 jobs:
@@ -29,37 +29,23 @@ jobs:
       - name: Install dependencies
         run: pip install requests
 
-      - name: Run scan
-        run: |
-          python tasks/scan_all_stocks.py
+      - name: Run full market scan
+        run: python tasks/scan_all_stocks.py
         env:
           OUTPUT_PATH: public/data/all_scores.json
+          FORCE: ${{ github.event.inputs.force || 'false' }}
 
-      - name: Check output
+      - name: Show output stats
         run: |
-          echo "=== all_scores.json stats ==="
-          wc -c public/data/all_scores.json
-          python3 -c "
-import json
-with open('public/data/all_scores.json') as f:
-    d = json.load(f)
-if isinstance(d, list):
-    print(f'Format: bare array, {len(d)} stocks')
-else:
-    stocks = d.get('all_stock_scores', [])
-    print(f'Format: wrapped, {d.get(\"scanned_count\",len(stocks))} stocks, date={d.get(\"scan_date\",\"-\")}')
-    # 族群統計
-    sectors = {}
-    for s in stocks:
-        sec = s.get('sector','其他')
-        sectors[sec] = sectors.get(sec,0) + 1
-    print('Top 5 sectors:', sorted(sectors.items(), key=lambda x:-x[1])[:5])
-"
+          echo "=== all_scores.json size ==="
+          wc -c public/data/all_scores.json || echo "File not found"
+          echo "=== Stock count ==="
+          python3 -c "import json,sys; d=json.load(open('public/data/all_scores.json')); stocks=d if isinstance(d,list) else d.get('all_stock_scores',[]); print(f'{len(stocks)} stocks scanned')" || echo "Parse error"
 
       - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add public/data/all_scores.json
-          git diff --staged --quiet || git commit -m "data: 全域掃描更新 all_scores.json ($(date '+%Y-%m-%d %H:%M CST'))"
+          git diff --staged --quiet || git commit -m "data: full scan update all_scores.json $(date '+%Y-%m-%d %H:%M CST')"
           git push
