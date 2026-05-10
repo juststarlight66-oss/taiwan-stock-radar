@@ -1,20 +1,67 @@
 {
   "version": 2,
   "updated_at": "2026-05-08T23:55:00",
-  "history": [
+  "grouped_records": [
     {
-      "date": "2026/05/08",
-      "results": {
-        "6446": {"stock_id":"6446","stock_name":"藥華藥","buy_price":724,"t1_return":null,"t3_return":null,"t5_return":null,"data_source":"twse_real"},
-        "6526": {"stock_id":"6526","stock_name":"達發","buy_price":753,"t1_return":null,"t3_return":null,"t5_return":null,"data_source":"twse_real"},
-        "2408": {"stock_id":"2408","stock_name":"南亞科","buy_price":274,"t1_return":null,"t3_return":null,"t5_return":null,"data_source":"twse_real"},
-        "3443": {"stock_id":"3443","stock_name":"創意","buy_price":5210,"t1_return":null,"t3_return":null,"t5_return":null,"data_source":"twse_real"},
-        "2059": {"stock_id":"2059","stock_name":"川湖","buy_price":5320,"t1_return":null,"t3_return":null,"t5_return":null,"data_source":"twse_real"},
-        "2383": {"stock_id":"2383","stock_name":"台光電","buy_price":4750,"t1_return":null,"t3_return":null,"t5_return":null,"data_source":"twse_real"},
-        "8210": {"stock_id":"8210","stock_name":"勤誠","buy_price":1415,"t1_return":null,"t3_return":null,"t5_return":null,"data_source":"twse_real"},
-        "3036": {"stock_id":"3036","stock_name":"文曄","buy_price":240.5,"t1_return":null,"t3_return":null,"t5_return":null,"data_source":"twse_real"},
-        "2379": {"stock_id":"2379","stock_name":"瑞昱","buy_price":592,"t1_return":null,"t3_return":null,"t5_return":null,"data_source":"twse_real"},
-        "2327": {"stock_id":"2327","stock_name":"國巨","buy_price":389,"t1_return":null,"t3_return":null,"t5_return":null,"data_source":"twse_real"}
+      "scan_date": "2026/05/08",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": "",
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {"stock_id": "6446", "name": "藥華藥",  "entry": 724,   "stop_loss": 680,  "close": null, "return_pct": null, "hit_target": false, "hit_stoploss": false, "pending": true},
+            {"stock_id": "6526", "name": "達發",   "entry": 753,   "stop_loss": 720,  "close": null, "return_pct": null, "hit_target": false, "hit_stoploss": false, "pending": true},
+            {"stock_id": "2408", "name": "南亞科", "entry": 274,   "stop_loss": 260,  "close": null, "return_pct": null, "hit_target": false, "hit_stoploss": false, "pending": true},
+            {"stock_id": "3443", "name": "創意",   "entry": 5210,  "stop_loss": 5000, "close": null, "return_pct": null, "hit_target": false, "hit_stoploss": false, "pending": true},
+            {"stock_id": "2059", "name": "川湖",   "entry": 5320,  "stop_loss": 5100, "close": null, "return_pct": null, "hit_target": false, "hit_stoploss": false, "pending": true},
+            {"stock_id": "2383", "name": "台光電", "entry": 4750,  "stop_loss": 4500, "close": null, "return_pct": null, "hit_target": false, "hit_stoploss": false, "pending": true},
+            {"stock_id": "8210", "name": "勤誠",   "entry": 1415,  "stop_loss": 1360, "close": null, "return_pct": null, "hit_target": false, "hit_stoploss": false, "pending": true},
+            {"stock_id": "3036", "name": "文曄",   "entry": 240.5, "stop_loss": 225,  "close": null, "return_pct": null, "hit_target": false, "hit_stoploss": false, "pending": true},
+            {"stock_id": "2379", "name": "瑞昱",   "entry": 592,   "stop_loss": 565,  "close": null, "return_pct": null, "hit_target": false, "hit_stoploss": false, "pending": true},
+            {"stock_id": "2327", "name": "國巨",   "entry": 389,   "stop_loss": 375,  "close": null, "return_pct": null, "hit_target": false, "hit_stoploss": false, "pending": true}
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": "",
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {"stock_id": "6446", "name": "藥華藥",  "entry": 724,   "stop_loss": 680,  "close": null, "return_pct": null, "hit_target": false, "hit_stoploss": false, "pending": true},
+            {"stock_id": "6526", "name": "達發",   "entry": 753,   "stop_loss": 720,  "close": null, "return_pct": null, "hit_target": false, "hit_stoploss": false, "pending": true},
+            {"stock_id": "2408", "name": "南亞科", "entry": 274,   "stop_loss": 260,  "close": null, "return_pct": null, "hit_target": false, "hit_stoploss": false, "pending": true},
+            {"stock_id": "3443", "name": "創意",   "entry": 5210,  "stop_loss": 5000, "close": null, "return_pct": null, "hit_target": false, "hit_stoploss": false, "pending": true},
+            {"stock_id": "2059", "name": "川湖",   "entry": 5320,  "stop_loss": 5100, "close": null, "return_pct": null, "hit_target": false, "hit_stoploss": false, "pending": true},
+            {"stock_id": "2383", "name": "台光電", "entry": 4750,  "stop_loss": 4500, "close": null, "return_pct": null, "hit_target": false, "hit_stoploss": false, "pending": true},
+            {"stock_id": "8210", "name": "勤誠",   "entry": 1415,  "stop_loss": 1360, "close": null, "return_pct": null, "hit_target": false, "hit_stoploss": false, "pending": true},
+            {"stock_id": "3036", "name": "文曄",   "entry": 240.5, "stop_loss": 225,  "close": null, "return_pct": null, "hit_target": false, "hit_stoploss": false, "pending": true},
+            {"stock_id": "2379", "name": "瑞昱",   "entry": 592,   "stop_loss": 565,  "close": null, "return_pct": null, "hit_target": false, "hit_stoploss": false, "pending": true},
+            {"stock_id": "2327", "name": "國巨",   "entry": 389,   "stop_loss": 375,  "close": null, "return_pct": null, "hit_target": false, "hit_stoploss": false, "pending": true}
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": "",
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {"stock_id": "6446", "name": "藥華藥",  "entry": 724,   "stop_loss": 680,  "close": null, "return_pct": null, "hit_target": false, "hit_stoploss": false, "pending": true},
+            {"stock_id": "6526", "name": "達發",   "entry": 753,   "stop_loss": 720,  "close": null, "return_pct": null, "hit_target": false, "hit_stoploss": false, "pending": true},
+            {"stock_id": "2408", "name": "南亞科", "entry": 274,   "stop_loss": 260,  "close": null, "return_pct": null, "hit_target": false, "hit_stoploss": false, "pending": true},
+            {"stock_id": "3443", "name": "創意",   "entry": 5210,  "stop_loss": 5000, "close": null, "return_pct": null, "hit_target": false, "hit_stoploss": false, "pending": true},
+            {"stock_id": "2059", "name": "川湖",   "entry": 5320,  "stop_loss": 5100, "close": null, "return_pct": null, "hit_target": false, "hit_stoploss": false, "pending": true},
+            {"stock_id": "2383", "name": "台光電", "entry": 4750,  "stop_loss": 4500, "close": null, "return_pct": null, "hit_target": false, "hit_stoploss": false, "pending": true},
+            {"stock_id": "8210", "name": "勤誠",   "entry": 1415,  "stop_loss": 1360, "close": null, "return_pct": null, "hit_target": false, "hit_stoploss": false, "pending": true},
+            {"stock_id": "3036", "name": "文曄",   "entry": 240.5, "stop_loss": 225,  "close": null, "return_pct": null, "hit_target": false, "hit_stoploss": false, "pending": true},
+            {"stock_id": "2379", "name": "瑞昱",   "entry": 592,   "stop_loss": 565,  "close": null, "return_pct": null, "hit_target": false, "hit_stoploss": false, "pending": true},
+            {"stock_id": "2327", "name": "國巨",   "entry": 389,   "stop_loss": 375,  "close": null, "return_pct": null, "hit_target": false, "hit_stoploss": false, "pending": true}
+          ]
+        }
       }
     }
   ]
