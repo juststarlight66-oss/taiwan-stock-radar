@@ -124,305 +124,319 @@ def _get_file_sha(path_in_repo: str, token: str) -> str:
     return ''
 
 
-def push_file_to_github(path_in_repo: str, content_str: str, commit_msg: str) -> bool:
-    token = _get_github_token()
+def push_file_to_github(path_in_repo: str, content_str: str, commit_msg: str, token: str) -> bool:
+    """Push a file to GitHub via the Contents API."""
     if not token:
-        print(f'[GitHub Push] SKIP -- no GITHUB_TOKEN found')
+        print('[WARN] No GitHub token — skipping push')
         return False
-
-    encoded = base64.b64encode(content_str.encode('utf-8')).decode('ascii')
     sha = _get_file_sha(path_in_repo, token)
-
-    payload = {'message': commit_msg, 'content': encoded, 'branch': BRANCH}
+    url = f'https://api.github.com/repos/{OWNER}/{REPO}/contents/{path_in_repo}'
+    payload: dict = {
+        'message': commit_msg,
+        'content': base64.b64encode(content_str.encode()).decode(),
+        'branch': BRANCH,
+    }
     if sha:
         payload['sha'] = sha
-
-    url = f'https://api.github.com/repos/{OWNER}/{REPO}/contents/{path_in_repo}'
     try:
         client = _http()
         r = client.put(url, headers=_github_headers(token), json=payload, timeout=30)
-        status = r.status_code if hasattr(r, 'status_code') else 200
-        if status in (200, 201):
-            print(f'[GitHub Push] OK: {path_in_repo}')
-            return True
-        else:
-            print(f'[GitHub Push] FAIL {status}: {r.text[:200] if hasattr(r, "text") else ""}')
+        if hasattr(r, 'status_code'):
+            if r.status_code in (200, 201):
+                print(f'[OK] Pushed {path_in_repo}')
+                return True
+            else:
+                print(f'[ERR] Push failed {r.status_code}: {r.text}')
     except Exception as e:
-        print(f'[GitHub Push] ERROR: {e}')
+        print(f'[ERR] push_file_to_github: {e}')
     return False
 
-# ── OHLCV helpers ─────────────────────────────────────────────────────────────
 
-def load_ohlcv() -> dict:
-    if not os.path.exists(OHLCV):
-        return {}
+# ── Trading calendar helpers ──────────────────────────────────────────────────
+
+def _is_trading_day(d: datetime.date) -> bool:
+    """Rough check: weekday Mon-Fri, not a public holiday (simplified)."""
+    return d.weekday() < 5
+
+
+def _nth_trading_day_after(start_date_str: str, n: int) -> str:
+    """Return the date string of the n-th trading day after start_date_str."""
     try:
-        with open(OHLCV) as f:
-            return json.load(f)
-    except Exception:
-        return {}
-
-
-def trading_days_sorted(ohlcv: dict) -> list:
-    days = sorted(ohlcv.keys())
-    return days
-
-
-def get_close_after_n_days(ohlcv: dict, entry_date_str: str, stock_id: str, n: int) -> float | None:
-    """Return close price on T+N trading day after entry_date_str (YYYY/MM/DD or YYYY-MM-DD)."""
-    entry_date_str = entry_date_str.replace('/', '-')
-    try:
-        entry_dt = datetime.strptime(entry_date_str, '%Y-%m-%d')
+        d = datetime.strptime(start_date_str, '%Y-%m-%d').date()
     except ValueError:
-        return None
-    entry_ymd = entry_dt.strftime('%Y%m%d')
-    days = trading_days_sorted(ohlcv)
-    if not days:
-        return None
-    # Find entry date index
-    try:
-        idx = days.index(entry_ymd)
-    except ValueError:
-        # Find nearest day after entry
-        idx = next((i for i, d in enumerate(days) if d >= entry_ymd), None)
-        if idx is None:
-            return None
-        idx = idx - 1  # entry is not a trading day, use prev day as entry
-    target_idx = idx + n
-    if target_idx >= len(days):
-        return None
-    target_day = days[target_idx]
-    day_data   = ohlcv.get(target_day, {})
-    stock_data = day_data.get(stock_id, {})
-    if isinstance(stock_data, dict):
-        return stock_data.get('close')
-    return None
+        return ''
+    count = 0
+    while count < n:
+        d += timedelta(days=1)
+        if _is_trading_day(d):
+            count += 1
+    return d.strftime('%Y-%m-%d')
 
-# ── Trading day calendar helper ───────────────────────────────────────────────
 
-def add_trading_days(entry_date_str: str, n: int, ohlcv: dict) -> str | None:
-    """Return the date string (YYYY-MM-DD) of T+N trading day."""
-    entry_date_str = entry_date_str.replace('/', '-')
-    try:
-        entry_dt = datetime.strptime(entry_date_str, '%Y-%m-%d')
-    except ValueError:
-        return None
-    entry_ymd = entry_dt.strftime('%Y%m%d')
-    days = trading_days_sorted(ohlcv)
-    if not days:
-        # Fallback: assume 5 calendar days per trading week
-        delta = timedelta(days=int(n * 1.5))
-        return (entry_dt + delta).strftime('%Y-%m-%d')
-    try:
-        idx = days.index(entry_ymd)
-    except ValueError:
-        idx = next((i for i, d in enumerate(days) if d >= entry_ymd), None)
-        if idx is None:
-            return None
-    target_idx = idx + n
-    if target_idx >= len(days):
-        # Estimate: last known day + n*2 calendar days
-        last      = datetime.strptime(days[-1], '%Y%m%d')
-        remaining = target_idx - len(days) + 1
-        return (last + timedelta(days=remaining * 2)).strftime('%Y-%m-%d')
-    return datetime.strptime(days[target_idx], '%Y%m%d').strftime('%Y-%m-%d')
+# ── OHLCV cache helpers ───────────────────────────────────────────────────────
 
-# ── Core logic ────────────────────────────────────────────────────────────────
-
-def load_backtest() -> dict:
-    if os.path.exists(BACKTEST):
+def _load_ohlcv() -> dict:
+    if os.path.exists(OHLCV):
         try:
-            with open(BACKTEST) as f:
+            with open(OHLCV) as f:
                 return json.load(f)
         except Exception:
             pass
-    return {'version': 2, 'grouped_records': [], 'records': [], 'history': []}
+    return {}
 
 
-def save_backtest(data: dict):
-    with open(BACKTEST, 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
-    print(f'[save] backtest.json written ({os.path.getsize(BACKTEST)} bytes)')
-    # Also write to repo public/data/ if accessible
-    for candidate in REPO_BACKTEST_CANDIDATES:
-        path = os.path.normpath(candidate)
-        if os.path.exists(os.path.dirname(path)):
-            try:
-                with open(path, 'w', encoding='utf-8') as f:
-                    json.dump(data, f, ensure_ascii=False, indent=2)
-                print(f'[save] also written to {path}')
-                break
-            except Exception as e:
-                print(f'[WARN] could not write to {path}: {e}')
+def _get_close(ohlcv: dict, date_str: str, stock_id: str) -> float | None:
+    date_key = date_str.replace('-', '')
+    day_data = ohlcv.get(date_key, {})
+    stock_data = day_data.get(stock_id, {})
+    close = stock_data.get('close')
+    if close is not None:
+        try:
+            return float(close)
+        except (TypeError, ValueError):
+            pass
+    return None
 
 
-def load_latest() -> dict:
-    if not os.path.exists(LATEST_JSON):
-        print(f'[WARN] latest.json not found at {LATEST_JSON}')
-        return {}
-    try:
-        with open(LATEST_JSON) as f:
-            return json.load(f)
-    except Exception as e:
-        print(f'[WARN] could not load latest.json: {e}')
-        return {}
+# ── Step 1: Add today's Top10 to records ─────────────────────────────────────
 
-
-def normalize_date(d: str) -> str:
-    """Normalize date to YYYY-MM-DD."""
-    return d.replace('/', '-') if d else d
-
-
-def step1_add_today_top10(backtest: dict, latest: dict) -> int:
-    """Add today's Top10 to records if not already present. Returns count added."""
-    records   = backtest.setdefault('records', [])
+def step1_add_today_top10(backtest: dict, latest: dict) -> bool:
+    """
+    從 latest.json 取出今日 Top10，append 到 backtest['records']。
+    Returns True if new records were added.
+    """
     scan_date = latest.get('scan_date', '')
     if not scan_date:
-        print('[step1] No scan_date in latest.json, skipping')
-        return 0
-    scan_date_norm  = normalize_date(scan_date)
-    existing_keys   = {(r['stock_id'], normalize_date(r['entry_date'])) for r in records}
-    top10   = latest.get('top10', latest.get('stocks', []))[:10]
-    added   = 0
-    for s in top10:
-        sid = str(s.get('stock_id', s.get('id', '')))
+        print('[WARN] latest.json missing scan_date')
+        return False
+
+    stocks = latest.get('top10', latest.get('stocks', []))
+    if not stocks:
+        print('[WARN] latest.json has no top10/stocks')
+        return False
+
+    records: list = backtest.setdefault('records', [])
+    existing_dates = {r['entry_date'] for r in records}
+    if scan_date in existing_dates:
+        print(f'[INFO] {scan_date} already in records — skipping step1')
+        return False
+
+    added = 0
+    for s in stocks:
+        sid = s.get('stock_id') or s.get('id') or s.get('code', '')
         if not sid:
             continue
-        key = (sid, scan_date_norm)
-        if key in existing_keys:
-            continue
-        entry_price = s.get('close', s.get('price', s.get('entry_price')))
+        # entry_low 是 scan_market.py 算出的建議進場價（技術面低點），優先使用
+        # fallback 順序: entry_low → entry_price → close → price
+        entry_price = (
+            s.get('entry_low') or
+            s.get('entry_price') or
+            s.get('close') or
+            s.get('price')
+        )
+        stop_loss = s.get('stop_loss') or s.get('stop') or None
         records.append({
-            'stock_id':   sid,
-            'name':       s.get('name', ''),
+            'stock_id': sid,
+            'name': s.get('name', ''),
             'entry_date': scan_date,
             'entry_price': entry_price,
+            'stop_loss': stop_loss,
             't1': {'pct': None, 'win': None},
             't3': {'pct': None, 'win': None},
             't5': {'pct': None, 'win': None},
         })
-        existing_keys.add(key)
         added += 1
-    print(f'[step1] Added {added} new records for {scan_date_norm}')
-    return added
+
+    print(f'[INFO] step1: added {added} records for {scan_date}')
+    return added > 0
 
 
-def step2_fill_tn_pcts(backtest: dict, ohlcv: dict) -> int:
-    """Fill null T+N pcts from OHLCV cache. Returns count updated."""
-    records = backtest.get('records', [])
+# ── Step 2: Fill T+N returns ──────────────────────────────────────────────────
+
+def step2_fill_tn(backtest: dict, ohlcv: dict) -> int:
+    """
+    For each record with null T+N, compute the return if OHLCV data is available.
+    Returns number of fields updated.
+    """
+    today = datetime.now(_TW_TZ).date()
     updated = 0
-    for r in records:
-        entry_date  = r.get('entry_date', '')
-        entry_price = r.get('entry_price')
-        sid         = r.get('stock_id', '')
-        if not entry_price or not entry_date or not sid:
+    records = backtest.get('records', [])
+
+    for rec in records:
+        entry_date = rec.get('entry_date', '')
+        entry_price = rec.get('entry_price')
+        sid = rec.get('stock_id', '')
+
+        if not entry_date or not entry_price or not sid:
             continue
+
         for tn_key, n_days in TN_DAYS.items():
-            tn = r.setdefault(tn_key, {'pct': None, 'win': None})
+            tn = rec.get(tn_key, {})
             if tn.get('pct') is not None:
                 continue  # already filled
-            close = get_close_after_n_days(ohlcv, entry_date, sid, n_days)
+
+            target_date_str = _nth_trading_day_after(entry_date, n_days)
+            if not target_date_str:
+                continue
+
+            target_date = datetime.strptime(target_date_str, '%Y-%m-%d').date()
+            if target_date > today:
+                continue  # future — skip
+
+            close = _get_close(ohlcv, target_date_str, sid)
             if close is None:
                 continue
-            pct      = round((close - entry_price) / entry_price * 100, 2)
-            tn['pct'] = pct
-            tn['win'] = pct > 0
-            r[tn_key] = tn
-            updated  += 1
-    print(f'[step2] Filled {updated} T+N pct values')
+
+            try:
+                ep = float(entry_price)
+                if ep <= 0:
+                    continue
+                pct = round((close - ep) / ep * 100, 2)
+                win = pct > 0
+            except (TypeError, ValueError):
+                continue
+
+            rec[tn_key] = {'pct': pct, 'win': win, 'close': close, 'date': target_date_str}
+            updated += 1
+
+    print(f'[INFO] step2: updated {updated} T+N fields')
     return updated
 
 
-def step3_build_grouped_records(backtest: dict, ohlcv: dict):
-    """Build grouped_records[] from records[] for frontend HistoryBrowser/TrackingDashboard."""
-    records = backtest.get('records', [])
-    if not records:
-        backtest['grouped_records'] = []
-        return
+# ── Step 3: Rebuild grouped_records ──────────────────────────────────────────
 
-    # Group by entry_date
-    by_date = defaultdict(list)
-    for r in records:
-        d = normalize_date(r.get('entry_date', ''))
-        if d:
-            by_date[d].append(r)
+def step3_rebuild_grouped(backtest: dict) -> None:
+    """
+    Group records by entry_date → build grouped_records[] for front-end.
+    """
+    records = backtest.get('records', [])
+    by_date: dict[str, list] = defaultdict(list)
+    for rec in records:
+        by_date[rec['entry_date']].append(rec)
 
     grouped = []
     for scan_date in sorted(by_date.keys(), reverse=True):
-        recs    = by_date[scan_date]
-        periods = {}
-        for tn_key, n_days, label in [('t1', 1, 'T+1'), ('t3', 3, 'T+3'), ('t5', 5, 'T+5')]:
-            backtest_date = add_trading_days(scan_date, n_days, ohlcv)
-            stocks = []
-            pcts   = []
-            for r in recs:
-                tn        = r.get(tn_key, {})
-                pct       = tn.get('pct') if tn else None
-                close_val = None
-                ep        = r.get('entry_price')
-                if pct is not None and ep:
-                    close_val = round(ep * (1 + pct / 100), 2)
+        recs = by_date[scan_date]
+        periods: dict = {}
+        for tn_key, label in [('t1', 'T+1'), ('t3', 'T+3'), ('t5', 'T+5')]:
+            TN_KEY = tn_key.upper()  # T1 / T3 / T5
+            stocks_out = []
+            wins = []
+            returns = []
+            all_pending = True
+            backtest_date = ''
+
+            for rec in recs:
+                tn = rec.get(tn_key, {})
+                pct = tn.get('pct')
+                win = tn.get('win')
+                close_price = tn.get('close')
+                tn_date = tn.get('date', '')
                 pending = pct is None
-                stocks.append({
-                    'stock_id':    r.get('stock_id', ''),
-                    'name':        r.get('name', ''),
-                    'entry':       ep,
-                    'close':       close_val,
+                if not pending:
+                    all_pending = False
+                    if tn_date:
+                        backtest_date = tn_date
+                    if win is not None:
+                        wins.append(win)
+                    if pct is not None:
+                        returns.append(pct)
+
+                entry_val = rec.get('entry_price')
+                try:
+                    entry_float = float(entry_val) if entry_val is not None else 0.0
+                except (TypeError, ValueError):
+                    entry_float = 0.0
+
+                if close_price is None and entry_float and pct is not None:
+                    close_price = round(entry_float * (1 + pct / 100), 2)
+
+                stocks_out.append({
+                    'stock_id':    rec.get('stock_id', ''),
+                    'name':        rec.get('name', ''),
+                    'entry':       entry_float,
+                    'entry_price': entry_float,
+                    'close':       close_price,
                     'return_pct':  pct,
-                    'hit_target':  pct is not None and pct >= 3.0,
-                    'hit_stoploss': pct is not None and pct <= -5.0,
+                    'hit_target':  win if win else False,
+                    'hit_stoploss': False,
                     'pending':     pending,
                 })
-                if pct is not None:
-                    pcts.append(pct)
-            pending_period = len(pcts) == 0
-            win_rate   = None
-            avg_return = None
-            if pcts:
-                wins       = sum(1 for p in pcts if p > 0)
-                win_rate   = round(wins / len(pcts) * 100, 1)
-                avg_return = round(sum(pcts) / len(pcts), 2)
-            periods[tn_key.upper()] = {
+
+            win_rate  = round(sum(wins) / len(wins) * 100, 1) if wins else None
+            avg_return = round(sum(returns) / len(returns), 2) if returns else None
+
+            periods[TN_KEY] = {
                 'label':        label,
-                'backtest_date': backtest_date or '',
+                'backtest_date': backtest_date,
                 'win_rate':     win_rate,
                 'avg_return':   avg_return,
-                'pending':      pending_period,
-                'stocks':       stocks,
+                'pending':      all_pending,
+                'stocks':       stocks_out,
             }
+
         grouped.append({'scan_date': scan_date, 'periods': periods})
 
     backtest['grouped_records'] = grouped
-    backtest['version'] = 2
-    print(f'[step3] Built grouped_records for {len(grouped)} scan dates')
+    print(f'[INFO] step3: rebuilt {len(grouped)} grouped_records entries')
 
+
+# ── Main ──────────────────────────────────────────────────────────────────────
 
 def main():
-    print('=== update_tn_records.py start ===')
-    backtest = load_backtest()
-    latest   = load_latest()
-    ohlcv    = load_ohlcv()
-    print(f'Loaded: {len(backtest.get("records", []))} records, '
-          f'{len(ohlcv)} OHLCV days, '
-          f'latest scan_date={latest.get("scan_date", "N/A")}')
+    print('=== update_tn_records.py ===')
 
-    changed = 0
-    if latest:
-        changed += step1_add_today_top10(backtest, latest)
-    changed += step2_fill_tn_pcts(backtest, ohlcv)
-    step3_build_grouped_records(backtest, ohlcv)
-    changed += 1  # grouped_records always regenerated
+    # Load latest.json
+    if not os.path.exists(LATEST_JSON):
+        print(f'[ERR] latest.json not found at {LATEST_JSON}')
+        return
+    with open(LATEST_JSON) as f:
+        latest = json.load(f)
 
-    save_backtest(backtest)
+    # Load or init backtest.json
+    if os.path.exists(BACKTEST):
+        with open(BACKTEST) as f:
+            backtest = json.load(f)
+    else:
+        backtest = {'version': 2, 'grouped_records': [], 'records': []}
 
-    content_str = json.dumps(backtest, ensure_ascii=False, separators=(',', ':'))
-    today = datetime.now(_TW_TZ).strftime('%Y-%m-%d')
+    # Step 1
+    step1_add_today_top10(backtest, latest)
+
+    # Step 2
+    ohlcv = _load_ohlcv()
+    step2_fill_tn(backtest, ohlcv)
+
+    # Step 3
+    step3_rebuild_grouped(backtest)
+
+    # Write local
+    with open(BACKTEST, 'w') as f:
+        json.dump(backtest, f, ensure_ascii=False, indent=2)
+    print(f'[OK] Wrote {BACKTEST}')
+
+    # Also write to repo path if exists
+    for candidate in REPO_BACKTEST_CANDIDATES:
+        candidate = os.path.normpath(candidate)
+        if os.path.exists(os.path.dirname(candidate)):
+            try:
+                with open(candidate, 'w') as f:
+                    json.dump(backtest, f, ensure_ascii=False, indent=2)
+                print(f'[OK] Also wrote {candidate}')
+                break
+            except Exception as e:
+                print(f'[WARN] Could not write {candidate}: {e}')
+
+    # Push to GitHub
+    token = _get_github_token()
+    content_str = json.dumps(backtest, ensure_ascii=False, indent=2)
     push_file_to_github(
         GH_BACKTEST_PATH,
         content_str,
-        f'fix(backtest): update T+N records + grouped_records [{today}]'
+        f'chore(backtest): update T+N records {latest.get("scan_date", "")}',
+        token,
     )
-    print('=== update_tn_records.py done ===')
+    print('=== done ===')
 
 
 if __name__ == '__main__':
