@@ -29,10 +29,11 @@ jobs:
       - name: Install dependencies
         run: pip install requests
 
-      - name: Run full market scan
+      - name: Run full market scan (with fallback)
         run: python tasks/scan_all_stocks.py
         env:
           OUTPUT_PATH: public/data/all_scores.json
+          SCAN_RESULT_PATH: public/data/scan_result.json
           FORCE: ${{ github.event.inputs.force || 'false' }}
 
       - name: Show output stats
@@ -40,7 +41,19 @@ jobs:
           echo "=== all_scores.json size ==="
           wc -c public/data/all_scores.json || echo "File not found"
           echo "=== Stock count ==="
-          python3 -c "import json,sys; d=json.load(open('public/data/all_scores.json')); stocks=d if isinstance(d,list) else d.get('all_stock_scores',[]); print(f'{len(stocks)} stocks scanned')" || echo "Parse error"
+          python3 -c "
+import json
+with open('public/data/all_scores.json') as f:
+    d = json.load(f)
+stocks = d.get('all_stock_scores', d) if isinstance(d, dict) else d
+print(f'{len(stocks)} stocks in all_scores.json')
+sectors = {}
+for s in (stocks if isinstance(stocks, list) else []):
+    sec = s.get('sector', '其他')
+    sectors[sec] = sectors.get(sec, 0) + 1
+top5 = sorted(sectors.items(), key=lambda x: -x[1])[:5]
+print('Top 5 sectors:', top5)
+"
 
       - name: Commit and push
         run: |
