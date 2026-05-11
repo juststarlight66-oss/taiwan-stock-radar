@@ -1,5 +1,5 @@
 'use client';
-import { History, GitFork, Radar } from 'lucide-react';
+import { History, Share2, ScanLine } from 'lucide-react';
 import TopNav from '@/components/TopNav';
 import HistoryBrowser from '@/components/HistoryBrowser';
 
@@ -36,7 +36,7 @@ export default function HistoryPage() {
         <div className="max-w-screen-xl mx-auto px-4">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
             <div className="flex items-center gap-2">
-              <Radar className="w-4 h-4 text-sky-400" />
+              <ScanLine className="w-4 h-4 text-sky-400" />
               <span className="text-sm font-semibold text-gray-700">台股雷達</span>
               <span className="text-[10px] text-gray-400">Taiwan Stock Radar v3.1</span>
             </div>
@@ -51,7 +51,7 @@ export default function HistoryPage() {
                 rel="noopener noreferrer"
                 className="text-gray-500 hover:text-gray-700 transition-colors flex items-center gap-1"
               >
-                <GitFork className="w-3 h-3" />GitHub
+                <Share2 className="w-3 h-3" />GitHub
               </a>
             </div>
           </div>
