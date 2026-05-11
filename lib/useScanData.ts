@@ -1,6 +1,6 @@
 'use client';
 import useSWR from 'swr';
-import { useState, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 import { ScanResult, ScanStock, ScanDimensions, ScanSignals } from './scanTypes';
 
 export type { ScanResult, ScanStock, ScanDimensions, ScanSignals };
@@ -107,108 +107,49 @@ function normalizeStock(s: any): ScanStock {
       technical:   s.technical_score   ?? 0,
       fundamental: s.fundamental_score ?? 0,
       news:        s.news_score        ?? 0,
-      sentiment:   s.sentiment_score   ?? 0,
       chips:       s.chips_score       ?? 0,
+      sentiment:   s.sentiment_score   ?? 0,
     },
-    signals: s.signals ?? { technical: [], fundamental: [], news: [], sentiment: [], chips: [] },
-    details: s.details ?? { rsi: s.rsi ?? 50, vol_ratio: s.vol_ratio ?? 1 },
-    strategy: s.strategy ?? {
-      entry: s.entry_low ?? s.close ?? 0,
-      entry_low: s.entry_low ?? 0,
-      entry_high: s.entry_high ?? 0,
-      target: s.target1 ?? 0,
-      target1: s.target1 ?? 0,
-      target2: s.target2 ?? 0,
-      target3: s.target3 ?? 0,
-      stop_loss: s.stop_loss ?? 0,
-      recommendation: s.recommendation ?? '',
-    },
+    signals: s.signals ?? {},
   };
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function allScoresFetcher(url: string): Promise<AllScoresData> {
-  return fetch(url)
-    .then((r) => {
-      if (!r.ok) throw new Error(`HTTP ${r.status}`);
-      return r.json();
-    })
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    .then((raw: any) => {
-      // Support both array format and object format
-      if (Array.isArray(raw)) {
-        return {
-          scan_date: '',
-          scanned_count: raw.length,
-          all_stock_scores: raw.map(normalizeStock),
-        } as AllScoresData;
-      }
-      // Object format
-      const scores = raw.all_stock_scores ?? raw.stocks ?? [];
-      return {
-        scan_date: raw.scan_date ?? '',
-        scanned_count: raw.scanned_count ?? scores.length,
-        history: raw.history,
-        all_stock_scores: scores.map(normalizeStock),
-      } as AllScoresData;
-    });
 }
 
 export function useAllScores() {
   const { data, error, isLoading } = useSWR<AllScoresData>(
     `${BASE}/data/all_scores.json`,
-    allScoresFetcher,
-    { refreshInterval: 0, revalidateOnFocus: false }
-  );
-  return { data, error, isLoading };
-}
-
-export function useIntradayScan() {
-  const { data, error, isLoading } = useSWR(
-    `${BASE}/data/intraday.json`,
-    fetcher,
-    { refreshInterval: 5 * 60 * 1000, revalidateOnFocus: true }
-  );
-  return { data, error, isLoading };
-}
-
-export function useBacktestData() {
-  const { data, error, isLoading } = useSWR(
-    `${BASE}/data/backtest.json`,
     fetcher,
     { refreshInterval: 0, revalidateOnFocus: false }
   );
-  return { data, error, isLoading };
+  const stocks: ScanStock[] = (data?.all_stock_scores ?? []).map(normalizeStock);
+  return { data, stocks, error, isLoading };
 }
 
-export function useTrackingData() {
-  const [data, setData] = useState<ScanResult[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
+export interface OnDemandScanResult {
+  isScanning: boolean;
+  result: ScanResult | null;
+  error: string | null;
+  trigger: () => void;
+}
 
-  useEffect(() => {
-    async function load() {
-      try {
-        const idxRes = await fetch(`${BASE}/data/index.json`);
-        if (!idxRes.ok) throw new Error(`index.json HTTP ${idxRes.status}`);
-        const idx = await idxRes.json();
-        const dates: string[] = idx.dates ?? [];
-        const results = await Promise.all(
-          dates.map(async (d) => {
-            const r = await fetch(`${BASE}/data/scan_result_${d.replace(/-/g, '')}.json`);
-            if (!r.ok) return null;
-            return r.json() as Promise<ScanResult>;
-          })
-        );
-        setData(results.filter(Boolean) as ScanResult[]);
-      } catch (e) {
-        setError(e instanceof Error ? e : new Error(String(e)));
-      } finally {
-        setIsLoading(false);
-      }
+export function useOnDemandScan(): OnDemandScanResult {
+  const [isScanning, setIsScanning] = useState(false);
+  const [result, setResult] = useState<ScanResult | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const trigger = useCallback(async () => {
+    setIsScanning(true);
+    setError(null);
+    try {
+      const res = await fetch(`${BASE}/data/latest.json`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const json = await res.json();
+      setResult(json);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Unknown error');
+    } finally {
+      setIsScanning(false);
     }
-    load();
   }, []);
 
-  return { data, isLoading, error };
+  return { isScanning, result, error, trigger };
 }
