@@ -92,12 +92,12 @@ export interface ScanResult {
   bull_ratio?:   number;
 }
 
-// ── DIMENSION_CONFIG：各維度設定（AllResultsTable 等元件使用）──
+// ── DIMENSION_CONFIG：各維度設定（SelfCheck 等元件使用）──
 export const DIMENSION_CONFIG: Record<string, { label: string; max: number; color: string }> = {
-  technical:   { label: '技術面', max: 40, color: '#38bdf8' },
-  fundamental: { label: '基本面', max: 40, color: '#34d399' },
-  chips:       { label: '籌碼面', max: 10, color: '#f87171' },
-  news:        { label: '消息面', max: 10, color: '#f59e0b' },
+  technical:   { label: '技術面',  max: 40, color: '#38bdf8' },
+  fundamental: { label: '基本面',  max: 40, color: '#34d399' },
+  chips:       { label: '籌碼面',  max: 10, color: '#f87171' },
+  news:        { label: '消息面',  max: 10, color: '#f59e0b' },
   sentiment:   { label: '市場情緒', max: 10, color: '#a78bfa' },
 };
 
@@ -105,39 +105,51 @@ export const DIMENSION_CONFIG: Record<string, { label: string; max: number; colo
 export function getStockName(s: ScanStock): string {
   return s.stock_name ?? s.name ?? s.stock_id;
 }
+
 export function getStockSector(s: ScanStock): string {
   return s.sector_name ?? s.sector ?? '—';
 }
+
 export function getStockClose(s: ScanStock): number | undefined {
   return s.close;
 }
+
 export function getStockChangePct(s: ScanStock): number | undefined {
   return s.change_pct;
 }
+
 export function getStockRecommendation(s: ScanStock): string | undefined {
   return s.recommendation ?? s.strategy?.recommendation;
 }
+
 export function getStockReason(s: ScanStock): string | undefined {
   return s.reason ?? undefined;
 }
+
 export function getStockEntryLow(s: ScanStock): number | undefined {
   return s.entry_low ?? s.strategy?.entry_low ?? s.strategy?.entry;
 }
+
 export function getStockEntryHigh(s: ScanStock): number | undefined {
   return s.entry_high ?? s.strategy?.entry_high ?? s.strategy?.entry;
 }
+
 export function getStockStopLoss(s: ScanStock): number | undefined {
   return s.stop_loss ?? s.strategy?.stop_loss;
 }
+
 export function getStockTarget1(s: ScanStock): number | undefined {
   return s.target1 ?? s.strategy?.target1 ?? s.strategy?.target;
 }
+
 export function getStockTarget2(s: ScanStock): number | undefined {
   return s.target2 ?? s.strategy?.target2;
 }
+
 export function getStockTarget3(s: ScanStock): number | undefined {
   return s.target3 ?? s.strategy?.target3;
 }
+
 export function getStockDimensions(s: ScanStock): ScanDimensions {
   if (s.dimensions) return s.dimensions;
   return {
@@ -147,4 +159,12 @@ export function getStockDimensions(s: ScanStock): ScanDimensions {
     sentiment:   s.sentiment_score   ?? 0,
     chips:       s.chips_score       ?? 0,
   };
+}
+
+export function getStockUpside(s: ScanStock): number | undefined {
+  return s.strategy?.upside;
+}
+
+export function getStockDownside(s: ScanStock): number | undefined {
+  return s.strategy?.downside;
 }
