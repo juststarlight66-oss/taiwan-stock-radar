@@ -76,6 +76,9 @@ jobs:
       - name: Install dependencies
         run: npm install --no-fund --no-audit
 
+      - name: TypeScript Check
+        run: npx tsc --noEmit 2>&1 | head -200 || true
+
       - name: Build
         run: npm run build
 
