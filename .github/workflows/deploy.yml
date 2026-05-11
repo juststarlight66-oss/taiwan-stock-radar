@@ -78,11 +78,15 @@ jobs:
       - name: TypeScript Check
         run: npx tsc --noEmit 2>&1 | head -200 || true
 
-      - name: Show build errors
-        run: npm run build 2>&1 | grep -E "(Error|error TS|Failed|Module not found|Cannot find module|SyntaxError|ReferenceError|export|import)" | head -50 || true
-
-      - name: Build
-        run: npm run build
+      - name: Build (capture output)
+        run: |
+          set +e
+          npm run build > /tmp/build_out.txt 2>&1
+          BUILD_EXIT=$?
+          head -80 /tmp/build_out.txt
+          echo "--- LAST 80 LINES ---"
+          tail -80 /tmp/build_out.txt
+          exit $BUILD_EXIT
 
       - name: Add .nojekyll
         run: touch out/.nojekyll
