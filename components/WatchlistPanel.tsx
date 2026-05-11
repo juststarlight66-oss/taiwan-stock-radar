@@ -103,7 +103,9 @@ export default function WatchlistPanel({ stocks }: Props) {
     const q = query.trim().toLowerCase();
     if (!q) return watchedStocks;
     return watchedStocks.filter(
-      (s) => s.stock_id.includes(q) || s.name.toLowerCase().includes(q) || s.sector.toLowerCase().includes(q)
+      (s) => s.stock_id.includes(q)
+        || (s.stock_name ?? s.name ?? '').toLowerCase().includes(q)
+        || (s.sector_name ?? s.sector ?? '').toLowerCase().includes(q)
     );
   }, [watchedStocks, query]);
 
@@ -120,205 +122,97 @@ export default function WatchlistPanel({ stocks }: Props) {
     window.dispatchEvent(new Event('twsr_watchlist_changed'));
   }
 
-  if (ids.length === 0) {
+  if (filtered.length === 0 && ids.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-20 text-center gap-3">
-        <Star className="w-10 h-10 text-gray-700" />
-        <p className="text-gray-500 text-sm">尚無自選股</p>
-        <p className="text-gray-600 text-xs">在「最新掃描」或「全部結果」表格中點擊 ★ 加入</p>
+      <div className="rounded-xl border border-gray-700 bg-gray-800/60 p-12 text-center">
+        <Star className="w-10 h-10 text-gray-600 mx-auto mb-3" />
+        <p className="text-sm text-gray-400 font-medium">尚無自選股</p>
+        <p className="text-xs text-gray-500 mt-1">在任何股票列表點擊 ★ 即可加入</p>
       </div>
     );
   }
 
   return (
     <>
-      <div className="rounded-xl border border-gray-700/60 bg-gray-900/60 overflow-hidden">
-        {/* header */}
-        <div className="px-4 py-3 border-b border-gray-700/60 flex items-center justify-between gap-3 flex-wrap">
-          <div>
-            <h3 className="text-sm font-semibold text-gray-200 flex items-center gap-2">
-              <Star className="w-4 h-4 text-amber-400 fill-current" />
-              自選股清單
-              <span className="text-[10px] bg-gray-700 text-gray-400 px-1.5 py-0.5 rounded-full">{ids.length}</span>
-            </h3>
-            <div className="text-[11px] text-gray-500 mt-0.5">
-              {watchedStocks.length < ids.length
-                ? `${watchedStocks.length}/${ids.length} 筆在今日掃描中`
-                : `共 ${ids.length} 檔`}
-            </div>
+      <div className="rounded-xl border border-gray-700 bg-gray-800/80 overflow-hidden">
+        {/* Header */}
+        <div className="px-4 py-3 border-b border-gray-700 flex items-center justify-between gap-3 flex-wrap">
+          <div className="flex items-center gap-2">
+            <Star className="w-4 h-4 text-amber-400 fill-current" />
+            <span className="text-sm font-semibold text-white">自選股追蹤</span>
+            <span className="text-xs text-gray-400">({ids.length} 檔)</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="relative">
-              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-500 pointer-events-none" />
+              <Search className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-500" />
               <input
                 type="text"
+                placeholder="搜尋..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="搜尋"
-                className="bg-gray-800 border border-gray-700/60 rounded-lg pl-8 pr-3 py-1.5 text-xs text-gray-200 placeholder-gray-600 focus:outline-none focus:border-sky-500/60 w-36"
+                className="pl-6 pr-3 py-1 text-xs bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-sky-500 w-36"
               />
             </div>
-            <button
-              onClick={clearAll}
-              title="清空自選股"
-              className="p-1.5 text-gray-600 hover:text-red-400 hover:bg-red-500/10 rounded transition-colors"
-            >
-              <Trash2 className="w-3.5 h-3.5" />
-            </button>
+            {ids.length > 0 && (
+              <button
+                onClick={clearAll}
+                className="flex items-center gap-1 text-xs text-gray-500 hover:text-red-400 transition-colors px-2 py-1 rounded hover:bg-red-500/10"
+              >
+                <Trash2 className="w-3 h-3" />
+                清空
+              </button>
+            )}
           </div>
         </div>
 
-        {/* mobile cards */}
-        <div className="block md:hidden divide-y divide-gray-700/30">
-          {filtered.map((s) => {
-            const up = ((s.change_pct ?? 0) ?? 0) >= 0;
-            const isLimit = Math.abs((s.change_pct ?? 0)) >= 9.5;
-            const limitCls = isLimit
-              ? up
-                ? 'ring-1 ring-red-500/60 bg-red-500/5'
-                : 'ring-1 ring-emerald-500/60 bg-emerald-500/5'
-              : '';
-            const entry = s.strategy?.entry;
-            const stop = s.strategy?.stop_loss;
-            const t1 = s.strategy?.target1;
-            const t2 = s.strategy?.target2;
-            const t3 = s.strategy?.target3;
-            const base = entry ?? s.close;
-            const up1 = t1 && base ? (((t1 - base) / base) * 100).toFixed(1) : null;
-            const up2 = t2 && base ? (((t2 - base) / base) * 100).toFixed(1) : null;
-            const up3 = t3 && base ? (((t3 - base) / base) * 100).toFixed(1) : null;
-            return (
-              <button
-                key={s.stock_id}
-                onClick={() => setSelectedStock(s)}
-                className={`w-full text-left p-3 hover:bg-gray-800/50 transition-colors flex items-start gap-3 ${limitCls}`}
-              >
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <span className="font-mono text-xs text-gray-500">{s.stock_id}</span>
-                    <span className="text-sm font-semibold text-gray-200 truncate">{s.name}</span>
-                  </div>
-                  <div className="flex items-center gap-3 mt-1">
-                    <ScoreBar score={s.total_score} max={totalMax} />
-                  </div>
-                  {/* entry / stop */}
-                  {(entry || stop) && (
-                    <div className="mt-1 text-[10px] font-mono text-gray-400 space-x-2">
-                      {entry && <span className="text-sky-400">進{entry}</span>}
-                      {stop && <span className="text-red-400">停{stop}</span>}
-                    </div>
-                  )}
-                  {/* three-level targets */}
-                  {(t1 || t2 || t3) && (
-                    <div className="mt-0.5 text-[10px] font-mono space-x-1.5">
-                      {t1 && <span className="text-emerald-400">①{t1}{up1 ? `(+${up1}%)` : ''}</span>}
-                      {t2 && <span className="text-amber-400">②{t2}{up2 ? `(+${up2}%)` : ''}</span>}
-                      {t3 && <span className="text-rose-400">③{t3}{up3 ? `(+${up3}%)` : ''}</span>}
-                    </div>
-                  )}
-                </div>
-                <div className="text-right shrink-0 flex flex-col items-end gap-1">
-                  <div className="text-sm font-mono font-bold text-white">{s.close.toLocaleString()}</div>
-                  <div className={`text-xs font-mono flex items-center justify-end ${up ? 'text-emerald-400' : 'text-red-400'}`}>
-                    {up ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
-                    {Math.abs((s.change_pct ?? 0)).toFixed(2)}%
-                  </div>
-                </div>
-                <button
-                  onClick={(e) => { e.stopPropagation(); removeId(s.stock_id); }}
-                  className="p-1.5 text-gray-600 hover:text-red-400 hover:bg-red-500/10 rounded transition-colors shrink-0"
-                >
-                  <StarOff className="w-3.5 h-3.5" />
-                </button>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* desktop table */}
-        <div className="hidden md:block overflow-x-auto">
+        {/* Table */}
+        <div className="overflow-x-auto">
           <table className="w-full text-xs">
             <thead>
-              <tr className="text-gray-500 border-b border-gray-700/40 bg-gray-800/30">
-                <th className="text-left px-4 py-2.5 font-medium w-8">#</th>
-                <th className="text-left px-3 py-2.5 font-medium">代號 / 名稱</th>
-                <th className="text-left px-3 py-2.5 font-medium">族群</th>
-                <th className="text-right px-3 py-2.5 font-medium">收盤</th>
-                <th className="text-right px-3 py-2.5 font-medium">漲跌</th>
-                <th className="text-left px-3 py-2.5 font-medium">綜合分</th>
-                <th className="text-left px-3 py-2.5 font-medium">建議</th>
-                <th className="text-left px-3 py-2.5 font-medium">進場 / 停損</th>
-                <th className="text-left px-3 py-2.5 font-medium">目標三關</th>
-                <th className="px-3 py-2.5 w-8"></th>
+              <tr className="border-b border-gray-700 text-gray-400">
+                <th className="px-3 py-2 text-left font-medium">股票</th>
+                <th className="px-3 py-2 text-right font-medium">現價</th>
+                <th className="px-3 py-2 text-right font-medium">漲跌</th>
+                <th className="px-3 py-2 text-right font-medium">總分</th>
+                <th className="px-3 py-2 text-right font-medium">操作</th>
+                <th className="px-3 py-2 text-center font-medium">移除</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-700/20">
-              {filtered.map((s, i) => {
-                const up = ((s.change_pct ?? 0) ?? 0) >= 0;
-                const isLimit = Math.abs((s.change_pct ?? 0)) >= 9.5;
-                const rowCls = isLimit
-                  ? up
-                    ? 'ring-1 ring-inset ring-red-500/50 bg-red-500/5'
-                    : 'ring-1 ring-inset ring-emerald-500/50 bg-emerald-500/5'
-                  : '';
-                const actionCls = getActionColor(s.strategy?.recommendation);
-                const entry = s.strategy?.entry;
-                const stop = s.strategy?.stop_loss;
-                const t1 = s.strategy?.target1;
-                const t2 = s.strategy?.target2;
-                const t3 = s.strategy?.target3;
-                const base = entry ?? s.close;
-                const up1 = t1 && base ? (((t1 - base) / base) * 100).toFixed(1) : null;
-                const up2 = t2 && base ? (((t2 - base) / base) * 100).toFixed(1) : null;
-                const up3 = t3 && base ? (((t3 - base) / base) * 100).toFixed(1) : null;
+            <tbody>
+              {filtered.map((s) => {
+                const name = s.stock_name ?? s.name ?? s.stock_id;
+                const changePct = s.change_pct ?? 0;
+                const isUp = changePct >= 0;
+                const rec = s.recommendation ?? '';
+                const totalMax2 = Object.values(DIMENSION_CONFIG).reduce((acc, c) => acc + c.max, 0);
                 return (
                   <tr
                     key={s.stock_id}
+                    className="border-b border-gray-700/50 hover:bg-gray-700/30 cursor-pointer transition-colors"
                     onClick={() => setSelectedStock(s)}
-                    className={`hover:bg-gray-800/40 cursor-pointer transition-colors group ${rowCls}`}
                   >
-                    <td className="px-4 py-2.5 text-gray-600 font-mono">{i + 1}</td>
-                    <td className="px-3 py-2.5">
-                      <div className="font-mono text-gray-500 text-[11px]">{s.stock_id}</div>
-                      <div className="font-semibold text-gray-200">{s.name}</div>
+                    <td className="px-3 py-2">
+                      <div className="font-mono font-bold text-white">{s.stock_id}</div>
+                      <div className="text-gray-400 text-[11px]">{name}</div>
                     </td>
-                    <td className="px-3 py-2.5 text-gray-400">{s.sector}</td>
-                    <td className="px-3 py-2.5 text-right font-mono font-bold text-white">
-                      {s.close.toLocaleString()}
+                    <td className="px-3 py-2 text-right font-mono text-white">
+                      {s.close?.toFixed(2) ?? '-'}
                     </td>
-                    <td className="px-3 py-2.5 text-right">
-                      <span className={`font-mono flex items-center justify-end gap-0.5 ${up ? 'text-emerald-400' : 'text-red-400'}`}>
-                        {up ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
-                        {Math.abs((s.change_pct ?? 0)).toFixed(2)}%
-                        {isLimit && (
-                          <span className={`ml-1 text-[9px] px-1 py-0.5 rounded font-bold ${up ? 'bg-red-500/20 text-red-300' : 'bg-emerald-500/20 text-emerald-300'}`}>
-                            {up ? '漲停' : '跌停'}
-                          </span>
-                        )}
-                      </span>
+                    <td className={`px-3 py-2 text-right font-mono font-bold ${
+                      isUp ? 'text-red-400' : 'text-green-400'
+                    }`}>
+                      {changePct >= 0 ? '+' : ''}{changePct.toFixed(2)}%
                     </td>
-                    <td className="px-3 py-2.5">
-                      <ScoreBar score={s.total_score} max={totalMax} />
+                    <td className="px-3 py-2">
+                      <ScoreBar score={s.total_score} max={totalMax2} />
                     </td>
-                    <td className="px-3 py-2.5">
-                      <span className={`px-1.5 py-0.5 rounded border text-[10px] font-medium ${actionCls}`}>
-                        {s.strategy?.recommendation?.split(' - ')[0] ?? '-'}
-                      </span>
+                    <td className={`px-3 py-2 text-right text-[11px] ${getActionColor(rec)}`}>
+                      {rec || '-'}
                     </td>
-                    <td className="px-3 py-2.5 font-mono text-[11px] whitespace-nowrap">
-                      <div className="text-sky-400">進{entry ?? '-'}</div>
-                      <div className="text-red-400">停{stop ?? '-'}</div>
-                    </td>
-                    <td className="px-3 py-2.5 font-mono text-[11px] whitespace-nowrap">
-                      <div className="text-emerald-400">①{t1 ?? '-'}{up1 ? `(+${up1}%)` : ''}</div>
-                      <div className="text-amber-400">②{t2 ?? '-'}{up2 ? `(+${up2}%)` : ''}</div>
-                      <div className="text-rose-400">③{t3 ?? '-'}{up3 ? `(+${up3}%)` : ''}</div>
-                    </td>
-                    <td className="px-3 py-2.5">
+                    <td className="px-3 py-2 text-center">
                       <button
                         onClick={(e) => { e.stopPropagation(); removeId(s.stock_id); }}
                         className="p-1 text-gray-600 hover:text-red-400 hover:bg-red-500/10 rounded transition-colors"
-                        title="移出自選股"
                       >
                         <StarOff className="w-3.5 h-3.5" />
                       </button>
@@ -329,10 +223,6 @@ export default function WatchlistPanel({ stocks }: Props) {
             </tbody>
           </table>
         </div>
-
-        {filtered.length === 0 && (
-          <div className="py-8 text-center text-gray-600 text-xs">沒有符合的結果</div>
-        )}
       </div>
 
       {selectedStock && (
