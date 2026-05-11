@@ -1,126 +1,104 @@
 'use client';
-import { useState, useEffect, useMemo } from 'react';
+
+import React, { useEffect, useState } from 'react';
 import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
-  BarChart, Bar, RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  ReferenceLine,
 } from 'recharts';
-import {
-  Activity, TrendingUp, BarChart3, Target, Radar as RadarIcon,
-  GitFork, AlertCircle, Trophy, Zap,
-} from 'lucide-react';
-import TopNav from '@/components/TopNav';
+import { TrendingUp, TrendingDown, Minus, AlertCircle, Clock } from 'lucide-react';
 
-// ── Types ────────────────────────────────────────────────────────────────────
+// ─── Types ───────────────────────────────────────────────────────────────────
 
-interface EquityPoint { date: string; equity: number; }
-interface StrategyData {
-  strategy: string;
-  win_rate: number;
-  profit_factor: number;
-  sharpe: number;
-  max_drawdown: number;
-  total_trades: number;
-  best_entry_signal: string;
-  equity_curve_data: EquityPoint[];
-}
-interface BacktestMapEntry {
-  stock_id: string;
-  date_range: string;
-  data_rows: number;
-  strategies: {
-    ma_cross: StrategyData;
-    breakout: StrategyData;
-    pattern: StrategyData;
-    rsi_div: StrategyData;
-  };
-}
-interface Dimensions {
-  technical: number;
-  chips: number;
-  fundamental: number;
-  news: number;
-  sentiment: number;
-}
-interface ExplosiveStock {
-  stock_id: string;
-  name: string;
-  sector: string;
-  close: number;
-  change_pct: number;
-  total_score: number;
-  dimensions: Dimensions;
-  strategy: {
-    entry?: number;
-    entry_low?: number;
-    entry_high?: number;
-    stop_loss: number;
-    target?: number;
-    target1?: number;
-    target2?: number;
-    target3?: number;
-    upside: number;
-    recommendation?: string;
-  };
-  surge_probability?: number;
-}
-interface BacktestPeriodStock {
-  stock_id: string;
-  name: string;
-  entry: number;
-  close: number | null;
-  return_pct: number | null;
-  hit_target: boolean;
-  hit_stoploss: boolean;
+interface PeriodResult {
   pending: boolean;
+  entry_price?: number | null;
+  exit_price?: number | null;
+  return_pct?: number | null;
+  win?: boolean | null;
+  win_rate?: number | null;
+  avg_return?: number | null;
+  count?: number | null;
 }
-interface BacktestPeriod {
-  label: string;
-  backtest_date: string;
-  win_rate: number | null;
-  avg_return: number | null;
-  pending: boolean;
-  stocks: BacktestPeriodStock[];
+
+interface BacktestPeriods {
+  T1: PeriodResult;
+  T3: PeriodResult;
+  T5: PeriodResult;
 }
+
+interface StockEntry {
+  stock_id: string;
+  stock_name: string;
+  score: number;
+  rank: number;
+}
+
 interface BacktestRecord {
   scan_date: string;
-  periods: { T1: BacktestPeriod; T3: BacktestPeriod; T5: BacktestPeriod };
+  top5: StockEntry[];
+  periods: BacktestPeriods;
 }
-interface LatestData {
-  scan_date: string;
-  scanned_count: number;
-  top10: ExplosiveStock[];
-  total_stocks?: number;
-  market_trend?: string;
-  trend_label?: string;
-  bull_ratio?: number;
+
+interface CumulativeStats {
+  total_recommendations: number;
+  settled_count: number;
+  overall_win_rate: number | null;
+  avg_T1_return: number | null;
+  avg_T3_return: number | null;
+  avg_T5_return: number | null;
 }
-interface AllScoresData {
-  scan_date: string;
-  scanned_count: number;
-  all_stock_scores: ExplosiveStock[];
-}
+
 interface BacktestData {
   version: number;
   grouped_records: BacktestRecord[];
+  cumulative_stats?: CumulativeStats;
+  history?: unknown[];
 }
 
-// ── Constants ────────────────────────────────────────────────────────────────
+interface Dimension {
+  score: number;
+  label?: string;
+}
 
-const BASE = '/taiwan-stock-radar';
+interface ExplosiveStock {
+  stock_id: string;
+  stock_name: string;
+  total_score: number;
+  dimensions: Record<string, Dimension>;
+  strategy?: {
+    entry_low?: number;
+    entry_high?: number;
+    stop_loss?: number;
+    target1?: number;
+    target2?: number;
+    upside?: number;
+    recommendation?: string;
+  };
+  sector?: string;
+  close?: number;
+  change_pct?: number;
+}
 
-const STOCK_COLORS = ['#38bdf8', '#34d399', '#f59e0b', '#a78bfa', '#f87171'];
-const STRATEGY_COLORS: Record<string, string> = {
-  ma_cross: '#38bdf8',
-  breakout: '#34d399',
-  pattern: '#f59e0b',
-  rsi_div: '#f59e0b',
-};
-const STRATEGY_LABELS: Record<string, string> = {
-  ma_cross: '均線交叉',
-  breakout: '突破策略',
-  pattern: '形態識別',
-  rsi_div: 'RSI 背離',
-};
+interface LatestData {
+  scan_date: string;
+  top10: ExplosiveStock[];
+  scanned_count?: number;
+}
+
+// ─── Constants ───────────────────────────────────────────────────────────────
+
+const BASE =
+  typeof window !== 'undefined' &&
+  window.location.hostname === 'juststarlight66-oss.github.io'
+    ? '/taiwan-stock-radar'
+    : '';
+
 const DIM_LABELS: Record<string, string> = {
   technical: '技術面',
   fundamental: '基本面',
@@ -128,424 +106,290 @@ const DIM_LABELS: Record<string, string> = {
   sentiment: '市場情緒',
   chips: '籌碼面',
 };
-const DIM_COLORS: Record<string, string> = {
-  technical: '#38bdf8',
-  fundamental: '#34d399',
-  news: '#f59e0b',
-  sentiment: '#a78bfa',
-  chips: '#f87171',
-};
-const DIM_MAX: Record<string, number> = {
-  technical: 40,
-  fundamental: 40,
-  news: 10,
-  sentiment: 10,
-  chips: 10,
-};
 
-// ── Helpers ──────────────────────────────────────────────────────────────────
+// ─── Helpers ─────────────────────────────────────────────────────────────────
 
-function pct(v: number | null | undefined): string {
-  if (v == null) return '—';
-  return `${v >= 0 ? '+' : ''}${v.toFixed(1)}%`;
+function fmt(v: number | null | undefined, digits = 2): string {
+  if (v == null || isNaN(v)) return '—';
+  return v.toFixed(digits);
 }
-function shortDate(s: string) {
+
+function fmtPct(v: number | null | undefined): string {
+  if (v == null || isNaN(v)) return '—';
+  return `${v >= 0 ? '+' : ''}${v.toFixed(2)}%`;
+}
+
+function shortDate(s: string): string {
   const d = s.replace(/-/g, '');
   return d.length >= 8 ? `${d.slice(4, 6)}/${d.slice(6, 8)}` : s;
 }
-function fmtRate(v: number | null): string {
-  if (v == null) return '待結算';
-  return `${(v * 100).toFixed(1)}%`;
-}
-function fmtReturn(v: number | null): string {
-  if (v == null) return '待結算';
-  return pct(v);
+
+function returnColor(v: number | null | undefined): string {
+  if (v == null) return 'text-gray-400';
+  if (v > 0) return 'text-emerald-400';
+  if (v < 0) return 'text-red-400';
+  return 'text-gray-300';
 }
 
-// ── Sub-components ───────────────────────────────────────────────────────────
+// ─── Sub-components ──────────────────────────────────────────────────────────
 
 function StatCard({
-  icon, label, value, sub, accent, valueColor,
+  label,
+  value,
+  sub,
+  highlight,
 }: {
-  icon: React.ReactNode; label: string; value: string | number;
-  sub?: string; accent: string; valueColor: string;
+  label: string;
+  value: string;
+  sub?: string;
+  highlight?: boolean;
 }) {
   return (
-    <div className={`rounded-xl border p-4 ${accent} bg-gray-900/60`}>
-      <div className="flex items-center gap-2 mb-2 text-gray-400 text-sm">
-        {icon}
-        <span>{label}</span>
-      </div>
-      <div className={`text-2xl font-bold ${valueColor}`}>{value}</div>
+    <div
+      className={`rounded-xl border p-4 ${
+        highlight
+          ? 'border-emerald-500/40 bg-emerald-950/30'
+          : 'border-gray-700/50 bg-gray-800/40'
+      }`}
+    >
+      <div className="text-xs text-gray-400 mb-1">{label}</div>
+      <div className="text-2xl font-bold text-white">{value}</div>
       {sub && <div className="text-xs text-gray-500 mt-1">{sub}</div>}
     </div>
   );
 }
 
-function Top5Cards({ stocks }: { stocks: ExplosiveStock[] }) {
-  const top5 = stocks.slice(0, 5);
+function ScoreBadge({ score }: { score: number }) {
+  const color =
+    score >= 80
+      ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30'
+      : score >= 60
+      ? 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30'
+      : 'bg-gray-500/20 text-gray-300 border-gray-500/30';
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3">
-      {top5.map((s, i) => {
-        const entryLow = s.strategy.entry_low ?? s.strategy.entry ?? 0;
-        const entryHigh = s.strategy.entry_high ?? s.strategy.entry ?? 0;
-        const target = s.strategy.target1 ?? s.strategy.target ?? 0;
-        return (
-          <div key={s.stock_id} className="rounded-xl border border-gray-700 bg-gray-900/80 p-4">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-lg font-bold" style={{ color: STOCK_COLORS[i] }}>#{i + 1}</span>
-              <span className="font-semibold text-white">{s.stock_id}</span>
-              <span className="text-xs text-gray-400 truncate">{s.name}</span>
-            </div>
-            <div className="text-xs text-gray-500 mb-2">{s.sector}</div>
-            <div className="space-y-1 text-xs">
-              <div className="flex justify-between">
-                <span className="text-gray-400">總分</span>
-                <span className="text-yellow-400 font-bold">{s.total_score?.toFixed(1) ?? '—'}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-400">收盤</span>
-                <span className="text-white">{s.close?.toFixed(2) ?? '—'}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-400">漲跌</span>
-                <span className={s.change_pct >= 0 ? 'text-green-400' : 'text-red-400'}>
-                  {pct(s.change_pct)}
-                </span>
-              </div>
-              {entryLow > 0 && (
-                <div className="flex justify-between">
-                  <span className="text-gray-400">進場區</span>
-                  <span className="text-sky-400">{entryLow.toFixed(2)}–{entryHigh.toFixed(2)}</span>
-                </div>
-              )}
-              {s.strategy.stop_loss > 0 && (
-                <div className="flex justify-between">
-                  <span className="text-gray-400">停損</span>
-                  <span className="text-red-400">{s.strategy.stop_loss.toFixed(2)}</span>
-                </div>
-              )}
-              {target > 0 && (
-                <div className="flex justify-between">
-                  <span className="text-gray-400">目標</span>
-                  <span className="text-green-400">{target.toFixed(2)}</span>
-                </div>
-              )}
-            </div>
-            {/* Dimensions bar */}
-            <div className="mt-3 space-y-1">
-              {(Object.keys(DIM_LABELS) as Array<keyof Dimensions>).map((k) => (
-                <div key={k} className="flex items-center gap-1">
-                  <span className="text-gray-500 w-10 text-xs">{DIM_LABELS[k]}</span>
-                  <div className="flex-1 h-1.5 bg-gray-800 rounded-full overflow-hidden">
-                    <div
-                      className="h-full rounded-full"
-                      style={{
-                        width: `${Math.min(100, ((s.dimensions?.[k] ?? 0) / DIM_MAX[k]) * 100)}%`,
-                        background: DIM_COLORS[k],
-                      }}
-                    />
-                  </div>
-                  <span className="text-gray-500 text-xs w-6 text-right">{s.dimensions?.[k] ?? 0}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        );
-      })}
-    </div>
+    <span className={`text-xs px-2 py-0.5 rounded-full border font-mono ${color}`}>
+      {score.toFixed(1)}
+    </span>
   );
 }
 
-function DimensionRadar({ stocks }: { stocks: ExplosiveStock[] }) {
-  const top5 = stocks.slice(0, 5);
-  const dims = Object.keys(DIM_LABELS) as Array<keyof Dimensions>;
-  const radarData = dims.map((k) => ({
-    dim: DIM_LABELS[k],
-    ...Object.fromEntries(top5.map((s, i) => [
-      `s${i}`, Math.round(((s.dimensions?.[k] ?? 0) / DIM_MAX[k]) * 100),
-    ])),
-  }));
+function PeriodCell({ p, label }: { p: PeriodResult; label: string }) {
+  if (p.pending) {
+    return (
+      <td className="px-3 py-2 text-center">
+        <span className="inline-flex items-center gap-1 text-xs text-gray-500">
+          <Clock size={10} />
+          待結算
+        </span>
+      </td>
+    );
+  }
+  const ret = p.avg_return ?? p.return_pct;
+  const win = p.win_rate ?? (p.win != null ? (p.win ? 100 : 0) : null);
   return (
-    <ResponsiveContainer width="100%" height={300}>
-      <RadarChart data={radarData}>
-        <PolarGrid stroke="#374151" />
-        <PolarAngleAxis dataKey="dim" tick={{ fill: '#9ca3af', fontSize: 12 }} />
-        <PolarRadiusAxis domain={[0, 100]} tick={{ fill: '#6b7280', fontSize: 10 }} />
-        {top5.map((s, i) => (
-          <Radar
-            key={s.stock_id}
-            name={`${s.stock_id} ${s.name}`}
-            dataKey={`s${i}`}
-            stroke={STOCK_COLORS[i]}
-            fill={STOCK_COLORS[i]}
-            fillOpacity={0.15}
-          />
-        ))}
-        <Legend />
-        <Tooltip />
-      </RadarChart>
-    </ResponsiveContainer>
+    <td className="px-3 py-2 text-center">
+      <div className={`text-sm font-mono font-bold ${returnColor(ret)}`}>
+        {fmtPct(ret)}
+      </div>
+      {win != null && (
+        <div className="text-xs text-gray-500">
+          勝率 {fmt(win, 1)}%
+        </div>
+      )}
+    </td>
   );
 }
 
-function ScoreDistribution({ stocks }: { stocks: ExplosiveStock[] }) {
-  const bins = [0, 20, 30, 40, 50, 60, 70, 80, 90, 100];
-  const data = bins.slice(0, -1).map((lo, i) => ({
-    range: `${lo}–${bins[i + 1]}`,
-    count: stocks.filter((s) => s.total_score >= lo && s.total_score < bins[i + 1]).length,
-  }));
-  return (
-    <ResponsiveContainer width="100%" height={200}>
-      <BarChart data={data} margin={{ top: 4, right: 4, left: -20, bottom: 0 }}>
-        <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-        <XAxis dataKey="range" tick={{ fill: '#9ca3af', fontSize: 11 }} />
-        <YAxis tick={{ fill: '#9ca3af', fontSize: 11 }} />
-        <Tooltip
-          contentStyle={{ background: '#111827', border: '1px solid #374151', borderRadius: 8 }}
-          labelStyle={{ color: '#f9fafb' }}
-        />
-        <Bar dataKey="count" fill="#38bdf8" radius={[3, 3, 0, 0]} />
-      </BarChart>
-    </ResponsiveContainer>
-  );
-}
-
-function BacktestPerformanceTable({ records }: { records: BacktestRecord[] }) {
-  const [activePeriod, setActivePeriod] = useState<'T1' | 'T3' | 'T5'>('T1');
-  const [expandedDate, setExpandedDate] = useState<string | null>(null);
-
-  // Show ALL records (pending + completed), sorted by date desc
-  const sortedRecords = [...records].sort((a, b) => b.scan_date.localeCompare(a.scan_date));
-
-  if (sortedRecords.length === 0) {
+function BacktestTable({ records }: { records: BacktestRecord[] }) {
+  if (!records || records.length === 0) {
     return (
       <div className="text-center py-12 text-gray-500">
-        <AlertCircle className="mx-auto mb-3 w-8 h-8" />
+        <AlertCircle size={32} className="mx-auto mb-3 opacity-40" />
         <p>尚無回測記錄</p>
-        <p className="text-sm mt-1">每日掃描後自動產生追蹤記錄</p>
       </div>
     );
   }
 
+  // Sort newest first
+  const sorted = [...records].sort((a, b) =>
+    b.scan_date.localeCompare(a.scan_date)
+  );
+
   return (
-    <div className="space-y-4">
-      {/* Period tabs */}
-      <div className="flex gap-2">
-        {(['T1', 'T3', 'T5'] as const).map((p) => (
-          <button
-            key={p}
-            onClick={() => setActivePeriod(p)}
-            className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-colors ${
-              activePeriod === p
-                ? 'bg-sky-500 text-white'
-                : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
-            }`}
-          >
-            {p === 'T1' ? 'T+1 隔日' : p === 'T3' ? 'T+3 三日' : 'T+5 五日'}
-          </button>
-        ))}
-      </div>
-
-      {/* Records list */}
-      <div className="space-y-3">
-        {sortedRecords.map((rec) => {
-          const period = rec.periods[activePeriod];
-          const isExpanded = expandedDate === rec.scan_date;
-          const isPending = period.pending;
-          const winRateDisplay = fmtRate(period.win_rate);
-          const avgReturnDisplay = fmtReturn(period.avg_return);
-
-          return (
-            <div key={rec.scan_date} className="rounded-xl border border-gray-700 bg-gray-900/60 overflow-hidden">
-              {/* Header row */}
-              <button
-                className="w-full flex items-center justify-between px-4 py-3 hover:bg-gray-800/50 transition-colors"
-                onClick={() => setExpandedDate(isExpanded ? null : rec.scan_date)}
-              >
-                <div className="flex items-center gap-3">
-                  <span className="text-white font-semibold">{shortDate(rec.scan_date)}</span>
-                  {isPending ? (
-                    <span className="px-2 py-0.5 rounded text-xs bg-yellow-500/20 text-yellow-400 border border-yellow-500/30">
-                      待結算
+    <div className="overflow-x-auto">
+      <table className="w-full text-sm">
+        <thead>
+          <tr className="border-b border-gray-700/50">
+            <th className="px-3 py-2 text-left text-gray-400 font-medium">掃描日</th>
+            <th className="px-3 py-2 text-left text-gray-400 font-medium">推薦標的</th>
+            <th className="px-3 py-2 text-center text-gray-400 font-medium">T+1</th>
+            <th className="px-3 py-2 text-center text-gray-400 font-medium">T+3</th>
+            <th className="px-3 py-2 text-center text-gray-400 font-medium">T+5</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sorted.map((rec) => (
+            <tr
+              key={rec.scan_date}
+              className="border-b border-gray-800/50 hover:bg-gray-800/20 transition-colors"
+            >
+              <td className="px-3 py-3 text-gray-300 font-mono text-xs whitespace-nowrap">
+                {shortDate(rec.scan_date)}
+              </td>
+              <td className="px-3 py-3">
+                <div className="flex flex-wrap gap-1">
+                  {(rec.top5 || []).slice(0, 5).map((s) => (
+                    <span
+                      key={s.stock_id}
+                      className="text-xs bg-gray-700/50 text-gray-300 px-1.5 py-0.5 rounded"
+                    >
+                      {s.stock_id}
+                      {s.stock_name ? ` ${s.stock_name}` : ''}
                     </span>
-                  ) : (
-                    <span className="px-2 py-0.5 rounded text-xs bg-green-500/20 text-green-400 border border-green-500/30">
-                      已結算
-                    </span>
-                  )}
-                  <span className="text-gray-400 text-sm">
-                    {period.stocks?.length ?? 0} 檔
-                  </span>
+                  ))}
                 </div>
-                <div className="flex items-center gap-4 text-sm">
-                  <div className="text-right">
-                    <div className="text-gray-500 text-xs">勝率</div>
-                    <div className={isPending ? 'text-yellow-400' : 'text-green-400'}>
-                      {winRateDisplay}
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-gray-500 text-xs">均報酬</div>
-                    <div className={isPending ? 'text-yellow-400' : (
-                      period.avg_return != null && period.avg_return >= 0 ? 'text-green-400' : 'text-red-400'
-                    )}>
-                      {avgReturnDisplay}
-                    </div>
-                  </div>
-                  <span className="text-gray-500">{isExpanded ? '▲' : '▼'}</span>
-                </div>
-              </button>
-
-              {/* Expanded stocks */}
-              {isExpanded && (
-                <div className="border-t border-gray-700 px-4 py-3">
-                  <table className="w-full text-xs">
-                    <thead>
-                      <tr className="text-gray-500 border-b border-gray-700">
-                        <th className="text-left pb-2">股票</th>
-                        <th className="text-right pb-2">進場</th>
-                        <th className="text-right pb-2">現價</th>
-                        <th className="text-right pb-2">報酬</th>
-                        <th className="text-right pb-2">結果</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-800">
-                      {(period.stocks ?? []).map((s) => (
-                        <tr key={s.stock_id} className="py-1">
-                          <td className="py-1.5">
-                            <span className="text-white">{s.stock_id}</span>
-                            <span className="text-gray-500 ml-1">{s.name}</span>
-                          </td>
-                          <td className="text-right text-gray-300">{s.entry?.toFixed(2) ?? '—'}</td>
-                          <td className="text-right text-gray-300">
-                            {s.close != null ? s.close.toFixed(2) : '—'}
-                          </td>
-                          <td className={`text-right ${
-                            s.return_pct == null ? 'text-yellow-400' :
-                            s.return_pct >= 0 ? 'text-green-400' : 'text-red-400'
-                          }`}>
-                            {s.return_pct != null ? pct(s.return_pct) : '待結算'}
-                          </td>
-                          <td className="text-right">
-                            {s.pending ? (
-                              <span className="text-yellow-400">持倉中</span>
-                            ) : s.hit_target ? (
-                              <span className="text-green-400">達標 ✓</span>
-                            ) : s.hit_stoploss ? (
-                              <span className="text-red-400">停損 ✗</span>
-                            ) : (
-                              <span className="text-gray-400">持有</span>
-                            )}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-            </div>
-          );
-        })}
-      </div>
+              </td>
+              <PeriodCell p={rec.periods?.T1 ?? { pending: true }} label="T+1" />
+              <PeriodCell p={rec.periods?.T3 ?? { pending: true }} label="T+3" />
+              <PeriodCell p={rec.periods?.T5 ?? { pending: true }} label="T+5" />
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
 
-function CumulativeEquityCurve({ records }: { records: BacktestRecord[] }) {
-  const completed = records.filter((r) => !r.periods.T1.pending);
-  if (completed.length === 0) {
-    return (
-      <div className="flex items-center justify-center h-40 text-gray-500 text-sm">
-        待更多已結算資料後產生權益曲線
-      </div>
-    );
-  }
-  const sorted = [...completed].sort((a, b) => a.scan_date.localeCompare(b.scan_date));
-  let cumReturn = 0;
-  const data = sorted.map((r) => {
-    const avgR = r.periods.T1.avg_return ?? 0;
-    cumReturn += avgR;
-    return { date: shortDate(r.scan_date), equity: parseFloat((100 + cumReturn * 100).toFixed(2)) };
-  });
+function WinRateChart({ records }: { records: BacktestRecord[] }) {
+  const settled = records.filter((r) => r.periods?.T1 && !r.periods.T1.pending);
+  if (settled.length < 2) return null;
+
+  const data = settled
+    .slice(-20)
+    .sort((a, b) => a.scan_date.localeCompare(b.scan_date))
+    .map((r) => ({
+      date: shortDate(r.scan_date),
+      T1: r.periods.T1.avg_return ?? r.periods.T1.return_pct ?? null,
+      T3: r.periods.T3?.avg_return ?? r.periods.T3?.return_pct ?? null,
+      T5: r.periods.T5?.avg_return ?? r.periods.T5?.return_pct ?? null,
+    }));
+
   return (
-    <ResponsiveContainer width="100%" height={200}>
-      <LineChart data={data} margin={{ top: 4, right: 4, left: -20, bottom: 0 }}>
-        <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-        <XAxis dataKey="date" tick={{ fill: '#9ca3af', fontSize: 11 }} />
-        <YAxis tick={{ fill: '#9ca3af', fontSize: 11 }} />
-        <Tooltip
-          contentStyle={{ background: '#111827', border: '1px solid #374151', borderRadius: 8 }}
-          formatter={(v: number) => [`${v.toFixed(1)}`, '累計指數']}
-        />
-        <Line type="monotone" dataKey="equity" stroke="#34d399" strokeWidth={2} dot={false} />
-      </LineChart>
-    </ResponsiveContainer>
+    <div className="mt-6">
+      <h3 className="text-sm font-medium text-gray-400 mb-3">歷史報酬走勢</h3>
+      <ResponsiveContainer width="100%" height={200}>
+        <LineChart data={data} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+          <XAxis dataKey="date" tick={{ fill: '#9ca3af', fontSize: 10 }} />
+          <YAxis
+            tick={{ fill: '#9ca3af', fontSize: 10 }}
+            tickFormatter={(v) => `${v}%`}
+          />
+          <Tooltip
+            contentStyle={{
+              background: '#1f2937',
+              border: '1px solid #374151',
+              borderRadius: 8,
+              fontSize: 12,
+            }}
+            formatter={(v: number) => [`${fmt(v)}%`]}
+          />
+          <ReferenceLine y={0} stroke="#6b7280" strokeDasharray="4 4" />
+          <Line type="monotone" dataKey="T1" stroke="#34d399" strokeWidth={2} dot={false} name="T+1" />
+          <Line type="monotone" dataKey="T3" stroke="#60a5fa" strokeWidth={2} dot={false} name="T+3" />
+          <Line type="monotone" dataKey="T5" stroke="#f59e0b" strokeWidth={2} dot={false} name="T+5" />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
   );
 }
 
-// ── Main Component ────────────────────────────────────────────────────────────
+function Top5Cards({ stocks }: { stocks: ExplosiveStock[] }) {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+      {stocks.slice(0, 6).map((s, i) => (
+        <div
+          key={s.stock_id}
+          className="rounded-xl border border-gray-700/50 bg-gray-800/40 p-4"
+        >
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-gray-500">#{i + 1}</span>
+              <span className="font-bold text-white">{s.stock_id}</span>
+              <span className="text-sm text-gray-300">{s.stock_name}</span>
+            </div>
+            <ScoreBadge score={s.total_score} />
+          </div>
+          {s.close != null && (
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-sm font-mono text-gray-200">
+                ${fmt(s.close)}
+              </span>
+              {s.change_pct != null && (
+                <span
+                  className={`text-xs font-mono ${
+                    s.change_pct >= 0 ? 'text-emerald-400' : 'text-red-400'
+                  }`}
+                >
+                  {fmtPct(s.change_pct)}
+                </span>
+              )}
+            </div>
+          )}
+          {s.dimensions && (
+            <div className="flex flex-wrap gap-1">
+              {Object.entries(s.dimensions)
+                .sort(([, a], [, b]) => b.score - a.score)
+                .slice(0, 3)
+                .map(([k, v]) => (
+                  <span
+                    key={k}
+                    className="text-xs bg-gray-700/50 text-gray-400 px-1.5 py-0.5 rounded"
+                  >
+                    {DIM_LABELS[k] ?? k} {fmt(v.score, 0)}
+                  </span>
+                ))}
+            </div>
+          )}
+          {s.strategy?.recommendation && (
+            <div className="mt-2 text-xs text-amber-400">
+              {s.strategy.recommendation}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// ─── Main Component ───────────────────────────────────────────────────────────
 
 export default function TrackingDashboard() {
   const [latestData, setLatestData] = useState<LatestData | null>(null);
-  const [allScoresData, setAllScoresData] = useState<AllScoresData | null>(null);
   const [backtestData, setBacktestData] = useState<BacktestData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'overview' | 'backtest' | 'distribution'>('overview');
 
   useEffect(() => {
     async function fetchAll() {
       setLoading(true);
       setError(null);
       try {
-        // Fetch latest.json (required)
-        const latestRes = await fetch(`${BASE}/data/latest.json`);
+        const [latestRes, backtestRes] = await Promise.all([
+          fetch(`${BASE}/data/latest.json`),
+          fetch(`${BASE}/data/backtest.json`),
+        ]);
+
         if (!latestRes.ok) throw new Error(`latest.json HTTP ${latestRes.status}`);
+        if (!backtestRes.ok) throw new Error(`backtest.json HTTP ${backtestRes.status}`);
+
         const latest: LatestData = await latestRes.json();
+        const backtest: BacktestData = await backtestRes.json();
+
         setLatestData(latest);
-
-        // Fetch backtest.json (optional — don't fail page if missing)
-        try {
-          const btRes = await fetch(`${BASE}/data/backtest.json`);
-          if (btRes.ok) {
-            const bt = await btRes.json();
-            // Support both v1 (history[]) and v2 (grouped_records[])
-            if (bt.grouped_records) {
-              setBacktestData({ version: bt.version ?? 2, grouped_records: bt.grouped_records });
-            } else if (bt.history) {
-              // Legacy format: wrap into grouped_records shape as pending
-              const wrapped: BacktestRecord[] = (bt.history as Array<{
-                date: string;
-                top5: Array<{ stock_id: string; name: string; entry: number }>;
-              }>).map((h) => ({
-                scan_date: h.date,
-                periods: {
-                  T1: { label: 'T+1', backtest_date: '', win_rate: null, avg_return: null, pending: true, stocks: h.top5.map((s) => ({ ...s, close: null, return_pct: null, hit_target: false, hit_stoploss: false, pending: true })) },
-                  T3: { label: 'T+3', backtest_date: '', win_rate: null, avg_return: null, pending: true, stocks: h.top5.map((s) => ({ ...s, close: null, return_pct: null, hit_target: false, hit_stoploss: false, pending: true })) },
-                  T5: { label: 'T+5', backtest_date: '', win_rate: null, avg_return: null, pending: true, stocks: h.top5.map((s) => ({ ...s, close: null, return_pct: null, hit_target: false, hit_stoploss: false, pending: true })) },
-                },
-              }));
-              setBacktestData({ version: 1, grouped_records: wrapped });
-            }
-          }
-        } catch (btErr) {
-          console.warn('backtest.json fetch failed:', btErr);
-        }
-
-        // Fetch all_scores.json (optional)
-        try {
-          const asRes = await fetch(`${BASE}/data/all_scores.json`);
-          if (asRes.ok) {
-            const as: AllScoresData = await asRes.json();
-            setAllScoresData(as);
-          }
-        } catch (asErr) {
-          console.warn('all_scores.json fetch failed:', asErr);
-        }
-      } catch (err) {
-        console.error('TrackingDashboard fetch error:', err);
-        setError(err instanceof Error ? err.message : String(err));
+        setBacktestData(backtest);
+      } catch (e) {
+        setError(e instanceof Error ? e.message : String(e));
       } finally {
         setLoading(false);
       }
@@ -553,183 +397,122 @@ export default function TrackingDashboard() {
     fetchAll();
   }, []);
 
-  const top10 = latestData?.top10 ?? [];
-  const allStocks = allScoresData?.all_stock_scores ?? top10;
-  const groupedRecords = backtestData?.grouped_records ?? [];
-
-  // Summary stats from completed backtest records
-  const completedRecords = groupedRecords.filter((r) => !r.periods.T1.pending);
-  const avgWinRate = completedRecords.length > 0
-    ? completedRecords.reduce((s, r) => s + (r.periods.T1.win_rate ?? 0), 0) / completedRecords.length
-    : null;
-  const avgReturn = completedRecords.length > 0
-    ? completedRecords.reduce((s, r) => s + (r.periods.T1.avg_return ?? 0), 0) / completedRecords.length
-    : null;
-
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-950 text-gray-100">
-        <TopNav />
-        <div className="flex items-center justify-center h-64">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-sky-400 mx-auto mb-4" />
-            <p className="text-gray-400">載入追蹤資料中…</p>
-          </div>
-        </div>
+      <div className="min-h-screen bg-gray-950 flex items-center justify-center">
+        <div className="text-gray-400 text-sm animate-pulse">載入中…</div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-950 text-gray-100">
-        <TopNav />
-        <div className="flex items-center justify-center h-64">
-          <div className="text-center">
-            <AlertCircle className="mx-auto mb-3 w-10 h-10 text-red-400" />
-            <p className="text-red-400 font-semibold">資料載入失敗</p>
-            <p className="text-gray-500 text-sm mt-1">{error}</p>
-          </div>
+      <div className="min-h-screen bg-gray-950 flex items-center justify-center">
+        <div className="text-center">
+          <AlertCircle size={40} className="mx-auto mb-4 text-red-400" />
+          <p className="text-red-400 text-sm">{error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="mt-4 text-xs text-gray-400 underline"
+          >
+            重試
+          </button>
         </div>
       </div>
     );
   }
 
-  if (!latestData) {
-    return (
-      <div className="min-h-screen bg-gray-950 text-gray-100">
-        <TopNav />
-        <div className="flex items-center justify-center h-64">
-          <p className="text-gray-500">尚無掃描資料</p>
-        </div>
-      </div>
-    );
-  }
+  const grouped = backtestData?.grouped_records ?? [];
+  const stats = backtestData?.cumulative_stats;
+  const top10 = latestData?.top10 ?? [];
+  const scanDate = latestData?.scan_date ?? '';
+
+  // Summary stats
+  const settledCount = grouped.filter((r) => !r.periods?.T1?.pending).length;
+  const pendingCount = grouped.length - settledCount;
 
   return (
-    <div className="min-h-screen bg-gray-950 text-gray-100">
-      <TopNav />
-      <div className="max-w-7xl mx-auto px-4 py-6 space-y-6">
-        {/* Header */}
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold text-white">📊 追蹤儀表板</h1>
-            <p className="text-gray-400 text-sm mt-1">
-              掃描日期：{latestData.scan_date} ｜ 掃描數量：{latestData.scanned_count?.toLocaleString() ?? '—'} 檔
-            </p>
-          </div>
-          <div className="text-right text-sm text-gray-500">
-            <div>回測記錄：{groupedRecords.length} 筆</div>
-            <div>已結算：{completedRecords.length} 筆</div>
-          </div>
-        </div>
-
-        {/* Summary stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <StatCard
-            icon={<Trophy className="w-4 h-4" />}
-            label="T+1 平均勝率"
-            value={avgWinRate != null ? `${(avgWinRate * 100).toFixed(1)}%` : '—'}
-            sub={completedRecords.length > 0 ? `${completedRecords.length} 筆已結算` : '待結算中'}
-            accent="border-green-500/30"
-            valueColor="text-green-400"
-          />
-          <StatCard
-            icon={<TrendingUp className="w-4 h-4" />}
-            label="T+1 平均報酬"
-            value={avgReturn != null ? pct(avgReturn) : '—'}
-            sub="已結算平均"
-            accent="border-sky-500/30"
-            valueColor={avgReturn != null && avgReturn >= 0 ? 'text-green-400' : 'text-red-400'}
-          />
-          <StatCard
-            icon={<Activity className="w-4 h-4" />}
-            label="追蹤中股票"
-            value={groupedRecords.reduce((s, r) => s + (r.periods.T1.stocks?.length ?? 0), 0)}
-            sub="累計追蹤標的"
-            accent="border-purple-500/30"
-            valueColor="text-purple-400"
-          />
-          <StatCard
-            icon={<Zap className="w-4 h-4" />}
-            label="今日 Top10"
-            value={top10.length}
-            sub={`${latestData.trend_label ?? latestData.market_trend ?? '—'}`}
-            accent="border-yellow-500/30"
-            valueColor="text-yellow-400"
-          />
-        </div>
-
-        {/* Tabs */}
-        <div className="flex gap-2 border-b border-gray-800 pb-1">
-          {(['overview', 'backtest', 'distribution'] as const).map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`px-4 py-2 text-sm font-medium rounded-t-lg transition-colors ${
-                activeTab === tab
-                  ? 'bg-gray-800 text-white border-b-2 border-sky-400'
-                  : 'text-gray-500 hover:text-gray-300'
-              }`}
+    <div className="min-h-screen bg-gray-950 text-white">
+      {/* Header */}
+      <div className="border-b border-gray-800/50 bg-gray-900/50 backdrop-blur">
+        <div className="max-w-6xl mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-xl font-bold text-white">📊 追蹤儀表板</h1>
+              <p className="text-xs text-gray-400 mt-0.5">
+                最新掃描：{scanDate ? shortDate(scanDate) : '—'}
+              </p>
+            </div>
+            <a
+              href="/taiwan-stock-radar/"
+              className="text-xs text-gray-400 hover:text-white transition-colors"
             >
-              {tab === 'overview' ? '🏆 今日 Top10' : tab === 'backtest' ? '📈 回測追蹤' : '📊 分佈分析'}
-            </button>
-          ))}
+              ← 返回首頁
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-6xl mx-auto px-4 py-6 space-y-8">
+        {/* Stats Cards */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <StatCard
+            label="總推薦次數"
+            value={String(grouped.length)}
+            sub="歷史掃描記錄"
+          />
+          <StatCard
+            label="已結算"
+            value={String(settledCount)}
+            sub={`待結算 ${pendingCount} 筆`}
+          />
+          <StatCard
+            label="整體勝率"
+            value={
+              stats?.overall_win_rate != null
+                ? `${fmt(stats.overall_win_rate, 1)}%`
+                : settledCount === 0
+                ? '結算中'
+                : '—'
+            }
+            highlight={!!stats?.overall_win_rate && stats.overall_win_rate >= 60}
+          />
+          <StatCard
+            label="T+1 平均報酬"
+            value={
+              stats?.avg_T1_return != null ? fmtPct(stats.avg_T1_return) : '—'
+            }
+            highlight={!!stats?.avg_T1_return && stats.avg_T1_return > 0}
+          />
         </div>
 
-        {/* Tab content */}
-        {activeTab === 'overview' && (
-          <div className="space-y-6">
-            <div>
-              <h2 className="text-lg font-semibold text-white mb-3">今日推薦 Top 10</h2>
-              <Top5Cards stocks={top10} />
-            </div>
-            {top10.length > 0 && (
-              <div>
-                <h2 className="text-lg font-semibold text-white mb-3">五維度雷達圖</h2>
-                <div className="rounded-xl border border-gray-700 bg-gray-900/60 p-4">
-                  <DimensionRadar stocks={top10} />
-                </div>
-              </div>
-            )}
-          </div>
+        {/* Today's Top Picks */}
+        {top10.length > 0 && (
+          <section>
+            <h2 className="text-base font-semibold text-gray-200 mb-3">
+              今日推薦標的
+              <span className="ml-2 text-xs text-gray-500 font-normal">
+                {scanDate ? shortDate(scanDate) : ''}
+              </span>
+            </h2>
+            <Top5Cards stocks={top10} />
+          </section>
         )}
 
-        {activeTab === 'backtest' && (
-          <div className="space-y-6">
-            {groupedRecords.length > 0 ? (
-              <>
-                <div>
-                  <h2 className="text-lg font-semibold text-white mb-3">回測績效追蹤</h2>
-                  <BacktestPerformanceTable records={groupedRecords} />
-                </div>
-                <div>
-                  <h2 className="text-lg font-semibold text-white mb-3">累計報酬曲線（T+1）</h2>
-                  <div className="rounded-xl border border-gray-700 bg-gray-900/60 p-4">
-                    <CumulativeEquityCurve records={groupedRecords} />
-                  </div>
-                </div>
-              </>
-            ) : (
-              <div className="text-center py-16 text-gray-500">
-                <BarChart3 className="mx-auto mb-3 w-10 h-10" />
-                <p>尚無回測記錄</p>
-                <p className="text-sm mt-1">每日 22:55 掃描後自動產生追蹤記錄</p>
-              </div>
-            )}
+        {/* Backtest Performance Table */}
+        <section>
+          <h2 className="text-base font-semibold text-gray-200 mb-3">
+            歷史回測績效
+            <span className="ml-2 text-xs text-gray-500 font-normal">
+              共 {grouped.length} 筆（待結算以 ⏱ 標示）
+            </span>
+          </h2>
+          <div className="rounded-xl border border-gray-700/50 bg-gray-900/40 overflow-hidden">
+            <BacktestTable records={grouped} />
           </div>
-        )}
-
-        {activeTab === 'distribution' && (
-          <div className="space-y-6">
-            <div>
-              <h2 className="text-lg font-semibold text-white mb-3">總分分佈</h2>
-              <div className="rounded-xl border border-gray-700 bg-gray-900/60 p-4">
-                <ScoreDistribution stocks={allStocks} />
-              </div>
-            </div>
-          </div>
-        )}
+          {/* Chart */}
+          {grouped.length > 0 && <WinRateChart records={grouped} />}
+        </section>
       </div>
     </div>
   );
