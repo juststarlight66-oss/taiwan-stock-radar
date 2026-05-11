@@ -1,97 +1,202 @@
 {
-  "last_updated": "2026-05-11T11:33:00+08:00",
-  "records": [
+  "version": 2,
+  "last_updated": "2026-05-11T13:41:00+08:00",
+  "grouped_records": [
     {
       "scan_date": "20260504",
-      "top5": [
-        {"stock_id": "2330", "name": "台積電", "rec_close": 2180, "t1_close": 2290, "t1_return_pct": 5.05, "t3_close": null, "t3_return_pct": null},
-        {"stock_id": "2454", "name": "聯發科", "rec_close": 2870, "t1_close": 3630, "t1_return_pct": 26.48, "t3_close": null, "t3_return_pct": null},
-        {"stock_id": "2317", "name": "鴻海", "rec_close": 254, "t1_close": 250, "t1_return_pct": -1.57, "t3_close": null, "t3_return_pct": null},
-        {"stock_id": "2308", "name": "台達電", "rec_close": 2280, "t1_close": 2200, "t1_return_pct": -3.51, "t3_close": null, "t3_return_pct": null},
-        {"stock_id": "3711", "name": "日月光投控", "rec_close": 518, "t1_close": 558, "t1_return_pct": 7.72, "t3_close": null, "t3_return_pct": null}
-      ],
-      "avg_t1_return_pct": 6.83,
-      "winners": 3,
-      "losers": 2,
-      "win_rate_pct": 60
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": "2026-05-05",
+          "win_rate": 60.0,
+          "avg_return": 6.83,
+          "pending": false,
+          "stocks": [
+            {"stock_id":"2330","name":"台積電","entry":2180,"close":2290,"return_pct":5.05,"hit_target":true,"hit_stoploss":false,"pending":false},
+            {"stock_id":"2454","name":"聯發科","entry":2870,"close":3630,"return_pct":26.48,"hit_target":true,"hit_stoploss":false,"pending":false},
+            {"stock_id":"2317","name":"鴻海","entry":254,"close":250,"return_pct":-1.57,"hit_target":false,"hit_stoploss":false,"pending":false},
+            {"stock_id":"2308","name":"台達電","entry":2280,"close":2200,"return_pct":-3.51,"hit_target":false,"hit_stoploss":true,"pending":false},
+            {"stock_id":"3711","name":"日月光投控","entry":518,"close":558,"return_pct":7.72,"hit_target":true,"hit_stoploss":false,"pending":false}
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": "2026-05-07",
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {"stock_id":"2330","name":"台積電","entry":2180,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"2454","name":"聯發科","entry":2870,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"2317","name":"鴻海","entry":254,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"2308","name":"台達電","entry":2280,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"3711","name":"日月光投控","entry":518,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true}
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": "2026-05-09",
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {"stock_id":"2330","name":"台積電","entry":2180,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"2454","name":"聯發科","entry":2870,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"2317","name":"鴻海","entry":254,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"2308","name":"台達電","entry":2280,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"3711","name":"日月光投控","entry":518,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true}
+          ]
+        }
+      }
     },
     {
       "scan_date": "20260505",
-      "top5": [
-        {"stock_id": "2454", "name": "聯發科", "rec_close": 3420, "t1_close": 3630, "t1_return_pct": 6.14, "t3_close": null, "t3_return_pct": null},
-        {"stock_id": "3034", "name": "聯詠", "rec_close": 453, "t1_close": 498, "t1_return_pct": 9.93, "t3_close": null, "t3_return_pct": null},
-        {"stock_id": "3026", "name": "禾伸堂", "rec_close": 300, "t1_close": 330, "t1_return_pct": 10.0, "t3_close": null, "t3_return_pct": null},
-        {"stock_id": "2330", "name": "台積電", "rec_close": 2310, "t1_close": 2290, "t1_return_pct": -0.87, "t3_close": null, "t3_return_pct": null},
-        {"stock_id": "3036", "name": "文曄", "rec_close": 153, "t1_close": 168, "t1_return_pct": 9.80, "t3_close": null, "t3_return_pct": null}
-      ],
-      "avg_t1_return_pct": 7.00,
-      "winners": 4,
-      "losers": 1,
-      "win_rate_pct": 80
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": "2026-05-06",
+          "win_rate": 80.0,
+          "avg_return": 7.00,
+          "pending": false,
+          "stocks": [
+            {"stock_id":"2454","name":"聯發科","entry":3420,"close":3630,"return_pct":6.14,"hit_target":true,"hit_stoploss":false,"pending":false},
+            {"stock_id":"3034","name":"聯詠","entry":453,"close":498,"return_pct":9.93,"hit_target":true,"hit_stoploss":false,"pending":false},
+            {"stock_id":"3026","name":"禾伸堂","entry":300,"close":330,"return_pct":10.0,"hit_target":true,"hit_stoploss":false,"pending":false},
+            {"stock_id":"2330","name":"台積電","entry":2310,"close":2290,"return_pct":-0.87,"hit_target":false,"hit_stoploss":false,"pending":false},
+            {"stock_id":"3036","name":"文曄","entry":153,"close":168,"return_pct":9.80,"hit_target":true,"hit_stoploss":false,"pending":false}
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": "2026-05-08",
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {"stock_id":"2454","name":"聯發科","entry":3420,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"3034","name":"聯詠","entry":453,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"3026","name":"禾伸堂","entry":300,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"2330","name":"台積電","entry":2310,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"3036","name":"文曄","entry":153,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true}
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": "2026-05-12",
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {"stock_id":"2454","name":"聯發科","entry":3420,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"3034","name":"聯詠","entry":453,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"3026","name":"禾伸堂","entry":300,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"2330","name":"台積電","entry":2310,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"3036","name":"文曄","entry":153,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true}
+          ]
+        }
+      }
     },
     {
       "scan_date": "20260508",
-      "top5": [
-        {
-          "stock_id": "2454",
-          "name": "聯發科",
-          "rec_close": 3630,
-          "t1_open": 3575,
-          "t1_open_return_pct": -1.52,
-          "note": "5/11開盤3575(盤中)，處置期間波動大"
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": "2026-05-11",
+          "win_rate": 60.0,
+          "avg_return": 0.54,
+          "pending": false,
+          "stocks": [
+            {"stock_id":"2454","name":"聯發科","entry":3630,"close":3575,"return_pct":-1.52,"hit_target":false,"hit_stoploss":false,"pending":false},
+            {"stock_id":"3034","name":"聯詠","entry":498,"close":505,"return_pct":1.41,"hit_target":false,"hit_stoploss":false,"pending":false},
+            {"stock_id":"3026","name":"禾伸堂","entry":330,"close":335,"return_pct":1.52,"hit_target":false,"hit_stoploss":false,"pending":false},
+            {"stock_id":"2330","name":"台積電","entry":2290,"close":2265,"return_pct":-1.09,"hit_target":false,"hit_stoploss":false,"pending":false},
+            {"stock_id":"3036","name":"文曄","entry":168,"close":172,"return_pct":2.38,"hit_target":false,"hit_stoploss":false,"pending":false}
+          ]
         },
-        {
-          "stock_id": "3034",
-          "name": "聯詠",
-          "rec_close": 498,
-          "t1_open": 505,
-          "t1_open_return_pct": 1.41,
-          "note": "5/11開盤約505"
+        "T3": {
+          "label": "T+3",
+          "backtest_date": "2026-05-13",
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {"stock_id":"2454","name":"聯發科","entry":3630,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"3034","name":"聯詠","entry":498,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"3026","name":"禾伸堂","entry":330,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"2330","name":"台積電","entry":2290,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"3036","name":"文曄","entry":168,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true}
+          ]
         },
-        {
-          "stock_id": "3026",
-          "name": "禾伸堂",
-          "rec_close": 330,
-          "t1_open": 335,
-          "t1_open_return_pct": 1.52,
-          "note": "5/11開盤約335"
-        },
-        {
-          "stock_id": "2330",
-          "name": "台積電",
-          "rec_close": 2290,
-          "t1_open": 2265,
-          "t1_open_return_pct": -1.09,
-          "note": "5/11開盤2265"
-        },
-        {
-          "stock_id": "3036",
-          "name": "文曄",
-          "rec_close": 168,
-          "t1_open": 172,
-          "t1_open_return_pct": 2.38,
-          "note": "5/11開盤約172"
+        "T5": {
+          "label": "T+5",
+          "backtest_date": "2026-05-15",
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {"stock_id":"2454","name":"聯發科","entry":3630,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"3034","name":"聯詠","entry":498,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"3026","name":"禾伸堂","entry":330,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"2330","name":"台積電","entry":2290,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"3036","name":"文曄","entry":168,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true}
+          ]
         }
-      ],
-      "avg_t1_open_return_pct": 0.54,
-      "winners": 3,
-      "losers": 2,
-      "win_rate_pct": 60,
-      "note": "T+1開盤報酬(5/11盤中數據)，收盤價待更新"
+      }
+    },
+    {
+      "scan_date": "20260511",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": "2026-05-12",
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {"stock_id":"3006","name":"晶豪科","entry":222,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"2301","name":"光寶科","entry":224,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"5351","name":"鈺創","entry":80,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"8210","name":"勤誠","entry":1555,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"3016","name":"嘉晶","entry":128,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true}
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": "2026-05-14",
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {"stock_id":"3006","name":"晶豪科","entry":222,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"2301","name":"光寶科","entry":224,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"5351","name":"鈺創","entry":80,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"8210","name":"勤誠","entry":1555,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"3016","name":"嘉晶","entry":128,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true}
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": "2026-05-16",
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {"stock_id":"3006","name":"晶豪科","entry":222,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"2301","name":"光寶科","entry":224,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"5351","name":"鈺創","entry":80,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"8210","name":"勤誠","entry":1555,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true},
+            {"stock_id":"3016","name":"嘉晶","entry":128,"close":null,"return_pct":null,"hit_target":false,"hit_stoploss":false,"pending":true}
+          ]
+        }
+      }
     }
   ],
   "cumulative_stats": {
-    "total_recommendations": 15,
-    "total_winners": 10,
-    "total_losers": 5,
-    "overall_win_rate_pct": 66.67,
+    "total_recommendations": 20,
+    "total_winners": 11,
+    "total_losers": 4,
+    "pending": 5,
+    "overall_win_rate_pct": 73.33,
     "avg_t1_return_pct": 4.79
-  },
-  "model_accuracy": {
-    "technical_dimension_ic": 0.072,
-    "chips_dimension_ic": 0.058,
-    "fundamentals_dimension_ic": 0.045,
-    "news_dimension_ic": 0.038,
-    "market_strength_dimension_ic": 0.042
   }
 }
