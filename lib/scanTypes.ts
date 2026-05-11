@@ -59,11 +59,11 @@ export interface ScanStock {
   sentiment_score?:   number;
   sector_boost?:      number;
   power_combo?:       boolean;
-  recommendation?:    string;  // 頂層直接有（不在 strategy 巢狀內）
-  reason?:            string;  // AI 分析文字（頂層）
-  entry_low?:         number;  // 頂層進場低點
-  entry_high?:        number;  // 頂層進場高點
-  stop_loss?:         number;  // 頂層停損
+  recommendation?:    string;
+  reason?:            string;
+  entry_low?:         number;
+  entry_high?:        number;
+  stop_loss?:         number;
   target1?:           number;
   target2?:           number;
   target3?:           number;
@@ -91,6 +91,15 @@ export interface ScanResult {
   trend_label?:  string;
   bull_ratio?:   number;
 }
+
+// ── DIMENSION_CONFIG：各維度設定（AllResultsTable 等元件使用）──
+export const DIMENSION_CONFIG: Record<string, { label: string; max: number; color: string }> = {
+  technical:   { label: '技術面', max: 40, color: '#38bdf8' },
+  fundamental: { label: '基本面', max: 40, color: '#34d399' },
+  chips:       { label: '籌碼面', max: 10, color: '#f87171' },
+  news:        { label: '消息面', max: 10, color: '#f59e0b' },
+  sentiment:   { label: '市場情緒', max: 10, color: '#a78bfa' },
+};
 
 // ── 輔助函式：統一取值（相容平坦 & 巢狀兩種格式）──
 export function getStockName(s: ScanStock): string {
@@ -130,15 +139,11 @@ export function getStockTarget3(s: ScanStock): number | undefined {
   return s.target3 ?? s.strategy?.target3;
 }
 export function getStockDimensions(s: ScanStock): ScanDimensions {
-  if (s.dimensions) return s.dimensions;
-  return {
+  return s.dimensions ?? {
     technical:   s.technical_score   ?? 0,
     fundamental: s.fundamental_score ?? 0,
     news:        s.news_score        ?? 0,
     sentiment:   s.sentiment_score   ?? 0,
     chips:       s.chips_score       ?? 0,
   };
-}
-export function getStockSignals(s: ScanStock): ScanSignals {
-  return s.signals ?? { technical: [], fundamental: [], news: [], sentiment: [], chips: [] };
 }

@@ -1,6 +1,9 @@
 'use client';
 import { useState, useMemo } from 'react';
-import { ScanStock, DIMENSION_CONFIG } from '@/lib/scanTypes';
+import { ScanStock, DIMENSION_CONFIG, getStockName, getStockSector } from '@/lib/scanTypes';
+import StockDetailModal from './StockDetailModal';
+import { WatchlistToggleBtn } from './WatchlistPanel';
+import { ChevronRight, ArrowUpRight, ArrowDownRight, Search, ChevronLeft } from 'lucide-react';
 
 function getActionColor(rec: string): string {
   if (rec.includes('強力買進')) return 'text-red-600 font-bold';
@@ -8,9 +11,6 @@ function getActionColor(rec: string): string {
   if (rec.includes('觀望'))    return 'text-gray-500';
   return 'text-green-700';
 }
-import StockDetailModal from './StockDetailModal';
-import { WatchlistToggleBtn } from './WatchlistPanel';
-import { ChevronRight, ArrowUpRight, ArrowDownRight, Search, ChevronLeft } from 'lucide-react';
 
 interface Props {
   stocks: ScanStock[];
@@ -53,7 +53,10 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
 
   const sectors = useMemo(() => {
     const count = new Map<string, number>();
-    stocks.forEach((s) => count.set(s.sector, (count.get(s.sector) ?? 0) + 1));
+    stocks.forEach((s) => {
+      const sec = getStockSector(s);
+      count.set(sec, (count.get(sec) ?? 0) + 1);
+    });
     const sorted = [...count.entries()].sort((a, b) => b[1] - a[1]).map(([k]) => k);
     return ['全部', ...sorted];
   }, [stocks]);
@@ -61,12 +64,16 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     let list = stocks.filter((s) => {
-      const matchSector = activeSector === '全部' || s.sector === activeSector;
-      const matchQ = !q || s.stock_id.includes(q) || s.name.toLowerCase().includes(q) || s.sector.toLowerCase().includes(q);
+      const sec = getStockSector(s);
+      const nm = getStockName(s);
+      const matchSector = activeSector === '全部' || sec === activeSector;
+      const matchQ = !q || s.stock_id.includes(q) || nm.toLowerCase().includes(q) || sec.toLowerCase().includes(q);
       return matchSector && matchQ;
     });
     list.sort((a, b) => {
-      const diff = (a[sortKey] as number) - (b[sortKey] as number);
+      const av = (a[sortKey] as number) ?? 0;
+      const bv = (b[sortKey] as number) ?? 0;
+      const diff = av - bv;
       return sortDir === 'desc' ? -diff : diff;
     });
     return list;
@@ -103,233 +110,186 @@ export default function AllResultsTable({ stocks, scanDate }: Props) {
       <div className="rounded-xl border border-gray-200 bg-white overflow-hidden">
         <div className="px-4 py-3 border-b border-gray-200 flex items-center justify-between gap-3 flex-wrap">
           <div>
-            <h3 className="text-sm font-semibold text-gray-800">全部掃描結果</h3>
-            {scanDate && (
-              <div className="text-[11px] text-gray-500 mt-0.5">
-                掃描日期：{scanDate}　共 {filtered.length} / {stocks.length} 檔
-              </div>
-            )}
+            <h3 className="text-sm font-semibold text-gray-900">全市場掃描結果</h3>
+            {scanDate && <p className="text-xs text-gray-500 mt-0.5">掃描日期：{scanDate}</p>}
           </div>
-          <div className="relative">
-            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400 pointer-events-none" />
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => handleSearch(e.target.value)}
-              placeholder="搜尋代號/名稱/族群"
-              className="bg-white border border-gray-300 rounded-lg pl-8 pr-3 py-1.5 text-xs text-gray-800 placeholder-gray-400 focus:outline-none focus:border-sky-500 w-48"
-            />
+          <div className="flex items-center gap-2">
+            <div className="relative">
+              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
+              <input
+                type="text"
+                placeholder="搜尋代碼/名稱/族群…"
+                value={query}
+                onChange={(e) => handleSearch(e.target.value)}
+                className="pl-8 pr-3 py-1.5 text-xs rounded-lg border border-gray-200 bg-gray-50 focus:outline-none focus:ring-1 focus:ring-sky-400 w-44"
+              />
+            </div>
           </div>
         </div>
 
-        <div className="px-4 py-2 border-b border-gray-200 flex items-center gap-1.5 overflow-x-auto scrollbar-hide bg-gray-50">
-          {sectors.slice(0, 20).map((sector) => (
+        {/* Sector filter */}
+        <div className="px-4 py-2 border-b border-gray-100 flex gap-1.5 overflow-x-auto scrollbar-none">
+          {sectors.map((sec) => (
             <button
-              key={sector}
-              onClick={() => handleSector(sector)}
-              className={`shrink-0 px-2.5 py-1 text-[11px] rounded-full font-medium transition-all border ${
-                activeSector === sector
-                  ? 'bg-sky-500 text-white border-sky-500 shadow-sm'
-                  : 'text-gray-600 hover:text-gray-800 hover:bg-gray-200 border-gray-300 bg-white'
+              key={sec}
+              onClick={() => handleSector(sec)}
+              className={`shrink-0 px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
+                activeSector === sec
+                  ? 'bg-sky-500 text-white'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
               }`}
             >
-              {sector}
+              {sec}
             </button>
           ))}
-          {sectors.length > 21 && (
-            <span className="shrink-0 text-[11px] text-gray-400 px-1">+{sectors.length - 21}</span>
-          )}
         </div>
 
-        <div className="hidden md:block overflow-x-auto">
+        {/* Table */}
+        <div className="overflow-x-auto">
           <table className="w-full text-xs">
             <thead>
-              <tr className="text-gray-500 border-b border-gray-200 bg-gray-50">
-                <th className="text-left px-4 py-2.5 font-medium w-8">#</th>
-                <th className="text-left px-3 py-2.5 font-medium">代號 / 名稱</th>
-                <th className="text-left px-3 py-2.5 font-medium">族群</th>
+              <tr className="border-b border-gray-200 bg-gray-50">
+                <th className="px-3 py-2 text-left text-gray-500 font-medium w-8">#</th>
+                <th className="px-3 py-2 text-left text-gray-500 font-medium">代碼 / 名稱</th>
+                <th className="px-3 py-2 text-left text-gray-500 font-medium">族群</th>
                 <th
-                  className="text-right px-3 py-2.5 font-medium cursor-pointer hover:text-gray-700"
+                  className="px-3 py-2 text-right text-gray-500 font-medium cursor-pointer hover:text-sky-600 select-none"
                   onClick={() => handleSort('close')}
                 >
-                  收盤價 <SortIndicator k="close" />
+                  收盤 <SortIndicator k="close" />
                 </th>
                 <th
-                  className="text-right px-3 py-2.5 font-medium cursor-pointer hover:text-gray-700"
+                  className="px-3 py-2 text-right text-gray-500 font-medium cursor-pointer hover:text-sky-600 select-none"
                   onClick={() => handleSort('change_pct')}
                 >
-                  漲跌幅 <SortIndicator k="change_pct" />
+                  漲跌 <SortIndicator k="change_pct" />
                 </th>
                 <th
-                  className="text-left px-3 py-2.5 font-medium cursor-pointer hover:text-gray-700"
+                  className="px-3 py-2 text-left text-gray-500 font-medium cursor-pointer hover:text-sky-600 select-none"
                   onClick={() => handleSort('total_score')}
                 >
-                  綜合分 <SortIndicator k="total_score" />
+                  總分 <SortIndicator k="total_score" />
                 </th>
-                <th className="text-left px-3 py-2.5 font-medium">建議</th>
-                <th className="text-right px-3 py-2.5 font-medium">策略(進/停/目標)</th>
-                <th className="px-3 py-2.5 w-8"></th>
+                <th className="px-3 py-2 text-left text-gray-500 font-medium hidden md:table-cell">維度</th>
+                <th className="px-3 py-2 text-left text-gray-500 font-medium hidden lg:table-cell">建議</th>
+                <th className="px-3 py-2 text-center text-gray-500 font-medium w-16">操作</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
               {pageItems.map((s, i) => {
-                const up = (s.change_pct ?? 0) >= 0;
-                const isLimit = Math.abs(s.change_pct ?? 0) >= 9.5;
-                const rowCls = isLimit
-                  ? up
-                    ? 'ring-1 ring-inset ring-red-500/50 bg-red-50'
-                    : 'ring-1 ring-inset ring-emerald-500/50 bg-emerald-50'
-                  : '';
-                const actionCls = getActionColor(s.strategy?.recommendation ?? '');
+                const nm = getStockName(s);
+                const sec = getStockSector(s);
+                const changePct = s.change_pct ?? 0;
+                const close = s.close ?? 0;
+                const rec = s.recommendation ?? s.strategy?.recommendation ?? '';
+                const dims = s.dimensions ?? {
+                  technical:   s.technical_score   ?? 0,
+                  fundamental: s.fundamental_score ?? 0,
+                  chips:       s.chips_score       ?? 0,
+                  news:        s.news_score        ?? 0,
+                  sentiment:   s.sentiment_score   ?? 0,
+                };
                 return (
                   <tr
                     key={s.stock_id}
+                    className="hover:bg-sky-50/40 transition-colors cursor-pointer"
                     onClick={() => setSelectedStock(s)}
-                    className={`hover:bg-sky-50/60 cursor-pointer transition-colors ${rowCls}`}
                   >
-                    <td className="px-4 py-2.5 text-gray-400 font-mono">
-                      {(page - 1) * PAGE_SIZE + i + 1}
+                    <td className="px-3 py-2.5 text-gray-400">{(page - 1) * PAGE_SIZE + i + 1}</td>
+                    <td className="px-3 py-2.5">
+                      <div className="font-mono font-bold text-gray-900">{s.stock_id}</div>
+                      <div className="text-gray-500 truncate max-w-[100px]">{nm}</div>
                     </td>
                     <td className="px-3 py-2.5">
-                      <div className="font-mono text-gray-400 text-[11px]">{s.stock_id}</div>
-                      <div className="font-semibold text-gray-800">{s.name}</div>
+                      <span className="inline-block px-1.5 py-0.5 rounded bg-sky-50 text-sky-700 text-[10px] font-medium">{sec}</span>
                     </td>
-                    <td className="px-3 py-2.5">
-                      <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-medium bg-indigo-50 text-indigo-600 border border-indigo-200">{s.sector}</span>
-                    </td>
-                    <td className="px-3 py-2.5 text-right font-mono font-bold text-gray-800">
-                      {(s.close ?? 0) > 0 ? (s.close ?? 0).toLocaleString() : '—'}
+                    <td className="px-3 py-2.5 text-right font-mono">
+                      {close > 0 ? close.toFixed(2) : '—'}
                     </td>
                     <td className="px-3 py-2.5 text-right">
-                      <span className={`font-mono flex items-center justify-end gap-0.5 ${up ? 'text-red-500' : 'text-green-600'}`}>
-                        {up ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
-                        {Math.abs(s.change_pct ?? 0).toFixed(2)}%
-                        <LimitBadge changePct={s.change_pct ?? 0} />
+                      <span className={`font-mono font-medium ${
+                        changePct > 0 ? 'text-red-500' : changePct < 0 ? 'text-green-600' : 'text-gray-500'
+                      }`}>
+                        {changePct !== 0 ? (
+                          <>
+                            {changePct > 0 ? <ArrowUpRight className="inline w-3 h-3" /> : <ArrowDownRight className="inline w-3 h-3" />}
+                            {Math.abs(changePct).toFixed(2)}%
+                            <LimitBadge changePct={changePct} />
+                          </>
+                        ) : '—'}
                       </span>
                     </td>
                     <td className="px-3 py-2.5">
                       <ScoreBar score={s.total_score} max={totalMax} />
                     </td>
-                    <td className="px-3 py-2.5">
-                      <span className={`text-[11px] ${actionCls}`}>
-                        {(s.strategy?.recommendation ?? '').split(' - ')[0]}
-                      </span>
+                    <td className="px-3 py-2.5 hidden md:table-cell">
+                      <div className="flex gap-1">
+                        {Object.entries(DIMENSION_CONFIG).map(([key, cfg]) => (
+                          <div key={key} title={cfg.label} className="w-4 h-4 rounded-sm" style={{
+                            backgroundColor: cfg.color,
+                            opacity: 0.3 + 0.7 * ((dims[key as keyof typeof dims] ?? 0) / cfg.max),
+                          }} />
+                        ))}
+                      </div>
                     </td>
-                    <td className="px-3 py-2.5 text-right font-mono text-[11px] text-gray-600">
-                      {s.strategy?.entry ? (
-                        <div className="flex items-center justify-end gap-1 flex-wrap">
-                          <span className="text-sky-600">進{s.strategy.entry.toFixed(1)}</span>
-                          <span className="text-red-400">停{(s.strategy?.stop_loss ?? 0).toFixed(1)}</span>
-                          <span className="text-emerald-600">①{(s.strategy?.target1 ?? s.strategy?.target ?? 0).toFixed(1)}{s.strategy?.upside != null ? `(+${s.strategy.upside.toFixed(1)}%)` : ''}</span>
-                          {s.strategy?.target2 != null && (
-                            <span className="text-emerald-500">②{s.strategy.target2.toFixed(1)}{s.strategy?.upside2 != null ? `(+${s.strategy.upside2.toFixed(1)}%)` : ''}</span>
-                          )}
-                          {s.strategy?.target3 != null && (
-                            <span className="text-teal-500">③{s.strategy.target3.toFixed(1)}{s.strategy?.upside3 != null ? `(+${s.strategy.upside3.toFixed(1)}%)` : ''}</span>
-                          )}
-                        </div>
-                      ) : '-'}
+                    <td className="px-3 py-2.5 hidden lg:table-cell">
+                      <span className={`text-[11px] ${getActionColor(rec)}`}>{rec || '—'}</span>
                     </td>
-                    <td className="px-3 py-2.5" onClick={(e) => e.stopPropagation()}>
-                      <WatchlistToggleBtn stockId={s.stock_id} />
+                    <td className="px-3 py-2.5 text-center" onClick={(e) => e.stopPropagation()}>
+                      <div className="flex items-center justify-center gap-1">
+                        <WatchlistToggleBtn stockId={s.stock_id} size="sm" />
+                        <button
+                          onClick={() => setSelectedStock(s)}
+                          className="p-1 rounded hover:bg-sky-100 text-sky-500"
+                          title="查看詳情"
+                        >
+                          <ChevronRight className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 );
               })}
+              {pageItems.length === 0 && (
+                <tr>
+                  <td colSpan={9} className="px-4 py-8 text-center text-gray-400 text-sm">
+                    無符合條件的股票
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
 
-        <div className="block md:hidden divide-y divide-gray-100">
-          {pageItems.map((s) => {
-            const up = (s.change_pct ?? 0) >= 0;
-            const isLimit = Math.abs(s.change_pct ?? 0) >= 9.5;
-            const limitCls = isLimit
-              ? up
-                ? 'ring-1 ring-red-500/60 bg-red-50'
-                : 'ring-1 ring-emerald-500/60 bg-emerald-50'
-              : '';
-            return (
-              <div key={s.stock_id} className={`flex items-center gap-3 p-3 bg-white ${limitCls}`}>
-                <button
-                  className="flex-1 text-left hover:bg-sky-50/60 transition-colors"
-                  onClick={() => setSelectedStock(s)}
-                >
-                  <div className="flex items-center gap-2">
-                    <span className="font-mono text-xs text-gray-400">{s.stock_id}</span>
-                    <span className="text-sm font-semibold text-gray-800 truncate">{s.name}</span>
-                    <span className="text-[10px] text-indigo-600 bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded-full">{s.sector}</span>
-                  </div>
-                  <div className="flex items-center gap-3 mt-1">
-                    <ScoreBar score={s.total_score} max={totalMax} />
-                    <span className={`font-mono text-xs flex items-center ${up ? 'text-red-500' : 'text-green-600'}`}>
-                      {up ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
-                      {Math.abs(s.change_pct ?? 0).toFixed(2)}%
-                      <LimitBadge changePct={s.change_pct ?? 0} />
-                    </span>
-                  </div>
-                  {s.strategy?.entry && (
-                    <div className="flex gap-1 flex-wrap mt-1.5">
-                      <span className="text-[10px] font-mono bg-sky-50 text-sky-700 border border-sky-200 px-1.5 py-0.5 rounded whitespace-nowrap">
-                        進 {s.strategy.entry.toFixed(1)}
-                      </span>
-                      <span className="text-[10px] font-mono bg-rose-50 text-rose-700 border border-rose-200 px-1.5 py-0.5 rounded whitespace-nowrap">
-                        停 {(s.strategy?.stop_loss ?? 0).toFixed(1)}
-                      </span>
-                      <span className="text-[10px] font-mono bg-emerald-50 text-emerald-700 border border-emerald-200 px-1.5 py-0.5 rounded whitespace-nowrap">
-                        ①{(s.strategy?.target1 ?? s.strategy?.target ?? 0).toFixed(1)}{s.strategy?.upside != null ? `(+${s.strategy.upside.toFixed(1)}%)` : ''}
-                      </span>
-                      {s.strategy?.target2 != null && (
-                        <span className="text-[10px] font-mono bg-teal-50 text-teal-700 border border-teal-200 px-1.5 py-0.5 rounded whitespace-nowrap">
-                          ②{s.strategy.target2.toFixed(1)}{s.strategy?.upside2 != null ? `(+${s.strategy.upside2.toFixed(1)}%)` : ''}
-                        </span>
-                      )}
-                      {s.strategy?.target3 != null && (
-                        <span className="text-[10px] font-mono bg-violet-50 text-violet-700 border border-violet-200 px-1.5 py-0.5 rounded whitespace-nowrap">
-                          ③{s.strategy.target3.toFixed(1)}{s.strategy?.upside3 != null ? `(+${s.strategy.upside3.toFixed(1)}%)` : ''}
-                        </span>
-                      )}
-                    </div>
-                  )}
-                </button>
-                <div className="flex flex-col items-end gap-1 shrink-0">
-                  <span className="text-sm font-mono font-bold text-gray-800">{(s.close ?? 0) > 0 ? (s.close ?? 0).toLocaleString() : '—'}</span>
-                  <WatchlistToggleBtn stockId={s.stock_id} />
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {pageItems.length === 0 && (
-          <div className="py-10 text-center text-gray-400 text-xs">沒有符合條件的結果</div>
-        )}
-
+        {/* Pagination */}
         {totalPages > 1 && (
-          <div className="px-4 py-3 border-t border-gray-200 bg-gray-50 flex items-center justify-between text-xs text-gray-500">
-            <button
-              onClick={() => setPage((p) => Math.max(1, p - 1))}
-              disabled={page === 1}
-              className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg hover:bg-gray-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-            >
-              <ChevronLeft className="w-3.5 h-3.5" /> 上一鄁
-            </button>
-            <span>
-              第 {page} / {totalPages} 頁　（共 {filtered.length} 筆）
-            </span>
-            <button
-              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-              disabled={page === totalPages}
-              className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg hover:bg-gray-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-            >
-              下一頁 <ChevronRight className="w-3.5 h-3.5" />
-            </button>
+          <div className="px-4 py-3 border-t border-gray-200 flex items-center justify-between">
+            <span className="text-xs text-gray-500">共 {filtered.length} 筆，第 {page} / {totalPages} 頁</span>
+            <div className="flex gap-1">
+              <button
+                disabled={page === 1}
+                onClick={() => setPage((p) => p - 1)}
+                className="p-1 rounded hover:bg-gray-100 disabled:opacity-40"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                disabled={page === totalPages}
+                onClick={() => setPage((p) => p + 1)}
+                className="p-1 rounded hover:bg-gray-100 disabled:opacity-40"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
           </div>
         )}
       </div>
 
       {selectedStock && (
-        <StockDetailModal stock={selectedStock} onClose={() => setSelectedStock(null)} />
+        <StockDetailModal
+          stock={selectedStock}
+          onClose={() => setSelectedStock(null)}
+        />
       )}
     </>
   );
