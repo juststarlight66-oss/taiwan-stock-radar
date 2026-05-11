@@ -6,7 +6,7 @@ import SummaryCards from './SummaryCards';
 import Top10Table from './Top10Table';
 import DisclaimerModal from './DisclaimerModal';
 import TopNav from './TopNav';
-import { RefreshCw, Radar, GitFork } from 'lucide-react';
+import { RefreshCw, ScanLine } from 'lucide-react';
 
 export default function MainDashboard() {
   const [showDisclaimer, setShowDisclaimer] = useState(false);
@@ -61,7 +61,7 @@ export default function MainDashboard() {
             <div className="flex items-start justify-between flex-wrap gap-4">
               <div>
                 <h1 className="text-lg font-bold text-white flex items-center gap-2">
-                  <Radar className="w-5 h-5 text-sky-400" />
+                  <ScanLine className="w-5 h-5 text-sky-400" />
                   每日底部反轉掃描
                   <span className="text-[10px] text-sky-400 bg-sky-500/10 border border-sky-500/20 px-2 py-0.5 rounded-full font-normal">AI 驅動</span>
                 </h1>
@@ -86,68 +86,23 @@ export default function MainDashboard() {
             </div>
           </div>
 
-          {isLoading ? (
-            <div className="space-y-3">
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-                {[...Array(4)].map((_, i) => <div key={i} className="skeleton h-24 rounded-xl" />)}
-              </div>
-              <div className="skeleton h-64 rounded-xl" />
-            </div>
-          ) : scanData ? (
+          {scanData ? (
             <>
               <SummaryCards data={scanData} />
               <Top10Table
-                stocks={scanData.top10}
+                stocks={scanData.top10 ?? []}
                 scanDate={scanData.scan_date}
                 scannedCount={scanData.scanned_count}
                 isDemo={isDemo}
               />
             </>
+          ) : isLoading ? (
+            <div className="text-center py-20 text-gray-400 text-sm">正在載入掃描資料...</div>
           ) : (
-            <div className="rounded-xl border border-gray-200 bg-gray-50 p-16 text-center">
-              <Radar className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-              <p className="text-sm text-gray-500">尚無掃描資料</p>
-              <p className="text-xs text-gray-400 mt-1">等待今日 19:00 掃描完成</p>
-            </div>
+            <div className="text-center py-20 text-gray-400 text-sm">目前無掃描資料</div>
           )}
         </div>
       </main>
-
-      <footer className="border-t border-gray-200 py-6 mt-4">
-        <div className="max-w-screen-xl mx-auto px-4">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-            <div className="flex items-center gap-2">
-              <Radar className="w-4 h-4 text-sky-400" />
-              <span className="text-sm font-semibold text-gray-700">台股雷達</span>
-              <span className="text-[10px] text-gray-400">Taiwan Stock Radar v3.1</span>
-            </div>
-            <div className="flex flex-wrap items-center justify-center gap-4 text-[11px] text-gray-500">
-              <span>資料來源：TWSE OpenAPI</span>
-              <span className="hidden sm:inline text-gray-300">|</span>
-              <span>每日 19:00 自動更新（交易日）</span>
-              <span className="hidden sm:inline text-gray-300">|</span>
-              <button
-                onClick={() => setShowDisclaimer(true)}
-                className="text-gray-500 hover:text-gray-700 transition-colors underline underline-offset-2"
-              >
-                免責聲明
-              </button>
-              <span className="hidden sm:inline text-gray-300">|</span>
-              <a
-                href="https://github.com/juststarlight66-oss/taiwan-stock-radar"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-500 hover:text-gray-700 transition-colors flex items-center gap-1"
-              >
-                <GitFork className="w-3 h-3" />GitHub
-              </a>
-            </div>
-          </div>
-          <p className="text-center text-[10px] text-gray-400 mt-3">
-            本系統資料僅供參考，不構成任何投資建議。投資有風險，請審慎評估個人財務狀況。過去績效不代表未來獲利保證。
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }
