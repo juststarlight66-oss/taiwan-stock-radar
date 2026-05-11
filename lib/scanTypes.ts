@@ -138,15 +138,13 @@ export function getStockTarget2(s: ScanStock): number | undefined {
 export function getStockTarget3(s: ScanStock): number | undefined {
   return s.target3 ?? s.strategy?.target3;
 }
-
-// ── getStockDimensions：取得五維分數（相容平坦 & 巢狀兩種格式）──
 export function getStockDimensions(s: ScanStock): ScanDimensions {
   if (s.dimensions) return s.dimensions;
   return {
     technical:   s.technical_score   ?? 0,
     fundamental: s.fundamental_score ?? 0,
-    chips:       s.chips_score       ?? 0,
     news:        s.news_score        ?? 0,
     sentiment:   s.sentiment_score   ?? 0,
+    chips:       s.chips_score       ?? 0,
   };
 }
