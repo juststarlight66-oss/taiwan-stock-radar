@@ -28,17 +28,12 @@ jobs:
         run: |
           python3 - << 'EOF'
           import json, os
-
           src = 'public/data/all_scores.json'
           dst = 'public/data/all_stocks_index.json'
-
           if not os.path.exists(src):
-              print(f'[skip] {src} not found, skipping index generation')
               exit(0)
-
           with open(src, 'r', encoding='utf-8') as f:
               data = json.load(f)
-
           if isinstance(data, list):
               stocks = data
               scan_date = ''
@@ -47,46 +42,29 @@ jobs:
               stocks = data.get('all_stock_scores', data.get('stocks', []))
               scan_date = data.get('scan_date', '')
               scanned_count = data.get('scanned_count', len(stocks))
-
           index = {
               'scan_date': scan_date,
               'scanned_count': scanned_count,
-              'stocks': [
-                  {
-                      'stock_id': s.get('stock_id', ''),
-                      'name': s.get('stock_name', s.get('name', '')),
-                      'sector': s.get('sector', ''),
-                      'close': s.get('close', 0),
-                      'change_pct': s.get('change_pct', 0),
-                      'total_score': s.get('total_score', 0),
-                      'recommendation': s.get('recommendation', s.get('strategy', {}).get('recommendation', '') if isinstance(s.get('strategy'), dict) else ''),
-                  }
-                  for s in stocks
-              ]
+              'stocks': [{
+                  'stock_id': s.get('stock_id', ''),
+                  'name': s.get('stock_name', s.get('name', '')),
+                  'sector': s.get('sector', ''),
+                  'close': s.get('close', 0),
+                  'change_pct': s.get('change_pct', 0),
+                  'total_score': s.get('total_score', 0),
+                  'recommendation': s.get('recommendation', ''),
+              } for s in stocks]
           }
-
           with open(dst, 'w', encoding='utf-8') as f:
               json.dump(index, f, ensure_ascii=False, separators=(',', ':'))
-
-          size_kb = os.path.getsize(dst) // 1024
-          print(f'[ok] Generated {dst}: {len(index["stocks"])} stocks, {size_kb} KB')
+          print(f'[ok] {len(index["stocks"])} stocks indexed')
           EOF
 
       - name: Install dependencies
-        run: npm install --no-fund --no-audit
+        run: npm install --no-fund --no-audit --silent
 
-      - name: TypeScript Check
-        run: npx tsc --noEmit 2>&1 | head -200 || true
-
-      - name: Build (capture output)
-        run: |
-          set +e
-          npm run build > /tmp/build_out.txt 2>&1
-          BUILD_EXIT=$?
-          head -80 /tmp/build_out.txt
-          echo "--- LAST 80 LINES ---"
-          tail -80 /tmp/build_out.txt
-          exit $BUILD_EXIT
+      - name: Build
+        run: npm run build
 
       - name: Add .nojekyll
         run: touch out/.nojekyll
