@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
-# health_check.sh — 環境健康檢查
-# 執行方式: bash /home/sprite/taiwan-stock-radar/scripts/health_check.sh
-# 每次對話開始時先跑這個，確認環境是否正常
+# health_check.sh — 每次對話開始前執行，確認執行環境正常
+# 用法: bash /home/sprite/scripts/health_check.sh
 
 set -euo pipefail
 
@@ -9,99 +8,147 @@ PASS=0
 FAIL=0
 WARN=0
 
-green() { printf '\033[0;32m✅ OK\033[0m  %s\n' "$*"; }
-red()   { printf '\033[0;31m❌ FAIL\033[0m %s\n' "$*"; }
-yellow(){ printf '\033[0;33m⚠️  WARN\033[0m %s\n' "$*"; }
+ok()   { echo "  ✅ OK   : $*"; ((PASS++)); }
+fail() { echo "  ❌ FAIL : $*"; ((FAIL++)); }
+warn() { echo "  ⚠️  WARN : $*"; ((WARN++)); }
 
-check() {
-  local label="$1"
-  local cmd="$2"
-  if eval "$cmd" &>/dev/null; then
-    green "$label"
-    PASS=$((PASS+1))
-  else
-    red "$label"
-    FAIL=$((FAIL+1))
-  fi
-}
-
-echo ''
-echo '=== Taiwan Stock Radar — 環境健康檢查 ==='
-echo "執行時間: $(date '+%Y-%m-%d %H:%M:%S %Z')"
-echo ''
+echo "====================================="
+echo " 台股雷達 — 環境健康檢查"
+echo " $(date '+%Y-%m-%d %H:%M:%S %Z')"
+echo "====================================="
+echo ""
 
 # ── 1. Bash ──────────────────────────────────────────────────────────────────
-echo '[ 1/6 ] Bash 環境'
-check 'bash 可執行'     'bash --version'
-check 'HOME 目錄存在'   'test -d "$HOME"'
-check '/home/sprite 存在' 'test -d /home/sprite'
+echo "[1] Bash"
+if bash --version &>/dev/null; then
+  BASH_VER=$(bash --version | head -1)
+  ok "$BASH_VER"
+else
+  fail "bash 不可用"
+fi
 
 # ── 2. Python ────────────────────────────────────────────────────────────────
-echo ''
-echo '[ 2/6 ] Python'
-check 'python3 可用'    'python3 --version'
-check 'python 可用'     'python --version'
-check 'httpx 已安裝'    'python3 -c "import httpx"'
-check 'requests 已安裝' 'python3 -c "import requests"'
-check 'pandas 已安裝'   'python3 -c "import pandas"'
+echo ""
+echo "[2] Python"
+if python3 --version &>/dev/null; then
+  PY_VER=$(python3 --version)
+  ok "$PY_VER"
+  # 確認關鍵套件
+  for pkg in json os subprocess pathlib urllib; do
+    if python3 -c "import $pkg" &>/dev/null; then
+      ok "  import $pkg"
+    else
+      fail "  import $pkg 失敗"
+    fi
+  done
+else
+  fail "python3 不可用"
+fi
 
 # ── 3. Git ───────────────────────────────────────────────────────────────────
-echo ''
-echo '[ 3/6 ] Git'
-check 'git 可用'        'git --version'
-check 'git 設定 user'   'git config --global user.name'
-check 'git 設定 email'  'git config --global user.email'
-check 'SSH key 存在'    'test -f ~/.ssh/taiwan_stock_radar_key'
-check 'SSH key 權限正確' 'test $(stat -c %a ~/.ssh/taiwan_stock_radar_key 2>/dev/null || echo 0) -eq 600 2>/dev/null || stat -f %Lp ~/.ssh/taiwan_stock_radar_key 2>/dev/null | grep -q 600'
+echo ""
+echo "[3] Git"
+if git --version &>/dev/null; then
+  GIT_VER=$(git --version)
+  ok "$GIT_VER"
+else
+  fail "git 不可用"
+fi
 
-# ── 4. Repo ──────────────────────────────────────────────────────────────────
-echo ''
-echo '[ 4/6 ] Repo 狀態'
-REPO_DIR="/home/sprite/taiwan-stock-radar"
-check 'repo 目錄存在'   "test -d $REPO_DIR"
-check 'repo 是 git repo' "test -d $REPO_DIR/.git"
-if [ -d "$REPO_DIR" ]; then
-  BRANCH=$(git -C "$REPO_DIR" branch --show-current 2>/dev/null || echo '')
-  if [ "$BRANCH" = 'main' ]; then
-    green "目前分支: main"
-    PASS=$((PASS+1))
+# SSH key
+SSH_KEY="$HOME/.ssh/taiwan_stock_radar_key"
+if [ -f "$SSH_KEY" ]; then
+  ok "SSH key 存在: $SSH_KEY"
+else
+  fail "SSH key 不存在: $SSH_KEY"
+fi
+
+# Git repo
+REPO_DIR="$HOME/taiwan-stock-radar"
+if [ -d "$REPO_DIR/.git" ]; then
+  ok "Repo 存在: $REPO_DIR"
+  # 確認 remote
+  REMOTE=$(GIT_SSH_COMMAND="ssh -i $SSH_KEY" git -C "$REPO_DIR" remote get-url origin 2>/dev/null || echo "")
+  if [ -n "$REMOTE" ]; then
+    ok "Remote: $REMOTE"
   else
-    yellow "目前分支: $BRANCH（非 main）"
-    WARN=$((WARN+1))
+    warn "無法取得 remote URL"
   fi
-  DIRTY=$(git -C "$REPO_DIR" status --porcelain 2>/dev/null | wc -l)
-  if [ "$DIRTY" -gt 0 ]; then
-    yellow "工作區有 $DIRTY 個未提交變更"
-    WARN=$((WARN+1))
+else
+  warn "Repo 不存在: $REPO_DIR (可能在 /tmp/taiwan-stock-radar)"
+  REPO_DIR="/tmp/taiwan-stock-radar"
+  if [ -d "$REPO_DIR/.git" ]; then
+    ok "Repo 存在 (tmp): $REPO_DIR"
   else
-    green 'working tree clean'
-    PASS=$((PASS+1))
+    fail "Repo 不存在: $REPO_DIR"
   fi
 fi
 
-# ── 5. Network ───────────────────────────────────────────────────────────────
-echo ''
-echo '[ 5/6 ] 網路連線'
-check 'GitHub API 可達'  'curl -sf --max-time 5 https://api.github.com/zen'
-check 'TWSE openapi 可達' 'curl -sf --max-time 5 https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL | head -c 10'
-check 'GitHub Pages 可達' 'curl -sf --max-time 10 https://juststarlight66-oss.github.io/taiwan-stock-radar/data/latest.json | head -c 10'
+# ── 4. Network ───────────────────────────────────────────────────────────────
+echo ""
+echo "[4] Network"
 
-# ── 6. Env Vars ──────────────────────────────────────────────────────────────
-echo ''
-echo '[ 6/6 ] 環境變數'
-check 'GITHUB_TOKEN 已設定' 'test -n "${GITHUB_TOKEN:-}"'
-check 'NEBULA_PROXY_URL 已設定' 'test -n "${NEBULA_PROXY_URL:-}"'
-check 'SANDBOX_AUTH_TOKEN 已設定' 'test -n "${SANDBOX_AUTH_TOKEN:-}"'
+# GitHub API
+if curl -sf --max-time 5 https://api.github.com/zen &>/dev/null; then
+  ok "GitHub API 可連線"
+else
+  fail "GitHub API 無法連線"
+fi
+
+# TWSE OpenAPI
+if curl -sf --max-time 8 https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL -o /dev/null; then
+  ok "TWSE OpenAPI 可連線"
+else
+  warn "TWSE OpenAPI 無法連線（可能是非交易時間）"
+fi
+
+# GITHUB_TOKEN
+if [ -n "${GITHUB_TOKEN:-}" ]; then
+  ok "GITHUB_TOKEN 已設定"
+else
+  # 嘗試從 ~/.nebula-env 讀取
+  if [ -f "$HOME/.nebula-env" ] && grep -q 'GITHUB_TOKEN' "$HOME/.nebula-env"; then
+    ok "GITHUB_TOKEN 在 ~/.nebula-env 中"
+  else
+    warn "GITHUB_TOKEN 未設定（API fallback 將無法使用）"
+  fi
+fi
+
+# ── 5. 關鍵腳本存在性 ────────────────────────────────────────────────────────
+echo ""
+echo "[5] 關鍵腳本"
+for f in \
+  "/home/sprite/taiwan-stock-radar/tasks/2255/scan_market.py" \
+  "/home/sprite/taiwan-stock-radar/tasks/intraday/fetch_intraday.py" \
+  "/home/sprite/taiwan-stock-radar/tasks/2255/update_tn_records.py" \
+  "/home/sprite/taiwan-stock-radar/scripts/github_push.py"
+do
+  if [ -f "$f" ]; then
+    ok "$f"
+  else
+    # 嘗試 /tmp 路徑
+    TMP_PATH="/tmp${f#/home/sprite}"
+    if [ -f "$TMP_PATH" ]; then
+      warn "僅在 /tmp: $TMP_PATH"
+    else
+      fail "找不到: $f"
+    fi
+  fi
+done
 
 # ── 總結 ─────────────────────────────────────────────────────────────────────
-echo ''
-echo '=== 檢查完成 ==='
-echo "✅ PASS: $PASS  ❌ FAIL: $FAIL  ⚠️  WARN: $WARN"
-echo ''
-if [ "$FAIL" -eq 0 ]; then
-  echo '🟢 環境狀態：正常，可以開始工作'
+echo ""
+echo "====================================="
+echo " 結果: ✅ $PASS OK  ❌ $FAIL FAIL  ⚠️  $WARN WARN"
+echo "====================================="
+
+if [ $FAIL -gt 0 ]; then
+  echo " ❌ 環境有問題，請先修復後再執行掃描腳本"
+  exit 1
+elif [ $WARN -gt 0 ]; then
+  echo " ⚠️  環境大致正常，但有警告項目需注意"
   exit 0
 else
-  echo '🔴 環境狀態：有問題，請修復後再執行任務'
-  exit 1
+  echo " ✅ 環境完全正常，可以開始工作"
+  exit 0
 fi

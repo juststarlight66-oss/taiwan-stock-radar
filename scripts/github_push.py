@@ -1,46 +1,46 @@
 #!/usr/bin/env python3
 """
-github_push.py — 通用的「git push with GitHub API fallback」工具
+github_push.py — 通用 git push with GitHub Contents API fallback
 
-用法（在其他腳本中 import）:
+用法（在其他腳本中 import）：
     import sys
-    sys.path.insert(0, '/home/sprite/taiwan-stock-radar/scripts')
-    from github_push import push_with_fallback
+    sys.path.insert(0, str(Path(__file__).parent.parent / 'scripts'))
+    from github_push import git_push_with_fallback
 
-    # 推送單一或多個檔案
-    push_with_fallback(
-        repo_dir='/home/sprite/taiwan-stock-radar',
-        files=['public/data/intraday.json', 'public/data/latest.json'],
-        commit_message='chore: update data',
+    git_push_with_fallback(
+        repo_dir=Path('/home/sprite/taiwan-stock-radar'),
+        files_to_upload=[
+            {'local_path': Path('/path/to/file.json'), 'repo_path': 'public/data/file.json'},
+        ],
+        commit_message='data: update file.json',
+        ssh_key='~/.ssh/taiwan_stock_radar_key',
     )
-
-直接執行（測試模式）:
-    python3 scripts/github_push.py
 """
 
 import base64
 import json
 import os
 import subprocess
-import sys
 import urllib.error
 import urllib.request
 from pathlib import Path
-from typing import List, Optional
 
 
-# ── Config ────────────────────────────────────────────────────────────────────
-
-OWNER = "juststarlight66-oss"
-REPO  = "taiwan-stock-radar"
-BRANCH = "main"
-API_BASE = f"https://api.github.com/repos/{OWNER}/{REPO}/contents"
+GITHUB_OWNER = "juststarlight66-oss"
+GITHUB_REPO  = "taiwan-stock-radar"
+GITHUB_BRANCH = "main"
 
 
-# ── Token resolution ─────────────────────────────────────────────────────────
+def _log(msg: str):
+    import datetime
+    ts = datetime.datetime.now(
+        datetime.timezone(datetime.timedelta(hours=8))
+    ).strftime("%H:%M:%S")
+    print(f"[{ts}] {msg}", flush=True)
+
 
 def _get_token() -> str:
-    """從環境變數或 ~/.nebula-env 取得 GITHUB_TOKEN"""
+    """取得 GITHUB_TOKEN，先從環境變數，再從 ~/.nebula-env"""
     token = os.environ.get("GITHUB_TOKEN", "")
     if token:
         return token
@@ -54,130 +54,131 @@ def _get_token() -> str:
     return ""
 
 
-# ── GitHub API helpers ───────────────────────────────────────────────────────
-
-def _get_sha(path_in_repo: str, token: str) -> str:
-    """取得 repo 中檔案的目前 SHA（不存在回傳空字串）"""
-    url = f"{API_BASE}/{path_in_repo}?ref={BRANCH}"
-    req = urllib.request.Request(url, headers={
+def _api_upload_file(
+    token: str,
+    local_path: Path,
+    repo_path: str,
+    commit_message: str,
+    owner: str = GITHUB_OWNER,
+    repo: str = GITHUB_REPO,
+    branch: str = GITHUB_BRANCH,
+) -> bool:
+    """用 GitHub Contents API 上傳單一檔案，回傳是否成功"""
+    api_url = f"https://api.github.com/repos/{owner}/{repo}/contents/{repo_path}"
+    headers = {
         "Authorization": f"token {token}",
         "Accept": "application/vnd.github.v3+json",
-    })
+        "Content-Type": "application/json",
+    }
+
+    # 取得現有 SHA（更新時需要）
+    sha = ""
     try:
-        with urllib.request.urlopen(req, timeout=15) as resp:
-            return json.loads(resp.read())["sha"]
+        req = urllib.request.Request(api_url, headers=headers)
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            sha = json.loads(resp.read()).get("sha", "")
     except urllib.error.HTTPError as e:
-        if e.code == 404:
-            return ""  # 新檔案
-        raise
+        if e.code != 404:
+            _log(f"  [API] get SHA HTTP {e.code}: {repo_path}")
+    except Exception as e:
+        _log(f"  [API] get SHA error: {e}")
 
+    # 讀取本地檔案
+    try:
+        content = local_path.read_bytes()
+    except Exception as e:
+        _log(f"  [API] 讀取本地檔案失敗: {e}")
+        return False
 
-def _upload_file(local_path: Path, path_in_repo: str, token: str, commit_msg: str) -> bool:
-    """用 GitHub Contents API 上傳單一檔案，成功回傳 True"""
-    url = f"{API_BASE}/{path_in_repo}"
-    sha = _get_sha(path_in_repo, token)
-    content = base64.b64encode(local_path.read_bytes()).decode("ascii")
     payload: dict = {
-        "message": commit_msg + "\n\nCo-Authored-By: Nebula <noreply@nebula.gg>",
-        "content": content,
-        "branch":  BRANCH,
+        "message": commit_message + "\n\nCo-Authored-By: Nebula <noreply@nebula.gg>",
+        "content": base64.b64encode(content).decode("ascii"),
+        "branch": branch,
     }
     if sha:
         payload["sha"] = sha
-    data = json.dumps(payload).encode("utf-8")
-    req = urllib.request.Request(url, data=data, headers={
-        "Authorization": f"token {token}",
-        "Accept":        "application/vnd.github.v3+json",
-        "Content-Type":  "application/json",
-    }, method="PUT")
+
     try:
+        data = json.dumps(payload).encode("utf-8")
+        req = urllib.request.Request(api_url, data=data, headers=headers, method="PUT")
         with urllib.request.urlopen(req, timeout=30) as resp:
-            print(f"  [API fallback] ✅ {path_in_repo} → HTTP {resp.status}")
+            _log(f"  [API] ✅ {repo_path} uploaded (HTTP {resp.status})")
         return True
     except urllib.error.HTTPError as e:
-        body = e.read()[:300].decode("utf-8", errors="replace")
-        print(f"  [API fallback] ❌ {path_in_repo} HTTP {e.code}: {body}")
+        _log(f"  [API] ❌ {repo_path} HTTP {e.code}: {e.read()[:200]}")
         return False
     except Exception as e:
-        print(f"  [API fallback] ❌ {path_in_repo}: {e}")
+        _log(f"  [API] ❌ {repo_path}: {e}")
         return False
 
 
-# ── Main public function ─────────────────────────────────────────────────────
-
-def push_with_fallback(
-    repo_dir: str,
-    files: List[str],
+def git_push_with_fallback(
+    repo_dir: Path,
+    files_to_upload: list[dict],
     commit_message: str,
-    ssh_key: Optional[str] = None,
+    ssh_key: str = "~/.ssh/taiwan_stock_radar_key",
+    branch: str = "main",
+    owner: str = GITHUB_OWNER,
+    repo: str = GITHUB_REPO,
 ) -> bool:
     """
-    先嘗試 git push，失敗時自動改用 GitHub Contents API 上傳指定檔案。
+    嘗試 git push；失敗時改用 GitHub Contents API 逐檔上傳。
 
-    Args:
-        repo_dir: 本地 repo 根目錄的絕對路徑
-        files:    要上傳的檔案路徑（相對於 repo_dir，例如 'public/data/intraday.json'）
-        commit_message: commit 訊息
-        ssh_key:  SSH key 路徑（選填，預設 ~/.ssh/taiwan_stock_radar_key）
-
-    Returns:
-        True 表示成功（git 或 API 任一成功），False 表示全部失敗
+    files_to_upload: [
+        {'local_path': Path(...), 'repo_path': 'public/data/xxx.json'},
+        ...
+    ]
+    回傳: True = 至少有一個方法成功
     """
-    repo = Path(repo_dir)
-    key  = ssh_key or os.path.expanduser("~/.ssh/taiwan_stock_radar_key")
-    env  = {**os.environ, "GIT_SSH_COMMAND": f"ssh -i {key} -o IdentitiesOnly=yes -o StrictHostKeyChecking=no"}
+    ssh_key_expanded = os.path.expanduser(ssh_key)
+    env = os.environ.copy()
+    env["GIT_SSH_COMMAND"] = f"ssh -i {ssh_key_expanded} -o IdentitiesOnly=yes"
 
-    # ── Step 1: git add + commit ──────────────────────────────────────────────
-    for f in files:
-        subprocess.run(["git", "add", f], cwd=repo, env=env, capture_output=True)
-    r_diff = subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=repo, env=env)
-    if r_diff.returncode == 0:
-        print("  [push_with_fallback] nothing to commit")
-        return True  # 沒變更視為成功
+    # ── Step 1: git push ──────────────────────────────────────────────────────
+    try:
+        r = subprocess.run(
+            ["git", "push", "origin", branch],
+            cwd=repo_dir,
+            capture_output=True,
+            text=True,
+            env=env,
+            timeout=60,
+        )
+        if r.returncode == 0:
+            _log("  git push: ✅ OK")
+            return True
+        else:
+            _log(f"  git push FAILED: {r.stderr.strip()[:150]}")
+    except Exception as e:
+        _log(f"  git push exception: {e}")
 
-    full_msg = commit_message + "\n\nCo-Authored-By: Nebula <noreply@nebula.gg>"
-    subprocess.run(["git", "commit", "-m", full_msg], cwd=repo, env=env, capture_output=True)
-
-    # ── Step 2: git push ─────────────────────────────────────────────────────
-    r_push = subprocess.run(
-        ["git", "push", "origin", BRANCH],
-        cwd=repo, env=env, capture_output=True, text=True
-    )
-    if r_push.returncode == 0:
-        print("  [push_with_fallback] ✅ git push OK")
-        return True
-
-    print(f"  [push_with_fallback] git push FAILED: {r_push.stderr.strip()[:120]}")
-    print("  [push_with_fallback] 切換 GitHub API fallback...")
-
-    # ── Step 3: GitHub API fallback ───────────────────────────────────────────
+    # ── Step 2: GitHub Contents API fallback ─────────────────────────────────
+    _log("  切換至 GitHub Contents API fallback...")
     token = _get_token()
     if not token:
-        print("  [push_with_fallback] ❌ 找不到 GITHUB_TOKEN，無法使用 API fallback")
+        _log("  [API] ❌ 找不到 GITHUB_TOKEN，放棄")
         return False
 
-    api_msg = commit_message + " [via API fallback]"
     all_ok = True
-    for f in files:
-        local_path = repo / f
-        if not local_path.exists():
-            print(f"  [push_with_fallback] ⚠️  {f} 不存在，跳過")
-            continue
-        ok = _upload_file(local_path, f, token, api_msg)
+    for f in files_to_upload:
+        local_path = Path(f["local_path"])
+        repo_path  = f["repo_path"]
+        ok = _api_upload_file(
+            token=token,
+            local_path=local_path,
+            repo_path=repo_path,
+            commit_message=commit_message,
+            owner=owner,
+            repo=repo,
+            branch=branch,
+        )
         if not ok:
             all_ok = False
 
     return all_ok
 
 
-# ── Self-test ────────────────────────────────────────────────────────────────
-
 if __name__ == "__main__":
-    print("=== github_push.py 自我測試 ===")
-    token = _get_token()
-    if token:
-        print(f"✅ GITHUB_TOKEN 已取得（前 8 碼: {token[:8]}...）")
-    else:
-        print("❌ GITHUB_TOKEN 未設定，API fallback 無法使用")
-    print("語法檢查：OK")
-    print("import 測試：OK")
+    # 語法自測
+    print("github_push.py 語法正確 ✅")
+    print(f"預設 repo: {GITHUB_OWNER}/{GITHUB_REPO} @ {GITHUB_BRANCH}")

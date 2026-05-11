@@ -96,174 +96,122 @@ def fetch_market_breadth() -> list[str]:
 
 
 def fetch_day_history_bulk(date: str) -> dict[str, list[dict]]:
-    """Fetch ALL stocks' monthly aggregate data across 5 months from STOCK_DAY_ALL.
-
-    STOCK_DAY_ALL returns ONE bar per stock per API call, each bar representing the
-    last trading day of the queried month with fields:
-      Date, Code, Name, TradeVolume, TradeValue, OpeningPrice, HighestPrice,
-      LowestPrice, ClosingPrice, Change, Transaction
-
-    By fetching 5 months we get up to 5 bars per stock (oldest → newest),
-    which is enough for RSI(5), MA5, volume avg, and 20-bar high approximation.
-    Bars are appended in chronological order (oldest month first).
-    """
-    result: dict[str, list[dict]] = {}
+    """Fetch ALL stocks' monthly aggregate data across 5 months from STOCK_DAY_ALL."""
+    months_back = 5
     now_tw = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=8)))
-
-    # Build list of the last 5 month-start dates in chronological order (oldest first)
-    month_dates = []
-    cursor = now_tw.replace(day=1)
-    for _ in range(5):
-        month_dates.append(cursor.strftime("%Y%m01"))
-        cursor = (cursor - datetime.timedelta(days=1)).replace(day=1)
-    month_dates.reverse()  # oldest first so bars accumulate chronologically
-
-    for d in month_dates:
-        url = TWSE_OPENAPI + f"exchangeReport/STOCK_DAY_ALL?date={d}"
+    results: dict[str, list[dict]] = {}
+    for i in range(months_back):
+        dt = now_tw - datetime.timedelta(days=30 * i)
+        date_str = dt.strftime("%Y%m%d")
+        url = TWSE_OPENAPI + f"exchangeReport/STOCK_DAY_ALL?date={date_str}"
         try:
             data = fetch_json(url, timeout=30)
             if isinstance(data, list):
-                fetched = 0
                 for item in data:
-                    sid = item.get("Code") or ""
+                    sid = item.get("Code", "")
                     if sid:
-                        if sid not in result:
-                            result[sid] = []
-                        result[sid].append(item)
-                        fetched += 1
-                log(f"  STOCK_DAY_ALL {d}: {fetched} rows")
+                        results.setdefault(sid, []).append(item)
+            log(f"  history {date_str}: {len(data) if isinstance(data, list) else 0} records")
         except Exception as e:
-            log(f"  STOCK_DAY_ALL error ({d}): {e}")
-
-    log(f"  history_bulk: {len(result)} stocks, up to {len(month_dates)} bars each")
-    return result
+            log(f"  history fetch skipped {date_str}: {e}")
+    return results
 
 
-def _calc_rsi(closes: list[float], period: int = 5) -> float | None:
-    """Compute RSI over the last `period` closes using standard avg-gain/avg-loss formula."""
-    if len(closes) < 2:
-        return None
-    # Use up to `period+1` most recent closes so we get `period` changes
-    window = closes[-(period + 1):]
-    gains, losses = [], []
-    for i in range(1, len(window)):
-        delta = window[i] - window[i - 1]
-        if delta > 0:
-            gains.append(delta)
-            losses.append(0.0)
-        else:
-            gains.append(0.0)
-            losses.append(abs(delta))
-    if not gains:
-        return 50.0
-    avg_gain = sum(gains) / len(gains)
-    avg_loss = sum(losses) / len(losses)
-    if avg_loss == 0:
-        return 100.0
-    rs = avg_gain / avg_loss
-    return round(100 - (100 / (1 + rs)), 1)
+# ── Scoring ───────────────────────────────────────────────────────────────────
 
-
-def compute_score(sid: str, quote: dict, hist: list[dict]) -> tuple[float, dict]:
-    """Score a stock for intraday 隔日沖 potential (0-100).
-
-    Dimensions:
-      1. Momentum Quality  0-25
-      2. RSI(5) Trend      0-20
-      3. MA5 Breakthrough  0-20
-      4. Volume Surge      0-15
-      5. New High Proximity 0-20
-    Total max = 100
-    """
+def compute_score(stock_id: str, quote: dict, hist: list[dict]) -> tuple[float, dict]:
+    """Five-dimension intraday score (0-100)."""
     score = 0.0
-    details = {}
+    details: dict = {}
 
-    cur = quote.get("current")
-    prev_close = quote.get("prev_close")
-    volume = quote.get("volume", 0)
+    cur   = quote.get("current") or 0
+    prev  = quote.get("prev_close") or 0
+    high  = quote.get("high") or 0
+    low   = quote.get("low") or 0
+    open_ = quote.get("open") or 0
+    volume = quote.get("volume") or 0
 
-    if not cur or not prev_close or prev_close <= 0:
+    if prev <= 0:
         return 0.0, details
 
-    change_pct = (cur - prev_close) / prev_close * 100
+    change_pct = (cur - prev) / prev * 100
 
-    # ── Dimension 1: Momentum Quality (0-25) ─────────────────────────────────
-    # 3-4.5% → 15  |  4.5-6% → 22  |  6-7.5% → 25 (peak)  |  7.5-9.5% → 18
-    if 3.0 <= change_pct < 4.5:
-        dim1 = 15
-        details["momentum"] = "溫和強勢"
-    elif 4.5 <= change_pct < 6.0:
-        dim1 = 22
-        details["momentum"] = "強勢推進"
-    elif 6.0 <= change_pct < 7.5:
+    # ── Dimension 1: Momentum (0-30) ──────────────────────────────────────────
+    if change_pct >= 8.0:
+        dim1 = 30
+        details["momentum"] = "極強"
+    elif change_pct >= 6.0:
         dim1 = 25
-        details["momentum"] = "最強動能"
-    elif 7.5 <= change_pct < 9.5:
-        dim1 = 18
-        details["momentum"] = "近漲停警戒"
+        details["momentum"] = "強勢"
+    elif change_pct >= 4.5:
+        dim1 = 20
+        details["momentum"] = "偏強"
+    elif change_pct >= 3.0:
+        dim1 = 15
+        details["momentum"] = "溫和"
     else:
-        dim1 = 0
-        details["momentum"] = "不足"
-    score = dim1  # start fresh; accumulate other dims below
+        dim1 = 5
+        details["momentum"] = "弱"
+    score += dim1
 
-    # ── Dimension 2: RSI(5) Trend (0-20) ─────────────────────────────────────
-    # STOCK_DAY_ALL uses 'ClosingPrice' (not 'Close'); TradeVolume (not 'Volume')
-    closes_hist = [_safe_float(h.get("ClosingPrice")) for h in hist if _safe_float(h.get("ClosingPrice"))]
-    # Append today's current price so RSI reflects today's move
-    if cur and closes_hist:
-        closes_hist = closes_hist + [cur]
-    rsi = _calc_rsi(closes_hist, period=5) if closes_hist else None
-    details["rsi"] = rsi if rsi is not None else None
-    if rsi is None:
-        dim2 = 10  # neutral fallback when no history
-    elif 50 <= rsi <= 65:
+    # ── Dimension 2: Intraday RSI proxy (0-20) ────────────────────────────────
+    if open_ > 0 and high > 0 and low > 0:
+        intraday_range = high - low
+        if intraday_range > 0:
+            rsi_proxy = (cur - low) / intraday_range * 100
+        else:
+            rsi_proxy = 50
+    else:
+        rsi_proxy = 50
+
+    if rsi_proxy >= 80:
         dim2 = 20
-    elif (40 <= rsi < 50) or (65 < rsi <= 70):
-        dim2 = 14
-    elif 30 <= rsi < 40:
-        dim2 = 8
-    else:  # rsi < 30 or rsi > 75
-        dim2 = 4
+        details["rsi"] = round(rsi_proxy, 1)
+    elif rsi_proxy >= 60:
+        dim2 = 15
+        details["rsi"] = round(rsi_proxy, 1)
+    elif rsi_proxy >= 40:
+        dim2 = 10
+        details["rsi"] = round(rsi_proxy, 1)
+    else:
+        dim2 = 3
+        details["rsi"] = round(rsi_proxy, 1)
     score += dim2
 
-    # ── Dimension 3: MA5 Breakthrough (0-20) ─────────────────────────────────
-    # Need >= 2 bars; use up to last 5 available for the moving average
+    # ── Dimension 3: MA5 status (0-15) ────────────────────────────────────────
+    closes_hist = []
+    for h in hist:
+        c = h.get("ClosingPrice") or h.get("closing_price") or ""
+        try:
+            closes_hist.append(float(str(c).replace(",", "")))
+        except (ValueError, TypeError):
+            pass
+
     if len(closes_hist) >= 2:
-        ma5 = sum(closes_hist[-5:]) / min(len(closes_hist[-5:]), 5)
-        if ma5 > 0:
-            diff_pct = (cur - ma5) / ma5 * 100
-            if diff_pct >= 2.0:
-                dim3 = 20
-                details["ma5_status"] = "強勢突破"
-            elif 0.5 <= diff_pct < 2.0:
-                dim3 = 15
-                details["ma5_status"] = "突破"
-            elif 0 <= diff_pct < 0.5:
-                dim3 = 10
-                details["ma5_status"] = "站上"
-            elif -1.0 <= diff_pct < 0:
-                dim3 = 5
-                details["ma5_status"] = "貼近"
-            else:
-                dim3 = 0
-                details["ma5_status"] = "跌破"
-        else:
+        ma5_bars = closes_hist[-5:] if len(closes_hist) >= 5 else closes_hist
+        ma5 = sum(ma5_bars) / len(ma5_bars)
+        if cur > ma5 * 1.02:
+            dim3 = 15
+            details["ma5_status"] = "強勢突破"
+        elif cur > ma5:
+            dim3 = 10
+            details["ma5_status"] = "站上均線"
+        elif cur > ma5 * 0.98:
             dim3 = 5
-            details["ma5_status"] = "無法計算"
+            details["ma5_status"] = "貼近均線"
+        else:
+            dim3 = 2
+            details["ma5_status"] = "跌破均線"
     else:
-        dim3 = 5  # neutral fallback (< 2 bars)
+        dim3 = 5
         details["ma5_status"] = "資料不足"
     score += dim3
 
     # ── Dimension 4: Volume Surge (0-15) ─────────────────────────────────────
-    # STOCK_DAY_ALL TradeVolume is the monthly cumulative total (not daily).
-    # Divide by ~20 trading days/month to estimate average daily volume.
     vols_hist = [(_safe_int(h.get("TradeVolume")) or 0) // 20 for h in hist if h.get("TradeVolume")]
     if len(vols_hist) >= 2 and volume:
         avg_5d_vol = sum(vols_hist[-5:]) / min(len(vols_hist), 5)
         if avg_5d_vol > 0:
-            # volume from live quote is in lots (張); STOCK_DAY_ALL TradeVolume is in shares
-            # Convert: 1 lot = 1000 shares
             estimated_full_day_vol = volume * 1000 * 1.5
             vol_ratio = estimated_full_day_vol / avg_5d_vol
             if vol_ratio >= 2.5:
@@ -285,12 +233,11 @@ def compute_score(sid: str, quote: dict, hist: list[dict]) -> tuple[float, dict]
             dim4 = 2
             details["vol_ratio"] = "量縮"
     else:
-        dim4 = 5  # neutral fallback
+        dim4 = 5
         details["vol_ratio"] = "資料不足"
     score += dim4
 
     # ── Dimension 5: New High Proximity (0-20) ────────────────────────────────
-    # Need >= 2 bars; use all available (up to 20) for recent high
     if len(closes_hist) >= 2:
         recent_closes = closes_hist[-20:] if len(closes_hist) >= 20 else closes_hist
         high_20 = max(recent_closes)
@@ -315,7 +262,7 @@ def compute_score(sid: str, quote: dict, hist: list[dict]) -> tuple[float, dict]
             dim5 = 2
             details["breakout"] = "偏低"
     else:
-        dim5 = 5  # neutral fallback
+        dim5 = 5
         details["breakout"] = "資料不足"
     score += dim5
 
@@ -328,12 +275,10 @@ def scan_intraday_top5(history_bulk: dict[str, list[dict]]) -> list[dict]:
     all_ids = fetch_market_breadth()
     log(f"  found {len(all_ids)} stocks")
 
-    # Fetch all live quotes in one batch
     log("Fetching live quotes from TWSE/TPEx...")
     quotes = fetch_twse_quotes(all_ids)
     log(f"  got {len(quotes)} quotes")
 
-    # Score each stock
     log("Scoring stocks...")
     scored = []
     etf_skipped = 0
@@ -342,21 +287,17 @@ def scan_intraday_top5(history_bulk: dict[str, list[dict]]) -> list[dict]:
     for sid, q in quotes.items():
         if not q.get("current") or not q.get("volume"):
             continue
-        # ETF filter: skip codes starting with '00' or containing any letter
         if sid.startswith("00") or any(c.isalpha() for c in sid):
             etf_skipped += 1
             continue
-        # Pre-filter: must have valid prev_close to compute change_pct
         cur = q.get("current") or 0
         prev = q.get("prev_close") or 0
         if prev <= 0:
             continue
         change_pct = (cur - prev) / prev * 100
-        # Skip weak stocks (not strong enough for 隔日沖)
         if change_pct < 3.0:
             weak_skipped += 1
             continue
-        # Skip limit-up stocks (locked, can't enter)
         if change_pct >= 9.5:
             limitup_skipped += 1
             continue
@@ -378,18 +319,15 @@ def scan_intraday_top5(history_bulk: dict[str, list[dict]]) -> list[dict]:
 
 
 def fetch_twse_quotes(stock_ids: list[str]) -> dict[str, dict]:
-    """Fetch live quotes from TWSE mis API in batches. Returns dict keyed by stock_id."""
+    """Fetch live quotes from TWSE mis API in batches."""
     results = {}
     if not stock_ids:
         return results
 
     BATCH_SIZE = 120
-
-    # Split into batches to avoid HTTP 414 (URI Too Large)
     batches = [stock_ids[i:i+BATCH_SIZE] for i in range(0, len(stock_ids), BATCH_SIZE)]
 
     for batch_idx, batch in enumerate(batches):
-        # Try TSE first
         tse_query = "|".join(f"tse_{sid}.tw" for sid in batch)
         url = f"{TWSE_API}?ex_ch={urllib.parse.quote(tse_query)}&json=1&delay=0"
         try:
@@ -421,7 +359,6 @@ def fetch_twse_quotes(stock_ids: list[str]) -> dict[str, dict]:
         except Exception as e:
             log(f"  TSE batch {batch_idx+1}/{len(batches)} error: {e}")
 
-        # Retry missing with OTC
         missing = [sid for sid in batch if sid not in results]
         if missing:
             otc_query = "|".join(f"otc_{sid}.two" for sid in missing)
@@ -458,6 +395,66 @@ def fetch_twse_quotes(stock_ids: list[str]) -> dict[str, dict]:
     return results
 
 
+def _api_fallback_intraday(repo_dir: Path, json_path: Path):
+    """git push 失敗時，改用 GitHub Contents API 直接上傳 intraday.json"""
+    import base64, json as _json, urllib.request as _req, urllib.error as _err
+
+    token = os.environ.get("GITHUB_TOKEN", "")
+    if not token:
+        env_file = os.path.expanduser("~/.nebula-env")
+        if os.path.exists(env_file):
+            with open(env_file) as f:
+                for line in f:
+                    if line.strip().startswith("GITHUB_TOKEN="):
+                        token = line.strip().split("=", 1)[1].strip().strip('"').strip("'")
+                        break
+    if not token:
+        log("  [API fallback] 找不到 GITHUB_TOKEN，放棄")
+        return
+
+    owner, repo, branch = "juststarlight66-oss", "taiwan-stock-radar", "main"
+    path_in_repo = "public/data/intraday.json"
+    api_url = f"https://api.github.com/repos/{owner}/{repo}/contents/{path_in_repo}"
+    headers = {
+        "Authorization": f"token {token}",
+        "Accept": "application/vnd.github.v3+json",
+        "Content-Type": "application/json",
+    }
+
+    sha = ""
+    try:
+        req = _req.Request(api_url, headers=headers)
+        with _req.urlopen(req, timeout=15) as resp:
+            sha = _json.loads(resp.read())["sha"]
+    except Exception as e:
+        log(f"  [API fallback] get SHA: {e}")
+
+    try:
+        content = json_path.read_bytes()
+    except Exception as e:
+        log(f"  [API fallback] 讀取 {json_path} 失敗: {e}")
+        return
+
+    payload = {
+        "message": "chore: API fallback — update intraday.json\n\nCo-Authored-By: Nebula <noreply@nebula.gg>",
+        "content": base64.b64encode(content).decode("ascii"),
+        "branch": branch,
+    }
+    if sha:
+        payload["sha"] = sha
+
+    try:
+        data = _json.dumps(payload).encode("utf-8")
+        req = _req.Request(api_url, data=data, headers=headers, method="PUT")
+        with _req.urlopen(req, timeout=30) as resp:
+            status = resp.status
+        log(f"  [API fallback] ✅ intraday.json uploaded via API (HTTP {status})")
+    except _err.HTTPError as e:
+        log(f"  [API fallback] ❌ HTTP {e.code}: {e.read()[:200]}")
+    except Exception as e:
+        log(f"  [API fallback] ❌ {e}")
+
+
 def git_commit_push(repo_dir: Path, message: str):
     """Pull latest, add intraday.json, commit, and push.
 
@@ -468,7 +465,6 @@ def git_commit_push(repo_dir: Path, message: str):
     env = os.environ.copy()
     env["GIT_SSH_COMMAND"] = "ssh -i ~/.ssh/taiwan_stock_radar_key -o IdentitiesOnly=yes"
 
-    # Step 1: stash local changes, pull latest
     cmds = [
         ["git", "stash", "--include-untracked"],
         ["git", "pull", "--rebase", "origin", "main"],
@@ -480,11 +476,9 @@ def git_commit_push(repo_dir: Path, message: str):
         else:
             log(f"  git {cmd[1]}: OK")
 
-    # Step 2: pop stash and detect conflicts
     r_pop = subprocess.run(["git", "stash", "pop"], cwd=repo_dir, capture_output=True, text=True, env=env)
     if r_pop.returncode != 0:
         log(f"  git stash pop FAILED: {r_pop.stderr.strip()}")
-        # Check for actual merge conflict markers in tracked files
         r_grep = subprocess.run(
             ["grep", "-rl", "^<<<<<<< ", "public/data/intraday.json"],
             cwd=repo_dir, capture_output=True, text=True, env=env
@@ -499,19 +493,24 @@ def git_commit_push(repo_dir: Path, message: str):
     else:
         log("  git stash pop: OK")
 
-    # Step 3: stage fresh output
     r_add = subprocess.run(["git", "add", "public/data/intraday.json"], cwd=repo_dir, capture_output=True, text=True, env=env)
     if r_add.returncode != 0:
         log(f"  git add failed: {r_add.stderr.strip()}")
         return
     log("  git add intraday.json: OK")
 
-    # Step 4: commit only if there are staged changes
     r = subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=repo_dir, env=env)
     if r.returncode != 0:
         subprocess.run(["git", "commit", "-m", message], cwd=repo_dir, env=env)
-        subprocess.run(["git", "push", "origin", "main"], cwd=repo_dir, env=env)
-        log("  git commit + push: OK")
+        r_push = subprocess.run(
+            ["git", "push", "origin", "main"],
+            cwd=repo_dir, capture_output=True, text=True, env=env
+        )
+        if r_push.returncode == 0:
+            log("  git commit + push: OK")
+        else:
+            log(f"  git push FAILED ({r_push.stderr.strip()[:120]}), falling back to GitHub API...")
+            _api_fallback_intraday(repo_dir, OUTPUT_JSON)
     else:
         log("  nothing to commit")
 
@@ -523,20 +522,16 @@ def main():
     today_str = now_tw.strftime("%Y%m%d")
     log(f"盤中隔日沖掃描開始 ({now_tw.strftime('%Y-%m-%d %H:%M:%S')} TWN)")
 
-    # 0. Fetch bulk history once
     log("Fetching bulk history from STOCK_DAY_ALL...")
     history_bulk = fetch_day_history_bulk(today_str)
     log(f"  got history for {len(history_bulk)} stocks")
 
-    # 1. Fresh intraday scan → Top 5
     top5 = scan_intraday_top5(history_bulk)
 
-    # 2. Build output (same schema, with live already populated)
     stocks_out = []
     for s in top5:
         q = s["quote"]
         cur = q.get("current") or 0
-        # entry = current price; target +8%; stop_loss -5%
         entry = round(cur, 2)
         target = round(cur * 1.08, 2) if cur else 0
         stop_loss = round(cur * 0.95, 2) if cur else 0
@@ -545,10 +540,8 @@ def main():
             "stock_id": s["stock_id"],
             "name": s["name"],
             "sector": "",
-            # Legacy fields (kept for backward compat)
             "score": s["score"],
             "details": det,
-            # Frontend-expected fields
             "total_score": s["score"],
             "entry": entry,
             "target": target,
@@ -581,13 +574,11 @@ def main():
         "stocks": stocks_out,
     }
 
-    # 3. Write output
     OUTPUT_JSON.parent.mkdir(parents=True, exist_ok=True)
     with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
         json.dump(snapshot, f, ensure_ascii=False, indent=2)
     log(f"Written: {OUTPUT_JSON}")
 
-    # 4. Git commit & push
     log("Committing and pushing intraday.json...")
     commit_msg = (
         f"data(intraday): 隔日沖盤中掃描 Top5 {now_tw.strftime('%Y-%m-%d %H:%M')}\n\n"
