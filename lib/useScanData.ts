@@ -3,6 +3,8 @@ import useSWR from 'swr';
 import { useState, useEffect } from 'react';
 import { ScanResult, ScanStock, ScanDimensions, ScanSignals } from './scanTypes';
 
+export type { ScanResult, ScanStock, ScanDimensions, ScanSignals };
+
 export interface AllScoreHistoryEntry {
   date: string;
   stocks: Array<{ stock_id: string; total_score: number }>;
@@ -51,6 +53,25 @@ export function useHistoryIndex() {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+function inferSector(stockId: string): string {
+  const id = parseInt(stockId, 10);
+  if (id >= 1000 && id <= 1999) return '水泥';
+  if (id >= 2000 && id <= 2099) return '食品';
+  if (id >= 2100 && id <= 2199) return '塑膠';
+  if (id >= 2300 && id <= 2399) return '電子';
+  if (id >= 2400 && id <= 2499) return '半導體';
+  if (id >= 2500 && id <= 2599) return '電腦周邊';
+  if (id >= 2600 && id <= 2699) return '通信網路';
+  if (id >= 2800 && id <= 2899) return '金融';
+  if (id >= 3000 && id <= 3999) return '其他電子';
+  if (id >= 4000 && id <= 4999) return '建材營造';
+  if (id >= 5000 && id <= 5999) return '航運';
+  if (id >= 6000 && id <= 6999) return '電子零組件';
+  if (id >= 8000 && id <= 8999) return '生技醫療';
+  return '其他';
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function normalizeStock(s: any): ScanStock {
   return {
     stock_id: s.stock_id,
@@ -69,8 +90,7 @@ function normalizeStock(s: any): ScanStock {
     rsi: s.rsi ?? 50,
     vol_ratio: s.vol_ratio ?? 1,
     volume: s.volume ?? 0,
-    recommendation: s.recommendation ?? s.strategy?.recommendation ?? s.rec ?? '',
-    rec: s.rec ?? s.recommendation ?? '',
+    recommendation: s.recommendation ?? s.strategy?.recommendation ?? '',
     reason: s.reason ?? '',
     entry_low: s.entry_low ?? s.strategy?.entry_low ?? 0,
     entry_high: s.entry_high ?? s.strategy?.entry_high ?? 0,
@@ -101,54 +121,37 @@ function normalizeStock(s: any): ScanStock {
       target2: s.target2 ?? 0,
       target3: s.target3 ?? 0,
       stop_loss: s.stop_loss ?? 0,
-      recommendation: s.recommendation ?? s.rec ?? '',
+      recommendation: s.recommendation ?? '',
     },
   };
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function allScoresFetcher(url: string): Promise<AllScoresData> {
-  return fetch(url).then((r) => {
-    if (!r.ok) throw new Error(`HTTP ${r.status}`);
-    return r.json();
-  }).then((raw) => {
-    // all_scores.json may be a bare array instead of the expected object
-    if (Array.isArray(raw)) {
-      const stocks: ScanStock[] = (raw as any[]).map(normalizeStock);
+  return fetch(url)
+    .then((r) => {
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      return r.json();
+    })
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    .then((raw: any) => {
+      // Support both array format and object format
+      if (Array.isArray(raw)) {
+        return {
+          scan_date: '',
+          scanned_count: raw.length,
+          all_stock_scores: raw.map(normalizeStock),
+        } as AllScoresData;
+      }
+      // Object format
+      const scores = raw.all_stock_scores ?? raw.stocks ?? [];
       return {
-        scan_date: '',
-        scanned_count: stocks.length,
-        all_stock_scores: stocks,
-      };
-    }
-    // Already an object — normalize every stock to fill in missing fields
-    if (raw && Array.isArray(raw.all_stock_scores)) {
-      raw.all_stock_scores = (raw.all_stock_scores as any[]).map(normalizeStock);
-    }
-    return {
-      scan_date: raw.scan_date ?? raw.data_date ?? '',
-      scanned_count: raw.scanned_count ?? raw.total_scanned ?? (raw.all_stock_scores?.length ?? 0),
-      history: raw.history,
-      all_stock_scores: raw.all_stock_scores ?? [],
-    };
-  });
-}
-
-function inferSector(stockId: string): string {
-  const id = parseInt(stockId, 10);
-  if (id >= 1000 && id <= 1999) return '水泥/建材';
-  if (id >= 2000 && id <= 2099) return '鋼鐵/金屬';
-  if (id >= 2100 && id <= 2199) return '塑膠化工';
-  if (id >= 2200 && id <= 2399) return '電子';
-  if (id >= 2400 && id <= 2599) return '半導體';
-  if (id >= 2600 && id <= 2699) return '航運';
-  if (id >= 2800 && id <= 2999) return '金融';
-  if (id >= 3000 && id <= 3999) return 'IC設計';
-  if (id >= 4000 && id <= 4999) return '生技醫療';
-  if (id >= 5000 && id <= 5999) return '其他電子';
-  if (id >= 6000 && id <= 6999) return '通信網路';
-  if (id >= 8000 && id <= 8999) return '電子零組件';
-  return '其他';
+        scan_date: raw.scan_date ?? '',
+        scanned_count: raw.scanned_count ?? scores.length,
+        history: raw.history,
+        all_stock_scores: scores.map(normalizeStock),
+      } as AllScoresData;
+    });
 }
 
 export function useAllScores() {
@@ -160,41 +163,52 @@ export function useAllScores() {
   return { data, error, isLoading };
 }
 
-// ── 監控清單 (Watchlist) ──
-export type WatchlistEntry = {
-  stock_id: string;
-  added_at: string;
-  note?: string;
-};
+export function useIntradayScan() {
+  const { data, error, isLoading } = useSWR(
+    `${BASE}/data/intraday.json`,
+    fetcher,
+    { refreshInterval: 5 * 60 * 1000, revalidateOnFocus: true }
+  );
+  return { data, error, isLoading };
+}
 
-export function useWatchlist() {
-  const KEY = 'watchlist_v1';
-  const [list, setList] = useState<WatchlistEntry[]>([]);
+export function useBacktestData() {
+  const { data, error, isLoading } = useSWR(
+    `${BASE}/data/backtest.json`,
+    fetcher,
+    { refreshInterval: 0, revalidateOnFocus: false }
+  );
+  return { data, error, isLoading };
+}
+
+export function useTrackingData() {
+  const [data, setData] = useState<ScanResult[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem(KEY);
-      if (raw) setList(JSON.parse(raw));
-    } catch {}
+    async function load() {
+      try {
+        const idxRes = await fetch(`${BASE}/data/index.json`);
+        if (!idxRes.ok) throw new Error(`index.json HTTP ${idxRes.status}`);
+        const idx = await idxRes.json();
+        const dates: string[] = idx.dates ?? [];
+        const results = await Promise.all(
+          dates.map(async (d) => {
+            const r = await fetch(`${BASE}/data/scan_result_${d.replace(/-/g, '')}.json`);
+            if (!r.ok) return null;
+            return r.json() as Promise<ScanResult>;
+          })
+        );
+        setData(results.filter(Boolean) as ScanResult[]);
+      } catch (e) {
+        setError(e instanceof Error ? e : new Error(String(e)));
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    load();
   }, []);
 
-  function save(next: WatchlistEntry[]) {
-    setList(next);
-    try { localStorage.setItem(KEY, JSON.stringify(next)); } catch {}
-  }
-
-  function addStock(stock_id: string, note?: string) {
-    if (list.some((e) => e.stock_id === stock_id)) return;
-    save([...list, { stock_id, added_at: new Date().toISOString(), note }]);
-  }
-
-  function removeStock(stock_id: string) {
-    save(list.filter((e) => e.stock_id !== stock_id));
-  }
-
-  function isInWatchlist(stock_id: string) {
-    return list.some((e) => e.stock_id === stock_id);
-  }
-
-  return { list, addStock, removeStock, isInWatchlist };
+  return { data, isLoading, error };
 }

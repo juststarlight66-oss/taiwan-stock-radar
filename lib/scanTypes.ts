@@ -81,6 +81,17 @@ export interface ScanStock {
   narrative?:  StockNarrative;
 }
 
+// ── ScanResult：每日掃描主結果格式 ──
+export interface ScanResult {
+  scan_date:     string;
+  scanned_count: number;
+  top10:         ScanStock[];
+  total_stocks?: number;
+  market_trend?: string;
+  trend_label?:  string;
+  bull_ratio?:   number;
+}
+
 // ── 輔助函式：統一取值（相容平坦 & 巢狀兩種格式）──
 export function getStockName(s: ScanStock): string {
   return s.stock_name ?? s.name ?? s.stock_id;
@@ -128,29 +139,6 @@ export function getStockDimensions(s: ScanStock): ScanDimensions {
     chips:       s.chips_score       ?? 0,
   };
 }
-
-// ── 維度設定（雷達圖用）──
-export const DIMENSION_CONFIG = {
-  technical:   { label: '技術', max: 40, color: '#38bdf8' },
-  fundamental: { label: '基本', max: 40, color: '#a78bfa' },
-  news:        { label: '消息', max: 10, color: '#fb923c' },
-  sentiment:   { label: '情緒', max: 10, color: '#f472b6' },
-  chips:       { label: '籌碼', max: 10, color: '#34d399' },
-} as const;
-
-// ── 操作建議顏色（Tailwind CSS class）──
-/**
- * 根據 recommendation 字串回傳對應的 Tailwind CSS class。
- * 用於 Top10Table 等元件顯示操作建議顏色標籤。
- */
-export function getActionColor(recommendation?: string): string {
-  if (!recommendation) return 'text-gray-400';
-  const r = recommendation.trim();
-  if (r.includes('強力買進') || r.includes('強烈買進')) return 'text-red-400 font-bold';
-  if (r.includes('買進') || r.includes('買入'))         return 'text-emerald-400 font-semibold';
-  if (r.includes('加碼'))                               return 'text-emerald-300 font-semibold';
-  if (r.includes('減碼') || r.includes('賣出'))         return 'text-amber-400';
-  if (r.includes('觀望') || r.includes('持有'))         return 'text-gray-400';
-  if (r.includes('停損') || r.includes('出場'))         return 'text-red-500';
-  return 'text-sky-400';
+export function getStockSignals(s: ScanStock): ScanSignals {
+  return s.signals ?? { technical: [], fundamental: [], news: [], sentiment: [], chips: [] };
 }
