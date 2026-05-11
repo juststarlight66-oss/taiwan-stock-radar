@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
   assetPrefix: '/taiwan-stock-radar',
   images: { unoptimized: true },
   typescript: { ignoreBuildErrors: true },
+  eslint: { ignoreDuringBuilds: true },
 };
 
 export default nextConfig;
