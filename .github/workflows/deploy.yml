@@ -80,7 +80,14 @@ jobs:
         run: npx tsc --noEmit 2>&1 | head -200 || true
 
       - name: Build
-        run: npm run build
+        run: |
+          npm run build > /tmp/build_stdout.log 2> /tmp/build_stderr.log
+          BUILD_EXIT=$?
+          echo "=== STDOUT (last 150 lines) ==="
+          tail -150 /tmp/build_stdout.log
+          echo "=== STDERR (last 150 lines) ==="
+          tail -150 /tmp/build_stderr.log
+          exit $BUILD_EXIT
 
       - name: Add .nojekyll
         run: touch out/.nojekyll
