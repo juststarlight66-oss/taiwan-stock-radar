@@ -1,5 +1,5 @@
 'use client';
-import { Activity, Radio, History, TrendingUp, List, Radar, Clock, GitFork, Search } from 'lucide-react';
+import { Activity, Radio, History, TrendingUp, List, ScanLine, Clock, Search } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 const BASE = '/taiwan-stock-radar';
@@ -57,7 +57,7 @@ export default function TopNav({ rightSlot, onInfoClick }: TopNavProps) {
           {/* Logo */}
           <a href={`${BASE}/`} className="flex items-center gap-2 shrink-0 group">
             <div className="relative w-7 h-7 rounded-lg bg-sky-500/20 border border-sky-500/40 flex items-center justify-center group-hover:bg-sky-500/30 transition-colors">
-              <Radar className="w-4 h-4 text-sky-400" />
+              <ScanLine className="w-4 h-4 text-sky-400" />
             </div>
             <div className="flex items-baseline gap-1.5">
               <span className="font-bold text-gray-900 text-sm tracking-wide">台股雷達</span>
@@ -99,22 +99,13 @@ export default function TopNav({ rightSlot, onInfoClick }: TopNavProps) {
             {onInfoClick && (
               <button
                 onClick={onInfoClick}
-                className="w-7 h-7 rounded-lg border border-gray-200 bg-gray-50 hover:bg-gray-100 flex items-center justify-center transition-colors"
+                className="text-gray-400 hover:text-gray-600 p-1.5 rounded-lg hover:bg-gray-100 transition-colors"
                 title="免責聲明"
               >
-                <span className="text-[10px] text-gray-500 font-medium">i</span>
+                <span className="text-xs font-bold">i</span>
               </button>
             )}
             {rightSlot}
-            <a
-              href="https://github.com/juststarlight66-oss/taiwan-stock-radar"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-7 h-7 rounded-lg border border-gray-200 bg-gray-50 hover:bg-gray-100 flex items-center justify-center transition-colors"
-              title="GitHub"
-            >
-              <GitFork className="w-3.5 h-3.5 text-gray-500" />
-            </a>
           </div>
         </div>
       </div>
