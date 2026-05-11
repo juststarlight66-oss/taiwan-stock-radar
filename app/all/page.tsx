@@ -2,7 +2,7 @@
 import TopNav from '@/components/TopNav';
 import AllResultsTable from '@/components/AllResultsTable';
 import { useAllScores } from '@/lib/useScanData';
-import { List, GitFork, Radar } from 'lucide-react';
+import { List, Share2, ScanLine } from 'lucide-react';
 
 export default function AllPage() {
   const { data: allScores, isLoading, error } = useAllScores();
@@ -75,19 +75,13 @@ export default function AllPage() {
         <div className="max-w-screen-xl mx-auto px-4">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
             <div className="flex items-center gap-2">
-              <Radar className="w-4 h-4 text-sky-400" />
+              <ScanLine className="w-4 h-4 text-sky-400" />
               <span className="text-sm font-semibold text-gray-700">台股雷達</span>
               <span className="text-xs text-gray-400">Taiwan Stock Radar</span>
             </div>
-            <div className="flex items-center gap-4">
-              <a href="/taiwan-stock-radar/" className="text-xs text-gray-400 hover:text-gray-600 transition-colors">首頁</a>
-              <a href="/taiwan-stock-radar/all/" className="text-xs text-gray-400 hover:text-gray-600 transition-colors">族群動態</a>
-              <a href="/taiwan-stock-radar/history/" className="text-xs text-gray-400 hover:text-gray-600 transition-colors">歷史記錄</a>
-              <a href="/taiwan-stock-radar/tracking/" className="text-xs text-gray-400 hover:text-gray-600 transition-colors">績效追蹤</a>
-            </div>
-            <div className="flex items-center gap-1 text-xs text-gray-400">
-              <GitFork className="w-3 h-3" />
-              <span>五維量化分析系統</span>
+            <div className="flex items-center gap-3">
+              <Share2 className="w-3.5 h-3.5 text-gray-400" />
+              <span className="text-xs text-gray-400">每日 19:00 自動更新</span>
             </div>
           </div>
         </div>
