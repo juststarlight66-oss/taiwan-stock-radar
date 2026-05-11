@@ -50,14 +50,16 @@ interface ExplosiveStock {
   total_score: number;
   dimensions: Dimensions;
   strategy: {
-    entry: number;
+    entry?: number;
+    entry_low?: number;
+    entry_high?: number;
     stop_loss: number;
-    target: number;
+    target?: number;
     target1?: number;
     target2?: number;
     target3?: number;
     upside: number;
-    recommendation: string;
+    recommendation?: string;
   };
   surge_probability?: number;
 }
@@ -112,7 +114,7 @@ const STRATEGY_COLORS: Record<string, string> = {
   breakout: '#34d399',
   pattern: '#f59e0b',
   rsi_div: '#f59e0b',
-}
+};
 const STRATEGY_LABELS: Record<string, string> = {
   ma_cross: '均線交叉',
   breakout: '突破策略',
@@ -143,10 +145,21 @@ const DIM_MAX: Record<string, number> = {
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
-function pct(v: number) { return `${v >= 0 ? '+' : ''}${v.toFixed(1)}%`; }
+function pct(v: number | null | undefined): string {
+  if (v == null) return '—';
+  return `${v >= 0 ? '+' : ''}${v.toFixed(1)}%`;
+}
 function shortDate(s: string) {
   const d = s.replace(/-/g, '');
   return d.length >= 8 ? `${d.slice(4, 6)}/${d.slice(6, 8)}` : s;
+}
+function fmtRate(v: number | null): string {
+  if (v == null) return '待結算';
+  return `${(v * 100).toFixed(1)}%`;
+}
+function fmtReturn(v: number | null): string {
+  if (v == null) return '待結算';
+  return pct(v);
 }
 
 // ── Sub-components ───────────────────────────────────────────────────────────
@@ -158,546 +171,279 @@ function StatCard({
   sub?: string; accent: string; valueColor: string;
 }) {
   return (
-    <div className={`rounded-xl border p-4 ${accent} relative overflow-hidden`}>
-      <div className="flex items-center gap-1.5 mb-2">
+    <div className={`rounded-xl border p-4 ${accent} bg-gray-900/60`}>
+      <div className="flex items-center gap-2 mb-2 text-gray-400 text-sm">
         {icon}
-        <span className="text-[11px] text-gray-400 font-medium">{label}</span>
+        <span>{label}</span>
       </div>
-      <div className={`text-xl font-bold font-mono ${valueColor}`}>{value}</div>
-      {sub && <div className="text-[10px] text-gray-500 mt-0.5 truncate">{sub}</div>}
+      <div className={`text-2xl font-bold ${valueColor}`}>{value}</div>
+      {sub && <div className="text-xs text-gray-500 mt-1">{sub}</div>}
     </div>
   );
 }
 
-function SectionHeader({ title, sub }: { title: React.ReactNode; sub?: string }) {
+function Top5Cards({ stocks }: { stocks: ExplosiveStock[] }) {
+  const top5 = stocks.slice(0, 5);
   return (
-    <div className="mb-4">
-      <h2 className="text-base font-bold text-gray-900 flex items-center gap-2">{title}</h2>
-      {sub && <p className="text-xs text-gray-500 mt-0.5">{sub}</p>}
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3">
+      {top5.map((s, i) => {
+        const entryLow = s.strategy.entry_low ?? s.strategy.entry ?? 0;
+        const entryHigh = s.strategy.entry_high ?? s.strategy.entry ?? 0;
+        const target = s.strategy.target1 ?? s.strategy.target ?? 0;
+        return (
+          <div key={s.stock_id} className="rounded-xl border border-gray-700 bg-gray-900/80 p-4">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-lg font-bold" style={{ color: STOCK_COLORS[i] }}>#{i + 1}</span>
+              <span className="font-semibold text-white">{s.stock_id}</span>
+              <span className="text-xs text-gray-400 truncate">{s.name}</span>
+            </div>
+            <div className="text-xs text-gray-500 mb-2">{s.sector}</div>
+            <div className="space-y-1 text-xs">
+              <div className="flex justify-between">
+                <span className="text-gray-400">總分</span>
+                <span className="text-yellow-400 font-bold">{s.total_score?.toFixed(1) ?? '—'}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-400">收盤</span>
+                <span className="text-white">{s.close?.toFixed(2) ?? '—'}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-400">漲跌</span>
+                <span className={s.change_pct >= 0 ? 'text-green-400' : 'text-red-400'}>
+                  {pct(s.change_pct)}
+                </span>
+              </div>
+              {entryLow > 0 && (
+                <div className="flex justify-between">
+                  <span className="text-gray-400">進場區</span>
+                  <span className="text-sky-400">{entryLow.toFixed(2)}–{entryHigh.toFixed(2)}</span>
+                </div>
+              )}
+              {s.strategy.stop_loss > 0 && (
+                <div className="flex justify-between">
+                  <span className="text-gray-400">停損</span>
+                  <span className="text-red-400">{s.strategy.stop_loss.toFixed(2)}</span>
+                </div>
+              )}
+              {target > 0 && (
+                <div className="flex justify-between">
+                  <span className="text-gray-400">目標</span>
+                  <span className="text-green-400">{target.toFixed(2)}</span>
+                </div>
+              )}
+            </div>
+            {/* Dimensions bar */}
+            <div className="mt-3 space-y-1">
+              {(Object.keys(DIM_LABELS) as Array<keyof Dimensions>).map((k) => (
+                <div key={k} className="flex items-center gap-1">
+                  <span className="text-gray-500 w-10 text-xs">{DIM_LABELS[k]}</span>
+                  <div className="flex-1 h-1.5 bg-gray-800 rounded-full overflow-hidden">
+                    <div
+                      className="h-full rounded-full"
+                      style={{
+                        width: `${Math.min(100, ((s.dimensions?.[k] ?? 0) / DIM_MAX[k]) * 100)}%`,
+                        background: DIM_COLORS[k],
+                      }}
+                    />
+                  </div>
+                  <span className="text-gray-500 text-xs w-6 text-right">{s.dimensions?.[k] ?? 0}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }
 
-// ── Cumulative Return Curve ──────────────────────────────────────────────────
-
-const resolveStrat = (entry: BacktestMapEntry, key: 'ma_cross' | 'breakout' | 'pattern') =>
-  entry.strategies[key] ?? (key === 'pattern' ? entry.strategies.rsi_div : null);
-
-function CumulativeReturnChart({
-  top5, backtestMap,
-}: {
-  top5: ExplosiveStock[];
-  backtestMap: Record<string, BacktestMapEntry>;
-}) {
-  const [activeStrategy, setActiveStrategy] = useState<'ma_cross' | 'breakout' | 'pattern'>('ma_cross');
-
-  const { chartData, stocks } = useMemo(() => {
-    const allDates = new Set<string>();
-    const stockCurves: { id: string; name: string; points: Record<string, number> }[] = [];
-
-    for (const stock of top5) {
-      const entry = backtestMap[stock.stock_id];
-      if (!entry) continue;
-      const strat = resolveStrat(entry, activeStrategy);
-      if (!strat?.equity_curve_data?.length) continue;
-
-      const points: Record<string, number> = {};
-      for (const pt of strat.equity_curve_data) {
-        const d = shortDate(pt.date);
-        points[d] = Math.round((pt.equity - 1) * 1000) / 10;
-        allDates.add(d);
-      }
-      stockCurves.push({ id: stock.stock_id, name: stock.name, points });
-    }
-
-    const sortedDates = [...allDates].sort();
-    const chartData = sortedDates.map((date) => {
-      const row: Record<string, number | string> = { date };
-      for (const sc of stockCurves) row[sc.id] = sc.points[date] ?? null!;
-      return row;
-    });
-
-    return { chartData, stocks: stockCurves };
-  }, [top5, backtestMap, activeStrategy]);
-
+function DimensionRadar({ stocks }: { stocks: ExplosiveStock[] }) {
+  const top5 = stocks.slice(0, 5);
+  const dims = Object.keys(DIM_LABELS) as Array<keyof Dimensions>;
+  const radarData = dims.map((k) => ({
+    dim: DIM_LABELS[k],
+    ...Object.fromEntries(top5.map((s, i) => [
+      `s${i}`, Math.round(((s.dimensions?.[k] ?? 0) / DIM_MAX[k]) * 100),
+    ])),
+  }));
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-5">
-      <SectionHeader
-        title={<><TrendingUp className="w-4 h-4 text-sky-500" />累積報酬曲線</>}
-        sub="Top 5 推薦標的回測策略累積損益（以初始淨值 1.0 為基準，換算為 %）"
-      />
-
-      <div className="flex gap-2 mb-4">
-        {(['ma_cross', 'breakout', 'pattern'] as const).map((s) => (
-          <button
-            key={s}
-            onClick={() => setActiveStrategy(s)}
-            className={`px-3 py-1 text-xs rounded-lg border transition-all font-medium ${
-              activeStrategy === s
-                ? 'bg-sky-50 text-sky-700 border-sky-300'
-                : 'text-gray-500 border-gray-200 hover:bg-gray-50'
-            }`}
-          >
-            {STRATEGY_LABELS[s]}
-          </button>
+    <ResponsiveContainer width="100%" height={300}>
+      <RadarChart data={radarData}>
+        <PolarGrid stroke="#374151" />
+        <PolarAngleAxis dataKey="dim" tick={{ fill: '#9ca3af', fontSize: 12 }} />
+        <PolarRadiusAxis domain={[0, 100]} tick={{ fill: '#6b7280', fontSize: 10 }} />
+        {top5.map((s, i) => (
+          <Radar
+            key={s.stock_id}
+            name={`${s.stock_id} ${s.name}`}
+            dataKey={`s${i}`}
+            stroke={STOCK_COLORS[i]}
+            fill={STOCK_COLORS[i]}
+            fillOpacity={0.15}
+          />
         ))}
-      </div>
-
-      {chartData.length === 0 ? (
-        <div className="h-56 flex items-center justify-center text-gray-400 text-sm">
-          此策略暫無曲線資料
-        </div>
-      ) : (
-        <ResponsiveContainer width="100%" height={260}>
-          <LineChart data={chartData} margin={{ top: 4, right: 8, bottom: 4, left: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-            <XAxis dataKey="date" tick={{ fontSize: 10, fill: '#9ca3af' }} interval="preserveStartEnd" />
-            <YAxis
-              tick={{ fontSize: 10, fill: '#9ca3af' }}
-              tickFormatter={(v) => `${v}%`}
-              width={48}
-            />
-            <Tooltip
-              formatter={(v) => [`${typeof v === 'number' ? v.toFixed(1) : '—'}%`, '']}
-              labelStyle={{ fontSize: 11 }}
-              contentStyle={{ fontSize: 11, borderRadius: 8, border: '1px solid #e5e7eb' }}
-            />
-            <Legend wrapperStyle={{ fontSize: 11 }} />
-            {stocks.map((s, i) => (
-              <Line
-                key={s.id}
-                type="monotone"
-                dataKey={s.id}
-                name={`${s.id} ${s.name}`}
-                stroke={STOCK_COLORS[i % STOCK_COLORS.length]}
-                strokeWidth={2}
-                dot={false}
-                connectNulls
-              />
-            ))}
-          </LineChart>
-        </ResponsiveContainer>
-      )}
-    </div>
+        <Legend />
+        <Tooltip />
+      </RadarChart>
+    </ResponsiveContainer>
   );
 }
 
-// ── Win Rate Heatmap by Sector ───────────────────────────────────────────────
-
-function SectorWinRateHeatmap({ allResults }: { allResults: ExplosiveStock[] }) {
-  const sectorData = useMemo(() => {
-    const map: Record<string, { win: number; total: number; scores: number[] }> = {};
-    for (const s of allResults) {
-      const sec = s.sector || '其他';
-      if (!map[sec]) map[sec] = { win: 0, total: 0, scores: [] };
-      map[sec].total++;
-      map[sec].scores.push(s.total_score);
-      if (s.total_score >= 70) map[sec].win++;
-    }
-    return Object.entries(map)
-      .map(([sector, d]) => ({
-        sector,
-        win: d.win,
-        loss: d.total - d.win,
-        total: d.total,
-        winRate: Math.round((d.win / d.total) * 100),
-        avgScore: Math.round(d.scores.reduce((a, b) => a + b, 0) / d.scores.length),
-      }))
-      .filter((d) => d.total >= 3)
-      .sort((a, b) => b.winRate - a.winRate)
-      .slice(0, 16);
-  }, [allResults]);
-
-  const maxTotal = Math.max(...sectorData.map((d) => d.total));
-
+function ScoreDistribution({ stocks }: { stocks: ExplosiveStock[] }) {
+  const bins = [0, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+  const data = bins.slice(0, -1).map((lo, i) => ({
+    range: `${lo}–${bins[i + 1]}`,
+    count: stocks.filter((s) => s.total_score >= lo && s.total_score < bins[i + 1]).length,
+  }));
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-5">
-      <SectionHeader
-        title={<><BarChart3 className="w-4 h-4 text-emerald-500" />族群勝率熱力圖</>}
-        sub="以總分 ≥70 為強訊號，統計各族群強訊號比例與標的數量"
-      />
-      <div className="space-y-2">
-        {sectorData.map((d) => {
-          const barWidth = Math.round((d.total / maxTotal) * 100);
-          const hue =
-            d.winRate >= 50 ? '#34d399' :
-            d.winRate >= 30 ? '#f59e0b' : '#f87171';
-          return (
-            <div key={d.sector} className="flex items-center gap-3">
-              <div className="w-24 text-[11px] text-gray-600 font-medium truncate shrink-0 text-right">
-                {d.sector}
-              </div>
-              <div className="flex-1 relative h-6 bg-gray-100 rounded-md overflow-hidden">
-                <div
-                  className="absolute inset-y-0 left-0 bg-gray-200 rounded-md"
-                  style={{ width: `${barWidth}%` }}
-                />
-                <div
-                  className="absolute inset-y-0 left-0 rounded-md opacity-80"
-                  style={{ width: `${d.winRate}%`, backgroundColor: hue }}
-                />
-                <div className="absolute inset-0 flex items-center px-2 gap-2">
-                  <span className="text-[10px] font-bold text-gray-800 z-10">{d.winRate}%</span>
-                  <span className="text-[9px] text-gray-500 z-10">
-                    ✓{d.win} ✗{d.loss} ({d.total}檔)
-                  </span>
-                </div>
-              </div>
-              <div className="text-[10px] text-gray-400 w-14 text-right shrink-0 font-mono">
-                均{d.avgScore}分
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </div>
+    <ResponsiveContainer width="100%" height={200}>
+      <BarChart data={data} margin={{ top: 4, right: 4, left: -20, bottom: 0 }}>
+        <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+        <XAxis dataKey="range" tick={{ fill: '#9ca3af', fontSize: 11 }} />
+        <YAxis tick={{ fill: '#9ca3af', fontSize: 11 }} />
+        <Tooltip
+          contentStyle={{ background: '#111827', border: '1px solid #374151', borderRadius: 8 }}
+          labelStyle={{ color: '#f9fafb' }}
+        />
+        <Bar dataKey="count" fill="#38bdf8" radius={[3, 3, 0, 0]} />
+      </BarChart>
+    </ResponsiveContainer>
   );
 }
-
-// ── Dimension Accuracy Stats ─────────────────────────────────────────────────
-
-function DimensionAccuracyStats({ allResults }: { allResults: ExplosiveStock[] }) {
-  const dimData = useMemo(() => {
-    const dims = ['technical', 'fundamental', 'news', 'sentiment', 'chips'] as const;
-    return dims.map((dim) => {
-      const max = DIM_MAX[dim];
-      let totalHigh = 0;
-      let positiveReturn = 0;
-      let total = 0;
-
-      for (const s of allResults) {
-        const dimScore = s.dimensions?.[dim] ?? 0;
-        const pctOfMax = dimScore / max;
-        if (pctOfMax >= 0.6) {
-          total++;
-          if (s.change_pct >= 0) positiveReturn++;
-          if (s.total_score >= 70) totalHigh++;
-        }
-      }
-
-      const accuracy = total > 0 ? Math.round((positiveReturn / total) * 100) : 0;
-      const strongRate = total > 0 ? Math.round((totalHigh / total) * 100) : 0;
-      const avgDimScore = total > 0
-        ? allResults.reduce((a, s) => a + (s.dimensions?.[dim] ?? 0), 0) / allResults.length
-        : 0;
-
-      return {
-        dim,
-        label: DIM_LABELS[dim],
-        color: DIM_COLORS[dim],
-        total,
-        positiveReturn,
-        totalHigh,
-        accuracy,
-        strongRate,
-        avgScore: Math.round(avgDimScore * 10) / 10,
-        maxScore: max,
-        radarValue: Math.round((avgDimScore / max) * 100),
-      };
-    });
-  }, [allResults]);
-
-  const radarData = dimData.map((d) => ({ subject: d.label, value: d.radarValue, fullMark: 100 }));
-
-  return (
-    <div className="rounded-xl border border-gray-200 bg-white p-5">
-      <SectionHeader
-        title={<><Target className="w-4 h-4 text-purple-500" />各維度準確度分析</>}
-        sub="高分維度（≥60% 滿分）觸發時，對應標的隔日正報酬比例及強力訊號率"
-      />
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div>
-          <p className="text-[11px] text-gray-400 mb-2">五維平均分佈雷達圖</p>
-          <ResponsiveContainer width="100%" height={220}>
-            <RadarChart data={radarData} margin={{ top: 10, right: 30, bottom: 10, left: 30 }}>
-              <PolarGrid stroke="#e5e7eb" />
-              <PolarAngleAxis dataKey="subject" tick={{ fontSize: 11, fill: '#6b7280' }} />
-              <PolarRadiusAxis angle={90} domain={[0, 100]} tick={{ fontSize: 9, fill: '#9ca3af' }} />
-              <Radar name="平均分佈" dataKey="value" stroke="#38bdf8" fill="#38bdf8" fillOpacity={0.25} />
-            </RadarChart>
-          </ResponsiveContainer>
-        </div>
-
-        <div className="space-y-3">
-          {dimData.map((d) => (
-            <div key={d.dim}>
-              <div className="flex items-center justify-between mb-1">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full" style={{ backgroundColor: d.color }} />
-                  <span className="text-xs font-medium text-gray-700">{d.label}</span>
-                  <span className="text-[10px] text-gray-400">均{d.avgScore}/{d.maxScore}分</span>
-                </div>
-                <div className="flex items-center gap-2 text-[10px]">
-                  <span className="text-emerald-600 font-mono font-bold">{d.accuracy}%</span>
-                  <span className="text-gray-400">隔日正報酬</span>
-                </div>
-              </div>
-              <div className="relative h-4 bg-gray-100 rounded-full overflow-hidden">
-                <div
-                  className="absolute inset-y-0 left-0 rounded-full transition-all duration-700"
-                  style={{ width: `${d.accuracy}%`, backgroundColor: d.color, opacity: 0.75 }}
-                />
-                <div
-                  className="absolute inset-y-0 left-0 rounded-full opacity-30"
-                  style={{ width: `${d.strongRate}%`, backgroundColor: d.color }}
-                />
-              </div>
-              <div className="flex justify-between mt-0.5 text-[9px] text-gray-400">
-                <span>觸發 {d.total.toLocaleString()} 檔</span>
-                <span>強訊號率 {d.strongRate}%</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ── Backtest Performance Table ───────────────────────────────────────────────
 
 function BacktestPerformanceTable({ records }: { records: BacktestRecord[] }) {
-  const completedRecords = records.filter((r) => !r.periods.T1.pending);
+  const [activePeriod, setActivePeriod] = useState<'T1' | 'T3' | 'T5'>('T1');
+  const [expandedDate, setExpandedDate] = useState<string | null>(null);
 
-  if (completedRecords.length === 0) {
+  // Show ALL records (pending + completed), sorted by date desc
+  const sortedRecords = [...records].sort((a, b) => b.scan_date.localeCompare(a.scan_date));
+
+  if (sortedRecords.length === 0) {
     return (
-      <div className="rounded-xl border border-gray-200 bg-white p-5">
-        <SectionHeader
-          title={<><Activity className="w-4 h-4 text-amber-500" />歷史回測績效</>}
-          sub="各期 T+1/T+3/T+5 實際報酬追蹤"
-        />
-        <div className="text-center py-10 text-gray-400 text-sm">暫無已結算回測記錄</div>
+      <div className="text-center py-12 text-gray-500">
+        <AlertCircle className="mx-auto mb-3 w-8 h-8" />
+        <p>尚無回測記錄</p>
+        <p className="text-sm mt-1">每日掃描後自動產生追蹤記錄</p>
       </div>
     );
   }
 
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-5">
-      <SectionHeader
-        title={<><Activity className="w-4 h-4 text-amber-500" />歷史回測績效</>}
-        sub="各期 T+1/T+3/T+5 實際報酬追蹤（✓達標 ✗停損 — 待結算）"
-      />
-      <div className="overflow-x-auto">
-        <table className="w-full text-xs">
-          <thead>
-            <tr className="border-b border-gray-100">
-              <th className="text-left py-2 px-2 text-gray-500 font-medium">掃描日</th>
-              <th className="text-right py-2 px-2 text-gray-500 font-medium">T+1 勝率</th>
-              <th className="text-right py-2 px-2 text-gray-500 font-medium">T+1 均報酬</th>
-              <th className="text-right py-2 px-2 text-gray-500 font-medium">T+3 勝率</th>
-              <th className="text-right py-2 px-2 text-gray-500 font-medium">T+5 勝率</th>
-              <th className="text-right py-2 px-2 text-gray-500 font-medium">個股明細</th>
-            </tr>
-          </thead>
-          <tbody>
-            {completedRecords.map((rec) => {
-              const t1 = rec.periods.T1;
-              const t3 = rec.periods.T3;
-              const t5 = rec.periods.T5;
-              return (
-                <tr key={rec.scan_date} className="border-b border-gray-50 hover:bg-gray-50 transition-colors">
-                  <td className="py-2 px-2 font-mono text-gray-700">{rec.scan_date}</td>
-                  <td className="py-2 px-2 text-right">
-                    {t1.win_rate != null ? (
-                      <span className={`font-bold font-mono ${t1.win_rate >= 60 ? 'text-emerald-600' : t1.win_rate >= 40 ? 'text-amber-600' : 'text-red-500'}`}>
-                        {t1.win_rate.toFixed(0)}%
-                      </span>
-                    ) : <span className="text-gray-400">—</span>}
-                  </td>
-                  <td className="py-2 px-2 text-right font-mono">
-                    {t1.avg_return != null ? (
-                      <span className={t1.avg_return >= 0 ? 'text-emerald-600' : 'text-red-500'}>
-                        {pct(t1.avg_return)}
-                      </span>
-                    ) : <span className="text-gray-400">—</span>}
-                  </td>
-                  <td className="py-2 px-2 text-right">
-                    {t3.pending ? (
-                      <span className="text-gray-400 text-[10px]">待結算</span>
-                    ) : t3.win_rate != null ? (
-                      <span className={`font-bold font-mono ${t3.win_rate >= 60 ? 'text-emerald-600' : t3.win_rate >= 40 ? 'text-amber-600' : 'text-red-500'}`}>
-                        {t3.win_rate.toFixed(0)}%
-                      </span>
-                    ) : <span className="text-gray-400">—</span>}
-                  </td>
-                  <td className="py-2 px-2 text-right">
-                    {t5.pending ? (
-                      <span className="text-gray-400 text-[10px]">待結算</span>
-                    ) : t5.win_rate != null ? (
-                      <span className={`font-bold font-mono ${t5.win_rate >= 60 ? 'text-emerald-600' : t5.win_rate >= 40 ? 'text-amber-600' : 'text-red-500'}`}>
-                        {t5.win_rate.toFixed(0)}%
-                      </span>
-                    ) : <span className="text-gray-400">—</span>}
-                  </td>
-                  <td className="py-2 px-2 text-right">
-                    <div className="flex justify-end gap-0.5 flex-wrap">
-                      {t1.stocks.slice(0, 5).map((s) => (
-                        <span
-                          key={s.stock_id}
-                          title={`${s.stock_id} ${s.name}: ${s.return_pct != null ? pct(s.return_pct) : '待結'}`}
-                          className={`inline-flex items-center text-[9px] px-1 py-0.5 rounded font-mono ${
-                            s.pending ? 'bg-gray-100 text-gray-400' :
-                            (s.return_pct ?? 0) >= 0 ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-red-600'
-                          }`}
-                        >
-                          {s.name}
-                          {!s.pending && s.return_pct != null && ` ${pct(s.return_pct)}`}
-                        </span>
-                      ))}
-                    </div>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+    <div className="space-y-4">
+      {/* Period tabs */}
+      <div className="flex gap-2">
+        {(['T1', 'T3', 'T5'] as const).map((p) => (
+          <button
+            key={p}
+            onClick={() => setActivePeriod(p)}
+            className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+              activePeriod === p
+                ? 'bg-sky-500 text-white'
+                : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+            }`}
+          >
+            {p === 'T1' ? 'T+1 隔日' : p === 'T3' ? 'T+3 三日' : 'T+5 五日'}
+          </button>
+        ))}
       </div>
-    </div>
-  );
-}
 
-// ── Strategy Win Rate Bar Chart ──────────────────────────────────────────────
+      {/* Records list */}
+      <div className="space-y-3">
+        {sortedRecords.map((rec) => {
+          const period = rec.periods[activePeriod];
+          const isExpanded = expandedDate === rec.scan_date;
+          const isPending = period.pending;
+          const winRateDisplay = fmtRate(period.win_rate);
+          const avgReturnDisplay = fmtReturn(period.avg_return);
 
-function StrategyWinRateChart({ top5, backtestMap }: { top5: ExplosiveStock[]; backtestMap: Record<string, BacktestMapEntry> }) {
-  const data = useMemo(() => {
-    return top5.map((stock) => {
-      const entry = backtestMap[stock.stock_id];
-      if (!entry) return null;
-      return {
-        name: `${stock.stock_id}\n${stock.name}`,
-        shortName: stock.name,
-        stockId: stock.stock_id,
-        ma_cross: Math.round((resolveStrat(entry, 'ma_cross')?.win_rate ?? 0) * 100),
-        breakout: Math.round((resolveStrat(entry, 'breakout')?.win_rate ?? 0) * 100),
-        pattern: Math.round((resolveStrat(entry, 'pattern')?.win_rate ?? 0) * 100),
-        trades: (entry.strategies.ma_cross?.total_trades ?? 0) +
-                (entry.strategies.breakout?.total_trades ?? 0) +
-                (entry.strategies.pattern?.total_trades ?? 0),
-      };
-    }).filter(Boolean) as {
-      name: string; shortName: string; stockId: string;
-      ma_cross: number; breakout: number; pattern: number; trades: number;
-    }[];
-  }, [top5, backtestMap]);
-
-  return (
-    <div className="rounded-xl border border-gray-200 bg-white p-5">
-      <SectionHeader
-        title={<><Zap className="w-4 h-4 text-amber-500" />策略勝率比較</>}
-        sub="Top 5 標的三種回測策略勝率對比（%）"
-      />
-      {data.length === 0 ? (
-        <div className="h-40 flex items-center justify-center text-gray-400 text-sm">暫無資料</div>
-      ) : (
-        <ResponsiveContainer width="100%" height={220}>
-          <BarChart data={data} margin={{ top: 4, right: 8, bottom: 4, left: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-            <XAxis
-              dataKey="shortName"
-              tick={{ fontSize: 10, fill: '#6b7280' }}
-            />
-            <YAxis
-              domain={[0, 100]}
-              tick={{ fontSize: 10, fill: '#9ca3af' }}
-              tickFormatter={(v) => `${v}%`}
-              width={40}
-            />
-            <Tooltip
-              formatter={(v, name) => [`${typeof v === 'number' ? v : v}%`, STRATEGY_LABELS[String(name)] ?? String(name)]}
-              contentStyle={{ fontSize: 11, borderRadius: 8, border: '1px solid #e5e7eb' }}
-            />
-            <Legend formatter={(v) => STRATEGY_LABELS[v] ?? v} wrapperStyle={{ fontSize: 11 }} />
-            <Bar dataKey="ma_cross" fill={STRATEGY_COLORS.ma_cross} radius={[3, 3, 0, 0]} />
-            <Bar dataKey="breakout" fill={STRATEGY_COLORS.breakout} radius={[3, 3, 0, 0]} />
-            <Bar dataKey="pattern" fill={STRATEGY_COLORS.pattern} radius={[3, 3, 0, 0]} />
-          </BarChart>
-        </ResponsiveContainer>
-      )}
-    </div>
-  );
-}
-
-// ── Top5 Detail Cards ────────────────────────────────────────────────────────
-
-function Top5Cards({ top5 }: { top5: ExplosiveStock[] }) {
-  return (
-    <div className="rounded-xl border border-gray-200 bg-white p-5">
-      <SectionHeader
-        title={<><Trophy className="w-4 h-4 text-sky-500" />今日 Top 5 標的</>}
-        sub="本日飆股雷達 Top 5 推薦，含各維度評分與策略建議"
-      />
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3">
-        {top5
-          .filter((s) => s.total_score != null && s.total_score > 0 && Object.keys(s.dimensions ?? {}).length > 0)
-          .slice(0, 5)
-          .map((s, i) => {
-          const changePosive = s.change_pct >= 0;
-          const dimEntries = Object.entries(s.dimensions ?? {}) as [keyof Dimensions, number][];
           return (
-            <div
-              key={s.stock_id}
-              className="rounded-lg border border-gray-100 bg-gray-50 p-3 hover:border-sky-200 hover:bg-sky-50/30 transition-all"
-            >
-              <div className="flex items-start justify-between mb-2">
-                <div>
-                  <span className="text-[10px] text-gray-400 font-mono">#{i + 1}</span>
-                  <div className="font-bold text-gray-900 text-sm">{s.name}</div>
-                  <div className="text-[10px] text-gray-500">{s.stock_id} · {s.sector}</div>
+            <div key={rec.scan_date} className="rounded-xl border border-gray-700 bg-gray-900/60 overflow-hidden">
+              {/* Header row */}
+              <button
+                className="w-full flex items-center justify-between px-4 py-3 hover:bg-gray-800/50 transition-colors"
+                onClick={() => setExpandedDate(isExpanded ? null : rec.scan_date)}
+              >
+                <div className="flex items-center gap-3">
+                  <span className="text-white font-semibold">{shortDate(rec.scan_date)}</span>
+                  {isPending ? (
+                    <span className="px-2 py-0.5 rounded text-xs bg-yellow-500/20 text-yellow-400 border border-yellow-500/30">
+                      待結算
+                    </span>
+                  ) : (
+                    <span className="px-2 py-0.5 rounded text-xs bg-green-500/20 text-green-400 border border-green-500/30">
+                      已結算
+                    </span>
+                  )}
+                  <span className="text-gray-400 text-sm">
+                    {period.stocks?.length ?? 0} 檔
+                  </span>
                 </div>
-                <div className="text-right">
-                  <div className="font-mono font-bold text-gray-900 text-sm">{s.close}</div>
-                  <div className={`text-[11px] font-mono font-bold ${changePosive ? 'text-red-500' : 'text-green-600'}`}>
-                    {changePosive ? '+' : ''}{s.change_pct.toFixed(2)}%
-                  </div>
-                </div>
-              </div>
-
-              {/* Score bar */}
-              <div className="mb-2">
-                <div className="flex justify-between text-[10px] mb-0.5">
-                  <span className="text-gray-500">總評分</span>
-                  <span className="font-bold font-mono text-sky-600">{s.total_score.toFixed(1)}</span>
-                </div>
-                <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-sky-400 rounded-full"
-                    style={{ width: `${Math.min((s.total_score / 120) * 100, 100)}%` }}
-                  />
-                </div>
-              </div>
-
-              {/* Dimension mini bars */}
-              <div className="space-y-0.5">
-                {dimEntries.map(([dim, val]) => {
-                  const max = DIM_MAX[dim] ?? 10;
-                  const pctFill = Math.min((val / max) * 100, 100);
-                  return (
-                    <div key={dim} className="flex items-center gap-1.5">
-                      <span className="text-[9px] text-gray-400 w-10 shrink-0">{DIM_LABELS[dim]}</span>
-                      <div className="flex-1 h-1 bg-gray-200 rounded-full overflow-hidden">
-                        <div
-                          className="h-full rounded-full"
-                          style={{ width: `${pctFill}%`, backgroundColor: DIM_COLORS[dim] }}
-                        />
-                      </div>
-                      <span className="text-[9px] font-mono text-gray-500 w-6 text-right">{val}</span>
+                <div className="flex items-center gap-4 text-sm">
+                  <div className="text-right">
+                    <div className="text-gray-500 text-xs">勝率</div>
+                    <div className={isPending ? 'text-yellow-400' : 'text-green-400'}>
+                      {winRateDisplay}
                     </div>
-                  );
-                })}
-              </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-gray-500 text-xs">均報酬</div>
+                    <div className={isPending ? 'text-yellow-400' : (
+                      period.avg_return != null && period.avg_return >= 0 ? 'text-green-400' : 'text-red-400'
+                    )}>
+                      {avgReturnDisplay}
+                    </div>
+                  </div>
+                  <span className="text-gray-500">{isExpanded ? '▲' : '▼'}</span>
+                </div>
+              </button>
 
-              {/* Entry/target */}
-              <div className="mt-2 pt-2 border-t border-gray-200 text-[9px] text-gray-500 space-y-0.5">
-                <div className="flex justify-between">
-                  <span>進場</span><span className="font-mono text-gray-700">{s.strategy.entry?.toFixed(1)}</span>
+              {/* Expanded stocks */}
+              {isExpanded && (
+                <div className="border-t border-gray-700 px-4 py-3">
+                  <table className="w-full text-xs">
+                    <thead>
+                      <tr className="text-gray-500 border-b border-gray-700">
+                        <th className="text-left pb-2">股票</th>
+                        <th className="text-right pb-2">進場</th>
+                        <th className="text-right pb-2">現價</th>
+                        <th className="text-right pb-2">報酬</th>
+                        <th className="text-right pb-2">結果</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-800">
+                      {(period.stocks ?? []).map((s) => (
+                        <tr key={s.stock_id} className="py-1">
+                          <td className="py-1.5">
+                            <span className="text-white">{s.stock_id}</span>
+                            <span className="text-gray-500 ml-1">{s.name}</span>
+                          </td>
+                          <td className="text-right text-gray-300">{s.entry?.toFixed(2) ?? '—'}</td>
+                          <td className="text-right text-gray-300">
+                            {s.close != null ? s.close.toFixed(2) : '—'}
+                          </td>
+                          <td className={`text-right ${
+                            s.return_pct == null ? 'text-yellow-400' :
+                            s.return_pct >= 0 ? 'text-green-400' : 'text-red-400'
+                          }`}>
+                            {s.return_pct != null ? pct(s.return_pct) : '待結算'}
+                          </td>
+                          <td className="text-right">
+                            {s.pending ? (
+                              <span className="text-yellow-400">持倉中</span>
+                            ) : s.hit_target ? (
+                              <span className="text-green-400">達標 ✓</span>
+                            ) : s.hit_stoploss ? (
+                              <span className="text-red-400">停損 ✗</span>
+                            ) : (
+                              <span className="text-gray-400">持有</span>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
-                <div className="flex justify-between">
-                  <span>目標</span><span className="font-mono text-emerald-600">{s.strategy.target?.toFixed(1)} (+{s.strategy.upside?.toFixed(1)}%)</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>停損</span><span className="font-mono text-red-500">{s.strategy.stop_loss?.toFixed(1)}</span>
-                </div>
-              </div>
+              )}
             </div>
           );
         })}
@@ -706,7 +452,39 @@ function Top5Cards({ top5 }: { top5: ExplosiveStock[] }) {
   );
 }
 
-// ── Main Dashboard ───────────────────────────────────────────────────────────
+function CumulativeEquityCurve({ records }: { records: BacktestRecord[] }) {
+  const completed = records.filter((r) => !r.periods.T1.pending);
+  if (completed.length === 0) {
+    return (
+      <div className="flex items-center justify-center h-40 text-gray-500 text-sm">
+        待更多已結算資料後產生權益曲線
+      </div>
+    );
+  }
+  const sorted = [...completed].sort((a, b) => a.scan_date.localeCompare(b.scan_date));
+  let cumReturn = 0;
+  const data = sorted.map((r) => {
+    const avgR = r.periods.T1.avg_return ?? 0;
+    cumReturn += avgR;
+    return { date: shortDate(r.scan_date), equity: parseFloat((100 + cumReturn * 100).toFixed(2)) };
+  });
+  return (
+    <ResponsiveContainer width="100%" height={200}>
+      <LineChart data={data} margin={{ top: 4, right: 4, left: -20, bottom: 0 }}>
+        <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+        <XAxis dataKey="date" tick={{ fill: '#9ca3af', fontSize: 11 }} />
+        <YAxis tick={{ fill: '#9ca3af', fontSize: 11 }} />
+        <Tooltip
+          contentStyle={{ background: '#111827', border: '1px solid #374151', borderRadius: 8 }}
+          formatter={(v: number) => [`${v.toFixed(1)}`, '累計指數']}
+        />
+        <Line type="monotone" dataKey="equity" stroke="#34d399" strokeWidth={2} dot={false} />
+      </LineChart>
+    </ResponsiveContainer>
+  );
+}
+
+// ── Main Component ────────────────────────────────────────────────────────────
 
 export default function TrackingDashboard() {
   const [latestData, setLatestData] = useState<LatestData | null>(null);
@@ -714,228 +492,245 @@ export default function TrackingDashboard() {
   const [backtestData, setBacktestData] = useState<BacktestData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [now, setNow] = useState('');
-  void now;
+  const [activeTab, setActiveTab] = useState<'overview' | 'backtest' | 'distribution'>('overview');
 
   useEffect(() => {
-    const tick = () =>
-      setNow(new Date().toLocaleTimeString('zh-TW', {
-        timeZone: 'Asia/Taipei', hour: '2-digit', minute: '2-digit', second: '2-digit',
-      }));
-    tick();
-    const id = setInterval(tick, 1000);
-    return () => clearInterval(id);
-  }, []);
-
-  useEffect(() => {
-    async function load() {
+    async function fetchAll() {
+      setLoading(true);
+      setError(null);
       try {
-        const [latestRes, backtestRes, allScoresRes] = await Promise.all([
-          fetch(`${BASE}/data/latest.json`),
-          fetch(`${BASE}/data/backtest.json`),
-          fetch(`${BASE}/data/all_scores.json`),
-        ]);
-        if (!latestRes.ok) throw new Error(`latest.json: HTTP ${latestRes.status}`);
+        // Fetch latest.json (required)
+        const latestRes = await fetch(`${BASE}/data/latest.json`);
+        if (!latestRes.ok) throw new Error(`latest.json HTTP ${latestRes.status}`);
         const latest: LatestData = await latestRes.json();
         setLatestData(latest);
 
-        if (backtestRes.ok) {
-          const bt: BacktestData = await backtestRes.json();
-          setBacktestData(bt);
+        // Fetch backtest.json (optional — don't fail page if missing)
+        try {
+          const btRes = await fetch(`${BASE}/data/backtest.json`);
+          if (btRes.ok) {
+            const bt = await btRes.json();
+            // Support both v1 (history[]) and v2 (grouped_records[])
+            if (bt.grouped_records) {
+              setBacktestData({ version: bt.version ?? 2, grouped_records: bt.grouped_records });
+            } else if (bt.history) {
+              // Legacy format: wrap into grouped_records shape as pending
+              const wrapped: BacktestRecord[] = (bt.history as Array<{
+                date: string;
+                top5: Array<{ stock_id: string; name: string; entry: number }>;
+              }>).map((h) => ({
+                scan_date: h.date,
+                periods: {
+                  T1: { label: 'T+1', backtest_date: '', win_rate: null, avg_return: null, pending: true, stocks: h.top5.map((s) => ({ ...s, close: null, return_pct: null, hit_target: false, hit_stoploss: false, pending: true })) },
+                  T3: { label: 'T+3', backtest_date: '', win_rate: null, avg_return: null, pending: true, stocks: h.top5.map((s) => ({ ...s, close: null, return_pct: null, hit_target: false, hit_stoploss: false, pending: true })) },
+                  T5: { label: 'T+5', backtest_date: '', win_rate: null, avg_return: null, pending: true, stocks: h.top5.map((s) => ({ ...s, close: null, return_pct: null, hit_target: false, hit_stoploss: false, pending: true })) },
+                },
+              }));
+              setBacktestData({ version: 1, grouped_records: wrapped });
+            }
+          }
+        } catch (btErr) {
+          console.warn('backtest.json fetch failed:', btErr);
         }
 
-        if (allScoresRes.ok) {
-          const asData: AllScoresData = await allScoresRes.json();
-          setAllScoresData(asData);
+        // Fetch all_scores.json (optional)
+        try {
+          const asRes = await fetch(`${BASE}/data/all_scores.json`);
+          if (asRes.ok) {
+            const as: AllScoresData = await asRes.json();
+            setAllScoresData(as);
+          }
+        } catch (asErr) {
+          console.warn('all_scores.json fetch failed:', asErr);
         }
-      } catch (e) {
-        setError(e instanceof Error ? e.message : '資料載入失敗');
+      } catch (err) {
+        console.error('TrackingDashboard fetch error:', err);
+        setError(err instanceof Error ? err.message : String(err));
       } finally {
         setLoading(false);
       }
     }
-    load();
+    fetchAll();
   }, []);
 
-  const summaryStats = useMemo(() => {
-    if (!latestData) return null;
-    const allResults = allScoresData?.all_stock_scores ?? [];
+  const top10 = latestData?.top10 ?? [];
+  const allStocks = allScoresData?.all_stock_scores ?? top10;
+  const groupedRecords = backtestData?.grouped_records ?? [];
 
-    const completedRecords = (backtestData?.grouped_records ?? []).filter((r) => !r.periods.T1.pending);
-    let totalWinRate = 0;
-    let winRateCount = 0;
-    for (const rec of completedRecords) {
-      if (rec.periods.T1.win_rate != null) { totalWinRate += rec.periods.T1.win_rate * 100; winRateCount++; }
-      if (rec.periods.T3.win_rate != null) { totalWinRate += rec.periods.T3.win_rate * 100; winRateCount++; }
-      if (rec.periods.T5.win_rate != null) { totalWinRate += rec.periods.T5.win_rate * 100; winRateCount++; }
-    }
-    const avgWinRate = winRateCount > 0 ? Math.round(totalWinRate / winRateCount) : 0;
-    const totalTrades = completedRecords.reduce((acc, r) => acc + r.periods.T1.stocks.length, 0);
+  // Summary stats from completed backtest records
+  const completedRecords = groupedRecords.filter((r) => !r.periods.T1.pending);
+  const avgWinRate = completedRecords.length > 0
+    ? completedRecords.reduce((s, r) => s + (r.periods.T1.win_rate ?? 0), 0) / completedRecords.length
+    : null;
+  const avgReturn = completedRecords.length > 0
+    ? completedRecords.reduce((s, r) => s + (r.periods.T1.avg_return ?? 0), 0) / completedRecords.length
+    : null;
 
-    const sectorScores: Record<string, number[]> = {};
-    for (const s of allResults) {
-      if (!sectorScores[s.sector]) sectorScores[s.sector] = [];
-      sectorScores[s.sector].push(s.total_score);
-    }
-    let bestSector = '—';
-    let bestAvg = 0;
-    for (const [sec, scores] of Object.entries(sectorScores)) {
-      const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
-      if (avg > bestAvg && scores.length >= 3) { bestAvg = avg; bestSector = sec; }
-    }
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-950 text-gray-100">
+        <TopNav />
+        <div className="flex items-center justify-center h-64">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-sky-400 mx-auto mb-4" />
+            <p className="text-gray-400">載入追蹤資料中…</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
-    return { scanned_count: latestData.scanned_count, avgWinRate, bestSector, totalTrades };
-  }, [latestData, allScoresData, backtestData]);
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-950 text-gray-100">
+        <TopNav />
+        <div className="flex items-center justify-center h-64">
+          <div className="text-center">
+            <AlertCircle className="mx-auto mb-3 w-10 h-10 text-red-400" />
+            <p className="text-red-400 font-semibold">資料載入失敗</p>
+            <p className="text-gray-500 text-sm mt-1">{error}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!latestData) {
+    return (
+      <div className="min-h-screen bg-gray-950 text-gray-100">
+        <TopNav />
+        <div className="flex items-center justify-center h-64">
+          <p className="text-gray-500">尚無掃描資料</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-dvh bg-white text-gray-900 font-sans flex flex-col">
+    <div className="min-h-screen bg-gray-950 text-gray-100">
       <TopNav />
+      <div className="max-w-7xl mx-auto px-4 py-6 space-y-6">
+        {/* Header */}
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold text-white">📊 追蹤儀表板</h1>
+            <p className="text-gray-400 text-sm mt-1">
+              掃描日期：{latestData.scan_date} ｜ 掃描數量：{latestData.scanned_count?.toLocaleString() ?? '—'} 檔
+            </p>
+          </div>
+          <div className="text-right text-sm text-gray-500">
+            <div>回測記錄：{groupedRecords.length} 筆</div>
+            <div>已結算：{completedRecords.length} 筆</div>
+          </div>
+        </div>
 
-      <main className="flex-1 max-w-screen-xl mx-auto w-full px-4 py-5">
+        {/* Summary stats */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <StatCard
+            icon={<Trophy className="w-4 h-4" />}
+            label="T+1 平均勝率"
+            value={avgWinRate != null ? `${(avgWinRate * 100).toFixed(1)}%` : '—'}
+            sub={completedRecords.length > 0 ? `${completedRecords.length} 筆已結算` : '待結算中'}
+            accent="border-green-500/30"
+            valueColor="text-green-400"
+          />
+          <StatCard
+            icon={<TrendingUp className="w-4 h-4" />}
+            label="T+1 平均報酬"
+            value={avgReturn != null ? pct(avgReturn) : '—'}
+            sub="已結算平均"
+            accent="border-sky-500/30"
+            valueColor={avgReturn != null && avgReturn >= 0 ? 'text-green-400' : 'text-red-400'}
+          />
+          <StatCard
+            icon={<Activity className="w-4 h-4" />}
+            label="追蹤中股票"
+            value={groupedRecords.reduce((s, r) => s + (r.periods.T1.stocks?.length ?? 0), 0)}
+            sub="累計追蹤標的"
+            accent="border-purple-500/30"
+            valueColor="text-purple-400"
+          />
+          <StatCard
+            icon={<Zap className="w-4 h-4" />}
+            label="今日 Top10"
+            value={top10.length}
+            sub={`${latestData.trend_label ?? latestData.market_trend ?? '—'}`}
+            accent="border-yellow-500/30"
+            valueColor="text-yellow-400"
+          />
+        </div>
 
-        {/* Hero */}
-        <div className="rounded-2xl border border-gray-200 bg-gradient-to-br from-gray-900 via-gray-900 to-sky-950/30 px-5 py-5 relative overflow-hidden mb-5">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(56,189,248,0.06),transparent_60%)] pointer-events-none" />
-          <div className="flex items-start justify-between flex-wrap gap-4">
+        {/* Tabs */}
+        <div className="flex gap-2 border-b border-gray-800 pb-1">
+          {(['overview', 'backtest', 'distribution'] as const).map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`px-4 py-2 text-sm font-medium rounded-t-lg transition-colors ${
+                activeTab === tab
+                  ? 'bg-gray-800 text-white border-b-2 border-sky-400'
+                  : 'text-gray-500 hover:text-gray-300'
+              }`}
+            >
+              {tab === 'overview' ? '🏆 今日 Top10' : tab === 'backtest' ? '📈 回測追蹤' : '📊 分佈分析'}
+            </button>
+          ))}
+        </div>
+
+        {/* Tab content */}
+        {activeTab === 'overview' && (
+          <div className="space-y-6">
             <div>
-              <h1 className="text-lg font-bold text-white flex items-center gap-2">
-                <TrendingUp className="w-5 h-5 text-sky-400" />
-                推薦追蹤儀表板
-                <span className="text-[10px] text-sky-400 bg-sky-500/10 border border-sky-500/20 px-2 py-0.5 rounded-full font-normal">即時統計</span>
-              </h1>
-              <p className="text-xs text-gray-400 mt-1">回測績效追蹤、族群勝率分析、各維度準確度統計</p>
-              <div className="flex flex-wrap gap-2 mt-3">
-                {['累積報酬曲線', '族群勝率熱力圖', '維度準確度', '歷史回測'].map((t) => (
-                  <span key={t} className="text-[10px] text-sky-300/80 bg-sky-500/8 border border-sky-500/15 px-2 py-0.5 rounded-full">{t}</span>
-                ))}
-              </div>
+              <h2 className="text-lg font-semibold text-white mb-3">今日推薦 Top 10</h2>
+              <Top5Cards stocks={top10} />
             </div>
-            {latestData && (
-              <div className="text-right">
-                <div className="text-[10px] text-gray-500 mb-1">最新掃描</div>
-                <div className="text-base font-mono font-bold text-sky-400">{latestData.scan_date}</div>
-                <div className="text-[11px] text-gray-500 mt-0.5">
-                  共 <span className="text-gray-300 font-mono">{latestData.scanned_count?.toLocaleString()}</span> 檔
+            {top10.length > 0 && (
+              <div>
+                <h2 className="text-lg font-semibold text-white mb-3">五維度雷達圖</h2>
+                <div className="rounded-xl border border-gray-700 bg-gray-900/60 p-4">
+                  <DimensionRadar stocks={top10} />
                 </div>
               </div>
             )}
           </div>
-        </div>
+        )}
 
-        {loading ? (
-          <div className="space-y-4">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-              {[...Array(4)].map((_, i) => (
-                <div key={i} className="h-24 rounded-xl bg-gray-100 animate-pulse" />
-              ))}
-            </div>
-            <div className="h-72 rounded-xl bg-gray-100 animate-pulse" />
-            <div className="h-72 rounded-xl bg-gray-100 animate-pulse" />
-          </div>
-        ) : error ? (
-          <div className="rounded-xl border border-red-200 bg-red-50 p-12 text-center">
-            <AlertCircle className="w-10 h-10 text-red-400 mx-auto mb-3" />
-            <p className="text-sm text-red-600 font-medium">資料載入失敗</p>
-            <p className="text-xs text-red-400 mt-1">{error}</p>
-          </div>
-        ) : latestData ? (
-          <div className="space-y-5">
-
-            {/* Summary Cards */}
-            {summaryStats && (
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-                <StatCard
-                  icon={<BarChart3 className="w-4 h-4 text-sky-400" />}
-                  label="掃描標的數"
-                  value={summaryStats.scanned_count?.toLocaleString() ?? '—'}
-                  sub="本次全市場掃描"
-                  accent="border-sky-500/20 bg-sky-500/5"
-                  valueColor="text-sky-600"
-                />
-                <StatCard
-                  icon={<TrendingUp className="w-4 h-4 text-emerald-400" />}
-                  label="平均回測勝率"
-                  value={`${summaryStats.avgWinRate}%`}
-                  sub="三策略平均"
-                  accent="border-emerald-500/20 bg-emerald-500/5"
-                  valueColor="text-emerald-600"
-                />
-                <StatCard
-                  icon={<Trophy className="w-4 h-4 text-amber-400" />}
-                  label="最強族群"
-                  value={summaryStats.bestSector}
-                  sub="依平均分數排名"
-                  accent="border-amber-500/20 bg-amber-500/5"
-                  valueColor="text-amber-600"
-                />
-                <StatCard
-                  icon={<Activity className="w-4 h-4 text-purple-400" />}
-                  label="總回測交易次數"
-                  value={summaryStats.totalTrades.toLocaleString()}
-                  sub="三策略合計"
-                  accent="border-purple-500/20 bg-purple-500/5"
-                  valueColor="text-purple-600"
-                />
+        {activeTab === 'backtest' && (
+          <div className="space-y-6">
+            {groupedRecords.length > 0 ? (
+              <>
+                <div>
+                  <h2 className="text-lg font-semibold text-white mb-3">回測績效追蹤</h2>
+                  <BacktestPerformanceTable records={groupedRecords} />
+                </div>
+                <div>
+                  <h2 className="text-lg font-semibold text-white mb-3">累計報酬曲線（T+1）</h2>
+                  <div className="rounded-xl border border-gray-700 bg-gray-900/60 p-4">
+                    <CumulativeEquityCurve records={groupedRecords} />
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="text-center py-16 text-gray-500">
+                <BarChart3 className="mx-auto mb-3 w-10 h-10" />
+                <p>尚無回測記錄</p>
+                <p className="text-sm mt-1">每日 22:55 掃描後自動產生追蹤記錄</p>
               </div>
             )}
-
-            {/* Top5 detail cards */}
-            {latestData.top10?.length > 0 && (
-              <Top5Cards top5={latestData.top10.slice(0, 5)} />
-            )}
-
-            {/* Sector Heatmap + Dimension Accuracy side by side on large screens */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-              {allScoresData?.all_stock_scores && allScoresData.all_stock_scores.length > 0 && (
-                <SectorWinRateHeatmap allResults={allScoresData.all_stock_scores} />
-              )}
-              {allScoresData?.all_stock_scores && allScoresData.all_stock_scores.length > 0 && (
-                <DimensionAccuracyStats allResults={allScoresData.all_stock_scores} />
-              )}
-            </div>
-
-            {/* Backtest performance table */}
-            {backtestData && (
-              <BacktestPerformanceTable records={backtestData?.grouped_records ?? []} />
-            )}
-
-          </div>
-        ) : (
-          <div className="rounded-xl border border-gray-200 bg-gray-50 p-16 text-center">
-            <TrendingUp className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-            <p className="text-sm text-gray-500">尚無資料</p>
           </div>
         )}
-      </main>
 
-      <footer className="border-t border-gray-200 py-6 mt-4">
-        <div className="max-w-screen-xl mx-auto px-4">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-            <div className="flex items-center gap-2">
-              <RadarIcon className="w-4 h-4 text-sky-400" />
-              <span className="text-sm font-semibold text-gray-700">台股雷達</span>
-              <span className="text-[10px] text-gray-400">Taiwan Stock Radar v3.1</span>
-            </div>
-            <div className="flex flex-wrap items-center justify-center gap-4 text-[11px] text-gray-500">
-              <span>資料來源：TWSE OpenAPI</span>
-              <span className="hidden sm:inline text-gray-300">|</span>
-              <span>每日 19:00 自動更新（交易日）</span>
-              <span className="hidden sm:inline text-gray-300">|</span>
-              <a
-                href="https://github.com/juststarlight66-oss/taiwan-stock-radar"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-500 hover:text-gray-700 transition-colors flex items-center gap-1"
-              >
-                <GitFork className="w-3 h-3" />GitHub
-              </a>
+        {activeTab === 'distribution' && (
+          <div className="space-y-6">
+            <div>
+              <h2 className="text-lg font-semibold text-white mb-3">總分分佈</h2>
+              <div className="rounded-xl border border-gray-700 bg-gray-900/60 p-4">
+                <ScoreDistribution stocks={allStocks} />
+              </div>
             </div>
           </div>
-          <p className="text-center text-[10px] text-gray-400 mt-3">
-            本系統資料僅供參考，不構成任何投資建議。投資有風險，請審慎評估個人財務狀況。過去績效不代表未來獲利保證。
-          </p>
-        </div>
-      </footer>
+        )}
+      </div>
     </div>
   );
 }
