@@ -1,5 +1,5 @@
 'use client';
-import { Activity, Wifi, History, TrendingUp, List, ScanLine, Clock, Search } from 'lucide-react';
+import { Activity, Wifi, History, ScanLine, Clock, Search } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 const BASE = '/taiwan-stock-radar';
@@ -8,8 +8,6 @@ const NAV_ITEMS = [
   { label: '每日推薦',   href: `${BASE}/`,          icon: <Activity className="w-3.5 h-3.5" /> },
   { label: '盤中監控',   href: `${BASE}/intraday`,   icon: <Wifi className="w-3.5 h-3.5" /> },
   { label: '歷史查詢',   href: `${BASE}/history`,    icon: <History className="w-3.5 h-3.5" /> },
-  { label: '追蹤儀表板', href: `${BASE}/tracking`,   icon: <TrendingUp className="w-3.5 h-3.5" /> },
-  { label: '族群動態',   href: `${BASE}/all`,        icon: <List className="w-3.5 h-3.5" /> },
   { label: '自主檢查',   href: `${BASE}/selfcheck`,  icon: <Search className="w-3.5 h-3.5" /> },
 ] as const;
 
@@ -23,7 +21,6 @@ export default function TopNav({ rightSlot, onInfoClick }: TopNavProps) {
   const [pathname, setPathname] = useState('');
 
   useEffect(() => {
-    // Use window.location instead of usePathname() for static export compatibility
     setPathname(window.location.pathname);
   }, []);
 
@@ -99,12 +96,9 @@ export default function TopNav({ rightSlot, onInfoClick }: TopNavProps) {
             {onInfoClick && (
               <button
                 onClick={onInfoClick}
-                className="p-1.5 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors"
-                aria-label="Info"
+                className="text-xs text-gray-500 hover:text-gray-700 px-2 py-1 rounded-lg hover:bg-gray-100 transition-colors"
               >
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+                說明
               </button>
             )}
             {rightSlot}
