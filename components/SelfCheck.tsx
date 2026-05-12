@@ -1,6 +1,6 @@
 'use client';
 import { useState, useMemo, useCallback } from 'react';
-import { useAllScores, useOnDemandScan } from '@/lib/useScanData';
+import { useAllScoresHistory, useOnDemandScan } from '@/lib/useScanData';
 import { ScanStock, DIMENSION_CONFIG } from '@/lib/scanTypes';
 import {
   Search, X, AlertCircle, ChevronDown, ChevronUp,
@@ -89,317 +89,307 @@ function CompareRadar({ stocks }: { stocks: ScanStock[] }) {
   );
 }
 
-function StockCard({
-  stock,
-  onRemove,
-  rank,
-}: {
-  stock: ScanStock;
-  onRemove: () => void;
-  rank: number;
-}) {
-  const [expanded, setExpanded] = useState(false);
-  const action = stock.recommendation ?? '';
-  const actionStyle = ACTION_MAP[action] ?? ACTION_MAP['觀望'];
-  const dims = DIM_KEYS.map((k) => ({
-    key: k,
-    label: DIMENSION_CONFIG[k].label,
-    max: DIMENSION_CONFIG[k].max,
-    value: (stock.dimensions as unknown as Record<string, number>)?.[k] ?? 0,
-  }));
-
-  return (
-    <div className={`rounded-xl border ${actionStyle.border} ${actionStyle.bg} p-5 space-y-3 relative`}>
-      <button
-        onClick={onRemove}
-        className="absolute top-3 right-3 text-gray-400 hover:text-red-500 transition-colors"
-        aria-label="移除"
-      >
-        <X size={14} />
-      </button>
-
-      {/* Header */}
-      <div className="flex items-start justify-between pr-6">
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-gray-400">#{rank}</span>
-            <span className="font-bold text-gray-900 text-base">{stock.stock_name ?? stock.name ?? stock.stock_id}</span>
-            <span className="text-xs text-gray-500">{stock.stock_id}</span>
-          </div>
-          <div className="text-xs text-gray-500 mt-0.5">{stock.sector_name ?? stock.sector ?? '—'}</div>
-        </div>
-        <div className="text-right">
-          <div className="text-xl font-bold text-gray-900">{stock.total_score}</div>
-          <div className="text-xs text-gray-400">總分</div>
-        </div>
-      </div>
-
-      {/* Price */}
-      {stock.close != null && (
-        <div className="flex items-center gap-2 text-sm">
-          <span className="font-semibold text-gray-800">${stock.close.toFixed(2)}</span>
-          {stock.change_pct != null && (
-            <span className={`flex items-center gap-0.5 text-xs font-medium ${
-              stock.change_pct >= 0 ? 'text-red-600' : 'text-green-600'
-            }`}>
-              {stock.change_pct >= 0 ? <ArrowUpRight size={12} /> : <ArrowDownRight size={12} />}
-              {Math.abs(stock.change_pct).toFixed(2)}%
-            </span>
-          )}
-        </div>
-      )}
-
-      {/* Action badge */}
-      <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border ${actionStyle.border} ${actionStyle.bg}`}>
-        <span className={`w-2 h-2 rounded-full ${actionStyle.dot}`} />
-        <span className={actionStyle.text}>{actionStyle.label}</span>
-      </div>
-
-      {/* Dimension scores */}
-      <div className="space-y-1.5">
-        {dims.map(({ key, label, max, value }) => (
-          <div key={key} className="flex items-center gap-2">
-            <span className="text-xs text-gray-500 w-16 shrink-0">{label}</span>
-            <div className="flex-1">
-              <ScoreBar value={value} max={max} />
-            </div>
-            <span className="text-xs font-medium text-gray-700 w-8 text-right">{value}/{max}</span>
-          </div>
-        ))}
-      </div>
-
-      {/* Expand toggle */}
-      <button
-        onClick={() => setExpanded((v) => !v)}
-        className="flex items-center gap-1 text-xs text-sky-600 hover:text-sky-800 transition-colors"
-      >
-        {expanded ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
-        {expanded ? '收起' : '展開詳情'}
-      </button>
-
-      {expanded && (
-        <div className="space-y-3 pt-2 border-t border-gray-100">
-          {/* Entry/exit */}
-          {(stock.entry_low != null || stock.entry_high != null) && (
-            <div className="grid grid-cols-2 gap-2 text-xs">
-              <div className="rounded-lg bg-white border border-gray-200 p-2">
-                <div className="text-gray-400 mb-0.5 flex items-center gap-1"><Target size={10}/>進場區間</div>
-                <div className="font-semibold text-gray-800">
-                  {stock.entry_low ?? 0} – {stock.entry_high ?? 0}
-                </div>
-              </div>
-              <div className="rounded-lg bg-white border border-red-100 p-2">
-                <div className="text-gray-400 mb-0.5 flex items-center gap-1"><Shield size={10}/>止損</div>
-                <div className="font-semibold text-red-600">{stock.stop_loss ?? 0}</div>
-              </div>
-            </div>
-          )}
-          {/* Targets */}
-          {stock.target1 != null && (
-            <div className="flex gap-2 text-xs">
-              {[stock.target1, stock.target2, stock.target3].filter(Boolean).map((t, i) => (
-                <div key={i} className="rounded-lg bg-white border border-green-100 p-2 flex-1 text-center">
-                  <div className="text-gray-400 mb-0.5">T{i + 1}</div>
-                  <div className="font-semibold text-green-600">{t}</div>
-                </div>
-              ))}
-            </div>
-          )}
-          {/* Reason */}
-          {stock.reason && (
-            <p className="text-xs text-gray-600 leading-relaxed">{stock.reason}</p>
-          )}
-        </div>
-      )}
-    </div>
-  );
-}
+// ── Stub types for on-demand scan result ─────────────────────────
+interface OnDemandResult { stock: ScanStock | null; error?: string; }
 
 export default function SelfCheck() {
-  const { stocks: allStocks, isLoading: allLoading, error: allError } = useAllScores();
-  const { stock: scannedStock, isLoading: scanning, error: scanError, scan, reset } = useOnDemandScan();
+  // all_scores history for search pool
+  const { data: allData, isLoading: allLoading } = useAllScoresHistory();
+  const allStocks: ScanStock[] = allData?.all_stock_scores ?? [];
 
-  const [query, setQuery] = useState('');
-  const [watchlist, setWatchlist] = useState<string[]>([]);
-  const [copied, setCopied] = useState(false);
+  // on-demand single-stock scan
+  const { scan, result: scanResult, isLoading: scanLoading } = useOnDemandScan();
 
-  // Search suggestions
-  const suggestions = useMemo(() => {
-    if (!query || query.length < 2) return [];
-    const q = query.toLowerCase();
+  // watchlist state
+  const [watchlist, setWatchlist] = useState<ScanStock[]>([]);
+  const [search, setSearch] = useState('');
+  const [showSearch, setShowSearch] = useState(false);
+  const [shareMsg, setShareMsg] = useState('');
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+
+  const filtered = useMemo(() => {
+    if (!search.trim()) return [];
+    const q = search.toLowerCase();
     return allStocks
-      .filter(
-        (s) =>
-          s.stock_id.startsWith(q) ||
-          (s.stock_name ?? s.name ?? '').toLowerCase().includes(q)
+      .filter(s =>
+        s.stock_id.includes(q) ||
+        (s.stock_name ?? s.name ?? '').toLowerCase().includes(q)
       )
-      .slice(0, 8);
-  }, [query, allStocks]);
+      .slice(0, 12);
+  }, [search, allStocks]);
 
-  const watchlistStocks = useMemo(
-    () => allStocks.filter((s) => watchlist.includes(s.stock_id)),
-    [allStocks, watchlist]
-  );
+  const addToWatchlist = useCallback((s: ScanStock) => {
+    setWatchlist(prev => prev.some(x => x.stock_id === s.stock_id) ? prev : [...prev, s]);
+    setSearch('');
+    setShowSearch(false);
+  }, []);
 
-  const handleAdd = useCallback(
-    (stockId: string) => {
-      if (!watchlist.includes(stockId)) {
-        setWatchlist((prev) => [...prev, stockId]);
-      }
-      setQuery('');
-    },
-    [watchlist]
-  );
+  const removeFromWatchlist = useCallback((id: string) => {
+    setWatchlist(prev => prev.filter(s => s.stock_id !== id));
+    if (expandedId === id) setExpandedId(null);
+  }, [expandedId]);
 
-  const handleRemove = useCallback(
-    (stockId: string) => setWatchlist((prev) => prev.filter((id) => id !== stockId)),
-    []
-  );
-
-  const handleSearch = useCallback(
-    (e: React.FormEvent) => {
-      e.preventDefault();
-      if (!query) return;
-      scan(query.toUpperCase());
-    },
-    [query, scan]
-  );
-
-  const handleShare = useCallback(async () => {
-    const text = watchlist.join(',');
-    await navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleShare = useCallback(() => {
+    const ids = watchlist.map(s => s.stock_id).join(',');
+    const url = `${window.location.origin}${window.location.pathname}?stocks=${ids}`;
+    navigator.clipboard?.writeText(url).then(() => {
+      setShareMsg('連結已複製！');
+      setTimeout(() => setShareMsg(''), 2000);
+    });
   }, [watchlist]);
 
+  // ── Render ──────────────────────────────────────────────────────
   return (
-    <div className="space-y-6">
-      {/* Search bar */}
-      <div className="relative">
-        <form onSubmit={handleSearch} className="flex gap-2">
-          <div className="relative flex-1">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-            <input
-              value={query}
-              onChange={(e) => { setQuery(e.target.value); reset(); }}
-              placeholder="輸入股票代號或名稱搜尋..."
-              className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-gray-200 bg-white text-sm
-                         focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
-            />
+    <div className="min-h-screen bg-white text-gray-900 font-sans">
+      <div className="max-w-4xl mx-auto px-4 py-8 space-y-6">
+
+        {/* Header */}
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900">自選股健診</h1>
+            <p className="text-sm text-gray-500 mt-0.5">加入自選股，即時查看五維評分與操作建議</p>
           </div>
-          <button
-            type="submit"
-            disabled={!query || scanning}
-            className="px-4 py-2.5 bg-sky-500 text-white rounded-xl text-sm font-medium
-                       hover:bg-sky-600 disabled:opacity-40 transition-colors"
-          >
-            {scanning ? '掃描中...' : '掃描'}
-          </button>
-        </form>
-
-        {/* Suggestions dropdown */}
-        {suggestions.length > 0 && (
-          <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-xl shadow-lg z-20 overflow-hidden">
-            {suggestions.map((s) => (
-              <button
-                key={s.stock_id}
-                onClick={() => handleAdd(s.stock_id)}
-                className="w-full flex items-center justify-between px-4 py-2.5 hover:bg-sky-50 transition-colors text-sm"
-              >
-                <span>
-                  <span className="font-medium text-gray-900">{s.stock_id}</span>
-                  <span className="ml-2 text-gray-500">{s.stock_name ?? s.name}</span>
-                </span>
-                <span className="text-xs text-sky-600 flex items-center gap-1">
-                  <Plus size={12} /> 加入自選清單
-                </span>
-              </button>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* Scan result */}
-      {scanning && <SkeletonCard />}
-      {scanError && (
-        <div className="flex items-center gap-2 text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl p-3">
-          <AlertCircle size={14} />
-          <span>掃描失敗：{scanError.message}</span>
-        </div>
-      )}
-      {scannedStock && (
-        <div className="space-y-2">
-          <div className="text-xs text-gray-400 font-medium">掃描結果</div>
-          <StockCard stock={scannedStock} rank={1} onRemove={reset} />
-          <button
-            onClick={() => handleAdd(scannedStock.stock_id)}
-            disabled={watchlist.includes(scannedStock.stock_id)}
-            className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-sky-200
-                       bg-sky-50 text-sky-700 text-sm font-medium hover:bg-sky-100
-                       disabled:opacity-40 transition-colors"
-          >
-            <Plus size={14} /> 加入自選清單
-          </button>
-        </div>
-      )}
-
-      {/* Watchlist */}
-      {watchlistStocks.length > 0 && (
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-sm font-semibold text-gray-700">
-              自選清單 <span className="text-gray-400 font-normal">({watchlistStocks.length})</span>
-            </h2>
+          {watchlist.length >= 2 && (
             <button
               onClick={handleShare}
-              className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-sky-600 transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-gray-100 text-gray-600 hover:bg-gray-200 transition"
             >
-              {copied ? <Check size={12} className="text-green-500" /> : <Share2 size={12} />}
-              {copied ? '已複製' : '分享清單'}
+              {shareMsg ? <><Check className="w-3.5 h-3.5 text-emerald-500" />{shareMsg}</> : <><Share2 className="w-3.5 h-3.5" />分享比較</>}
             </button>
+          )}
+        </div>
+
+        {/* Search bar */}
+        <div className="relative">
+          <div
+            className="flex items-center gap-2 px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 cursor-text"
+            onClick={() => setShowSearch(true)}
+          >
+            <Search className="w-4 h-4 text-gray-400 shrink-0" />
+            <input
+              type="text"
+              value={search}
+              onChange={e => { setSearch(e.target.value); setShowSearch(true); }}
+              onFocus={() => setShowSearch(true)}
+              placeholder={allLoading ? '載入股票資料中...' : '輸入股票代號或名稱（如 2330 台積電）'}
+              className="flex-1 bg-transparent text-sm outline-none placeholder-gray-400"
+            />
+            {search && (
+              <button onClick={() => { setSearch(''); setShowSearch(false); }}>
+                <X className="w-4 h-4 text-gray-400 hover:text-gray-600" />
+              </button>
+            )}
           </div>
 
-          {allLoading
-            ? [...Array(2)].map((_, i) => <SkeletonCard key={i} />)
-            : watchlistStocks.map((s, i) => (
-                <StockCard
-                  key={s.stock_id}
-                  stock={s}
-                  rank={i + 1}
-                  onRemove={() => handleRemove(s.stock_id)}
-                />
-              ))}
-
-          {watchlistStocks.length >= 2 && (
-            <CompareRadar stocks={watchlistStocks.slice(0, 5)} />
+          {/* Dropdown results */}
+          {showSearch && search.trim() && (
+            <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-xl shadow-lg z-20 overflow-hidden">
+              {allLoading ? (
+                <div className="px-4 py-3 text-sm text-gray-500">載入中...</div>
+              ) : filtered.length > 0 ? (
+                <ul>
+                  {filtered.map(s => (
+                    <li
+                      key={s.stock_id}
+                      className="flex items-center justify-between px-4 py-2.5 hover:bg-gray-50 cursor-pointer border-b border-gray-100 last:border-0"
+                      onMouseDown={() => addToWatchlist(s)}
+                    >
+                      <div>
+                        <span className="font-mono text-sm font-semibold text-gray-800">{s.stock_id}</span>
+                        <span className="ml-2 text-sm text-gray-600">{s.stock_name ?? s.name}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs text-gray-400">{s.sector_name ?? s.sector ?? ''}</span>
+                        <span className={`text-xs font-bold px-1.5 py-0.5 rounded ${
+                          s.total_score >= 70 ? 'bg-red-50 text-red-600' :
+                          s.total_score >= 50 ? 'bg-orange-50 text-orange-600' :
+                          'bg-gray-100 text-gray-500'
+                        }`}>{s.total_score}分</span>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <div className="px-4 py-3 text-sm text-gray-500">找不到符合的股票</div>
+              )}
+            </div>
           )}
-
-          <button
-            onClick={() => setWatchlist([])}
-            className="w-full flex items-center justify-center gap-2 py-2 rounded-xl border border-red-100
-                       text-red-400 text-xs hover:bg-red-50 transition-colors"
-          >
-            <Trash2 size={12} /> 清空所有
-          </button>
         </div>
-      )}
 
-      {/* Error state for allScores */}
-      {allError && (
-        <div className="flex items-center gap-2 text-sm text-amber-600 bg-amber-50 border border-amber-200 rounded-xl p-3">
-          <AlertCircle size={14} />
-          <span>無法載入全市場資料，搜尋功能可能受限</span>
-        </div>
-      )}
+        {/* Compare radar (only when 2+ stocks) */}
+        {watchlist.length >= 2 && <CompareRadar stocks={watchlist} />}
 
-      {/* Empty state */}
-      {watchlist.length === 0 && !scannedStock && !scanning && (
-        <div className="text-center py-12 text-gray-400">
-          <Search size={32} className="mx-auto mb-3 opacity-30" />
-          <p className="text-sm">搜尋股票代號或名稱以加入自選清單</p>
-          <p className="text-xs mt-1">支援加入多支證券進行比較分析</p>
+        {/* Empty state */}
+        {watchlist.length === 0 && (
+          <div className="flex flex-col items-center justify-center py-20 text-gray-400">
+            <Search className="w-12 h-12 mb-4 opacity-30" />
+            <p className="text-sm">搜尋並加入您的自選股</p>
+            <p className="text-xs mt-1 opacity-70">支援股票代號與名稱模糊搜尋</p>
+          </div>
+        )}
+
+        {/* Watchlist cards */}
+        <div className="space-y-3">
+          {allLoading && watchlist.length === 0 && (
+            <>{[...Array(2)].map((_, i) => <SkeletonCard key={i} />)}</>
+          )}
+          {watchlist.map((stock) => {
+            const action = ACTION_MAP[stock.recommendation] ?? ACTION_MAP['觀望'];
+            const isExpanded = expandedId === stock.stock_id;
+            const dims = DIM_KEYS.map(k => ({
+              key: k,
+              label: DIMENSION_CONFIG[k].label,
+              max: DIMENSION_CONFIG[k].max,
+              value: (stock.dimensions as unknown as Record<string, number>)?.[k] ?? 0,
+            }));
+            return (
+              <div
+                key={stock.stock_id}
+                className={`rounded-xl border ${action.border} ${action.bg} overflow-hidden transition-all`}
+              >
+                {/* Card header */}
+                <div
+                  className="flex items-center justify-between px-5 py-4 cursor-pointer"
+                  onClick={() => setExpandedId(isExpanded ? null : stock.stock_id)}
+                >
+                  <div className="flex items-center gap-3">
+                    <span className={`w-2 h-2 rounded-full ${action.dot}`} />
+                    <div>
+                      <span className="font-mono font-bold text-gray-900">{stock.stock_id}</span>
+                      <span className="ml-2 text-sm text-gray-700">{stock.stock_name ?? stock.name}</span>
+                      <span className="ml-2 text-xs text-gray-400">{stock.sector_name ?? stock.sector ?? ''}</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className={`text-sm font-bold ${action.text}`}>{action.label}</span>
+                    <span className="text-xs font-bold text-gray-900 bg-white/80 px-2 py-0.5 rounded-lg border border-gray-200">{stock.total_score}分</span>
+                    {isExpanded ? <ChevronUp className="w-4 h-4 text-gray-400" /> : <ChevronDown className="w-4 h-4 text-gray-400" />}
+                    <button
+                      onClick={(e) => { e.stopPropagation(); removeFromWatchlist(stock.stock_id); }}
+                      className="p-1 rounded hover:bg-red-50 text-gray-400 hover:text-red-500 transition"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Expanded details */}
+                {isExpanded && (
+                  <div className="px-5 pb-5 space-y-4 border-t border-gray-200/60">
+
+                    {/* Price row */}
+                    <div className="flex items-center gap-4 pt-3">
+                      <div>
+                        <span className="text-2xl font-bold text-gray-900">{stock.close > 0 ? stock.close.toFixed(2) : '—'}</span>
+                        <span className="ml-1 text-sm text-gray-400">元</span>
+                      </div>
+                      {stock.change_pct !== undefined && (
+                        <span className={`flex items-center gap-0.5 text-sm font-medium ${
+                          stock.change_pct > 0 ? 'text-red-500' : stock.change_pct < 0 ? 'text-green-500' : 'text-gray-400'
+                        }`}>
+                          {stock.change_pct > 0 ? <ArrowUpRight className="w-4 h-4" /> : stock.change_pct < 0 ? <ArrowDownRight className="w-4 h-4" /> : null}
+                          {stock.change_pct > 0 ? '+' : ''}{stock.change_pct.toFixed(2)}%
+                        </span>
+                      )}
+                      <span className="text-xs text-gray-400">RSI {stock.rsi?.toFixed(0) ?? '—'}</span>
+                      <span className="text-xs text-gray-400">量比 {stock.vol_ratio?.toFixed(1) ?? '—'}</span>
+                    </div>
+
+                    {/* Dimension bars */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {dims.map(d => (
+                        <div key={d.key} className="space-y-1">
+                          <div className="flex justify-between text-xs">
+                            <span className="text-gray-600">{d.label}</span>
+                            <span className="font-semibold text-gray-800">{d.value}<span className="text-gray-400">/{d.max}</span></span>
+                          </div>
+                          <ScoreBar value={d.value} max={d.max} />
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Strategy boxes */}
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                      <div className="bg-white rounded-lg border border-gray-200 p-2.5 text-center">
+                        <p className="text-[10px] text-gray-400 mb-0.5">建議進場</p>
+                        <p className="text-xs font-bold text-gray-800">
+                          {stock.entry_low > 0 ? `${stock.entry_low}–${stock.entry_high}` : '—'}
+                        </p>
+                      </div>
+                      <div className="bg-white rounded-lg border border-red-100 p-2.5 text-center">
+                        <p className="text-[10px] text-gray-400 mb-0.5">停損</p>
+                        <p className="text-xs font-bold text-red-600">{stock.stop_loss > 0 ? stock.stop_loss : '—'}</p>
+                      </div>
+                      <div className="bg-white rounded-lg border border-emerald-100 p-2.5 text-center">
+                        <p className="text-[10px] text-gray-400 mb-0.5">目標 T1/T2/T3</p>
+                        <p className="text-xs font-bold text-emerald-600">
+                          {stock.target1 > 0 ? `${stock.target1} / ${stock.target2} / ${stock.target3}` : '—'}
+                        </p>
+                      </div>
+                      <div className="bg-white rounded-lg border border-gray-200 p-2.5 text-center">
+                        <p className="text-[10px] text-gray-400 mb-0.5">持有</p>
+                        <p className="text-xs font-bold text-gray-800">{stock.hold_days || '—'}</p>
+                      </div>
+                    </div>
+
+                    {/* Reason */}
+                    {stock.reason && (
+                      <div className="flex items-start gap-2 bg-white/70 rounded-lg px-3 py-2.5 border border-gray-100">
+                        <AlertCircle className="w-3.5 h-3.5 text-gray-400 mt-0.5 shrink-0" />
+                        <p className="text-xs text-gray-600 leading-relaxed">{stock.reason}</p>
+                      </div>
+                    )}
+
+                    {/* Risk metrics */}
+                    <div className="flex items-center gap-4 text-xs text-gray-500">
+                      <span className="flex items-center gap-1">
+                        <Shield className="w-3 h-3" />
+                        每口最大虧損：{stock.max_loss_per_lot > 0 ? `${stock.max_loss_per_lot} 元` : '—'}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Target className="w-3 h-3" />
+                        建議倉位：{stock.position || '—'}
+                      </span>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
-      )}
+
+        {/* On-demand scan section */}
+        <div className="border-t border-gray-200 pt-6">
+          <h2 className="text-sm font-semibold text-gray-700 mb-3">即時掃描（單股）</h2>
+          <div className="flex gap-2">
+            <input
+              type="text"
+              placeholder="輸入股票代號進行即時評分..."
+              className="flex-1 px-3 py-2 text-sm rounded-lg border border-gray-200 bg-gray-50 outline-none focus:border-sky-400"
+              onKeyDown={e => { if (e.key === 'Enter') scan((e.target as HTMLInputElement).value.trim()); }}
+            />
+            <button
+              onClick={() => {
+                const inp = document.querySelector<HTMLInputElement>('input[placeholder*="即時掃描"]');
+                if (inp) scan(inp.value.trim());
+              }}
+              disabled={scanLoading}
+              className="px-4 py-2 text-sm font-medium rounded-lg bg-sky-500 text-white hover:bg-sky-600 disabled:opacity-50 transition"
+            >
+              {scanLoading ? '掃描中...' : '掃描'}
+            </button>
+          </div>
+          {scanResult && (
+            <div className="mt-3 p-3 rounded-lg border border-gray-200 bg-gray-50 text-xs text-gray-600">
+              {(scanResult as OnDemandResult).error
+                ? <span className="text-red-500">{(scanResult as OnDemandResult).error}</span>
+                : <pre className="whitespace-pre-wrap">{JSON.stringify((scanResult as OnDemandResult).stock, null, 2)}</pre>
+              }
+            </div>
+          )}
+        </div>
+
+      </div>
     </div>
   );
 }
