@@ -64,7 +64,7 @@ jobs:
           EOF
 
       - name: Install dependencies
-        run: npm install --no-fund --no-audit --silent
+        run: npm install --no-fund --no-audit --silent > /dev/null 2>&1
 
       - name: Build
         id: build
@@ -75,10 +75,10 @@ jobs:
 
       - name: Show build result
         run: |
-          echo "=== FIRST 20 LINES ==="
+          echo "=== BUILD OUTPUT HEAD ==="
           head -20 /tmp/build_output.txt || true
-          echo "=== LAST 60 LINES ==="
-          tail -60 /tmp/build_output.txt || true
+          echo "=== BUILD OUTPUT TAIL ==="
+          tail -80 /tmp/build_output.txt || true
           echo "=== END ==="
           BUILD_EXIT=$(grep 'BUILD_EXIT' $GITHUB_OUTPUT | cut -d= -f2 || echo '1')
           echo "Build exit code: $BUILD_EXIT"
