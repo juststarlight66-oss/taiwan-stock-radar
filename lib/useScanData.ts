@@ -52,7 +52,6 @@ export function useHistoryIndex() {
   return { dates: data?.dates ?? [], error, isLoading };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function inferSector(stockId: string): string {
   const id = parseInt(stockId, 10);
   if (id >= 1000 && id <= 1999) return '水泥';
@@ -107,8 +106,8 @@ function normalizeStock(s: any): ScanStock {
       technical:   s.technical_score   ?? 0,
       fundamental: s.fundamental_score ?? 0,
       news:        s.news_score        ?? 0,
-      chips:       s.chips_score       ?? 0,
       sentiment:   s.sentiment_score   ?? 0,
+      chips:       s.chips_score       ?? 0,
     },
     signals: s.signals ?? {},
   };
@@ -120,36 +119,41 @@ export function useAllScores() {
     fetcher,
     { refreshInterval: 0, revalidateOnFocus: false }
   );
+
   const stocks: ScanStock[] = (data?.all_stock_scores ?? []).map(normalizeStock);
+
   return { data, stocks, error, isLoading };
 }
 
-export interface OnDemandScanResult {
-  isScanning: boolean;
-  result: ScanResult | null;
-  error: string | null;
-  trigger: () => void;
-}
-
-export function useOnDemandScan(): OnDemandScanResult {
+export function useOnDemandScan() {
+  const [stocks, setStocks] = useState<ScanStock[]>([]);
   const [isScanning, setIsScanning] = useState(false);
-  const [result, setResult] = useState<ScanResult | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<Error | null>(null);
 
-  const trigger = useCallback(async () => {
+  const scan = useCallback(async (stockIds: string[]) => {
+    if (!stockIds.length) return;
     setIsScanning(true);
     setError(null);
     try {
-      const res = await fetch(`${BASE}/data/latest.json`);
+      // Try to fetch from all_scores.json and filter by requested stock IDs
+      const res = await fetch(`${BASE}/data/all_scores.json`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const json = await res.json();
-      setResult(json);
+      const json: AllScoresData = await res.json();
+      const all = (json.all_stock_scores ?? []).map(normalizeStock);
+      const filtered = all.filter((s) => stockIds.includes(s.stock_id));
+      setStocks(filtered);
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Unknown error');
+      setError(e instanceof Error ? e : new Error(String(e)));
+      setStocks([]);
     } finally {
       setIsScanning(false);
     }
   }, []);
 
-  return { isScanning, result, error, trigger };
+  const reset = useCallback(() => {
+    setStocks([]);
+    setError(null);
+  }, []);
+
+  return { stocks, isScanning, error, scan, reset };
 }
