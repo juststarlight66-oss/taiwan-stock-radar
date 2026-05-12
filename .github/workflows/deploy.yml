@@ -67,7 +67,13 @@ jobs:
         run: npm install --no-fund --no-audit --silent
 
       - name: Build
-        run: npm run build
+        run: |
+          npm run build > /tmp/build_output.txt 2>&1
+          BUILD_EXIT=$?
+          echo "=== BUILD OUTPUT TAIL ==="
+          tail -80 /tmp/build_output.txt
+          echo "=== BUILD EXIT: $BUILD_EXIT ==="
+          exit $BUILD_EXIT
 
       - name: Upload build error log
         if: failure()
