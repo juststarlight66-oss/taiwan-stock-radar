@@ -67,20 +67,22 @@ jobs:
         run: npm install --no-fund --no-audit --silent
 
       - name: Build
+        id: build
+        continue-on-error: true
         run: |
           npm run build > /tmp/build_output.txt 2>&1
-          BUILD_EXIT=$?
-          echo "=== BUILD OUTPUT TAIL ==="
-          tail -80 /tmp/build_output.txt
-          echo "=== BUILD EXIT: $BUILD_EXIT ==="
-          exit $BUILD_EXIT
+          echo "BUILD_EXIT=$?" >> $GITHUB_OUTPUT
 
-      - name: Upload build error log
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-error-log
-          path: /tmp/build_output.txt
+      - name: Show build result
+        run: |
+          echo "=== FIRST 20 LINES ==="
+          head -20 /tmp/build_output.txt || true
+          echo "=== LAST 60 LINES ==="
+          tail -60 /tmp/build_output.txt || true
+          echo "=== END ==="
+          BUILD_EXIT=$(grep 'BUILD_EXIT' $GITHUB_OUTPUT | cut -d= -f2 || echo '1')
+          echo "Build exit code: $BUILD_EXIT"
+          [ "$BUILD_EXIT" = "0" ] || exit 1
 
       - name: Add .nojekyll
         run: touch out/.nojekyll
