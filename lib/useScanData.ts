@@ -54,20 +54,20 @@ export function useHistoryIndex() {
 
 function inferSector(stockId: string): string {
   const id = parseInt(stockId, 10);
-  if (id >= 1000 && id <= 1999) return '水泥';
-  if (id >= 2000 && id <= 2099) return '食品';
-  if (id >= 2100 && id <= 2199) return '塑膠';
-  if (id >= 2300 && id <= 2399) return '電子';
-  if (id >= 2400 && id <= 2499) return '半導體';
-  if (id >= 2500 && id <= 2599) return '電腦周邊';
-  if (id >= 2600 && id <= 2699) return '通信網路';
-  if (id >= 2800 && id <= 2899) return '金融';
-  if (id >= 3000 && id <= 3999) return '其他電子';
-  if (id >= 4000 && id <= 4999) return '建材營造';
-  if (id >= 5000 && id <= 5999) return '航運';
-  if (id >= 6000 && id <= 6999) return '電子零組件';
-  if (id >= 8000 && id <= 8999) return '生技醫療';
-  return '其他';
+  if (id >= 1000 && id <= 1999) return '\u6c34\u6ce5';
+  if (id >= 2000 && id <= 2099) return '\u98df\u54c1';
+  if (id >= 2100 && id <= 2199) return '\u5869\u819a';
+  if (id >= 2300 && id <= 2399) return '\u96fb\u5b50';
+  if (id >= 2400 && id <= 2499) return '\u534a\u5c0e\u9ad4';
+  if (id >= 2500 && id <= 2599) return '\u96fb\u8166\u5468\u908a';
+  if (id >= 2600 && id <= 2699) return '\u901a\u4fe1\u7db2\u8def';
+  if (id >= 2800 && id <= 2899) return '\u91d1\u878d';
+  if (id >= 3000 && id <= 3999) return '\u5176\u4ed6\u96fb\u5b50';
+  if (id >= 4000 && id <= 4999) return '\u5efa\u6750\u71df\u9020';
+  if (id >= 5000 && id <= 5999) return '\u822a\u904b';
+  if (id >= 6000 && id <= 6999) return '\u96fb\u5b50\u96f6\u7d44\u4ef6';
+  if (id >= 8000 && id <= 8999) return '\u751f\u6280\u91ab\u7642';
+  return '\u5176\u4ed6';
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -191,4 +191,31 @@ export function useDateStockSearch(date: string | null, stockId: string | null) 
   return scanData.stocks.find(
     (s) => s.stock_id === stockId || s.stock_id.padStart(4, '0') === stockId.padStart(4, '0')
   ) ?? null;
+}
+
+// Restored for backward compatibility with SelfCheck.tsx
+export function useOnDemandScan() {
+  const [result, setResult] = useState<{ stock: ScanStock | null; error?: string } | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const scan = useCallback(async (stockId: string) => {
+    if (!stockId) return;
+    setIsLoading(true);
+    setResult(null);
+    try {
+      const res = await fetch(`${BASE}/data/all_scores.json`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const json: AllScoresData = await res.json();
+      const found = (json.all_stock_scores ?? []).find(
+        (s) => s.stock_id === stockId || s.stock_id === stockId.padStart(4, '0')
+      );
+      setResult({ stock: found ? normalizeStock(found) : null });
+    } catch (e) {
+      setResult({ stock: null, error: e instanceof Error ? e.message : String(e) });
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  return { scan, result, isLoading };
 }
