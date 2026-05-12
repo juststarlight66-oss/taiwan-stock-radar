@@ -67,22 +67,7 @@ jobs:
         run: npm install --no-fund --no-audit --silent > /dev/null 2>&1
 
       - name: Build
-        id: build
-        continue-on-error: true
-        run: |
-          npm run build > /tmp/build_output.txt 2>&1
-          echo "BUILD_EXIT=$?" >> $GITHUB_OUTPUT
-
-      - name: Show build result
-        run: |
-          echo "=== BUILD OUTPUT HEAD ==="
-          head -20 /tmp/build_output.txt || true
-          echo "=== BUILD OUTPUT TAIL ==="
-          tail -80 /tmp/build_output.txt || true
-          echo "=== END ==="
-          BUILD_EXIT=$(grep 'BUILD_EXIT' $GITHUB_OUTPUT | cut -d= -f2 || echo '1')
-          echo "Build exit code: $BUILD_EXIT"
-          [ "$BUILD_EXIT" = "0" ] || exit 1
+        run: npm run build
 
       - name: Add .nojekyll
         run: touch out/.nojekyll
