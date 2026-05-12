@@ -108,8 +108,12 @@ function normalizeStock(s: any): ScanStock {
       news:        s.news_score        ?? 0,
       sentiment:   s.sentiment_score   ?? 0,
       chips:       s.chips_score       ?? 0,
-    },
-    signals: s.signals ?? {},
+    } as ScanDimensions,
+    signals: s.signals ?? {} as ScanSignals,
+    news_signals: s.news_signals ?? [],
+    catalyst: s.catalyst ?? '',
+    risk: s.risk ?? '',
+    rank: s.rank ?? 0,
   };
 }
 
@@ -126,34 +130,34 @@ export function useAllScores() {
 }
 
 export function useOnDemandScan() {
-  const [stocks, setStocks] = useState<ScanStock[]>([]);
-  const [isScanning, setIsScanning] = useState(false);
+  const [stock, setStock] = useState<ScanStock | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
-  const scan = useCallback(async (stockIds: string[]) => {
-    if (!stockIds.length) return;
-    setIsScanning(true);
+  const scan = useCallback(async (stockId: string) => {
+    if (!stockId) return;
+    setIsLoading(true);
     setError(null);
     try {
-      // Try to fetch from all_scores.json and filter by requested stock IDs
       const res = await fetch(`${BASE}/data/all_scores.json`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const json: AllScoresData = await res.json();
-      const all = (json.all_stock_scores ?? []).map(normalizeStock);
-      const filtered = all.filter((s) => stockIds.includes(s.stock_id));
-      setStocks(filtered);
+      const found = (json.all_stock_scores ?? []).find(
+        (s) => s.stock_id === stockId
+      );
+      setStock(found ? normalizeStock(found) : null);
     } catch (e) {
       setError(e instanceof Error ? e : new Error(String(e)));
-      setStocks([]);
+      setStock(null);
     } finally {
-      setIsScanning(false);
+      setIsLoading(false);
     }
   }, []);
 
   const reset = useCallback(() => {
-    setStocks([]);
+    setStock(null);
     setError(null);
   }, []);
 
-  return { stocks, isScanning, error, scan, reset };
+  return { stock, isLoading, error, scan, reset };
 }
