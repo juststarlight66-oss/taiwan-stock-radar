@@ -15,6 +15,9 @@ concurrency:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -64,10 +67,7 @@ jobs:
         run: npm install --no-fund --no-audit --silent
 
       - name: Build
-        run: |
-          set -o pipefail
-          npm run build 2>&1 | tee /tmp/build_output.txt
-          exit ${PIPESTATUS[0]}
+        run: npm run build
 
       - name: Upload build error log
         if: failure()
