@@ -2,15 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 台股五維分析掃描腳本 - 22:55 收盤報告核心引擎
-版本：v7.2 (TWSE+TPEx 全市場覆蓋，修復 TPEx date/close 欄位 bug)
-優化項目：
-  - 移除 yfinance，改用 openapi.twse.com.tw (WAF 白名單，sandbox 可存取)
-  - STOCK_DAY_ALL 單次 HTTP 呼叫取得全部 ~1,082 檔上市股票當日 OHLCV
-  - TPEx tpex_mainboard_daily_close_quotes 新增上櫃 ~883 檔，合併後覆蓋 ~1,965 檔
-  - BWIBBU_ALL + TPEx tpex_mainboard_peratio_analysis 合併 PE/PBR/殖利率（全市場）
-  - 日線快取系統：每日資料追加至 .cache/daily_ohlcv.json，累積 90 天歷史
-  - 首次執行（快取空白）：以今日單日資料做簡化評分，技術面函式已處理 < 20 日情形
-  - v7.2 修復：TPEx date 欄位改用 API 回傳日期；close 欄位加強 fallback
+版本：v7.3 (per-stock TPEx try/except, cache fallback, zero-price guard)
 
 五維分析框架：
   技術面 (40%)：均線糾結、爆量突破、創高、RSI 超賣/超買、量價關係
@@ -39,7 +31,7 @@ _TW_TZ = timezone(timedelta(hours=8))
 
 
 def _http_get(url, *, headers=None, timeout=30, verify=False, retries=3, backoff=2.0):
-    """帶 retry 的 requests.get 包裝（最多重試 retries 次，指數退避 backoff 秒）"""
+    """帶 retry 的 requests.get 包裝"""
     last_err = None
     for attempt in range(1, retries + 1):
         try:
@@ -88,13 +80,13 @@ except ImportError:
 CACHE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.cache')
 STOCK_LIST_CACHE = os.path.join(CACHE_DIR, 'stock_list.json')
 DAILY_OHLCV_CACHE = os.path.join(CACHE_DIR, 'daily_ohlcv.json')
-CACHE_TTL_HOURS = 24        # 股票清單快取 24 小時
-MAX_CACHE_DAYS  = 90        # 保留最近 90 個交易日
+CACHE_TTL_HOURS = 24
+MAX_CACHE_DAYS  = 90
 
 os.makedirs(CACHE_DIR, exist_ok=True)
 
 # ================================================================
-# TWSE OpenAPI 端點（openapi.twse.com.tw — sandbox WAF 白名單可用）
+# TWSE OpenAPI 端點
 # ================================================================
 TWSE_HEADERS = {
     "Accept": "application/json",
@@ -106,229 +98,712 @@ URL_MI_5MINS_HIST = "https://openapi.twse.com.tw/v1/indicesReport/MI_5MINS_HIST"
 URL_T86           = "https://openapi.twse.com.tw/v1/exchangeReport/T86"
 URL_MI_MARGN      = "https://openapi.twse.com.tw/v1/exchangeReport/MI_MARGN"
 
+# TPEx (上櫃) OpenAPI 端點
+URL_TPEX_CLOSE    = "https://www.tpex.org.tw/openapi/v1/tpex_mainboard_daily_close_quotes"
+URL_TPEX_PE       = "https://www.tpex.org.tw/openapi/v1/tpex_mainboard_peratio_analysis"
 
-# ================================================================
-# 每日 OHLCV 快取系統
-# ================================================================
+# ==========================================================
+# 全域常數
+# ==========================================================
+TOP_N          = 10
+TOP_EXPLODE    = 5
+MIN_PRICE      = 5.0
+MIN_VOL        = 500
+SCORE_WEIGHTS  = {
+    'technical':   0.40,
+    'chips':       0.25,
+    'fundamental': 0.15,
+    'news':        0.10,
+    'sentiment':   0.10,
+}
 
-def load_daily_ohlcv_cache() -> Dict:
-    """讀取本地日線快取，格式：{ 'YYYYMMDD': { stock_id: {ohlcv dict} } }"""
-    if not os.path.exists(DAILY_OHLCV_CACHE):
-        return {}
+# 快取輔助函式
+def _load_cache(path: str) -> Any:
     try:
-        with open(DAILY_OHLCV_CACHE, 'r', encoding='utf-8') as f:
+        with open(path, 'r', encoding='utf-8') as f:
             return json.load(f)
-    except Exception as e:
-        print(f"[快取] 讀取日線快取失敗：{e}，重建")
-        return {}
+    except Exception:
+        return None
 
-
-def save_daily_ohlcv_cache(cache: Dict):
-    """將日線快取寫回磁碟，僅保留最近 MAX_CACHE_DAYS 天"""
+def _save_cache(path: str, data: Any) -> None:
     try:
-        # 只保留最近 N 天
-        sorted_dates = sorted(cache.keys())
-        if len(sorted_dates) > MAX_CACHE_DAYS:
-            for old_date in sorted_dates[:-MAX_CACHE_DAYS]:
-                del cache[old_date]
-        with open(DAILY_OHLCV_CACHE, 'w', encoding='utf-8') as f:
-            json.dump(cache, f, ensure_ascii=False)
-        print(f"[快取] 日線快取已更新，共 {len(cache)} 個交易日")
+        with open(path, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False)
     except Exception as e:
-        print(f"[快取] 儲存日線快取失敗：{e}")
+        print(f"[CACHE] 寫入失敗 {path}: {e}")
 
+# ==========================================================
+# 股票清單取得
+# ==========================================================
 
-def fetch_stock_day_all() -> Dict[str, Dict]:
-    """
-    從 www.twse.com.tw/exchangeReport/STOCK_DAY_ALL 取得當日所有股票的 OHLCV。
-    使用 www.twse.com.tw（非 openapi），可在收盤後立即取得當日數據（不需等到隔日早上）。
-    欄位順序：[0]證券代號 [1]證券名稱 [2]成交股數 [3]成交金額
-              [4]開盤價 [5]最高價 [6]最低價 [7]收盤價 [8]漲跌價差 [9]成交筆數
-    回傳格式：{ stock_id: {date, open, high, low, close, volume, change, change_pct, name} }
-    """
-    today = datetime.now(_TW_TZ).strftime('%Y%m%d')
-    url = f"https://www.twse.com.tw/exchangeReport/STOCK_DAY_ALL?response=json&date={today}"
-    print(f"[API] 呼叫 STOCK_DAY_ALL (www, {today})...")
+def fetch_stock_list() -> List[Dict]:
+    cached = _load_cache(STOCK_LIST_CACHE)
+    if cached and isinstance(cached, dict):
+        ts = cached.get('timestamp', 0)
+        if time.time() - ts < CACHE_TTL_HOURS * 3600:
+            return cached['data']
+
+    stocks = []
     try:
-        r = _http_get(url, headers=TWSE_HEADERS, timeout=30, verify=False)
-        resp = r.json()
+        r = _http_get(URL_STOCK_DAY_ALL, headers=TWSE_HEADERS)
+        for row in r.json():
+            sid = row.get('Code', '')
+            if sid and sid.isdigit() and len(sid) == 4:
+                stocks.append({'stock_id': sid, 'name': row.get('Name', ''), 'market': 'TWSE'})
     except Exception as e:
-        print(f"[API] STOCK_DAY_ALL 失敗（已重試3次）：{e}")
-        return {}
+        print(f"[TWSE 清單] 失敗: {e}")
 
-    if resp.get('stat') != 'OK':
-        print(f"[API] STOCK_DAY_ALL stat={resp.get('stat')}，可能為非交易日")
-        return {}
+    try:
+        r = _http_get(URL_TPEX_CLOSE, headers=TWSE_HEADERS)
+        for row in r.json():
+            sid = row.get('SecuritiesCompanyCode', '')
+            if sid and sid.isdigit() and len(sid) == 4:
+                stocks.append({'stock_id': sid, 'name': row.get('CompanyName', ''), 'market': 'TPEx'})
+    except Exception as e:
+        print(f"[TPEx 清單] 失敗: {e}")
 
-    rows = resp.get('data', [])
-    ad_date = str(resp.get('date', today))  # API returns YYYYMMDD directly
+    _save_cache(STOCK_LIST_CACHE, {'timestamp': time.time(), 'data': stocks})
+    return stocks
 
+# ==========================================================
+# 當日 OHLCV 取得（TWSE + TPEx 合併）— v7.3 修復
+# ==========================================================
+
+def _load_previous_close(sid: str) -> Optional[float]:
+    """從 daily_ohlcv 快取取得前日收盤價"""
+    cache = _load_cache(DAILY_OHLCV_CACHE) or {}
+    days = cache.get(sid, [])
+    if days:
+        prev = days[-1]
+        prev_close = prev.get('close', 0)
+        if prev_close > 0:
+            return prev_close
+    return None
+
+
+def fetch_today_ohlcv() -> Dict[str, Dict]:
+    """回傳 {stock_id: {open, high, low, close, volume, date, market}}"""
     result = {}
-    for row in rows:
-        try:
-            code = str(row[0]).strip()
-            # 只保留 4 位數字（正股，排除 ETF/債券/權證）
-            if not (len(code) == 4 and code.isdigit()):
+    today_str = datetime.now(_TW_TZ).strftime('%Y%m%d')
+
+    # ── TWSE ──
+    try:
+        r = _http_get(URL_STOCK_DAY_ALL, headers=TWSE_HEADERS)
+        for row in r.json():
+            sid = row.get('Code', '')
+            if not (sid and sid.isdigit() and len(sid) == 4):
                 continue
-
-            def clean(v):
-                return str(v).replace(',', '').replace('+', '').strip()
-
-            close_str = clean(row[7])
-            open_str  = clean(row[4])
-            high_str  = clean(row[5])
-            low_str   = clean(row[6])
-            vol_str   = clean(row[2])
-            chg_str   = clean(row[8])
-            name      = str(row[1]).strip()
-
-            if not close_str or close_str in ('--', '0', ''):
-                continue
-            close = float(close_str)
-            if close <= 0:
-                continue
-
-            open_p = float(open_str) if open_str  not in ('--', '', '0') else close
-            high_p = float(high_str) if high_str  not in ('--', '', '0') else close
-            low_p  = float(low_str)  if low_str   not in ('--', '', '0') else close
-            volume = int(vol_str.replace(',', '')) if vol_str.replace(',', '').isdigit() else 0
-            change = float(chg_str)  if chg_str   not in ('--', '', 'X', '0') else 0.0
-
-            prev_close = close - change
-            change_pct = round(change / prev_close * 100, 2) if prev_close > 0 else 0.0
-
-            result[code] = {
-                'date':       ad_date,
-                'open':       open_p,
-                'high':       high_p,
-                'low':        low_p,
-                'close':      close,
-                'volume':     volume,
-                'change':     change,
-                'change_pct': change_pct,
-                'name':       name,
+            def _f(k):
+                v = row.get(k, '0').replace(',', '')
+                try: return float(v)
+                except: return 0.0
+            result[sid] = {
+                'open': _f('OpeningPrice'), 'high': _f('HighestPrice'),
+                'low': _f('LowestPrice'),   'close': _f('ClosingPrice'),
+                'volume': _f('TradeVolume') / 1000,
+                'date': today_str, 'market': 'TWSE',
             }
-        except Exception as e:
-            print(f"[WARN] STOCK_DAY_ALL 列解析失敗：{e}")
+    except Exception as e:
+        print(f"[TWSE OHLCV] 失敗: {e}")
+
+    # ── TPEx — per-stock try/except + extended field fallback + cache fallback (v7.3) ──
+    tpex_count = 0
+    tpex_zero_close = 0
+    tpex_cache_fallback = 0
+    tpex_error = 0
+    try:
+        r = _http_get(URL_TPEX_CLOSE, headers=TWSE_HEADERS)
+        raw_data = r.json()
+        api_date = today_str
+        if raw_data and isinstance(raw_data[0], dict):
+            d = raw_data[0].get('Date', '') or raw_data[0].get('date', '')
+            if d:
+                api_date = d.replace('/', '').replace('-', '')
+
+        for row in raw_data:
+            sid = row.get('SecuritiesCompanyCode', '')
+            if not (sid and sid.isdigit() and len(sid) == 4):
+                continue
+            try:
+                def _g(k):
+                    v = str(row.get(k, '0')).replace(',', '')
+                    try: return float(v)
+                    except: return 0.0
+
+                # Extended field fallback for all known TPEx API field names
+                close_val = (_g('Close') or _g('ClosingPrice') or
+                             _g('ClosePrice') or _g('ClosingPricePerShare') or
+                             _g('LastTradePrice') or _g('LastPrice') or
+                             _g('close') or _g('closing_price') or
+                             _g('last_price') or _g('last_trade_price') or 0.0)
+
+                # Cache fallback: if API returned 0, try yesterday from cache
+                if close_val <= 0:
+                    tpex_zero_close += 1
+                    fallback = _load_previous_close(sid)
+                    if fallback:
+                        close_val = fallback
+                        tpex_cache_fallback += 1
+                        if tpex_cache_fallback <= 5:
+                            print(f"[TPEx fallback] {sid} -> prev close {close_val:.1f}")
+                    else:
+                        if tpex_zero_close <= 10:
+                            print(f"[TPEx WARN] {sid} close=0, no cache fallback")
+
+                open_val  = (_g('Open')  or _g('OpeningPrice')  or close_val)
+                high_val  = (_g('High')  or _g('HighestPrice')  or close_val)
+                low_val   = (_g('Low')   or _g('LowestPrice')   or close_val)
+                vol_val   = (_g('TradeVolume') or _g('tradeVolume') or _g('Volume') or _g('volume') or 0.0) / 1000
+
+                result[sid] = {
+                    'open':   open_val,
+                    'high':   high_val,
+                    'low':    low_val,
+                    'close':  close_val,
+                    'volume': vol_val,
+                    'date':   api_date,
+                    'market': 'TPEx',
+                }
+                tpex_count += 1
+            except Exception as perr:
+                tpex_error += 1
+                if tpex_error <= 5:
+                    print(f"[TPEx skip] {sid} parse error: {perr}")
+
+        print(f"[TPEx OHLCV] parsed {tpex_count}, zero_close={tpex_zero_close}, "
+              f"cache_fallback={tpex_cache_fallback}, errors={tpex_error}")
+    except Exception as e:
+        print(f"[TPEx OHLCV] 全域失敗: {e}")
+
+    return result
+
+# ==========================================================
+# 日線快取管理
+# ==========================================================
+
+def update_daily_cache(today_ohlcv: Dict[str, Dict]) -> Dict[str, List[Dict]]:
+    cache = _load_cache(DAILY_OHLCV_CACHE) or {}
+    today_str = datetime.now(_TW_TZ).strftime('%Y%m%d')
+
+    for sid, ohlcv in today_ohlcv.items():
+        days = cache.get(sid, [])
+        if not days or days[-1].get('date') != today_str:
+            days.append(ohlcv)
+        if len(days) > MAX_CACHE_DAYS:
+            days = days[-MAX_CACHE_DAYS:]
+        cache[sid] = days
+
+    _save_cache(DAILY_OHLCV_CACHE, cache)
+    return cache
+
+# ==========================================================
+# 基本面資料
+# ==========================================================
+
+def fetch_fundamentals() -> Dict[str, Dict]:
+    result = {}
+    try:
+        r = _http_get(URL_BWIBBU_ALL, headers=TWSE_HEADERS)
+        for row in r.json():
+            sid = row.get('Code', '')
+            if not sid: continue
+            def _fv(k):
+                v = str(row.get(k, '')).replace(',', '')
+                try: return float(v)
+                except: return None
+            result[sid] = {
+                'pe': _fv('PEratio'), 'pb': _fv('PBratio'),
+                'yield_pct': _fv('DividendYield'),
+            }
+    except Exception as e:
+        print(f"[BWIBBU_ALL] 失敗: {e}")
+
+    try:
+        r = _http_get(URL_TPEX_PE, headers=TWSE_HEADERS)
+        for row in r.json():
+            sid = row.get('SecuritiesCompanyCode', '')
+            if not sid: continue
+            def _gv(k):
+                v = str(row.get(k, '')).replace(',', '')
+                try: return float(v)
+                except: return None
+            result[sid] = {
+                'pe': _gv('PriceEarningRatio'),
+                'pb': _gv('PriceBookRatio') or _gv('BookValueRatio'),
+                'yield_pct': _gv('DividendYield'),
+            }
+    except Exception as e:
+        print(f"[TPEx PE] 失敗: {e}")
+
+    return result
+
+# ==========================================================
+# 籌碼面資料
+# ==========================================================
+
+def fetch_chips() -> Dict[str, Dict]:
+    result = {}
+    try:
+        r = _http_get(URL_T86, headers=TWSE_HEADERS)
+        for row in r.json():
+            sid = row.get('Code', '')
+            if not sid: continue
+            def _iv(k):
+                v = str(row.get(k, '0')).replace(',', '')
+                try: return int(v)
+                except: return 0
+            result[sid] = {
+                'foreign_net': _iv('ForeignInvestmentNetBuySell'),
+                'trust_net':   _iv('InvestmentTrustNetBuySell'),
+                'dealer_net':  _iv('DealerNetBuySell'),
+                'margin_ratio': 0.0,
+            }
+    except Exception as e:
+        print(f"[T86 法人] 失敗: {e}")
+
+    try:
+        r = _http_get(URL_MI_MARGN, headers=TWSE_HEADERS)
+        for row in r.json():
+            sid = row.get('StockNo', '') or row.get('Code', '')
+            if not sid: continue
+            try:
+                margin = float(str(row.get('MarginPurchaseBalanceRatio', '0')).replace(',', ''))
+            except:
+                margin = 0.0
+            if sid in result:
+                result[sid]['margin_ratio'] = margin
+            else:
+                result[sid] = {'foreign_net': 0, 'trust_net': 0, 'dealer_net': 0, 'margin_ratio': margin}
+    except Exception as e:
+        print(f"[融資] 失敗: {e}")
+
+    return result
+
+# ==========================================================
+# 技術面評分
+# ==========================================================
+
+def _calc_rsi(closes: List[float], period: int = 14) -> float:
+    if len(closes) < period + 1:
+        return 50.0
+    deltas = [closes[i] - closes[i-1] for i in range(1, len(closes))]
+    gains  = [d for d in deltas[-period:] if d > 0]
+    losses = [-d for d in deltas[-period:] if d < 0]
+    avg_gain = sum(gains) / period
+    avg_loss = sum(losses) / period
+    if avg_loss == 0:
+        return 100.0
+    rs = avg_gain / avg_loss
+    return 100 - (100 / (1 + rs))
+
+
+def score_technical(sid: str, history: List[Dict]) -> float:
+    score = 0.0
+    if not history:
+        return score
+
+    closes  = [d['close'] for d in history if d.get('close', 0) > 0]
+    volumes = [d['volume'] for d in history if d.get('volume', 0) > 0]
+    if not closes:
+        return score
+
+    n = len(closes)
+    today_close = closes[-1]
+    today_vol   = volumes[-1] if volumes else 0
+
+    rsi = _calc_rsi(closes)
+    if rsi < 30:
+        score += 8
+    elif rsi < 40:
+        score += 5
+    elif rsi > 70:
+        score -= 3
+
+    if n >= 20:
+        ma5  = sum(closes[-5:])  / 5
+        ma10 = sum(closes[-10:]) / 10
+        ma20 = sum(closes[-20:]) / 20
+        if today_close > ma5 > ma10 > ma20:
+            score += 10
+        elif today_close > ma5 and today_close > ma20:
+            score += 6
+        elif today_close > ma20:
+            score += 3
+        spread = (ma5 - ma20) / ma20 if ma20 else 0
+        if abs(spread) < 0.02:
+            score += 3
+    elif n >= 5:
+        ma5 = sum(closes[-5:]) / 5
+        if today_close > ma5:
+            score += 4
+
+    if len(volumes) >= 5:
+        avg_vol5 = sum(volumes[-6:-1]) / 5 if len(volumes) >= 6 else sum(volumes[:-1]) / max(len(volumes)-1, 1)
+        if avg_vol5 > 0:
+            vol_ratio = today_vol / avg_vol5
+            if vol_ratio >= 3.0:
+                score += 10
+            elif vol_ratio >= 2.0:
+                score += 7
+            elif vol_ratio >= 1.5:
+                score += 4
+
+    if n >= 20 and today_close >= max(closes[-20:]):
+        score += 7
+    elif n >= 10 and today_close >= max(closes[-10:]):
+        score += 4
+    elif n >= 5 and today_close >= max(closes[-5:]):
+        score += 2
+
+    if n >= 2 and len(volumes) >= 2:
+        if closes[-1] > closes[-2] and volumes[-1] > volumes[-2]:
+            score += 5
+        elif closes[-1] > closes[-2]:
+            score += 2
+
+    return min(score, 40.0)
+
+# ==========================================================
+# 籌碼面評分
+# ==========================================================
+
+def score_chips(sid: str, chip_data: Optional[Dict]) -> float:
+    if not chip_data:
+        return 5.0
+
+    score = 5.0
+    foreign = chip_data.get('foreign_net', 0)
+    trust   = chip_data.get('trust_net', 0)
+    dealer  = chip_data.get('dealer_net', 0)
+    margin  = chip_data.get('margin_ratio', 0.0)
+
+    if foreign > 5000:   score += 10
+    elif foreign > 1000: score += 7
+    elif foreign > 0:    score += 4
+    elif foreign < -5000: score -= 5
+
+    if trust > 1000:   score += 6
+    elif trust > 200:  score += 4
+    elif trust > 0:    score += 2
+    elif trust < -500: score -= 3
+
+    if dealer > 500:  score += 4
+    elif dealer > 0:  score += 2
+    elif dealer < -500: score -= 2
+
+    if margin > 60:   score -= 4
+    elif margin > 40: score -= 2
+    elif margin < 20: score += 2
+
+    return max(0.0, min(score, 25.0))
+
+# ==========================================================
+# 基本面評分
+# ==========================================================
+
+def score_fundamental(sid: str, fund_data: Optional[Dict]) -> float:
+    if not fund_data:
+        return 5.0
+
+    score = 5.0
+    pe    = fund_data.get('pe')
+    pb    = fund_data.get('pb')
+    dy    = fund_data.get('yield_pct')
+
+    if pe and 0 < pe < 15:   score += 5
+    elif pe and 15 <= pe < 25: score += 3
+    elif pe and pe >= 25:    score += 1
+    elif pe and pe < 0:      score -= 2
+
+    if pb and pb < 1.5:  score += 3
+    elif pb and pb < 3:  score += 1
+
+    if dy and dy >= 5:  score += 2
+    elif dy and dy >= 3: score += 1
+
+    return max(0.0, min(score, 15.0))
+
+# ==========================================================
+# 消息面評分
+# ==========================================================
+
+def score_news(sid: str) -> float:
+    return 5.0
+
+# ==========================================================
+# 情緒面評分
+# ==========================================================
+
+def score_sentiment(sid: str, history: List[Dict], today_ohlcv: Optional[Dict]) -> float:
+    score = 4.0
+    if not history or not today_ohlcv:
+        return score
+
+    closes  = [d['close'] for d in history if d.get('close', 0) > 0]
+    volumes = [d['volume'] for d in history if d.get('volume', 0) > 0]
+    today_vol = today_ohlcv.get('volume', 0)
+
+    if len(volumes) >= 5:
+        avg5 = sum(volumes[-6:-1]) / 5 if len(volumes) >= 6 else sum(volumes) / len(volumes)
+        if avg5 > 0:
+            ratio = today_vol / avg5
+            if ratio >= 2.0:   score += 4
+            elif ratio >= 1.3: score += 2
+            elif ratio < 0.5:  score -= 2
+
+    if len(closes) >= 3:
+        streak = 0
+        for i in range(len(closes)-1, 0, -1):
+            if closes[i] > closes[i-1]:
+                streak += 1
+            else:
+                break
+        if streak >= 3:   score += 2
+        elif streak >= 2: score += 1
+
+    return max(0.0, min(score, 10.0))
+
+# ==========================================================
+# ML 爆漲股預測
+# ==========================================================
+
+def predict_explode(stocks_data: List[Dict]) -> List[Dict]:
+    features, sids = [], []
+
+    for s in stocks_data:
+        hist = s.get('history', [])
+        closes  = [d['close'] for d in hist if d.get('close', 0) > 0]
+        volumes = [d['volume'] for d in hist if d.get('volume', 0) > 0]
+        if len(closes) < 6 or len(volumes) < 6:
             continue
 
-    print(f"[API] STOCK_DAY_ALL 解析完成：{len(result)} 檔 (日期={ad_date})")
+        rsi = _calc_rsi(closes)
+        avg_vol5 = sum(volumes[-6:-1]) / 5
+        vol_ratio = volumes[-1] / avg_vol5 if avg_vol5 > 0 else 1.0
+        momentum = (closes[-1] - closes[-6]) / closes[-6] if closes[-6] > 0 else 0
+        volatility = np.std(closes[-10:]) / np.mean(closes[-10:]) if len(closes) >= 10 else 0
+        ma5 = sum(closes[-5:]) / 5
+        ma_dev = (closes[-1] - ma5) / ma5 if ma5 > 0 else 0
+        streak = 0
+        for i in range(len(closes)-1, 0, -1):
+            if closes[i] > closes[i-1]: streak += 1
+            else: break
+        turnover = volumes[-1] / (volumes[-1] + 1)
+
+        features.append([rsi, vol_ratio, momentum, volatility, ma_dev, streak, turnover])
+        sids.append(s['stock_id'])
+
+    if len(features) < 10:
+        return []
+
+    X = np.array(features)
+    y = np.array([1 if (features[i][1] > 2.0 and features[i][2] > 0.05) else 0
+                  for i in range(len(features))])
+
+    if y.sum() < 3:
+        return []
+
+    try:
+        scaler = StandardScaler()
+        X_scaled = scaler.fit_transform(X)
+        clf = RandomForestClassifier(n_estimators=100, random_state=42, n_jobs=-1)
+        clf.fit(X_scaled, y)
+        probs = clf.predict_proba(X_scaled)[:, 1]
+    except Exception as e:
+        print(f"[ML] 訓練失敗: {e}")
+        return []
+
+    top_idx = np.argsort(probs)[::-1][:TOP_EXPLODE]
+    results = []
+    for i in top_idx:
+        sid = sids[i]
+        base = next((s for s in stocks_data if s['stock_id'] == sid), {})
+        results.append({
+            'stock_id':    sid,
+            'name':        base.get('name', ''),
+            'explode_prob': round(float(probs[i]), 4),
+            'close':       base.get('close', 0),
+            'volume':      base.get('volume', 0),
+        })
+    return results
+
+# ==========================================================
+# 主掃描流程 — v7.3 zero-price guard
+# ==========================================================
+
+def run_scan() -> Dict:
+    start_time = time.time()
+    tw_now = datetime.now(_TW_TZ)
+    print(f"\n{'='*60}")
+    print(f"台股五維分析掃描 v7.3")
+    print(f"執行時間：{tw_now.strftime('%Y-%m-%d %H:%M:%S')} (台灣時間)")
+    print(f"{'='*60}\n")
+
+    print("[1/6] 取得今日 OHLCV（TWSE + TPEx）...")
+    today_ohlcv = fetch_today_ohlcv()
+    print(f"      → 取得 {len(today_ohlcv)} 檔股票")
+
+    print("[2/6] 更新日線快取...")
+    daily_cache = update_daily_cache(today_ohlcv)
+    print(f"      → 快取共 {len(daily_cache)} 檔")
+
+    print("[3/6] 取得基本面與籌碼面資料...")
+    fundamentals = fetch_fundamentals()
+    chips        = fetch_chips()
+    print(f"      → 基本面 {len(fundamentals)} 檔，籌碼 {len(chips)} 檔")
+
+    print("[4/6] 五維評分中...")
+    scored = []
+    skipped = 0
+    zero_price_skipped = 0
+
+    for sid, ohlcv in today_ohlcv.items():
+        close  = ohlcv.get('close', 0)
+        volume = ohlcv.get('volume', 0)
+
+        # v7.3: guard against zero-price stocks
+        if close <= 0 or close < MIN_PRICE or volume < MIN_VOL:
+            skipped += 1
+            if 0 < close < MIN_PRICE:
+                pass
+            elif close <= 0:
+                zero_price_skipped += 1
+                if zero_price_skipped <= 10:
+                    print(f"[SKIP] {sid} close={close}, volume={volume}")
+            continue
+
+        history  = daily_cache.get(sid, [ohlcv])
+        fund     = fundamentals.get(sid)
+        chip     = chips.get(sid)
+
+        t_score  = score_technical(sid, history)
+        c_score  = score_chips(sid, chip)
+        f_score  = score_fundamental(sid, fund)
+        n_score  = score_news(sid)
+        s_score  = score_sentiment(sid, history, ohlcv)
+
+        total = (
+            t_score * SCORE_WEIGHTS['technical'] +
+            c_score * SCORE_WEIGHTS['chips'] +
+            f_score * SCORE_WEIGHTS['fundamental'] +
+            n_score * SCORE_WEIGHTS['news'] +
+            s_score * SCORE_WEIGHTS['sentiment']
+        )
+
+        closes = [d['close'] for d in history if d.get('close', 0) > 0]
+        atr = np.std(closes[-14:]) if len(closes) >= 14 else close * 0.02
+        t1 = round(close * 1.03, 2)
+        t2 = round(close * 1.06, 2)
+        t3 = round(close * 1.10, 2)
+        stop_loss = round(close * 0.95, 2)
+
+        scored.append({
+            'stock_id':   sid,
+            'name':       next((s['name'] for s in fetch_stock_list() if s['stock_id'] == sid), ''),
+            'market':     ohlcv.get('market', ''),
+            'close':      close,
+            'volume':     volume,
+            'scores': {
+                'technical':   round(t_score, 2),
+                'chips':       round(c_score, 2),
+                'fundamental': round(f_score, 2),
+                'news':        round(n_score, 2),
+                'sentiment':   round(s_score, 2),
+                'total':       round(total, 2),
+            },
+            'targets': {'t1': t1, 't2': t2, 't3': t3, 'stop_loss': stop_loss},
+            'history': history,
+        })
+
+    print(f"      → 評分 {len(scored)} 檔，過濾 {skipped} 檔"
+          f"（zero-price: {zero_price_skipped}）")
+
+    scored.sort(key=lambda x: x['scores']['total'], reverse=True)
+    top10 = scored[:TOP_N]
+
+    print("[5/6] ML 爆漲股預測...")
+    explode_top5 = predict_explode(scored)
+    print(f"      → 爆漲候選 {len(explode_top5)} 檔")
+
+    print("[6/6] 個股回測...")
+    for stock in top10:
+        if _BACKTEST_AVAILABLE:
+            bt = _run_per_stock_backtest(stock['stock_id'])
+            stock['backtest'] = bt
+        else:
+            stock['backtest'] = {}
+        stock.pop('history', None)
+
+    elapsed = time.time() - start_time
+    scan_date = tw_now.strftime('%Y%m%d')
+
+    result = {
+        'scan_date':     scan_date,
+        'scan_time':     tw_now.strftime('%Y-%m-%d %H:%M:%S'),
+        'elapsed_sec':   round(elapsed, 1),
+        'scanned_count': len(scored) + skipped,
+        'scored_count':  len(scored),
+        'top10':         top10,
+        'explode_top5':  explode_top5,
+        'version':       'v7.3',
+    }
+
+    print(f"\n掃描完成！耗時 {elapsed:.1f}s，共評分 {len(scored)} 檔")
     return result
 
 
-def _parse_tpex_date(rows: list, today_fallback: str) -> str:
-    """
-    從 TPEx API 回傳的 rows 中解析交易日期。
-    TPEx Date 欄位格式為民國年 '113/05/08'，轉換為西元 YYYYMMDD '20260508'。
-    若解析失敗則回退到 today_fallback（腳本執行日期）。
-    """
-    for row in rows[:5]:  # 只看前 5 筆，找到有效日期即止
-        raw = str(row.get('Date', '') or row.get('date', '')).strip()
-        if not raw:
-            continue
-        try:
-            # 格式：113/05/08 → 民國年+西元差114年（1911）
-            parts = raw.split('/')
-            if len(parts) == 3:
-                roc_year = int(parts[0])
-                month    = int(parts[1])
-                day      = int(parts[2])
-                ad_year  = roc_year + 1911
-                return f"{ad_year:04d}{month:02d}{day:02d}"
-        except Exception:
-            continue
-    # fallback：直接用 today_fallback
-    print(f"[WARN] TPEx Date 欄位解析失敗，使用今日日期 {today_fallback} 作為 fallback")
-    return today_fallback
+# ==========================================================
+# 輸出函式
+# ==========================================================
+
+def save_results(result: Dict, output_dir: str = None) -> Dict[str, str]:
+    if output_dir is None:
+        output_dir = os.path.dirname(os.path.abspath(__file__))
+
+    scan_date = result.get('scan_date', datetime.now(_TW_TZ).strftime('%Y%m%d'))
+    paths = {}
+
+    dated_path = os.path.join(output_dir, f'scan_result_{scan_date}.json')
+    with open(dated_path, 'w', encoding='utf-8') as f:
+        json.dump(result, f, ensure_ascii=False, indent=2)
+    paths['dated'] = dated_path
+
+    latest_path = os.path.join(output_dir, 'scan_result.json')
+    with open(latest_path, 'w', encoding='utf-8') as f:
+        json.dump(result, f, ensure_ascii=False, indent=2)
+    paths['latest'] = latest_path
+
+    print(f"[儲存] {dated_path}")
+    print(f"[儲存] {latest_path}")
+    return paths
 
 
-def fetch_tpex_day_all() -> Dict[str, Dict]:
-    """
-    從 TPEx OpenAPI 取得上櫃股票當日 OHLCV。
-    API: https://www.tpex.org.tw/openapi/v1/tpex_mainboard_daily_close_quotes
-    補充 fetch_stock_day_all() 的上市資料，合併後覆蓋 ~3100 檔。
-    回傳格式與 fetch_stock_day_all() 相同：
-    { stock_id: {date, open, high, low, close, volume, change, change_pct, name} }
+def print_report(result: Dict) -> None:
+    print(f"\n{'='*60}")
+    print(f"台股五維分析 Top {TOP_N} 推薦")
+    print(f"掃描日期：{result.get('scan_date')}  版本：{result.get('version')}")
+    print(f"掃描範圍：{result.get('scanned_count')} 檔  評分：{result.get('scored_count')} 檔")
+    print(f"{'='*60}")
 
-    v7.2 修復：
-    - date 欄位改用 API 回傳的 Date 欄位（民國年格式）轉換為 YYYYMMDD，
-      不再使用腳本執行時間 today，避免跨午夜或延遲執行時日期 key 錯誤
-    - close 欄位 fallback 加入 'CloingPrice'（TPEx 官方 API 已知拼字問題）
-      和 'Closing'，確保 6146 等上櫃股票能正確取得收盤價
-    """
-    today = datetime.now(_TW_TZ).strftime('%Y%m%d')
-    url = 'https://www.tpex.org.tw/openapi/v1/tpex_mainboard_daily_close_quotes'
-    print('[API] 呼叫 TPEx tpex_mainboard_daily_close_quotes...')
-    try:
-        r = _http_get(url, headers=TWSE_HEADERS, timeout=30, verify=False)
-        rows = r.json()
-    except Exception as e:
-        print(f'[API] TPEx OHLCV 失敗（已重試3次）：{e}')
-        return {}
+    for i, s in enumerate(result.get('top10', []), 1):
+        sc = s['scores']
+        tg = s['targets']
+        print(f"\n#{i:2d} {s['stock_id']} {s['name']} [{s['market']}]")
+        print(f"     收盤：{s['close']:.2f}  成交量：{s['volume']:.0f}張")
+        print(f"     綜合分：{sc['total']:.2f}  "
+              f"技術:{sc['technical']:.1f} 籌碼:{sc['chips']:.1f} "
+              f"基本:{sc['fundamental']:.1f} 消息:{sc['news']:.1f} 情緒:{sc['sentiment']:.1f}")
+        print(f"     目標：T1={tg['t1']}  T2={tg['t2']}  T3={tg['t3']}  停損={tg['stop_loss']}")
 
-    if not isinstance(rows, list) or not rows:
-        print('[API] TPEx OHLCV 無資料（可能為非交易日）')
-        return {}
+    print(f"\n{'─'*60}")
+    print(f"ML 爆漲預測 Top {TOP_EXPLODE}")
+    print(f"{'─'*60}")
+    for i, s in enumerate(result.get('explode_top5', []), 1):
+        print(f"#{i} {s['stock_id']} {s['name']}  爆漲機率：{s['explode_prob']*100:.1f}%  "
+              f"收盤：{s['close']:.2f}  量：{s['volume']:.0f}張")
 
-    # ── v7.2 修復 1：從 API 回傳的 Date 欄位解析交易日期 ──
-    api_date = _parse_tpex_date(rows, today)
-    print(f'[API] TPEx 交易日期（API回傳）：{api_date}')
 
-    result = {}
-    for row in rows:
-        try:
-            code = str(row.get('SecuritiesCompanyCode', '') or row.get('Code', '')).strip()
-            if not (len(code) == 4 and code.isdigit()):
-                continue
-
-            def clean_tpex(v):
-                return str(v or '').replace(',', '').replace('+', '').strip()
-
-            # ── v7.2 修復 2：close 欄位加強 fallback，含 TPEx 已知拼字問題 ──
-            close_str = clean_tpex(
-                row.get('Close') or
-                row.get('ClosingPrice') or
-                row.get('CloingPrice') or   # TPEx API 已知拼字錯誤
-                row.get('Closing') or
-                ''
-            )
-            open_str   = clean_tpex(row.get('Open',  row.get('OpeningPrice', '')))
-            high_str   = clean_tpex(row.get('High',  row.get('HighestPrice', '')))
-            low_str    = clean_tpex(row.get('Low',   row.get('LowestPrice',  '')))
-            vol_str    = clean_tpex(row.get('TradingShares', row.get('TradeVolume', row.get('Volume', ''))))
-            chg_str    = clean_tpex(row.get('Change', ''))
-            name       = str(row.get('CompanyName', row.get('Name', code))).strip()
-
-            if not close_str or close_str in ('--', '0', '', 'N/A'):
-                continue
-            close = float(close_str)
-            if close <= 0:
-                continue
-
-            open_p = float(open_str)  if open_str  not in ('--', '', '0', 'N/A') else close
-            high_p = float(high_str)  if high_str  not in ('--', '', '0', 'N/A') else close
-            low_p  = float(low_str)   if low_str   not in ('--', '', '0', 'N/A') else close
-            vol_clean = vol_str.replace(',', '')
-            volume = int(float(vol_clean)) if vol_clean and vol_clean.replace('.','').isdigit() else 0
-            change = float(chg_str)   if chg_str   not in ('--', '', 'X', '0', 'N/A') else 0.0
-
-            prev_close = close - change
-            change_pct = round(change / prev_close * 100, 2) if prev_close > 0 else 0.0
-
-            result[code] = {
-                'date':       api_date,   # ← v7.2 修復：使用 API 回傳日期，非 today
-                'open':       open_p,
-                'high':       high_p,
-                'low':        low_p,
-                'close':      close,
-                'volume':     volume,
-                'change':     change,
-                'change_pct': change_pct,
-                'name':       name,
-            }
-        except Exception as e:
-            print(f"[WARN] TPEx OHLCV 列解析失敗：{e}")
-            continue
-
-    print(f'[API] TPEx OHLCV 解析完成：{len(result)} 檔 (日期={api_date})')
-    return result
+if __name__ == '__main__':
+    result = run_scan()
+    save_results(result)
+    print_report(result)
