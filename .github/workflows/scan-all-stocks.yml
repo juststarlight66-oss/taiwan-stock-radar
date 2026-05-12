@@ -49,7 +49,7 @@ stocks = d.get('all_stock_scores', d) if isinstance(d, dict) else d
 print(f'{len(stocks)} stocks in all_scores.json')
 sectors = {}
 for s in (stocks if isinstance(stocks, list) else []):
-    sec = s.get('sector', '其他')
+    sec = s.get('sector', '\u5176\u4ed6')
     sectors[sec] = sectors.get(sec, 0) + 1
 top5 = sorted(sectors.items(), key=lambda x: -x[1])[:5]
 print('Top 5 sectors:', top5)
