@@ -1,0 +1,72 @@
+name: manual-scan-all
+
+on:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Force re-scan even on non-trading day'
+        required: false
+        default: 'true'
+
+jobs:
+  scan-all-stocks:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run full market scan
+        run: python tasks/scan_all_stocks.py
+        env:
+          OUTPUT_PATH: public/data/all_scores.json
+          SCAN_RESULT_PATH: public/data/scan_result.json
+          FORCE: ${{ github.event.inputs.force || 'true' }}
+
+      - name: Show output stats
+        run: |
+          echo "=== all_scores.json size ==="
+          wc -c public/data/all_scores.json || echo "File not found"
+          echo "=== Stock count ==="
+          python3 -c "
+import json
+with open('public/data/all_scores.json') as f:
+    d = json.load(f)
+stocks = d.get('all_stock_scores', d) if isinstance(d, dict) else d
+print(f'{len(stocks)} stocks in all_scores.json')
+sectors = {}
+for s in (stocks if isinstance(stocks, list) else []):
+    sec = s.get('sector', '\u5176\u4ed6')
+    sectors[sec] = sectors.get(sec, 0) + 1
+top5 = sorted(sectors.items(), key=lambda x: -x[1])[:5]
+print('Top 5 sectors:', top5)
+"
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/data/all_scores.json
+          git diff --staged --quiet || git commit -m "data: full scan update all_scores.json $(date '+%Y-%m-%d %H:%M CST')"
+          git push
+
+      - name: Trigger deploy
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'deploy.yml',
+              ref: 'main'
+            });
