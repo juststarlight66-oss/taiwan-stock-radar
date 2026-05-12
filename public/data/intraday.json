@@ -1,5 +1,7 @@
 {
   "date": "2026-05-12",
+  "scan_date": "2026-05-12",
+  "fetched_at": "2026-05-12T13:22:00+08:00",
   "scanned_count": 120,
   "scan_time": "13:22",
   "market": "TWSE+OTC",
@@ -132,6 +134,98 @@
         "volume": 2804,
         "yesterday_close": 66.70,
         "time": "13:22"
+      }
+    }
+  ],
+  "stocks": [
+    {
+      "stock_id": "2313",
+      "name": "華通",
+      "sector": "PCB",
+      "entry": 262.50,
+      "stop_loss": 242.00,
+      "target": 285.00,
+      "upside": 8.57,
+      "total_score": 68.6,
+      "recommendation": "強力買進",
+      "dimensions": {
+        "technical": 22,
+        "fundamental": 20,
+        "news": 10,
+        "sentiment": 8,
+        "chips": 9
+      }
+    },
+    {
+      "stock_id": "2327",
+      "name": "國巨",
+      "sector": "被動元件",
+      "entry": 422.50,
+      "stop_loss": 391.50,
+      "target": 460.00,
+      "upside": 8.88,
+      "total_score": 65.8,
+      "recommendation": "買進",
+      "dimensions": {
+        "technical": 21,
+        "fundamental": 19,
+        "news": 9,
+        "sentiment": 8,
+        "chips": 9
+      }
+    },
+    {
+      "stock_id": "2408",
+      "name": "南亞科",
+      "sector": "記憶體",
+      "entry": 319.00,
+      "stop_loss": 301.00,
+      "target": 350.00,
+      "upside": 9.72,
+      "total_score": 65.8,
+      "recommendation": "買進",
+      "dimensions": {
+        "technical": 20,
+        "fundamental": 20,
+        "news": 10,
+        "sentiment": 8,
+        "chips": 8
+      }
+    },
+    {
+      "stock_id": "2481",
+      "name": "強茂",
+      "sector": "半導體",
+      "entry": 115.50,
+      "stop_loss": 109.00,
+      "target": 125.00,
+      "upside": 8.23,
+      "total_score": 63.4,
+      "recommendation": "買進",
+      "dimensions": {
+        "technical": 19,
+        "fundamental": 19,
+        "news": 9,
+        "sentiment": 7,
+        "chips": 9
+      }
+    },
+    {
+      "stock_id": "2426",
+      "name": "鼎元",
+      "sector": "LED",
+      "entry": 70.00,
+      "stop_loss": 66.70,
+      "target": 78.00,
+      "upside": 11.43,
+      "total_score": 54.0,
+      "recommendation": "觀望",
+      "dimensions": {
+        "technical": 16,
+        "fundamental": 13,
+        "news": 8,
+        "sentiment": 7,
+        "chips": 10
       }
     }
   ],
