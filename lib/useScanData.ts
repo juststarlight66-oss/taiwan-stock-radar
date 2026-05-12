@@ -102,95 +102,30 @@ function normalizeStock(s: any): ScanStock {
     max_loss_per_lot: s.max_loss_per_lot ?? 0,
     sector_boost: s.sector_boost ?? 0,
     power_combo: s.power_combo ?? false,
-    dimensions: s.dimensions ?? {
-      technical:   s.technical_score   ?? 0,
-      fundamental: s.fundamental_score ?? 0,
-      news:        s.news_score        ?? 0,
-      sentiment:   s.sentiment_score   ?? 0,
-      chips:       s.chips_score       ?? 0,
-    },
-    signals: s.signals ?? [],
-    score_components: s.score_components ?? {},
-    backtest: s.backtest ?? {},
-    performance: s.performance ?? {},
+    signals: s.signals ?? {},
+    dimensions: s.dimensions ?? {},
+    strategy: s.strategy ?? {},
   };
 }
 
-function normalizeScanResult(raw: Record<string, unknown> | null): ScanResult | null {
-  if (!raw) return null;
-
-  const stocks = ('stocks' in raw ? (raw as Record<string, unknown>).stocks : undefined)
-    ?? ('all_stock_scores' in raw ? (raw as Record<string, unknown>).all_stock_scores : undefined)
-    ?? ('top10' in raw ? (raw as Record<string, unknown>).top10 : undefined)
-    ?? ('top_10' in raw ? (raw as Record<string, unknown>).top_10 : undefined)
-    ?? [];
-  const arr = (Array.isArray(stocks) ? stocks : []) as Array<Record<string, unknown>>;
-
-  const marketSnapshot = ('market_snapshot' in raw ? (raw as Record<string, unknown>).market_snapshot : undefined)
-    ?? ('market' in raw ? (raw as Record<string, unknown>).market : undefined)
-    ?? undefined;
-
-  const market = marketSnapshot && typeof marketSnapshot === 'object'
-    ? {
-        taiex: (marketSnapshot as Record<string, unknown>).taiex as number | undefined ?? 0,
-        change: (marketSnapshot as Record<string, unknown>).change as number | undefined ?? 0,
-        change_pct: (marketSnapshot as Record<string, unknown>).change_pct as number | undefined ?? 0,
-        volume_billion: (marketSnapshot as Record<string, unknown>).volume_billion as number | undefined ?? 0,
-        advancing: (marketSnapshot as Record<string, unknown>).advancing as number | undefined ?? 0,
-        declining: (marketSnapshot as Record<string, unknown>).declining as number | undefined ?? 0,
-        limit_up: (marketSnapshot as Record<string, unknown>).limit_up as number | undefined ?? 0,
-        limit_down: (marketSnapshot as Record<string, unknown>).limit_down as number | undefined ?? 0,
-      }
-    : undefined;
-
-  return {
-    scan_date: (raw.scan_date as string) ?? (raw.date as string) ?? '',
-    scanned_count: (raw.scanned_count as number) ?? arr.length,
-    stocks: arr.map(normalizeStock),
-    market,
-    sector_ranking: (raw.sector_ranking as ScanResult['sector_ranking']) ?? [],
-    catalysts: (raw.catalysts as ScanResult['catalysts']) ?? [],
-  };
-}
-
-export function useDateScanParsed(date: string | null) {
-  const { data, error, isLoading } = useDateScan(date);
-  return { data: normalizeScanResult(data), error, isLoading };
-}
-
-export function useLatestScanParsed() {
-  const { data, error, isLoading } = useLatestScan();
-  return { data: normalizeScanResult(data), error, isLoading };
-}
-
-export function useAllScoresHistory() {
+export function useAllScores() {
   const { data, error, isLoading } = useSWR<AllScoresData>(
     `${BASE}/data/all_scores.json`,
     fetcher,
     { refreshInterval: 0, revalidateOnFocus: false }
   );
-
-  const [selectedDate, setSelectedDate] = useState<string | null>(null);
-
-  const dates = (data?.history ?? []).map((e) => e.date);
-
-  const selectedEntry = selectedDate
-    ? data?.history?.find((e) => e.date === selectedDate) ?? null
-    : null;
-
-  const selectDate = useCallback((date: string) => setSelectedDate(date), []);
-
-  return { data, dates, selectedDate, selectedEntry, selectDate, error, isLoading };
+  const stocks: ScanStock[] = (data?.all_stock_scores ?? []).map(normalizeStock);
+  return { data, stocks, error, isLoading };
 }
 
 export function useDateStockSearch(date: string | null, stockId: string | null) {
-  const { data: scanData } = useDateScanParsed(date);
-
-  if (!scanData || !stockId) return null;
-
-  return scanData.stocks.find(
-    (s) => s.stock_id === stockId || s.stock_id.padStart(4, '0') === stockId.padStart(4, '0')
-  ) ?? null;
+  const { data } = useDateScan(date);
+  if (!data || !stockId) return null;
+  return (
+    (data.top_stocks ?? []).find(
+      (s) => s.stock_id === stockId || s.stock_id.padStart(4, '0') === stockId.padStart(4, '0')
+    ) ?? null
+  );
 }
 
 // Restored for backward compatibility with SelfCheck.tsx
@@ -218,4 +153,14 @@ export function useOnDemandScan() {
   }, []);
 
   return { scan, result, isLoading };
+}
+
+// Required by SelfCheck.tsx — fetches all_scores.json via SWR
+export function useAllScoresHistory() {
+  const { data, error, isLoading } = useSWR<AllScoresData>(
+    `${BASE}/data/all_scores.json`,
+    fetcher,
+    { refreshInterval: 0, revalidateOnFocus: false }
+  );
+  return { data: data ?? null, error, isLoading };
 }
