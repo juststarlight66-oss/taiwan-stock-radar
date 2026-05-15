@@ -1,4 +1,4 @@
-name: E3 Weekly Backtest
+name: E3 Backtest
 
 on:
   workflow_dispatch:
@@ -14,7 +14,7 @@ on:
           - breakout
           - pattern
       symbols:
-        description: 'Stock symbols (space-separated, default: TW50 universe)'
+        description: 'Stock symbols'
         required: false
         default: ''
         type: string
@@ -28,19 +28,12 @@ jobs:
   backtest:
     runs-on: ubuntu-latest
     timeout-minutes: 15
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-
-      - name: Install dependencies
-        run: pip install pandas numpy httpx
-
+      - run: pip install pandas numpy httpx
       - name: Run E3 Backtest
         run: |
           SYMBOLS_ARG=""
@@ -52,29 +45,21 @@ jobs:
             --days ${{ github.event.inputs.days || '252' }} \
             $SYMBOLS_ARG \
             --output e3_backtest_$(date +%Y%m%d).json
-
-      - name: Stage results
+      - name: Stage and push
         if: success()
         run: |
           mkdir -p gh-pages
           cp e3_backtest_*.json gh-pages/ 2>/dev/null || true
-          cp e3_backtest_*.json ./
-
-      - name: Commit and Push
-        if: success()
-        run: |
           git config user.name "Nebula Bot"
           git config user.email "noreply@nebula.gg"
           git add e3_backtest_*.json gh-pages/ 2>/dev/null || true
           if ! git diff --staged --quiet; then
-            git commit -m "E3 backtest report $(date +%Y%m%d)
+            git commit -m "E3 backtest $(date +%Y%m%d)
 
       Co-Authored-By: Nebula <noreply@nebula.gg>"
             git push origin HEAD:main
           fi
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./gh-pages
