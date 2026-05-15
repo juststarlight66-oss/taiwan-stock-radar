@@ -24,10 +24,6 @@ on:
         default: '252'
         type: string
 
-  schedule:
-    # Every Friday 22:30 UTC (Saturday 06:30 Taiwan)
-    - cron: '30 22 * * 5'
-
 jobs:
   backtest:
     runs-on: ubuntu-latest
@@ -57,7 +53,8 @@ jobs:
             $SYMBOLS_ARG \
             --output e3_backtest_$(date +%Y%m%d).json
 
-      - name: Deploy to GitHub Pages
+      - name: Stage results
+        if: success()
         run: |
           mkdir -p gh-pages
           cp e3_backtest_*.json gh-pages/ 2>/dev/null || true
@@ -69,12 +66,12 @@ jobs:
           git config user.name "Nebula Bot"
           git config user.email "noreply@nebula.gg"
           git add e3_backtest_*.json gh-pages/ 2>/dev/null || true
-          git diff --staged --quiet || (
+          if ! git diff --staged --quiet; then
             git commit -m "E3 backtest report $(date +%Y%m%d)
 
-      Co-Authored-By: Nebula <noreply@nebula.gg>" &&
+      Co-Authored-By: Nebula <noreply@nebula.gg>"
             git push origin HEAD:main
-          )
+          fi
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
