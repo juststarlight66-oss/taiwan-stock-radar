@@ -28,7 +28,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install deps
-        run: pip install requests pytz numpy pandas scikit-learn yfinance beautifulsoup4 lxml
+        run: pip install requests pytz numpy pandas scikit-learn yfinance beautifulsoup4 lxml httpx
 
       - name: Create shared stub
         run: |
@@ -43,12 +43,24 @@ jobs:
       - name: Copy and update data files
         run: python tasks/2255/post_scan.py
 
+      - name: Run E3 Backtest
+        run: |
+          python backtest_engine.py \
+            --strategy all \
+            --days 252 \
+            --output e3_backtest_$(date +%Y%m%d).json
+
+      - name: Stage E3 results for gh-pages
+        run: |
+          mkdir -p gh-pages
+          cp e3_backtest_*.json gh-pages/ 2>/dev/null || true
+
       - name: Commit results
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add public/data/ tasks/2255/scan_result.json tasks/2255/all_scores.json tasks/2255/latest.json 2>/dev/null || true
-          git diff --staged --quiet || git commit -m "data: $(date +%Y%m%d) evening scan (auto)"
+          git add public/data/ tasks/2255/scan_result.json tasks/2255/all_scores.json tasks/2255/latest.json e3_backtest_*.json gh-pages/ 2>/dev/null || true
+          git diff --staged --quiet || git commit -m "data: $(date +%Y%m%d) evening scan + E3 backtest (auto)"
           git push origin main
 
       - name: Trigger deploy
