@@ -1,0 +1,84 @@
+name: E3 Weekly Backtest
+
+on:
+  workflow_dispatch:
+    inputs:
+      strategy:
+        description: 'Strategy to run'
+        required: false
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - ma_crossover
+          - breakout
+          - pattern
+      symbols:
+        description: 'Stock symbols (space-separated, default: TW50 universe)'
+        required: false
+        default: ''
+        type: string
+      days:
+        description: 'Backtest period in trading days'
+        required: false
+        default: '252'
+        type: string
+
+  schedule:
+    # Every Friday 22:30 UTC (Saturday 06:30 Taiwan)
+    - cron: '30 22 * * 5'
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install pandas numpy httpx
+
+      - name: Run E3 Backtest
+        run: |
+          SYMBOLS_ARG=""
+          if [ -n "${{ github.event.inputs.symbols }}" ]; then
+            SYMBOLS_ARG="--symbols ${{ github.event.inputs.symbols }}"
+          fi
+          python backtest_engine.py \
+            --strategy ${{ github.event.inputs.strategy || 'all' }} \
+            --days ${{ github.event.inputs.days || '252' }} \
+            $SYMBOLS_ARG \
+            --output e3_backtest_$(date +%Y%m%d).json
+
+      - name: Deploy to GitHub Pages
+        run: |
+          mkdir -p gh-pages
+          cp e3_backtest_*.json gh-pages/ 2>/dev/null || true
+          cp e3_backtest_*.json ./
+
+      - name: Commit and Push
+        if: success()
+        run: |
+          git config user.name "Nebula Bot"
+          git config user.email "noreply@nebula.gg"
+          git add e3_backtest_*.json gh-pages/ 2>/dev/null || true
+          git diff --staged --quiet || (
+            git commit -m "E3 backtest report $(date +%Y%m%d)
+
+      Co-Authored-By: Nebula <noreply@nebula.gg>" &&
+            git push origin HEAD:main
+          )
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./gh-pages
+          keep_files: true
