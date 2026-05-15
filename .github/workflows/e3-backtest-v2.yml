@@ -1,0 +1,66 @@
+name: E3 Backtest V2
+
+on:
+  workflow_dispatch:
+    inputs:
+      strategy:
+        description: 'Strategy to run'
+        required: false
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - ma_crossover
+          - breakout
+          - pattern
+      symbols:
+        description: 'Stock symbols (space-separated)'
+        required: false
+        default: ''
+        type: string
+      days:
+        description: 'Backtest period in trading days'
+        required: false
+        default: '252'
+        type: string
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install pandas numpy httpx
+      - name: Run E3 Backtest
+        run: |
+          SYMBOLS_ARG=""
+          if [ -n "${{ github.event.inputs.symbols }}" ]; then
+            SYMBOLS_ARG="--symbols ${{ github.event.inputs.symbols }}"
+          fi
+          python backtest_engine.py \
+            --strategy ${{ github.event.inputs.strategy || 'all' }} \
+            --days ${{ github.event.inputs.days || '252' }} \
+            $SYMBOLS_ARG \
+            --output e3_backtest_$(date +%Y%m%d).json
+      - name: Stage and push results
+        if: success()
+        run: |
+          mkdir -p gh-pages
+          cp e3_backtest_*.json gh-pages/ 2>/dev/null || true
+          git config user.name "Nebula Bot"
+          git config user.email "noreply@nebula.gg"
+          git add e3_backtest_*.json gh-pages/ 2>/dev/null || true
+          if ! git diff --staged --quiet; then
+            git commit -m "E3 backtest $(date +%Y%m%d)
+
+      Co-Authored-By: Nebula <noreply@nebula.gg>"
+            git push origin HEAD:main
+          fi
+      - uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./gh-pages
+          keep_files: true
