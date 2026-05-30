@@ -48,7 +48,7 @@ jobs:
           python backtest_engine.py \
             --strategy all \
             --days 252 \
-            --output e3_backtest_$(date +%Y%m%d).json
+            --output e3_backtest_$(date +%Y%m%d).json || true
 
       - name: Stage E3 results for gh-pages
         run: |
