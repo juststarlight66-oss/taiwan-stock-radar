@@ -1,0 +1,67 @@
+name: Verify Predictions
+
+on:
+  workflow_dispatch:
+    inputs:
+      scan_date:
+        description: 'Scan result date (YYYYMMDD, default: yesterday)'
+        required: false
+        type: string
+      top_n:
+        description: 'Number of top stocks to verify'
+        required: false
+        type: string
+        default: '10'
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages-data
+      
+      - name: Checkout main (for scripts)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main-repo
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install deps
+        run: pip install requests pytz numpy pandas yfinance
+      
+      - name: Run verification
+        env:
+          SCAN_DATE_INPUT: ${{ inputs.scan_date }}
+          TOP_N: ${{ inputs.top_n }}
+        run: |
+          cd main-repo
+          python scripts/verify_predictions_ci.py
+      
+      - name: Push results to gh-pages
+        run: |
+          cd gh-pages-data
+          if [ -f ../main-repo/predictions_history.json ]; then
+            cp ../main-repo/predictions_history.json data/predictions_history.json
+          fi
+          if [ -f ../main-repo/holding_paths.json ]; then
+            cp ../main-repo/holding_paths.json data/holding_paths.json
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add data/predictions_history.json data/holding_paths.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: update verification results [skip ci]"
+            git push origin HEAD:gh-pages
+          fi
