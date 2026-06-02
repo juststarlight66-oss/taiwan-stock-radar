@@ -2,13 +2,15 @@ name: Scan Quality Check
 
 on:
   schedule:
-    # 每日 16:00 台灣時間（UTC 08:00）執行，確保盤後資料已更新
+    # \u6bcf\u65e5 16:00 \u53f0\u7063\u6642\u9593\uff08UTC 08:00\uff09\u57f7\u884c\uff0c\u78ba\u4fdd\u76e4\u5f8c\u8cc7\u6599\u5df2\u66f4\u65b0
     - cron: '0 8 * * 1-5'
-  workflow_dispatch:  # 保留手動觸發
+  workflow_dispatch:  # \u4fdd\u7559\u624b\u52d5\u89f8\u767c
 
 jobs:
   quality-check:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
     steps:
       - uses: actions/checkout@v4
 
@@ -27,21 +29,21 @@ jobs:
           import pytz
           warnings.filterwarnings('ignore')
 
-          # 判斷台灣時間是否已過盤後 15:30
+          # \u5224\u65b7\u53f0\u7063\u6642\u9593\u662f\u5426\u5df2\u904e\u76e4\u5f8c 15:30
           tz = pytz.timezone('Asia/Taipei')
           now_tw = datetime.datetime.now(tz)
           is_weekday = now_tw.weekday() < 5  # Mon-Fri
           is_after_close = (now_tw.hour > 15) or (now_tw.hour == 15 and now_tw.minute >= 30)
 
           if not is_weekday:
-              print(f"SKIP: 非交易日（{now_tw.strftime('%Y-%m-%d %H:%M')} 台灣時間），略過 API 檢查")
+              print(f"SKIP: \u975e\u4ea4\u6613\u65e5\uff08{now_tw.strftime('%Y-%m-%d %H:%M')} \u53f0\u7063\u6642\u9593\uff09\uff0c\u7565\u904e API \u6aa2\u67e5")
               sys.exit(0)
 
           if not is_after_close:
-              print(f"SKIP: 盤前/盤中（{now_tw.strftime('%Y-%m-%d %H:%M')} 台灣時間，未過 15:30），略過 API 檢查")
+              print(f"SKIP: \u76e4\u524d/\u76e4\u4e2d\uff08{now_tw.strftime('%Y-%m-%d %H:%M')} \u53f0\u7063\u6642\u9593\uff0c\u672a\u904e 15:30\uff09\uff0c\u7565\u904e API \u6aa2\u67e5")
               sys.exit(0)
 
-          print(f"執行 API 檢查（{now_tw.strftime('%Y-%m-%d %H:%M')} 台灣時間，交易日盤後）")
+          print(f"\u57f7\u884c API \u6aa2\u67e5\uff08{now_tw.strftime('%Y-%m-%d %H:%M')} \u53f0\u7063\u6642\u9593\uff0c\u4ea4\u6613\u65e5\u76e4\u5f8c\uff09")
 
           ENDPOINTS = {
               'TWSE STOCK_DAY_ALL':  'https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL',
@@ -58,10 +60,10 @@ jobs:
                       data = r.json()
                       count = len(data) if isinstance(data, list) else 0
                       if count == 0:
-                          # 200 但無資料，視為 warning 不 fail
-                          print(f"WARN {name}: 200 但回傳 0 筆（可能今日無交易）")
+                          # 200 \u4f46\u7121\u8cc7\u6599\uff0c\u8996\u70ba warning \u4e0d fail
+                          print(f"WARN {name}: 200 \u4f46\u56de\u50b3 0 \u7b46\uff08\u53ef\u80fd\u4eca\u65e5\u7121\u4ea4\u6613\uff09")
                       else:
-                          print(f"OK   {name}: {count} 筆")
+                          print(f"OK   {name}: {count} \u7b46")
                   else:
                       msg = f"HTTP {r.status_code}"
                       failed.append(f"{name}: {msg}")
@@ -71,7 +73,7 @@ jobs:
                   print(f"FAIL {name}: {e}")
 
           if failed:
-              print("\n=== API 異常（盤後確認失敗）===")
+              print("\n=== API \u7570\u5e38\uff08\u76e4\u5f8c\u78ba\u8a8d\u5931\u6557\uff09===")
               for f in failed:
                   print(f"  - {f}")
               sys.exit(1)
@@ -102,7 +104,7 @@ jobs:
           # Check version string
           if 'v8.0' in src or 'v7.0' in src or 'v9.0' in src:
               import re
-              ver = re.search(r'版本：(v\S+)', src)
+              ver = re.search(r'\u7248\u672c\uff1a(v\S+)', src)
               print(f"OK version: {ver.group(1) if ver else 'unknown'}")
 
           # Check scanned_count warning threshold exists

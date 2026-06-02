@@ -2,7 +2,7 @@ name: Daily Market Scan
 
 on:
   schedule:
-    - cron: '0 11 * * 1-5'  # 每日台灣時間 19:00（UTC+8 = UTC 11:00），僅週一至週五
+    - cron: '0 11 * * 1-5'  # \u6bcf\u65e5\u53f0\u7063\u6642\u9593 19:00\uff08UTC+8 = UTC 11:00\uff09\uff0c\u50c5\u9031\u4e00\u81f3\u9031\u4e94
   workflow_dispatch:
     inputs:
       scan_date:
@@ -16,6 +16,8 @@ jobs:
     permissions:
       contents: write
       actions: write
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
     steps:
       - name: Checkout
         uses: actions/checkout@v4

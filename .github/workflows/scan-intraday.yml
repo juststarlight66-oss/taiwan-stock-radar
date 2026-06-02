@@ -3,7 +3,7 @@ name: Scan Intraday
 on:
   workflow_dispatch:
   schedule:
-    # 每交易日台灣時間 13:05 執行 (UTC 05:05)
+    # \u6bcf\u4ea4\u6613\u65e5\u53f0\u7063\u6642\u9593 13:05 \u57f7\u884c (UTC 05:05)
     - cron: '5 5 * * 1-5'
 
 permissions:
@@ -12,6 +12,8 @@ permissions:
 jobs:
   scan:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
