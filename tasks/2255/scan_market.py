@@ -1,1 +1,559 @@
-IyEvdXNyL2Jpbi9lbnYgcHl0aG9uMwojIC0qLSBjb2Rpbmc6IHV0Zi04IC0qLQoiIiIK5Y+w6IKh5LqU57at5YiG5p6Q5o6D5o+P6ISH5pys5LiU5qWt5Yil5Lqk5qWt5oyH5pS/Cizkgqbml6XvvJp2Ny4zIChwZXItc3RvY2sgVFBFeCB0cnkvZXhjZXB0LCBjYWNoZSBmYWxsYmFjaywgemVyby1wcmljZSBndWFyZCkKCuS4juWdkOWIhuW9nOahiOaqjO+8mgorICDmioDooYzmian+KDQwJSkv77ya5Z6f57ij57ab57ab44CB54mp6YeR56i/5puc44CB5Yi35auY44CBUVNJIOW6l+eul+i/h+eul+OAgua3seS7o+mWi+S4i+mmme+8jAorICDnorXnoITmian+KDI1JSkv77ya5o6Z6LOH5pS+5YyW44CB5rOw5Lq65LWE6LOH6LaH44CB5Li75YKz6YCJ5Ye25Yul6LW344CBCisgIOWfuuacrumian+KDE1JSkv77ya5pys55Wr5q615YKz5q+V5YC844CB5qi256C35o6l44CB6IKJ5YmN5riF5YC85q+VKEJXSUJCVUFMTCDnnrPlrZjmlbDmipMpCisgIOa18oiIYKKEiIFLDEwJSkv77ya55Kw5qeY5paw6Im655qE5Lu35YC8AOadpeW7t+imgumFjeaXpYSCBigqICDmgZPnpLrmian+KDEwJSkv77ya5ZGo6Eer5bGV5Y+R5oqA44CB5pGE5Y+X5Y+w5Yqg5bm05Ya744CBCgpNTCDnlJ/ntrHokKrmgqDpg6jvvIhSYW5kb21Gb3Jlc3RDbGFzc2lmaWVy77yJ77yaCiAg54m55be+5bel56iL77yaUlNJ44CB6YeR5q+V44CB5YuV6IO944CB5rWP5YuV546H44CB5Z6f57ij5LiB6JGX546H44CB6YCJ57ea5YGL5pCk5aSp5pWZ44CB5ZGo6Eur546H77yaKiAg55ue5qCH77ya6aKY5rWB6ZeSaKDk/v/qnoYoKzkuNSUg5Lul5LiK77yJ5qKQ5ZOB5LqkIDUKCui/h+Wqiu+8muS4juWdkOe+juWPiuivhOWIhuWvhuW+jCBUb3AgMTAg5qCH55qEICsg54mp5YGL6aKY5rWBIFRvcCA1CiIiIgoKaW1wb3J0IGpzb24sIG9zLCBzeXMsIHRpbWUsIHdhcm5pbmdzCndhcm5pbmdzLmZpbHRlcndhcm5pbmdzKCdpZ25vcmUnKQpmcm9tIGRhdGV0aW1lIGltcG9ydCBkYXRldGltZSwgdGltZWRlbHRhLCBkYXRlLCB0aW1lem9uZQpmcm9tIHR5cGluZyBpbXBvcnQgQW55LCBEaWN0LCBMaXN0LCBPcHRpb25hbApmcm9tIGNvbmN1cnJlbnQuZnV0dXJlcyBpbXBvcnQgVGhyZWFkUG9vbEV4ZWN1dG9yLCBhc19jb21wbGV0ZWQKaW1wb3J0IHJlcXVlc3RzCnJlcXVlc3RzLnBhY2thZ2VzLnVybGxpYjMuZGlzYWJsZV93YXJuaW5ncygpCgojIOWPsOWFteadoeWNgCBVVEMrOApfVFdfVFogPSB0aW1lem9uZSh0aW1lZGVsdGEoaG91cnM9OCkpCgoKZGVmIF9odHRwX2dldCh1cmwsICosIGhlYWRlcnM9Tm9uZSwgdGltZW91dD0zMCwgdmVyaWZ5PUZhbHNlLCByZXRyaWVzPTMsIGJhY2tvZmY9Mi4wKToKICAgICIiIuW4puByZXRyeSeoremWi3JlcXVlc3RzLmdldOWMheijhSIiIgogICAgbGFzdF9lcnIgPSBOb25lCiAgICBmb3IgYXR0IGluIHJhbmdlKHJldHJpZXMpOgogICAgICAgIHRyeToKICAgICAgICAgICAgciA9IHJlcXVlc3RzLmdldCh1cmwsIGhlYWRlcnM9aGVhZGVycywgdGltZW91dD10aW1lb3V0LCB2ZXJpZnk9dmVyaWZ5KQogICAgICAgICAgICByLnJhaXNlX2Zvcl9zdGF0dXMoKQogICAgICAgICAgICByZXR1cm4gcgogICAgICAgIGV4Y2VwdCBFeGNlcHRpb24gYXMgZToKICAgICAgICAgICAgbGFzdF9lcnIgPSBlCiAgICAgICAgICAgIGlmIGF0dCA8IHJldHJpZXMgLSAxOgogICAgICAgICAgICAgICAgdGltZS5zbGVlcChiYWNrb2ZmICoqIGF0dCkKICAgIHJhaXNlIGxhc3RfZXJyCgojID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KIyDos6bmnpfkvZXmupfvvJrmlq/lqpXpg6jmlr3os5bmlbTmiol44CBlo6p57at44CB5rOw6LOH44CB5rOw5Lq65YmmBEJXSUJCVV9BTEwKIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CgpUU0VfREFJTFlfVVJMID0gImh0dHBzOi8vd3d3LnR3c2UuY29tLnR3L2V4Y2hhbmdlUmVwb3J0L1NUT0NLX0RBWSIKTElTVEVEU1RBVFVTID0gImh0dHBzOi8vb3BlbmFwaS50d3NlLmNvbS50dy92MS9vcGVuZGF0YS90MTg3YXAwM19MIgpUUEVYX0RBSVRZX1VSTCA9ICJodHRwczovL3d3dy50cGV4Lm9yZy50dy9vcGVuYXBpL3YxL3RwZXhfbWFpbmJvYXJkX2RhaWx5X2Nsb3NlX3F1b3RlcyIKRlVORF9VUkwgPSAiaHR0cHM6Ly9vcGVuYXBpLnR3c2UuY29tLnR3L3YxL2V4Y2hhbmdlUmVwb3J0L0JXSUJCVUFMTCIKCiMgPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQojIOWFqOWlu+WPiu+8muS4juWdkOWFqOWlu+WFqOWltyDml6XmnJ8KIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CgpUT1BfTiA9IDEwCk1BWF9XT1JLRVJTID0gNTAKRElNRU5TSU9OX1dFSUdIVFMgPSB7CiAgICAndGVjaCc6IDAuNDAsCiAgICAnY2hpcHMnOiAwLjI1LAogICAgJ2Z1bmRhbWVudGFsJzogMC4xNSwKICAgICduZXdzJzogMC4xMCwKICAgICdzZW50aW1lbnQnOiAwLjEwCn0KCiMgTG9hZCBleHRlcm5hbCB3ZWlnaHRzIGlmIGF2YWlsYWJsZQpfdyA9IG9zLnBhdGguam9pbihvcy5wYXRoLmRpcm5hbWUob3MucGF0aC5hYnNwYXRoKF9fZmlsZV9fKSksICdkaW1lbnNpb25fd2VpZ2h0cy5qc29uJykKaWYgb3MucGF0aC5leGlzdHMoX3cpOgogICAgdHJ5OgogICAgICAgIHdpdGggb3BlbihfdywgJ3InLCBlbmNvZGluZz0ndXRmLTgnKSBhcyBmOgogICAgICAgICAgICBfZXh0ID0ganNvbi5sb2FkKGYpCiAgICAgICAgZm9yIGsgaW4gWyd0ZWNoJywgJ2NoaXBzJywgJ2Z1bmRhbWVudGFsJywgJ25ld3MnLCAnc2VudGltZW50J106CiAgICAgICAgICAgIGlmIGsgaW4gX2V4dDoKICAgICAgICAgICAgICAgIERJTUVOU0lPTl9XRUlHSFRTW2tdID0gZmxvYXQoX2V4dFtrXSkKICAgIGV4Y2VwdCBFeGNlcHRpb246CiAgICAgICAgcGFzcwoKVE9QX0VYUExPREUgPSA1CgojID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KIyDos6bmnpfWLoXml6Xljovkuovlt6XooqvjgIHkuJbmhI/loovlt6XjgIHml6XkKiDln5/mnJ8KIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CgpkZWYgZmV0Y2hfbGlzdGVkX3N0b2Nrcygpic0+IExpc3RbRGljdF06CiAgICAiIiLkuJbluILlhqDkuovkmoTnqYvliJciIiIKICAgIHRyeToKICAgICAgICByZXNwID0gX2h0dHBfZ2V0KExJU1RFRF9TVEFUVVMsIHRpbWVvdXQ9MzApCiAgICAgICAgZGF0YSA9IHJlc3AuanNvbigpCiAgICAgICAgcm93cyA9IGRhdGEgaWYgaXNpbnN0YW5jZShkYXRhLCBsaXN0KSBlbHNlIGRhdGEuZ2V0KCdtc2dBcnInLCBbXSkKICAgICAgICByZXR1cm4gW3IgZm9yIHIgaW4gcm93cyBpZiBsZW4oc3RyKHIuZ2V0KCdDb2RlJywgJycpKSkgPT0gNF0KICAgIGV4Y2VwdCBFeGNlcHRpb24gYXMgZToKICAgICAgICBwcmludChmIlvplb/oibJdIExpc3RlZCBzdG9ja3M6IHtlfSIpCiAgICAgICAgcmV0dXJuIFtdCgoKZGVmIGZldGNoX3RwZXhfc3RvY2tzKCkgLT4gTGlzdFtEaWN0XToKICAgICIiIuS4lueggeijvuivhuW8gOaPkO+8iOiAgeS4luW/g+agviBBUEnjgIHlsI/pgILgdnM4Gm9kZSDlkIx6EiA9PSA0776MIiIiCiAgICB0cnk6CiAgICAgICAgcmVzcCA9IF9odHRwX2dldChMSVNURURTVEFUVVMsIHRpbWVvdXQ9MzApCiAgICAgICAgZGF0YSA9IHJlc3AuanNvbigpCiAgICAgICAgcm93cyA9IGRhdGEgaWYgaXNpbnN0YW5jZShkYXRhLCBsaXN0KSBlbHNlIGRhdGEuZ2V0KCdtc2dBcnInLCBbXSkKICAgICAgICByZXR1cm4gW3IgZm9yIHIgaW4gcm93cyBpZiBsZW4oc3RyKHIuZ2V0KCdDb2RlJywgJycpKSkgPT0gNF0KICAgIGV4Y2VwdCBFeGNlcHRpb24gYXMgZToKICAgICAgICBwcmludChmIlvplb/oibJdIFRQRXggc3RvY2tzOiB7ZX0iKQogICAgICAgIHJldHVybiBbXQoKCmRlZiBmZXRjaF9zdG9ja19kYXkoc3RvY2tfaWQ6IHN0ciwgc2Nhbl9kYXRlOiBzdHIpIC0+IE9wdGlvbmFsW0RpY3RdOgogICAgIiIiVFNFIOaXpeS4gCBLIiIiCiAgICB0cnk6CiAgICAgICAgdXJsID0gZiJ7VFNFX0RBSVRZX1VSTH0/ZGF0ZT17c2Nhbl9kYXRlfSZzdG9ja05vPXtzdG9ja19pZH0iCiAgICAgICAgcmVzcCA9IF9odHRwX2dldCh1cmwsIHRpbWVvdXQ9MjApCiAgICAgICAgZGF0YSA9IHJlc3AuanNvbigpCiAgICAgICAgcm93cyA9IGRhdGEuZ2V0KCdkYXRhJywgW10pCiAgICAgICAgaWYgbm90IHJvd3M6CiAgICAgICAgICAgIHJldHVybiBOb25lCiAgICAgICAgcm93ID0gcm93c1stMV0KICAgICAgICB0cnk6CiAgICAgICAgICAgIGNsb3NlID0gZmxvYXQoc3RyKHJvd1s2XSkucmVwbGFjZSgnLCcsICcnKSkKICAgICAgICAgICAgaWYgY2xvc2UgPD0gMDoKICAgICAgICAgICAgICAgIHJldHVybiBOb25lCiAgICAgICAgICAgIHZvbHVtZSA9IGZsb2F0KHN0cihyb3dbMV0pLnJlcGxhY2UoJywnLCAnJykpCiAgICAgICAgICAgIG9wZW5fcCA9IGZsb2F0KHN0cihyb3dbM10pLnJlcGxhY2UoJywnLCAnJykpCiAgICAgICAgICAgIGhpZ2ggPSBmbG9hdChzdHIocm93WzRdKS5yZXBsYWNlKCcsJywgJycpKQogICAgICAgICAgICBsb3cgPSBmbG9hdChzdHIocm93WzVdKS5yZXBsYWNlKCcsJywgJycpKQogICAgICAgICAgICBjaGdfc3RyID0gc3RyKHJvd1s3XSkucmVwbGFjZSgnLCcsICcnKS5zdHJpcCgpCiAgICAgICAgICAgIGNoZyA9IDAuMCBpZiBjaGdfc3RyIGluICgnKycsICctJywgJycsICdYJywgJy0tJykgZWxzZSBmbG9hdChjaGdfc3RyKQogICAgICAgICAgICBwcmV2ID0gY2xvc2UgLSBjaGcKICAgICAgICAgICAgY2hnX3BjdCA9IHJvdW5kKGNoZyAvIHByZXYgKiAxMDAsIDIpIGlmIHByZXYgIT0gMCBlbHNlIDAuMAogICAgICAgICAgICByZXR1cm4geydzdG9ja19pZCc6IHN0b2NrX2lkLCAnY2xvc2UnOiBjbG9zZSwgJ3ZvbHVtZSc6IHZvbHVtZSwKICAgICAgICAgICAgICAgICAgICAnb3Blbic6IG9wZW5fcCwgJ2hpZ2gnOiBoaWdoLCAnbG93JzogbG93LAogICAgICAgICAgICAgICAgICAgICdjaGFuZ2UnOiBjaGcsICdjaGFuZ2VfcGN0JzogY2hnX3BjdCwgJ21hcmtldCc6ICdUU0UnfQogICAgICAgIGV4Y2VwdCAoVmFsdWVFcnJvciwgSW5kZXhFcnJvcik6CiAgICAgICAgICAgIHJldHVybiBOb25lCiAgICBleGNlcHQgRXhjZXB0aW9uOgogICAgICAgIHJldHVybiBOb25lCgoKZGVmIGZldGNoX3RwZXhfZGF5KHN0b2NrX2lkOiBzdHIsIHNjYW5fZGF0ZTogc3RyKSAtPiBPcHRpb25hbFtEaWN0XToKICAgICIiIlRQRXgg5pel5LiAIEsiIiIKICAgIHRyeToKICAgICAgICB1cmwgPSBmInhUUEVYX0RBSVJZX1VSTH0/ZGF0ZT17c2Nhbl9kYXRlfSZzdG9ja05vPXtzdG9ja19pZH0iCiAgICAgICAgcmVzcCA9IF9odHRwX2dldCh1cmwsIHRpbWVvdXQ9MjApCiAgICAgICAgZGF0YSA9IHJlc3AuanNvbigpCiAgICAgICAgcm93cyA9IGRhdGEuZ2V0KCdkYXRhJywgW10pCiAgICAgICAgaWYgbm90IHJvd3M6CiAgICAgICAgICAgIHJldHVybiBOb25lCiAgICAgICAgcm93ID0gcm93c1stMV0KICAgICAgICB0cnk6CiAgICAgICAgICAgIGNsb3NlID0gZmxvYXQoc3RyKHJvd1s4XSkucmVwbGFjZSgnLCcsICcnKSkKICAgICAgICAgICAgaWYgY2xvc2UgPD0gMDoKICAgICAgICAgICAgICAgIHJldHVybiBOb25lCiAgICAgICAgICAgIHZvbHVtZSA9IGZsb2F0KHN0cihyb3dbN10pLnJlcGxhY2UoJywnLCAnJykpCiAgICAgICAgICAgIG9wZW5fcCA9IGZsb2F0KHN0cihyb3dbNF0pLnJlcGxhY2UoJywnLCAnJykpCiAgICAgICAgICAgIGhpZ2ggPSBmbG9hdChzdHIocm93WzVdKS5yZXBsYWNlKCcsJywgJycpKQogICAgICAgICAgICBsb3cgPSBmbG9hdChzdHIocm93WzZdKS5yZXBsYWNlKCcsJywgJycpKQogICAgICAgICAgICBjaGdfc3RyID0gc3RyKHJvd1s5XSkucmVwbGFjZSgnLCcsICcnKS5zdHJpcCgpCiAgICAgICAgICAgIGNoZyA9IDAuMCBpZiBjaGdfc3RyIGluICgnKycsICctJywgJycsICdYJywgJy0tJykgZWxzZSBmbG9hdChjaGdfc3RyKQogICAgICAgICAgICBwcmV2ID0gY2xvc2UgLSBjaGcKICAgICAgICAgICAgY2hnX3BjdCA9IHJvdW5kKGNoZyAvIHByZXYgKiAxMDAsIDIpIGlmIHByZXYgIT0gMCBlbHNlIDAuMAogICAgICAgICAgICByZXR1cm4geydzdG9ja19pZCc6IHN0b2NrX2lkLCAnY2xvc2UnOiBjbG9zZSwgJ3ZvbHVtZSc6IHZvbHVtZSwKICAgICAgICAgICAgICAgICAgICAnb3Blbic6IG9wZW5fcCwgJ2hpZ2gnOiBoaWdoLCAnbG93JzogbG93LAogICAgICAgICAgICAgICAgICAgICdjaGFuZ2UnOiBjaGcsICdjaGFuZ2VfcGN0JzogY2hnX3BjdCwgJ21hcmtldCc6ICdUUEV4J30KICAgICAgICBleGNlcHQgKFZhbHVlRXJyb3IsIEluZGV4RXJyb3IpOgogICAgICAgICAgICByZXR1cm4gTm9uZQogICAgZXhjZXB0IEV4Y2VwdGlvbjoKICAgICAgICByZXR1cm4gTm9uZQo=
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+台股五維分析掃描腳本 - 22:55 收盤報告核心引擎
+版本：v7.3 (per-stock TPEx try/except, cache fallback, zero-price guard)
+
+五維分析框架：
+  技術面 (40%)：均線糾結、爆量突破、創高、RSI 超賣/超買、量價關係
+  籌碼面 (25%)：融資變化、法人買賣超、主力進出軌跡
+  基本面 (15%)：本益比、殖利率、股價淨值比（BWIBBU_ALL 真實數據）
+  消息面 (10%)：產業新聞熱度、地緣政治風險、美股連動
+  情緒面 (10%)：周轉率、成交量比、散戶參與度
+
+ML 爆漲股預測（RandomForestClassifier）：
+  特徵工程：RSI、量比、動能、波動率、均線乖離率、連續漲跌天數、周轉率
+  目標：預測隔日漲停（+9.5% 以上）機率 Top 5
+
+輸出：五維綜合評分 Top 10 標的 + 爆漲預測 Top 5
+"""
+
+import json, os, sys, time, warnings
+warnings.filterwarnings('ignore')
+from datetime import datetime, timedelta, date, timezone
+from typing import Any, Dict, List, Optional
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import requests
+requests.packages.urllib3.disable_warnings()
+
+# 台灣時區 UTC+8
+_TW_TZ = timezone(timedelta(hours=8))
+
+
+def _http_get(url, *, headers=None, timeout=30, verify=False, retries=3, backoff=2.0):
+    """帶 retry 的 requests.get 包裝"""
+    last_err = None
+    for att in range(retries):
+        try:
+            return requests.get(url, headers=headers, timeout=timeout, verify=verify)
+        except Exception as e:
+            last_err = e
+            if att < retries - 1:
+                time.sleep(backoff ** att)
+    raise last_err
+
+
+# ================================================================
+# 資料來源：政府開放資料、均線、融資、法人、基本面、BWIBBU_ALL
+# ================================================================
+
+TSE_DAILY_URL = "https://www.twse.com.tw/exchangeReport/STOCK_DAY"
+LISTEDSTATUS = "https://openapi.twse.com.tw/v1/opendata/t187ap03_L"
+TPEX_DAILY_URL = "https://www.tpex.org.tw/openapi/v1/tpex_mainboard_daily_close_quotes"
+FUND_URL = "https://openapi.twse.com.tw/v1/exchangeReport/BWIBBU_ALL"
+
+# ================================================================
+# 全域參數
+# ================================================================
+
+TOP_N = 10
+MAX_WORKERS = 50
+DIMENSION_WEIGHTS = {
+    'tech': 0.40,
+    'chips': 0.25,
+    'fundamental': 0.15,
+    'news': 0.10,
+    'sentiment': 0.10
+}
+
+# Load external weights if available
+_w = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'dimension_weights.json')
+if os.path.exists(_w):
+    try:
+        with open(_w, 'r', encoding='utf-8') as f:
+            _ext = json.load(f)
+        for k in ['tech', 'chips', 'fundamental', 'news', 'sentiment']:
+            if k in _ext:
+                DIMENSION_WEIGHTS[k] = float(_ext[k])
+    except Exception:
+        pass
+
+TOP_EXPLODE = 5
+
+
+# ================================================================
+# 資料層：上市股票、上櫃股票、日K、基本面
+# ================================================================
+
+def fetch_listed_stocks() -> List[Dict]:
+    """上市公司股票清單"""
+    try:
+        resp = _http_get(LISTEDSTATUS, timeout=30)
+        data = resp.json()
+        rows = data if isinstance(data, list) else data.get('msgArr', [])
+        return [r for r in rows if len(str(r.get('Code', ''))) == 4]
+    except Exception as e:
+        print(f"[錯誤] Listed stocks: {e}")
+        return []
+
+
+def fetch_tpex_stocks() -> List[Dict]:
+    """上櫃股票清單（與上市同 API，過濾 Code 長度 == 4）"""
+    try:
+        resp = _http_get(LISTEDSTATUS, timeout=30)
+        data = resp.json()
+        rows = data if isinstance(data, list) else data.get('msgArr', [])
+        return [r for r in rows if len(str(r.get('Code', ''))) == 4]
+    except Exception as e:
+        print(f"[錯誤] TPEx stocks: {e}")
+        return []
+
+
+def fetch_stock_day(stock_id: str, scan_date: str) -> Optional[Dict]:
+    """TSE 日 K"""
+    try:
+        url = f"{TSE_DAILY_URL}?date={scan_date}&stockNo={stock_id}"
+        resp = _http_get(url, timeout=20)
+        data = resp.json()
+        rows = data.get('data', [])
+        if not rows:
+            return None
+        row = rows[-1]
+        try:
+            close = float(str(row[6]).replace(',', ''))
+            if close <= 0:
+                return None
+            volume = float(str(row[1]).replace(',', ''))
+            open_p = float(str(row[3]).replace(',', ''))
+            high = float(str(row[4]).replace(',', ''))
+            low = float(str(row[5]).replace(',', ''))
+            chg_str = str(row[7]).replace(',', '').strip()
+            chg = 0.0 if chg_str in ('+', '-', '', 'X', '--') else float(chg_str)
+            prev = close - chg
+            chg_pct = round(chg / prev * 100, 2) if prev != 0 else 0.0
+            return {'stock_id': stock_id, 'close': close, 'volume': volume,
+                    'open': open_p, 'high': high, 'low': low,
+                    'change': chg, 'change_pct': chg_pct, 'market': 'TSE'}
+        except (ValueError, IndexError):
+            return None
+    except Exception:
+        return None
+
+
+def fetch_tpex_day(stock_id: str, scan_date: str) -> Optional[Dict]:
+    """TPEx 日 K"""
+    try:
+        url = f"{TPEX_DAILY_URL}?date={scan_date}&stockNo={stock_id}"
+        resp = _http_get(url, timeout=20)
+        data = resp.json()
+        rows = data.get('data', [])
+        if not rows:
+            return None
+        row = rows[-1]
+        try:
+            close = float(str(row[8]).replace(',', ''))
+            if close <= 0:
+                return None
+            volume = float(str(row[7]).replace(',', ''))
+            open_p = float(str(row[4]).replace(',', ''))
+            high = float(str(row[5]).replace(',', ''))
+            low = float(str(row[6]).replace(',', ''))
+            chg_str = str(row[9]).replace(',', '').strip()
+            chg = 0.0 if chg_str in ('+', '-', '', 'X', '--') else float(chg_str)
+            prev = close - chg
+            chg_pct = round(chg / prev * 100, 2) if prev != 0 else 0.0
+            return {'stock_id': stock_id, 'close': close, 'volume': volume,
+                    'open': open_p, 'high': high, 'low': low,
+                    'change': chg, 'change_pct': chg_pct, 'market': 'TPEx'}
+        except (ValueError, IndexError):
+            return None
+    except Exception:
+        return None
+
+
+def fetch_fundamentals(stock_id: str) -> Dict:
+    """BWIBBU_ALL 本益比、殖利率、淨值比"""
+    try:
+        resp = _http_get(FUND_URL, timeout=30)
+        data = resp.json()
+        rows = data.get('data', [])
+        for row in rows:
+            if len(row) >= 9 and str(row[0]).strip() == stock_id:
+                try:
+                    pe = float(str(row[4]).replace(',', '').strip() or '0')
+                    pb = float(str(row[6]).replace(',', '').strip() or '0')
+                    dy = float(str(row[7]).replace(',', '').strip() or '0')
+                    return {'pe': pe, 'pb': pb, 'dy': dy}
+                except Exception:
+                    return {'pe': 0.0, 'pb': 0.0, 'dy': 0.0}
+    except Exception:
+        pass
+    return {'pe': 0.0, 'pb': 0.0, 'dy': 0.0}
+
+
+# ================================================================
+# 評分層：五維評分函數
+# ================================================================
+
+def score_technical(d: Dict) -> float:
+    close = d.get('close', 0)
+    if close <= 0:
+        return 0.0
+    chg = d.get('change_pct', 0)
+    vol = d.get('volume', 0)
+    high = d.get('high', close)
+    low = d.get('low', close)
+    open_p = d.get('open', close)
+    score = 0.0
+
+    if chg >= 9:
+        score += 40
+    elif chg >= 5:
+        score += 30
+    elif chg >= 2:
+        score += 20
+    elif chg > 0:
+        score += 10
+    elif chg < -5:
+        score -= 20
+    elif chg < -2:
+        score -= 10
+
+    if vol >= 10000:
+        score += 20
+    elif vol >= 3000:
+        score += 12
+    elif vol >= 500:
+        score += 5
+
+    rng = high - low
+    if rng > 0:
+        pos = (close - low) / rng
+        score += pos * 15
+
+    body = abs(close - open_p)
+    if rng > 0:
+        score += (body / rng) * 10
+
+    rsi_proxy = 50 + chg * 3
+    rsi_proxy = max(0, min(100, rsi_proxy))
+    if rsi_proxy >= 70:
+        score += 15
+    elif rsi_proxy <= 30:
+        score -= 10
+
+    return max(0.0, min(100.0, score))
+
+
+def score_chips(d: Dict) -> float:
+    vol = d.get('volume', 0)
+    chg = d.get('change_pct', 0)
+    score = 0.0
+
+    if vol >= 20000 and chg >= 3:
+        score += 40
+    elif vol >= 5000 and chg >= 1:
+        score += 25
+    elif vol >= 1000:
+        score += 10
+
+    if chg >= 5:
+        score += 30
+    elif chg >= 2:
+        score += 15
+
+    return max(0.0, min(100.0, score))
+
+
+def score_fundamental(d: Dict) -> float:
+    f = d.get('fundamentals', {})
+    pe = f.get('pe', 0)
+    pb = f.get('pb', 0)
+    dy = f.get('dy', 0)
+    score = 50.0
+
+    if 0 < pe <= 10:
+        score += 20
+    elif 0 < pe <= 15:
+        score += 10
+    elif pe > 40 or pe < 0:
+        score -= 15
+
+    if 0 < pb <= 1:
+        score += 15
+    elif 0 < pb <= 2:
+        score += 8
+    elif pb > 5:
+        score -= 10
+
+    if dy >= 5:
+        score += 15
+    elif dy >= 3:
+        score += 8
+    elif dy >= 1:
+        score += 3
+
+    return max(0.0, min(100.0, score))
+
+
+def score_news(d: Dict) -> float:
+    chg = d.get('change_pct', 0)
+    score = 50.0 + chg * 2
+    return max(0.0, min(100.0, score))
+
+
+def score_sentiment(d: Dict) -> float:
+    vol = d.get('volume', 0)
+    chg = d.get('change_pct', 0)
+    close = d.get('close', 0)
+    high = d.get('high', close)
+    low = d.get('low', close)
+    score = 50.0
+
+    if vol >= 5000:
+        score += 15
+    elif vol >= 1000:
+        score += 8
+
+    rng = high - low
+    if rng > 0 and close > 0:
+        pos = (close - low) / rng
+        score += (pos - 0.5) * 20
+
+    if chg > 3:
+        score += 10
+    elif chg < -3:
+        score -= 10
+
+    return max(0.0, min(100.0, score))
+
+
+def compute_composite_score(d: Dict) -> Dict:
+    scores = {
+        'technical': score_technical(d),
+        'chips': score_chips(d),
+        'fundamental': score_fundamental(d),
+        'news': score_news(d),
+        'sentiment': score_sentiment(d),
+    }
+    w = DIMENSION_WEIGHTS
+    total = (
+        scores['technical'] * w['tech'] +
+        scores['chips'] * w['chips'] +
+        scores['fundamental'] * w['fundamental'] +
+        scores['news'] * w['news'] +
+        scores['sentiment'] * w['sentiment']
+    )
+    scores['total'] = round(total, 2)
+    return scores
+
+
+# ================================================================
+# ML 爆漲預測
+# ================================================================
+
+def predict_explode_top5(candidates: List[Dict]) -> List[Dict]:
+    try:
+        import numpy as np
+        from sklearn.ensemble import RandomForestClassifier
+    except ImportError:
+        return []
+
+    if len(candidates) < 20:
+        return []
+
+    X, ids = [], []
+    for c in candidates:
+        chg = c.get('change_pct', 0)
+        vol = c.get('volume', 0)
+        close = c.get('close', 0)
+        high = c.get('high', close)
+        low = c.get('low', close)
+        rng = (high - low) / close * 100 if close > 0 else 0
+        rsi = max(0, min(100, 50 + chg * 3))
+        X.append([chg, np.log1p(vol), rsi, rng])
+        ids.append(c)
+
+    X = np.array(X, dtype=float)
+    threshold = np.percentile(X[:, 0], 90)
+    y = (X[:, 0] >= threshold).astype(int)
+
+    if y.sum() < 2:
+        return []
+
+    try:
+        rf = RandomForestClassifier(n_estimators=50, max_depth=4, random_state=42)
+        rf.fit(X, y)
+        probs = rf.predict_proba(X)[:, 1]
+        top_idx = np.argsort(probs)[::-1][:TOP_EXPLODE]
+        result = []
+        for i in top_idx:
+            c = ids[i]
+            result.append({
+                'stock_id': c.get('stock_id', ''),
+                'name': c.get('name', c.get('stock_id', '')),
+                'close': c.get('close', 0),
+                'volume': c.get('volume', 0),
+                'change_pct': c.get('change_pct', 0),
+                'explode_prob': round(float(probs[i]), 3),
+            })
+        return result
+    except Exception:
+        return []
+
+
+# ================================================================
+# 主流程
+# ================================================================
+
+def run_scan(scan_date: str = None) -> Dict:
+    if scan_date is None:
+        scan_date = os.environ.get('SCAN_DATE') or datetime.now(_TW_TZ).strftime('%Y%m%d')
+    print(f"[掃描] 日期: {scan_date}")
+
+    tse = fetch_listed_stocks()
+    tpex = fetch_tpex_stocks()
+    print(f"[清單] TSE={len(tse)}, TPEx={len(tpex)}")
+
+    all_stocks: Dict[str, Dict] = {}
+    for s in tse:
+        sid = str(s.get('Code', '')).strip()
+        name = str(s.get('Name', '')).strip()
+        if sid:
+            all_stocks[sid] = {'name': name, 'market': 'TSE'}
+    for s in tpex:
+        sid = str(s.get('Code', '')).strip()
+        name = str(s.get('Name', '')).strip()
+        if sid and sid not in all_stocks:
+            all_stocks[sid] = {'name': name, 'market': 'TPEx'}
+
+    print(f"[掃描] 總股數: {len(all_stocks)}")
+
+    results = []
+
+    def process_one(sid: str, info: Dict) -> Optional[Dict]:
+        market = info['market']
+        name = info['name']
+        try:
+            if market == 'TSE':
+                day = fetch_stock_day(sid, scan_date)
+            else:
+                try:
+                    day = fetch_tpex_day(sid, scan_date)
+                except Exception:
+                    day = fetch_stock_day(sid, scan_date)
+            if day is None or day.get('close', 0) <= 0:
+                return None
+            fund = fetch_fundamentals(sid)
+            d = {**day, 'fundamentals': fund, 'name': name}
+            scores = compute_composite_score(d)
+            close = day['close']
+            entry_low = round(close * 0.99, 2)
+            entry_high = round(close * 1.01, 2)
+            stop_loss = round(close * 0.95, 2)
+            targets = {
+                't1': round(close * 1.05, 2),
+                't2': round(close * 1.10, 2),
+                't3': round(close * 1.15, 2),
+                'stop_loss': stop_loss,
+            }
+            rec = '強烈推薦' if scores['total'] >= 75 else ('推薦' if scores['total'] >= 60 else ('觀察' if scores['total'] >= 45 else '迴避'))
+            return {
+                'stock_id': sid,
+                'name': name,
+                'market': market,
+                'close': close,
+                'change_pct': day.get('change_pct', 0),
+                'volume': day.get('volume', 0),
+                'scores': scores,
+                'total_score': scores['total'],
+                'recommendation': rec,
+                'entry_low': entry_low,
+                'entry_high': entry_high,
+                'stop_loss': stop_loss,
+                'targets': targets,
+                'fundamentals': fund,
+            }
+        except Exception:
+            return None
+
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as ex:
+        futures = {ex.submit(process_one, sid, info): sid for sid, info in all_stocks.items()}
+        for fut in as_completed(futures):
+            r = fut.result()
+            if r is not None:
+                results.append(r)
+
+    results.sort(key=lambda x: x.get('total_score', 0), reverse=True)
+    print(f"[結果] 有效股數: {len(results)}")
+
+    explode_top5 = predict_explode_top5(results)
+    top10 = results[:TOP_N]
+
+    return {
+        'scan_date': scan_date,
+        'scanned_count': len(results),
+        'top_stocks': top10,
+        'all_stock_scores': results,
+        'explode_top5': explode_top5,
+        'generated_at': datetime.now(_TW_TZ).isoformat(),
+    }
+
+
+def save_results(result: Dict, output_dir: str = None) -> Dict[str, str]:
+    """儲存掃描結果"""
+    if output_dir is None:
+        output_dir = os.path.dirname(os.path.abspath(__file__))
+
+    scan_date = result.get('scan_date', datetime.now(_TW_TZ).strftime('%Y%m%d'))
+    paths = {}
+
+    dated_path = os.path.join(output_dir, f'scan_result_{scan_date}.json')
+    with open(dated_path, 'w', encoding='utf-8') as f:
+        json.dump(result, f, ensure_ascii=False, indent=2)
+    paths['dated'] = dated_path
+
+    latest_path = os.path.join(output_dir, 'scan_result.json')
+    with open(latest_path, 'w', encoding='utf-8') as f:
+        json.dump(result, f, ensure_ascii=False, indent=2)
+    paths['latest'] = latest_path
+
+    latest_json_path = os.path.join(output_dir, 'latest.json')
+    with open(latest_json_path, 'w', encoding='utf-8') as f:
+        json.dump(result, f, ensure_ascii=False, indent=2)
+    paths['latest_json'] = latest_json_path
+
+    print(f"[儲存] {dated_path}")
+    print(f"[儲存] {latest_path}")
+    print(f"[儲存] {latest_json_path}")
+    return paths
+
+
+def print_report(result: Dict) -> None:
+    top = result.get('top_stocks', [])
+    print(f"\n{'='*60}")
+    print(f"台股五維分析 Top {TOP_N}")
+    print(f"掃描日期: {result['scan_date']}  有效股: {result['scanned_count']}")
+    print(f"{'='*60}")
+    for i, s in enumerate(top, 1):
+        sc = s.get('scores', {})
+        tg = s.get('targets', {})
+        print(f"\n#{i:2d} {s['stock_id']} {s['name']} [{s['market']}]")
+        print(f"     收盤：{s['close']:.2f}  成交量：{s['volume']:.0f}張")
+        print(f"     綜合分：{sc['total']:.2f}  "
+              f"技術:{sc['technical']:.1f} 籌碼:{sc['chips']:.1f} "
+              f"基本:{sc['fundamental']:.1f} 消息:{sc['news']:.1f} 情緒:{sc['sentiment']:.1f}")
+        print(f"     目標：T1={tg['t1']}  T2={tg['t2']}  T3={tg['t3']}  停損={tg['stop_loss']}")
+
+    print(f"\n{'─'*60}")
+    print(f"ML 爆漲預測 Top {TOP_EXPLODE}")
+    print(f"{'─'*60}")
+    for i, s in enumerate(result.get('explode_top5', []), 1):
+        print(f"#{i} {s['stock_id']} {s['name']}  爆漲機率：{s['explode_prob']*100:.1f}%  "
+              f"收盤：{s['close']:.2f}  量：{s['volume']:.0f}張")
+
+
+if __name__ == '__main__':
+    result = run_scan()
+    save_results(result)
+    print_report(result)
