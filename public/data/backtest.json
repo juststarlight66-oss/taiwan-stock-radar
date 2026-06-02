@@ -1,1 +1,82 @@
-{"last_updated":"2026-05-12T19:00:00+08:00","model_version":"v2.0_backtest_optimized_20260226","summary":{"total_recommendations":87,"win_rate_t1":0.598,"win_rate_t3":0.624,"win_rate_t5":0.611,"avg_return_t1":0.021,"avg_return_t3":0.048,"avg_return_t5":0.062,"power_combo_win_rate":0.703,"power_combo_avg_return_t3":0.082},"recent_picks":[{"date":"20260511","code":"3006","name":"晶豪科","entry":null,"t1_return":null,"t3_return":null,"status":"pending"},{"date":"20260511","code":"8299","name":"群聯","entry":null,"t1_return":null,"t3_return":null,"status":"pending"},{"date":"20260511","code":"2454","name":"聯發科","entry":null,"t1_return":null,"t3_return":null,"status":"pending"}]}
+{
+  "last_updated": "2026-06-02T21:26:19.530927+08:00",
+  "model_version": "v2.0_backtest_optimized_20260226",
+  "summary": {
+    "total_recommendations": 87,
+    "win_rate_t1": 0.598,
+    "win_rate_t3": 0.624,
+    "win_rate_t5": 0.611,
+    "avg_return_t1": 0.021,
+    "avg_return_t3": 0.048,
+    "avg_return_t5": 0.062,
+    "power_combo_win_rate": 0.703,
+    "power_combo_avg_return_t3": 0.082
+  },
+  "recent_picks": [
+    {
+      "date": "20260511",
+      "code": "3006",
+      "name": "晶豪科",
+      "entry": null,
+      "t1_return": null,
+      "t3_return": null,
+      "status": "pending"
+    },
+    {
+      "date": "20260511",
+      "code": "8299",
+      "name": "群聯",
+      "entry": null,
+      "t1_return": null,
+      "t3_return": null,
+      "status": "pending"
+    },
+    {
+      "date": "20260511",
+      "code": "2454",
+      "name": "聯發科",
+      "entry": null,
+      "t1_return": null,
+      "t3_return": null,
+      "status": "pending"
+    }
+  ],
+  "grouped_records": [
+    {
+      "scan_date": "2026-06-02",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": []
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": []
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": []
+        }
+      }
+    }
+  ],
+  "version": 2,
+  "history": [
+    {
+      "date": "2026/06/02",
+      "results": {}
+    }
+  ]
+}
