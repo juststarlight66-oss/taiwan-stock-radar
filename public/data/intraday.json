@@ -1,10 +1,121 @@
 {
   "scan_type": "intraday_daytrade",
-  "scanned_at": "2026-06-02 17:16:38",
+  "scanned_at": "2026-06-03 13:01:16",
   "stocks": [
     {
-      "stock_id": "2380",
-      "name": "虹光",
+      "stock_id": "2887",
+      "name": "台新新光金",
+      "sector": "",
+      "score": 100.0,
+      "details": {
+        "momentum": "極強",
+        "rsi": 98.1,
+        "ma5_status": "強勢突破",
+        "vol_ratio": "爆發",
+        "breakout": "創新高"
+      },
+      "total_score": 100.0,
+      "entry": 28.25,
+      "target": 30.51,
+      "stop_loss": 26.84,
+      "change_pct": 8.24,
+      "dimensions": {
+        "momentum": "極強",
+        "rsi": 98.1,
+        "ma5_status": "強勢突破",
+        "vol_ratio": "爆發",
+        "breakout": "創新高"
+      },
+      "live": {
+        "current": 28.25,
+        "open": 26.0,
+        "high": 28.3,
+        "low": 25.65,
+        "prev_close": 26.1,
+        "volume": 239836,
+        "change_pct": 8.24,
+        "time": "13:02:01",
+        "date": "20260603",
+        "source": "tse"
+      }
+    },
+    {
+      "stock_id": "2891",
+      "name": "中信金",
+      "sector": "",
+      "score": 100.0,
+      "details": {
+        "momentum": "極強",
+        "rsi": 98.1,
+        "ma5_status": "強勢突破",
+        "vol_ratio": "爆發",
+        "breakout": "創新高"
+      },
+      "total_score": 100.0,
+      "entry": 69.6,
+      "target": 75.17,
+      "stop_loss": 66.12,
+      "change_pct": 8.58,
+      "dimensions": {
+        "momentum": "極強",
+        "rsi": 98.1,
+        "ma5_status": "強勢突破",
+        "vol_ratio": "爆發",
+        "breakout": "創新高"
+      },
+      "live": {
+        "current": 69.6,
+        "open": 65.4,
+        "high": 69.7,
+        "low": 64.3,
+        "prev_close": 64.1,
+        "volume": 66724,
+        "change_pct": 8.58,
+        "time": "13:02:01",
+        "date": "20260603",
+        "source": "tse"
+      }
+    },
+    {
+      "stock_id": "3050",
+      "name": "鈺德",
+      "sector": "",
+      "score": 100.0,
+      "details": {
+        "momentum": "極強",
+        "rsi": 85.7,
+        "ma5_status": "強勢突破",
+        "vol_ratio": "爆發",
+        "breakout": "創新高"
+      },
+      "total_score": 100.0,
+      "entry": 14.3,
+      "target": 15.44,
+      "stop_loss": 13.59,
+      "change_pct": 8.33,
+      "dimensions": {
+        "momentum": "極強",
+        "rsi": 85.7,
+        "ma5_status": "強勢突破",
+        "vol_ratio": "爆發",
+        "breakout": "創新高"
+      },
+      "live": {
+        "current": 14.3,
+        "open": 13.45,
+        "high": 14.5,
+        "low": 13.1,
+        "prev_close": 13.2,
+        "volume": 6310,
+        "change_pct": 8.33,
+        "time": "13:02:02",
+        "date": "20260603",
+        "source": "tse"
+      }
+    },
+    {
+      "stock_id": "4916",
+      "name": "事欣科",
       "sector": "",
       "score": 100.0,
       "details": {
@@ -15,10 +126,10 @@
         "breakout": "創新高"
       },
       "total_score": 100.0,
-      "entry": 5.77,
-      "target": 6.23,
-      "stop_loss": 5.48,
-      "change_pct": 8.26,
+      "entry": 124.0,
+      "target": 133.92,
+      "stop_loss": 117.8,
+      "change_pct": 8.77,
       "dimensions": {
         "momentum": "極強",
         "rsi": 100.0,
@@ -27,163 +138,52 @@
         "breakout": "創新高"
       },
       "live": {
-        "current": 5.77,
-        "open": 5.3,
-        "high": 5.77,
-        "low": 5.3,
-        "prev_close": 5.33,
-        "volume": 227,
-        "change_pct": 8.26,
-        "time": "13:30:00",
-        "date": "20260602",
+        "current": 124.0,
+        "open": 120.0,
+        "high": 124.0,
+        "low": 118.0,
+        "prev_close": 114.0,
+        "volume": 3122,
+        "change_pct": 8.77,
+        "time": "13:02:21",
+        "date": "20260603",
         "source": "tse"
       }
     },
     {
-      "stock_id": "2460",
-      "name": "建通",
+      "stock_id": "9110",
+      "name": "越南控-DR",
       "sector": "",
       "score": 100.0,
       "details": {
         "momentum": "極強",
-        "rsi": 93.2,
+        "rsi": 89.3,
         "ma5_status": "強勢突破",
         "vol_ratio": "爆發",
         "breakout": "創新高"
       },
       "total_score": 100.0,
-      "entry": 35.7,
-      "target": 38.56,
-      "stop_loss": 33.91,
-      "change_pct": 8.84,
+      "entry": 3.6,
+      "target": 3.89,
+      "stop_loss": 3.42,
+      "change_pct": 9.09,
       "dimensions": {
         "momentum": "極強",
-        "rsi": 93.2,
+        "rsi": 89.3,
         "ma5_status": "強勢突破",
         "vol_ratio": "爆發",
         "breakout": "創新高"
       },
       "live": {
-        "current": 35.7,
-        "open": 32.9,
-        "high": 35.95,
-        "low": 32.25,
-        "prev_close": 32.8,
-        "volume": 2571,
-        "change_pct": 8.84,
-        "time": "13:30:00",
-        "date": "20260602",
-        "source": "tse"
-      }
-    },
-    {
-      "stock_id": "4807",
-      "name": "日成-KY",
-      "sector": "",
-      "score": 100.0,
-      "details": {
-        "momentum": "極強",
-        "rsi": 90.2,
-        "ma5_status": "強勢突破",
-        "vol_ratio": "爆發",
-        "breakout": "創新高"
-      },
-      "total_score": 100.0,
-      "entry": 31.25,
-      "target": 33.75,
-      "stop_loss": 29.69,
-      "change_pct": 8.89,
-      "dimensions": {
-        "momentum": "極強",
-        "rsi": 90.2,
-        "ma5_status": "強勢突破",
-        "vol_ratio": "爆發",
-        "breakout": "創新高"
-      },
-      "live": {
-        "current": 31.25,
-        "open": 28.7,
-        "high": 31.55,
-        "low": 28.5,
-        "prev_close": 28.7,
-        "volume": 1246,
-        "change_pct": 8.89,
-        "time": "13:30:00",
-        "date": "20260602",
-        "source": "tse"
-      }
-    },
-    {
-      "stock_id": "6269",
-      "name": "台郡",
-      "sector": "",
-      "score": 100.0,
-      "details": {
-        "momentum": "極強",
-        "rsi": 80.0,
-        "ma5_status": "強勢突破",
-        "vol_ratio": "爆發",
-        "breakout": "創新高"
-      },
-      "total_score": 100.0,
-      "entry": 74.9,
-      "target": 80.89,
-      "stop_loss": 71.16,
-      "change_pct": 8.39,
-      "dimensions": {
-        "momentum": "極強",
-        "rsi": 80.0,
-        "ma5_status": "強勢突破",
-        "vol_ratio": "爆發",
-        "breakout": "創新高"
-      },
-      "live": {
-        "current": 74.9,
-        "open": 76.0,
-        "high": 76.0,
-        "low": 70.5,
-        "prev_close": 69.1,
-        "volume": 42032,
-        "change_pct": 8.39,
-        "time": "13:30:00",
-        "date": "20260602",
-        "source": "tse"
-      }
-    },
-    {
-      "stock_id": "6533",
-      "name": "晶心科",
-      "sector": "",
-      "score": 100.0,
-      "details": {
-        "momentum": "極強",
-        "rsi": 89.7,
-        "ma5_status": "強勢突破",
-        "vol_ratio": "爆發",
-        "breakout": "創新高"
-      },
-      "total_score": 100.0,
-      "entry": 241.0,
-      "target": 260.28,
-      "stop_loss": 228.95,
-      "change_pct": 9.05,
-      "dimensions": {
-        "momentum": "極強",
-        "rsi": 89.7,
-        "ma5_status": "強勢突破",
-        "vol_ratio": "爆發",
-        "breakout": "創新高"
-      },
-      "live": {
-        "current": 241.0,
-        "open": 225.0,
-        "high": 243.0,
-        "low": 223.5,
-        "prev_close": 221.0,
-        "volume": 2775,
-        "change_pct": 9.05,
-        "time": "13:30:00",
-        "date": "20260602",
+        "current": 3.6,
+        "open": 3.5,
+        "high": 3.63,
+        "low": 3.35,
+        "prev_close": 3.3,
+        "volume": 170,
+        "change_pct": 9.09,
+        "time": "13:00:28",
+        "date": "20260603",
         "source": "tse"
       }
     }
