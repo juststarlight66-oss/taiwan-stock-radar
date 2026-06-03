@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-06-03T00:54:48.108819+08:00",
-  "model_version": "v2.0_backtest_optimized_20260226",
+  "last_updated": "2026-06-03T11:16:26.181736+08:00",
+  "model_version": "v2",
   "summary": {
     "total_recommendations": 87,
     "win_rate_t1": 0.598,
@@ -13,103 +13,27 @@
     "power_combo_avg_return_t3": 0.082
   },
   "recent_picks": [
-    {
-      "date": "20260511",
-      "code": "3006",
-      "name": "晶豪科",
-      "entry": null,
-      "t1_return": null,
-      "t3_return": null,
-      "status": "pending"
-    },
-    {
-      "date": "20260511",
-      "code": "8299",
-      "name": "群聯",
-      "entry": null,
-      "t1_return": null,
-      "t3_return": null,
-      "status": "pending"
-    },
-    {
-      "date": "20260511",
-      "code": "2454",
-      "name": "聯發科",
-      "entry": null,
-      "t1_return": null,
-      "t3_return": null,
-      "status": "pending"
-    }
+    {"date": "20260603", "code": "4707", "name": "磐亞", "entry": 16.1, "t1_return": null, "t3_return": null, "status": "pending"},
+    {"date": "20260603", "code": "6026", "name": "福邦證", "entry": 16.7, "t1_return": null, "t3_return": null, "status": "pending"},
+    {"date": "20260603", "code": "5410", "name": "國眾", "entry": 42.8, "t1_return": null, "t3_return": null, "status": "pending"},
+    {"date": "20260603", "code": "6279", "name": "胡連", "entry": 185.0, "t1_return": null, "t3_return": null, "status": "pending"},
+    {"date": "20260603", "code": "3416", "name": "融程電", "entry": 178.5, "t1_return": null, "t3_return": null, "status": "pending"},
+    {"date": "20260603", "code": "3032", "name": "偉訓", "entry": 98.6, "t1_return": null, "t3_return": null, "status": "pending"},
+    {"date": "20260603", "code": "3537", "name": "堡達", "entry": 52.3, "t1_return": null, "t3_return": null, "status": "pending"},
+    {"date": "20260603", "code": "6206", "name": "飛捷", "entry": 128.5, "t1_return": null, "t3_return": null, "status": "pending"},
+    {"date": "20260603", "code": "3213", "name": "茂訊", "entry": 168.0, "t1_return": null, "t3_return": null, "status": "pending"},
+    {"date": "20260603", "code": "2357", "name": "華碩", "entry": 639.0, "t1_return": null, "t3_return": null, "status": "pending"}
   ],
-  "grouped_records": [
-    {
-      "scan_date": "2026-06-03",
-      "periods": {
-        "T1": {
-          "label": "T+1",
-          "backtest_date": null,
-          "win_rate": null,
-          "avg_return": null,
-          "pending": true,
-          "stocks": []
-        },
-        "T3": {
-          "label": "T+3",
-          "backtest_date": null,
-          "win_rate": null,
-          "avg_return": null,
-          "pending": true,
-          "stocks": []
-        },
-        "T5": {
-          "label": "T+5",
-          "backtest_date": null,
-          "win_rate": null,
-          "avg_return": null,
-          "pending": true,
-          "stocks": []
-        }
-      }
-    },
-    {
-      "scan_date": "2026-06-02",
-      "periods": {
-        "T1": {
-          "label": "T+1",
-          "backtest_date": null,
-          "win_rate": null,
-          "avg_return": null,
-          "pending": true,
-          "stocks": []
-        },
-        "T3": {
-          "label": "T+3",
-          "backtest_date": null,
-          "win_rate": null,
-          "avg_return": null,
-          "pending": true,
-          "stocks": []
-        },
-        "T5": {
-          "label": "T+5",
-          "backtest_date": null,
-          "win_rate": null,
-          "avg_return": null,
-          "pending": true,
-          "stocks": []
-        }
-      }
+  "grouped_records": {
+    "20260603_top5": {
+      "date": "20260603",
+      "picks": [
+        {"code": "4707", "name": "磐亞", "entry": 16.1, "stop": 15.0, "t1": 16.8, "t3": 18.2},
+        {"code": "6026", "name": "福邦證", "entry": 16.7, "stop": 15.5, "t1": 17.5, "t3": 19.0},
+        {"code": "5410", "name": "國眾", "entry": 42.8, "stop": 39.0, "t1": 45.0, "t3": 52.0},
+        {"code": "6279", "name": "胡連", "entry": 185.0, "stop": 170.0, "t1": 192.0, "t3": 212.0},
+        {"code": "3416", "name": "融程電", "entry": 178.5, "stop": 162.0, "t1": 188.0, "t3": 210.0}
+      ]
     }
-  ],
-  "version": 2,
-  "history": [
-    {
-      "date": "2026/06/03",
-      "results": {}
-    },
-    {
-      "date": "2026/06/02",
-      "results": {}
-    }
-  ]
+  }
 }
