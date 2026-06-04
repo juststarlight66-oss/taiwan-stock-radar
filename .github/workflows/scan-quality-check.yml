@@ -51,6 +51,11 @@ jobs:
               'TPEx Emerging daily': 'https://www.tpex.org.tw/openapi/v1/tpex_esb_daily_close_quotes',
           }
 
+          # TPEx Emerging daily API (tpex_esb_daily_close_quotes) returns 302 redirect
+          # to homepage and is currently broken. Mark it optional so failures only
+          # print a warning and do not trigger exit 1.
+          OPTIONAL_ENDPOINTS = {'TPEx Emerging daily'}
+
           failed = []
           for name, url in ENDPOINTS.items():
               try:
@@ -66,11 +71,17 @@ jobs:
                           print(f"OK   {name}: {count} \u7b46")
                   else:
                       msg = f"HTTP {r.status_code}"
-                      failed.append(f"{name}: {msg}")
-                      print(f"FAIL {name}: {msg}")
+                      if name in OPTIONAL_ENDPOINTS:
+                          print(f"WARN {name}: {msg} (optional endpoint, skipping)")
+                      else:
+                          failed.append(f"{name}: {msg}")
+                          print(f"FAIL {name}: {msg}")
               except Exception as e:
-                  failed.append(f"{name}: {e}")
-                  print(f"FAIL {name}: {e}")
+                  if name in OPTIONAL_ENDPOINTS:
+                      print(f"WARN {name}: {e} (optional endpoint, skipping)")
+                  else:
+                      failed.append(f"{name}: {e}")
+                      print(f"FAIL {name}: {e}")
 
           if failed:
               print("\n=== API \u7570\u5e38\uff08\u76e4\u5f8c\u78ba\u8a8d\u5931\u6557\uff09===")
