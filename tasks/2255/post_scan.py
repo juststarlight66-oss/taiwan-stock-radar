@@ -140,7 +140,9 @@ if os.path.exists(scan_path):
 
     # Upsert: replace existing entry for today, or append
     grouped = backtest.get("grouped_records", [])
-    grouped = [g for g in grouped if g.get("scan_date") != date_iso]
+    if isinstance(grouped, dict):
+        grouped = list(grouped.values())
+    grouped = [g for g in grouped if isinstance(g, dict) and g.get("scan_date") != date_iso]
     grouped.append(new_gr_entry)
     grouped.sort(key=lambda x: x["scan_date"], reverse=True)
     backtest["grouped_records"] = grouped[:90]

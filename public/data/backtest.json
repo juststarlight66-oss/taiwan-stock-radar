@@ -13,27 +13,96 @@
     "power_combo_avg_return_t3": 0.082
   },
   "recent_picks": [
-    {"date": "20260603", "code": "4707", "name": "磐亞", "entry": 16.1, "t1_return": null, "t3_return": null, "status": "pending"},
-    {"date": "20260603", "code": "6026", "name": "福邦證", "entry": 16.7, "t1_return": null, "t3_return": null, "status": "pending"},
-    {"date": "20260603", "code": "5410", "name": "國眾", "entry": 42.8, "t1_return": null, "t3_return": null, "status": "pending"},
-    {"date": "20260603", "code": "6279", "name": "胡連", "entry": 185.0, "t1_return": null, "t3_return": null, "status": "pending"},
-    {"date": "20260603", "code": "3416", "name": "融程電", "entry": 178.5, "t1_return": null, "t3_return": null, "status": "pending"},
-    {"date": "20260603", "code": "3032", "name": "偉訓", "entry": 98.6, "t1_return": null, "t3_return": null, "status": "pending"},
-    {"date": "20260603", "code": "3537", "name": "堡達", "entry": 52.3, "t1_return": null, "t3_return": null, "status": "pending"},
-    {"date": "20260603", "code": "6206", "name": "飛捷", "entry": 128.5, "t1_return": null, "t3_return": null, "status": "pending"},
-    {"date": "20260603", "code": "3213", "name": "茂訊", "entry": 168.0, "t1_return": null, "t3_return": null, "status": "pending"},
-    {"date": "20260603", "code": "2357", "name": "華碩", "entry": 639.0, "t1_return": null, "t3_return": null, "status": "pending"}
-  ],
-  "grouped_records": {
-    "20260603_top5": {
+    {
       "date": "20260603",
-      "picks": [
-        {"code": "4707", "name": "磐亞", "entry": 16.1, "stop": 15.0, "t1": 16.8, "t3": 18.2},
-        {"code": "6026", "name": "福邦證", "entry": 16.7, "stop": 15.5, "t1": 17.5, "t3": 19.0},
-        {"code": "5410", "name": "國眾", "entry": 42.8, "stop": 39.0, "t1": 45.0, "t3": 52.0},
-        {"code": "6279", "name": "胡連", "entry": 185.0, "stop": 170.0, "t1": 192.0, "t3": 212.0},
-        {"code": "3416", "name": "融程電", "entry": 178.5, "stop": 162.0, "t1": 188.0, "t3": 210.0}
-      ]
+      "code": "4707",
+      "name": "磐亞",
+      "entry": 16.1,
+      "t1_return": null,
+      "t3_return": null,
+      "status": "pending"
+    },
+    {
+      "date": "20260603",
+      "code": "6026",
+      "name": "福邦證",
+      "entry": 16.7,
+      "t1_return": null,
+      "t3_return": null,
+      "status": "pending"
+    },
+    {
+      "date": "20260603",
+      "code": "5410",
+      "name": "國眾",
+      "entry": 42.8,
+      "t1_return": null,
+      "t3_return": null,
+      "status": "pending"
+    },
+    {
+      "date": "20260603",
+      "code": "6279",
+      "name": "胡連",
+      "entry": 185.0,
+      "t1_return": null,
+      "t3_return": null,
+      "status": "pending"
+    },
+    {
+      "date": "20260603",
+      "code": "3416",
+      "name": "融程電",
+      "entry": 178.5,
+      "t1_return": null,
+      "t3_return": null,
+      "status": "pending"
+    },
+    {
+      "date": "20260603",
+      "code": "3032",
+      "name": "偉訓",
+      "entry": 98.6,
+      "t1_return": null,
+      "t3_return": null,
+      "status": "pending"
+    },
+    {
+      "date": "20260603",
+      "code": "3537",
+      "name": "堡達",
+      "entry": 52.3,
+      "t1_return": null,
+      "t3_return": null,
+      "status": "pending"
+    },
+    {
+      "date": "20260603",
+      "code": "6206",
+      "name": "飛捷",
+      "entry": 128.5,
+      "t1_return": null,
+      "t3_return": null,
+      "status": "pending"
+    },
+    {
+      "date": "20260603",
+      "code": "3213",
+      "name": "茂訊",
+      "entry": 168.0,
+      "t1_return": null,
+      "t3_return": null,
+      "status": "pending"
+    },
+    {
+      "date": "20260603",
+      "code": "2357",
+      "name": "華碩",
+      "entry": 639.0,
+      "t1_return": null,
+      "t3_return": null,
+      "status": "pending"
     }
-  }
+  ],
+  "grouped_records": []
 }
