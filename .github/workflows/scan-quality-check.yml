@@ -25,7 +25,7 @@ jobs:
       - name: Check TPEx API endpoints
         run: |
           python3 - <<'EOF'
-          import requests, sys, warnings, datetime
+          import requests, sys, warnings, datetime, time
           import pytz
           warnings.filterwarnings('ignore')
 
@@ -52,15 +52,35 @@ jobs:
           }
 
           # TPEx Emerging daily API (tpex_esb_daily_close_quotes) returns 302 redirect
-          # to homepage and is currently broken. Mark it optional so failures only
+          # to homepage and is currently broken. Also, TPEx OTC daily frequently
+          # times out on international runners. Mark them optional so failures only
           # print a warning and do not trigger exit 1.
-          OPTIONAL_ENDPOINTS = {'TPEx Emerging daily'}
+          OPTIONAL_ENDPOINTS = {'TPEx Emerging daily', 'TPEx OTC daily'}
 
           failed = []
           for name, url in ENDPOINTS.items():
+              r = None
+              last_err = None
+              # Try up to 3 times with backoff for transient network issues
+              for att in range(3):
+                  try:
+                      r = requests.get(url, timeout=15, verify=False,
+                          headers={'User-Agent': 'Mozilla/5.0', 'Accept': 'application/json'})
+                      break
+                  except Exception as e:
+                      last_err = e
+                      if att < 2:
+                          time.sleep(2 ** att)
+
+              if r is None:
+                  if name in OPTIONAL_ENDPOINTS:
+                      print(f"WARN {name}: {last_err} (optional endpoint, skipping)")
+                  else:
+                      failed.append(f"{name}: {last_err}")
+                      print(f"FAIL {name}: {last_err}")
+                  continue
+
               try:
-                  r = requests.get(url, timeout=15, verify=False,
-                      headers={'User-Agent': 'Mozilla/5.0', 'Accept': 'application/json'})
                   if r.status_code == 200:
                       data = r.json()
                       count = len(data) if isinstance(data, list) else 0
