@@ -45,7 +45,7 @@ function isStrongBuy(rec: string | undefined): boolean {
 }
 
 export default function SummaryCards({ data }: Props) {
-  const stocks = data.top10 ?? [];
+  const stocks = data.top10 ?? data.top_stocks ?? [];
   const totalMax = Object.values(DIMENSION_CONFIG).reduce((s, c) => s + c.max, 0);
   const avgScore = stocks.length
     ? stocks.reduce((s, st) => s + st.total_score, 0) / stocks.length

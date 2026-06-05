@@ -332,7 +332,11 @@ function HistoryDetail({
 
       {/* Top 10 table */}
       <div className="mt-8">
-        <Top10Table data={scanResult} />
+        <Top10Table
+          stocks={scanResult.top10 ?? scanResult.top_stocks ?? []}
+          scanDate={scanResult.scan_date}
+          scannedCount={scanResult.scanned_count}
+        />
       </div>
 
       {/* Backtest section */}

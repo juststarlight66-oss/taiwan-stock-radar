@@ -90,7 +90,7 @@ export default function MainDashboard() {
             <>
               <SummaryCards data={scanData} />
               <Top10Table
-                stocks={scanData.top10 ?? []}
+                stocks={scanData.top10 ?? scanData.top_stocks ?? []}
                 scanDate={scanData.scan_date}
                 scannedCount={scanData.scanned_count}
                 isDemo={isDemo}

@@ -85,7 +85,8 @@ export interface ScanStock {
 export interface ScanResult {
   scan_date:     string;
   scanned_count: number;
-  top10:         ScanStock[];
+  top10?:        ScanStock[];
+  top_stocks?:   ScanStock[];
   total_stocks?: number;
   market_trend?: string;
   trend_label?:  string;
