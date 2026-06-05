@@ -1,5 +1,5 @@
 {
-  "scan_date": "20260604",
+  "scan_date": "20260605",
   "scanned_count": 793,
   "top_stocks": [
     {
@@ -25743,5 +25743,545 @@
       "explode_prob": 1.0
     }
   ],
-  "generated_at": "2026-06-04T23:48:31.457019+08:00"
+  "generated_at": "2026-06-04T23:48:31.457019+08:00",
+  "backtest": {
+    "date": "20260604",
+    "records": [
+      {
+        "date": "20260604",
+        "stock_id": "3332",
+        "name": "幸康電子股份有限公司",
+        "prev_close": 72.6,
+        "today_close": 72.6,
+        "t1_return_pct": 0.0,
+        "hit_t1": false,
+        "hit_stop": false
+      },
+      {
+        "date": "20260604",
+        "stock_id": "3093",
+        "name": "台灣港建股份有限公司",
+        "prev_close": 61.7,
+        "today_close": 61.7,
+        "t1_return_pct": 0.0,
+        "hit_t1": false,
+        "hit_stop": false
+      },
+      {
+        "date": "20260604",
+        "stock_id": "4542",
+        "name": "科嶠工業股份有限公司",
+        "prev_close": 260.0,
+        "today_close": 260.0,
+        "t1_return_pct": 0.0,
+        "hit_t1": false,
+        "hit_stop": false
+      },
+      {
+        "date": "20260604",
+        "stock_id": "6624",
+        "name": "萬年清環境工程股份有限公司",
+        "prev_close": 43.0,
+        "today_close": 43.0,
+        "t1_return_pct": 0.0,
+        "hit_t1": false,
+        "hit_stop": false
+      },
+      {
+        "date": "20260604",
+        "stock_id": "6895",
+        "name": "宏碩系統股份有限公司",
+        "prev_close": 154.5,
+        "today_close": 154.5,
+        "t1_return_pct": 0.0,
+        "hit_t1": false,
+        "hit_stop": false
+      }
+    ],
+    "avg_return_pct": 0.0,
+    "win_rate_pct": 0.0,
+    "count": 5
+  },
+  "top10": [
+    {
+      "stock_id": "3332",
+      "name": "幸康電子股份有限公司",
+      "market": "TPEx",
+      "sector": "TPEx",
+      "close": 72.6,
+      "change_pct": 10.0,
+      "volume": 0.0,
+      "total_score": 61.0,
+      "dimensions": {
+        "technical": 80.0,
+        "chips": 30.0,
+        "fundamental": 50.0,
+        "news": 70.0,
+        "sentiment": 70.0
+      },
+      "signals": {
+        "technical": 80.0,
+        "chips": 30.0,
+        "fundamental": 50.0,
+        "news": 70.0,
+        "sentiment": 70.0
+      },
+      "strategy": {
+        "entry_low": 71.87,
+        "entry_high": 73.33,
+        "stop_loss": 68.97,
+        "t1": 76.23,
+        "t2": 79.86,
+        "t3": 83.49,
+        "recommendation": "推薦"
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.0,
+        "dy": 0.0
+      },
+      "targets": {
+        "t1": 76.23,
+        "t2": 79.86,
+        "t3": 83.49,
+        "stop_loss": 68.97
+      },
+      "entry_low": 71.87,
+      "entry_high": 73.33,
+      "stop_loss": 68.97,
+      "recommendation": "推薦"
+    },
+    {
+      "stock_id": "3093",
+      "name": "台灣港建股份有限公司",
+      "market": "TPEx",
+      "sector": "TPEx",
+      "close": 61.7,
+      "change_pct": 9.98,
+      "volume": 0.0,
+      "total_score": 61.0,
+      "dimensions": {
+        "technical": 80.0,
+        "chips": 30.0,
+        "fundamental": 50.0,
+        "news": 69.96000000000001,
+        "sentiment": 70.0
+      },
+      "signals": {
+        "technical": 80.0,
+        "chips": 30.0,
+        "fundamental": 50.0,
+        "news": 69.96000000000001,
+        "sentiment": 70.0
+      },
+      "strategy": {
+        "entry_low": 61.08,
+        "entry_high": 62.32,
+        "stop_loss": 58.62,
+        "t1": 64.79,
+        "t2": 67.87,
+        "t3": 70.95,
+        "recommendation": "推薦"
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.0,
+        "dy": 0.0
+      },
+      "targets": {
+        "t1": 64.79,
+        "t2": 67.87,
+        "t3": 70.95,
+        "stop_loss": 58.62
+      },
+      "entry_low": 61.08,
+      "entry_high": 62.32,
+      "stop_loss": 58.62,
+      "recommendation": "推薦"
+    },
+    {
+      "stock_id": "4542",
+      "name": "科嶠工業股份有限公司",
+      "market": "TPEx",
+      "sector": "TPEx",
+      "close": 260.0,
+      "change_pct": 9.94,
+      "volume": 0.0,
+      "total_score": 60.99,
+      "dimensions": {
+        "technical": 80.0,
+        "chips": 30.0,
+        "fundamental": 50.0,
+        "news": 69.88,
+        "sentiment": 70.0
+      },
+      "signals": {
+        "technical": 80.0,
+        "chips": 30.0,
+        "fundamental": 50.0,
+        "news": 69.88,
+        "sentiment": 70.0
+      },
+      "strategy": {
+        "entry_low": 257.4,
+        "entry_high": 262.6,
+        "stop_loss": 247.0,
+        "t1": 273.0,
+        "t2": 286.0,
+        "t3": 299.0,
+        "recommendation": "推薦"
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.0,
+        "dy": 0.0
+      },
+      "targets": {
+        "t1": 273.0,
+        "t2": 286.0,
+        "t3": 299.0,
+        "stop_loss": 247.0
+      },
+      "entry_low": 257.4,
+      "entry_high": 262.6,
+      "stop_loss": 247.0,
+      "recommendation": "推薦"
+    },
+    {
+      "stock_id": "6624",
+      "name": "萬年清環境工程股份有限公司",
+      "market": "TPEx",
+      "sector": "TPEx",
+      "close": 43.0,
+      "change_pct": 9.97,
+      "volume": 0.0,
+      "total_score": 60.99,
+      "dimensions": {
+        "technical": 80.0,
+        "chips": 30.0,
+        "fundamental": 50.0,
+        "news": 69.94,
+        "sentiment": 70.0
+      },
+      "signals": {
+        "technical": 80.0,
+        "chips": 30.0,
+        "fundamental": 50.0,
+        "news": 69.94,
+        "sentiment": 70.0
+      },
+      "strategy": {
+        "entry_low": 42.57,
+        "entry_high": 43.43,
+        "stop_loss": 40.85,
+        "t1": 45.15,
+        "t2": 47.3,
+        "t3": 49.45,
+        "recommendation": "推薦"
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.0,
+        "dy": 0.0
+      },
+      "targets": {
+        "t1": 45.15,
+        "t2": 47.3,
+        "t3": 49.45,
+        "stop_loss": 40.85
+      },
+      "entry_low": 42.57,
+      "entry_high": 43.43,
+      "stop_loss": 40.85,
+      "recommendation": "推薦"
+    },
+    {
+      "stock_id": "6895",
+      "name": "宏碩系統股份有限公司",
+      "market": "TPEx",
+      "sector": "TPEx",
+      "close": 154.5,
+      "change_pct": 9.96,
+      "volume": 0.0,
+      "total_score": 60.99,
+      "dimensions": {
+        "technical": 80.0,
+        "chips": 30.0,
+        "fundamental": 50.0,
+        "news": 69.92,
+        "sentiment": 70.0
+      },
+      "signals": {
+        "technical": 80.0,
+        "chips": 30.0,
+        "fundamental": 50.0,
+        "news": 69.92,
+        "sentiment": 70.0
+      },
+      "strategy": {
+        "entry_low": 152.96,
+        "entry_high": 156.04,
+        "stop_loss": 146.78,
+        "t1": 162.22,
+        "t2": 169.95,
+        "t3": 177.67,
+        "recommendation": "推薦"
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.0,
+        "dy": 0.0
+      },
+      "targets": {
+        "t1": 162.22,
+        "t2": 169.95,
+        "t3": 177.67,
+        "stop_loss": 146.78
+      },
+      "entry_low": 152.96,
+      "entry_high": 156.04,
+      "stop_loss": 146.78,
+      "recommendation": "推薦"
+    },
+    {
+      "stock_id": "3555",
+      "name": "博士旺創新股份有限公司",
+      "market": "TPEx",
+      "sector": "TPEx",
+      "close": 233.0,
+      "change_pct": 9.91,
+      "volume": 0.0,
+      "total_score": 60.98,
+      "dimensions": {
+        "technical": 80.0,
+        "chips": 30.0,
+        "fundamental": 50.0,
+        "news": 69.82,
+        "sentiment": 70.0
+      },
+      "signals": {
+        "technical": 80.0,
+        "chips": 30.0,
+        "fundamental": 50.0,
+        "news": 69.82,
+        "sentiment": 70.0
+      },
+      "strategy": {
+        "entry_low": 230.67,
+        "entry_high": 235.33,
+        "stop_loss": 221.35,
+        "t1": 244.65,
+        "t2": 256.3,
+        "t3": 267.95,
+        "recommendation": "推薦"
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.0,
+        "dy": 0.0
+      },
+      "targets": {
+        "t1": 244.65,
+        "t2": 256.3,
+        "t3": 267.95,
+        "stop_loss": 221.35
+      },
+      "entry_low": 230.67,
+      "entry_high": 235.33,
+      "stop_loss": 221.35,
+      "recommendation": "推薦"
+    },
+    {
+      "stock_id": "6148",
+      "name": "驊宏資通股份有限公司",
+      "market": "TPEx",
+      "sector": "TPEx",
+      "close": 37.25,
+      "change_pct": 9.88,
+      "volume": 0.0,
+      "total_score": 60.98,
+      "dimensions": {
+        "technical": 80.0,
+        "chips": 30.0,
+        "fundamental": 50.0,
+        "news": 69.76,
+        "sentiment": 70.0
+      },
+      "signals": {
+        "technical": 80.0,
+        "chips": 30.0,
+        "fundamental": 50.0,
+        "news": 69.76,
+        "sentiment": 70.0
+      },
+      "strategy": {
+        "entry_low": 36.88,
+        "entry_high": 37.62,
+        "stop_loss": 35.39,
+        "t1": 39.11,
+        "t2": 40.98,
+        "t3": 42.84,
+        "recommendation": "推薦"
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.0,
+        "dy": 0.0
+      },
+      "targets": {
+        "t1": 39.11,
+        "t2": 40.98,
+        "t3": 42.84,
+        "stop_loss": 35.39
+      },
+      "entry_low": 36.88,
+      "entry_high": 37.62,
+      "stop_loss": 35.39,
+      "recommendation": "推薦"
+    },
+    {
+      "stock_id": "3066",
+      "name": "李洲科技股份有限公司",
+      "market": "TPEx",
+      "sector": "TPEx",
+      "close": 23.95,
+      "change_pct": 9.86,
+      "volume": 0.0,
+      "total_score": 60.97,
+      "dimensions": {
+        "technical": 80.0,
+        "chips": 30.0,
+        "fundamental": 50.0,
+        "news": 69.72,
+        "sentiment": 70.0
+      },
+      "signals": {
+        "technical": 80.0,
+        "chips": 30.0,
+        "fundamental": 50.0,
+        "news": 69.72,
+        "sentiment": 70.0
+      },
+      "strategy": {
+        "entry_low": 23.71,
+        "entry_high": 24.19,
+        "stop_loss": 22.75,
+        "t1": 25.15,
+        "t2": 26.35,
+        "t3": 27.54,
+        "recommendation": "推薦"
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.0,
+        "dy": 0.0
+      },
+      "targets": {
+        "t1": 25.15,
+        "t2": 26.35,
+        "t3": 27.54,
+        "stop_loss": 22.75
+      },
+      "entry_low": 23.71,
+      "entry_high": 24.19,
+      "stop_loss": 22.75,
+      "recommendation": "推薦"
+    },
+    {
+      "stock_id": "3284",
+      "name": "太普高精密影像股份有限公司",
+      "market": "TPEx",
+      "sector": "TPEx",
+      "close": 19.1,
+      "change_pct": 9.77,
+      "volume": 0.0,
+      "total_score": 60.95,
+      "dimensions": {
+        "technical": 80.0,
+        "chips": 30.0,
+        "fundamental": 50.0,
+        "news": 69.53999999999999,
+        "sentiment": 70.0
+      },
+      "signals": {
+        "technical": 80.0,
+        "chips": 30.0,
+        "fundamental": 50.0,
+        "news": 69.53999999999999,
+        "sentiment": 70.0
+      },
+      "strategy": {
+        "entry_low": 18.91,
+        "entry_high": 19.29,
+        "stop_loss": 18.14,
+        "t1": 20.06,
+        "t2": 21.01,
+        "t3": 21.96,
+        "recommendation": "推薦"
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.0,
+        "dy": 0.0
+      },
+      "targets": {
+        "t1": 20.06,
+        "t2": 21.01,
+        "t3": 21.96,
+        "stop_loss": 18.14
+      },
+      "entry_low": 18.91,
+      "entry_high": 19.29,
+      "stop_loss": 18.14,
+      "recommendation": "推薦"
+    },
+    {
+      "stock_id": "6485",
+      "name": "點序科技股份有限公司",
+      "market": "TPEx",
+      "sector": "TPEx",
+      "close": 124.0,
+      "change_pct": 9.73,
+      "volume": 0.0,
+      "total_score": 60.95,
+      "dimensions": {
+        "technical": 80.0,
+        "chips": 30.0,
+        "fundamental": 50.0,
+        "news": 69.46000000000001,
+        "sentiment": 70.0
+      },
+      "signals": {
+        "technical": 80.0,
+        "chips": 30.0,
+        "fundamental": 50.0,
+        "news": 69.46000000000001,
+        "sentiment": 70.0
+      },
+      "strategy": {
+        "entry_low": 122.76,
+        "entry_high": 125.24,
+        "stop_loss": 117.8,
+        "t1": 130.2,
+        "t2": 136.4,
+        "t3": 142.6,
+        "recommendation": "推薦"
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.0,
+        "dy": 0.0
+      },
+      "targets": {
+        "t1": 130.2,
+        "t2": 136.4,
+        "t3": 142.6,
+        "stop_loss": 117.8
+      },
+      "entry_low": 122.76,
+      "entry_high": 125.24,
+      "stop_loss": 117.8,
+      "recommendation": "推薦"
+    }
+  ]
 }

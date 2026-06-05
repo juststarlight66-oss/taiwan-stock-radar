@@ -141,5 +141,58 @@
       "date": "2026/06/04",
       "results": {}
     }
-  ]
+  ],
+  "records": [
+    {
+      "date": "20260604",
+      "stock_id": "3332",
+      "name": "幸康電子股份有限公司",
+      "prev_close": 72.6,
+      "today_close": 72.6,
+      "t1_return_pct": 0.0,
+      "hit_t1": false,
+      "hit_stop": false
+    },
+    {
+      "date": "20260604",
+      "stock_id": "3093",
+      "name": "台灣港建股份有限公司",
+      "prev_close": 61.7,
+      "today_close": 61.7,
+      "t1_return_pct": 0.0,
+      "hit_t1": false,
+      "hit_stop": false
+    },
+    {
+      "date": "20260604",
+      "stock_id": "4542",
+      "name": "科嶠工業股份有限公司",
+      "prev_close": 260.0,
+      "today_close": 260.0,
+      "t1_return_pct": 0.0,
+      "hit_t1": false,
+      "hit_stop": false
+    },
+    {
+      "date": "20260604",
+      "stock_id": "6624",
+      "name": "萬年清環境工程股份有限公司",
+      "prev_close": 43.0,
+      "today_close": 43.0,
+      "t1_return_pct": 0.0,
+      "hit_t1": false,
+      "hit_stop": false
+    },
+    {
+      "date": "20260604",
+      "stock_id": "6895",
+      "name": "宏碩系統股份有限公司",
+      "prev_close": 154.5,
+      "today_close": 154.5,
+      "t1_return_pct": 0.0,
+      "hit_t1": false,
+      "hit_stop": false
+    }
+  ],
+  "updated_at": "2026-06-05T11:11:59.966044+08:00"
 }
