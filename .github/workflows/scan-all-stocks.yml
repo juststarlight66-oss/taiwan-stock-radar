@@ -14,6 +14,7 @@ on:
 jobs:
   scan-all-stocks:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     permissions:
       contents: write
     env:

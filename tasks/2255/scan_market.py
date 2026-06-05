@@ -445,6 +445,62 @@ def run_scan(scan_date: str = None) -> Dict:
 
     print(f"[掃描] 總股數: {len(all_stocks)}")
 
+    # 1. 預先抓取全市場基本面數據 (BWIBBU_ALL) 以防在線程中重複抓取導致 IP 封鎖與卡死
+    all_fundamentals = {}
+    try:
+        print("[下載] 預先下載全市場基本面數據 (BWIBBU_ALL)...")
+        resp = _http_get(FUND_URL, timeout=30)
+        data = resp.json()
+        rows = data if isinstance(data, list) else data.get('data', [])
+        for row in rows:
+            code = str(row.get('Code', '')).strip()
+            if code:
+                try:
+                    pe = float(str(row.get('PEratio', '0') or '0').replace(',', '').strip() or '0')
+                    pb = float(str(row.get('PBratio', '0') or '0').replace(',', '').strip() or '0')
+                    dy = float(str(row.get('DividendYield', '0') or '0').replace(',', '').strip() or '0')
+                    all_fundamentals[code] = {'pe': pe, 'pb': pb, 'dy': dy}
+                except Exception:
+                    all_fundamentals[code] = {'pe': 0.0, 'pb': 0.0, 'dy': 0.0}
+        print(f"[下載] 成功下載 {len(all_fundamentals)} 筆基本面數據")
+    except Exception as e:
+        print(f"[下載] 預先下載基本面失敗，將在線程中個別獲取: {e}")
+
+    # 2. 預先抓取全市場上櫃日K數據 以防在線程中重複抓取
+    all_tpex_quotes = {}
+    try:
+        print("[下載] 預先下載全市場上櫃日K數據...")
+        resp = _http_get(TPEX_DAILY_URL, timeout=30)
+        data = resp.json()
+        rows = data if isinstance(data, list) else data.get('data', [])
+        for row in rows:
+            code = str(row.get('SecuritiesCompanyCode', '')).strip()
+            if code:
+                try:
+                    def _f(key):
+                        return float(str(row.get(key, '0') or '0').replace(',', '').strip() or '0')
+                    close = _f('Close')
+                    if close <= 0:
+                        continue
+                    volume = _f('TradeVolume')
+                    open_p = _f('Open')
+                    high = _f('High')
+                    low = _f('Low')
+                    chg_str = str(row.get('Change', '0') or '0').replace(',', '').strip()
+                    chg = 0.0 if chg_str in ('+', '-', '', 'X', '--') else float(chg_str)
+                    prev = close - chg
+                    chg_pct = round(chg / prev * 100, 2) if prev != 0 else 0.0
+                    all_tpex_quotes[code] = {
+                        'stock_id': code, 'close': close, 'volume': volume,
+                        'open': open_p, 'high': high, 'low': low,
+                        'change': chg, 'change_pct': chg_pct, 'market': 'TPEx'
+                    }
+                except (ValueError, KeyError):
+                    continue
+        print(f"[下載] 成功下載 {len(all_tpex_quotes)} 筆上櫃日K數據")
+    except Exception as e:
+        print(f"[下載] 預先下載上櫃日K失敗，將在線程中個別獲取: {e}")
+
     results = []
 
     def process_one(sid: str, info: Dict) -> Optional[Dict]:
@@ -454,13 +510,23 @@ def run_scan(scan_date: str = None) -> Dict:
             if market == 'TSE':
                 day = fetch_stock_day(sid, scan_date)
             else:
-                try:
-                    day = fetch_tpex_day(sid, scan_date)
-                except Exception:
-                    day = fetch_stock_day(sid, scan_date)
+                # 優先使用預先批次下載的上櫃日K
+                if sid in all_tpex_quotes:
+                    day = all_tpex_quotes[sid]
+                else:
+                    try:
+                        day = fetch_tpex_day(sid, scan_date)
+                    except Exception:
+                        day = fetch_stock_day(sid, scan_date)
             if day is None or day.get('close', 0) <= 0:
                 return None
-            fund = fetch_fundamentals(sid)
+            
+            # 優先使用預先批次下載的基本面
+            if sid in all_fundamentals:
+                fund = all_fundamentals[sid]
+            else:
+                fund = fetch_fundamentals(sid)
+
             d = {**day, 'fundamentals': fund, 'name': name}
             scores = compute_composite_score(d)
             close = day['close']
