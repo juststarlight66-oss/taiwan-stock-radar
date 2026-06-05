@@ -52,7 +52,7 @@ jobs:
         run: |
           cp public/data/intraday.json /tmp/intraday-tmp.json
           git fetch origin gh-pages
-          git checkout gh-pages
+          git checkout -B gh-pages origin/gh-pages
           mkdir -p data
           cp /tmp/intraday-tmp.json data/intraday.json
           git add data/intraday.json
