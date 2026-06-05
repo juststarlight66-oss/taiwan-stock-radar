@@ -1,6 +1,10 @@
 {
   "scan_type": "intraday_daytrade",
+<<<<<<< Updated upstream
   "scanned_at": "2026-06-05 13:01:29",
+=======
+  "scanned_at": "2026-06-05 13:02:21",
+>>>>>>> Stashed changes
   "stocks": [
     {
       "stock_id": "2478",
@@ -34,7 +38,11 @@
         "prev_close": 137.5,
         "volume": 3626,
         "change_pct": 8.36,
+<<<<<<< Updated upstream
         "time": "13:03:24",
+=======
+        "time": "13:04:00",
+>>>>>>> Stashed changes
         "date": "20260605",
         "source": "tse"
       }
@@ -69,9 +77,15 @@
         "high": 68.9,
         "low": 64.2,
         "prev_close": 62.7,
+<<<<<<< Updated upstream
         "volume": 22573,
         "change_pct": 9.41,
         "time": "13:03:31",
+=======
+        "volume": 22604,
+        "change_pct": 9.41,
+        "time": "13:04:01",
+>>>>>>> Stashed changes
         "date": "20260605",
         "source": "tse"
       }
@@ -108,12 +122,17 @@
         "prev_close": 145.0,
         "volume": 3010,
         "change_pct": 6.55,
+<<<<<<< Updated upstream
         "time": "13:03:26",
+=======
+        "time": "13:03:56",
+>>>>>>> Stashed changes
         "date": "20260605",
         "source": "tse"
       }
     },
     {
+<<<<<<< Updated upstream
       "stock_id": "2025",
       "name": "千興",
       "sector": "",
@@ -121,11 +140,21 @@
       "details": {
         "momentum": "強勢",
         "rsi": 72.7,
+=======
+      "stock_id": "2492",
+      "name": "華新科",
+      "sector": "",
+      "score": 90.0,
+      "details": {
+        "momentum": "偏強",
+        "rsi": 89.8,
+>>>>>>> Stashed changes
         "ma5_status": "強勢突破",
         "vol_ratio": "爆發",
         "breakout": "創新高"
       },
       "total_score": 90.0,
+<<<<<<< Updated upstream
       "entry": 13.1,
       "target": 14.15,
       "stop_loss": 12.44,
@@ -133,11 +162,21 @@
       "dimensions": {
         "momentum": "強勢",
         "rsi": 72.7,
+=======
+      "entry": 415.0,
+      "target": 448.2,
+      "stop_loss": 394.25,
+      "change_pct": 5.87,
+      "dimensions": {
+        "momentum": "偏強",
+        "rsi": 89.8,
+>>>>>>> Stashed changes
         "ma5_status": "強勢突破",
         "vol_ratio": "爆發",
         "breakout": "創新高"
       },
       "live": {
+<<<<<<< Updated upstream
         "current": 13.1,
         "open": 12.35,
         "high": 13.4,
@@ -146,11 +185,22 @@
         "volume": 1384,
         "change_pct": 7.38,
         "time": "13:03:03",
+=======
+        "current": 415.0,
+        "open": 374.0,
+        "high": 422.0,
+        "low": 353.5,
+        "prev_close": 392.0,
+        "volume": 3726,
+        "change_pct": 5.87,
+        "time": "13:03:59",
+>>>>>>> Stashed changes
         "date": "20260605",
         "source": "tse"
       }
     },
     {
+<<<<<<< Updated upstream
       "stock_id": "2492",
       "name": "華新科",
       "sector": "",
@@ -158,11 +208,21 @@
       "details": {
         "momentum": "偏強",
         "rsi": 89.8,
+=======
+      "stock_id": "2911",
+      "name": "麗嬰房",
+      "sector": "",
+      "score": 90.0,
+      "details": {
+        "momentum": "強勢",
+        "rsi": 65.2,
+>>>>>>> Stashed changes
         "ma5_status": "強勢突破",
         "vol_ratio": "爆發",
         "breakout": "創新高"
       },
       "total_score": 90.0,
+<<<<<<< Updated upstream
       "entry": 415.0,
       "target": 448.2,
       "stop_loss": 394.25,
@@ -170,11 +230,21 @@
       "dimensions": {
         "momentum": "偏強",
         "rsi": 89.8,
+=======
+      "entry": 8.76,
+      "target": 9.46,
+      "stop_loss": 8.32,
+      "change_pct": 6.57,
+      "dimensions": {
+        "momentum": "強勢",
+        "rsi": 65.2,
+>>>>>>> Stashed changes
         "ma5_status": "強勢突破",
         "vol_ratio": "爆發",
         "breakout": "創新高"
       },
       "live": {
+<<<<<<< Updated upstream
         "current": 415.0,
         "open": 374.0,
         "high": 422.0,
@@ -183,6 +253,16 @@
         "volume": 3726,
         "change_pct": 5.87,
         "time": "13:03:34",
+=======
+        "current": 8.76,
+        "open": 8.31,
+        "high": 9.0,
+        "low": 8.31,
+        "prev_close": 8.22,
+        "volume": 265,
+        "change_pct": 6.57,
+        "time": "13:03:06",
+>>>>>>> Stashed changes
         "date": "20260605",
         "source": "tse"
       }
