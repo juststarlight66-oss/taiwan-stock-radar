@@ -64,6 +64,14 @@
       "date": "20260602",
       "file": "scan_result_20260602.json",
       "scan_time": "23:50:33"
+    },
+    {
+      "date": "2026-06-05",
+      "date_display": "2026/06/05",
+      "scanned_count": 1963,
+      "top1": "東鹼(1708)",
+      "top1_score": 100.0,
+      "file": "scan_result_20260605.json"
     }
   ],
   "updated_at": "2026-06-04T23:48:31.732117+08:00",

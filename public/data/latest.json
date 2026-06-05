@@ -1,587 +1,1257 @@
 {
-  "scan_date": "20260605",
-  "generated_at": "2026-06-05T11:11:59.966044+08:00",
-  "scanned_count": 793,
+  "scan_date": "20260604",
+  "report_date": "20260605",
+  "scanned_count": 1963,
+  "up_count": 829,
+  "down_count": 1016,
+  "bull_ratio": 42.2,
   "top10": [
     {
-      "stock_id": "3332",
-      "name": "幸康電子股份有限公司",
-      "market": "TPEx",
-      "sector": "TPEx",
-      "close": 72.6,
+      "stock_id": "1708",
+      "name": "東鹼",
+      "sector": "21",
+      "market": "TWSE",
+      "close": 47.65,
+      "change_pct": 9.92,
+      "volume": 33865625,
+      "trade_value": 1562178009.0,
+      "total_score": 100.0,
+      "dimensions": {
+        "tech": 40,
+        "chips": 25,
+        "fundamental": 15,
+        "news": 10,
+        "sentiment": 10,
+        "technical": 40
+      },
+      "signals": {
+        "tech": [
+          "漲停",
+          "收高",
+          "爆量",
+          "開高走高"
+        ],
+        "chips": [
+          "鉅額買盤",
+          "量價齊揚"
+        ],
+        "fundamental": [],
+        "news": [
+          "重大利多"
+        ],
+        "sentiment": [
+          "市場熱度高"
+        ],
+        "technical": [
+          "漲停",
+          "收高",
+          "爆量",
+          "開高走高"
+        ]
+      },
+      "strategy": {
+        "entry": 48.36,
+        "stop_loss": 41.35,
+        "target": 62.38,
+        "target1": 62.38,
+        "target2": 72.89,
+        "target3": 83.41,
+        "target_note": "動態基準",
+        "atr": 3.15,
+        "upside": 29.0,
+        "upside2": 50.7,
+        "upside3": 72.5,
+        "downside": 14.5,
+        "recommendation": "積極買進 ⚡ 中型部位"
+      },
+      "rank": 1
+    },
+    {
+      "stock_id": "1904",
+      "name": "正隆",
+      "sector": "09",
+      "market": "TWSE",
+      "close": 22.3,
+      "change_pct": 9.85,
+      "volume": 27597138,
+      "trade_value": 602097166.0,
+      "total_score": 98.0,
+      "dimensions": {
+        "tech": 40,
+        "chips": 23,
+        "fundamental": 15,
+        "news": 10,
+        "sentiment": 10,
+        "technical": 40
+      },
+      "signals": {
+        "tech": [
+          "漲停",
+          "收高",
+          "爆量",
+          "開高走高"
+        ],
+        "chips": [
+          "大量買盤",
+          "量價齊揚"
+        ],
+        "fundamental": [
+          "淨值折價PB0.8"
+        ],
+        "news": [
+          "重大利多"
+        ],
+        "sentiment": [
+          "市場熱度高",
+          "低價熱炒"
+        ],
+        "technical": [
+          "漲停",
+          "收高",
+          "爆量",
+          "開高走高"
+        ]
+      },
+      "strategy": {
+        "entry": 22.63,
+        "stop_loss": 19.2,
+        "target": 29.49,
+        "target1": 29.49,
+        "target2": 34.63,
+        "target3": 39.78,
+        "target_note": "動態基準",
+        "atr": 1.55,
+        "upside": 30.3,
+        "upside2": 53.0,
+        "upside3": 75.8,
+        "downside": 15.2,
+        "recommendation": "積極買進 ⚡ 中型部位"
+      },
+      "rank": 2
+    },
+    {
+      "stock_id": "3015",
+      "name": "全漢",
+      "sector": "28",
+      "market": "TWSE",
+      "close": 62.7,
       "change_pct": 10.0,
-      "volume": 0.0,
-      "total_score": 61.0,
+      "volume": 11744567,
+      "trade_value": 721051206.0,
+      "total_score": 98.0,
       "dimensions": {
-        "technical": 80.0,
-        "chips": 30.0,
-        "fundamental": 50.0,
-        "news": 70.0,
-        "sentiment": 70.0
+        "tech": 40,
+        "chips": 23,
+        "fundamental": 15,
+        "news": 10,
+        "sentiment": 10,
+        "technical": 40
       },
       "signals": {
-        "technical": 80.0,
-        "chips": 30.0,
-        "fundamental": 50.0,
-        "news": 70.0,
-        "sentiment": 70.0
+        "tech": [
+          "漲停",
+          "收高",
+          "爆量",
+          "開高走高"
+        ],
+        "chips": [
+          "大量買盤",
+          "量價齊揚"
+        ],
+        "fundamental": [
+          "淨值折價PB1.0"
+        ],
+        "news": [
+          "重大利多"
+        ],
+        "sentiment": [
+          "市場熱度高"
+        ],
+        "technical": [
+          "漲停",
+          "收高",
+          "爆量",
+          "開高走高"
+        ]
       },
       "strategy": {
-        "entry_low": 71.87,
-        "entry_high": 73.33,
-        "stop_loss": 68.97,
-        "t1": 76.23,
-        "t2": 79.86,
-        "t3": 83.49,
-        "recommendation": "推薦"
+        "entry": 63.64,
+        "stop_loss": 51.5,
+        "target": 87.92,
+        "target1": 87.92,
+        "target2": 106.13,
+        "target3": 124.34,
+        "target_note": "動態基準",
+        "atr": 5.6,
+        "upside": 38.2,
+        "upside2": 66.8,
+        "upside3": 95.4,
+        "downside": 19.1,
+        "recommendation": "積極買進 ⚡ 中型部位"
       },
-      "fundamentals": {
-        "pe": 0.0,
-        "pb": 0.0,
-        "dy": 0.0
-      },
-      "targets": {
-        "t1": 76.23,
-        "t2": 79.86,
-        "t3": 83.49,
-        "stop_loss": 68.97
-      },
-      "entry_low": 71.87,
-      "entry_high": 73.33,
-      "stop_loss": 68.97,
-      "recommendation": "推薦"
+      "rank": 3
     },
     {
-      "stock_id": "3093",
-      "name": "台灣港建股份有限公司",
-      "market": "TPEx",
-      "sector": "TPEx",
-      "close": 61.7,
+      "stock_id": "9958",
+      "name": "世紀鋼",
+      "sector": "10",
+      "market": "TWSE",
+      "close": 117.5,
+      "change_pct": 9.81,
+      "volume": 5299933,
+      "trade_value": 605443645.0,
+      "total_score": 97.0,
+      "dimensions": {
+        "tech": 40,
+        "chips": 23,
+        "fundamental": 14,
+        "news": 10,
+        "sentiment": 10,
+        "technical": 40
+      },
+      "signals": {
+        "tech": [
+          "漲停",
+          "收高",
+          "爆量",
+          "開高走高"
+        ],
+        "chips": [
+          "大量買盤",
+          "量價齊揚"
+        ],
+        "fundamental": [],
+        "news": [
+          "重大利多"
+        ],
+        "sentiment": [
+          "市場熱度高"
+        ],
+        "technical": [
+          "漲停",
+          "收高",
+          "爆量",
+          "開高走高"
+        ]
+      },
+      "strategy": {
+        "entry": 119.26,
+        "stop_loss": 95.5,
+        "target": 166.78,
+        "target1": 166.78,
+        "target2": 202.42,
+        "target3": 238.06,
+        "target_note": "動態基準",
+        "atr": 11.0,
+        "upside": 39.8,
+        "upside2": 69.7,
+        "upside3": 99.6,
+        "downside": 19.9,
+        "recommendation": "積極買進 ⚡ 中型部位"
+      },
+      "rank": 4
+    },
+    {
+      "stock_id": "1905",
+      "name": "華紙",
+      "sector": "09",
+      "market": "TWSE",
+      "close": 14.0,
+      "change_pct": 9.8,
+      "volume": 41543307,
+      "trade_value": 566971256.0,
+      "total_score": 96.0,
+      "dimensions": {
+        "tech": 40,
+        "chips": 23,
+        "fundamental": 13,
+        "news": 10,
+        "sentiment": 10,
+        "technical": 40
+      },
+      "signals": {
+        "tech": [
+          "漲停",
+          "收高",
+          "爆量",
+          "開高走高"
+        ],
+        "chips": [
+          "大量買盤",
+          "量價齊揚"
+        ],
+        "fundamental": [
+          "淨值折價PB0.9"
+        ],
+        "news": [
+          "重大利多"
+        ],
+        "sentiment": [
+          "市場熱度高",
+          "低價熱炒"
+        ],
+        "technical": [
+          "漲停",
+          "收高",
+          "爆量",
+          "開高走高"
+        ]
+      },
+      "strategy": {
+        "entry": 14.21,
+        "stop_loss": 11.5,
+        "target": 19.63,
+        "target1": 19.63,
+        "target2": 23.7,
+        "target3": 27.76,
+        "target_note": "動態基準",
+        "atr": 1.25,
+        "upside": 38.1,
+        "upside2": 66.8,
+        "upside3": 95.4,
+        "downside": 19.1,
+        "recommendation": "積極買進 ⚡ 中型部位"
+      },
+      "rank": 5
+    },
+    {
+      "stock_id": "6890",
+      "name": "來億-KY",
+      "sector": "37",
+      "market": "TWSE",
+      "close": 231.5,
       "change_pct": 9.98,
-      "volume": 0.0,
-      "total_score": 61.0,
+      "volume": 5824715,
+      "trade_value": 1306332598.0,
+      "total_score": 96.0,
       "dimensions": {
-        "technical": 80.0,
-        "chips": 30.0,
-        "fundamental": 50.0,
-        "news": 69.96000000000001,
-        "sentiment": 70.0
+        "tech": 40,
+        "chips": 25,
+        "fundamental": 11,
+        "news": 10,
+        "sentiment": 10,
+        "technical": 40
       },
       "signals": {
-        "technical": 80.0,
-        "chips": 30.0,
-        "fundamental": 50.0,
-        "news": 69.96000000000001,
-        "sentiment": 70.0
+        "tech": [
+          "漲停",
+          "收高",
+          "爆量",
+          "開高走高"
+        ],
+        "chips": [
+          "鉅額買盤",
+          "量價齊揚"
+        ],
+        "fundamental": [],
+        "news": [
+          "重大利多"
+        ],
+        "sentiment": [
+          "市場熱度高"
+        ],
+        "technical": [
+          "漲停",
+          "收高",
+          "爆量",
+          "開高走高"
+        ]
       },
       "strategy": {
-        "entry_low": 61.08,
-        "entry_high": 62.32,
-        "stop_loss": 58.62,
-        "t1": 64.79,
-        "t2": 67.87,
-        "t3": 70.95,
-        "recommendation": "推薦"
+        "entry": 234.97,
+        "stop_loss": 183.5,
+        "target": 337.91,
+        "target1": 337.91,
+        "target2": 415.12,
+        "target3": 492.32,
+        "target_note": "動態基準",
+        "atr": 24.0,
+        "upside": 43.8,
+        "upside2": 76.7,
+        "upside3": 109.5,
+        "downside": 21.9,
+        "recommendation": "積極買進 ⚡ 中型部位"
       },
-      "fundamentals": {
-        "pe": 0.0,
-        "pb": 0.0,
-        "dy": 0.0
-      },
-      "targets": {
-        "t1": 64.79,
-        "t2": 67.87,
-        "t3": 70.95,
-        "stop_loss": 58.62
-      },
-      "entry_low": 61.08,
-      "entry_high": 62.32,
-      "stop_loss": 58.62,
-      "recommendation": "推薦"
+      "rank": 6
     },
     {
-      "stock_id": "4542",
-      "name": "科嶠工業股份有限公司",
-      "market": "TPEx",
-      "sector": "TPEx",
-      "close": 260.0,
-      "change_pct": 9.94,
-      "volume": 0.0,
-      "total_score": 60.99,
+      "stock_id": "6409",
+      "name": "旭隼",
+      "sector": "31",
+      "market": "TWSE",
+      "close": 844.0,
+      "change_pct": 9.9,
+      "volume": 1705028,
+      "trade_value": 1425830632.0,
+      "total_score": 95.0,
       "dimensions": {
-        "technical": 80.0,
-        "chips": 30.0,
-        "fundamental": 50.0,
-        "news": 69.88,
-        "sentiment": 70.0
+        "tech": 40,
+        "chips": 25,
+        "fundamental": 10,
+        "news": 10,
+        "sentiment": 10,
+        "technical": 40
       },
       "signals": {
-        "technical": 80.0,
-        "chips": 30.0,
-        "fundamental": 50.0,
-        "news": 69.88,
-        "sentiment": 70.0
+        "tech": [
+          "漲停",
+          "收高",
+          "爆量",
+          "開高走高"
+        ],
+        "chips": [
+          "鉅額買盤",
+          "量價齊揚"
+        ],
+        "fundamental": [],
+        "news": [
+          "重大利多"
+        ],
+        "sentiment": [
+          "市場熱度高"
+        ],
+        "technical": [
+          "漲停",
+          "收高",
+          "爆量",
+          "開高走高"
+        ]
       },
       "strategy": {
-        "entry_low": 257.4,
-        "entry_high": 262.6,
-        "stop_loss": 247.0,
-        "t1": 273.0,
-        "t2": 286.0,
-        "t3": 299.0,
-        "recommendation": "推薦"
+        "entry": 856.66,
+        "stop_loss": 710.0,
+        "target": 1149.98,
+        "target1": 1149.98,
+        "target2": 1369.97,
+        "target3": 1589.96,
+        "target_note": "動態基準",
+        "atr": 67.0,
+        "upside": 34.2,
+        "upside2": 59.9,
+        "upside3": 85.6,
+        "downside": 17.1,
+        "recommendation": "積極買進 ⚡ 中型部位"
       },
-      "fundamentals": {
-        "pe": 0.0,
-        "pb": 0.0,
-        "dy": 0.0
-      },
-      "targets": {
-        "t1": 273.0,
-        "t2": 286.0,
-        "t3": 299.0,
-        "stop_loss": 247.0
-      },
-      "entry_low": 257.4,
-      "entry_high": 262.6,
-      "stop_loss": 247.0,
-      "recommendation": "推薦"
+      "rank": 7
     },
     {
-      "stock_id": "6624",
-      "name": "萬年清環境工程股份有限公司",
-      "market": "TPEx",
-      "sector": "TPEx",
-      "close": 43.0,
-      "change_pct": 9.97,
-      "volume": 0.0,
-      "total_score": 60.99,
+      "stock_id": "8454",
+      "name": "富邦媒",
+      "sector": "36",
+      "market": "TWSE",
+      "close": 321.0,
+      "change_pct": 9.93,
+      "volume": 8086217,
+      "trade_value": 2540042444.0,
+      "total_score": 95.0,
       "dimensions": {
-        "technical": 80.0,
-        "chips": 30.0,
-        "fundamental": 50.0,
-        "news": 69.94,
-        "sentiment": 70.0
+        "tech": 40,
+        "chips": 25,
+        "fundamental": 10,
+        "news": 10,
+        "sentiment": 10,
+        "technical": 40
       },
       "signals": {
-        "technical": 80.0,
-        "chips": 30.0,
-        "fundamental": 50.0,
-        "news": 69.94,
-        "sentiment": 70.0
+        "tech": [
+          "漲停",
+          "收高",
+          "爆量",
+          "開高走高"
+        ],
+        "chips": [
+          "鉅額買盤",
+          "量價齊揚"
+        ],
+        "fundamental": [],
+        "news": [
+          "重大利多"
+        ],
+        "sentiment": [
+          "市場熱度高"
+        ],
+        "technical": [
+          "漲停",
+          "收高",
+          "爆量",
+          "開高走高"
+        ]
       },
       "strategy": {
-        "entry_low": 42.57,
-        "entry_high": 43.43,
-        "stop_loss": 40.85,
-        "t1": 45.15,
-        "t2": 47.3,
-        "t3": 49.45,
-        "recommendation": "推薦"
+        "entry": 325.81,
+        "stop_loss": 279.0,
+        "target": 419.43,
+        "target1": 419.43,
+        "target2": 489.64,
+        "target3": 559.86,
+        "target_note": "動態基準",
+        "atr": 21.0,
+        "upside": 28.7,
+        "upside2": 50.3,
+        "upside3": 71.8,
+        "downside": 14.4,
+        "recommendation": "積極買進 ⚡ 中型部位"
       },
-      "fundamentals": {
-        "pe": 0.0,
-        "pb": 0.0,
-        "dy": 0.0
-      },
-      "targets": {
-        "t1": 45.15,
-        "t2": 47.3,
-        "t3": 49.45,
-        "stop_loss": 40.85
-      },
-      "entry_low": 42.57,
-      "entry_high": 43.43,
-      "stop_loss": 40.85,
-      "recommendation": "推薦"
+      "rank": 8
     },
     {
-      "stock_id": "6895",
-      "name": "宏碩系統股份有限公司",
-      "market": "TPEx",
-      "sector": "TPEx",
-      "close": 154.5,
-      "change_pct": 9.96,
-      "volume": 0.0,
-      "total_score": 60.99,
+      "stock_id": "5285",
+      "name": "界霖",
+      "sector": "24",
+      "market": "TWSE",
+      "close": 99.3,
+      "change_pct": 9.6,
+      "volume": 10689564,
+      "trade_value": 1018815979.0,
+      "total_score": 94.0,
       "dimensions": {
-        "technical": 80.0,
-        "chips": 30.0,
-        "fundamental": 50.0,
-        "news": 69.92,
-        "sentiment": 70.0
+        "tech": 40,
+        "chips": 25,
+        "fundamental": 9,
+        "news": 10,
+        "sentiment": 10,
+        "technical": 40
       },
       "signals": {
-        "technical": 80.0,
-        "chips": 30.0,
-        "fundamental": 50.0,
-        "news": 69.92,
-        "sentiment": 70.0
+        "tech": [
+          "漲停",
+          "收高",
+          "爆量",
+          "開高走高"
+        ],
+        "chips": [
+          "鉅額買盤",
+          "量價齊揚"
+        ],
+        "fundamental": [],
+        "news": [
+          "重大利多"
+        ],
+        "sentiment": [
+          "市場熱度高"
+        ],
+        "technical": [
+          "漲停",
+          "收高",
+          "爆量",
+          "開高走高"
+        ]
       },
       "strategy": {
-        "entry_low": 152.96,
-        "entry_high": 156.04,
-        "stop_loss": 146.78,
-        "t1": 162.22,
-        "t2": 169.95,
-        "t3": 177.67,
-        "recommendation": "推薦"
+        "entry": 100.79,
+        "stop_loss": 81.3,
+        "target": 139.77,
+        "target1": 139.77,
+        "target2": 169.01,
+        "target3": 198.24,
+        "target_note": "動態基準",
+        "atr": 9.0,
+        "upside": 38.7,
+        "upside2": 67.7,
+        "upside3": 96.7,
+        "downside": 19.3,
+        "recommendation": "積極買進 ⚡ 中型部位"
       },
-      "fundamentals": {
-        "pe": 0.0,
-        "pb": 0.0,
-        "dy": 0.0
-      },
-      "targets": {
-        "t1": 162.22,
-        "t2": 169.95,
-        "t3": 177.67,
-        "stop_loss": 146.78
-      },
-      "entry_low": 152.96,
-      "entry_high": 156.04,
-      "stop_loss": 146.78,
-      "recommendation": "推薦"
+      "rank": 9
     },
     {
-      "stock_id": "3555",
-      "name": "博士旺創新股份有限公司",
-      "market": "TPEx",
-      "sector": "TPEx",
-      "close": 233.0,
-      "change_pct": 9.91,
-      "volume": 0.0,
-      "total_score": 60.98,
+      "stock_id": "1514",
+      "name": "亞力",
+      "sector": "05",
+      "market": "TWSE",
+      "close": 149.5,
+      "change_pct": 9.93,
+      "volume": 18956118,
+      "trade_value": 2805301076.0,
+      "total_score": 93.0,
       "dimensions": {
-        "technical": 80.0,
-        "chips": 30.0,
-        "fundamental": 50.0,
-        "news": 69.82,
-        "sentiment": 70.0
+        "tech": 40,
+        "chips": 25,
+        "fundamental": 8,
+        "news": 10,
+        "sentiment": 10,
+        "technical": 40
       },
       "signals": {
-        "technical": 80.0,
-        "chips": 30.0,
-        "fundamental": 50.0,
-        "news": 69.82,
-        "sentiment": 70.0
+        "tech": [
+          "漲停",
+          "收高",
+          "爆量",
+          "開高走高"
+        ],
+        "chips": [
+          "鉅額買盤",
+          "量價齊揚"
+        ],
+        "fundamental": [],
+        "news": [
+          "重大利多"
+        ],
+        "sentiment": [
+          "市場熱度高"
+        ],
+        "technical": [
+          "漲停",
+          "收高",
+          "爆量",
+          "開高走高"
+        ]
       },
       "strategy": {
-        "entry_low": 230.67,
-        "entry_high": 235.33,
-        "stop_loss": 221.35,
-        "t1": 244.65,
-        "t2": 256.3,
-        "t3": 267.95,
-        "recommendation": "推薦"
+        "entry": 151.74,
+        "stop_loss": 130.5,
+        "target": 194.22,
+        "target1": 194.22,
+        "target2": 226.08,
+        "target3": 257.94,
+        "target_note": "動態基準",
+        "atr": 9.5,
+        "upside": 28.0,
+        "upside2": 49.0,
+        "upside3": 70.0,
+        "downside": 14.0,
+        "recommendation": "積極買進 ⚡ 中型部位"
       },
-      "fundamentals": {
-        "pe": 0.0,
-        "pb": 0.0,
-        "dy": 0.0
-      },
-      "targets": {
-        "t1": 244.65,
-        "t2": 256.3,
-        "t3": 267.95,
-        "stop_loss": 221.35
-      },
-      "entry_low": 230.67,
-      "entry_high": 235.33,
-      "stop_loss": 221.35,
-      "recommendation": "推薦"
-    },
-    {
-      "stock_id": "6148",
-      "name": "驊宏資通股份有限公司",
-      "market": "TPEx",
-      "sector": "TPEx",
-      "close": 37.25,
-      "change_pct": 9.88,
-      "volume": 0.0,
-      "total_score": 60.98,
-      "dimensions": {
-        "technical": 80.0,
-        "chips": 30.0,
-        "fundamental": 50.0,
-        "news": 69.76,
-        "sentiment": 70.0
-      },
-      "signals": {
-        "technical": 80.0,
-        "chips": 30.0,
-        "fundamental": 50.0,
-        "news": 69.76,
-        "sentiment": 70.0
-      },
-      "strategy": {
-        "entry_low": 36.88,
-        "entry_high": 37.62,
-        "stop_loss": 35.39,
-        "t1": 39.11,
-        "t2": 40.98,
-        "t3": 42.84,
-        "recommendation": "推薦"
-      },
-      "fundamentals": {
-        "pe": 0.0,
-        "pb": 0.0,
-        "dy": 0.0
-      },
-      "targets": {
-        "t1": 39.11,
-        "t2": 40.98,
-        "t3": 42.84,
-        "stop_loss": 35.39
-      },
-      "entry_low": 36.88,
-      "entry_high": 37.62,
-      "stop_loss": 35.39,
-      "recommendation": "推薦"
-    },
-    {
-      "stock_id": "3066",
-      "name": "李洲科技股份有限公司",
-      "market": "TPEx",
-      "sector": "TPEx",
-      "close": 23.95,
-      "change_pct": 9.86,
-      "volume": 0.0,
-      "total_score": 60.97,
-      "dimensions": {
-        "technical": 80.0,
-        "chips": 30.0,
-        "fundamental": 50.0,
-        "news": 69.72,
-        "sentiment": 70.0
-      },
-      "signals": {
-        "technical": 80.0,
-        "chips": 30.0,
-        "fundamental": 50.0,
-        "news": 69.72,
-        "sentiment": 70.0
-      },
-      "strategy": {
-        "entry_low": 23.71,
-        "entry_high": 24.19,
-        "stop_loss": 22.75,
-        "t1": 25.15,
-        "t2": 26.35,
-        "t3": 27.54,
-        "recommendation": "推薦"
-      },
-      "fundamentals": {
-        "pe": 0.0,
-        "pb": 0.0,
-        "dy": 0.0
-      },
-      "targets": {
-        "t1": 25.15,
-        "t2": 26.35,
-        "t3": 27.54,
-        "stop_loss": 22.75
-      },
-      "entry_low": 23.71,
-      "entry_high": 24.19,
-      "stop_loss": 22.75,
-      "recommendation": "推薦"
-    },
-    {
-      "stock_id": "3284",
-      "name": "太普高精密影像股份有限公司",
-      "market": "TPEx",
-      "sector": "TPEx",
-      "close": 19.1,
-      "change_pct": 9.77,
-      "volume": 0.0,
-      "total_score": 60.95,
-      "dimensions": {
-        "technical": 80.0,
-        "chips": 30.0,
-        "fundamental": 50.0,
-        "news": 69.53999999999999,
-        "sentiment": 70.0
-      },
-      "signals": {
-        "technical": 80.0,
-        "chips": 30.0,
-        "fundamental": 50.0,
-        "news": 69.53999999999999,
-        "sentiment": 70.0
-      },
-      "strategy": {
-        "entry_low": 18.91,
-        "entry_high": 19.29,
-        "stop_loss": 18.14,
-        "t1": 20.06,
-        "t2": 21.01,
-        "t3": 21.96,
-        "recommendation": "推薦"
-      },
-      "fundamentals": {
-        "pe": 0.0,
-        "pb": 0.0,
-        "dy": 0.0
-      },
-      "targets": {
-        "t1": 20.06,
-        "t2": 21.01,
-        "t3": 21.96,
-        "stop_loss": 18.14
-      },
-      "entry_low": 18.91,
-      "entry_high": 19.29,
-      "stop_loss": 18.14,
-      "recommendation": "推薦"
-    },
-    {
-      "stock_id": "6485",
-      "name": "點序科技股份有限公司",
-      "market": "TPEx",
-      "sector": "TPEx",
-      "close": 124.0,
-      "change_pct": 9.73,
-      "volume": 0.0,
-      "total_score": 60.95,
-      "dimensions": {
-        "technical": 80.0,
-        "chips": 30.0,
-        "fundamental": 50.0,
-        "news": 69.46000000000001,
-        "sentiment": 70.0
-      },
-      "signals": {
-        "technical": 80.0,
-        "chips": 30.0,
-        "fundamental": 50.0,
-        "news": 69.46000000000001,
-        "sentiment": 70.0
-      },
-      "strategy": {
-        "entry_low": 122.76,
-        "entry_high": 125.24,
-        "stop_loss": 117.8,
-        "t1": 130.2,
-        "t2": 136.4,
-        "t3": 142.6,
-        "recommendation": "推薦"
-      },
-      "fundamentals": {
-        "pe": 0.0,
-        "pb": 0.0,
-        "dy": 0.0
-      },
-      "targets": {
-        "t1": 130.2,
-        "t2": 136.4,
-        "t3": 142.6,
-        "stop_loss": 117.8
-      },
-      "entry_low": 122.76,
-      "entry_high": 125.24,
-      "stop_loss": 117.8,
-      "recommendation": "推薦"
+      "rank": 10
     }
   ],
-  "explode_top5": [
+  "stocks": [
     {
-      "stock_id": "2726",
-      "name": "雅茗天地股份有限公司",
-      "close": 10.3,
-      "volume": 0.0,
-      "change_pct": 4.04,
-      "explode_prob": 1.0
+      "stock_id": "1708",
+      "name": "東鹼",
+      "sector": "21",
+      "market": "TWSE",
+      "close": 47.65,
+      "change_pct": 9.92,
+      "volume": 33865625,
+      "trade_value": 1562178009.0,
+      "total_score": 100.0,
+      "dimensions": {
+        "tech": 40,
+        "chips": 25,
+        "fundamental": 15,
+        "news": 10,
+        "sentiment": 10
+      },
+      "signals": {
+        "tech": [
+          "漲停",
+          "收高",
+          "爆量",
+          "開高走高"
+        ],
+        "chips": [
+          "鉅額買盤",
+          "量價齊揚"
+        ],
+        "fundamental": [],
+        "news": [
+          "重大利多"
+        ],
+        "sentiment": [
+          "市場熱度高"
+        ]
+      },
+      "strategy": {
+        "entry": 48.36,
+        "stop_loss": 41.35,
+        "target": 62.38,
+        "target1": 62.38,
+        "target2": 72.89,
+        "target3": 83.41,
+        "target_note": "動態基準",
+        "atr": 3.15,
+        "upside": 29.0,
+        "upside2": 50.7,
+        "upside3": 72.5,
+        "downside": 14.5,
+        "recommendation": "積極買進 ⚡ 中型部位"
+      },
+      "rank": 1
     },
     {
-      "stock_id": "4907",
-      "name": "富宇地產股份有限公司",
-      "close": 38.8,
-      "volume": 0.0,
-      "change_pct": 3.6,
-      "explode_prob": 1.0
+      "stock_id": "1904",
+      "name": "正隆",
+      "sector": "09",
+      "market": "TWSE",
+      "close": 22.3,
+      "change_pct": 9.85,
+      "volume": 27597138,
+      "trade_value": 602097166.0,
+      "total_score": 98.0,
+      "dimensions": {
+        "tech": 40,
+        "chips": 23,
+        "fundamental": 15,
+        "news": 10,
+        "sentiment": 10
+      },
+      "signals": {
+        "tech": [
+          "漲停",
+          "收高",
+          "爆量",
+          "開高走高"
+        ],
+        "chips": [
+          "大量買盤",
+          "量價齊揚"
+        ],
+        "fundamental": [
+          "淨值折價PB0.8"
+        ],
+        "news": [
+          "重大利多"
+        ],
+        "sentiment": [
+          "市場熱度高",
+          "低價熱炒"
+        ]
+      },
+      "strategy": {
+        "entry": 22.63,
+        "stop_loss": 19.2,
+        "target": 29.49,
+        "target1": 29.49,
+        "target2": 34.63,
+        "target3": 39.78,
+        "target_note": "動態基準",
+        "atr": 1.55,
+        "upside": 30.3,
+        "upside2": 53.0,
+        "upside3": 75.8,
+        "downside": 15.2,
+        "recommendation": "積極買進 ⚡ 中型部位"
+      },
+      "rank": 2
     },
     {
-      "stock_id": "4609",
-      "name": "唐鋒實業股份有限公司",
-      "close": 5.68,
-      "volume": 0.0,
-      "change_pct": 4.41,
-      "explode_prob": 1.0
+      "stock_id": "3015",
+      "name": "全漢",
+      "sector": "28",
+      "market": "TWSE",
+      "close": 62.7,
+      "change_pct": 10.0,
+      "volume": 11744567,
+      "trade_value": 721051206.0,
+      "total_score": 98.0,
+      "dimensions": {
+        "tech": 40,
+        "chips": 23,
+        "fundamental": 15,
+        "news": 10,
+        "sentiment": 10
+      },
+      "signals": {
+        "tech": [
+          "漲停",
+          "收高",
+          "爆量",
+          "開高走高"
+        ],
+        "chips": [
+          "大量買盤",
+          "量價齊揚"
+        ],
+        "fundamental": [
+          "淨值折價PB1.0"
+        ],
+        "news": [
+          "重大利多"
+        ],
+        "sentiment": [
+          "市場熱度高"
+        ]
+      },
+      "strategy": {
+        "entry": 63.64,
+        "stop_loss": 51.5,
+        "target": 87.92,
+        "target1": 87.92,
+        "target2": 106.13,
+        "target3": 124.34,
+        "target_note": "動態基準",
+        "atr": 5.6,
+        "upside": 38.2,
+        "upside2": 66.8,
+        "upside3": 95.4,
+        "downside": 19.1,
+        "recommendation": "積極買進 ⚡ 中型部位"
+      },
+      "rank": 3
     },
     {
-      "stock_id": "4430",
-      "name": "耀億工業股份有限公司",
-      "close": 18.0,
-      "volume": 0.0,
-      "change_pct": 4.35,
-      "explode_prob": 1.0
+      "stock_id": "9958",
+      "name": "世紀鋼",
+      "sector": "10",
+      "market": "TWSE",
+      "close": 117.5,
+      "change_pct": 9.81,
+      "volume": 5299933,
+      "trade_value": 605443645.0,
+      "total_score": 97.0,
+      "dimensions": {
+        "tech": 40,
+        "chips": 23,
+        "fundamental": 14,
+        "news": 10,
+        "sentiment": 10
+      },
+      "signals": {
+        "tech": [
+          "漲停",
+          "收高",
+          "爆量",
+          "開高走高"
+        ],
+        "chips": [
+          "大量買盤",
+          "量價齊揚"
+        ],
+        "fundamental": [],
+        "news": [
+          "重大利多"
+        ],
+        "sentiment": [
+          "市場熱度高"
+        ]
+      },
+      "strategy": {
+        "entry": 119.26,
+        "stop_loss": 95.5,
+        "target": 166.78,
+        "target1": 166.78,
+        "target2": 202.42,
+        "target3": 238.06,
+        "target_note": "動態基準",
+        "atr": 11.0,
+        "upside": 39.8,
+        "upside2": 69.7,
+        "upside3": 99.6,
+        "downside": 19.9,
+        "recommendation": "積極買進 ⚡ 中型部位"
+      },
+      "rank": 4
     },
     {
-      "stock_id": "2061",
-      "name": "風青實業股份有限公司",
-      "close": 43.8,
-      "volume": 0.0,
-      "change_pct": 5.42,
-      "explode_prob": 1.0
+      "stock_id": "1905",
+      "name": "華紙",
+      "sector": "09",
+      "market": "TWSE",
+      "close": 14.0,
+      "change_pct": 9.8,
+      "volume": 41543307,
+      "trade_value": 566971256.0,
+      "total_score": 96.0,
+      "dimensions": {
+        "tech": 40,
+        "chips": 23,
+        "fundamental": 13,
+        "news": 10,
+        "sentiment": 10
+      },
+      "signals": {
+        "tech": [
+          "漲停",
+          "收高",
+          "爆量",
+          "開高走高"
+        ],
+        "chips": [
+          "大量買盤",
+          "量價齊揚"
+        ],
+        "fundamental": [
+          "淨值折價PB0.9"
+        ],
+        "news": [
+          "重大利多"
+        ],
+        "sentiment": [
+          "市場熱度高",
+          "低價熱炒"
+        ]
+      },
+      "strategy": {
+        "entry": 14.21,
+        "stop_loss": 11.5,
+        "target": 19.63,
+        "target1": 19.63,
+        "target2": 23.7,
+        "target3": 27.76,
+        "target_note": "動態基準",
+        "atr": 1.25,
+        "upside": 38.1,
+        "upside2": 66.8,
+        "upside3": 95.4,
+        "downside": 19.1,
+        "recommendation": "積極買進 ⚡ 中型部位"
+      },
+      "rank": 5
+    },
+    {
+      "stock_id": "6890",
+      "name": "來億-KY",
+      "sector": "37",
+      "market": "TWSE",
+      "close": 231.5,
+      "change_pct": 9.98,
+      "volume": 5824715,
+      "trade_value": 1306332598.0,
+      "total_score": 96.0,
+      "dimensions": {
+        "tech": 40,
+        "chips": 25,
+        "fundamental": 11,
+        "news": 10,
+        "sentiment": 10
+      },
+      "signals": {
+        "tech": [
+          "漲停",
+          "收高",
+          "爆量",
+          "開高走高"
+        ],
+        "chips": [
+          "鉅額買盤",
+          "量價齊揚"
+        ],
+        "fundamental": [],
+        "news": [
+          "重大利多"
+        ],
+        "sentiment": [
+          "市場熱度高"
+        ]
+      },
+      "strategy": {
+        "entry": 234.97,
+        "stop_loss": 183.5,
+        "target": 337.91,
+        "target1": 337.91,
+        "target2": 415.12,
+        "target3": 492.32,
+        "target_note": "動態基準",
+        "atr": 24.0,
+        "upside": 43.8,
+        "upside2": 76.7,
+        "upside3": 109.5,
+        "downside": 21.9,
+        "recommendation": "積極買進 ⚡ 中型部位"
+      },
+      "rank": 6
+    },
+    {
+      "stock_id": "6409",
+      "name": "旭隼",
+      "sector": "31",
+      "market": "TWSE",
+      "close": 844.0,
+      "change_pct": 9.9,
+      "volume": 1705028,
+      "trade_value": 1425830632.0,
+      "total_score": 95.0,
+      "dimensions": {
+        "tech": 40,
+        "chips": 25,
+        "fundamental": 10,
+        "news": 10,
+        "sentiment": 10
+      },
+      "signals": {
+        "tech": [
+          "漲停",
+          "收高",
+          "爆量",
+          "開高走高"
+        ],
+        "chips": [
+          "鉅額買盤",
+          "量價齊揚"
+        ],
+        "fundamental": [],
+        "news": [
+          "重大利多"
+        ],
+        "sentiment": [
+          "市場熱度高"
+        ]
+      },
+      "strategy": {
+        "entry": 856.66,
+        "stop_loss": 710.0,
+        "target": 1149.98,
+        "target1": 1149.98,
+        "target2": 1369.97,
+        "target3": 1589.96,
+        "target_note": "動態基準",
+        "atr": 67.0,
+        "upside": 34.2,
+        "upside2": 59.9,
+        "upside3": 85.6,
+        "downside": 17.1,
+        "recommendation": "積極買進 ⚡ 中型部位"
+      },
+      "rank": 7
+    },
+    {
+      "stock_id": "8454",
+      "name": "富邦媒",
+      "sector": "36",
+      "market": "TWSE",
+      "close": 321.0,
+      "change_pct": 9.93,
+      "volume": 8086217,
+      "trade_value": 2540042444.0,
+      "total_score": 95.0,
+      "dimensions": {
+        "tech": 40,
+        "chips": 25,
+        "fundamental": 10,
+        "news": 10,
+        "sentiment": 10
+      },
+      "signals": {
+        "tech": [
+          "漲停",
+          "收高",
+          "爆量",
+          "開高走高"
+        ],
+        "chips": [
+          "鉅額買盤",
+          "量價齊揚"
+        ],
+        "fundamental": [],
+        "news": [
+          "重大利多"
+        ],
+        "sentiment": [
+          "市場熱度高"
+        ]
+      },
+      "strategy": {
+        "entry": 325.81,
+        "stop_loss": 279.0,
+        "target": 419.43,
+        "target1": 419.43,
+        "target2": 489.64,
+        "target3": 559.86,
+        "target_note": "動態基準",
+        "atr": 21.0,
+        "upside": 28.7,
+        "upside2": 50.3,
+        "upside3": 71.8,
+        "downside": 14.4,
+        "recommendation": "積極買進 ⚡ 中型部位"
+      },
+      "rank": 8
+    },
+    {
+      "stock_id": "5285",
+      "name": "界霖",
+      "sector": "24",
+      "market": "TWSE",
+      "close": 99.3,
+      "change_pct": 9.6,
+      "volume": 10689564,
+      "trade_value": 1018815979.0,
+      "total_score": 94.0,
+      "dimensions": {
+        "tech": 40,
+        "chips": 25,
+        "fundamental": 9,
+        "news": 10,
+        "sentiment": 10
+      },
+      "signals": {
+        "tech": [
+          "漲停",
+          "收高",
+          "爆量",
+          "開高走高"
+        ],
+        "chips": [
+          "鉅額買盤",
+          "量價齊揚"
+        ],
+        "fundamental": [],
+        "news": [
+          "重大利多"
+        ],
+        "sentiment": [
+          "市場熱度高"
+        ]
+      },
+      "strategy": {
+        "entry": 100.79,
+        "stop_loss": 81.3,
+        "target": 139.77,
+        "target1": 139.77,
+        "target2": 169.01,
+        "target3": 198.24,
+        "target_note": "動態基準",
+        "atr": 9.0,
+        "upside": 38.7,
+        "upside2": 67.7,
+        "upside3": 96.7,
+        "downside": 19.3,
+        "recommendation": "積極買進 ⚡ 中型部位"
+      },
+      "rank": 9
+    },
+    {
+      "stock_id": "1514",
+      "name": "亞力",
+      "sector": "05",
+      "market": "TWSE",
+      "close": 149.5,
+      "change_pct": 9.93,
+      "volume": 18956118,
+      "trade_value": 2805301076.0,
+      "total_score": 93.0,
+      "dimensions": {
+        "tech": 40,
+        "chips": 25,
+        "fundamental": 8,
+        "news": 10,
+        "sentiment": 10
+      },
+      "signals": {
+        "tech": [
+          "漲停",
+          "收高",
+          "爆量",
+          "開高走高"
+        ],
+        "chips": [
+          "鉅額買盤",
+          "量價齊揚"
+        ],
+        "fundamental": [],
+        "news": [
+          "重大利多"
+        ],
+        "sentiment": [
+          "市場熱度高"
+        ]
+      },
+      "strategy": {
+        "entry": 151.74,
+        "stop_loss": 130.5,
+        "target": 194.22,
+        "target1": 194.22,
+        "target2": 226.08,
+        "target3": 257.94,
+        "target_note": "動態基準",
+        "atr": 9.5,
+        "upside": 28.0,
+        "upside2": 49.0,
+        "upside3": 70.0,
+        "downside": 14.0,
+        "recommendation": "積極買進 ⚡ 中型部位"
+      },
+      "rank": 10
     }
   ],
-  "backtest_summary": {
-    "date": "20260604",
-    "records": [
-      {
-        "date": "20260604",
-        "stock_id": "3332",
-        "name": "幸康電子股份有限公司",
-        "prev_close": 72.6,
-        "today_close": 72.6,
-        "t1_return_pct": 0.0,
-        "hit_t1": false,
-        "hit_stop": false
-      },
-      {
-        "date": "20260604",
-        "stock_id": "3093",
-        "name": "台灣港建股份有限公司",
-        "prev_close": 61.7,
-        "today_close": 61.7,
-        "t1_return_pct": 0.0,
-        "hit_t1": false,
-        "hit_stop": false
-      },
-      {
-        "date": "20260604",
-        "stock_id": "4542",
-        "name": "科嶠工業股份有限公司",
-        "prev_close": 260.0,
-        "today_close": 260.0,
-        "t1_return_pct": 0.0,
-        "hit_t1": false,
-        "hit_stop": false
-      },
-      {
-        "date": "20260604",
-        "stock_id": "6624",
-        "name": "萬年清環境工程股份有限公司",
-        "prev_close": 43.0,
-        "today_close": 43.0,
-        "t1_return_pct": 0.0,
-        "hit_t1": false,
-        "hit_stop": false
-      },
-      {
-        "date": "20260604",
-        "stock_id": "6895",
-        "name": "宏碩系統股份有限公司",
-        "prev_close": 154.5,
-        "today_close": 154.5,
-        "t1_return_pct": 0.0,
-        "hit_t1": false,
-        "hit_stop": false
-      }
-    ],
-    "avg_return_pct": 0.0,
-    "win_rate_pct": 0.0,
-    "count": 5
-  }
+  "sector_ranking": [
+    {
+      "sector": "09",
+      "avg_score": 69.0,
+      "count": 7
+    },
+    {
+      "sector": "91",
+      "avg_score": 68.5,
+      "count": 4
+    },
+    {
+      "sector": "17",
+      "avg_score": 58.3,
+      "count": 32
+    },
+    {
+      "sector": "21",
+      "avg_score": 48.3,
+      "count": 28
+    },
+    {
+      "sector": "08",
+      "avg_score": 46.8,
+      "count": 5
+    },
+    {
+      "sector": "29",
+      "avg_score": 46.5,
+      "count": 21
+    },
+    {
+      "sector": "23",
+      "avg_score": 45.2,
+      "count": 8
+    },
+    {
+      "sector": "16",
+      "avg_score": 42.8,
+      "count": 19
+    },
+    {
+      "sector": "38",
+      "avg_score": 42.5,
+      "count": 11
+    },
+    {
+      "sector": "01",
+      "avg_score": 42.3,
+      "count": 7
+    }
+  ],
+  "explosive_top5": [
+    {
+      "rank": 1,
+      "stock_id": "1708",
+      "name": "東鹼",
+      "close": 47.65,
+      "change_pct": 9.92,
+      "total_score": 100.0,
+      "explode_prob": 0.95
+    },
+    {
+      "rank": 2,
+      "stock_id": "1904",
+      "name": "正隆",
+      "close": 22.3,
+      "change_pct": 9.85,
+      "total_score": 98.0,
+      "explode_prob": 0.95
+    },
+    {
+      "rank": 3,
+      "stock_id": "3015",
+      "name": "全漢",
+      "close": 62.7,
+      "change_pct": 10.0,
+      "total_score": 98.0,
+      "explode_prob": 0.95
+    },
+    {
+      "rank": 4,
+      "stock_id": "9958",
+      "name": "世紀鋼",
+      "close": 117.5,
+      "change_pct": 9.81,
+      "total_score": 97.0,
+      "explode_prob": 0.95
+    },
+    {
+      "rank": 5,
+      "stock_id": "1905",
+      "name": "華紙",
+      "close": 14.0,
+      "change_pct": 9.8,
+      "total_score": 96.0,
+      "explode_prob": 0.95
+    }
+  ]
 }
