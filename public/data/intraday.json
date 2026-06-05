@@ -1,10 +1,6 @@
 {
   "scan_type": "intraday_daytrade",
-<<<<<<< Updated upstream
-  "scanned_at": "2026-06-05 13:01:29",
-=======
-  "scanned_at": "2026-06-05 13:02:21",
->>>>>>> Stashed changes
+  "scanned_at": "2026-06-05 13:57:50",
   "stocks": [
     {
       "stock_id": "2478",
@@ -19,10 +15,10 @@
         "breakout": "創新高"
       },
       "total_score": 100.0,
-      "entry": 149.0,
-      "target": 160.92,
-      "stop_loss": 141.55,
-      "change_pct": 8.36,
+      "entry": 150.0,
+      "target": 162.0,
+      "stop_loss": 142.5,
+      "change_pct": 9.09,
       "dimensions": {
         "momentum": "極強",
         "rsi": 100.0,
@@ -31,61 +27,88 @@
         "breakout": "創新高"
       },
       "live": {
-        "current": 149.0,
+        "current": 150.0,
         "open": 134.5,
-        "high": 149.0,
+        "high": 150.0,
         "low": 126.0,
         "prev_close": 137.5,
-        "volume": 3626,
-        "change_pct": 8.36,
-<<<<<<< Updated upstream
-        "time": "13:03:24",
-=======
-        "time": "13:04:00",
->>>>>>> Stashed changes
+        "volume": 4223,
+        "change_pct": 9.09,
+        "time": "13:30:00",
         "date": "20260605",
         "source": "tse"
       }
     },
     {
-      "stock_id": "3015",
-      "name": "全漢",
+      "stock_id": "4807",
+      "name": "日成-KY",
       "sector": "",
       "score": 100.0,
       "details": {
         "momentum": "極強",
-        "rsi": 93.6,
+        "rsi": 90.0,
         "ma5_status": "強勢突破",
         "vol_ratio": "爆發",
         "breakout": "創新高"
       },
       "total_score": 100.0,
-      "entry": 68.6,
-      "target": 74.09,
-      "stop_loss": 65.17,
-      "change_pct": 9.41,
+      "entry": 38.5,
+      "target": 41.58,
+      "stop_loss": 36.57,
+      "change_pct": 8.91,
       "dimensions": {
         "momentum": "極強",
-        "rsi": 93.6,
+        "rsi": 90.0,
         "ma5_status": "強勢突破",
         "vol_ratio": "爆發",
         "breakout": "創新高"
       },
       "live": {
-        "current": 68.6,
-        "open": 65.0,
-        "high": 68.9,
-        "low": 64.2,
-        "prev_close": 62.7,
-<<<<<<< Updated upstream
-        "volume": 22573,
-        "change_pct": 9.41,
-        "time": "13:03:31",
-=======
-        "volume": 22604,
-        "change_pct": 9.41,
-        "time": "13:04:01",
->>>>>>> Stashed changes
+        "current": 38.5,
+        "open": 36.15,
+        "high": 38.85,
+        "low": 35.35,
+        "prev_close": 35.35,
+        "volume": 1734,
+        "change_pct": 8.91,
+        "time": "13:30:00",
+        "date": "20260605",
+        "source": "tse"
+      }
+    },
+    {
+      "stock_id": "911608",
+      "name": "明輝-DR",
+      "sector": "",
+      "score": 100.0,
+      "details": {
+        "momentum": "極強",
+        "rsi": 87.5,
+        "ma5_status": "強勢突破",
+        "vol_ratio": "爆發",
+        "breakout": "創新高"
+      },
+      "total_score": 100.0,
+      "entry": 3.51,
+      "target": 3.79,
+      "stop_loss": 3.33,
+      "change_pct": 9.01,
+      "dimensions": {
+        "momentum": "極強",
+        "rsi": 87.5,
+        "ma5_status": "強勢突破",
+        "vol_ratio": "爆發",
+        "breakout": "創新高"
+      },
+      "live": {
+        "current": 3.51,
+        "open": 3.3,
+        "high": 3.54,
+        "low": 3.3,
+        "prev_close": 3.22,
+        "volume": 1694,
+        "change_pct": 9.01,
+        "time": "13:30:00",
         "date": "20260605",
         "source": "tse"
       }
@@ -97,172 +120,69 @@
       "score": 95.0,
       "details": {
         "momentum": "強勢",
-        "rsi": 93.8,
+        "rsi": 100.0,
         "ma5_status": "強勢突破",
         "vol_ratio": "爆發",
         "breakout": "創新高"
       },
       "total_score": 95.0,
-      "entry": 154.5,
-      "target": 166.86,
-      "stop_loss": 146.78,
-      "change_pct": 6.55,
+      "entry": 156.0,
+      "target": 168.48,
+      "stop_loss": 148.2,
+      "change_pct": 7.59,
       "dimensions": {
         "momentum": "強勢",
-        "rsi": 93.8,
+        "rsi": 100.0,
         "ma5_status": "強勢突破",
         "vol_ratio": "爆發",
         "breakout": "創新高"
       },
       "live": {
-        "current": 154.5,
+        "current": 156.0,
         "open": 142.5,
         "high": 156.0,
         "low": 132.0,
         "prev_close": 145.0,
-        "volume": 3010,
-        "change_pct": 6.55,
-<<<<<<< Updated upstream
-        "time": "13:03:26",
-=======
-        "time": "13:03:56",
->>>>>>> Stashed changes
+        "volume": 3444,
+        "change_pct": 7.59,
+        "time": "13:30:00",
         "date": "20260605",
         "source": "tse"
       }
     },
     {
-<<<<<<< Updated upstream
-      "stock_id": "2025",
-      "name": "千興",
+      "stock_id": "2428",
+      "name": "興勤",
       "sector": "",
-      "score": 90.0,
+      "score": 95.0,
       "details": {
         "momentum": "強勢",
-        "rsi": 72.7,
-=======
-      "stock_id": "2492",
-      "name": "華新科",
-      "sector": "",
-      "score": 90.0,
-      "details": {
-        "momentum": "偏強",
-        "rsi": 89.8,
->>>>>>> Stashed changes
+        "rsi": 86.7,
         "ma5_status": "強勢突破",
         "vol_ratio": "爆發",
         "breakout": "創新高"
       },
-      "total_score": 90.0,
-<<<<<<< Updated upstream
-      "entry": 13.1,
-      "target": 14.15,
-      "stop_loss": 12.44,
-      "change_pct": 7.38,
+      "total_score": 95.0,
+      "entry": 283.0,
+      "target": 305.64,
+      "stop_loss": 268.85,
+      "change_pct": 6.79,
       "dimensions": {
         "momentum": "強勢",
-        "rsi": 72.7,
-=======
-      "entry": 415.0,
-      "target": 448.2,
-      "stop_loss": 394.25,
-      "change_pct": 5.87,
-      "dimensions": {
-        "momentum": "偏強",
-        "rsi": 89.8,
->>>>>>> Stashed changes
+        "rsi": 86.7,
         "ma5_status": "強勢突破",
         "vol_ratio": "爆發",
         "breakout": "創新高"
       },
       "live": {
-<<<<<<< Updated upstream
-        "current": 13.1,
-        "open": 12.35,
-        "high": 13.4,
-        "low": 12.3,
-        "prev_close": 12.2,
-        "volume": 1384,
-        "change_pct": 7.38,
-        "time": "13:03:03",
-=======
-        "current": 415.0,
-        "open": 374.0,
-        "high": 422.0,
-        "low": 353.5,
-        "prev_close": 392.0,
-        "volume": 3726,
-        "change_pct": 5.87,
-        "time": "13:03:59",
->>>>>>> Stashed changes
-        "date": "20260605",
-        "source": "tse"
-      }
-    },
-    {
-<<<<<<< Updated upstream
-      "stock_id": "2492",
-      "name": "華新科",
-      "sector": "",
-      "score": 90.0,
-      "details": {
-        "momentum": "偏強",
-        "rsi": 89.8,
-=======
-      "stock_id": "2911",
-      "name": "麗嬰房",
-      "sector": "",
-      "score": 90.0,
-      "details": {
-        "momentum": "強勢",
-        "rsi": 65.2,
->>>>>>> Stashed changes
-        "ma5_status": "強勢突破",
-        "vol_ratio": "爆發",
-        "breakout": "創新高"
-      },
-      "total_score": 90.0,
-<<<<<<< Updated upstream
-      "entry": 415.0,
-      "target": 448.2,
-      "stop_loss": 394.25,
-      "change_pct": 5.87,
-      "dimensions": {
-        "momentum": "偏強",
-        "rsi": 89.8,
-=======
-      "entry": 8.76,
-      "target": 9.46,
-      "stop_loss": 8.32,
-      "change_pct": 6.57,
-      "dimensions": {
-        "momentum": "強勢",
-        "rsi": 65.2,
->>>>>>> Stashed changes
-        "ma5_status": "強勢突破",
-        "vol_ratio": "爆發",
-        "breakout": "創新高"
-      },
-      "live": {
-<<<<<<< Updated upstream
-        "current": 415.0,
-        "open": 374.0,
-        "high": 422.0,
-        "low": 353.5,
-        "prev_close": 392.0,
-        "volume": 3726,
-        "change_pct": 5.87,
-        "time": "13:03:34",
-=======
-        "current": 8.76,
-        "open": 8.31,
-        "high": 9.0,
-        "low": 8.31,
-        "prev_close": 8.22,
-        "volume": 265,
-        "change_pct": 6.57,
-        "time": "13:03:06",
->>>>>>> Stashed changes
+        "current": 283.0,
+        "open": 263.0,
+        "high": 287.0,
+        "low": 257.0,
+        "prev_close": 265.0,
+        "volume": 3255,
+        "change_pct": 6.79,
+        "time": "13:30:00",
         "date": "20260605",
         "source": "tse"
       }
