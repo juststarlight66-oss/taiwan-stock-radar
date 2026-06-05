@@ -228,21 +228,21 @@ function StockCard({ stock, expanded, onToggle }: {
           <div className="grid grid-cols-3 gap-3 text-center text-xs">
             <div className="bg-gray-50 rounded-lg p-2">
               <div className="text-gray-400">進場價</div>
-              <div className="font-bold text-gray-800">{stock.entry.toFixed(2)}</div>
+              <div className="font-bold text-gray-800">{(stock.entry ?? 0).toFixed(2)}</div>
             </div>
             <div className="bg-red-50 rounded-lg p-2">
               <div className="text-red-400">止損</div>
-              <div className="font-bold text-red-600">{stock.stop_loss.toFixed(2)}</div>
+              <div className="font-bold text-red-600">{(stock.stop_loss ?? 0).toFixed(2)}</div>
             </div>
             <div className="bg-green-50 rounded-lg p-2">
               <div className="text-green-400">目標</div>
-              <div className="font-bold text-green-600">{stock.target.toFixed(2)}</div>
+              <div className="font-bold text-green-600">{(stock.target ?? 0).toFixed(2)}</div>
             </div>
           </div>
 
           <div className="flex items-center gap-2 text-sm">
             <span className="text-gray-400">預期漲幅</span>
-            <span className="font-bold text-green-600">+{stock.upside.toFixed(1)}%</span>
+            <span className="font-bold text-green-600">+{(stock.upside ?? 0).toFixed(1)}%</span>
           </div>
 
           <DimensionChart dims={stock.dimensions} />
