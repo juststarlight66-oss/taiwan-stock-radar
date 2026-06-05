@@ -60,32 +60,10 @@ interface IntradaySnapshot {
 interface LatestData {
   scan_date: string;
   scanned_count: number;
-  top10?: {
-    stock_id: string;
-    name: string;
-    sector: string;
-    total_score: number;
-    close: number;
-    change_pct: number;
-    dimensions: {
-      technical: number;
-      fundamental: number;
-      news: number;
-      sentiment: number;
-      chips: number;
-    };
-    strategy: {
-      entry: number;
-      stop_loss: number;
-      target: number;
-      target1?: number;
-      target2?: number;
-      target3?: number;
-      upside: number;
-      recommendation: string;
-    };
-  }[];
-  explosive_top5?: LatestData['top10'];
+  top10?: any[];
+  top_stocks?: any[];
+  explosive_top5?: any[];
+  explode_top5?: any[];
 }
 
 // ── Constants ────────────────────────────────────────────────────────────────
@@ -326,24 +304,32 @@ export default function IntradayPage() {
 
       const latest: LatestData = await latestRes.json();
 
-      const latestStocks: IntradayStock[] = (latest.top10 ?? latest.explosive_top5 ?? []).map((s) => ({
+      const rawLatestList = latest.top10 ?? latest.top_stocks ?? latest.explosive_top5 ?? latest.explode_top5 ?? [];
+      const latestStocks: IntradayStock[] = rawLatestList.map((s: any) => ({
         stock_id: s.stock_id,
-        name: s.name,
-        sector: s.sector,
-        entry: s.strategy?.entry ?? s.close,
-        stop_loss: s.strategy?.stop_loss ?? s.close * 0.95,
-        target: s.strategy?.target ?? s.close * 1.1,
-        target1: s.strategy?.target1,
-        target2: s.strategy?.target2,
-        target3: s.strategy?.target3,
+        name: s.stock_name ?? s.name ?? s.stock_id,
+        sector: s.sector_name ?? s.sector ?? '',
+        entry: s.entry_low ?? s.strategy?.entry ?? s.close ?? 0,
+        stop_loss: s.stop_loss ?? s.strategy?.stop_loss ?? (s.close ?? 0) * 0.95,
+        target: s.target1 ?? s.strategy?.target ?? (s.close ?? 0) * 1.1,
+        target1: s.target1 ?? s.strategy?.target1,
+        target2: s.target2 ?? s.strategy?.target2,
+        target3: s.target3 ?? s.strategy?.target3,
         upside: s.strategy?.upside ?? 0,
         total_score: s.total_score,
-        recommendation: s.strategy?.recommendation ?? '觀望',
-        dimensions: s.dimensions,
+        recommendation: s.recommendation ?? s.strategy?.recommendation ?? '觀望',
+        dimensions: s.dimensions ?? {
+          technical: s.technical_score ?? s.scores?.technical ?? 0,
+          fundamental: s.fundamental_score ?? s.scores?.fundamental ?? 0,
+          chips: s.chips_score ?? s.scores?.chips ?? 0,
+          news: s.news_score ?? s.scores?.news ?? 0,
+          sentiment: s.sentiment_score ?? s.scores?.sentiment ?? 0,
+        },
       }));
 
+      const intradayStocksList = intradayData?.stocks ?? [];
       const allIds = [
-        ...intradayData.stocks.map((s) => s.stock_id),
+        ...intradayStocksList.map((s) => s.stock_id),
         ...latestStocks.map((s) => s.stock_id),
       ];
       const uniqueIds = [...new Set(allIds)];
@@ -352,7 +338,9 @@ export default function IntradayPage() {
       // Merge: TWSE real-time quotes override intraday snapshot fallbacks
       const mergedQuotes: Record<string, LiveQuote> = { ...fallbackQuotes, ...quotes };
 
-      intradayData.stocks = intradayData.stocks.map((s) => ({ ...s, live: mergedQuotes[s.stock_id] }));
+      if (intradayData && intradayData.stocks) {
+        intradayData.stocks = intradayData.stocks.map((s) => ({ ...s, live: mergedQuotes[s.stock_id] }));
+      }
       const latestWithLive = latestStocks.map((s) => ({ ...s, live: mergedQuotes[s.stock_id] }));
 
       setSnapshot(intradayData);
