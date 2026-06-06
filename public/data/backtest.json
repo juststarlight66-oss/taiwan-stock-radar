@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-04T23:48:31.732117+08:00",
+  "last_updated": "2026-06-06T09:56:26.917995+08:00",
   "model_version": "v2",
   "summary": {
     "total_recommendations": 87,
@@ -106,25 +106,30 @@
   ],
   "grouped_records": [
     {
-      "scan_date": "",
-      "scan_date_display": "",
+      "scan_date": "2026-06-06",
       "periods": {
         "T1": {
           "label": "T+1",
-          "pending": true,
+          "backtest_date": null,
+          "win_rate": null,
           "avg_return": null,
+          "pending": true,
           "stocks": []
         },
         "T3": {
           "label": "T+3",
-          "pending": true,
+          "backtest_date": null,
+          "win_rate": null,
           "avg_return": null,
+          "pending": true,
           "stocks": []
         },
         "T5": {
           "label": "T+5",
-          "pending": true,
+          "backtest_date": null,
+          "win_rate": null,
           "avg_return": null,
+          "pending": true,
           "stocks": []
         }
       }
@@ -365,10 +370,38 @@
           ]
         }
       }
+    },
+    {
+      "scan_date": "",
+      "scan_date_display": "",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "pending": true,
+          "avg_return": null,
+          "stocks": []
+        },
+        "T3": {
+          "label": "T+3",
+          "pending": true,
+          "avg_return": null,
+          "stocks": []
+        },
+        "T5": {
+          "label": "T+5",
+          "pending": true,
+          "avg_return": null,
+          "stocks": []
+        }
+      }
     }
   ],
   "version": 2,
   "history": [
+    {
+      "date": "2026/06/06",
+      "results": {}
+    },
     {
       "date": "2026/06/04",
       "results": {}
