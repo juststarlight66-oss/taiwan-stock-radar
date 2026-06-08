@@ -466,6 +466,41 @@ def run_scan(scan_date: str = None) -> Dict:
     except Exception as e:
         print(f"[下載] 預先下載基本面失敗，將在線程中個別獲取: {e}")
 
+    # 1.5 預先抓取全市場上市日K數據 (STOCK_DAY_ALL) 以防在線程中重複抓取導致 IP 封鎖
+    all_tse_quotes = {}
+    try:
+        print("[下載] 預先下載全市場上市日K數據 (STOCK_DAY_ALL)...")
+        resp = _http_get("https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL", timeout=30)
+        data = resp.json()
+        rows = data if isinstance(data, list) else data.get('data', [])
+        for row in rows:
+            code = str(row.get('Code', '')).strip()
+            if code:
+                try:
+                    def _f(key):
+                        return float(str(row.get(key, '0') or '0').replace(',', '').strip() or '0')
+                    close = _f('ClosingPrice')
+                    if close <= 0:
+                        continue
+                    volume = _f('TradeVolume')
+                    open_p = _f('OpeningPrice')
+                    high = _f('HighestPrice')
+                    low = _f('LowestPrice')
+                    chg_str = str(row.get('Change', '0') or '0').replace(',', '').strip()
+                    chg = 0.0 if chg_str in ('+', '-', '', 'X', '--') else float(chg_str)
+                    prev = close - chg
+                    chg_pct = round(chg / prev * 100, 2) if prev != 0 else 0.0
+                    all_tse_quotes[code] = {
+                        'stock_id': code, 'close': close, 'volume': volume,
+                        'open': open_p, 'high': high, 'low': low,
+                        'change': chg, 'change_pct': chg_pct, 'market': 'TSE'
+                    }
+                except (ValueError, KeyError):
+                    continue
+        print(f"[下載] 成功下載 {len(all_tse_quotes)} 筆上市日K數據")
+    except Exception as e:
+        print(f"[下載] 預先下載上市日K失敗，將在線程中個別獲取: {e}")
+
     # 2. 預先抓取全市場上櫃日K數據 以防在線程中重複抓取
     all_tpex_quotes = {}
     try:
@@ -508,7 +543,11 @@ def run_scan(scan_date: str = None) -> Dict:
         name = info['name']
         try:
             if market == 'TSE':
-                day = fetch_stock_day(sid, scan_date)
+                # 優先使用預先批次下載的上市日K
+                if sid in all_tse_quotes:
+                    day = all_tse_quotes[sid]
+                else:
+                    day = fetch_stock_day(sid, scan_date)
             else:
                 # 優先使用預先批次下載的上櫃日K
                 if sid in all_tpex_quotes:
