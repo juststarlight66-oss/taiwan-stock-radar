@@ -1,6 +1,10 @@
 {
   "scan_type": "intraday_daytrade",
+<<<<<<< Updated upstream
   "scanned_at": "2026-06-08 14:09:18",
+=======
+  "scanned_at": "2026-06-08 14:08:52",
+>>>>>>> Stashed changes
   "stocks": [
     {
       "stock_id": "1342",
