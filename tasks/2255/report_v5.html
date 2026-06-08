@@ -2,351 +2,522 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>台股掃描報告 2026/06/05</title>
-<style>
-* { box-sizing:border-box; margin:0; padding:0; }
-body { font-family:'Segoe UI',Arial,sans-serif; background:#f8fafc; color:#1e293b; }
-.container { max-width:1100px; margin:0 auto; padding:20px; }
-.header { background:linear-gradient(135deg,#1e3a5f,#2563eb); color:white; padding:28px 32px; border-radius:16px; margin-bottom:24px; }
-.header h1 { font-size:26px; font-weight:800; }
-.header .meta { font-size:13px; opacity:0.85; margin-top:8px; }
-.card { background:white; border-radius:12px; padding:20px; margin-bottom:20px; box-shadow:0 1px 4px rgba(0,0,0,0.08); }
-.card h2 { font-size:18px; font-weight:700; margin-bottom:16px; color:#1e3a5f; border-bottom:2px solid #e2e8f0; padding-bottom:10px; }
-table { width:100%; border-collapse:collapse; font-size:13px; }
-th { background:#f1f5f9; padding:10px 8px; text-align:left; font-weight:600; color:#475569; }
-.stat-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:20px; }
-.stat { background:white; border-radius:10px; padding:16px; text-align:center; box-shadow:0 1px 3px rgba(0,0,0,0.07); }
-.stat .val { font-size:28px; font-weight:800; color:#2563eb; }
-.stat .lbl { font-size:12px; color:#94a3b8; margin-top:4px; }
-.explode-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:12px; }
-.badge-green { background:#dcfce7; color:#166534; padding:2px 8px; border-radius:9999px; font-size:11px; }
-.badge-yellow { background:#fef3c7; color:#92400e; padding:2px 8px; border-radius:9999px; font-size:11px; }
-.badge-red { background:#fee2e2; color:#991b1b; padding:2px 8px; border-radius:9999px; font-size:11px; }
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>台股掃描報告 115/06/08</title>
 </head>
-<body>
-<div class="container">
+<body style="margin:0;padding:0;background:#f0f4f8;font-family:'Helvetica Neue',Arial,sans-serif;">
 
-  <div class="header">
-    <h1>📊 台股五維分析掃描報告</h1>
-    <div class="meta">
-      2026/06/05 (週五) &nbsp;|&nbsp; 掃描 793 檔 &nbsp;|&nbsp;
-      v7.3 模型：技術40% 籌碼25% 基本15% 消息10% 情緒10%
-    </div>
-  </div>
+<!-- ── 外層包裝 ── -->
+<table style="width:100%;border-collapse:collapse;background:#f0f4f8;">
+  <tr>
+    <td style="padding:20px 10px;">
+      <table style="max-width:660px;width:100%;margin:0 auto;border-collapse:collapse;">
 
-  <div class="stat-grid">
-    <div class="stat"><div class="val">793</div><div class="lbl">掃描股票數</div></div>
-    <div class="stat"><div class="val">10</div><div class="lbl">Top 10 推薦</div></div>
-    <div class="stat"><div class="val">61</div><div class="lbl">最高評分</div></div>
-    <div class="stat"><div class="val">0%</div><div class="lbl">昨日勝率</div></div>
-  </div>
-
-  <div class="card">
-    <h2>🏆 Top 10 強勢股推薦</h2>
-    <div style="overflow-x:auto;">
-    <table>
-      <thead>
+        <!-- ╔══════════════════════════════╗ -->
+        <!-- ║  刊頭 (白底 + 紅底線)        ║ -->
+        <!-- ╚══════════════════════════════╝ -->
         <tr>
-          <th>#</th><th>代號/名稱</th><th>收盤</th><th>漲跌</th>
-          <th>總分</th><th>五維分數</th><th>進場區間/停損</th><th>目標三關</th><th>建議</th>
+          <td style="padding:0 0 2px 0;">
+            <div style="background:#ffffff;border-bottom:3px solid #e53e3e;
+                        border-radius:8px 8px 0 0;padding:20px 24px 16px;">
+              <table style="width:100%;border-collapse:collapse;">
+                <tr>
+                  <td style="vertical-align:middle;padding:0;width:5px;">
+                    <div style="width:5px;height:40px;background:#e53e3e;border-radius:3px;"></div>
+                  </td>
+                  <td style="vertical-align:middle;padding:0 0 0 14px;">
+                    <div style="font-size:22px;font-weight:800;color:#1a202c;letter-spacing:0.5px;
+                                line-height:1.2;">台股掃描報告</div>
+                    <div style="font-size:14px;color:#718096;margin-top:2px;">115/06/08</div>
+                  </td>
+                  <td style="vertical-align:middle;text-align:right;padding:0;">
+                    <div style="background:#e53e3e;color:#fff;padding:6px 14px;border-radius:20px;
+                                font-size:12px;font-weight:700;display:inline-block;">v7.1 · 籌碼強化</div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
         </tr>
-      </thead>
-      <tbody>
-    <tr style="border-bottom:1px solid #f3f4f6;">
-      <td style="padding:10px 8px;font-weight:700;color:#6b7280;">1</td>
-      <td style="padding:10px 8px;">
-        <span style="font-weight:700;font-size:15px;">3332</span><br>
-        <span style="font-size:12px;color:#6b7280;">幸康電子股份有限公司</span>
-      </td>
-      <td style="padding:10px 8px;font-weight:700;font-size:16px;">72.60</td>
-      <td style="padding:10px 8px;color:#ef4444;font-weight:600;">+10.00%</td>
-      <td style="padding:10px 8px;font-weight:700;color:#7c3aed;font-size:16px;">61.0</td>
-      <td style="padding:10px 8px;font-size:12px;">
-        技術:80 籌:30<br>基:50 消:70 情:70
-      </td>
-      <td style="padding:10px 8px;font-size:12px;">
-        進:71.87~73.33<br>停:68.97
-      </td>
-      <td style="padding:10px 8px;font-size:12px;">
-        T1:76.23<br>T2:79.86<br>T3:83.49
-      </td>
-      <td style="padding:10px 8px;font-size:12px;max-width:120px;">推薦</td>
-    </tr>
-    <tr style="border-bottom:1px solid #f3f4f6;">
-      <td style="padding:10px 8px;font-weight:700;color:#6b7280;">2</td>
-      <td style="padding:10px 8px;">
-        <span style="font-weight:700;font-size:15px;">3093</span><br>
-        <span style="font-size:12px;color:#6b7280;">台灣港建股份有限公司</span>
-      </td>
-      <td style="padding:10px 8px;font-weight:700;font-size:16px;">61.70</td>
-      <td style="padding:10px 8px;color:#ef4444;font-weight:600;">+9.98%</td>
-      <td style="padding:10px 8px;font-weight:700;color:#7c3aed;font-size:16px;">61.0</td>
-      <td style="padding:10px 8px;font-size:12px;">
-        技術:80 籌:30<br>基:50 消:70 情:70
-      </td>
-      <td style="padding:10px 8px;font-size:12px;">
-        進:61.08~62.32<br>停:58.62
-      </td>
-      <td style="padding:10px 8px;font-size:12px;">
-        T1:64.79<br>T2:67.87<br>T3:70.95
-      </td>
-      <td style="padding:10px 8px;font-size:12px;max-width:120px;">推薦</td>
-    </tr>
-    <tr style="border-bottom:1px solid #f3f4f6;">
-      <td style="padding:10px 8px;font-weight:700;color:#6b7280;">3</td>
-      <td style="padding:10px 8px;">
-        <span style="font-weight:700;font-size:15px;">4542</span><br>
-        <span style="font-size:12px;color:#6b7280;">科嶠工業股份有限公司</span>
-      </td>
-      <td style="padding:10px 8px;font-weight:700;font-size:16px;">260.00</td>
-      <td style="padding:10px 8px;color:#ef4444;font-weight:600;">+9.94%</td>
-      <td style="padding:10px 8px;font-weight:700;color:#7c3aed;font-size:16px;">61.0</td>
-      <td style="padding:10px 8px;font-size:12px;">
-        技術:80 籌:30<br>基:50 消:70 情:70
-      </td>
-      <td style="padding:10px 8px;font-size:12px;">
-        進:257.40~262.60<br>停:247.00
-      </td>
-      <td style="padding:10px 8px;font-size:12px;">
-        T1:273.00<br>T2:286.00<br>T3:299.00
-      </td>
-      <td style="padding:10px 8px;font-size:12px;max-width:120px;">推薦</td>
-    </tr>
-    <tr style="border-bottom:1px solid #f3f4f6;">
-      <td style="padding:10px 8px;font-weight:700;color:#6b7280;">4</td>
-      <td style="padding:10px 8px;">
-        <span style="font-weight:700;font-size:15px;">6624</span><br>
-        <span style="font-size:12px;color:#6b7280;">萬年清環境工程股份有</span>
-      </td>
-      <td style="padding:10px 8px;font-weight:700;font-size:16px;">43.00</td>
-      <td style="padding:10px 8px;color:#ef4444;font-weight:600;">+9.97%</td>
-      <td style="padding:10px 8px;font-weight:700;color:#7c3aed;font-size:16px;">61.0</td>
-      <td style="padding:10px 8px;font-size:12px;">
-        技術:80 籌:30<br>基:50 消:70 情:70
-      </td>
-      <td style="padding:10px 8px;font-size:12px;">
-        進:42.57~43.43<br>停:40.85
-      </td>
-      <td style="padding:10px 8px;font-size:12px;">
-        T1:45.15<br>T2:47.30<br>T3:49.45
-      </td>
-      <td style="padding:10px 8px;font-size:12px;max-width:120px;">推薦</td>
-    </tr>
-    <tr style="border-bottom:1px solid #f3f4f6;">
-      <td style="padding:10px 8px;font-weight:700;color:#6b7280;">5</td>
-      <td style="padding:10px 8px;">
-        <span style="font-weight:700;font-size:15px;">6895</span><br>
-        <span style="font-size:12px;color:#6b7280;">宏碩系統股份有限公司</span>
-      </td>
-      <td style="padding:10px 8px;font-weight:700;font-size:16px;">154.50</td>
-      <td style="padding:10px 8px;color:#ef4444;font-weight:600;">+9.96%</td>
-      <td style="padding:10px 8px;font-weight:700;color:#7c3aed;font-size:16px;">61.0</td>
-      <td style="padding:10px 8px;font-size:12px;">
-        技術:80 籌:30<br>基:50 消:70 情:70
-      </td>
-      <td style="padding:10px 8px;font-size:12px;">
-        進:152.96~156.04<br>停:146.78
-      </td>
-      <td style="padding:10px 8px;font-size:12px;">
-        T1:162.22<br>T2:169.95<br>T3:177.67
-      </td>
-      <td style="padding:10px 8px;font-size:12px;max-width:120px;">推薦</td>
-    </tr>
-    <tr style="border-bottom:1px solid #f3f4f6;">
-      <td style="padding:10px 8px;font-weight:700;color:#6b7280;">6</td>
-      <td style="padding:10px 8px;">
-        <span style="font-weight:700;font-size:15px;">3555</span><br>
-        <span style="font-size:12px;color:#6b7280;">博士旺創新股份有限公</span>
-      </td>
-      <td style="padding:10px 8px;font-weight:700;font-size:16px;">233.00</td>
-      <td style="padding:10px 8px;color:#ef4444;font-weight:600;">+9.91%</td>
-      <td style="padding:10px 8px;font-weight:700;color:#7c3aed;font-size:16px;">61.0</td>
-      <td style="padding:10px 8px;font-size:12px;">
-        技術:80 籌:30<br>基:50 消:70 情:70
-      </td>
-      <td style="padding:10px 8px;font-size:12px;">
-        進:230.67~235.33<br>停:221.35
-      </td>
-      <td style="padding:10px 8px;font-size:12px;">
-        T1:244.65<br>T2:256.30<br>T3:267.95
-      </td>
-      <td style="padding:10px 8px;font-size:12px;max-width:120px;">推薦</td>
-    </tr>
-    <tr style="border-bottom:1px solid #f3f4f6;">
-      <td style="padding:10px 8px;font-weight:700;color:#6b7280;">7</td>
-      <td style="padding:10px 8px;">
-        <span style="font-weight:700;font-size:15px;">6148</span><br>
-        <span style="font-size:12px;color:#6b7280;">驊宏資通股份有限公司</span>
-      </td>
-      <td style="padding:10px 8px;font-weight:700;font-size:16px;">37.25</td>
-      <td style="padding:10px 8px;color:#ef4444;font-weight:600;">+9.88%</td>
-      <td style="padding:10px 8px;font-weight:700;color:#7c3aed;font-size:16px;">61.0</td>
-      <td style="padding:10px 8px;font-size:12px;">
-        技術:80 籌:30<br>基:50 消:70 情:70
-      </td>
-      <td style="padding:10px 8px;font-size:12px;">
-        進:36.88~37.62<br>停:35.39
-      </td>
-      <td style="padding:10px 8px;font-size:12px;">
-        T1:39.11<br>T2:40.98<br>T3:42.84
-      </td>
-      <td style="padding:10px 8px;font-size:12px;max-width:120px;">推薦</td>
-    </tr>
-    <tr style="border-bottom:1px solid #f3f4f6;">
-      <td style="padding:10px 8px;font-weight:700;color:#6b7280;">8</td>
-      <td style="padding:10px 8px;">
-        <span style="font-weight:700;font-size:15px;">3066</span><br>
-        <span style="font-size:12px;color:#6b7280;">李洲科技股份有限公司</span>
-      </td>
-      <td style="padding:10px 8px;font-weight:700;font-size:16px;">23.95</td>
-      <td style="padding:10px 8px;color:#ef4444;font-weight:600;">+9.86%</td>
-      <td style="padding:10px 8px;font-weight:700;color:#7c3aed;font-size:16px;">61.0</td>
-      <td style="padding:10px 8px;font-size:12px;">
-        技術:80 籌:30<br>基:50 消:70 情:70
-      </td>
-      <td style="padding:10px 8px;font-size:12px;">
-        進:23.71~24.19<br>停:22.75
-      </td>
-      <td style="padding:10px 8px;font-size:12px;">
-        T1:25.15<br>T2:26.35<br>T3:27.54
-      </td>
-      <td style="padding:10px 8px;font-size:12px;max-width:120px;">推薦</td>
-    </tr>
-    <tr style="border-bottom:1px solid #f3f4f6;">
-      <td style="padding:10px 8px;font-weight:700;color:#6b7280;">9</td>
-      <td style="padding:10px 8px;">
-        <span style="font-weight:700;font-size:15px;">3284</span><br>
-        <span style="font-size:12px;color:#6b7280;">太普高精密影像股份有</span>
-      </td>
-      <td style="padding:10px 8px;font-weight:700;font-size:16px;">19.10</td>
-      <td style="padding:10px 8px;color:#ef4444;font-weight:600;">+9.77%</td>
-      <td style="padding:10px 8px;font-weight:700;color:#7c3aed;font-size:16px;">61.0</td>
-      <td style="padding:10px 8px;font-size:12px;">
-        技術:80 籌:30<br>基:50 消:70 情:70
-      </td>
-      <td style="padding:10px 8px;font-size:12px;">
-        進:18.91~19.29<br>停:18.14
-      </td>
-      <td style="padding:10px 8px;font-size:12px;">
-        T1:20.06<br>T2:21.01<br>T3:21.96
-      </td>
-      <td style="padding:10px 8px;font-size:12px;max-width:120px;">推薦</td>
-    </tr>
-    <tr style="border-bottom:1px solid #f3f4f6;">
-      <td style="padding:10px 8px;font-weight:700;color:#6b7280;">10</td>
-      <td style="padding:10px 8px;">
-        <span style="font-weight:700;font-size:15px;">6485</span><br>
-        <span style="font-size:12px;color:#6b7280;">點序科技股份有限公司</span>
-      </td>
-      <td style="padding:10px 8px;font-weight:700;font-size:16px;">124.00</td>
-      <td style="padding:10px 8px;color:#ef4444;font-weight:600;">+9.73%</td>
-      <td style="padding:10px 8px;font-weight:700;color:#7c3aed;font-size:16px;">61.0</td>
-      <td style="padding:10px 8px;font-size:12px;">
-        技術:80 籌:30<br>基:50 消:69 情:70
-      </td>
-      <td style="padding:10px 8px;font-size:12px;">
-        進:122.76~125.24<br>停:117.80
-      </td>
-      <td style="padding:10px 8px;font-size:12px;">
-        T1:130.20<br>T2:136.40<br>T3:142.60
-      </td>
-      <td style="padding:10px 8px;font-size:12px;max-width:120px;">推薦</td>
-    </tr></tbody>
-    </table>
-    </div>
-  </div>
 
-  <div class="card">
-    <h2>🚀 爆漲股預測 Top 5 (ML RandomForest)</h2>
-    <div class="explode-grid">
-      
-    <div style="background:linear-gradient(135deg,#fef3c7,#fde68a);border-radius:12px;padding:16px;border-left:4px solid #f59e0b;">
-      <div style="font-size:18px;font-weight:700;">2726 雅茗天地股份有限</div>
-      <div style="font-size:13px;color:#92400e;margin-top:4px;">爆漲機率: <strong>100%</strong> | 收盤: 10.30</div>
-    </div>
-    <div style="background:linear-gradient(135deg,#fef3c7,#fde68a);border-radius:12px;padding:16px;border-left:4px solid #f59e0b;">
-      <div style="font-size:18px;font-weight:700;">4907 富宇地產股份有限</div>
-      <div style="font-size:13px;color:#92400e;margin-top:4px;">爆漲機率: <strong>100%</strong> | 收盤: 38.80</div>
-    </div>
-    <div style="background:linear-gradient(135deg,#fef3c7,#fde68a);border-radius:12px;padding:16px;border-left:4px solid #f59e0b;">
-      <div style="font-size:18px;font-weight:700;">4609 唐鋒實業股份有限</div>
-      <div style="font-size:13px;color:#92400e;margin-top:4px;">爆漲機率: <strong>100%</strong> | 收盤: 5.68</div>
-    </div>
-    <div style="background:linear-gradient(135deg,#fef3c7,#fde68a);border-radius:12px;padding:16px;border-left:4px solid #f59e0b;">
-      <div style="font-size:18px;font-weight:700;">4430 耀億工業股份有限</div>
-      <div style="font-size:13px;color:#92400e;margin-top:4px;">爆漲機率: <strong>100%</strong> | 收盤: 18.00</div>
-    </div>
-    <div style="background:linear-gradient(135deg,#fef3c7,#fde68a);border-radius:12px;padding:16px;border-left:4px solid #f59e0b;">
-      <div style="font-size:18px;font-weight:700;">2061 風青實業股份有限</div>
-      <div style="font-size:13px;color:#92400e;margin-top:4px;">爆漲機率: <strong>100%</strong> | 收盤: 43.80</div>
-    </div>
-    </div>
-  </div>
+        <!-- ╔══════════════════════════════╗ -->
+        <!-- ║  掃描摘要與統計              ║ -->
+        <!-- ╚══════════════════════════════╝ -->
+        <tr>
+          <td style="padding:0 0 16px 0;">
+            <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:0 0 8px 8px;
+                        padding:16px 24px;">
+              <div style="font-size:14px;font-weight:700;color:#1a202c;margin-bottom:8px;">
+                📋 掃描摘要
+              </div>
+              <ul style="margin:0;padding:0 0 0 18px;">
+                <li style="margin-bottom:4px;font-size:13px;color:#4a5568;">📊 掃描 875 檔 · 籌碼強化 v7.1（T86 ≥ 500 張門檻 + 量 ≥ 1000 張排除 + 市值過濾）</li>
+<li style="margin-bottom:4px;font-size:13px;color:#4a5568;">🎯 本日特徵：技術面領先 · 基本面領先 · 情緒面領先</li>
+              </ul>
+            </div>
+          </td>
+        </tr>
 
-  <div class="card">
-    <h2>📈 T+1 歷史驗證 (昨日 2026/06/04 Top 5)</h2>
-    <table>
-      <thead>
-        <tr><th>股票</th><th>昨收</th><th>今收</th><th>T+1報酬</th><th>結果</th></tr>
-      </thead>
-      <tbody>
-    <tr style="border-bottom:1px solid #f3f4f6;">
-      <td style="padding:8px;">3332 幸康電子股份有限</td>
-      <td style="padding:8px;">72.60</td>
-      <td style="padding:8px;">72.60</td>
-      <td style="padding:8px;color:#6b7280;font-weight:600;">0.00%</td>
-      <td style="padding:8px;">-</td>
-    </tr>
-    <tr style="border-bottom:1px solid #f3f4f6;">
-      <td style="padding:8px;">3093 台灣港建股份有限</td>
-      <td style="padding:8px;">61.70</td>
-      <td style="padding:8px;">61.70</td>
-      <td style="padding:8px;color:#6b7280;font-weight:600;">0.00%</td>
-      <td style="padding:8px;">-</td>
-    </tr>
-    <tr style="border-bottom:1px solid #f3f4f6;">
-      <td style="padding:8px;">4542 科嶠工業股份有限</td>
-      <td style="padding:8px;">260.00</td>
-      <td style="padding:8px;">260.00</td>
-      <td style="padding:8px;color:#6b7280;font-weight:600;">0.00%</td>
-      <td style="padding:8px;">-</td>
-    </tr>
-    <tr style="border-bottom:1px solid #f3f4f6;">
-      <td style="padding:8px;">6624 萬年清環境工程股</td>
-      <td style="padding:8px;">43.00</td>
-      <td style="padding:8px;">43.00</td>
-      <td style="padding:8px;color:#6b7280;font-weight:600;">0.00%</td>
-      <td style="padding:8px;">-</td>
-    </tr>
-    <tr style="border-bottom:1px solid #f3f4f6;">
-      <td style="padding:8px;">6895 宏碩系統股份有限</td>
-      <td style="padding:8px;">154.50</td>
-      <td style="padding:8px;">154.50</td>
-      <td style="padding:8px;color:#6b7280;font-weight:600;">0.00%</td>
-      <td style="padding:8px;">-</td>
-    </tr></tbody>
-    </table>
-    <p style="font-size:12px;color:#94a3b8;margin-top:8px;">
-      平均報酬: 0.00% | 勝率: 0.0%
-    </p>
-  </div>
+        <!-- ╔══════════════════════════════╗ -->
+        <!-- ║  爆漲股預測 Top 5            ║ -->
+        <!-- ╚══════════════════════════════╝ -->
+        <tr>
+          <td style="padding:0 0 16px 0;">
+            <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:8px;
+                        padding:20px 20px 8px;">
+              <div style="border-left:4px solid #e53e3e;padding-left:10px;margin-bottom:16px;">
+                <div style="font-size:14px;font-weight:700;color:#1a202c;">🔥 爆漲預測 Top 5</div>
+                <div style="font-size:11px;color:#a0aec0;">五維綜合評分最高 · 依總分排序</div>
+              </div>
+              <table style="width:100%;border-collapse:collapse;">
+                <thead>
+                  <tr style="border-bottom:2px solid #e2e8f0;">
+                    <th style="padding:6px 8px;text-align:left;font-size:11px;color:#a0aec0;">#</th>
+                    <th style="padding:6px 8px;text-align:left;font-size:11px;color:#a0aec0;">股票</th>
+                    <th style="padding:6px 8px;text-align:right;font-size:11px;color:#a0aec0;">收盤</th>
+                    <th style="padding:6px 8px;text-align:right;font-size:11px;color:#a0aec0;">總分</th>
+                    <th style="padding:6px 8px;text-align:left;font-size:11px;color:#a0aec0;">策略</th>
+                  </tr>
+                </thead>
+                <tbody>
+                     <tr>
+                        <td style="padding:8px 0;vertical-align:top;width:28px;">
+                          <span style="font-weight:800;font-size:16px;color:#e53e3e;">#1</span>
+                        </td>
+                        <td style="padding:8px 8px;vertical-align:top;">
+                          <span style="font-weight:700;color:#2d3748;">5345 馥鴻建設股份有限公司</span>
+                        </td>
+                        <td style="padding:8px 8px;vertical-align:top;text-align:right;">
+                          <span style="font-weight:700;">24.2</span><br>
+                          <span style="color:#38a169;font-weight:600;">+10.00%</span>
+                        </td>
+                        <td style="padding:8px 8px;vertical-align:top;text-align:right;">
+                          <span style="font-weight:700;font-size:16px;color:#e53e3e;">61.0</span>
+                          <br><span style="font-size:10px;color:#718096;">總分</span>
+                        </td>
+                        <td style="padding:8px 8px;vertical-align:top;">
+                          <span style="background:#e2e8f0;color:#718096;padding:2px 6px;border-radius:3px;
+                                       font-size:10px;font-weight:600;"></span>
+                          <br><span style="font-size:10px;color:#718096;">技術面領先 · 進: 停:22.99</span>
+                        </td>
+                      </tr>
+                     <tr>
+                        <td style="padding:8px 0;vertical-align:top;width:28px;">
+                          <span style="font-weight:800;font-size:16px;color:#e53e3e;">#2</span>
+                        </td>
+                        <td style="padding:8px 8px;vertical-align:top;">
+                          <span style="font-weight:700;color:#2d3748;">6684 安格科技股份有限公司</span>
+                        </td>
+                        <td style="padding:8px 8px;vertical-align:top;text-align:right;">
+                          <span style="font-weight:700;">48.95</span><br>
+                          <span style="color:#38a169;font-weight:600;">+10.00%</span>
+                        </td>
+                        <td style="padding:8px 8px;vertical-align:top;text-align:right;">
+                          <span style="font-weight:700;font-size:16px;color:#e53e3e;">61.0</span>
+                          <br><span style="font-size:10px;color:#718096;">總分</span>
+                        </td>
+                        <td style="padding:8px 8px;vertical-align:top;">
+                          <span style="background:#e2e8f0;color:#718096;padding:2px 6px;border-radius:3px;
+                                       font-size:10px;font-weight:600;"></span>
+                          <br><span style="font-size:10px;color:#718096;">技術面領先 · 進: 停:46.5</span>
+                        </td>
+                      </tr>
+                     <tr>
+                        <td style="padding:8px 0;vertical-align:top;width:28px;">
+                          <span style="font-weight:800;font-size:16px;color:#e53e3e;">#3</span>
+                        </td>
+                        <td style="padding:8px 8px;vertical-align:top;">
+                          <span style="font-weight:700;color:#2d3748;">4402 郡都開發股份有限公司</span>
+                        </td>
+                        <td style="padding:8px 8px;vertical-align:top;text-align:right;">
+                          <span style="font-weight:700;">13.35</span><br>
+                          <span style="color:#38a169;font-weight:600;">+9.88%</span>
+                        </td>
+                        <td style="padding:8px 8px;vertical-align:top;text-align:right;">
+                          <span style="font-weight:700;font-size:16px;color:#e53e3e;">61.0</span>
+                          <br><span style="font-size:10px;color:#718096;">總分</span>
+                        </td>
+                        <td style="padding:8px 8px;vertical-align:top;">
+                          <span style="background:#e2e8f0;color:#718096;padding:2px 6px;border-radius:3px;
+                                       font-size:10px;font-weight:600;"></span>
+                          <br><span style="font-size:10px;color:#718096;">技術面領先 · 進: 停:12.68</span>
+                        </td>
+                      </tr>
+                     <tr>
+                        <td style="padding:8px 0;vertical-align:top;width:28px;">
+                          <span style="font-weight:800;font-size:16px;color:#e53e3e;">#4</span>
+                        </td>
+                        <td style="padding:8px 8px;vertical-align:top;">
+                          <span style="font-weight:700;color:#2d3748;">6763 綠界科技股份有限公司</span>
+                        </td>
+                        <td style="padding:8px 8px;vertical-align:top;text-align:right;">
+                          <span style="font-weight:700;">50.4</span><br>
+                          <span style="color:#38a169;font-weight:600;">+9.92%</span>
+                        </td>
+                        <td style="padding:8px 8px;vertical-align:top;text-align:right;">
+                          <span style="font-weight:700;font-size:16px;color:#e53e3e;">61.0</span>
+                          <br><span style="font-size:10px;color:#718096;">總分</span>
+                        </td>
+                        <td style="padding:8px 8px;vertical-align:top;">
+                          <span style="background:#e2e8f0;color:#718096;padding:2px 6px;border-radius:3px;
+                                       font-size:10px;font-weight:600;"></span>
+                          <br><span style="font-size:10px;color:#718096;">技術面領先 · 進: 停:47.88</span>
+                        </td>
+                      </tr>
+                     <tr>
+                        <td style="padding:8px 0;vertical-align:top;width:28px;">
+                          <span style="font-weight:800;font-size:16px;color:#e53e3e;">#5</span>
+                        </td>
+                        <td style="padding:8px 8px;vertical-align:top;">
+                          <span style="font-weight:700;color:#2d3748;">2924 開曼群島宏太股份有限公司</span>
+                        </td>
+                        <td style="padding:8px 8px;vertical-align:top;text-align:right;">
+                          <span style="font-weight:700;">18.95</span><br>
+                          <span style="color:#38a169;font-weight:600;">+9.86%</span>
+                        </td>
+                        <td style="padding:8px 8px;vertical-align:top;text-align:right;">
+                          <span style="font-weight:700;font-size:16px;color:#e53e3e;">61.0</span>
+                          <br><span style="font-size:10px;color:#718096;">總分</span>
+                        </td>
+                        <td style="padding:8px 8px;vertical-align:top;">
+                          <span style="background:#e2e8f0;color:#718096;padding:2px 6px;border-radius:3px;
+                                       font-size:10px;font-weight:600;"></span>
+                          <br><span style="font-size:10px;color:#718096;">技術面領先 · 進: 停:18.0</span>
+                        </td>
+                      </tr>
+                </tbody>
+              </table>
+            </div>
+          </td>
+        </tr>
 
-  <div class="card" style="background:#fafafa;">
-    <h2>⚠️ 空頭防衛提示</h2>
-    <ul style="list-style:none;padding:0;font-size:13px;color:#64748b;">
-      <li style="padding:6px 0;border-bottom:1px solid #f1f5f9;">📌 所有目標價僅供參考，請依個人風控設定停損</li>
-      <li style="padding:6px 0;border-bottom:1px solid #f1f5f9;">📌 T+1 驗證基於昨日推薦，實際進場需考量今日量價變化</li>
-      <li style="padding:6px 0;border-bottom:1px solid #f1f5f9;">📌 消息面分數在週五盤後可能受週末新聞影響</li>
-      <li style="padding:6px 0;">📌 建議以 5%-8% 停損紀律執行，嚴守進場區間</li>
-    </ul>
-  </div>
+        <!-- ╔══════════════════════════════╗ -->
+        <!-- ║  Top 10 綜合排行             ║ -->
+        <!-- ╚══════════════════════════════╝ -->
+        <tr>
+          <td style="padding:0 0 16px 0;">
+            <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:8px;
+                        padding:20px 20px 8px;">
+              <div style="border-left:4px solid #e53e3e;padding-left:10px;margin-bottom:16px;">
+                <div style="font-size:14px;font-weight:700;color:#1a202c;">📊 Top 10 綜合評分排行</div>
+                <div style="font-size:11px;color:#a0aec0;">完整五維評估 · 含進出場策略建議</div>
+              </div>
+              <table style="width:100%;border-collapse:collapse;font-size:13px;">
+                <thead>
+                  <tr style="border-bottom:2px solid #e2e8f0;">
+                    <th style="padding:6px 4px;text-align:left;font-size:11px;color:#a0aec0;">#</th>
+                    <th style="padding:6px 4px;text-align:left;font-size:11px;color:#a0aec0;">股票</th>
+                    <th style="padding:6px 4px;text-align:right;font-size:11px;color:#a0aec0;">收盤</th>
+                    <th style="padding:6px 4px;text-align:right;font-size:11px;color:#a0aec0;">漲跌</th>
+                    <th style="padding:6px 4px;text-align:center;font-size:11px;color:#a0aec0;">總分</th>
+                    <th style="padding:6px 4px;text-align:left;font-size:11px;color:#a0aec0;">五維分佈</th>
+                    <th style="padding:6px 4px;text-align:left;font-size:11px;color:#a0aec0;">策略</th>
+                    <th style="padding:6px 4px;text-align:right;font-size:11px;color:#a0aec0;">進/停損</th>
+                  </tr>
+                </thead>
+                <tbody>
+        <tr style="border-bottom:1px solid #edf2f7;">
+          <td style="padding:10px 6px;vertical-align:top;">
+            <span style="font-weight:700;font-size:15px;color:#1a202c;">🥇</span>
+          </td>
+          <td style="padding:10px 6px;vertical-align:top;">
+            <span style="font-weight:700;color:#2d3748;">5345</span>
+            <span style="color:#4a5568;font-size:13px;">馥鴻建設股份有限公司</span>
+          </td>
+          <td style="padding:10px 6px;vertical-align:top;text-align:right;">
+            <span style="font-weight:700;color:#2d3748;">24.2</span>
+          </td>
+          <td style="padding:10px 6px;vertical-align:top;text-align:right;">
+            <span style="color:#38a169;font-weight:600;">+10.00%</span>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;">
+            <span style="font-weight:700;font-size:16px;color:#e53e3e;">61.0</span>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;font-size:11px;">
+            <span style="font-size:10px;color:#718096;">技術面 32</span> <div style="width:80px;height:6px;background:#38a169;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">基本面 20</span> <div style="width:57px;height:6px;background:#d69e2e;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">消息面 7</span> <div style="width:20px;height:6px;background:#e53e3e;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">情緒面 7</span> <div style="width:20px;height:6px;background:#e53e3e;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">籌碼面 3</span> <div style="width:8px;height:6px;background:#e53e3e;border-radius:3px;display:inline-block;"></div>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;">
+            <span style="background:#e2e8f0;color:#718096;padding:2px 8px;border-radius:4px;
+                         font-size:11px;font-weight:600;white-space:nowrap;"></span>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;font-size:11px;color:#718096;text-align:right;">
+            <br><span style="color:#e53e3e;">停損 22.99</span>
+          </td>
+        </tr>
+        <tr style="border-bottom:1px solid #edf2f7;">
+          <td style="padding:10px 6px;vertical-align:top;">
+            <span style="font-weight:700;font-size:15px;color:#1a202c;">🥈</span>
+          </td>
+          <td style="padding:10px 6px;vertical-align:top;">
+            <span style="font-weight:700;color:#2d3748;">6684</span>
+            <span style="color:#4a5568;font-size:13px;">安格科技股份有限公司</span>
+          </td>
+          <td style="padding:10px 6px;vertical-align:top;text-align:right;">
+            <span style="font-weight:700;color:#2d3748;">48.95</span>
+          </td>
+          <td style="padding:10px 6px;vertical-align:top;text-align:right;">
+            <span style="color:#38a169;font-weight:600;">+10.00%</span>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;">
+            <span style="font-weight:700;font-size:16px;color:#e53e3e;">61.0</span>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;font-size:11px;">
+            <span style="font-size:10px;color:#718096;">技術面 32</span> <div style="width:80px;height:6px;background:#38a169;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">基本面 20</span> <div style="width:57px;height:6px;background:#d69e2e;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">消息面 7</span> <div style="width:20px;height:6px;background:#e53e3e;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">情緒面 7</span> <div style="width:20px;height:6px;background:#e53e3e;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">籌碼面 3</span> <div style="width:8px;height:6px;background:#e53e3e;border-radius:3px;display:inline-block;"></div>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;">
+            <span style="background:#e2e8f0;color:#718096;padding:2px 8px;border-radius:4px;
+                         font-size:11px;font-weight:600;white-space:nowrap;"></span>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;font-size:11px;color:#718096;text-align:right;">
+            <br><span style="color:#e53e3e;">停損 46.5</span>
+          </td>
+        </tr>
+        <tr style="border-bottom:1px solid #edf2f7;">
+          <td style="padding:10px 6px;vertical-align:top;">
+            <span style="font-weight:700;font-size:15px;color:#1a202c;">🥉</span>
+          </td>
+          <td style="padding:10px 6px;vertical-align:top;">
+            <span style="font-weight:700;color:#2d3748;">4402</span>
+            <span style="color:#4a5568;font-size:13px;">郡都開發股份有限公司</span>
+          </td>
+          <td style="padding:10px 6px;vertical-align:top;text-align:right;">
+            <span style="font-weight:700;color:#2d3748;">13.35</span>
+          </td>
+          <td style="padding:10px 6px;vertical-align:top;text-align:right;">
+            <span style="color:#38a169;font-weight:600;">+9.88%</span>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;">
+            <span style="font-weight:700;font-size:16px;color:#e53e3e;">61.0</span>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;font-size:11px;">
+            <span style="font-size:10px;color:#718096;">技術面 32</span> <div style="width:80px;height:6px;background:#38a169;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">基本面 20</span> <div style="width:57px;height:6px;background:#d69e2e;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">消息面 7</span> <div style="width:19px;height:6px;background:#e53e3e;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">情緒面 7</span> <div style="width:20px;height:6px;background:#e53e3e;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">籌碼面 3</span> <div style="width:8px;height:6px;background:#e53e3e;border-radius:3px;display:inline-block;"></div>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;">
+            <span style="background:#e2e8f0;color:#718096;padding:2px 8px;border-radius:4px;
+                         font-size:11px;font-weight:600;white-space:nowrap;"></span>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;font-size:11px;color:#718096;text-align:right;">
+            <br><span style="color:#e53e3e;">停損 12.68</span>
+          </td>
+        </tr>
+        <tr style="border-bottom:1px solid #edf2f7;">
+          <td style="padding:10px 6px;vertical-align:top;">
+            <span style="font-weight:700;font-size:15px;color:#1a202c;">#4</span>
+          </td>
+          <td style="padding:10px 6px;vertical-align:top;">
+            <span style="font-weight:700;color:#2d3748;">6763</span>
+            <span style="color:#4a5568;font-size:13px;">綠界科技股份有限公司</span>
+          </td>
+          <td style="padding:10px 6px;vertical-align:top;text-align:right;">
+            <span style="font-weight:700;color:#2d3748;">50.4</span>
+          </td>
+          <td style="padding:10px 6px;vertical-align:top;text-align:right;">
+            <span style="color:#38a169;font-weight:600;">+9.92%</span>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;">
+            <span style="font-weight:700;font-size:16px;color:#e53e3e;">61.0</span>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;font-size:11px;">
+            <span style="font-size:10px;color:#718096;">技術面 32</span> <div style="width:80px;height:6px;background:#38a169;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">基本面 20</span> <div style="width:57px;height:6px;background:#d69e2e;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">消息面 7</span> <div style="width:19px;height:6px;background:#e53e3e;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">情緒面 7</span> <div style="width:20px;height:6px;background:#e53e3e;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">籌碼面 3</span> <div style="width:8px;height:6px;background:#e53e3e;border-radius:3px;display:inline-block;"></div>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;">
+            <span style="background:#e2e8f0;color:#718096;padding:2px 8px;border-radius:4px;
+                         font-size:11px;font-weight:600;white-space:nowrap;"></span>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;font-size:11px;color:#718096;text-align:right;">
+            <br><span style="color:#e53e3e;">停損 47.88</span>
+          </td>
+        </tr>
+        <tr style="border-bottom:1px solid #edf2f7;">
+          <td style="padding:10px 6px;vertical-align:top;">
+            <span style="font-weight:700;font-size:15px;color:#1a202c;">#5</span>
+          </td>
+          <td style="padding:10px 6px;vertical-align:top;">
+            <span style="font-weight:700;color:#2d3748;">2924</span>
+            <span style="color:#4a5568;font-size:13px;">開曼群島宏太股份有限公司</span>
+          </td>
+          <td style="padding:10px 6px;vertical-align:top;text-align:right;">
+            <span style="font-weight:700;color:#2d3748;">18.95</span>
+          </td>
+          <td style="padding:10px 6px;vertical-align:top;text-align:right;">
+            <span style="color:#38a169;font-weight:600;">+9.86%</span>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;">
+            <span style="font-weight:700;font-size:16px;color:#e53e3e;">61.0</span>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;font-size:11px;">
+            <span style="font-size:10px;color:#718096;">技術面 32</span> <div style="width:80px;height:6px;background:#38a169;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">基本面 20</span> <div style="width:57px;height:6px;background:#d69e2e;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">消息面 7</span> <div style="width:19px;height:6px;background:#e53e3e;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">情緒面 7</span> <div style="width:20px;height:6px;background:#e53e3e;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">籌碼面 3</span> <div style="width:8px;height:6px;background:#e53e3e;border-radius:3px;display:inline-block;"></div>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;">
+            <span style="background:#e2e8f0;color:#718096;padding:2px 8px;border-radius:4px;
+                         font-size:11px;font-weight:600;white-space:nowrap;"></span>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;font-size:11px;color:#718096;text-align:right;">
+            <br><span style="color:#e53e3e;">停損 18.0</span>
+          </td>
+        </tr>
+        <tr style="border-bottom:1px solid #edf2f7;">
+          <td style="padding:10px 6px;vertical-align:top;">
+            <span style="font-weight:700;font-size:15px;color:#1a202c;">#6</span>
+          </td>
+          <td style="padding:10px 6px;vertical-align:top;">
+            <span style="font-weight:700;color:#2d3748;">7714</span>
+            <span style="color:#4a5568;font-size:13px;">創泓科技股份有限公司</span>
+          </td>
+          <td style="padding:10px 6px;vertical-align:top;text-align:right;">
+            <span style="font-weight:700;color:#2d3748;">140.0</span>
+          </td>
+          <td style="padding:10px 6px;vertical-align:top;text-align:right;">
+            <span style="color:#38a169;font-weight:600;">+9.80%</span>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;">
+            <span style="font-weight:700;font-size:16px;color:#e53e3e;">61.0</span>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;font-size:11px;">
+            <span style="font-size:10px;color:#718096;">技術面 32</span> <div style="width:80px;height:6px;background:#38a169;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">基本面 20</span> <div style="width:57px;height:6px;background:#d69e2e;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">消息面 7</span> <div style="width:19px;height:6px;background:#e53e3e;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">情緒面 7</span> <div style="width:20px;height:6px;background:#e53e3e;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">籌碼面 3</span> <div style="width:8px;height:6px;background:#e53e3e;border-radius:3px;display:inline-block;"></div>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;">
+            <span style="background:#e2e8f0;color:#718096;padding:2px 8px;border-radius:4px;
+                         font-size:11px;font-weight:600;white-space:nowrap;"></span>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;font-size:11px;color:#718096;text-align:right;">
+            <br><span style="color:#e53e3e;">停損 133.0</span>
+          </td>
+        </tr>
+        <tr style="border-bottom:1px solid #edf2f7;">
+          <td style="padding:10px 6px;vertical-align:top;">
+            <span style="font-weight:700;font-size:15px;color:#1a202c;">#7</span>
+          </td>
+          <td style="padding:10px 6px;vertical-align:top;">
+            <span style="font-weight:700;color:#2d3748;">6895</span>
+            <span style="color:#4a5568;font-size:13px;">宏碩系統股份有限公司</span>
+          </td>
+          <td style="padding:10px 6px;vertical-align:top;text-align:right;">
+            <span style="font-weight:700;color:#2d3748;">169.5</span>
+          </td>
+          <td style="padding:10px 6px;vertical-align:top;text-align:right;">
+            <span style="color:#38a169;font-weight:600;">+9.71%</span>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;">
+            <span style="font-weight:700;font-size:16px;color:#e53e3e;">60.9</span>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;font-size:11px;">
+            <span style="font-size:10px;color:#718096;">技術面 32</span> <div style="width:80px;height:6px;background:#38a169;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">基本面 20</span> <div style="width:57px;height:6px;background:#d69e2e;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">消息面 7</span> <div style="width:19px;height:6px;background:#e53e3e;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">情緒面 7</span> <div style="width:20px;height:6px;background:#e53e3e;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">籌碼面 3</span> <div style="width:8px;height:6px;background:#e53e3e;border-radius:3px;display:inline-block;"></div>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;">
+            <span style="background:#e2e8f0;color:#718096;padding:2px 8px;border-radius:4px;
+                         font-size:11px;font-weight:600;white-space:nowrap;"></span>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;font-size:11px;color:#718096;text-align:right;">
+            <br><span style="color:#e53e3e;">停損 161.03</span>
+          </td>
+        </tr>
+        <tr style="border-bottom:1px solid #edf2f7;">
+          <td style="padding:10px 6px;vertical-align:top;">
+            <span style="font-weight:700;font-size:15px;color:#1a202c;">#8</span>
+          </td>
+          <td style="padding:10px 6px;vertical-align:top;">
+            <span style="font-weight:700;color:#2d3748;">6517</span>
+            <span style="color:#4a5568;font-size:13px;">保勝光學股份有限公司</span>
+          </td>
+          <td style="padding:10px 6px;vertical-align:top;text-align:right;">
+            <span style="font-weight:700;color:#2d3748;">69.3</span>
+          </td>
+          <td style="padding:10px 6px;vertical-align:top;text-align:right;">
+            <span style="color:#38a169;font-weight:600;">+10.00%</span>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;">
+            <span style="font-weight:700;font-size:16px;color:#e53e3e;">60.9</span>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;font-size:11px;">
+            <span style="font-size:10px;color:#718096;">技術面 32</span> <div style="width:80px;height:6px;background:#38a169;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">基本面 20</span> <div style="width:57px;height:6px;background:#d69e2e;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">消息面 7</span> <div style="width:20px;height:6px;background:#e53e3e;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">情緒面 7</span> <div style="width:20px;height:6px;background:#e53e3e;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">籌碼面 3</span> <div style="width:8px;height:6px;background:#e53e3e;border-radius:3px;display:inline-block;"></div>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;">
+            <span style="background:#e2e8f0;color:#718096;padding:2px 8px;border-radius:4px;
+                         font-size:11px;font-weight:600;white-space:nowrap;"></span>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;font-size:11px;color:#718096;text-align:right;">
+            <br><span style="color:#e53e3e;">停損 65.83</span>
+          </td>
+        </tr>
+        <tr style="border-bottom:1px solid #edf2f7;">
+          <td style="padding:10px 6px;vertical-align:top;">
+            <span style="font-weight:700;font-size:15px;color:#1a202c;">#9</span>
+          </td>
+          <td style="padding:10px 6px;vertical-align:top;">
+            <span style="font-weight:700;color:#2d3748;">2221</span>
+            <span style="color:#4a5568;font-size:13px;">大甲永和機械工業股份有限公司</span>
+          </td>
+          <td style="padding:10px 6px;vertical-align:top;text-align:right;">
+            <span style="font-weight:700;color:#2d3748;">46.8</span>
+          </td>
+          <td style="padding:10px 6px;vertical-align:top;text-align:right;">
+            <span style="color:#38a169;font-weight:600;">+9.99%</span>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;">
+            <span style="font-weight:700;font-size:16px;color:#e53e3e;">60.8</span>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;font-size:11px;">
+            <span style="font-size:10px;color:#718096;">技術面 32</span> <div style="width:80px;height:6px;background:#38a169;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">基本面 20</span> <div style="width:57px;height:6px;background:#d69e2e;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">消息面 7</span> <div style="width:20px;height:6px;background:#e53e3e;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">情緒面 7</span> <div style="width:20px;height:6px;background:#e53e3e;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">籌碼面 3</span> <div style="width:8px;height:6px;background:#e53e3e;border-radius:3px;display:inline-block;"></div>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;">
+            <span style="background:#e2e8f0;color:#718096;padding:2px 8px;border-radius:4px;
+                         font-size:11px;font-weight:600;white-space:nowrap;"></span>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;font-size:11px;color:#718096;text-align:right;">
+            <br><span style="color:#e53e3e;">停損 44.46</span>
+          </td>
+        </tr>
+        <tr style="border-bottom:1px solid #edf2f7;">
+          <td style="padding:10px 6px;vertical-align:top;">
+            <span style="font-weight:700;font-size:15px;color:#1a202c;">#10</span>
+          </td>
+          <td style="padding:10px 6px;vertical-align:top;">
+            <span style="font-weight:700;color:#2d3748;">6270</span>
+            <span style="color:#4a5568;font-size:13px;">倍微科技股份有限公司</span>
+          </td>
+          <td style="padding:10px 6px;vertical-align:top;text-align:right;">
+            <span style="font-weight:700;color:#2d3748;">32.6</span>
+          </td>
+          <td style="padding:10px 6px;vertical-align:top;text-align:right;">
+            <span style="color:#38a169;font-weight:600;">+9.95%</span>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;">
+            <span style="font-weight:700;font-size:16px;color:#e53e3e;">60.7</span>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;font-size:11px;">
+            <span style="font-size:10px;color:#718096;">技術面 32</span> <div style="width:80px;height:6px;background:#38a169;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">基本面 20</span> <div style="width:57px;height:6px;background:#d69e2e;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">消息面 7</span> <div style="width:19px;height:6px;background:#e53e3e;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">情緒面 7</span> <div style="width:20px;height:6px;background:#e53e3e;border-radius:3px;display:inline-block;"></div> <span style="font-size:10px;color:#718096;">籌碼面 3</span> <div style="width:8px;height:6px;background:#e53e3e;border-radius:3px;display:inline-block;"></div>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;">
+            <span style="background:#e2e8f0;color:#718096;padding:2px 8px;border-radius:4px;
+                         font-size:11px;font-weight:600;white-space:nowrap;"></span>
+          </td>
+          <td style="padding:10px 8px;vertical-align:top;font-size:11px;color:#718096;text-align:right;">
+            <br><span style="color:#e53e3e;">停損 30.97</span>
+          </td>
+        </tr>
+                </tbody>
+              </table>
+            </div>
+          </td>
+        </tr>
 
-  <div style="text-align:center;font-size:11px;color:#94a3b8;margin-top:16px;">
-    報告生成時間: 2026/06/05 11:11 (台灣時間) | Taiwan Stock Radar v7.3
-  </div>
+        <!-- ╔══════════════════════════════╗ -->
+        <!-- ║  Footer                     ║ -->
+        <!-- ╚══════════════════════════════╝ -->
+        <tr>
+          <td style="padding:10px 0 20px;text-align:center;">
+            <div style="font-size:11px;color:#a0aec0;">
+              自動化掃描 · 2026/06/08 更新 · v7.1 籌碼強化版<br>
+              資料來源：TWSE OpenAPI · 僅供參考，投資決策請自行判斷
+            </div>
+          </td>
+        </tr>
 
-</div>
+      </table>
+    </td>
+  </tr>
+</table>
+
 </body>
 </html>

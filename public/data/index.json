@@ -51,6 +51,12 @@
   },
   "scans": [
     {
+      "date": "20260608",
+      "file": "scan_result_20260608.json",
+      "scan_time": "11:18:39",
+      "scanned_count": 875
+    },
+    {
       "date": "20260606",
       "file": "scan_result_20260606.json",
       "scan_time": "09:56:26"
@@ -79,6 +85,6 @@
       "file": "scan_result_20260605.json"
     }
   ],
-  "updated_at": "2026-06-06T09:56:26.917995+08:00",
+  "updated_at": "2026-06-08T11:18:39.852974+08:00",
   "latest": "20260605"
 }
