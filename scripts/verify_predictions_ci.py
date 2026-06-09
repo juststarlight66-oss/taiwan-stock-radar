@@ -15,6 +15,7 @@ warnings.filterwarnings('ignore')
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional
 import pathlib
+import requests
 
 try:
     import yfinance as yf
@@ -52,17 +53,74 @@ def get_stock_ticker(symbol: str) -> str:
     return f"{symbol}.tw"
 
 
+def fetch_twse_prices(symbol: str, date_str: str) -> Optional[float]:
+    """從 TWSE 官方 API 取得單日收盤價（YYYYMMDD 格式）"""
+    try:
+        url = f"https://www.twse.com.tw/rwd/zh/afterTrading/STOCK_DAY?date={date_str}&stockNo={symbol}&response=json"
+        headers = {"User-Agent": "Mozilla/5.0"}
+        r = requests.get(url, headers=headers, timeout=10)
+        if r.status_code != 200:
+            return None
+        data = r.json()
+        rows = data.get("data", [])
+        if not rows:
+            return None
+        # Last row = most recent trading day; close is column index 6
+        return float(rows[-1][6].replace(",", ""))
+    except Exception:
+        return None
+
+
 def fetch_historical_prices(symbol: str, start_date: datetime, end_date: datetime) -> Optional[pd.DataFrame]:
-    """抓取歷史股價數據"""
+    """抓取歷史股價數據 - 先嘗試 yfinance，失敗則用 TWSE 官方 API"""
+    # Try yfinance first
     try:
         ticker = yf.Ticker(get_stock_ticker(symbol))
         df = ticker.history(start=start_date, end=end_date + timedelta(days=1))
-        if df.empty:
-            return None
-        return df
+        if not df.empty:
+            return df
     except Exception as e:
         print(f"  [WARN] {symbol} yfinance fail: {e}")
-        return None
+
+    # Fallback: TWSE official API - fetch monthly data covering the period
+    try:
+        import io
+        rows_all = []
+        # Collect all months in range
+        current = start_date.replace(day=1)
+        while current <= end_date:
+            date_str = current.strftime("%Y%m01")
+            url = f"https://www.twse.com.tw/rwd/zh/afterTrading/STOCK_DAY?date={date_str}&stockNo={symbol}&response=json"
+            headers = {"User-Agent": "Mozilla/5.0 (compatible; verify-bot/1.0)"}
+            try:
+                r = requests.get(url, headers=headers, timeout=15)
+                if r.status_code == 200:
+                    jd = r.json()
+                    for row in jd.get("data", []):
+                        # Parse date "115/06/09" (ROC) -> convert to Gregorian
+                        parts = row[0].split("/")
+                        if len(parts) == 3:
+                            year = int(parts[0]) + 1911
+                            dt = datetime(year, int(parts[1]), int(parts[2]))
+                            if start_date <= dt <= end_date + timedelta(days=1):
+                                close = float(row[6].replace(",", ""))
+                                rows_all.append({"Date": dt, "Close": close})
+            except Exception:
+                pass
+            # next month
+            if current.month == 12:
+                current = current.replace(year=current.year + 1, month=1)
+            else:
+                current = current.replace(month=current.month + 1)
+
+        if rows_all:
+            df_fallback = pd.DataFrame(rows_all).set_index("Date").sort_index()
+            print(f"  [INFO] {symbol} TWSE fallback: {len(df_fallback)} rows")
+            return df_fallback
+    except Exception as e:
+        print(f"  [WARN] {symbol} TWSE fallback fail: {e}")
+
+    return None
 
 
 def calculate_returns(entry_price: float, prices: List[float]) -> Dict[str, Optional[float]]:

@@ -65,5 +65,7 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "chore: update verification results [skip ci]"
+            # Pull rebase to handle concurrent gh-pages updates
+            git pull --rebase origin gh-pages || true
             git push origin HEAD:gh-pages
           fi
