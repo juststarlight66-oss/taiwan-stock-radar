@@ -43,14 +43,16 @@ if not GH_PAGES_DIR.exists():
 OUTPUT_DIR = pathlib.Path('.')
 
 
-def get_stock_ticker(symbol: str) -> str:
-    """將 TWSE 代碼轉換為 yfinance 格式"""
+def get_stock_ticker(symbol: str, market: str = "TWSE") -> str:
+    """將股票代碼轉換為 yfinance ticker 格式（依市場使用 .TW 或 .TWO）"""
     symbol = symbol.strip()
-    if len(symbol) == 4 and symbol.isdigit():
-        return f"{symbol}.TW"
-    elif len(symbol) == 4:
+    if "." in symbol:
+        return symbol
+    # TPEx (上櫃) stocks need .TWO suffix
+    if market and market.upper() in ("TPEX", "TPEx", "OTC"):
         return f"{symbol}.TWO"
-    return f"{symbol}.tw"
+    # TWSE (上市) stocks use .TW
+    return f"{symbol}.TW"
 
 
 def fetch_twse_prices(symbol: str, date_str: str) -> Optional[float]:
@@ -71,45 +73,60 @@ def fetch_twse_prices(symbol: str, date_str: str) -> Optional[float]:
         return None
 
 
-def fetch_historical_prices(symbol: str, start_date: datetime, end_date: datetime) -> Optional[pd.DataFrame]:
+def fetch_historical_prices(symbol: str, start_date: datetime, end_date: datetime, market: str = "TWSE") -> Optional[pd.DataFrame]:
     """抓取歷史股價數據 - 先嘗試 yfinance，失敗則用 TWSE 官方 API"""
-    # Try yfinance first
+    # Try yfinance first with correct market suffix
     try:
-        ticker = yf.Ticker(get_stock_ticker(symbol))
+        ticker = yf.Ticker(get_stock_ticker(symbol, market))
         df = ticker.history(start=start_date, end=end_date + timedelta(days=1))
         if not df.empty:
             return df
     except Exception as e:
         print(f"  [WARN] {symbol} yfinance fail: {e}")
 
-    # Fallback: TWSE official API - fetch monthly data covering the period
-    print(f"  [INFO] {symbol} yfinance empty, trying TWSE fallback ...")
+    # Fallback: Official API - try TWSE for TWSE stocks, TPEx for TPEx stocks
+    is_tpex = market.upper() in ("TPEX", "TPEx", "OTC")
+    print(f"  [INFO] {symbol} yfinance empty, trying {'TPEx' if is_tpex else 'TWSE'} API fallback ...")
     try:
         rows_all = []
-        # Collect all months in range
         current = start_date.replace(day=1)
         while current <= end_date:
             date_str = current.strftime("%Y%m01")
-            url = f"https://www.twse.com.tw/rwd/zh/afterTrading/STOCK_DAY?date={date_str}&stockNo={symbol}&response=json"
+            if is_tpex:
+                # TPEx (上櫃) monthly close data
+                # Use openapi endpoint which returns JSON
+                url = f"https://www.tpex.org.tw/web/stock/aftertrading/otc_quotes_no1430/stk_wn1430_result.php?l=zh-tw&d={current.strftime('%Y/%m/01')}&stkno={symbol}&s=0,asc,0"
+            else:
+                url = f"https://www.twse.com.tw/rwd/zh/afterTrading/STOCK_DAY?date={date_str}&stockNo={symbol}&response=json"
             headers = {"User-Agent": "Mozilla/5.0 (compatible; verify-bot/1.0)"}
             try:
                 r = requests.get(url, headers=headers, timeout=15)
-                print(f"  [DEBUG] TWSE API {symbol} {date_str}: HTTP {r.status_code}")
+                print(f"  [DEBUG] {'TPEx' if is_tpex else 'TWSE'} API {symbol} {date_str}: HTTP {r.status_code}")
                 if r.status_code == 200:
                     jd = r.json()
-                    rows = jd.get("data", [])
-                    print(f"  [DEBUG] TWSE data rows for {symbol}: {len(rows)}")
+                    if is_tpex:
+                        # TPEx response: {"aaData": [["115/06/02", ..., "close_price", ...]]}
+                        rows = jd.get("aaData", jd.get("data", []))
+                        close_idx = 8  # TPEx close column index
+                    else:
+                        rows = jd.get("data", [])
+                        close_idx = 6  # TWSE close column index
+                    print(f"  [DEBUG] {'TPEx' if is_tpex else 'TWSE'} data rows for {symbol}: {len(rows)}")
                     for row in rows:
-                        # Parse date "115/06/09" (ROC) -> convert to Gregorian
-                        parts = row[0].split("/")
-                        if len(parts) == 3:
-                            year = int(parts[0]) + 1911
-                            dt = datetime(year, int(parts[1]), int(parts[2]))
-                            if start_date <= dt <= end_date + timedelta(days=1):
-                                close = float(row[6].replace(",", ""))
-                                rows_all.append({"Date": dt, "Close": close})
+                        try:
+                            parts = row[0].split("/")
+                            if len(parts) == 3:
+                                year = int(parts[0]) + 1911
+                                dt = datetime(year, int(parts[1]), int(parts[2]))
+                                if start_date <= dt <= end_date + timedelta(days=1):
+                                    close_val = str(row[close_idx]).replace(",", "").strip()
+                                    if close_val and close_val not in ("--", ""):
+                                        close = float(close_val)
+                                        rows_all.append({"Date": dt, "Close": close})
+                        except (ValueError, IndexError):
+                            pass
             except Exception as inner_e:
-                print(f"  [WARN] TWSE request error for {symbol}: {inner_e}")
+                print(f"  [WARN] {'TPEx' if is_tpex else 'TWSE'} request error for {symbol}: {inner_e}")
             # next month
             if current.month == 12:
                 current = current.replace(year=current.year + 1, month=1)
@@ -118,12 +135,12 @@ def fetch_historical_prices(symbol: str, start_date: datetime, end_date: datetim
 
         if rows_all:
             df_fallback = pd.DataFrame(rows_all).set_index("Date").sort_index()
-            print(f"  [INFO] {symbol} TWSE fallback: {len(df_fallback)} rows")
+            print(f"  [INFO] {symbol} {'TPEx' if is_tpex else 'TWSE'} fallback: {len(df_fallback)} rows")
             return df_fallback
         else:
-            print(f"  [WARN] {symbol} TWSE fallback: 0 rows in date range")
+            print(f"  [WARN] {symbol} {'TPEx' if is_tpex else 'TWSE'} fallback: 0 rows in date range")
     except Exception as e:
-        print(f"  [WARN] {symbol} TWSE fallback fail: {e}")
+        print(f"  [WARN] {symbol} API fallback fail: {e}")
 
     return None
 
@@ -196,6 +213,7 @@ def extract_top_stocks(data: Dict, top_n: int = 10) -> List[Dict]:
         stocks.append({
             'symbol': s.get('symbol', s.get('stock_id', '')),
             'name': s.get('name', ''),
+            'market': s.get('market', 'TWSE'),
             'entry_price': s.get('entry_price', s.get('price', s.get('close', 0))),
             'total_score': s.get('total_score', 0),
             'dimensions': s.get('dimensions', s.get('scores', {})),
@@ -294,7 +312,8 @@ def main():
         print(f"\n  {symbol} {stock['name']}:")
         print(f"    進場價：{entry_price}")
         
-        df = fetch_historical_prices(symbol, start_date, end_date)
+        market = stock.get('market', 'TWSE')
+        df = fetch_historical_prices(symbol, start_date, end_date, market)
         if df is None or df.empty:
             print(f"    [FAIL] 無法取得股價")
             continue
