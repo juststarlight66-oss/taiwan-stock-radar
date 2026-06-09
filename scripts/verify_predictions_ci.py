@@ -29,8 +29,12 @@ except ImportError:
 
 
 # ── 路徑設定 ───────────────────────────────────
-# GitHub Actions: gh-pages checkout at gh-pages-data/
-GH_PAGES_DIR = pathlib.Path('gh-pages-data/data')
+# GitHub Actions: workflow runs `cd main-repo && python scripts/verify_predictions_ci.py`
+# so gh-pages-data/ is one level up at ../gh-pages-data/data
+GH_PAGES_DIR = pathlib.Path('../gh-pages-data/data')
+if not GH_PAGES_DIR.exists():
+    # Fallback: same-level path (if run from workspace root)
+    GH_PAGES_DIR = pathlib.Path('gh-pages-data/data')
 if not GH_PAGES_DIR.exists():
     # Fallback for local testing
     GH_PAGES_DIR = pathlib.Path('/home/sprite/tasks/2255')
