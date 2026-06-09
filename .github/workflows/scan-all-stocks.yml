@@ -53,7 +53,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add public/data/all_scores.json
           git diff --staged --quiet || git commit -m "data: full scan update all_scores.json $(date '+%Y-%m-%d %H:%M CST')"
-          git push
+          git pull --rebase origin main && git push
 
       - name: Trigger deploy
         uses: actions/github-script@v9
