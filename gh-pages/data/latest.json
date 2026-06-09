@@ -1,0 +1,549 @@
+{
+  "scan_date": "20260608",
+  "scan_date_slash": "2026/06/08",
+  "scanned_count": 875,
+  "generated_at": "2026-06-08T11:08:43.292311+08:00",
+  "top10": [
+    {
+      "stock_id": "5345",
+      "name": "馥鴻建設股份有限公司",
+      "market": "TPEx",
+      "sector": "其他",
+      "close": 24.2,
+      "change_pct": 10.0,
+      "volume": 0.0,
+      "total_score": 61.0,
+      "dimensions": {
+        "technical": 32.0,
+        "fundamental": 20.0,
+        "news": 7.0,
+        "sentiment": 7.0,
+        "chips": 3.0
+      },
+      "signals": [
+        "技術面強勢突破",
+        "均線多頭排列",
+        "消息面題材發酵",
+        "市場情緒熱絡",
+        "強勢漲停鎖板"
+      ],
+      "strategy": {
+        "entry_low": 23.96,
+        "entry_high": 24.44,
+        "stop_loss": 22.99,
+        "target1": 25.41,
+        "target2": 26.62,
+        "target3": 27.83,
+        "advice": "推薦",
+        "hold_days": "3-5日",
+        "risk_reward": "1:1.5"
+      },
+      "entry_low": 23.96,
+      "entry_high": 24.44,
+      "stop_loss": 22.99,
+      "targets": {
+        "t1": 25.41,
+        "t2": 26.62,
+        "t3": 27.83,
+        "stop_loss": 22.99
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.0,
+        "dy": 0.0
+      },
+      "recommendation": "推薦"
+    },
+    {
+      "stock_id": "6684",
+      "name": "安格科技股份有限公司",
+      "market": "TPEx",
+      "sector": "其他",
+      "close": 48.95,
+      "change_pct": 10.0,
+      "volume": 0.0,
+      "total_score": 61.0,
+      "dimensions": {
+        "technical": 32.0,
+        "fundamental": 20.0,
+        "news": 7.0,
+        "sentiment": 7.0,
+        "chips": 3.0
+      },
+      "signals": [
+        "技術面強勢突破",
+        "均線多頭排列",
+        "消息面題材發酵",
+        "市場情緒熱絡",
+        "強勢漲停鎖板"
+      ],
+      "strategy": {
+        "entry_low": 48.46,
+        "entry_high": 49.44,
+        "stop_loss": 46.5,
+        "target1": 51.4,
+        "target2": 53.85,
+        "target3": 56.29,
+        "advice": "推薦",
+        "hold_days": "3-5日",
+        "risk_reward": "1:1.5"
+      },
+      "entry_low": 48.46,
+      "entry_high": 49.44,
+      "stop_loss": 46.5,
+      "targets": {
+        "t1": 51.4,
+        "t2": 53.85,
+        "t3": 56.29,
+        "stop_loss": 46.5
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.0,
+        "dy": 0.0
+      },
+      "recommendation": "推薦"
+    },
+    {
+      "stock_id": "4402",
+      "name": "郡都開發股份有限公司",
+      "market": "TPEx",
+      "sector": "其他",
+      "close": 13.35,
+      "change_pct": 9.88,
+      "volume": 0.0,
+      "total_score": 60.98,
+      "dimensions": {
+        "technical": 32.0,
+        "fundamental": 20.0,
+        "news": 6.98,
+        "sentiment": 7.0,
+        "chips": 3.0
+      },
+      "signals": [
+        "技術面強勢突破",
+        "均線多頭排列",
+        "市場情緒熱絡",
+        "強勢漲停鎖板"
+      ],
+      "strategy": {
+        "entry_low": 13.22,
+        "entry_high": 13.48,
+        "stop_loss": 12.68,
+        "target1": 14.02,
+        "target2": 14.69,
+        "target3": 15.35,
+        "advice": "推薦",
+        "hold_days": "3-5日",
+        "risk_reward": "1:1.5"
+      },
+      "entry_low": 13.22,
+      "entry_high": 13.48,
+      "stop_loss": 12.68,
+      "targets": {
+        "t1": 14.02,
+        "t2": 14.69,
+        "t3": 15.35,
+        "stop_loss": 12.68
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.0,
+        "dy": 0.0
+      },
+      "recommendation": "推薦"
+    },
+    {
+      "stock_id": "6763",
+      "name": "綠界科技股份有限公司",
+      "market": "TPEx",
+      "sector": "其他",
+      "close": 50.4,
+      "change_pct": 9.92,
+      "volume": 0.0,
+      "total_score": 60.98,
+      "dimensions": {
+        "technical": 32.0,
+        "fundamental": 20.0,
+        "news": 6.98,
+        "sentiment": 7.0,
+        "chips": 3.0
+      },
+      "signals": [
+        "技術面強勢突破",
+        "均線多頭排列",
+        "市場情緒熱絡",
+        "強勢漲停鎖板"
+      ],
+      "strategy": {
+        "entry_low": 49.9,
+        "entry_high": 50.9,
+        "stop_loss": 47.88,
+        "target1": 52.92,
+        "target2": 55.44,
+        "target3": 57.96,
+        "advice": "推薦",
+        "hold_days": "3-5日",
+        "risk_reward": "1:1.5"
+      },
+      "entry_low": 49.9,
+      "entry_high": 50.9,
+      "stop_loss": 47.88,
+      "targets": {
+        "t1": 52.92,
+        "t2": 55.44,
+        "t3": 57.96,
+        "stop_loss": 47.88
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.0,
+        "dy": 0.0
+      },
+      "recommendation": "推薦"
+    },
+    {
+      "stock_id": "2924",
+      "name": "開曼群島宏太股份有限公司",
+      "market": "TPEx",
+      "sector": "其他",
+      "close": 18.95,
+      "change_pct": 9.86,
+      "volume": 0.0,
+      "total_score": 60.97,
+      "dimensions": {
+        "technical": 32.0,
+        "fundamental": 20.0,
+        "news": 6.97,
+        "sentiment": 7.0,
+        "chips": 3.0
+      },
+      "signals": [
+        "技術面強勢突破",
+        "均線多頭排列",
+        "市場情緒熱絡",
+        "強勢漲停鎖板"
+      ],
+      "strategy": {
+        "entry_low": 18.76,
+        "entry_high": 19.14,
+        "stop_loss": 18.0,
+        "target1": 19.9,
+        "target2": 20.85,
+        "target3": 21.79,
+        "advice": "推薦",
+        "hold_days": "3-5日",
+        "risk_reward": "1:1.5"
+      },
+      "entry_low": 18.76,
+      "entry_high": 19.14,
+      "stop_loss": 18.0,
+      "targets": {
+        "t1": 19.9,
+        "t2": 20.85,
+        "t3": 21.79,
+        "stop_loss": 18.0
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.0,
+        "dy": 0.0
+      },
+      "recommendation": "推薦"
+    },
+    {
+      "stock_id": "7714",
+      "name": "創泓科技股份有限公司",
+      "market": "TPEx",
+      "sector": "其他",
+      "close": 140.0,
+      "change_pct": 9.8,
+      "volume": 0.0,
+      "total_score": 60.96,
+      "dimensions": {
+        "technical": 32.0,
+        "fundamental": 20.0,
+        "news": 6.96,
+        "sentiment": 7.0,
+        "chips": 3.0
+      },
+      "signals": [
+        "技術面強勢突破",
+        "均線多頭排列",
+        "市場情緒熱絡",
+        "強勢漲停鎖板"
+      ],
+      "strategy": {
+        "entry_low": 138.6,
+        "entry_high": 141.4,
+        "stop_loss": 133.0,
+        "target1": 147.0,
+        "target2": 154.0,
+        "target3": 161.0,
+        "advice": "推薦",
+        "hold_days": "3-5日",
+        "risk_reward": "1:1.5"
+      },
+      "entry_low": 138.6,
+      "entry_high": 141.4,
+      "stop_loss": 133.0,
+      "targets": {
+        "t1": 147.0,
+        "t2": 154.0,
+        "t3": 161.0,
+        "stop_loss": 133.0
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.0,
+        "dy": 0.0
+      },
+      "recommendation": "推薦"
+    },
+    {
+      "stock_id": "6895",
+      "name": "宏碩系統股份有限公司",
+      "market": "TPEx",
+      "sector": "其他",
+      "close": 169.5,
+      "change_pct": 9.71,
+      "volume": 0.0,
+      "total_score": 60.94,
+      "dimensions": {
+        "technical": 32.0,
+        "fundamental": 20.0,
+        "news": 6.94,
+        "sentiment": 7.0,
+        "chips": 3.0
+      },
+      "signals": [
+        "技術面強勢突破",
+        "均線多頭排列",
+        "市場情緒熱絡",
+        "強勢漲停鎖板"
+      ],
+      "strategy": {
+        "entry_low": 167.81,
+        "entry_high": 171.19,
+        "stop_loss": 161.03,
+        "target1": 177.97,
+        "target2": 186.45,
+        "target3": 194.92,
+        "advice": "推薦",
+        "hold_days": "3-5日",
+        "risk_reward": "1:1.5"
+      },
+      "entry_low": 167.81,
+      "entry_high": 171.19,
+      "stop_loss": 161.03,
+      "targets": {
+        "t1": 177.97,
+        "t2": 186.45,
+        "t3": 194.92,
+        "stop_loss": 161.03
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.0,
+        "dy": 0.0
+      },
+      "recommendation": "推薦"
+    },
+    {
+      "stock_id": "6517",
+      "name": "保勝光學股份有限公司",
+      "market": "TPEx",
+      "sector": "其他",
+      "close": 69.3,
+      "change_pct": 10.0,
+      "volume": 0.0,
+      "total_score": 60.88,
+      "dimensions": {
+        "technical": 31.88,
+        "fundamental": 20.0,
+        "news": 7.0,
+        "sentiment": 7.0,
+        "chips": 3.0
+      },
+      "signals": [
+        "技術面強勢突破",
+        "均線多頭排列",
+        "消息面題材發酵",
+        "市場情緒熱絡",
+        "強勢漲停鎖板"
+      ],
+      "strategy": {
+        "entry_low": 68.61,
+        "entry_high": 69.99,
+        "stop_loss": 65.83,
+        "target1": 72.77,
+        "target2": 76.23,
+        "target3": 79.69,
+        "advice": "推薦",
+        "hold_days": "3-5日",
+        "risk_reward": "1:1.5"
+      },
+      "entry_low": 68.61,
+      "entry_high": 69.99,
+      "stop_loss": 65.83,
+      "targets": {
+        "t1": 72.77,
+        "t2": 76.23,
+        "t3": 79.69,
+        "stop_loss": 65.83
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.0,
+        "dy": 0.0
+      },
+      "recommendation": "推薦"
+    },
+    {
+      "stock_id": "2221",
+      "name": "大甲永和機械工業股份有限公司",
+      "market": "TPEx",
+      "sector": "其他",
+      "close": 46.8,
+      "change_pct": 9.99,
+      "volume": 0.0,
+      "total_score": 60.79,
+      "dimensions": {
+        "technical": 31.8,
+        "fundamental": 20.0,
+        "news": 7.0,
+        "sentiment": 7.0,
+        "chips": 3.0
+      },
+      "signals": [
+        "技術面強勢突破",
+        "均線多頭排列",
+        "市場情緒熱絡",
+        "強勢漲停鎖板"
+      ],
+      "strategy": {
+        "entry_low": 46.33,
+        "entry_high": 47.27,
+        "stop_loss": 44.46,
+        "target1": 49.14,
+        "target2": 51.48,
+        "target3": 53.82,
+        "advice": "推薦",
+        "hold_days": "3-5日",
+        "risk_reward": "1:1.5"
+      },
+      "entry_low": 46.33,
+      "entry_high": 47.27,
+      "stop_loss": 44.46,
+      "targets": {
+        "t1": 49.14,
+        "t2": 51.48,
+        "t3": 53.82,
+        "stop_loss": 44.46
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.0,
+        "dy": 0.0
+      },
+      "recommendation": "推薦"
+    },
+    {
+      "stock_id": "6270",
+      "name": "倍微科技股份有限公司",
+      "market": "TPEx",
+      "sector": "其他",
+      "close": 32.6,
+      "change_pct": 9.95,
+      "volume": 0.0,
+      "total_score": 60.7,
+      "dimensions": {
+        "technical": 31.71,
+        "fundamental": 20.0,
+        "news": 6.99,
+        "sentiment": 7.0,
+        "chips": 3.0
+      },
+      "signals": [
+        "技術面強勢突破",
+        "均線多頭排列",
+        "市場情緒熱絡",
+        "強勢漲停鎖板"
+      ],
+      "strategy": {
+        "entry_low": 32.27,
+        "entry_high": 32.93,
+        "stop_loss": 30.97,
+        "target1": 34.23,
+        "target2": 35.86,
+        "target3": 37.49,
+        "advice": "推薦",
+        "hold_days": "3-5日",
+        "risk_reward": "1:1.5"
+      },
+      "entry_low": 32.27,
+      "entry_high": 32.93,
+      "stop_loss": 30.97,
+      "targets": {
+        "t1": 34.23,
+        "t2": 35.86,
+        "t3": 37.49,
+        "stop_loss": 30.97
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.0,
+        "dy": 0.0
+      },
+      "recommendation": "推薦"
+    }
+  ],
+  "explode_top5": [
+    {
+      "stock_id": "6841",
+      "name": "長佳智能股份有限公司",
+      "close": 60.7,
+      "volume": 0.0,
+      "change_pct": 4.48,
+      "explode_prob": 1.0
+    },
+    {
+      "stock_id": "3093",
+      "name": "台灣港建股份有限公司",
+      "close": 64.0,
+      "volume": 0.0,
+      "change_pct": 3.73,
+      "explode_prob": 1.0
+    },
+    {
+      "stock_id": "3221",
+      "name": "台灣嘉碩科技股份有限公司",
+      "close": 57.1,
+      "volume": 0.0,
+      "change_pct": 3.25,
+      "explode_prob": 1.0
+    },
+    {
+      "stock_id": "6021",
+      "name": "美好證券股份有限公司",
+      "close": 44.3,
+      "volume": 0.0,
+      "change_pct": 3.63,
+      "explode_prob": 1.0
+    },
+    {
+      "stock_id": "8936",
+      "name": "國統國際股份有限公司",
+      "close": 62.8,
+      "volume": 0.0,
+      "change_pct": 4.49,
+      "explode_prob": 1.0
+    }
+  ],
+  "market_summary": {
+    "avg_score": 24.63,
+    "bullish_count": 319,
+    "bearish_count": 495,
+    "flat_count": 61
+  }
+}

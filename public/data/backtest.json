@@ -1,578 +1,851 @@
 {
-  "last_updated": "2026-06-08T22:49:22.876080+08:00",
-  "model_version": "v2",
-  "summary": {
-    "total_recommendations": 87,
-    "win_rate_t1": 0.598,
-    "win_rate_t3": 0.624,
-    "win_rate_t5": 0.611,
-    "avg_return_t1": 0.021,
-    "avg_return_t3": 0.048,
-    "avg_return_t5": 0.062,
-    "power_combo_win_rate": 0.703,
-    "power_combo_avg_return_t3": 0.082
-  },
-  "recent_picks": [
+  "version": 2,
+  "records": [
     {
-      "date": "20260603",
-      "code": "4707",
-      "name": "磐亞",
-      "entry": 16.1,
-      "t1_return": null,
-      "t3_return": null,
-      "status": "pending"
+      "stock_id": "3332",
+      "name": "幸康電子股份有限公司",
+      "entry_date": "20260604",
+      "entry_price": 72.6,
+      "stop_loss": null,
+      "t1": {
+        "pct": 0.0,
+        "win": false
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      }
     },
     {
-      "date": "20260603",
-      "code": "6026",
-      "name": "福邦證",
-      "entry": 16.7,
-      "t1_return": null,
-      "t3_return": null,
-      "status": "pending"
+      "stock_id": "3093",
+      "name": "台灣港建股份有限公司",
+      "entry_date": "20260604",
+      "entry_price": 61.7,
+      "stop_loss": null,
+      "t1": {
+        "pct": 0.0,
+        "win": false
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      }
     },
     {
-      "date": "20260603",
-      "code": "5410",
-      "name": "國眾",
-      "entry": 42.8,
-      "t1_return": null,
-      "t3_return": null,
-      "status": "pending"
+      "stock_id": "4542",
+      "name": "科嶠工業股份有限公司",
+      "entry_date": "20260604",
+      "entry_price": 260.0,
+      "stop_loss": null,
+      "t1": {
+        "pct": 0.0,
+        "win": false
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      }
     },
     {
-      "date": "20260603",
-      "code": "6279",
-      "name": "胡連",
-      "entry": 185.0,
-      "t1_return": null,
-      "t3_return": null,
-      "status": "pending"
+      "stock_id": "6624",
+      "name": "萬年清環境工程股份有限公司",
+      "entry_date": "20260604",
+      "entry_price": 43.0,
+      "stop_loss": null,
+      "t1": {
+        "pct": 0.0,
+        "win": false
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      }
     },
     {
-      "date": "20260603",
-      "code": "3416",
-      "name": "融程電",
-      "entry": 178.5,
-      "t1_return": null,
-      "t3_return": null,
-      "status": "pending"
+      "stock_id": "6895",
+      "name": "宏碩系統股份有限公司",
+      "entry_date": "20260604",
+      "entry_price": 154.5,
+      "stop_loss": null,
+      "t1": {
+        "pct": 0.0,
+        "win": false
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      }
     },
     {
-      "date": "20260603",
-      "code": "3032",
-      "name": "偉訓",
-      "entry": 98.6,
-      "t1_return": null,
-      "t3_return": null,
-      "status": "pending"
+      "stock_id": "1455",
+      "name": "集盛",
+      "entry_date": "20260609",
+      "entry_price": 9.9,
+      "stop_loss": 9.5,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      }
     },
     {
-      "date": "20260603",
-      "code": "3537",
-      "name": "堡達",
-      "entry": 52.3,
-      "t1_return": null,
-      "t3_return": null,
-      "status": "pending"
+      "stock_id": "1449",
+      "name": "佳和",
+      "entry_date": "20260609",
+      "entry_price": 14.75,
+      "stop_loss": 14.15,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      }
     },
     {
-      "date": "20260603",
-      "code": "6206",
-      "name": "飛捷",
-      "entry": 128.5,
-      "t1_return": null,
-      "t3_return": null,
-      "status": "pending"
+      "stock_id": "1786",
+      "name": "科妍",
+      "entry_date": "20260609",
+      "entry_price": 59.99,
+      "stop_loss": 57.57,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      }
     },
     {
-      "date": "20260603",
-      "code": "3213",
-      "name": "茂訊",
-      "entry": 168.0,
-      "t1_return": null,
-      "t3_return": null,
-      "status": "pending"
+      "stock_id": "2483",
+      "name": "百容",
+      "entry_date": "20260609",
+      "entry_price": 33.12,
+      "stop_loss": 31.78,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      }
     },
     {
-      "date": "20260603",
-      "code": "2357",
-      "name": "華碩",
-      "entry": 639.0,
-      "t1_return": null,
-      "t3_return": null,
-      "status": "pending"
+      "stock_id": "6585",
+      "name": "鼎基",
+      "entry_date": "20260609",
+      "entry_price": 121.77,
+      "stop_loss": 116.85,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      }
+    },
+    {
+      "stock_id": "6153",
+      "name": "嘉聯益",
+      "entry_date": "20260609",
+      "entry_price": 20.15,
+      "stop_loss": 19.33,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      }
+    },
+    {
+      "stock_id": "6645",
+      "name": "金萬林-創",
+      "entry_date": "20260609",
+      "entry_price": 14.06,
+      "stop_loss": 13.49,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      }
+    },
+    {
+      "stock_id": "6901",
+      "name": "鑽石投資",
+      "entry_date": "20260609",
+      "entry_price": 15.54,
+      "stop_loss": 14.91,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      }
+    },
+    {
+      "stock_id": "2468",
+      "name": "華經",
+      "entry_date": "20260609",
+      "entry_price": 44.5,
+      "stop_loss": 42.7,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      }
+    },
+    {
+      "stock_id": "2241",
+      "name": "艾姆勒",
+      "entry_date": "20260609",
+      "entry_price": 38.51,
+      "stop_loss": 36.95,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      }
     }
   ],
   "grouped_records": [
     {
-      "scan_date": "2026-06-08",
+      "scan_date": "20260609",
       "periods": {
         "T1": {
           "label": "T+1",
-          "backtest_date": null,
+          "backtest_date": "",
           "win_rate": null,
           "avg_return": null,
           "pending": true,
-          "stocks": []
+          "stocks": [
+            {
+              "stock_id": "1455",
+              "name": "集盛",
+              "entry": 9.9,
+              "entry_price": 9.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
+            },
+            {
+              "stock_id": "1449",
+              "name": "佳和",
+              "entry": 14.75,
+              "entry_price": 14.75,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
+            },
+            {
+              "stock_id": "1786",
+              "name": "科妍",
+              "entry": 59.99,
+              "entry_price": 59.99,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
+            },
+            {
+              "stock_id": "2483",
+              "name": "百容",
+              "entry": 33.12,
+              "entry_price": 33.12,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
+            },
+            {
+              "stock_id": "6585",
+              "name": "鼎基",
+              "entry": 121.77,
+              "entry_price": 121.77,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
+            },
+            {
+              "stock_id": "6153",
+              "name": "嘉聯益",
+              "entry": 20.15,
+              "entry_price": 20.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
+            },
+            {
+              "stock_id": "6645",
+              "name": "金萬林-創",
+              "entry": 14.06,
+              "entry_price": 14.06,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
+            },
+            {
+              "stock_id": "6901",
+              "name": "鑽石投資",
+              "entry": 15.54,
+              "entry_price": 15.54,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
+            },
+            {
+              "stock_id": "2468",
+              "name": "華經",
+              "entry": 44.5,
+              "entry_price": 44.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
+            },
+            {
+              "stock_id": "2241",
+              "name": "艾姆勒",
+              "entry": 38.51,
+              "entry_price": 38.51,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
+            }
+          ]
         },
         "T3": {
           "label": "T+3",
-          "backtest_date": null,
+          "backtest_date": "",
           "win_rate": null,
           "avg_return": null,
           "pending": true,
-          "stocks": []
+          "stocks": [
+            {
+              "stock_id": "1455",
+              "name": "集盛",
+              "entry": 9.9,
+              "entry_price": 9.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
+            },
+            {
+              "stock_id": "1449",
+              "name": "佳和",
+              "entry": 14.75,
+              "entry_price": 14.75,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
+            },
+            {
+              "stock_id": "1786",
+              "name": "科妍",
+              "entry": 59.99,
+              "entry_price": 59.99,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
+            },
+            {
+              "stock_id": "2483",
+              "name": "百容",
+              "entry": 33.12,
+              "entry_price": 33.12,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
+            },
+            {
+              "stock_id": "6585",
+              "name": "鼎基",
+              "entry": 121.77,
+              "entry_price": 121.77,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
+            },
+            {
+              "stock_id": "6153",
+              "name": "嘉聯益",
+              "entry": 20.15,
+              "entry_price": 20.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
+            },
+            {
+              "stock_id": "6645",
+              "name": "金萬林-創",
+              "entry": 14.06,
+              "entry_price": 14.06,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
+            },
+            {
+              "stock_id": "6901",
+              "name": "鑽石投資",
+              "entry": 15.54,
+              "entry_price": 15.54,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
+            },
+            {
+              "stock_id": "2468",
+              "name": "華經",
+              "entry": 44.5,
+              "entry_price": 44.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
+            },
+            {
+              "stock_id": "2241",
+              "name": "艾姆勒",
+              "entry": 38.51,
+              "entry_price": 38.51,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
+            }
+          ]
         },
         "T5": {
           "label": "T+5",
-          "backtest_date": null,
+          "backtest_date": "",
           "win_rate": null,
           "avg_return": null,
           "pending": true,
-          "stocks": []
+          "stocks": [
+            {
+              "stock_id": "1455",
+              "name": "集盛",
+              "entry": 9.9,
+              "entry_price": 9.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
+            },
+            {
+              "stock_id": "1449",
+              "name": "佳和",
+              "entry": 14.75,
+              "entry_price": 14.75,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
+            },
+            {
+              "stock_id": "1786",
+              "name": "科妍",
+              "entry": 59.99,
+              "entry_price": 59.99,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
+            },
+            {
+              "stock_id": "2483",
+              "name": "百容",
+              "entry": 33.12,
+              "entry_price": 33.12,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
+            },
+            {
+              "stock_id": "6585",
+              "name": "鼎基",
+              "entry": 121.77,
+              "entry_price": 121.77,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
+            },
+            {
+              "stock_id": "6153",
+              "name": "嘉聯益",
+              "entry": 20.15,
+              "entry_price": 20.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
+            },
+            {
+              "stock_id": "6645",
+              "name": "金萬林-創",
+              "entry": 14.06,
+              "entry_price": 14.06,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
+            },
+            {
+              "stock_id": "6901",
+              "name": "鑽石投資",
+              "entry": 15.54,
+              "entry_price": 15.54,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
+            },
+            {
+              "stock_id": "2468",
+              "name": "華經",
+              "entry": 44.5,
+              "entry_price": 44.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
+            },
+            {
+              "stock_id": "2241",
+              "name": "艾姆勒",
+              "entry": 38.51,
+              "entry_price": 38.51,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
+            }
+          ]
         }
       }
     },
     {
-      "scan_date": "2026-06-06",
+      "scan_date": "20260604",
       "periods": {
         "T1": {
           "label": "T+1",
-          "backtest_date": null,
-          "win_rate": null,
-          "avg_return": null,
-          "pending": true,
-          "stocks": []
-        },
-        "T3": {
-          "label": "T+3",
-          "backtest_date": null,
-          "win_rate": null,
-          "avg_return": null,
-          "pending": true,
-          "stocks": []
-        },
-        "T5": {
-          "label": "T+5",
-          "backtest_date": null,
-          "win_rate": null,
-          "avg_return": null,
-          "pending": true,
-          "stocks": []
-        }
-      }
-    },
-    {
-      "scan_date": "2026-06-05",
-      "scan_date_display": "2026/06/04",
-      "periods": {
-        "T1": {
-          "label": "T+1",
+          "backtest_date": "",
+          "win_rate": 0.0,
+          "avg_return": 0.0,
           "pending": false,
-          "avg_return": null,
           "stocks": [
             {
-              "rank": 1,
-              "stock_id": "1708",
-              "name": "東鹼",
-              "sector": "21",
-              "close": 47.65,
-              "change_pct": 9.92,
-              "total_score": 100.0,
-              "entry": 48.36,
-              "stop_loss": 41.35,
-              "target1": 62.38,
-              "target2": 72.89,
-              "target3": 83.41
+              "stock_id": "3332",
+              "name": "幸康電子股份有限公司",
+              "entry": 72.6,
+              "entry_price": 72.6,
+              "close": 72.6,
+              "return_pct": 0.0,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
-              "rank": 2,
-              "stock_id": "1904",
-              "name": "正隆",
-              "sector": "09",
-              "close": 22.3,
-              "change_pct": 9.85,
-              "total_score": 98.0,
-              "entry": 22.63,
-              "stop_loss": 19.2,
-              "target1": 29.49,
-              "target2": 34.63,
-              "target3": 39.78
+              "stock_id": "3093",
+              "name": "台灣港建股份有限公司",
+              "entry": 61.7,
+              "entry_price": 61.7,
+              "close": 61.7,
+              "return_pct": 0.0,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
-              "rank": 3,
-              "stock_id": "3015",
-              "name": "全漢",
-              "sector": "28",
-              "close": 62.7,
-              "change_pct": 10.0,
-              "total_score": 98.0,
-              "entry": 63.64,
-              "stop_loss": 51.5,
-              "target1": 87.92,
-              "target2": 106.13,
-              "target3": 124.34
+              "stock_id": "4542",
+              "name": "科嶠工業股份有限公司",
+              "entry": 260.0,
+              "entry_price": 260.0,
+              "close": 260.0,
+              "return_pct": 0.0,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
-              "rank": 4,
-              "stock_id": "9958",
-              "name": "世紀鋼",
-              "sector": "10",
-              "close": 117.5,
-              "change_pct": 9.81,
-              "total_score": 97.0,
-              "entry": 119.26,
-              "stop_loss": 95.5,
-              "target1": 166.78,
-              "target2": 202.42,
-              "target3": 238.06
+              "stock_id": "6624",
+              "name": "萬年清環境工程股份有限公司",
+              "entry": 43.0,
+              "entry_price": 43.0,
+              "close": 43.0,
+              "return_pct": 0.0,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
-              "rank": 5,
-              "stock_id": "1905",
-              "name": "華紙",
-              "sector": "09",
-              "close": 14.0,
-              "change_pct": 9.8,
-              "total_score": 96.0,
-              "entry": 14.21,
-              "stop_loss": 11.5,
-              "target1": 19.63,
-              "target2": 23.7,
-              "target3": 27.76
+              "stock_id": "6895",
+              "name": "宏碩系統股份有限公司",
+              "entry": 154.5,
+              "entry_price": 154.5,
+              "close": 154.5,
+              "return_pct": 0.0,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
             }
-          ],
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": "",
           "win_rate": null,
-          "backtest_date": "2026-06-08"
-        },
-        "T3": {
-          "label": "T+3",
-          "pending": true,
           "avg_return": null,
+          "pending": true,
           "stocks": [
             {
-              "rank": 1,
-              "stock_id": "1708",
-              "name": "東鹼",
-              "sector": "21",
-              "close": 47.65,
-              "change_pct": 9.92,
-              "total_score": 100.0,
-              "entry": 48.36,
-              "stop_loss": 41.35,
-              "target1": 62.38,
-              "target2": 72.89,
-              "target3": 83.41
+              "stock_id": "3332",
+              "name": "幸康電子股份有限公司",
+              "entry": 72.6,
+              "entry_price": 72.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
             },
             {
-              "rank": 2,
-              "stock_id": "1904",
-              "name": "正隆",
-              "sector": "09",
-              "close": 22.3,
-              "change_pct": 9.85,
-              "total_score": 98.0,
-              "entry": 22.63,
-              "stop_loss": 19.2,
-              "target1": 29.49,
-              "target2": 34.63,
-              "target3": 39.78
+              "stock_id": "3093",
+              "name": "台灣港建股份有限公司",
+              "entry": 61.7,
+              "entry_price": 61.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
             },
             {
-              "rank": 3,
-              "stock_id": "3015",
-              "name": "全漢",
-              "sector": "28",
-              "close": 62.7,
-              "change_pct": 10.0,
-              "total_score": 98.0,
-              "entry": 63.64,
-              "stop_loss": 51.5,
-              "target1": 87.92,
-              "target2": 106.13,
-              "target3": 124.34
+              "stock_id": "4542",
+              "name": "科嶠工業股份有限公司",
+              "entry": 260.0,
+              "entry_price": 260.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
             },
             {
-              "rank": 4,
-              "stock_id": "9958",
-              "name": "世紀鋼",
-              "sector": "10",
-              "close": 117.5,
-              "change_pct": 9.81,
-              "total_score": 97.0,
-              "entry": 119.26,
-              "stop_loss": 95.5,
-              "target1": 166.78,
-              "target2": 202.42,
-              "target3": 238.06
+              "stock_id": "6624",
+              "name": "萬年清環境工程股份有限公司",
+              "entry": 43.0,
+              "entry_price": 43.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
             },
             {
-              "rank": 5,
-              "stock_id": "1905",
-              "name": "華紙",
-              "sector": "09",
-              "close": 14.0,
-              "change_pct": 9.8,
-              "total_score": 96.0,
-              "entry": 14.21,
-              "stop_loss": 11.5,
-              "target1": 19.63,
-              "target2": 23.7,
-              "target3": 27.76
+              "stock_id": "6895",
+              "name": "宏碩系統股份有限公司",
+              "entry": 154.5,
+              "entry_price": 154.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
             }
           ]
         },
         "T5": {
           "label": "T+5",
-          "pending": true,
+          "backtest_date": "",
+          "win_rate": null,
           "avg_return": null,
+          "pending": true,
           "stocks": [
             {
-              "rank": 1,
-              "stock_id": "1708",
-              "name": "東鹼",
-              "sector": "21",
-              "close": 47.65,
-              "change_pct": 9.92,
-              "total_score": 100.0,
-              "entry": 48.36,
-              "stop_loss": 41.35,
-              "target1": 62.38,
-              "target2": 72.89,
-              "target3": 83.41
+              "stock_id": "3332",
+              "name": "幸康電子股份有限公司",
+              "entry": 72.6,
+              "entry_price": 72.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
             },
             {
-              "rank": 2,
-              "stock_id": "1904",
-              "name": "正隆",
-              "sector": "09",
-              "close": 22.3,
-              "change_pct": 9.85,
-              "total_score": 98.0,
-              "entry": 22.63,
-              "stop_loss": 19.2,
-              "target1": 29.49,
-              "target2": 34.63,
-              "target3": 39.78
+              "stock_id": "3093",
+              "name": "台灣港建股份有限公司",
+              "entry": 61.7,
+              "entry_price": 61.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
             },
             {
-              "rank": 3,
-              "stock_id": "3015",
-              "name": "全漢",
-              "sector": "28",
-              "close": 62.7,
-              "change_pct": 10.0,
-              "total_score": 98.0,
-              "entry": 63.64,
-              "stop_loss": 51.5,
-              "target1": 87.92,
-              "target2": 106.13,
-              "target3": 124.34
+              "stock_id": "4542",
+              "name": "科嶠工業股份有限公司",
+              "entry": 260.0,
+              "entry_price": 260.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
             },
             {
-              "rank": 4,
-              "stock_id": "9958",
-              "name": "世紀鋼",
-              "sector": "10",
-              "close": 117.5,
-              "change_pct": 9.81,
-              "total_score": 97.0,
-              "entry": 119.26,
-              "stop_loss": 95.5,
-              "target1": 166.78,
-              "target2": 202.42,
-              "target3": 238.06
+              "stock_id": "6624",
+              "name": "萬年清環境工程股份有限公司",
+              "entry": 43.0,
+              "entry_price": 43.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
             },
             {
-              "rank": 5,
-              "stock_id": "1905",
-              "name": "華紙",
-              "sector": "09",
-              "close": 14.0,
-              "change_pct": 9.8,
-              "total_score": 96.0,
-              "entry": 14.21,
-              "stop_loss": 11.5,
-              "target1": 19.63,
-              "target2": 23.7,
-              "target3": 27.76
+              "stock_id": "6895",
+              "name": "宏碩系統股份有限公司",
+              "entry": 154.5,
+              "entry_price": 154.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": true
             }
           ]
         }
       }
-    },
-    {
-      "scan_date": "",
-      "scan_date_display": "",
-      "periods": {
-        "T1": {
-          "label": "T+1",
-          "pending": true,
-          "avg_return": null,
-          "stocks": []
-        },
-        "T3": {
-          "label": "T+3",
-          "pending": true,
-          "avg_return": null,
-          "stocks": []
-        },
-        "T5": {
-          "label": "T+5",
-          "pending": true,
-          "avg_return": null,
-          "stocks": []
-        }
-      }
     }
-  ],
-  "version": 2,
-  "history": [
-    {
-      "date": "2026/06/08",
-      "results": {}
-    },
-    {
-      "date": "2026/06/06",
-      "results": {}
-    },
-    {
-      "date": "2026/06/04",
-      "results": {}
-    }
-  ],
-  "records": [
-    {
-      "date": "20260604",
-      "stock_id": "3332",
-      "name": "幸康電子股份有限公司",
-      "prev_close": 72.6,
-      "today_close": 72.6,
-      "t1_return_pct": 0.0,
-      "hit_t1": false,
-      "hit_stop": false
-    },
-    {
-      "date": "20260604",
-      "stock_id": "3093",
-      "name": "台灣港建股份有限公司",
-      "prev_close": 61.7,
-      "today_close": 61.7,
-      "t1_return_pct": 0.0,
-      "hit_t1": false,
-      "hit_stop": false
-    },
-    {
-      "date": "20260604",
-      "stock_id": "4542",
-      "name": "科嶠工業股份有限公司",
-      "prev_close": 260.0,
-      "today_close": 260.0,
-      "t1_return_pct": 0.0,
-      "hit_t1": false,
-      "hit_stop": false
-    },
-    {
-      "date": "20260604",
-      "stock_id": "6624",
-      "name": "萬年清環境工程股份有限公司",
-      "prev_close": 43.0,
-      "today_close": 43.0,
-      "t1_return_pct": 0.0,
-      "hit_t1": false,
-      "hit_stop": false
-    },
-    {
-      "date": "20260604",
-      "stock_id": "6895",
-      "name": "宏碩系統股份有限公司",
-      "prev_close": 154.5,
-      "today_close": 154.5,
-      "t1_return_pct": 0.0,
-      "hit_t1": false,
-      "hit_stop": false
-    },
-    {
-      "scan_date": "2026-06-05",
-      "scan_date_display": "2026/06/04",
-      "stocks": [
-        {
-          "rank": 1,
-          "stock_id": "1708",
-          "name": "東鹼",
-          "sector": "21",
-          "close": 47.65,
-          "change_pct": 9.92,
-          "total_score": 100.0,
-          "entry": 48.36,
-          "stop_loss": 41.35,
-          "target1": 62.38,
-          "target2": 72.89,
-          "target3": 83.41
-        },
-        {
-          "rank": 2,
-          "stock_id": "1904",
-          "name": "正隆",
-          "sector": "09",
-          "close": 22.3,
-          "change_pct": 9.85,
-          "total_score": 98.0,
-          "entry": 22.63,
-          "stop_loss": 19.2,
-          "target1": 29.49,
-          "target2": 34.63,
-          "target3": 39.78
-        },
-        {
-          "rank": 3,
-          "stock_id": "3015",
-          "name": "全漢",
-          "sector": "28",
-          "close": 62.7,
-          "change_pct": 10.0,
-          "total_score": 98.0,
-          "entry": 63.64,
-          "stop_loss": 51.5,
-          "target1": 87.92,
-          "target2": 106.13,
-          "target3": 124.34
-        },
-        {
-          "rank": 4,
-          "stock_id": "9958",
-          "name": "世紀鋼",
-          "sector": "10",
-          "close": 117.5,
-          "change_pct": 9.81,
-          "total_score": 97.0,
-          "entry": 119.26,
-          "stop_loss": 95.5,
-          "target1": 166.78,
-          "target2": 202.42,
-          "target3": 238.06
-        },
-        {
-          "rank": 5,
-          "stock_id": "1905",
-          "name": "華紙",
-          "sector": "09",
-          "close": 14.0,
-          "change_pct": 9.8,
-          "total_score": 96.0,
-          "entry": 14.21,
-          "stop_loss": 11.5,
-          "target1": 19.63,
-          "target2": 23.7,
-          "target3": 27.76
-        }
-      ],
-      "t1_return": null,
-      "t3_return": null,
-      "t5_return": null,
-      "pending": true
-    }
-  ],
-  "updated_at": "2026-06-05T11:11:59.966044+08:00"
+  ]
 }

@@ -17,16 +17,15 @@ jobs:
     timeout-minutes: 30
     permissions:
       contents: write
-      actions: write
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
@@ -53,15 +52,4 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add public/data/all_scores.json
           git diff --staged --quiet || git commit -m "data: full scan update all_scores.json $(date '+%Y-%m-%d %H:%M CST')"
-          git pull --rebase origin main && git push
-
-      - name: Trigger deploy
-        uses: actions/github-script@v9
-        with:
-          script: |
-            await github.rest.actions.createWorkflowDispatch({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              workflow_id: 'deploy.yml',
-              ref: 'main'
-            });
+          git push
