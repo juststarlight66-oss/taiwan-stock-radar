@@ -1,20 +1,33 @@
 {
   "scan_type": "intraday_daytrade",
+<<<<<<< Updated upstream
   "scanned_at": "2026-06-09 13:01:30",
   "stocks": [
     {
       "stock_id": "2881",
       "name": "富邦金",
+=======
+  "scanned_at": "2026-06-09 13:01:58",
+  "stocks": [
+    {
+      "stock_id": "2313",
+      "name": "華通",
+>>>>>>> Stashed changes
       "sector": "",
       "score": 100.0,
       "details": {
         "momentum": "極強",
+<<<<<<< Updated upstream
         "rsi": 91.3,
+=======
+        "rsi": 91.7,
+>>>>>>> Stashed changes
         "ma5_status": "強勢突破",
         "vol_ratio": "爆發",
         "breakout": "創新高"
       },
       "total_score": 100.0,
+<<<<<<< Updated upstream
       "entry": 125.5,
       "target": 135.54,
       "stop_loss": 119.22,
@@ -22,11 +35,21 @@
       "dimensions": {
         "momentum": "極強",
         "rsi": 91.3,
+=======
+      "entry": 275.0,
+      "target": 297.0,
+      "stop_loss": 261.25,
+      "change_pct": 9.13,
+      "dimensions": {
+        "momentum": "極強",
+        "rsi": 91.7,
+>>>>>>> Stashed changes
         "ma5_status": "強勢突破",
         "vol_ratio": "爆發",
         "breakout": "創新高"
       },
       "live": {
+<<<<<<< Updated upstream
         "current": 125.5,
         "open": 115.0,
         "high": 126.5,
@@ -35,23 +58,43 @@
         "volume": 72870,
         "change_pct": 8.19,
         "time": "13:02:16",
+=======
+        "current": 275.0,
+        "open": 258.0,
+        "high": 277.0,
+        "low": 253.0,
+        "prev_close": 252.0,
+        "volume": 66788,
+        "change_pct": 9.13,
+        "time": "13:02:30",
+>>>>>>> Stashed changes
         "date": "20260609",
         "source": "tse"
       }
     },
     {
+<<<<<<< Updated upstream
       "stock_id": "2882",
       "name": "國泰金",
+=======
+      "stock_id": "3535",
+      "name": "晶彩科",
+>>>>>>> Stashed changes
       "sector": "",
       "score": 100.0,
       "details": {
         "momentum": "極強",
+<<<<<<< Updated upstream
         "rsi": 88.5,
+=======
+        "rsi": 91.3,
+>>>>>>> Stashed changes
         "ma5_status": "強勢突破",
         "vol_ratio": "爆發",
         "breakout": "創新高"
       },
       "total_score": 100.0,
+<<<<<<< Updated upstream
       "entry": 103.0,
       "target": 111.24,
       "stop_loss": 97.85,
@@ -59,11 +102,21 @@
       "dimensions": {
         "momentum": "極強",
         "rsi": 88.5,
+=======
+      "entry": 134.0,
+      "target": 144.72,
+      "stop_loss": 127.3,
+      "change_pct": 8.94,
+      "dimensions": {
+        "momentum": "極強",
+        "rsi": 91.3,
+>>>>>>> Stashed changes
         "ma5_status": "強勢突破",
         "vol_ratio": "爆發",
         "breakout": "創新高"
       },
       "live": {
+<<<<<<< Updated upstream
         "current": 103.0,
         "open": 95.3,
         "high": 104.0,
@@ -72,23 +125,43 @@
         "volume": 43578,
         "change_pct": 8.42,
         "time": "13:02:21",
+=======
+        "current": 134.0,
+        "open": 126.0,
+        "high": 135.0,
+        "low": 123.5,
+        "prev_close": 123.0,
+        "volume": 1210,
+        "change_pct": 8.94,
+        "time": "13:02:33",
+>>>>>>> Stashed changes
         "date": "20260609",
         "source": "tse"
       }
     },
     {
+<<<<<<< Updated upstream
       "stock_id": "3535",
       "name": "晶彩科",
+=======
+      "stock_id": "6742",
+      "name": "澤米",
+>>>>>>> Stashed changes
       "sector": "",
       "score": 100.0,
       "details": {
         "momentum": "極強",
+<<<<<<< Updated upstream
         "rsi": 91.3,
+=======
+        "rsi": 92.9,
+>>>>>>> Stashed changes
         "ma5_status": "強勢突破",
         "vol_ratio": "爆發",
         "breakout": "創新高"
       },
       "total_score": 100.0,
+<<<<<<< Updated upstream
       "entry": 134.0,
       "target": 144.72,
       "stop_loss": 127.3,
@@ -96,11 +169,21 @@
       "dimensions": {
         "momentum": "極強",
         "rsi": 91.3,
+=======
+      "entry": 58.9,
+      "target": 63.61,
+      "stop_loss": 55.95,
+      "change_pct": 8.07,
+      "dimensions": {
+        "momentum": "極強",
+        "rsi": 92.9,
+>>>>>>> Stashed changes
         "ma5_status": "強勢突破",
         "vol_ratio": "爆發",
         "breakout": "創新高"
       },
       "live": {
+<<<<<<< Updated upstream
         "current": 134.0,
         "open": 126.0,
         "high": 135.0,
@@ -109,11 +192,61 @@
         "volume": 1210,
         "change_pct": 8.94,
         "time": "13:02:18",
+=======
+        "current": 58.9,
+        "open": 55.2,
+        "high": 59.5,
+        "low": 51.0,
+        "prev_close": 54.5,
+        "volume": 2286,
+        "change_pct": 8.07,
+        "time": "13:02:33",
+>>>>>>> Stashed changes
         "date": "20260609",
         "source": "tse"
       }
     },
     {
+<<<<<<< Updated upstream
+=======
+      "stock_id": "8046",
+      "name": "南電",
+      "sector": "",
+      "score": 100.0,
+      "details": {
+        "momentum": "極強",
+        "rsi": 97.1,
+        "ma5_status": "強勢突破",
+        "vol_ratio": "爆發",
+        "breakout": "創新高"
+      },
+      "total_score": 100.0,
+      "entry": 908.0,
+      "target": 980.64,
+      "stop_loss": 862.6,
+      "change_pct": 9.27,
+      "dimensions": {
+        "momentum": "極強",
+        "rsi": 97.1,
+        "ma5_status": "強勢突破",
+        "vol_ratio": "爆發",
+        "breakout": "創新高"
+      },
+      "live": {
+        "current": 908.0,
+        "open": 852.0,
+        "high": 910.0,
+        "low": 842.0,
+        "prev_close": 831.0,
+        "volume": 15044,
+        "change_pct": 9.27,
+        "time": "13:02:42",
+        "date": "20260609",
+        "source": "tse"
+      }
+    },
+    {
+>>>>>>> Stashed changes
       "stock_id": "1568",
       "name": "倉佑",
       "sector": "",
@@ -147,6 +280,7 @@
         "change_pct": 6.46,
         "time": "13:02:05",
         "date": "20260609",
+<<<<<<< Updated upstream
         "source": "tse"
       }
     },
@@ -184,6 +318,8 @@
         "change_pct": 6.49,
         "time": "13:02:14",
         "date": "20260609",
+=======
+>>>>>>> Stashed changes
         "source": "tse"
       }
     }
