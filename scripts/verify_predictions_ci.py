@@ -83,8 +83,8 @@ def fetch_historical_prices(symbol: str, start_date: datetime, end_date: datetim
         print(f"  [WARN] {symbol} yfinance fail: {e}")
 
     # Fallback: TWSE official API - fetch monthly data covering the period
+    print(f"  [INFO] {symbol} yfinance empty, trying TWSE fallback ...")
     try:
-        import io
         rows_all = []
         # Collect all months in range
         current = start_date.replace(day=1)
@@ -94,9 +94,12 @@ def fetch_historical_prices(symbol: str, start_date: datetime, end_date: datetim
             headers = {"User-Agent": "Mozilla/5.0 (compatible; verify-bot/1.0)"}
             try:
                 r = requests.get(url, headers=headers, timeout=15)
+                print(f"  [DEBUG] TWSE API {symbol} {date_str}: HTTP {r.status_code}")
                 if r.status_code == 200:
                     jd = r.json()
-                    for row in jd.get("data", []):
+                    rows = jd.get("data", [])
+                    print(f"  [DEBUG] TWSE data rows for {symbol}: {len(rows)}")
+                    for row in rows:
                         # Parse date "115/06/09" (ROC) -> convert to Gregorian
                         parts = row[0].split("/")
                         if len(parts) == 3:
@@ -105,8 +108,8 @@ def fetch_historical_prices(symbol: str, start_date: datetime, end_date: datetim
                             if start_date <= dt <= end_date + timedelta(days=1):
                                 close = float(row[6].replace(",", ""))
                                 rows_all.append({"Date": dt, "Close": close})
-            except Exception:
-                pass
+            except Exception as inner_e:
+                print(f"  [WARN] TWSE request error for {symbol}: {inner_e}")
             # next month
             if current.month == 12:
                 current = current.replace(year=current.year + 1, month=1)
@@ -117,6 +120,8 @@ def fetch_historical_prices(symbol: str, start_date: datetime, end_date: datetim
             df_fallback = pd.DataFrame(rows_all).set_index("Date").sort_index()
             print(f"  [INFO] {symbol} TWSE fallback: {len(df_fallback)} rows")
             return df_fallback
+        else:
+            print(f"  [WARN] {symbol} TWSE fallback: 0 rows in date range")
     except Exception as e:
         print(f"  [WARN] {symbol} TWSE fallback fail: {e}")
 
