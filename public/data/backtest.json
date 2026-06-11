@@ -947,9 +947,69 @@
           "stocks": []
         }
       }
+    },
+    {
+      "verify_date": "20260611",
+      "recommend_date": "20260610",
+      "records": [
+        {
+          "stock_id": "2505",
+          "name": "國揚",
+          "recommend_date": "20260610",
+          "verify_date": "20260611",
+          "entry_price": 19.45,
+          "exit_price": null,
+          "return_pct": null,
+          "status": "no_data"
+        },
+        {
+          "stock_id": "1618",
+          "name": "合機",
+          "recommend_date": "20260610",
+          "verify_date": "20260611",
+          "entry_price": 44.9,
+          "exit_price": null,
+          "return_pct": null,
+          "status": "no_data"
+        },
+        {
+          "stock_id": "2414",
+          "name": "精技",
+          "recommend_date": "20260610",
+          "verify_date": "20260611",
+          "entry_price": 56.9,
+          "exit_price": null,
+          "return_pct": null,
+          "status": "no_data"
+        },
+        {
+          "stock_id": "2642",
+          "name": "宅配通",
+          "recommend_date": "20260610",
+          "verify_date": "20260611",
+          "entry_price": 22.3,
+          "exit_price": null,
+          "return_pct": null,
+          "status": "no_data"
+        },
+        {
+          "stock_id": "6916",
+          "name": "華凌",
+          "recommend_date": "20260610",
+          "verify_date": "20260611",
+          "entry_price": 20.6,
+          "exit_price": null,
+          "return_pct": null,
+          "status": "no_data"
+        }
+      ],
+      "avg_return_pct": null,
+      "valid_count": 0,
+      "hit_count": 0,
+      "note": "TWSE API unavailable post-market; prices pending next trading session"
     }
   ],
-  "updated_at": "2026-06-10T03:08:01.803994",
+  "updated_at": "2026-06-11T11:07:45.876488+08:00",
   "latest_date": "20260610",
   "history": [
     {

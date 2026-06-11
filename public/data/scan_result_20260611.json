@@ -1,7 +1,329 @@
 {
   "scan_date": "20260611",
   "scanned_count": 870,
-  "stocks": [
+  "top_stocks": [
+    {
+      "stock_id": "6169",
+      "name": "昱泉國際股份有限公司",
+      "market": "TPEx",
+      "close": 15.5,
+      "change_pct": 9.93,
+      "volume": 0.0,
+      "scores": {
+        "technical": 80.0,
+        "chips": 30.0,
+        "fundamental": 50.0,
+        "news": 69.86,
+        "sentiment": 70.0,
+        "total": 60.99
+      },
+      "total_score": 60.99,
+      "recommendation": "推薦",
+      "entry_low": 15.35,
+      "entry_high": 15.65,
+      "stop_loss": 14.72,
+      "targets": {
+        "t1": 16.28,
+        "t2": 17.05,
+        "t3": 17.82,
+        "stop_loss": 14.72
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.0,
+        "dy": 0.0
+      }
+    },
+    {
+      "stock_id": "8444",
+      "name": "綠河股份有限公司",
+      "market": "TPEx",
+      "close": 4.97,
+      "change_pct": 9.96,
+      "volume": 0.0,
+      "scores": {
+        "technical": 80.0,
+        "chips": 30.0,
+        "fundamental": 50.0,
+        "news": 69.92,
+        "sentiment": 70.0,
+        "total": 60.99
+      },
+      "total_score": 60.99,
+      "recommendation": "推薦",
+      "entry_low": 4.92,
+      "entry_high": 5.02,
+      "stop_loss": 4.72,
+      "targets": {
+        "t1": 5.22,
+        "t2": 5.47,
+        "t3": 5.72,
+        "stop_loss": 4.72
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.0,
+        "dy": 0.0
+      }
+    },
+    {
+      "stock_id": "3083",
+      "name": "中華網龍股份有限公司",
+      "market": "TPEx",
+      "close": 30.55,
+      "change_pct": 9.89,
+      "volume": 0.0,
+      "scores": {
+        "technical": 80.0,
+        "chips": 30.0,
+        "fundamental": 50.0,
+        "news": 69.78,
+        "sentiment": 70.0,
+        "total": 60.98
+      },
+      "total_score": 60.98,
+      "recommendation": "推薦",
+      "entry_low": 30.24,
+      "entry_high": 30.86,
+      "stop_loss": 29.02,
+      "targets": {
+        "t1": 32.08,
+        "t2": 33.61,
+        "t3": 35.13,
+        "stop_loss": 29.02
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.0,
+        "dy": 0.0
+      }
+    },
+    {
+      "stock_id": "8906",
+      "name": "花王企業股份有限公司",
+      "market": "TPEx",
+      "close": 26.1,
+      "change_pct": 9.89,
+      "volume": 0.0,
+      "scores": {
+        "technical": 80.0,
+        "chips": 30.0,
+        "fundamental": 50.0,
+        "news": 69.78,
+        "sentiment": 70.0,
+        "total": 60.98
+      },
+      "total_score": 60.98,
+      "recommendation": "推薦",
+      "entry_low": 25.84,
+      "entry_high": 26.36,
+      "stop_loss": 24.8,
+      "targets": {
+        "t1": 27.41,
+        "t2": 28.71,
+        "t3": 30.02,
+        "stop_loss": 24.8
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.0,
+        "dy": 0.0
+      }
+    },
+    {
+      "stock_id": "7717",
+      "name": "英屬開曼群島商萊德光電(股)公司",
+      "market": "TPEx",
+      "close": 654.0,
+      "change_pct": 9.92,
+      "volume": 0.0,
+      "scores": {
+        "technical": 79.86486486486487,
+        "chips": 30.0,
+        "fundamental": 50.0,
+        "news": 69.84,
+        "sentiment": 70.0,
+        "total": 60.93
+      },
+      "total_score": 60.93,
+      "recommendation": "推薦",
+      "entry_low": 647.46,
+      "entry_high": 660.54,
+      "stop_loss": 621.3,
+      "targets": {
+        "t1": 686.7,
+        "t2": 719.4,
+        "t3": 752.1,
+        "stop_loss": 621.3
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.0,
+        "dy": 0.0
+      }
+    },
+    {
+      "stock_id": "4946",
+      "name": "紅心辣椒娛樂科技股份有限公司",
+      "market": "TPEx",
+      "close": 114.0,
+      "change_pct": 9.62,
+      "volume": 0.0,
+      "scores": {
+        "technical": 80.0,
+        "chips": 30.0,
+        "fundamental": 50.0,
+        "news": 69.24,
+        "sentiment": 70.0,
+        "total": 60.92
+      },
+      "total_score": 60.92,
+      "recommendation": "推薦",
+      "entry_low": 112.86,
+      "entry_high": 115.14,
+      "stop_loss": 108.3,
+      "targets": {
+        "t1": 119.7,
+        "t2": 125.4,
+        "t3": 131.1,
+        "stop_loss": 108.3
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.0,
+        "dy": 0.0
+      }
+    },
+    {
+      "stock_id": "6244",
+      "name": "茂迪股份有限公司",
+      "market": "TPEx",
+      "close": 31.2,
+      "change_pct": 9.86,
+      "volume": 0.0,
+      "scores": {
+        "technical": 79.84126984126983,
+        "chips": 30.0,
+        "fundamental": 50.0,
+        "news": 69.72,
+        "sentiment": 70.0,
+        "total": 60.91
+      },
+      "total_score": 60.91,
+      "recommendation": "推薦",
+      "entry_low": 30.89,
+      "entry_high": 31.51,
+      "stop_loss": 29.64,
+      "targets": {
+        "t1": 32.76,
+        "t2": 34.32,
+        "t3": 35.88,
+        "stop_loss": 29.64
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.0,
+        "dy": 0.0
+      }
+    },
+    {
+      "stock_id": "4113",
+      "name": "聯上實業股份有限公司",
+      "market": "TPEx",
+      "close": 16.5,
+      "change_pct": 10.0,
+      "volume": 0.0,
+      "scores": {
+        "technical": 79.6875,
+        "chips": 30.0,
+        "fundamental": 50.0,
+        "news": 70.0,
+        "sentiment": 70.0,
+        "total": 60.88
+      },
+      "total_score": 60.88,
+      "recommendation": "推薦",
+      "entry_low": 16.34,
+      "entry_high": 16.66,
+      "stop_loss": 15.67,
+      "targets": {
+        "t1": 17.32,
+        "t2": 18.15,
+        "t3": 18.97,
+        "stop_loss": 15.67
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.0,
+        "dy": 0.0
+      }
+    },
+    {
+      "stock_id": "6207",
+      "name": "雷科股份有限公司",
+      "market": "TPEx",
+      "close": 134.5,
+      "change_pct": 9.8,
+      "volume": 0.0,
+      "scores": {
+        "technical": 79.5,
+        "chips": 30.0,
+        "fundamental": 50.0,
+        "news": 69.6,
+        "sentiment": 70.0,
+        "total": 60.76
+      },
+      "total_score": 60.76,
+      "recommendation": "推薦",
+      "entry_low": 133.16,
+      "entry_high": 135.84,
+      "stop_loss": 127.77,
+      "targets": {
+        "t1": 141.22,
+        "t2": 147.95,
+        "t3": 154.67,
+        "stop_loss": 127.77
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.0,
+        "dy": 0.0
+      }
+    },
+    {
+      "stock_id": "3152",
+      "name": "璟德電子工業股份有限公司",
+      "market": "TPEx",
+      "close": 206.5,
+      "change_pct": 9.84,
+      "volume": 0.0,
+      "scores": {
+        "technical": 79.42857142857143,
+        "chips": 30.0,
+        "fundamental": 50.0,
+        "news": 69.68,
+        "sentiment": 70.0,
+        "total": 60.74
+      },
+      "total_score": 60.74,
+      "recommendation": "推薦",
+      "entry_low": 204.44,
+      "entry_high": 208.56,
+      "stop_loss": 196.17,
+      "targets": {
+        "t1": 216.83,
+        "t2": 227.15,
+        "t3": 237.47,
+        "stop_loss": 196.17
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.0,
+        "dy": 0.0
+      }
+    }
+  ],
+  "all_stock_scores": [
     {
       "stock_id": "6169",
       "name": "昱泉國際股份有限公司",
@@ -27843,5 +28165,106 @@
       }
     }
   ],
-  "generated_at": "2026-06-11T11:07:45.876488+08:00"
+  "explode_top5": [
+    {
+      "stock_id": "2756",
+      "name": "聯發國際餐飲事業股份有限公司",
+      "close": 61.7,
+      "volume": 0.0,
+      "change_pct": 2.83,
+      "explode_prob": 1.0
+    },
+    {
+      "stock_id": "6870",
+      "name": "騰雲科技服務股份有限公司",
+      "close": 313.5,
+      "volume": 0.0,
+      "change_pct": 3.98,
+      "explode_prob": 1.0
+    },
+    {
+      "stock_id": "6195",
+      "name": "詩肯股份有限公司",
+      "close": 27.0,
+      "volume": 0.0,
+      "change_pct": 3.45,
+      "explode_prob": 1.0
+    },
+    {
+      "stock_id": "7715",
+      "name": "裕山環境工程股份有限公司",
+      "close": 28.7,
+      "volume": 0.0,
+      "change_pct": 4.36,
+      "explode_prob": 1.0
+    },
+    {
+      "stock_id": "5468",
+      "name": "凱鈺科技股份有限公司",
+      "close": 18.0,
+      "volume": 0.0,
+      "change_pct": 4.65,
+      "explode_prob": 1.0
+    }
+  ],
+  "generated_at": "2026-06-11T11:06:06.464737+08:00",
+  "backtest": {
+    "verify_date": "20260611",
+    "recommend_date": "20260610",
+    "records": [
+      {
+        "stock_id": "2505",
+        "name": "國揚",
+        "recommend_date": "20260610",
+        "verify_date": "20260611",
+        "entry_price": 19.45,
+        "exit_price": null,
+        "return_pct": null,
+        "status": "no_data"
+      },
+      {
+        "stock_id": "1618",
+        "name": "合機",
+        "recommend_date": "20260610",
+        "verify_date": "20260611",
+        "entry_price": 44.9,
+        "exit_price": null,
+        "return_pct": null,
+        "status": "no_data"
+      },
+      {
+        "stock_id": "2414",
+        "name": "精技",
+        "recommend_date": "20260610",
+        "verify_date": "20260611",
+        "entry_price": 56.9,
+        "exit_price": null,
+        "return_pct": null,
+        "status": "no_data"
+      },
+      {
+        "stock_id": "2642",
+        "name": "宅配通",
+        "recommend_date": "20260610",
+        "verify_date": "20260611",
+        "entry_price": 22.3,
+        "exit_price": null,
+        "return_pct": null,
+        "status": "no_data"
+      },
+      {
+        "stock_id": "6916",
+        "name": "華凌",
+        "recommend_date": "20260610",
+        "verify_date": "20260611",
+        "entry_price": 20.6,
+        "exit_price": null,
+        "return_pct": null,
+        "status": "no_data"
+      }
+    ],
+    "avg_return_pct": null,
+    "valid_count": 0,
+    "hit_count": 0
+  }
 }
