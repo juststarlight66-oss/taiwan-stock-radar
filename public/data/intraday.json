@@ -1,5 +1,6 @@
 {
   "scan_type": "intraday_daytrade",
+<<<<<<< Updated upstream
   "scanned_at": "2026-06-11 13:01:21",
   "stocks": [
     {
@@ -116,15 +117,28 @@
     {
       "stock_id": "7722",
       "name": "LINEPAY",
+=======
+  "scanned_at": "2026-06-11 13:01:36",
+  "stocks": [
+    {
+      "stock_id": "4952",
+      "name": "凌通",
+>>>>>>> Stashed changes
       "sector": "",
-      "score": 90.0,
+      "score": 100.0,
       "details": {
+<<<<<<< Updated upstream
         "momentum": "強勢",
         "rsi": 72.9,
+=======
+        "momentum": "極強",
+        "rsi": 97.4,
+>>>>>>> Stashed changes
         "ma5_status": "強勢突破",
         "vol_ratio": "爆發",
         "breakout": "創新高"
       },
+<<<<<<< Updated upstream
       "total_score": 90.0,
       "entry": 372.5,
       "target": 402.3,
@@ -133,11 +147,22 @@
       "dimensions": {
         "momentum": "強勢",
         "rsi": 72.9,
+=======
+      "total_score": 100.0,
+      "entry": 51.3,
+      "target": 55.4,
+      "stop_loss": 48.73,
+      "change_pct": 8.8,
+      "dimensions": {
+        "momentum": "極強",
+        "rsi": 97.4,
+>>>>>>> Stashed changes
         "ma5_status": "強勢突破",
         "vol_ratio": "爆發",
         "breakout": "創新高"
       },
       "live": {
+<<<<<<< Updated upstream
         "current": 372.5,
         "open": 356.0,
         "high": 379.0,
@@ -146,11 +171,22 @@
         "volume": 1126,
         "change_pct": 7.35,
         "time": "13:01:40",
+=======
+        "current": 51.3,
+        "open": 47.5,
+        "high": 51.4,
+        "low": 47.5,
+        "prev_close": 47.15,
+        "volume": 1259,
+        "change_pct": 8.8,
+        "time": "13:02:18",
+>>>>>>> Stashed changes
         "date": "20260611",
         "source": "tse"
       }
     },
     {
+<<<<<<< Updated upstream
       "stock_id": "2380",
       "name": "虹光",
       "sector": "",
@@ -158,10 +194,20 @@
       "details": {
         "momentum": "溫和",
         "rsi": 100.0,
+=======
+      "stock_id": "3605",
+      "name": "宏致",
+      "sector": "",
+      "score": 95.0,
+      "details": {
+        "momentum": "強勢",
+        "rsi": 98.0,
+>>>>>>> Stashed changes
         "ma5_status": "強勢突破",
         "vol_ratio": "爆發",
         "breakout": "創新高"
       },
+<<<<<<< Updated upstream
       "total_score": 85.0,
       "entry": 5.85,
       "target": 6.32,
@@ -170,11 +216,22 @@
       "dimensions": {
         "momentum": "溫和",
         "rsi": 100.0,
+=======
+      "total_score": 95.0,
+      "entry": 72.6,
+      "target": 78.41,
+      "stop_loss": 68.97,
+      "change_pct": 6.14,
+      "dimensions": {
+        "momentum": "強勢",
+        "rsi": 98.0,
+>>>>>>> Stashed changes
         "ma5_status": "強勢突破",
         "vol_ratio": "爆發",
         "breakout": "創新高"
       },
       "live": {
+<<<<<<< Updated upstream
         "current": 5.85,
         "open": 5.61,
         "high": 5.85,
@@ -183,6 +240,127 @@
         "volume": 210,
         "change_pct": 4.46,
         "time": "13:01:19",
+=======
+        "current": 72.6,
+        "open": 68.7,
+        "high": 72.7,
+        "low": 67.6,
+        "prev_close": 68.4,
+        "volume": 2610,
+        "change_pct": 6.14,
+        "time": "13:02:16",
+        "date": "20260611",
+        "source": "tse"
+      }
+    },
+    {
+      "stock_id": "5471",
+      "name": "松翰",
+      "sector": "",
+      "score": 95.0,
+      "details": {
+        "momentum": "強勢",
+        "rsi": 94.7,
+        "ma5_status": "強勢突破",
+        "vol_ratio": "爆發",
+        "breakout": "創新高"
+      },
+      "total_score": 95.0,
+      "entry": 51.6,
+      "target": 55.73,
+      "stop_loss": 49.02,
+      "change_pct": 6.5,
+      "dimensions": {
+        "momentum": "強勢",
+        "rsi": 94.7,
+        "ma5_status": "強勢突破",
+        "vol_ratio": "爆發",
+        "breakout": "創新高"
+      },
+      "live": {
+        "current": 51.6,
+        "open": 48.0,
+        "high": 51.8,
+        "low": 48.0,
+        "prev_close": 48.45,
+        "volume": 2948,
+        "change_pct": 6.5,
+        "time": "13:02:15",
+        "date": "20260611",
+        "source": "tse"
+      }
+    },
+    {
+      "stock_id": "6239",
+      "name": "力成",
+      "sector": "",
+      "score": 95.0,
+      "details": {
+        "momentum": "強勢",
+        "rsi": 81.8,
+        "ma5_status": "強勢突破",
+        "vol_ratio": "爆發",
+        "breakout": "創新高"
+      },
+      "total_score": 95.0,
+      "entry": 323.5,
+      "target": 349.38,
+      "stop_loss": 307.32,
+      "change_pct": 6.77,
+      "dimensions": {
+        "momentum": "強勢",
+        "rsi": 81.8,
+        "ma5_status": "強勢突破",
+        "vol_ratio": "爆發",
+        "breakout": "創新高"
+      },
+      "live": {
+        "current": 323.5,
+        "open": 309.5,
+        "high": 328.5,
+        "low": 301.0,
+        "prev_close": 303.0,
+        "volume": 13529,
+        "change_pct": 6.77,
+        "time": "13:02:21",
+        "date": "20260611",
+        "source": "tse"
+      }
+    },
+    {
+      "stock_id": "6477",
+      "name": "安集",
+      "sector": "",
+      "score": 90.0,
+      "details": {
+        "momentum": "偏強",
+        "rsi": 93.8,
+        "ma5_status": "強勢突破",
+        "vol_ratio": "爆發",
+        "breakout": "創新高"
+      },
+      "total_score": 90.0,
+      "entry": 33.9,
+      "target": 36.61,
+      "stop_loss": 32.2,
+      "change_pct": 5.61,
+      "dimensions": {
+        "momentum": "偏強",
+        "rsi": 93.8,
+        "ma5_status": "強勢突破",
+        "vol_ratio": "爆發",
+        "breakout": "創新高"
+      },
+      "live": {
+        "current": 33.9,
+        "open": 32.65,
+        "high": 34.1,
+        "low": 30.85,
+        "prev_close": 32.1,
+        "volume": 1584,
+        "change_pct": 5.61,
+        "time": "13:02:10",
+>>>>>>> Stashed changes
         "date": "20260611",
         "source": "tse"
       }
