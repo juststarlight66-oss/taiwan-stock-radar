@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-06-12T14:12:31Z",
+    "generated_at": "2026-06-12T14:46:38Z",
     "date": "20260612",
     "lookback_days": 252,
     "strategies": [
@@ -3781,7 +3781,7 @@
             "win_rate": 50.0,
             "loss_rate": 50.0,
             "profit_loss_ratio": 2.33,
-            "avg_return_pct": 8.82,
+            "avg_return_pct": 8.83,
             "max_return_pct": 58.17,
             "min_return_pct": -19.82,
             "sharpe_ratio": 4.09,
