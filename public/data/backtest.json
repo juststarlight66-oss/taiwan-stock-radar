@@ -920,6 +920,338 @@
       }
     },
     {
+      "scan_date": "2026-06-12",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "6241",
+              "name": "鑫永洋科技股份有限公司",
+              "entry": 12.65,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6259",
+              "name": "百徽股份有限公司",
+              "entry": 29.75,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3236",
+              "name": "千如電機工業股份有限公司",
+              "entry": 57.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6517",
+              "name": "保勝光學股份有限公司",
+              "entry": 69.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5410",
+              "name": "國眾電腦股份有限公司",
+              "entry": 44.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6174",
+              "name": "安碁科技股份有限公司",
+              "entry": 51.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5345",
+              "name": "馥鴻建設股份有限公司",
+              "entry": 35.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5227",
+              "name": "蓋曼群島商立凱電能科技(股)公司",
+              "entry": 28.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "8071",
+              "name": "能率網通股份有限公司",
+              "entry": 24.95,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4168",
+              "name": "台灣醣聯生技醫藥股份有限公司",
+              "entry": 27.75,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "6241",
+              "name": "鑫永洋科技股份有限公司",
+              "entry": 12.65,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6259",
+              "name": "百徽股份有限公司",
+              "entry": 29.75,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3236",
+              "name": "千如電機工業股份有限公司",
+              "entry": 57.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6517",
+              "name": "保勝光學股份有限公司",
+              "entry": 69.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5410",
+              "name": "國眾電腦股份有限公司",
+              "entry": 44.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6174",
+              "name": "安碁科技股份有限公司",
+              "entry": 51.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5345",
+              "name": "馥鴻建設股份有限公司",
+              "entry": 35.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5227",
+              "name": "蓋曼群島商立凱電能科技(股)公司",
+              "entry": 28.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "8071",
+              "name": "能率網通股份有限公司",
+              "entry": 24.95,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4168",
+              "name": "台灣醣聯生技醫藥股份有限公司",
+              "entry": 27.75,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "6241",
+              "name": "鑫永洋科技股份有限公司",
+              "entry": 12.65,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6259",
+              "name": "百徽股份有限公司",
+              "entry": 29.75,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3236",
+              "name": "千如電機工業股份有限公司",
+              "entry": 57.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6517",
+              "name": "保勝光學股份有限公司",
+              "entry": 69.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5410",
+              "name": "國眾電腦股份有限公司",
+              "entry": 44.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6174",
+              "name": "安碁科技股份有限公司",
+              "entry": 51.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5345",
+              "name": "馥鴻建設股份有限公司",
+              "entry": 35.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5227",
+              "name": "蓋曼群島商立凱電能科技(股)公司",
+              "entry": 28.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "8071",
+              "name": "能率網通股份有限公司",
+              "entry": 24.95,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4168",
+              "name": "台灣醣聯生技醫藥股份有限公司",
+              "entry": 27.75,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
+    },
+    {
       "scan_date": "2026-06-10",
       "periods": {
         "T1": {
@@ -947,75 +1279,70 @@
           "stocks": []
         }
       }
-    },
-    {
-      "verify_date": "20260611",
-      "recommend_date": "20260610",
-      "records": [
-        {
-          "stock_id": "2505",
-          "name": "國揚",
-          "recommend_date": "20260610",
-          "verify_date": "20260611",
-          "entry_price": 19.45,
-          "exit_price": null,
-          "return_pct": null,
-          "status": "no_data"
-        },
-        {
-          "stock_id": "1618",
-          "name": "合機",
-          "recommend_date": "20260610",
-          "verify_date": "20260611",
-          "entry_price": 44.9,
-          "exit_price": null,
-          "return_pct": null,
-          "status": "no_data"
-        },
-        {
-          "stock_id": "2414",
-          "name": "精技",
-          "recommend_date": "20260610",
-          "verify_date": "20260611",
-          "entry_price": 56.9,
-          "exit_price": null,
-          "return_pct": null,
-          "status": "no_data"
-        },
-        {
-          "stock_id": "2642",
-          "name": "宅配通",
-          "recommend_date": "20260610",
-          "verify_date": "20260611",
-          "entry_price": 22.3,
-          "exit_price": null,
-          "return_pct": null,
-          "status": "no_data"
-        },
-        {
-          "stock_id": "6916",
-          "name": "華凌",
-          "recommend_date": "20260610",
-          "verify_date": "20260611",
-          "entry_price": 20.6,
-          "exit_price": null,
-          "return_pct": null,
-          "status": "no_data"
-        }
-      ],
-      "avg_return_pct": null,
-      "valid_count": 0,
-      "hit_count": 0,
-      "note": "TWSE API unavailable post-market; prices pending next trading session"
     }
   ],
   "updated_at": "2026-06-11T11:07:45.876488+08:00",
   "latest_date": "20260610",
   "history": [
     {
+      "date": "2026/06/12",
+      "results": {
+        "6241": {
+          "name": "鑫永洋科技股份有限公司",
+          "score": 64.7,
+          "close": 12.65
+        },
+        "6259": {
+          "name": "百徽股份有限公司",
+          "score": 64.69,
+          "close": 29.75
+        },
+        "3236": {
+          "name": "千如電機工業股份有限公司",
+          "score": 64.66,
+          "close": 57.5
+        },
+        "6517": {
+          "name": "保勝光學股份有限公司",
+          "score": 64.62,
+          "close": 69.0
+        },
+        "5410": {
+          "name": "國眾電腦股份有限公司",
+          "score": 64.6,
+          "close": 44.15
+        },
+        "6174": {
+          "name": "安碁科技股份有限公司",
+          "score": 64.5,
+          "close": 51.7
+        },
+        "5345": {
+          "name": "馥鴻建設股份有限公司",
+          "score": 64.39,
+          "close": 35.35
+        },
+        "5227": {
+          "name": "蓋曼群島商立凱電能科技(股)公司",
+          "score": 64.31,
+          "close": 28.1
+        },
+        "8071": {
+          "name": "能率網通股份有限公司",
+          "score": 64.31,
+          "close": 24.95
+        },
+        "4168": {
+          "name": "台灣醣聯生技醫藥股份有限公司",
+          "score": 64.29,
+          "close": 27.75
+        }
+      }
+    },
+    {
       "date": "2026/06/10",
       "results": {}
     }
   ],
-  "last_updated": "2026-06-10T22:23:15.581001+08:00"
+  "last_updated": "2026-06-12T11:04:53.365651+08:00"
 }
