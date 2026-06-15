@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-06-15T05:27:29Z",
+    "generated_at": "2026-06-15T16:21:03Z",
     "date": "20260615",
     "lookback_days": 252,
     "strategies": [
@@ -42,16 +42,16 @@
       "avg_hold_days": 9.3
     },
     "pattern": {
-      "total_trades": 541,
-      "win_count": 288,
+      "total_trades": 540,
+      "win_count": 287,
       "loss_count": 253,
-      "win_rate": 53.23,
-      "loss_rate": 46.77,
+      "win_rate": 53.15,
+      "loss_rate": 46.85,
       "profit_loss_ratio": 2.21,
-      "avg_return_pct": 4.35,
+      "avg_return_pct": 4.34,
       "max_return_pct": 91.01,
       "min_return_pct": -16.79,
-      "sharpe_ratio": 4.88,
+      "sharpe_ratio": 4.86,
       "max_drawdown_pct": 42.23,
       "avg_hold_days": 9.0
     }
@@ -1761,20 +1761,20 @@
         },
         "pattern": {
           "metrics": {
-            "total_trades": 11,
-            "win_count": 5,
+            "total_trades": 10,
+            "win_count": 4,
             "loss_count": 6,
-            "win_rate": 45.45,
-            "loss_rate": 54.55,
-            "profit_loss_ratio": 4.23,
-            "avg_return_pct": 2.66,
+            "win_rate": 40.0,
+            "loss_rate": 60.0,
+            "profit_loss_ratio": 3.47,
+            "avg_return_pct": 1.52,
             "max_return_pct": 16.28,
             "min_return_pct": -3.52,
-            "sharpe_ratio": 6.17,
+            "sharpe_ratio": 4.02,
             "max_drawdown_pct": 11.56,
             "avg_hold_days": 10.0
           },
-          "trade_count": 11
+          "trade_count": 10
         }
       }
     },
