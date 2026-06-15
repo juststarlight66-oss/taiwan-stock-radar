@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-06-15T03:02:59Z",
+    "generated_at": "2026-06-15T05:27:29Z",
     "date": "20260615",
     "lookback_days": 252,
     "strategies": [
@@ -1766,11 +1766,11 @@
             "loss_count": 6,
             "win_rate": 45.45,
             "loss_rate": 54.55,
-            "profit_loss_ratio": 4.28,
-            "avg_return_pct": 2.7,
+            "profit_loss_ratio": 4.23,
+            "avg_return_pct": 2.66,
             "max_return_pct": 16.28,
             "min_return_pct": -3.52,
-            "sharpe_ratio": 6.2,
+            "sharpe_ratio": 6.17,
             "max_drawdown_pct": 11.56,
             "avg_hold_days": 10.0
           },
