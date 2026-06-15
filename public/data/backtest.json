@@ -846,6 +846,42 @@
           ]
         }
       }
+    },
+    {
+      "scan_date": "2026-06-15",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": []
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": []
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": []
+        }
+      }
     }
-  ]
+  ],
+  "history": [
+    {
+      "date": "2026/06/15",
+      "results": {}
+    }
+  ],
+  "last_updated": "2026-06-15T11:02:44.724753+08:00"
 }
