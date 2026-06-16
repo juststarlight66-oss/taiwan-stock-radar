@@ -62,8 +62,6 @@ jobs:
           git add public/data/all_scores.json
           git diff --staged --quiet || git commit -m "data: full scan update all_scores.json $(date '+%Y-%m-%d %H:%M CST')"
           git push
-T')"
-          git push
 
       - name: Trigger deploy
         uses: actions/github-script@v7
