@@ -294,10 +294,23 @@ function HistoryDetail({
   setActivePeriod: (p: 'T1'|'T3'|'T5') => void;
 }) {
   const { data, loading, error } = useDateScan(date);
-  const scanResult = data ?? demoScanResult;
-
   const btRec = backtest?.grouped_records.find(r => normDate(r.scan_date) === normDate(date));
   const period = btRec?.periods[activePeriod];
+  const hasError = !!error;
+
+  const resolvedData = !hasError && data ? data : (btRec ? {
+    scan_date: btRec.scan_date,
+    scanned_count: 0,
+    top10: btRec.periods.T1?.stocks.map(s => ({
+      stock_id: s.stock_id,
+      stock_name: s.name,
+      close: s.entry,
+      strategy: { entry: s.entry, stop_loss: s.stop_loss, target: s.stop_loss ? s.entry + (s.entry - s.stop_loss) * 2 : s.entry * 1.05 }
+    })) || [],
+    all_stock_scores: []
+  } : demoScanResult);
+
+  const scanResult = resolvedData;
 
   if (loading) {
     return (
