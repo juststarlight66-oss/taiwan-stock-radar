@@ -144,7 +144,7 @@ if os.path.exists(scan_path):
         grouped = list(grouped.values())
     grouped = [g for g in grouped if isinstance(g, dict) and g.get("scan_date") != date_iso]
     grouped.append(new_gr_entry)
-    grouped.sort(key=lambda x: x["scan_date"], reverse=True)
+    grouped.sort(key=lambda x: x.get("scan_date", ""), reverse=True)
     backtest["grouped_records"] = grouped[:90]
 
     # Also keep legacy history[] for backward compat
