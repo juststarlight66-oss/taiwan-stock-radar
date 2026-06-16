@@ -69,7 +69,7 @@ interface LatestData {
 // ── Constants ────────────────────────────────────────────────────────────────
 
 const BASE = '/taiwan-stock-radar';
-const TWSE_API = 'https://mis.twse.com.tw/stock/api/getStockInfo.jsp';
+const TWSE_API = 'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://mis.twse.com.tw/stock/api/getStockInfo.jsp');
 
 const DIM_LABELS: Record<string, string> = {
   technical: '技術', fundamental: '基本', news: '消息', sentiment: '情緒', chips: '籌碼',
