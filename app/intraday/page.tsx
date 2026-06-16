@@ -280,24 +280,24 @@ export default function IntradayPage() {
       const rawIntraday: any = await intradayRes.json();
       const intradayData: IntradaySnapshot = rawIntraday as IntradaySnapshot;
 
-      // Build fallback live quotes from intraday.json top5[].intraday_snapshot
+      // Build fallback live quotes from intraday.json stocks[].live
       // (used when TWSE real-time API is unreachable from browser)
       const fallbackQuotes: Record<string, LiveQuote> = {};
-      for (const s of rawIntraday.top5 ?? []) {
-        const snap = s.intraday_snapshot;
-        if (snap && s.stock_id) {
+      for (const s of rawIntraday.stocks ?? []) {
+        const live = s.live;
+        if (live?.current && s.stock_id) {
           fallbackQuotes[s.stock_id] = {
             stock_id: s.stock_id,
-            name: s.stock_name ?? '',
-            current: snap.price ?? null,
-            open: snap.open ?? null,
-            high: snap.high ?? null,
-            low: snap.low ?? null,
-            prev_close: snap.yesterday_close ?? null,
-            volume: snap.volume ?? null,
-            time: snap.time ?? '',
-            date: rawIntraday.scan_date ?? '',
-            change_pct: snap.change_pct ?? null,
+            name: s.name ?? '',
+            current: live.current ?? null,
+            open: live.open ?? null,
+            high: live.high ?? null,
+            low: live.low ?? null,
+            prev_close: live.prev_close ?? null,
+            volume: live.volume ?? null,
+            time: live.time ?? '',
+            date: rawIntraday.scanned_at ?? '',
+            change_pct: live.change_pct ?? null,
           };
         }
       }
@@ -339,7 +339,7 @@ export default function IntradayPage() {
       const mergedQuotes: Record<string, LiveQuote> = { ...fallbackQuotes, ...quotes };
 
       if (intradayData && intradayData.stocks) {
-        intradayData.stocks = intradayData.stocks.map((s) => ({ ...s, live: mergedQuotes[s.stock_id] }));
+        intradayData.stocks = intradayData.stocks.map((s) => ({ ...s, live: mergedQuotes[s.stock_id] ?? s.live }));
       }
       const latestWithLive = latestStocks.map((s) => ({ ...s, live: mergedQuotes[s.stock_id] }));
 
