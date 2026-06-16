@@ -1,6 +1,6 @@
 {
   "scan_date": "20260616",
-  "scanned_count": 1897,
+  "scanned_count": 1931,
   "top_stocks": [
     {
       "stock_id": "1905",
@@ -642,6 +642,38 @@
         "pe": 27.51,
         "pb": 2.36,
         "dy": 2.29
+      }
+    },
+    {
+      "stock_id": "2492",
+      "name": "華新科",
+      "market": "TSE",
+      "close": 494.0,
+      "change_pct": 9.9,
+      "volume": 6902708.0,
+      "scores": {
+        "technical": 100.0,
+        "chips": 70.0,
+        "fundamental": 35.0,
+        "news": 69.8,
+        "sentiment": 85.0,
+        "total": 78.23
+      },
+      "total_score": 78.23,
+      "recommendation": "強烈推薦",
+      "entry_low": 489.06,
+      "entry_high": 498.94,
+      "stop_loss": 469.3,
+      "targets": {
+        "t1": 518.7,
+        "t2": 543.4,
+        "t3": 568.1,
+        "stop_loss": 469.3
+      },
+      "fundamentals": {
+        "pe": 94.64,
+        "pb": 4.48,
+        "dy": 0.51
       }
     },
     {
@@ -1509,6 +1541,38 @@
       }
     },
     {
+      "stock_id": "2305",
+      "name": "全友",
+      "market": "TSE",
+      "close": 30.35,
+      "change_pct": 9.96,
+      "volume": 1782918.0,
+      "scores": {
+        "technical": 75.0,
+        "chips": 70.0,
+        "fundamental": 35.0,
+        "news": 69.92,
+        "sentiment": 75.0,
+        "total": 67.24
+      },
+      "total_score": 67.24,
+      "recommendation": "推薦",
+      "entry_low": 30.05,
+      "entry_high": 30.65,
+      "stop_loss": 28.83,
+      "targets": {
+        "t1": 31.87,
+        "t2": 33.39,
+        "t3": 34.9,
+        "stop_loss": 28.83
+      },
+      "fundamentals": {
+        "pe": 112.41,
+        "pb": 2.62,
+        "dy": 0.0
+      }
+    },
+    {
       "stock_id": "3043",
       "name": "科風",
       "market": "TSE",
@@ -1538,6 +1602,38 @@
         "pe": 0.0,
         "pb": 1.28,
         "dy": 0.0
+      }
+    },
+    {
+      "stock_id": "3003",
+      "name": "健和興",
+      "market": "TSE",
+      "close": 67.4,
+      "change_pct": 6.14,
+      "volume": 4818449.0,
+      "scores": {
+        "technical": 69.00000000000001,
+        "chips": 70.0,
+        "fundamental": 46.0,
+        "news": 62.28,
+        "sentiment": 81.80000000000001,
+        "total": 66.41
+      },
+      "total_score": 66.41,
+      "recommendation": "推薦",
+      "entry_low": 66.73,
+      "entry_high": 68.07,
+      "stop_loss": 64.03,
+      "targets": {
+        "t1": 70.77,
+        "t2": 74.14,
+        "t3": 77.51,
+        "stop_loss": 64.03
+      },
+      "fundamentals": {
+        "pe": 66.73,
+        "pb": 1.63,
+        "dy": 1.48
       }
     },
     {
@@ -4997,6 +5093,38 @@
       }
     },
     {
+      "stock_id": "2207",
+      "name": "和泰車",
+      "market": "TSE",
+      "close": 468.5,
+      "change_pct": 1.08,
+      "volume": 1355998.0,
+      "scores": {
+        "technical": 48.333333333333336,
+        "chips": 25.0,
+        "fundamental": 68.0,
+        "news": 52.16,
+        "sentiment": 75.0,
+        "total": 48.5
+      },
+      "total_score": 48.5,
+      "recommendation": "觀察",
+      "entry_low": 463.81,
+      "entry_high": 473.19,
+      "stop_loss": 445.07,
+      "targets": {
+        "t1": 491.93,
+        "t2": 515.35,
+        "t3": 538.77,
+        "stop_loss": 445.07
+      },
+      "fundamentals": {
+        "pe": 13.72,
+        "pb": 3.29,
+        "dy": 4.27
+      }
+    },
+    {
       "stock_id": "7769",
       "name": "鴻勁",
       "market": "TSE",
@@ -5217,6 +5345,38 @@
       "fundamentals": {
         "pe": 25.36,
         "pb": 1.65,
+        "dy": 0.0
+      }
+    },
+    {
+      "stock_id": "2705",
+      "name": "六福",
+      "market": "TSE",
+      "close": 16.25,
+      "change_pct": 1.88,
+      "volume": 393919.0,
+      "scores": {
+        "technical": 46.87499999999993,
+        "chips": 25.0,
+        "fundamental": 65.0,
+        "news": 53.76,
+        "sentiment": 72.49999999999997,
+        "total": 47.38
+      },
+      "total_score": 47.38,
+      "recommendation": "觀察",
+      "entry_low": 16.09,
+      "entry_high": 16.41,
+      "stop_loss": 15.44,
+      "targets": {
+        "t1": 17.06,
+        "t2": 17.88,
+        "t3": 18.69,
+        "stop_loss": 15.44
+      },
+      "fundamentals": {
+        "pe": 18.26,
+        "pb": 0.62,
         "dy": 0.0
       }
     },
@@ -6213,6 +6373,38 @@
       }
     },
     {
+      "stock_id": "9908",
+      "name": "大台北",
+      "market": "TSE",
+      "close": 29.7,
+      "change_pct": 0.51,
+      "volume": 230740.0,
+      "scores": {
+        "technical": 49.999999999999915,
+        "chips": 10.0,
+        "fundamental": 66.0,
+        "news": 51.02,
+        "sentiment": 75.0,
+        "total": 45.0
+      },
+      "total_score": 45.0,
+      "recommendation": "觀察",
+      "entry_low": 29.4,
+      "entry_high": 30.0,
+      "stop_loss": 28.21,
+      "targets": {
+        "t1": 31.19,
+        "t2": 32.67,
+        "t3": 34.15,
+        "stop_loss": 28.21
+      },
+      "fundamentals": {
+        "pe": 16.78,
+        "pb": 1.01,
+        "dy": 4.04
+      }
+    },
+    {
       "stock_id": "2330",
       "name": "台積電",
       "market": "TSE",
@@ -6658,6 +6850,38 @@
         "pe": 10.26,
         "pb": 1.68,
         "dy": 9.2
+      }
+    },
+    {
+      "stock_id": "1568",
+      "name": "倉佑",
+      "market": "TSE",
+      "close": 43.25,
+      "change_pct": 1.53,
+      "volume": 340675.0,
+      "scores": {
+        "technical": 44.05405405405405,
+        "chips": 25.0,
+        "fundamental": 53.0,
+        "news": 53.06,
+        "sentiment": 71.2162162162162,
+        "total": 44.25
+      },
+      "total_score": 44.25,
+      "recommendation": "迴避",
+      "entry_low": 42.82,
+      "entry_high": 43.68,
+      "stop_loss": 41.09,
+      "targets": {
+        "t1": 45.41,
+        "t2": 47.58,
+        "t3": 49.74,
+        "stop_loss": 41.09
+      },
+      "fundamentals": {
+        "pe": 32.28,
+        "pb": 2.41,
+        "dy": 2.31
       }
     },
     {
@@ -7525,38 +7749,6 @@
       }
     },
     {
-      "stock_id": "1453",
-      "name": "大將",
-      "market": "TSE",
-      "close": 11.75,
-      "change_pct": 1.29,
-      "volume": 126713.0,
-      "scores": {
-        "technical": 42.5,
-        "chips": 25.0,
-        "fundamental": 53.0,
-        "news": 52.58,
-        "sentiment": 65.0,
-        "total": 42.96
-      },
-      "total_score": 42.96,
-      "recommendation": "迴避",
-      "entry_low": 11.63,
-      "entry_high": 11.87,
-      "stop_loss": 11.16,
-      "targets": {
-        "t1": 12.34,
-        "t2": 12.93,
-        "t3": 13.51,
-        "stop_loss": 11.16
-      },
-      "fundamentals": {
-        "pe": 106.82,
-        "pb": 0.93,
-        "dy": 2.55
-      }
-    },
-    {
       "stock_id": "4106",
       "name": "雃博",
       "market": "TSE",
@@ -8197,6 +8389,70 @@
       }
     },
     {
+      "stock_id": "2904",
+      "name": "匯僑",
+      "market": "TSE",
+      "close": 14.15,
+      "change_pct": 0.71,
+      "volume": 27545.0,
+      "scores": {
+        "technical": 42.5,
+        "chips": 10.0,
+        "fundamental": 73.0,
+        "news": 51.42,
+        "sentiment": 65.0,
+        "total": 42.09
+      },
+      "total_score": 42.09,
+      "recommendation": "迴避",
+      "entry_low": 14.01,
+      "entry_high": 14.29,
+      "stop_loss": 13.44,
+      "targets": {
+        "t1": 14.86,
+        "t2": 15.57,
+        "t3": 16.27,
+        "stop_loss": 13.44
+      },
+      "fundamentals": {
+        "pe": 24.4,
+        "pb": 0.89,
+        "dy": 4.95
+      }
+    },
+    {
+      "stock_id": "1531",
+      "name": "高林股",
+      "market": "TSE",
+      "close": 12.95,
+      "change_pct": 0.0,
+      "volume": 187443.0,
+      "scores": {
+        "technical": 37.49999999999996,
+        "chips": 10.0,
+        "fundamental": 80.0,
+        "news": 50.0,
+        "sentiment": 75.0,
+        "total": 42.0
+      },
+      "total_score": 42.0,
+      "recommendation": "迴避",
+      "entry_low": 12.82,
+      "entry_high": 13.08,
+      "stop_loss": 12.3,
+      "targets": {
+        "t1": 13.6,
+        "t2": 14.25,
+        "t3": 14.89,
+        "stop_loss": 12.3
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.65,
+        "dy": 7.72
+      }
+    },
+    {
       "stock_id": "5481",
       "name": "新華泰富股份有限公司",
       "market": "TPEx",
@@ -8386,6 +8642,70 @@
         "pe": 13.81,
         "pb": 1.91,
         "dy": 6.41
+      }
+    },
+    {
+      "stock_id": "4438",
+      "name": "廣越",
+      "market": "TSE",
+      "close": 62.0,
+      "change_pct": 0.16,
+      "volume": 63252.0,
+      "scores": {
+        "technical": 41.875,
+        "chips": 10.0,
+        "fundamental": 73.0,
+        "news": 50.32,
+        "sentiment": 62.500000000000014,
+        "total": 41.48
+      },
+      "total_score": 41.48,
+      "recommendation": "迴避",
+      "entry_low": 61.38,
+      "entry_high": 62.62,
+      "stop_loss": 58.9,
+      "targets": {
+        "t1": 65.1,
+        "t2": 68.2,
+        "t3": 71.3,
+        "stop_loss": 58.9
+      },
+      "fundamentals": {
+        "pe": 15.7,
+        "pb": 0.81,
+        "dy": 3.71
+      }
+    },
+    {
+      "stock_id": "3266",
+      "name": "昇陽",
+      "market": "TSE",
+      "close": 13.5,
+      "change_pct": 0.75,
+      "volume": 97251.0,
+      "scores": {
+        "technical": 39.99999999999994,
+        "chips": 10.0,
+        "fundamental": 73.0,
+        "news": 51.5,
+        "sentiment": 68.33333333333326,
+        "total": 41.43
+      },
+      "total_score": 41.43,
+      "recommendation": "迴避",
+      "entry_low": 13.37,
+      "entry_high": 13.63,
+      "stop_loss": 12.82,
+      "targets": {
+        "t1": 14.18,
+        "t2": 14.85,
+        "t3": 15.52,
+        "stop_loss": 12.82
+      },
+      "fundamentals": {
+        "pe": 21.09,
+        "pb": 0.74,
+        "dy": 3.7
       }
     },
     {
@@ -9221,6 +9541,38 @@
       }
     },
     {
+      "stock_id": "3518",
+      "name": "柏騰",
+      "market": "TSE",
+      "close": 27.8,
+      "change_pct": 0.18,
+      "volume": 487896.0,
+      "scores": {
+        "technical": 41.50000000000001,
+        "chips": 10.0,
+        "fundamental": 68.0,
+        "news": 50.36,
+        "sentiment": 61.000000000000014,
+        "total": 40.44
+      },
+      "total_score": 40.44,
+      "recommendation": "迴避",
+      "entry_low": 27.52,
+      "entry_high": 28.08,
+      "stop_loss": 26.41,
+      "targets": {
+        "t1": 29.19,
+        "t2": 30.58,
+        "t3": 31.97,
+        "stop_loss": 26.41
+      },
+      "fundamentals": {
+        "pe": 12.69,
+        "pb": 1.67,
+        "dy": 0.0
+      }
+    },
+    {
       "stock_id": "3052",
       "name": "夆典",
       "market": "TSE",
@@ -9474,6 +9826,38 @@
         "pe": 27.61,
         "pb": 2.64,
         "dy": 3.21
+      }
+    },
+    {
+      "stock_id": "8367",
+      "name": "建新國際",
+      "market": "TSE",
+      "close": 40.5,
+      "change_pct": 0.5,
+      "volume": 23208.0,
+      "scores": {
+        "technical": 36.111111111111136,
+        "chips": 10.0,
+        "fundamental": 83.0,
+        "news": 51.0,
+        "sentiment": 57.222222222222115,
+        "total": 40.22
+      },
+      "total_score": 40.22,
+      "recommendation": "迴避",
+      "entry_low": 40.09,
+      "entry_high": 40.91,
+      "stop_loss": 38.48,
+      "targets": {
+        "t1": 42.52,
+        "t2": 44.55,
+        "t3": 46.57,
+        "stop_loss": 38.48
+      },
+      "fundamentals": {
+        "pe": 11.51,
+        "pb": 1.15,
+        "dy": 7.04
       }
     },
     {
@@ -9797,38 +10181,6 @@
       }
     },
     {
-      "stock_id": "1432",
-      "name": "大魯閣",
-      "market": "TSE",
-      "close": 17.25,
-      "change_pct": 0.0,
-      "volume": 318206.0,
-      "scores": {
-        "technical": 30.0,
-        "chips": 10.0,
-        "fundamental": 93.0,
-        "news": 50.0,
-        "sentiment": 65.0,
-        "total": 39.95
-      },
-      "total_score": 39.95,
-      "recommendation": "迴避",
-      "entry_low": 17.08,
-      "entry_high": 17.42,
-      "stop_loss": 16.39,
-      "targets": {
-        "t1": 18.11,
-        "t2": 18.98,
-        "t3": 19.84,
-        "stop_loss": 16.39
-      },
-      "fundamentals": {
-        "pe": 3.17,
-        "pb": 1.17,
-        "dy": 11.59
-      }
-    },
-    {
       "stock_id": "1338",
       "name": "廣華-KY",
       "market": "TSE",
@@ -9861,6 +10213,38 @@
       }
     },
     {
+      "stock_id": "1432",
+      "name": "大魯閣",
+      "market": "TSE",
+      "close": 17.25,
+      "change_pct": 0.0,
+      "volume": 318206.0,
+      "scores": {
+        "technical": 30.0,
+        "chips": 10.0,
+        "fundamental": 93.0,
+        "news": 50.0,
+        "sentiment": 65.0,
+        "total": 39.95
+      },
+      "total_score": 39.95,
+      "recommendation": "迴避",
+      "entry_low": 17.08,
+      "entry_high": 17.42,
+      "stop_loss": 16.39,
+      "targets": {
+        "t1": 18.11,
+        "t2": 18.98,
+        "t3": 19.84,
+        "stop_loss": 16.39
+      },
+      "fundamentals": {
+        "pe": 3.17,
+        "pb": 1.17,
+        "dy": 11.59
+      }
+    },
+    {
       "stock_id": "2442",
       "name": "新美齊",
       "market": "TSE",
@@ -9890,6 +10274,38 @@
         "pe": 3.76,
         "pb": 0.85,
         "dy": 13.67
+      }
+    },
+    {
+      "stock_id": "1475",
+      "name": "業旺",
+      "market": "TSE",
+      "close": 26.95,
+      "change_pct": -0.92,
+      "volume": 33885.0,
+      "scores": {
+        "technical": 33.333333333333336,
+        "chips": 10.0,
+        "fundamental": 83.0,
+        "news": 48.16,
+        "sentiment": 68.33333333333333,
+        "total": 39.93
+      },
+      "total_score": 39.93,
+      "recommendation": "迴避",
+      "entry_low": 26.68,
+      "entry_high": 27.22,
+      "stop_loss": 25.6,
+      "targets": {
+        "t1": 28.3,
+        "t2": 29.65,
+        "t3": 30.99,
+        "stop_loss": 25.6
+      },
+      "fundamentals": {
+        "pe": 10.57,
+        "pb": 1.17,
+        "dy": 5.57
       }
     },
     {
@@ -10725,6 +11141,38 @@
       }
     },
     {
+      "stock_id": "4999",
+      "name": "鑫禾",
+      "market": "TSE",
+      "close": 20.6,
+      "change_pct": 0.49,
+      "volume": 62615.0,
+      "scores": {
+        "technical": 38.33333333333343,
+        "chips": 10.0,
+        "fundamental": 68.0,
+        "news": 50.98,
+        "sentiment": 61.66666666666674,
+        "total": 39.3
+      },
+      "total_score": 39.3,
+      "recommendation": "迴避",
+      "entry_low": 20.39,
+      "entry_high": 20.81,
+      "stop_loss": 19.57,
+      "targets": {
+        "t1": 21.63,
+        "t2": 22.66,
+        "t3": 23.69,
+        "stop_loss": 19.57
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.48,
+        "dy": 1.21
+      }
+    },
+    {
       "stock_id": "2614",
       "name": "東森",
       "market": "TSE",
@@ -10821,6 +11269,38 @@
       }
     },
     {
+      "stock_id": "2706",
+      "name": "第一店",
+      "market": "TSE",
+      "close": 12.4,
+      "change_pct": 0.4,
+      "volume": 81267.0,
+      "scores": {
+        "technical": 37.5,
+        "chips": 10.0,
+        "fundamental": 68.0,
+        "news": 50.8,
+        "sentiment": 65.0,
+        "total": 39.28
+      },
+      "total_score": 39.28,
+      "recommendation": "迴避",
+      "entry_low": 12.28,
+      "entry_high": 12.52,
+      "stop_loss": 11.78,
+      "targets": {
+        "t1": 13.02,
+        "t2": 13.64,
+        "t3": 14.26,
+        "stop_loss": 11.78
+      },
+      "fundamentals": {
+        "pe": 18.51,
+        "pb": 0.61,
+        "dy": 2.82
+      }
+    },
+    {
       "stock_id": "5288",
       "name": "豐祥-KY",
       "market": "TSE",
@@ -10914,6 +11394,38 @@
         "pe": 33.12,
         "pb": 0.46,
         "dy": 1.99
+      }
+    },
+    {
+      "stock_id": "2616",
+      "name": "山隆",
+      "market": "TSE",
+      "close": 13.65,
+      "change_pct": 0.0,
+      "volume": 208405.0,
+      "scores": {
+        "technical": 36.666666666666764,
+        "chips": 10.0,
+        "fundamental": 68.0,
+        "news": 50.0,
+        "sentiment": 68.33333333333341,
+        "total": 39.2
+      },
+      "total_score": 39.2,
+      "recommendation": "迴避",
+      "entry_low": 13.51,
+      "entry_high": 13.79,
+      "stop_loss": 12.97,
+      "targets": {
+        "t1": 14.33,
+        "t2": 15.02,
+        "t3": 15.7,
+        "stop_loss": 12.97
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.72,
+        "dy": 2.2
       }
     },
     {
@@ -12645,6 +13157,38 @@
       }
     },
     {
+      "stock_id": "3059",
+      "name": "華晶科",
+      "market": "TSE",
+      "close": 47.65,
+      "change_pct": 0.32,
+      "volume": 8803654.0,
+      "scores": {
+        "technical": 37.39583333333333,
+        "chips": 10.0,
+        "fundamental": 61.0,
+        "news": 50.64,
+        "sentiment": 63.74999999999998,
+        "total": 38.05
+      },
+      "total_score": 38.05,
+      "recommendation": "迴避",
+      "entry_low": 47.17,
+      "entry_high": 48.13,
+      "stop_loss": 45.27,
+      "targets": {
+        "t1": 50.03,
+        "t2": 52.41,
+        "t3": 54.8,
+        "stop_loss": 45.27
+      },
+      "fundamentals": {
+        "pe": 38.74,
+        "pb": 1.47,
+        "dy": 2.1
+      }
+    },
+    {
       "stock_id": "4555",
       "name": "氣立",
       "market": "TSE",
@@ -13445,6 +13989,38 @@
       }
     },
     {
+      "stock_id": "2923",
+      "name": "鼎固-KY",
+      "market": "TSE",
+      "close": 25.75,
+      "change_pct": 0.39,
+      "volume": 252207.0,
+      "scores": {
+        "technical": 36.20689655172414,
+        "chips": 10.0,
+        "fundamental": 65.0,
+        "news": 50.78,
+        "sentiment": 57.75862068965517,
+        "total": 37.59
+      },
+      "total_score": 37.59,
+      "recommendation": "迴避",
+      "entry_low": 25.49,
+      "entry_high": 26.01,
+      "stop_loss": 24.46,
+      "targets": {
+        "t1": 27.04,
+        "t2": 28.33,
+        "t3": 29.61,
+        "stop_loss": 24.46
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.98,
+        "dy": 0.47
+      }
+    },
+    {
       "stock_id": "9938",
       "name": "百和",
       "market": "TSE",
@@ -13893,6 +14469,38 @@
       }
     },
     {
+      "stock_id": "7822",
+      "name": "倍利科",
+      "market": "TSE",
+      "close": 1120.0,
+      "change_pct": 1.82,
+      "volume": 659061.0,
+      "scores": {
+        "technical": 40.45454545454545,
+        "chips": 25.0,
+        "fundamental": 25.0,
+        "news": 53.64,
+        "sentiment": 58.63636363636364,
+        "total": 37.41
+      },
+      "total_score": 37.41,
+      "recommendation": "迴避",
+      "entry_low": 1108.8,
+      "entry_high": 1131.2,
+      "stop_loss": 1064.0,
+      "targets": {
+        "t1": 1176.0,
+        "t2": 1232.0,
+        "t3": 1288.0,
+        "stop_loss": 1064.0
+      },
+      "fundamentals": {
+        "pe": 87.71,
+        "pb": 8.39,
+        "dy": 0.63
+      }
+    },
+    {
       "stock_id": "6790",
       "name": "永豐實",
       "market": "TSE",
@@ -14085,6 +14693,38 @@
       }
     },
     {
+      "stock_id": "3703",
+      "name": "欣陸",
+      "market": "TSE",
+      "close": 21.85,
+      "change_pct": -0.68,
+      "volume": 1406238.0,
+      "scores": {
+        "technical": 28.88888888888895,
+        "chips": 10.0,
+        "fundamental": 83.0,
+        "news": 48.64,
+        "sentiment": 59.444444444444514,
+        "total": 37.31
+      },
+      "total_score": 37.31,
+      "recommendation": "迴避",
+      "entry_low": 21.63,
+      "entry_high": 22.07,
+      "stop_loss": 20.76,
+      "targets": {
+        "t1": 22.94,
+        "t2": 24.04,
+        "t3": 25.13,
+        "stop_loss": 20.76
+      },
+      "fundamentals": {
+        "pe": 10.5,
+        "pb": 0.66,
+        "dy": 4.81
+      }
+    },
+    {
       "stock_id": "1103",
       "name": "嘉泥",
       "market": "TSE",
@@ -14242,6 +14882,38 @@
         "pe": 38.33,
         "pb": 0.5,
         "dy": 4.35
+      }
+    },
+    {
+      "stock_id": "2504",
+      "name": "國產",
+      "market": "TSE",
+      "close": 36.25,
+      "change_pct": -1.09,
+      "volume": 12208116.0,
+      "scores": {
+        "technical": 30.0,
+        "chips": 10.0,
+        "fundamental": 83.0,
+        "news": 47.82,
+        "sentiment": 55.0,
+        "total": 37.23
+      },
+      "total_score": 37.23,
+      "recommendation": "迴避",
+      "entry_low": 35.89,
+      "entry_high": 36.61,
+      "stop_loss": 34.44,
+      "targets": {
+        "t1": 38.06,
+        "t2": 39.88,
+        "t3": 41.69,
+        "stop_loss": 34.44
+      },
+      "fundamentals": {
+        "pe": 11.02,
+        "pb": 1.52,
+        "dy": 7.17
       }
     },
     {
@@ -14882,6 +15554,38 @@
         "pe": 12.75,
         "pb": 1.04,
         "dy": 7.31
+      }
+    },
+    {
+      "stock_id": "1451",
+      "name": "年興",
+      "market": "TSE",
+      "close": 16.85,
+      "change_pct": -0.3,
+      "volume": 117605.0,
+      "scores": {
+        "technical": 28.333333333333297,
+        "chips": 10.0,
+        "fundamental": 80.0,
+        "news": 49.4,
+        "sentiment": 61.66666666666683,
+        "total": 36.94
+      },
+      "total_score": 36.94,
+      "recommendation": "迴避",
+      "entry_low": 16.68,
+      "entry_high": 17.02,
+      "stop_loss": 16.01,
+      "targets": {
+        "t1": 17.69,
+        "t2": 18.54,
+        "t3": 19.38,
+        "stop_loss": 16.01
+      },
+      "fundamentals": {
+        "pe": 18.93,
+        "pb": 0.45,
+        "dy": 5.93
       }
     },
     {
@@ -16805,6 +17509,38 @@
       }
     },
     {
+      "stock_id": "2206",
+      "name": "三陽工業",
+      "market": "TSE",
+      "close": 61.6,
+      "change_pct": -1.75,
+      "volume": 941272.0,
+      "scores": {
+        "technical": 30.0,
+        "chips": 10.0,
+        "fundamental": 76.0,
+        "news": 46.5,
+        "sentiment": 55.0,
+        "total": 36.05
+      },
+      "total_score": 36.05,
+      "recommendation": "迴避",
+      "entry_low": 60.98,
+      "entry_high": 62.22,
+      "stop_loss": 58.52,
+      "targets": {
+        "t1": 64.68,
+        "t2": 67.76,
+        "t3": 70.84,
+        "stop_loss": 58.52
+      },
+      "fundamentals": {
+        "pe": 10.86,
+        "pb": 1.74,
+        "dy": 4.87
+      }
+    },
+    {
       "stock_id": "6692",
       "name": "進金生能源服務股份有限公司",
       "market": "TPEx",
@@ -18277,38 +19013,6 @@
       }
     },
     {
-      "stock_id": "2762",
-      "name": "世界健身-KY",
-      "market": "TSE",
-      "close": 87.1,
-      "change_pct": -1.14,
-      "volume": 61117.0,
-      "scores": {
-        "technical": 31.153846153846146,
-        "chips": 10.0,
-        "fundamental": 65.0,
-        "news": 47.72,
-        "sentiment": 59.615384615384585,
-        "total": 35.45
-      },
-      "total_score": 35.45,
-      "recommendation": "迴避",
-      "entry_low": 86.23,
-      "entry_high": 87.97,
-      "stop_loss": 82.74,
-      "targets": {
-        "t1": 91.45,
-        "t2": 95.81,
-        "t3": 100.16,
-        "stop_loss": 82.74
-      },
-      "fundamentals": {
-        "pe": 16.43,
-        "pb": 3.57,
-        "dy": 6.83
-      }
-    },
-    {
       "stock_id": "2637",
       "name": "慧洋-KY",
       "market": "TSE",
@@ -18338,6 +19042,38 @@
         "pe": 11.03,
         "pb": 1.16,
         "dy": 4.46
+      }
+    },
+    {
+      "stock_id": "2762",
+      "name": "世界健身-KY",
+      "market": "TSE",
+      "close": 87.1,
+      "change_pct": -1.14,
+      "volume": 61117.0,
+      "scores": {
+        "technical": 31.153846153846146,
+        "chips": 10.0,
+        "fundamental": 65.0,
+        "news": 47.72,
+        "sentiment": 59.615384615384585,
+        "total": 35.45
+      },
+      "total_score": 35.45,
+      "recommendation": "迴避",
+      "entry_low": 86.23,
+      "entry_high": 87.97,
+      "stop_loss": 82.74,
+      "targets": {
+        "t1": 91.45,
+        "t2": 95.81,
+        "t3": 100.16,
+        "stop_loss": 82.74
+      },
+      "fundamentals": {
+        "pe": 16.43,
+        "pb": 3.57,
+        "dy": 6.83
       }
     },
     {
@@ -19685,6 +20421,38 @@
       }
     },
     {
+      "stock_id": "7732",
+      "name": "金興精密",
+      "market": "TSE",
+      "close": 35.95,
+      "change_pct": 0.0,
+      "volume": 14105.0,
+      "scores": {
+        "technical": 27.500000000000533,
+        "chips": 10.0,
+        "fundamental": 66.0,
+        "news": 50.0,
+        "sentiment": 65.00000000000071,
+        "total": 34.9
+      },
+      "total_score": 34.9,
+      "recommendation": "迴避",
+      "entry_low": 35.59,
+      "entry_high": 36.31,
+      "stop_loss": 34.15,
+      "targets": {
+        "t1": 37.75,
+        "t2": 39.55,
+        "t3": 41.34,
+        "stop_loss": 34.15
+      },
+      "fundamentals": {
+        "pe": 20.78,
+        "pb": 1.29,
+        "dy": 4.17
+      }
+    },
+    {
       "stock_id": "3419",
       "name": "譁裕",
       "market": "TSE",
@@ -20357,6 +21125,38 @@
       }
     },
     {
+      "stock_id": "5007",
+      "name": "三星",
+      "market": "TSE",
+      "close": 56.2,
+      "change_pct": -0.53,
+      "volume": 42214.0,
+      "scores": {
+        "technical": 30.0,
+        "chips": 10.0,
+        "fundamental": 65.0,
+        "news": 48.94,
+        "sentiment": 55.0,
+        "total": 34.64
+      },
+      "total_score": 34.64,
+      "recommendation": "迴避",
+      "entry_low": 55.64,
+      "entry_high": 56.76,
+      "stop_loss": 53.39,
+      "targets": {
+        "t1": 59.01,
+        "t2": 61.82,
+        "t3": 64.63,
+        "stop_loss": 53.39
+      },
+      "fundamentals": {
+        "pe": 18.49,
+        "pb": 2.51,
+        "dy": 5.34
+      }
+    },
+    {
       "stock_id": "6937",
       "name": "天虹",
       "market": "TSE",
@@ -20741,38 +21541,6 @@
       }
     },
     {
-      "stock_id": "2915",
-      "name": "潤泰全",
-      "market": "TSE",
-      "close": 52.2,
-      "change_pct": -2.25,
-      "volume": 6188908.0,
-      "scores": {
-        "technical": 19.28571428571431,
-        "chips": 10.0,
-        "fundamental": 93.0,
-        "news": 45.5,
-        "sentiment": 57.8571428571429,
-        "total": 34.5
-      },
-      "total_score": 34.5,
-      "recommendation": "迴避",
-      "entry_low": 51.68,
-      "entry_high": 52.72,
-      "stop_loss": 49.59,
-      "targets": {
-        "t1": 54.81,
-        "t2": 57.42,
-        "t3": 60.03,
-        "stop_loss": 49.59
-      },
-      "fundamentals": {
-        "pe": 6.12,
-        "pb": 0.49,
-        "dy": 3.64
-      }
-    },
-    {
       "stock_id": "2427",
       "name": "三商電",
       "market": "TSE",
@@ -20802,6 +21570,38 @@
         "pe": 17.23,
         "pb": 1.27,
         "dy": 3.17
+      }
+    },
+    {
+      "stock_id": "2915",
+      "name": "潤泰全",
+      "market": "TSE",
+      "close": 52.2,
+      "change_pct": -2.25,
+      "volume": 6188908.0,
+      "scores": {
+        "technical": 19.28571428571431,
+        "chips": 10.0,
+        "fundamental": 93.0,
+        "news": 45.5,
+        "sentiment": 57.8571428571429,
+        "total": 34.5
+      },
+      "total_score": 34.5,
+      "recommendation": "迴避",
+      "entry_low": 51.68,
+      "entry_high": 52.72,
+      "stop_loss": 49.59,
+      "targets": {
+        "t1": 54.81,
+        "t2": 57.42,
+        "t3": 60.03,
+        "stop_loss": 49.59
+      },
+      "fundamentals": {
+        "pe": 6.12,
+        "pb": 0.49,
+        "dy": 3.64
       }
     },
     {
@@ -21029,38 +21829,6 @@
       }
     },
     {
-      "stock_id": "6115",
-      "name": "鎰勝",
-      "market": "TSE",
-      "close": 48.8,
-      "change_pct": -0.81,
-      "volume": 314592.0,
-      "scores": {
-        "technical": 26.666666666666746,
-        "chips": 10.0,
-        "fundamental": 73.0,
-        "news": 48.38,
-        "sentiment": 55.0,
-        "total": 34.45
-      },
-      "total_score": 34.45,
-      "recommendation": "迴避",
-      "entry_low": 48.31,
-      "entry_high": 49.29,
-      "stop_loss": 46.36,
-      "targets": {
-        "t1": 51.24,
-        "t2": 53.68,
-        "t3": 56.12,
-        "stop_loss": 46.36
-      },
-      "fundamentals": {
-        "pe": 17.18,
-        "pb": 1.65,
-        "dy": 5.74
-      }
-    },
-    {
       "stock_id": "6024",
       "name": "群益期",
       "market": "TSE",
@@ -21090,6 +21858,38 @@
         "pe": 10.35,
         "pb": 1.42,
         "dy": 5.61
+      }
+    },
+    {
+      "stock_id": "6115",
+      "name": "鎰勝",
+      "market": "TSE",
+      "close": 48.8,
+      "change_pct": -0.81,
+      "volume": 314592.0,
+      "scores": {
+        "technical": 26.666666666666746,
+        "chips": 10.0,
+        "fundamental": 73.0,
+        "news": 48.38,
+        "sentiment": 55.0,
+        "total": 34.45
+      },
+      "total_score": 34.45,
+      "recommendation": "迴避",
+      "entry_low": 48.31,
+      "entry_high": 49.29,
+      "stop_loss": 46.36,
+      "targets": {
+        "t1": 51.24,
+        "t2": 53.68,
+        "t3": 56.12,
+        "stop_loss": 46.36
+      },
+      "fundamentals": {
+        "pe": 17.18,
+        "pb": 1.65,
+        "dy": 5.74
       }
     },
     {
@@ -21125,38 +21925,6 @@
       }
     },
     {
-      "stock_id": "6283",
-      "name": "淳安",
-      "market": "TSE",
-      "close": 23.65,
-      "change_pct": -1.05,
-      "volume": 247003.0,
-      "scores": {
-        "technical": 32.66666666666666,
-        "chips": 10.0,
-        "fundamental": 50.0,
-        "news": 47.9,
-        "sentiment": 65.66666666666663,
-        "total": 34.42
-      },
-      "total_score": 34.42,
-      "recommendation": "迴避",
-      "entry_low": 23.41,
-      "entry_high": 23.89,
-      "stop_loss": 22.47,
-      "targets": {
-        "t1": 24.83,
-        "t2": 26.02,
-        "t3": 27.2,
-        "stop_loss": 22.47
-      },
-      "fundamentals": {
-        "pe": 0.0,
-        "pb": 2.05,
-        "dy": 0.0
-      }
-    },
-    {
       "stock_id": "6243",
       "name": "迅杰",
       "market": "TSE",
@@ -21186,6 +21954,38 @@
         "pe": 0.0,
         "pb": 1.84,
         "dy": 3.85
+      }
+    },
+    {
+      "stock_id": "6283",
+      "name": "淳安",
+      "market": "TSE",
+      "close": 23.65,
+      "change_pct": -1.05,
+      "volume": 247003.0,
+      "scores": {
+        "technical": 32.66666666666666,
+        "chips": 10.0,
+        "fundamental": 50.0,
+        "news": 47.9,
+        "sentiment": 65.66666666666663,
+        "total": 34.42
+      },
+      "total_score": 34.42,
+      "recommendation": "迴避",
+      "entry_low": 23.41,
+      "entry_high": 23.89,
+      "stop_loss": 22.47,
+      "targets": {
+        "t1": 24.83,
+        "t2": 26.02,
+        "t3": 27.2,
+        "stop_loss": 22.47
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 2.05,
+        "dy": 0.0
       }
     },
     {
@@ -21378,6 +22178,38 @@
         "pe": 28.35,
         "pb": 5.09,
         "dy": 2.25
+      }
+    },
+    {
+      "stock_id": "2420",
+      "name": "新巨",
+      "market": "TSE",
+      "close": 59.1,
+      "change_pct": -1.5,
+      "volume": 580362.0,
+      "scores": {
+        "technical": 25.75000000000001,
+        "chips": 10.0,
+        "fundamental": 75.0,
+        "news": 47.0,
+        "sentiment": 56.000000000000014,
+        "total": 34.35
+      },
+      "total_score": 34.35,
+      "recommendation": "迴避",
+      "entry_low": 58.51,
+      "entry_high": 59.69,
+      "stop_loss": 56.14,
+      "targets": {
+        "t1": 62.06,
+        "t2": 65.01,
+        "t3": 67.97,
+        "stop_loss": 56.14
+      },
+      "fundamentals": {
+        "pe": 15.0,
+        "pb": 2.17,
+        "dy": 5.08
       }
     },
     {
@@ -22306,6 +23138,38 @@
         "pe": 0,
         "pb": 0,
         "dy": 0
+      }
+    },
+    {
+      "stock_id": "3054",
+      "name": "立萬利",
+      "market": "TSE",
+      "close": 67.7,
+      "change_pct": 0.74,
+      "volume": 111167.0,
+      "scores": {
+        "technical": 31.78571428571443,
+        "chips": 10.0,
+        "fundamental": 53.0,
+        "news": 51.48,
+        "sentiment": 56.428571428571544,
+        "total": 33.96
+      },
+      "total_score": 33.96,
+      "recommendation": "迴避",
+      "entry_low": 67.02,
+      "entry_high": 68.38,
+      "stop_loss": 64.31,
+      "targets": {
+        "t1": 71.09,
+        "t2": 74.47,
+        "t3": 77.86,
+        "stop_loss": 64.31
+      },
+      "fundamentals": {
+        "pe": 19.97,
+        "pb": 4.07,
+        "dy": 1.18
       }
     },
     {
@@ -23589,38 +24453,6 @@
       }
     },
     {
-      "stock_id": "1475",
-      "name": "業旺",
-      "market": "TSE",
-      "close": 27.45,
-      "change_pct": -4.85,
-      "volume": 34609.0,
-      "scores": {
-        "technical": 21.896551724137908,
-        "chips": 10.0,
-        "fundamental": 83.0,
-        "news": 40.3,
-        "sentiment": 56.72413793103446,
-        "total": 33.41
-      },
-      "total_score": 33.41,
-      "recommendation": "迴避",
-      "entry_low": 27.18,
-      "entry_high": 27.72,
-      "stop_loss": 26.08,
-      "targets": {
-        "t1": 28.82,
-        "t2": 30.2,
-        "t3": 31.57,
-        "stop_loss": 26.08
-      },
-      "fundamentals": {
-        "pe": 10.57,
-        "pb": 1.17,
-        "dy": 5.57
-      }
-    },
-    {
       "stock_id": "4915",
       "name": "致伸",
       "market": "TSE",
@@ -23717,6 +24549,38 @@
       }
     },
     {
+      "stock_id": "7765",
+      "name": "中華資安",
+      "market": "TSE",
+      "close": 247.0,
+      "change_pct": -1.59,
+      "volume": 67738.0,
+      "scores": {
+        "technical": 30.0,
+        "chips": 10.0,
+        "fundamental": 58.0,
+        "news": 46.82,
+        "sentiment": 55.0,
+        "total": 33.38
+      },
+      "total_score": 33.38,
+      "recommendation": "迴避",
+      "entry_low": 244.53,
+      "entry_high": 249.47,
+      "stop_loss": 234.65,
+      "targets": {
+        "t1": 259.35,
+        "t2": 271.7,
+        "t3": 284.05,
+        "stop_loss": 234.65
+      },
+      "fundamentals": {
+        "pe": 22.27,
+        "pb": 4.57,
+        "dy": 3.91
+      }
+    },
+    {
       "stock_id": "2905",
       "name": "三商",
       "market": "TSE",
@@ -23810,6 +24674,38 @@
         "pe": 5.25,
         "pb": 0.74,
         "dy": 1.01
+      }
+    },
+    {
+      "stock_id": "2308",
+      "name": "台達電",
+      "market": "TSE",
+      "close": 2230.0,
+      "change_pct": 0.9,
+      "volume": 9190426.0,
+      "scores": {
+        "technical": 40.0,
+        "chips": 10.0,
+        "fundamental": 25.0,
+        "news": 51.8,
+        "sentiment": 59.0,
+        "total": 33.33
+      },
+      "total_score": 33.33,
+      "recommendation": "迴避",
+      "entry_low": 2207.7,
+      "entry_high": 2252.3,
+      "stop_loss": 2118.5,
+      "targets": {
+        "t1": 2341.5,
+        "t2": 2453.0,
+        "t3": 2564.5,
+        "stop_loss": 2118.5
+      },
+      "fundamentals": {
+        "pe": 82.23,
+        "pb": 19.34,
+        "dy": 0.52
       }
     },
     {
@@ -24450,6 +25346,38 @@
         "pe": 0.0,
         "pb": 1.24,
         "dy": 0.0
+      }
+    },
+    {
+      "stock_id": "5534",
+      "name": "長虹",
+      "market": "TSE",
+      "close": 82.3,
+      "change_pct": -0.12,
+      "volume": 818570.0,
+      "scores": {
+        "technical": 22.5,
+        "chips": 10.0,
+        "fundamental": 73.0,
+        "news": 49.76,
+        "sentiment": 56.999999999999886,
+        "total": 33.13
+      },
+      "total_score": 33.13,
+      "recommendation": "迴避",
+      "entry_low": 81.48,
+      "entry_high": 83.12,
+      "stop_loss": 78.18,
+      "targets": {
+        "t1": 86.42,
+        "t2": 90.53,
+        "t3": 94.64,
+        "stop_loss": 78.18
+      },
+      "fundamentals": {
+        "pe": 16.8,
+        "pb": 1.15,
+        "dy": 6.68
       }
     },
     {
@@ -26341,38 +27269,6 @@
       }
     },
     {
-      "stock_id": "3004",
-      "name": "豐達科",
-      "market": "TSE",
-      "close": 50.6,
-      "change_pct": -0.98,
-      "volume": 187305.0,
-      "scores": {
-        "technical": 28.63636363636362,
-        "chips": 10.0,
-        "fundamental": 53.0,
-        "news": 48.04,
-        "sentiment": 56.81818181818184,
-        "total": 32.39
-      },
-      "total_score": 32.39,
-      "recommendation": "迴避",
-      "entry_low": 50.09,
-      "entry_high": 51.11,
-      "stop_loss": 48.07,
-      "targets": {
-        "t1": 53.13,
-        "t2": 55.66,
-        "t3": 58.19,
-        "stop_loss": 48.07
-      },
-      "fundamentals": {
-        "pe": 24.91,
-        "pb": 2.35,
-        "dy": 1.92
-      }
-    },
-    {
       "stock_id": "1623",
       "name": "大東電",
       "market": "TSE",
@@ -26754,6 +27650,38 @@
         "pe": 120.5,
         "pb": 0.43,
         "dy": 0.83
+      }
+    },
+    {
+      "stock_id": "3209",
+      "name": "全科",
+      "market": "TSE",
+      "close": 60.6,
+      "change_pct": -1.14,
+      "volume": 1756639.0,
+      "scores": {
+        "technical": 26.428571428571413,
+        "chips": 10.0,
+        "fundamental": 58.0,
+        "news": 47.72,
+        "sentiment": 55.95238095238096,
+        "total": 32.14
+      },
+      "total_score": 32.14,
+      "recommendation": "迴避",
+      "entry_low": 59.99,
+      "entry_high": 61.21,
+      "stop_loss": 57.57,
+      "targets": {
+        "t1": 63.63,
+        "t2": 66.66,
+        "t3": 69.69,
+        "stop_loss": 57.57
+      },
+      "fundamentals": {
+        "pe": 16.88,
+        "pb": 2.72,
+        "dy": 4.13
       }
     },
     {
@@ -28133,6 +29061,38 @@
       }
     },
     {
+      "stock_id": "2049",
+      "name": "上銀",
+      "market": "TSE",
+      "close": 324.5,
+      "change_pct": -1.52,
+      "volume": 2138176.0,
+      "scores": {
+        "technical": 31.6,
+        "chips": 10.0,
+        "fundamental": 35.0,
+        "news": 46.96,
+        "sentiment": 61.4,
+        "total": 31.23
+      },
+      "total_score": 31.23,
+      "recommendation": "迴避",
+      "entry_low": 321.25,
+      "entry_high": 327.75,
+      "stop_loss": 308.27,
+      "targets": {
+        "t1": 340.73,
+        "t2": 356.95,
+        "t3": 373.17,
+        "stop_loss": 308.27
+      },
+      "fundamentals": {
+        "pe": 70.7,
+        "pb": 3.06,
+        "dy": 0.62
+      }
+    },
+    {
       "stock_id": "5704",
       "name": "知本老爺大酒店股份有限公司",
       "market": "TPEx",
@@ -28386,38 +29346,6 @@
         "pe": 0,
         "pb": 0,
         "dy": 0
-      }
-    },
-    {
-      "stock_id": "2449",
-      "name": "京元電子",
-      "market": "TSE",
-      "close": 278.0,
-      "change_pct": -1.07,
-      "volume": 15208454.0,
-      "scores": {
-        "technical": 30.384615384615387,
-        "chips": 10.0,
-        "fundamental": 40.0,
-        "news": 47.86,
-        "sentiment": 56.53846153846154,
-        "total": 31.09
-      },
-      "total_score": 31.09,
-      "recommendation": "迴避",
-      "entry_low": 275.22,
-      "entry_high": 280.78,
-      "stop_loss": 264.1,
-      "targets": {
-        "t1": 291.9,
-        "t2": 305.8,
-        "t3": 319.7,
-        "stop_loss": 264.1
-      },
-      "fundamentals": {
-        "pe": 37.72,
-        "pb": 6.25,
-        "dy": 0.54
       }
     },
     {
@@ -29090,6 +30018,38 @@
         "pe": 14.96,
         "pb": 1.1,
         "dy": 2.94
+      }
+    },
+    {
+      "stock_id": "6952",
+      "name": "大武山",
+      "market": "TSE",
+      "close": 35.95,
+      "change_pct": -0.14,
+      "volume": 11151.0,
+      "scores": {
+        "technical": 26.25000000000009,
+        "chips": 10.0,
+        "fundamental": 43.0,
+        "news": 49.72,
+        "sentiment": 60.000000000000355,
+        "total": 30.42
+      },
+      "total_score": 30.42,
+      "recommendation": "迴避",
+      "entry_low": 35.59,
+      "entry_high": 36.31,
+      "stop_loss": 34.15,
+      "targets": {
+        "t1": 37.75,
+        "t2": 39.55,
+        "t3": 41.34,
+        "stop_loss": 34.15
+      },
+      "fundamentals": {
+        "pe": 46.69,
+        "pb": 1.67,
+        "dy": 0.0
       }
     },
     {
@@ -30757,38 +31717,6 @@
       }
     },
     {
-      "stock_id": "3231",
-      "name": "緯創",
-      "market": "TSE",
-      "close": 158.0,
-      "change_pct": -2.17,
-      "volume": 31462271.0,
-      "scores": {
-        "technical": 20.0,
-        "chips": 10.0,
-        "fundamental": 58.0,
-        "news": 45.66,
-        "sentiment": 55.0,
-        "total": 29.27
-      },
-      "total_score": 29.27,
-      "recommendation": "迴避",
-      "entry_low": 156.42,
-      "entry_high": 159.58,
-      "stop_loss": 150.1,
-      "targets": {
-        "t1": 165.9,
-        "t2": 173.8,
-        "t3": 181.7,
-        "stop_loss": 150.1
-      },
-      "fundamentals": {
-        "pe": 15.85,
-        "pb": 2.64,
-        "dy": 3.48
-      }
-    },
-    {
       "stock_id": "3645",
       "name": "達邁",
       "market": "TSE",
@@ -30818,6 +31746,38 @@
         "pe": 48.37,
         "pb": 3.71,
         "dy": 1.31
+      }
+    },
+    {
+      "stock_id": "3231",
+      "name": "緯創",
+      "market": "TSE",
+      "close": 158.0,
+      "change_pct": -2.17,
+      "volume": 31462271.0,
+      "scores": {
+        "technical": 20.0,
+        "chips": 10.0,
+        "fundamental": 58.0,
+        "news": 45.66,
+        "sentiment": 55.0,
+        "total": 29.27
+      },
+      "total_score": 29.27,
+      "recommendation": "迴避",
+      "entry_low": 156.42,
+      "entry_high": 159.58,
+      "stop_loss": 150.1,
+      "targets": {
+        "t1": 165.9,
+        "t2": 173.8,
+        "t3": 181.7,
+        "stop_loss": 150.1
+      },
+      "fundamentals": {
+        "pe": 15.85,
+        "pb": 2.64,
+        "dy": 3.48
       }
     },
     {
@@ -32005,6 +32965,38 @@
       }
     },
     {
+      "stock_id": "3004",
+      "name": "豐達科",
+      "market": "TSE",
+      "close": 133.0,
+      "change_pct": -3.62,
+      "volume": 727552.0,
+      "scores": {
+        "technical": 21.666666666666664,
+        "chips": 10.0,
+        "fundamental": 53.0,
+        "news": 42.76,
+        "sentiment": 51.666666666666664,
+        "total": 28.56
+      },
+      "total_score": 28.56,
+      "recommendation": "迴避",
+      "entry_low": 131.67,
+      "entry_high": 134.33,
+      "stop_loss": 126.35,
+      "targets": {
+        "t1": 139.65,
+        "t2": 146.3,
+        "t3": 152.95,
+        "stop_loss": 126.35
+      },
+      "fundamentals": {
+        "pe": 24.91,
+        "pb": 2.35,
+        "dy": 1.92
+      }
+    },
+    {
       "stock_id": "6996",
       "name": "力領科技股份有限公司",
       "market": "TPEx",
@@ -32098,38 +33090,6 @@
         "pe": 230.81,
         "pb": 5.18,
         "dy": 0.18
-      }
-    },
-    {
-      "stock_id": "6235",
-      "name": "華孚",
-      "market": "TSE",
-      "close": 40.75,
-      "change_pct": -3.09,
-      "volume": 599046.0,
-      "scores": {
-        "technical": 20.0,
-        "chips": 10.0,
-        "fundamental": 61.0,
-        "news": 43.82,
-        "sentiment": 45.0,
-        "total": 28.53
-      },
-      "total_score": 28.53,
-      "recommendation": "迴避",
-      "entry_low": 40.34,
-      "entry_high": 41.16,
-      "stop_loss": 38.71,
-      "targets": {
-        "t1": 42.79,
-        "t2": 44.83,
-        "t3": 46.86,
-        "stop_loss": 38.71
-      },
-      "fundamentals": {
-        "pe": 15.73,
-        "pb": 1.64,
-        "dy": 2.94
       }
     },
     {
@@ -32357,38 +33317,6 @@
       }
     },
     {
-      "stock_id": "6542",
-      "name": "隆中網絡股份有限公司",
-      "market": "TPEx",
-      "close": 47.95,
-      "change_pct": 0.0,
-      "volume": 0.0,
-      "scores": {
-        "technical": 25.0,
-        "chips": 0.0,
-        "fundamental": 50.0,
-        "news": 50.0,
-        "sentiment": 60.0,
-        "total": 28.5
-      },
-      "total_score": 28.5,
-      "recommendation": "迴避",
-      "entry_low": 47.47,
-      "entry_high": 48.43,
-      "stop_loss": 45.55,
-      "targets": {
-        "t1": 50.35,
-        "t2": 52.75,
-        "t3": 55.14,
-        "stop_loss": 45.55
-      },
-      "fundamentals": {
-        "pe": 0,
-        "pb": 0,
-        "dy": 0
-      }
-    },
-    {
       "stock_id": "6881",
       "name": "潤德室內裝修設計工程(股)公司",
       "market": "TPEx",
@@ -32413,6 +33341,38 @@
         "t2": 295.35,
         "t3": 308.77,
         "stop_loss": 255.07
+      },
+      "fundamentals": {
+        "pe": 0,
+        "pb": 0,
+        "dy": 0
+      }
+    },
+    {
+      "stock_id": "6542",
+      "name": "隆中網絡股份有限公司",
+      "market": "TPEx",
+      "close": 47.95,
+      "change_pct": 0.0,
+      "volume": 0.0,
+      "scores": {
+        "technical": 25.0,
+        "chips": 0.0,
+        "fundamental": 50.0,
+        "news": 50.0,
+        "sentiment": 60.0,
+        "total": 28.5
+      },
+      "total_score": 28.5,
+      "recommendation": "迴避",
+      "entry_low": 47.47,
+      "entry_high": 48.43,
+      "stop_loss": 45.55,
+      "targets": {
+        "t1": 50.35,
+        "t2": 52.75,
+        "t3": 55.14,
+        "stop_loss": 45.55
       },
       "fundamentals": {
         "pe": 0,
@@ -32933,6 +33893,38 @@
       }
     },
     {
+      "stock_id": "1410",
+      "name": "南染",
+      "market": "TSE",
+      "close": 24.6,
+      "change_pct": -0.81,
+      "volume": 75490.0,
+      "scores": {
+        "technical": 22.5,
+        "chips": 10.0,
+        "fundamental": 43.0,
+        "news": 48.38,
+        "sentiment": 55.0,
+        "total": 28.29
+      },
+      "total_score": 28.29,
+      "recommendation": "迴避",
+      "entry_low": 24.35,
+      "entry_high": 24.85,
+      "stop_loss": 23.37,
+      "targets": {
+        "t1": 25.83,
+        "t2": 27.06,
+        "t3": 28.29,
+        "stop_loss": 23.37
+      },
+      "fundamentals": {
+        "pe": 45.56,
+        "pb": 1.46,
+        "dy": 0.81
+      }
+    },
+    {
       "stock_id": "3312",
       "name": "弘憶股",
       "market": "TSE",
@@ -33093,6 +34085,38 @@
       }
     },
     {
+      "stock_id": "2481",
+      "name": "強茂",
+      "market": "TSE",
+      "close": 140.0,
+      "change_pct": -1.75,
+      "volume": 20565539.0,
+      "scores": {
+        "technical": 24.705882352941178,
+        "chips": 10.0,
+        "fundamental": 38.0,
+        "news": 46.5,
+        "sentiment": 55.0,
+        "total": 28.23
+      },
+      "total_score": 28.23,
+      "recommendation": "迴避",
+      "entry_low": 138.6,
+      "entry_high": 141.4,
+      "stop_loss": 133.0,
+      "targets": {
+        "t1": 147.0,
+        "t2": 154.0,
+        "t3": 161.0,
+        "stop_loss": 133.0
+      },
+      "fundamentals": {
+        "pe": 44.44,
+        "pb": 3.69,
+        "dy": 1.29
+      }
+    },
+    {
       "stock_id": "3062",
       "name": "建漢",
       "market": "TSE",
@@ -33122,38 +34146,6 @@
         "pe": 0.0,
         "pb": 2.0,
         "dy": 0.0
-      }
-    },
-    {
-      "stock_id": "8215",
-      "name": "明基材",
-      "market": "TSE",
-      "close": 29.15,
-      "change_pct": -4.58,
-      "volume": 3043180.0,
-      "scores": {
-        "technical": 19.64285714285714,
-        "chips": 10.0,
-        "fundamental": 61.0,
-        "news": 40.84,
-        "sentiment": 45.0,
-        "total": 28.09
-      },
-      "total_score": 28.09,
-      "recommendation": "迴避",
-      "entry_low": 28.86,
-      "entry_high": 29.44,
-      "stop_loss": 27.69,
-      "targets": {
-        "t1": 30.61,
-        "t2": 32.06,
-        "t3": 33.52,
-        "stop_loss": 27.69
-      },
-      "fundamentals": {
-        "pe": 0.0,
-        "pb": 1.91,
-        "dy": 1.03
       }
     },
     {
@@ -33217,6 +34209,38 @@
       "fundamentals": {
         "pe": 0.0,
         "pb": 1.5,
+        "dy": 0.0
+      }
+    },
+    {
+      "stock_id": "3027",
+      "name": "盛達",
+      "market": "TSE",
+      "close": 20.7,
+      "change_pct": -3.27,
+      "volume": 491667.0,
+      "scores": {
+        "technical": 20.0,
+        "chips": 10.0,
+        "fundamental": 58.0,
+        "news": 43.46,
+        "sentiment": 45.0,
+        "total": 28.05
+      },
+      "total_score": 28.05,
+      "recommendation": "迴避",
+      "entry_low": 20.49,
+      "entry_high": 20.91,
+      "stop_loss": 19.66,
+      "targets": {
+        "t1": 21.73,
+        "t2": 22.77,
+        "t3": 23.8,
+        "stop_loss": 19.66
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 1.24,
         "dy": 0.0
       }
     },
@@ -33605,70 +34629,6 @@
       }
     },
     {
-      "stock_id": "2440",
-      "name": "太空梭",
-      "market": "TSE",
-      "close": 16.8,
-      "change_pct": -2.33,
-      "volume": 746488.0,
-      "scores": {
-        "technical": 16.428571428571423,
-        "chips": 10.0,
-        "fundamental": 58.0,
-        "news": 45.34,
-        "sentiment": 55.0,
-        "total": 27.81
-      },
-      "total_score": 27.81,
-      "recommendation": "迴避",
-      "entry_low": 16.63,
-      "entry_high": 16.97,
-      "stop_loss": 15.96,
-      "targets": {
-        "t1": 17.64,
-        "t2": 18.48,
-        "t3": 19.32,
-        "stop_loss": 15.96
-      },
-      "fundamentals": {
-        "pe": 0.0,
-        "pb": 1.17,
-        "dy": 0.0
-      }
-    },
-    {
-      "stock_id": "8150",
-      "name": "南茂",
-      "market": "TSE",
-      "close": 94.6,
-      "change_pct": -1.36,
-      "volume": 47492986.0,
-      "scores": {
-        "technical": 23.23943661971829,
-        "chips": 10.0,
-        "fundamental": 38.0,
-        "news": 47.28,
-        "sentiment": 55.56338028169011,
-        "total": 27.78
-      },
-      "total_score": 27.78,
-      "recommendation": "迴避",
-      "entry_low": 93.65,
-      "entry_high": 95.55,
-      "stop_loss": 89.87,
-      "targets": {
-        "t1": 99.33,
-        "t2": 104.06,
-        "t3": 108.79,
-        "stop_loss": 89.87
-      },
-      "fundamentals": {
-        "pe": 80.17,
-        "pb": 2.69,
-        "dy": 1.3
-      }
-    },
-    {
       "stock_id": "5511",
       "name": "德昌營造股份有限公司",
       "market": "TPEx",
@@ -33698,6 +34658,38 @@
         "pe": 0,
         "pb": 0,
         "dy": 0
+      }
+    },
+    {
+      "stock_id": "3036",
+      "name": "文曄",
+      "market": "TSE",
+      "close": 219.0,
+      "change_pct": -3.1,
+      "volume": 10161761.0,
+      "scores": {
+        "technical": 18.636363636363637,
+        "chips": 10.0,
+        "fundamental": 58.0,
+        "news": 43.8,
+        "sentiment": 46.81818181818182,
+        "total": 27.72
+      },
+      "total_score": 27.72,
+      "recommendation": "迴避",
+      "entry_low": 216.81,
+      "entry_high": 221.19,
+      "stop_loss": 208.05,
+      "targets": {
+        "t1": 229.95,
+        "t2": 240.9,
+        "t3": 251.85,
+        "stop_loss": 208.05
+      },
+      "fundamentals": {
+        "pe": 15.53,
+        "pb": 2.46,
+        "dy": 3.56
       }
     },
     {
@@ -33861,38 +34853,6 @@
       }
     },
     {
-      "stock_id": "2457",
-      "name": "飛宏",
-      "market": "TSE",
-      "close": 29.0,
-      "change_pct": -2.19,
-      "volume": 6393681.0,
-      "scores": {
-        "technical": 15.83333333333333,
-        "chips": 10.0,
-        "fundamental": 58.0,
-        "news": 45.62,
-        "sentiment": 55.0,
-        "total": 27.6
-      },
-      "total_score": 27.6,
-      "recommendation": "迴避",
-      "entry_low": 28.71,
-      "entry_high": 29.29,
-      "stop_loss": 27.55,
-      "targets": {
-        "t1": 30.45,
-        "t2": 31.9,
-        "t3": 33.35,
-        "stop_loss": 27.55
-      },
-      "fundamentals": {
-        "pe": 0.0,
-        "pb": 1.37,
-        "dy": 0.0
-      }
-    },
-    {
       "stock_id": "2382",
       "name": "廣達",
       "market": "TSE",
@@ -33922,6 +34882,38 @@
         "pe": 18.23,
         "pb": 6.73,
         "dy": 4.3
+      }
+    },
+    {
+      "stock_id": "2457",
+      "name": "飛宏",
+      "market": "TSE",
+      "close": 29.0,
+      "change_pct": -2.19,
+      "volume": 6393681.0,
+      "scores": {
+        "technical": 15.83333333333333,
+        "chips": 10.0,
+        "fundamental": 58.0,
+        "news": 45.62,
+        "sentiment": 55.0,
+        "total": 27.6
+      },
+      "total_score": 27.6,
+      "recommendation": "迴避",
+      "entry_low": 28.71,
+      "entry_high": 29.29,
+      "stop_loss": 27.55,
+      "targets": {
+        "t1": 30.45,
+        "t2": 31.9,
+        "t3": 33.35,
+        "stop_loss": 27.55
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 1.37,
+        "dy": 0.0
       }
     },
     {
@@ -34629,38 +35621,6 @@
       }
     },
     {
-      "stock_id": "2444",
-      "name": "兆勁",
-      "market": "TSE",
-      "close": 13.0,
-      "change_pct": -4.41,
-      "volume": 612710.0,
-      "scores": {
-        "technical": 18.235294117647054,
-        "chips": 10.0,
-        "fundamental": 58.0,
-        "news": 41.18,
-        "sentiment": 45.0,
-        "total": 27.11
-      },
-      "total_score": 27.11,
-      "recommendation": "迴避",
-      "entry_low": 12.87,
-      "entry_high": 13.13,
-      "stop_loss": 12.35,
-      "targets": {
-        "t1": 13.65,
-        "t2": 14.3,
-        "t3": 14.95,
-        "stop_loss": 12.35
-      },
-      "fundamentals": {
-        "pe": 0.0,
-        "pb": 1.77,
-        "dy": 0.0
-      }
-    },
-    {
       "stock_id": "2401",
       "name": "凌陽",
       "market": "TSE",
@@ -34689,6 +35649,38 @@
       "fundamentals": {
         "pe": 0.0,
         "pb": 2.2,
+        "dy": 0.0
+      }
+    },
+    {
+      "stock_id": "2444",
+      "name": "兆勁",
+      "market": "TSE",
+      "close": 13.0,
+      "change_pct": -4.41,
+      "volume": 612710.0,
+      "scores": {
+        "technical": 18.235294117647054,
+        "chips": 10.0,
+        "fundamental": 58.0,
+        "news": 41.18,
+        "sentiment": 45.0,
+        "total": 27.11
+      },
+      "total_score": 27.11,
+      "recommendation": "迴避",
+      "entry_low": 12.87,
+      "entry_high": 13.13,
+      "stop_loss": 12.35,
+      "targets": {
+        "t1": 13.65,
+        "t2": 14.3,
+        "t3": 14.95,
+        "stop_loss": 12.35
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 1.77,
         "dy": 0.0
       }
     },
@@ -34949,38 +35941,6 @@
       }
     },
     {
-      "stock_id": "2352",
-      "name": "佳世達",
-      "market": "TSE",
-      "close": 30.2,
-      "change_pct": -3.51,
-      "volume": 6928027.0,
-      "scores": {
-        "technical": 20.0,
-        "chips": 10.0,
-        "fundamental": 51.0,
-        "news": 42.980000000000004,
-        "sentiment": 45.0,
-        "total": 26.95
-      },
-      "total_score": 26.95,
-      "recommendation": "迴避",
-      "entry_low": 29.9,
-      "entry_high": 30.5,
-      "stop_loss": 28.69,
-      "targets": {
-        "t1": 31.71,
-        "t2": 33.22,
-        "t3": 34.73,
-        "stop_loss": 28.69
-      },
-      "fundamentals": {
-        "pe": 48.71,
-        "pb": 1.63,
-        "dy": 3.31
-      }
-    },
-    {
       "stock_id": "2321",
       "name": "東訊",
       "market": "TSE",
@@ -35010,6 +35970,38 @@
         "pe": 0.0,
         "pb": 2.36,
         "dy": 0.0
+      }
+    },
+    {
+      "stock_id": "2352",
+      "name": "佳世達",
+      "market": "TSE",
+      "close": 30.2,
+      "change_pct": -3.51,
+      "volume": 6928027.0,
+      "scores": {
+        "technical": 20.0,
+        "chips": 10.0,
+        "fundamental": 51.0,
+        "news": 42.980000000000004,
+        "sentiment": 45.0,
+        "total": 26.95
+      },
+      "total_score": 26.95,
+      "recommendation": "迴避",
+      "entry_low": 29.9,
+      "entry_high": 30.5,
+      "stop_loss": 28.69,
+      "targets": {
+        "t1": 31.71,
+        "t2": 33.22,
+        "t3": 34.73,
+        "stop_loss": 28.69
+      },
+      "fundamentals": {
+        "pe": 48.71,
+        "pb": 1.63,
+        "dy": 3.31
       }
     },
     {
@@ -35458,38 +36450,6 @@
         "pe": 0,
         "pb": 0,
         "dy": 0
-      }
-    },
-    {
-      "stock_id": "6909",
-      "name": "創控",
-      "market": "TSE",
-      "close": 46.3,
-      "change_pct": -2.83,
-      "volume": 573185.0,
-      "scores": {
-        "technical": 20.746268656716417,
-        "chips": 10.0,
-        "fundamental": 38.0,
-        "news": 44.34,
-        "sentiment": 57.98507462686567,
-        "total": 26.73
-      },
-      "total_score": 26.73,
-      "recommendation": "迴避",
-      "entry_low": 45.84,
-      "entry_high": 46.76,
-      "stop_loss": 43.98,
-      "targets": {
-        "t1": 48.62,
-        "t2": 50.93,
-        "t3": 53.24,
-        "stop_loss": 43.98
-      },
-      "fundamentals": {
-        "pe": 57.16,
-        "pb": 3.07,
-        "dy": 2.16
       }
     },
     {
@@ -38629,38 +39589,6 @@
       }
     },
     {
-      "stock_id": "1599",
-      "name": "宏佳騰動力科技股份有限公司",
-      "market": "TPEx",
-      "close": 23.45,
-      "change_pct": 0.0,
-      "volume": 0.0,
-      "scores": {
-        "technical": 15.999999999999872,
-        "chips": 0.0,
-        "fundamental": 50.0,
-        "news": 50.0,
-        "sentiment": 55.99999999999994,
-        "total": 24.5
-      },
-      "total_score": 24.5,
-      "recommendation": "迴避",
-      "entry_low": 23.22,
-      "entry_high": 23.68,
-      "stop_loss": 22.28,
-      "targets": {
-        "t1": 24.62,
-        "t2": 25.8,
-        "t3": 26.97,
-        "stop_loss": 22.28
-      },
-      "fundamentals": {
-        "pe": 0,
-        "pb": 0,
-        "dy": 0
-      }
-    },
-    {
       "stock_id": "1777",
       "name": "生泰合成工業股份有限公司",
       "market": "TPEx",
@@ -38685,6 +39613,38 @@
         "t2": 79.64,
         "t3": 83.26,
         "stop_loss": 68.78
+      },
+      "fundamentals": {
+        "pe": 0,
+        "pb": 0,
+        "dy": 0
+      }
+    },
+    {
+      "stock_id": "1599",
+      "name": "宏佳騰動力科技股份有限公司",
+      "market": "TPEx",
+      "close": 23.45,
+      "change_pct": 0.0,
+      "volume": 0.0,
+      "scores": {
+        "technical": 15.999999999999872,
+        "chips": 0.0,
+        "fundamental": 50.0,
+        "news": 50.0,
+        "sentiment": 55.99999999999994,
+        "total": 24.5
+      },
+      "total_score": 24.5,
+      "recommendation": "迴避",
+      "entry_low": 23.22,
+      "entry_high": 23.68,
+      "stop_loss": 22.28,
+      "targets": {
+        "t1": 24.62,
+        "t2": 25.8,
+        "t3": 26.97,
+        "stop_loss": 22.28
       },
       "fundamentals": {
         "pe": 0,
@@ -39077,38 +40037,6 @@
       }
     },
     {
-      "stock_id": "3580",
-      "name": "友威科技股份有限公司",
-      "market": "TPEx",
-      "close": 98.6,
-      "change_pct": 1.13,
-      "volume": 0.0,
-      "scores": {
-        "technical": 17.28813559322035,
-        "chips": 0.0,
-        "fundamental": 50.0,
-        "news": 52.26,
-        "sentiment": 46.77966101694915,
-        "total": 24.32
-      },
-      "total_score": 24.32,
-      "recommendation": "迴避",
-      "entry_low": 97.61,
-      "entry_high": 99.59,
-      "stop_loss": 93.67,
-      "targets": {
-        "t1": 103.53,
-        "t2": 108.46,
-        "t3": 113.39,
-        "stop_loss": 93.67
-      },
-      "fundamentals": {
-        "pe": 0,
-        "pb": 0,
-        "dy": 0
-      }
-    },
-    {
       "stock_id": "2718",
       "name": "全心投資控股股份有限公司",
       "market": "TPEx",
@@ -39133,6 +40061,38 @@
         "t2": 53.35,
         "t3": 55.77,
         "stop_loss": 46.07
+      },
+      "fundamentals": {
+        "pe": 0,
+        "pb": 0,
+        "dy": 0
+      }
+    },
+    {
+      "stock_id": "3580",
+      "name": "友威科技股份有限公司",
+      "market": "TPEx",
+      "close": 98.6,
+      "change_pct": 1.13,
+      "volume": 0.0,
+      "scores": {
+        "technical": 17.28813559322035,
+        "chips": 0.0,
+        "fundamental": 50.0,
+        "news": 52.26,
+        "sentiment": 46.77966101694915,
+        "total": 24.32
+      },
+      "total_score": 24.32,
+      "recommendation": "迴避",
+      "entry_low": 97.61,
+      "entry_high": 99.59,
+      "stop_loss": 93.67,
+      "targets": {
+        "t1": 103.53,
+        "t2": 108.46,
+        "t3": 113.39,
+        "stop_loss": 93.67
       },
       "fundamentals": {
         "pe": 0,
@@ -39813,6 +40773,38 @@
       }
     },
     {
+      "stock_id": "3717",
+      "name": "聯嘉投控",
+      "market": "TSE",
+      "close": 21.65,
+      "change_pct": -2.7,
+      "volume": 4310614.0,
+      "scores": {
+        "technical": 12.05882352941177,
+        "chips": 10.0,
+        "fundamental": 43.0,
+        "news": 44.6,
+        "sentiment": 55.0,
+        "total": 23.73
+      },
+      "total_score": 23.73,
+      "recommendation": "迴避",
+      "entry_low": 21.43,
+      "entry_high": 21.87,
+      "stop_loss": 20.57,
+      "targets": {
+        "t1": 22.73,
+        "t2": 23.82,
+        "t3": 24.9,
+        "stop_loss": 20.57
+      },
+      "fundamentals": {
+        "pe": 270.63,
+        "pb": 1.34,
+        "dy": 0.92
+      }
+    },
+    {
       "stock_id": "3360",
       "name": "尚立股份有限公司",
       "market": "TPEx",
@@ -40162,6 +41154,38 @@
         "pe": 0,
         "pb": 0,
         "dy": 0
+      }
+    },
+    {
+      "stock_id": "4576",
+      "name": "大銀微系統",
+      "market": "TSE",
+      "close": 206.5,
+      "change_pct": -3.95,
+      "volume": 1196757.0,
+      "scores": {
+        "technical": 20.576923076923077,
+        "chips": 10.0,
+        "fundamental": 25.0,
+        "news": 42.1,
+        "sentiment": 47.30769230769231,
+        "total": 23.42
+      },
+      "total_score": 23.42,
+      "recommendation": "迴避",
+      "entry_low": 204.44,
+      "entry_high": 208.56,
+      "stop_loss": 196.17,
+      "targets": {
+        "t1": 216.83,
+        "t2": 227.15,
+        "t3": 237.47,
+        "stop_loss": 196.17
+      },
+      "fundamentals": {
+        "pe": 81.3,
+        "pb": 5.98,
+        "dy": 0.39
       }
     },
     {
@@ -43877,6 +44901,38 @@
       }
     },
     {
+      "stock_id": "4114",
+      "name": "健喬信元醫藥生技股份有限公司",
+      "market": "TPEx",
+      "close": 30.65,
+      "change_pct": -0.33,
+      "volume": 0.0,
+      "scores": {
+        "technical": 11.249999999999932,
+        "chips": 0.0,
+        "fundamental": 50.0,
+        "news": 49.34,
+        "sentiment": 44.99999999999973,
+        "total": 21.43
+      },
+      "total_score": 21.43,
+      "recommendation": "迴避",
+      "entry_low": 30.34,
+      "entry_high": 30.96,
+      "stop_loss": 29.12,
+      "targets": {
+        "t1": 32.18,
+        "t2": 33.72,
+        "t3": 35.25,
+        "stop_loss": 29.12
+      },
+      "fundamentals": {
+        "pe": 0,
+        "pb": 0,
+        "dy": 0
+      }
+    },
+    {
       "stock_id": "4121",
       "name": "優盛醫學科技股份有限公司",
       "market": "TPEx",
@@ -43933,38 +44989,6 @@
         "t2": 14.63,
         "t3": 15.29,
         "stop_loss": 12.63
-      },
-      "fundamentals": {
-        "pe": 0,
-        "pb": 0,
-        "dy": 0
-      }
-    },
-    {
-      "stock_id": "4114",
-      "name": "健喬信元醫藥生技股份有限公司",
-      "market": "TPEx",
-      "close": 30.65,
-      "change_pct": -0.33,
-      "volume": 0.0,
-      "scores": {
-        "technical": 11.249999999999932,
-        "chips": 0.0,
-        "fundamental": 50.0,
-        "news": 49.34,
-        "sentiment": 44.99999999999973,
-        "total": 21.43
-      },
-      "total_score": 21.43,
-      "recommendation": "迴避",
-      "entry_low": 30.34,
-      "entry_high": 30.96,
-      "stop_loss": 29.12,
-      "targets": {
-        "t1": 32.18,
-        "t2": 33.72,
-        "t3": 35.25,
-        "stop_loss": 29.12
       },
       "fundamentals": {
         "pe": 0,
@@ -44037,38 +45061,6 @@
       }
     },
     {
-      "stock_id": "5340",
-      "name": "建榮工業材料股份有限公司",
-      "market": "TPEx",
-      "close": 88.5,
-      "change_pct": 0.11,
-      "volume": 0.0,
-      "scores": {
-        "technical": 12.000000000000004,
-        "chips": 0.0,
-        "fundamental": 50.0,
-        "news": 50.22,
-        "sentiment": 40.727272727272734,
-        "total": 21.39
-      },
-      "total_score": 21.39,
-      "recommendation": "迴避",
-      "entry_low": 87.61,
-      "entry_high": 89.39,
-      "stop_loss": 84.08,
-      "targets": {
-        "t1": 92.92,
-        "t2": 97.35,
-        "t3": 101.77,
-        "stop_loss": 84.08
-      },
-      "fundamentals": {
-        "pe": 0,
-        "pb": 0,
-        "dy": 0
-      }
-    },
-    {
       "stock_id": "4205",
       "name": "中華食品實業股份有限公司",
       "market": "TPEx",
@@ -44093,6 +45085,38 @@
         "t2": 80.41,
         "t3": 84.06,
         "stop_loss": 69.44
+      },
+      "fundamentals": {
+        "pe": 0,
+        "pb": 0,
+        "dy": 0
+      }
+    },
+    {
+      "stock_id": "5340",
+      "name": "建榮工業材料股份有限公司",
+      "market": "TPEx",
+      "close": 88.5,
+      "change_pct": 0.11,
+      "volume": 0.0,
+      "scores": {
+        "technical": 12.000000000000004,
+        "chips": 0.0,
+        "fundamental": 50.0,
+        "news": 50.22,
+        "sentiment": 40.727272727272734,
+        "total": 21.39
+      },
+      "total_score": 21.39,
+      "recommendation": "迴避",
+      "entry_low": 87.61,
+      "entry_high": 89.39,
+      "stop_loss": 84.08,
+      "targets": {
+        "t1": 92.92,
+        "t2": 97.35,
+        "t3": 101.77,
+        "stop_loss": 84.08
       },
       "fundamentals": {
         "pe": 0,
@@ -44197,38 +45221,6 @@
       }
     },
     {
-      "stock_id": "3529",
-      "name": "力旺電子股份有限公司",
-      "market": "TPEx",
-      "close": 3200.0,
-      "change_pct": 0.0,
-      "volume": 0.0,
-      "scores": {
-        "technical": 11.03448275862069,
-        "chips": 0.0,
-        "fundamental": 50.0,
-        "news": 50.0,
-        "sentiment": 44.13793103448276,
-        "total": 21.33
-      },
-      "total_score": 21.33,
-      "recommendation": "迴避",
-      "entry_low": 3168.0,
-      "entry_high": 3232.0,
-      "stop_loss": 3040.0,
-      "targets": {
-        "t1": 3360.0,
-        "t2": 3520.0,
-        "t3": 3680.0,
-        "stop_loss": 3040.0
-      },
-      "fundamentals": {
-        "pe": 0,
-        "pb": 0,
-        "dy": 0
-      }
-    },
-    {
       "stock_id": "2732",
       "name": "六角國際事業股份有限公司",
       "market": "TPEx",
@@ -44253,6 +45245,38 @@
         "t2": 71.17,
         "t3": 74.41,
         "stop_loss": 61.46
+      },
+      "fundamentals": {
+        "pe": 0,
+        "pb": 0,
+        "dy": 0
+      }
+    },
+    {
+      "stock_id": "3529",
+      "name": "力旺電子股份有限公司",
+      "market": "TPEx",
+      "close": 3200.0,
+      "change_pct": 0.0,
+      "volume": 0.0,
+      "scores": {
+        "technical": 11.03448275862069,
+        "chips": 0.0,
+        "fundamental": 50.0,
+        "news": 50.0,
+        "sentiment": 44.13793103448276,
+        "total": 21.33
+      },
+      "total_score": 21.33,
+      "recommendation": "迴避",
+      "entry_low": 3168.0,
+      "entry_high": 3232.0,
+      "stop_loss": 3040.0,
+      "targets": {
+        "t1": 3360.0,
+        "t2": 3520.0,
+        "t3": 3680.0,
+        "stop_loss": 3040.0
       },
       "fundamentals": {
         "pe": 0,
@@ -44837,38 +45861,6 @@
       }
     },
     {
-      "stock_id": "3373",
-      "name": "熱映光電股份有限公司",
-      "market": "TPEx",
-      "close": 16.75,
-      "change_pct": -0.89,
-      "volume": 0.0,
-      "scores": {
-        "technical": 11.000000000000014,
-        "chips": 0.0,
-        "fundamental": 50.0,
-        "news": 48.22,
-        "sentiment": 44.00000000000006,
-        "total": 21.12
-      },
-      "total_score": 21.12,
-      "recommendation": "迴避",
-      "entry_low": 16.58,
-      "entry_high": 16.92,
-      "stop_loss": 15.91,
-      "targets": {
-        "t1": 17.59,
-        "t2": 18.43,
-        "t3": 19.26,
-        "stop_loss": 15.91
-      },
-      "fundamentals": {
-        "pe": 0,
-        "pb": 0,
-        "dy": 0
-      }
-    },
-    {
       "stock_id": "2949",
       "name": "欣新網股份有限公司",
       "market": "TPEx",
@@ -44893,6 +45885,38 @@
         "t2": 71.72,
         "t3": 74.98,
         "stop_loss": 61.94
+      },
+      "fundamentals": {
+        "pe": 0,
+        "pb": 0,
+        "dy": 0
+      }
+    },
+    {
+      "stock_id": "3373",
+      "name": "熱映光電股份有限公司",
+      "market": "TPEx",
+      "close": 16.75,
+      "change_pct": -0.89,
+      "volume": 0.0,
+      "scores": {
+        "technical": 11.000000000000014,
+        "chips": 0.0,
+        "fundamental": 50.0,
+        "news": 48.22,
+        "sentiment": 44.00000000000006,
+        "total": 21.12
+      },
+      "total_score": 21.12,
+      "recommendation": "迴避",
+      "entry_low": 16.58,
+      "entry_high": 16.92,
+      "stop_loss": 15.91,
+      "targets": {
+        "t1": 17.59,
+        "t2": 18.43,
+        "t3": 19.26,
+        "stop_loss": 15.91
       },
       "fundamentals": {
         "pe": 0,
@@ -44933,38 +45957,6 @@
       }
     },
     {
-      "stock_id": "3114",
-      "name": "好德科技股份有限公司",
-      "market": "TPEx",
-      "close": 42.7,
-      "change_pct": -1.73,
-      "volume": 0.0,
-      "scores": {
-        "technical": 11.17647058823531,
-        "chips": 0.0,
-        "fundamental": 50.0,
-        "news": 46.54,
-        "sentiment": 44.70588235294124,
-        "total": 21.1
-      },
-      "total_score": 21.1,
-      "recommendation": "迴避",
-      "entry_low": 42.27,
-      "entry_high": 43.13,
-      "stop_loss": 40.56,
-      "targets": {
-        "t1": 44.84,
-        "t2": 46.97,
-        "t3": 49.1,
-        "stop_loss": 40.56
-      },
-      "fundamentals": {
-        "pe": 0,
-        "pb": 0,
-        "dy": 0
-      }
-    },
-    {
       "stock_id": "2067",
       "name": "嘉鋼精密工業股份有限公司",
       "market": "TPEx",
@@ -44989,6 +45981,38 @@
         "t2": 6.99,
         "t3": 7.3,
         "stop_loss": 6.03
+      },
+      "fundamentals": {
+        "pe": 0,
+        "pb": 0,
+        "dy": 0
+      }
+    },
+    {
+      "stock_id": "3114",
+      "name": "好德科技股份有限公司",
+      "market": "TPEx",
+      "close": 42.7,
+      "change_pct": -1.73,
+      "volume": 0.0,
+      "scores": {
+        "technical": 11.17647058823531,
+        "chips": 0.0,
+        "fundamental": 50.0,
+        "news": 46.54,
+        "sentiment": 44.70588235294124,
+        "total": 21.1
+      },
+      "total_score": 21.1,
+      "recommendation": "迴避",
+      "entry_low": 42.27,
+      "entry_high": 43.13,
+      "stop_loss": 40.56,
+      "targets": {
+        "t1": 44.84,
+        "t2": 46.97,
+        "t3": 49.1,
+        "stop_loss": 40.56
       },
       "fundamentals": {
         "pe": 0,
@@ -45541,38 +46565,6 @@
       }
     },
     {
-      "stock_id": "7819",
-      "name": "精誠金融科技股份有限公司",
-      "market": "TPEx",
-      "close": 45.4,
-      "change_pct": -0.33,
-      "volume": 0.0,
-      "scores": {
-        "technical": 10.652173913043473,
-        "chips": 0.0,
-        "fundamental": 50.0,
-        "news": 49.34,
-        "sentiment": 42.60869565217389,
-        "total": 20.96
-      },
-      "total_score": 20.96,
-      "recommendation": "迴避",
-      "entry_low": 44.95,
-      "entry_high": 45.85,
-      "stop_loss": 43.13,
-      "targets": {
-        "t1": 47.67,
-        "t2": 49.94,
-        "t3": 52.21,
-        "stop_loss": 43.13
-      },
-      "fundamentals": {
-        "pe": 0,
-        "pb": 0,
-        "dy": 0
-      }
-    },
-    {
       "stock_id": "7810",
       "name": "捷創科技股份有限公司",
       "market": "TPEx",
@@ -45597,6 +46589,38 @@
         "t2": 225.5,
         "t3": 235.75,
         "stop_loss": 194.75
+      },
+      "fundamentals": {
+        "pe": 0,
+        "pb": 0,
+        "dy": 0
+      }
+    },
+    {
+      "stock_id": "7819",
+      "name": "精誠金融科技股份有限公司",
+      "market": "TPEx",
+      "close": 45.4,
+      "change_pct": -0.33,
+      "volume": 0.0,
+      "scores": {
+        "technical": 10.652173913043473,
+        "chips": 0.0,
+        "fundamental": 50.0,
+        "news": 49.34,
+        "sentiment": 42.60869565217389,
+        "total": 20.96
+      },
+      "total_score": 20.96,
+      "recommendation": "迴避",
+      "entry_low": 44.95,
+      "entry_high": 45.85,
+      "stop_loss": 43.13,
+      "targets": {
+        "t1": 47.67,
+        "t2": 49.94,
+        "t3": 52.21,
+        "stop_loss": 43.13
       },
       "fundamentals": {
         "pe": 0,
@@ -45861,38 +46885,6 @@
       }
     },
     {
-      "stock_id": "6561",
-      "name": "是方電訊股份有限公司",
-      "market": "TPEx",
-      "close": 339.0,
-      "change_pct": -1.02,
-      "volume": 0.0,
-      "scores": {
-        "technical": 10.625,
-        "chips": 0.0,
-        "fundamental": 50.0,
-        "news": 47.96,
-        "sentiment": 42.5,
-        "total": 20.8
-      },
-      "total_score": 20.8,
-      "recommendation": "迴避",
-      "entry_low": 335.61,
-      "entry_high": 342.39,
-      "stop_loss": 322.05,
-      "targets": {
-        "t1": 355.95,
-        "t2": 372.9,
-        "t3": 389.85,
-        "stop_loss": 322.05
-      },
-      "fundamentals": {
-        "pe": 0,
-        "pb": 0,
-        "dy": 0
-      }
-    },
-    {
       "stock_id": "6841",
       "name": "長佳智能股份有限公司",
       "market": "TPEx",
@@ -45917,6 +46909,38 @@
         "t2": 66.22,
         "t3": 69.23,
         "stop_loss": 57.19
+      },
+      "fundamentals": {
+        "pe": 0,
+        "pb": 0,
+        "dy": 0
+      }
+    },
+    {
+      "stock_id": "6561",
+      "name": "是方電訊股份有限公司",
+      "market": "TPEx",
+      "close": 339.0,
+      "change_pct": -1.02,
+      "volume": 0.0,
+      "scores": {
+        "technical": 10.625,
+        "chips": 0.0,
+        "fundamental": 50.0,
+        "news": 47.96,
+        "sentiment": 42.5,
+        "total": 20.8
+      },
+      "total_score": 20.8,
+      "recommendation": "迴避",
+      "entry_low": 335.61,
+      "entry_high": 342.39,
+      "stop_loss": 322.05,
+      "targets": {
+        "t1": 355.95,
+        "t2": 372.9,
+        "t3": 389.85,
+        "stop_loss": 322.05
       },
       "fundamentals": {
         "pe": 0,
@@ -47781,38 +48805,6 @@
       }
     },
     {
-      "stock_id": "3128",
-      "name": "昇銳智慧科技股份有限公司",
-      "market": "TPEx",
-      "close": 23.9,
-      "change_pct": -0.62,
-      "volume": 0.0,
-      "scores": {
-        "technical": 9.117647058823497,
-        "chips": 0.0,
-        "fundamental": 50.0,
-        "news": 48.76,
-        "sentiment": 43.52941176470584,
-        "total": 20.38
-      },
-      "total_score": 20.38,
-      "recommendation": "迴避",
-      "entry_low": 23.66,
-      "entry_high": 24.14,
-      "stop_loss": 22.7,
-      "targets": {
-        "t1": 25.09,
-        "t2": 26.29,
-        "t3": 27.48,
-        "stop_loss": 22.7
-      },
-      "fundamentals": {
-        "pe": 0,
-        "pb": 0,
-        "dy": 0
-      }
-    },
-    {
       "stock_id": "2729",
       "name": "瓦城泰統股份有限公司",
       "market": "TPEx",
@@ -47837,6 +48829,38 @@
         "t2": 177.1,
         "t3": 185.15,
         "stop_loss": 152.95
+      },
+      "fundamentals": {
+        "pe": 0,
+        "pb": 0,
+        "dy": 0
+      }
+    },
+    {
+      "stock_id": "3128",
+      "name": "昇銳智慧科技股份有限公司",
+      "market": "TPEx",
+      "close": 23.9,
+      "change_pct": -0.62,
+      "volume": 0.0,
+      "scores": {
+        "technical": 9.117647058823497,
+        "chips": 0.0,
+        "fundamental": 50.0,
+        "news": 48.76,
+        "sentiment": 43.52941176470584,
+        "total": 20.38
+      },
+      "total_score": 20.38,
+      "recommendation": "迴避",
+      "entry_low": 23.66,
+      "entry_high": 24.14,
+      "stop_loss": 22.7,
+      "targets": {
+        "t1": 25.09,
+        "t2": 26.29,
+        "t3": 27.48,
+        "stop_loss": 22.7
       },
       "fundamentals": {
         "pe": 0,
@@ -48709,38 +49733,6 @@
       }
     },
     {
-      "stock_id": "3191",
-      "name": "雲嘉南科技股份有限公司",
-      "market": "TPEx",
-      "close": 19.05,
-      "change_pct": -1.3,
-      "volume": 0.0,
-      "scores": {
-        "technical": 10.0,
-        "chips": 0.0,
-        "fundamental": 50.0,
-        "news": 47.4,
-        "sentiment": 40.0,
-        "total": 20.24
-      },
-      "total_score": 20.24,
-      "recommendation": "迴避",
-      "entry_low": 18.86,
-      "entry_high": 19.24,
-      "stop_loss": 18.1,
-      "targets": {
-        "t1": 20.0,
-        "t2": 20.96,
-        "t3": 21.91,
-        "stop_loss": 18.1
-      },
-      "fundamentals": {
-        "pe": 0,
-        "pb": 0,
-        "dy": 0
-      }
-    },
-    {
       "stock_id": "2734",
       "name": "易飛網國際旅行社股份有限公司",
       "market": "TPEx",
@@ -48765,6 +49757,38 @@
         "t2": 16.61,
         "t3": 17.36,
         "stop_loss": 14.34
+      },
+      "fundamentals": {
+        "pe": 0,
+        "pb": 0,
+        "dy": 0
+      }
+    },
+    {
+      "stock_id": "3191",
+      "name": "雲嘉南科技股份有限公司",
+      "market": "TPEx",
+      "close": 19.05,
+      "change_pct": -1.3,
+      "volume": 0.0,
+      "scores": {
+        "technical": 10.0,
+        "chips": 0.0,
+        "fundamental": 50.0,
+        "news": 47.4,
+        "sentiment": 40.0,
+        "total": 20.24
+      },
+      "total_score": 20.24,
+      "recommendation": "迴避",
+      "entry_low": 18.86,
+      "entry_high": 19.24,
+      "stop_loss": 18.1,
+      "targets": {
+        "t1": 20.0,
+        "t2": 20.96,
+        "t3": 21.91,
+        "stop_loss": 18.1
       },
       "fundamentals": {
         "pe": 0,
@@ -48837,38 +49861,6 @@
       }
     },
     {
-      "stock_id": "8034",
-      "name": "榮群電訊股份有限公司",
-      "market": "TPEx",
-      "close": 23.3,
-      "change_pct": -1.48,
-      "volume": 0.0,
-      "scores": {
-        "technical": 10.0,
-        "chips": 0.0,
-        "fundamental": 50.0,
-        "news": 47.04,
-        "sentiment": 40.0,
-        "total": 20.2
-      },
-      "total_score": 20.2,
-      "recommendation": "迴避",
-      "entry_low": 23.07,
-      "entry_high": 23.53,
-      "stop_loss": 22.13,
-      "targets": {
-        "t1": 24.47,
-        "t2": 25.63,
-        "t3": 26.79,
-        "stop_loss": 22.13
-      },
-      "fundamentals": {
-        "pe": 0,
-        "pb": 0,
-        "dy": 0
-      }
-    },
-    {
       "stock_id": "8054",
       "name": "安國國際科技股份有限公司",
       "market": "TPEx",
@@ -48893,6 +49885,38 @@
         "t2": 109.45,
         "t3": 114.42,
         "stop_loss": 94.52
+      },
+      "fundamentals": {
+        "pe": 0,
+        "pb": 0,
+        "dy": 0
+      }
+    },
+    {
+      "stock_id": "8034",
+      "name": "榮群電訊股份有限公司",
+      "market": "TPEx",
+      "close": 23.3,
+      "change_pct": -1.48,
+      "volume": 0.0,
+      "scores": {
+        "technical": 10.0,
+        "chips": 0.0,
+        "fundamental": 50.0,
+        "news": 47.04,
+        "sentiment": 40.0,
+        "total": 20.2
+      },
+      "total_score": 20.2,
+      "recommendation": "迴避",
+      "entry_low": 23.07,
+      "entry_high": 23.53,
+      "stop_loss": 22.13,
+      "targets": {
+        "t1": 24.47,
+        "t2": 25.63,
+        "t3": 26.79,
+        "stop_loss": 22.13
       },
       "fundamentals": {
         "pe": 0,
@@ -49861,6 +50885,38 @@
       }
     },
     {
+      "stock_id": "2485",
+      "name": "兆赫",
+      "market": "TSE",
+      "close": 60.5,
+      "change_pct": -5.02,
+      "volume": 13734094.0,
+      "scores": {
+        "technical": 8.645833333333336,
+        "chips": 10.0,
+        "fundamental": 35.0,
+        "news": 39.96,
+        "sentiment": 46.249999999999986,
+        "total": 19.83
+      },
+      "total_score": 19.83,
+      "recommendation": "迴避",
+      "entry_low": 59.89,
+      "entry_high": 61.11,
+      "stop_loss": 57.47,
+      "targets": {
+        "t1": 63.53,
+        "t2": 66.55,
+        "t3": 69.57,
+        "stop_loss": 57.47
+      },
+      "fundamentals": {
+        "pe": 1512.5,
+        "pb": 3.64,
+        "dy": 0.0
+      }
+    },
+    {
       "stock_id": "6603",
       "name": "富強鑫精密工業股份有限公司",
       "market": "TPEx",
@@ -49986,38 +51042,6 @@
         "pe": 0.0,
         "pb": 3.82,
         "dy": 0.0
-      }
-    },
-    {
-      "stock_id": "8210",
-      "name": "勤誠",
-      "market": "TSE",
-      "close": 1350.0,
-      "change_pct": -5.59,
-      "volume": 1918902.0,
-      "scores": {
-        "technical": 10.90909090909091,
-        "chips": 10.0,
-        "fundamental": 28.0,
-        "news": 38.82,
-        "sentiment": 48.63636363636364,
-        "total": 19.81
-      },
-      "total_score": 19.81,
-      "recommendation": "迴避",
-      "entry_low": 1336.5,
-      "entry_high": 1363.5,
-      "stop_loss": 1282.5,
-      "targets": {
-        "t1": 1417.5,
-        "t2": 1485.0,
-        "t3": 1552.5,
-        "stop_loss": 1282.5
-      },
-      "fundamentals": {
-        "pe": 40.02,
-        "pb": 13.41,
-        "dy": 1.04
       }
     },
     {
@@ -50437,38 +51461,6 @@
       }
     },
     {
-      "stock_id": "6577",
-      "name": "勁豐電子股份有限公司",
-      "market": "TPEx",
-      "close": 79.3,
-      "change_pct": -0.5,
-      "volume": 0.0,
-      "scores": {
-        "technical": 6.818181818181788,
-        "chips": 0.0,
-        "fundamental": 50.0,
-        "news": 49.0,
-        "sentiment": 45.45454545454543,
-        "total": 19.67
-      },
-      "total_score": 19.67,
-      "recommendation": "迴避",
-      "entry_low": 78.51,
-      "entry_high": 80.09,
-      "stop_loss": 75.33,
-      "targets": {
-        "t1": 83.27,
-        "t2": 87.23,
-        "t3": 91.19,
-        "stop_loss": 75.33
-      },
-      "fundamentals": {
-        "pe": 0,
-        "pb": 0,
-        "dy": 0
-      }
-    },
-    {
       "stock_id": "5213",
       "name": "亞昕國際開發股份有限公司",
       "market": "TPEx",
@@ -50493,6 +51485,38 @@
         "t2": 25.25,
         "t3": 26.39,
         "stop_loss": 21.8
+      },
+      "fundamentals": {
+        "pe": 0,
+        "pb": 0,
+        "dy": 0
+      }
+    },
+    {
+      "stock_id": "6577",
+      "name": "勁豐電子股份有限公司",
+      "market": "TPEx",
+      "close": 79.3,
+      "change_pct": -0.5,
+      "volume": 0.0,
+      "scores": {
+        "technical": 6.818181818181788,
+        "chips": 0.0,
+        "fundamental": 50.0,
+        "news": 49.0,
+        "sentiment": 45.45454545454543,
+        "total": 19.67
+      },
+      "total_score": 19.67,
+      "recommendation": "迴避",
+      "entry_low": 78.51,
+      "entry_high": 80.09,
+      "stop_loss": 75.33,
+      "targets": {
+        "t1": 83.27,
+        "t2": 87.23,
+        "t3": 91.19,
+        "stop_loss": 75.33
       },
       "fundamentals": {
         "pe": 0,
@@ -52293,38 +53317,6 @@
       }
     },
     {
-      "stock_id": "6588",
-      "name": "東典光電科技股份有限公司",
-      "market": "TPEx",
-      "close": 111.0,
-      "change_pct": -0.89,
-      "volume": 0.0,
-      "scores": {
-        "technical": 4.5,
-        "chips": 0.0,
-        "fundamental": 50.0,
-        "news": 48.22,
-        "sentiment": 42.0,
-        "total": 18.32
-      },
-      "total_score": 18.32,
-      "recommendation": "迴避",
-      "entry_low": 109.89,
-      "entry_high": 112.11,
-      "stop_loss": 105.45,
-      "targets": {
-        "t1": 116.55,
-        "t2": 122.1,
-        "t3": 127.65,
-        "stop_loss": 105.45
-      },
-      "fundamentals": {
-        "pe": 0,
-        "pb": 0,
-        "dy": 0
-      }
-    },
-    {
       "stock_id": "6961",
       "name": "旅天下聯合國際旅行社(股)公司",
       "market": "TPEx",
@@ -52349,6 +53341,38 @@
         "t2": 60.5,
         "t3": 63.25,
         "stop_loss": 52.25
+      },
+      "fundamentals": {
+        "pe": 0,
+        "pb": 0,
+        "dy": 0
+      }
+    },
+    {
+      "stock_id": "6588",
+      "name": "東典光電科技股份有限公司",
+      "market": "TPEx",
+      "close": 111.0,
+      "change_pct": -0.89,
+      "volume": 0.0,
+      "scores": {
+        "technical": 4.5,
+        "chips": 0.0,
+        "fundamental": 50.0,
+        "news": 48.22,
+        "sentiment": 42.0,
+        "total": 18.32
+      },
+      "total_score": 18.32,
+      "recommendation": "迴避",
+      "entry_low": 109.89,
+      "entry_high": 112.11,
+      "stop_loss": 105.45,
+      "targets": {
+        "t1": 116.55,
+        "t2": 122.1,
+        "t3": 127.65,
+        "stop_loss": 105.45
       },
       "fundamentals": {
         "pe": 0,
@@ -52706,6 +53730,38 @@
         "pe": 0,
         "pb": 0,
         "dy": 0
+      }
+    },
+    {
+      "stock_id": "6426",
+      "name": "統新",
+      "market": "TSE",
+      "close": 198.5,
+      "change_pct": -5.02,
+      "volume": 1094031.0,
+      "scores": {
+        "technical": 8.0,
+        "chips": 10.0,
+        "fundamental": 25.0,
+        "news": 39.96,
+        "sentiment": 45.0,
+        "total": 17.95
+      },
+      "total_score": 17.95,
+      "recommendation": "迴避",
+      "entry_low": 196.51,
+      "entry_high": 200.49,
+      "stop_loss": 188.57,
+      "targets": {
+        "t1": 208.43,
+        "t2": 218.35,
+        "t3": 228.27,
+        "stop_loss": 188.57
+      },
+      "fundamentals": {
+        "pe": 381.73,
+        "pb": 8.2,
+        "dy": 0.25
       }
     },
     {
@@ -53125,38 +54181,6 @@
       }
     },
     {
-      "stock_id": "3632",
-      "name": "研勤科技股份有限公司",
-      "market": "TPEx",
-      "close": 8.3,
-      "change_pct": 0.0,
-      "volume": 0.0,
-      "scores": {
-        "technical": 0.0,
-        "chips": 0.0,
-        "fundamental": 50.0,
-        "news": 50.0,
-        "sentiment": 50.0,
-        "total": 17.5
-      },
-      "total_score": 17.5,
-      "recommendation": "迴避",
-      "entry_low": 8.22,
-      "entry_high": 8.38,
-      "stop_loss": 7.89,
-      "targets": {
-        "t1": 8.72,
-        "t2": 9.13,
-        "t3": 9.54,
-        "stop_loss": 7.89
-      },
-      "fundamentals": {
-        "pe": 0,
-        "pb": 0,
-        "dy": 0
-      }
-    },
-    {
       "stock_id": "2924",
       "name": "開曼群島宏太股份有限公司",
       "market": "TPEx",
@@ -53213,6 +54237,38 @@
         "t2": 20.9,
         "t3": 21.85,
         "stop_loss": 18.05
+      },
+      "fundamentals": {
+        "pe": 0,
+        "pb": 0,
+        "dy": 0
+      }
+    },
+    {
+      "stock_id": "3632",
+      "name": "研勤科技股份有限公司",
+      "market": "TPEx",
+      "close": 8.3,
+      "change_pct": 0.0,
+      "volume": 0.0,
+      "scores": {
+        "technical": 0.0,
+        "chips": 0.0,
+        "fundamental": 50.0,
+        "news": 50.0,
+        "sentiment": 50.0,
+        "total": 17.5
+      },
+      "total_score": 17.5,
+      "recommendation": "迴避",
+      "entry_low": 8.22,
+      "entry_high": 8.38,
+      "stop_loss": 7.89,
+      "targets": {
+        "t1": 8.72,
+        "t2": 9.13,
+        "t3": 9.54,
+        "stop_loss": 7.89
       },
       "fundamentals": {
         "pe": 0,
@@ -54306,6 +55362,38 @@
         "pe": 0,
         "pb": 0,
         "dy": 0
+      }
+    },
+    {
+      "stock_id": "2426",
+      "name": "鼎元",
+      "market": "TSE",
+      "close": 68.9,
+      "change_pct": -7.89,
+      "volume": 31512278.0,
+      "scores": {
+        "technical": 0.0,
+        "chips": 10.0,
+        "fundamental": 40.0,
+        "news": 34.22,
+        "sentiment": 45.82644628099173,
+        "total": 16.5
+      },
+      "total_score": 16.5,
+      "recommendation": "迴避",
+      "entry_low": 68.21,
+      "entry_high": 69.59,
+      "stop_loss": 65.45,
+      "targets": {
+        "t1": 72.35,
+        "t2": 75.79,
+        "t3": 79.23,
+        "stop_loss": 65.45
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 5.51,
+        "dy": 0.15
       }
     },
     {
@@ -55493,38 +56581,6 @@
       }
     },
     {
-      "stock_id": "4528",
-      "name": "江興鍛壓工業股份有限公司",
-      "market": "TPEx",
-      "close": 15.9,
-      "change_pct": -2.15,
-      "volume": 0.0,
-      "scores": {
-        "technical": 0.0,
-        "chips": 0.0,
-        "fundamental": 50.0,
-        "news": 45.7,
-        "sentiment": 40.0,
-        "total": 16.07
-      },
-      "total_score": 16.07,
-      "recommendation": "迴避",
-      "entry_low": 15.74,
-      "entry_high": 16.06,
-      "stop_loss": 15.11,
-      "targets": {
-        "t1": 16.7,
-        "t2": 17.49,
-        "t3": 18.29,
-        "stop_loss": 15.11
-      },
-      "fundamentals": {
-        "pe": 0,
-        "pb": 0,
-        "dy": 0
-      }
-    },
-    {
       "stock_id": "4120",
       "name": "友華生技醫藥股份有限公司",
       "market": "TPEx",
@@ -55549,6 +56605,38 @@
         "t2": 49.94,
         "t3": 52.21,
         "stop_loss": 43.13
+      },
+      "fundamentals": {
+        "pe": 0,
+        "pb": 0,
+        "dy": 0
+      }
+    },
+    {
+      "stock_id": "4528",
+      "name": "江興鍛壓工業股份有限公司",
+      "market": "TPEx",
+      "close": 15.9,
+      "change_pct": -2.15,
+      "volume": 0.0,
+      "scores": {
+        "technical": 0.0,
+        "chips": 0.0,
+        "fundamental": 50.0,
+        "news": 45.7,
+        "sentiment": 40.0,
+        "total": 16.07
+      },
+      "total_score": 16.07,
+      "recommendation": "迴避",
+      "entry_low": 15.74,
+      "entry_high": 16.06,
+      "stop_loss": 15.11,
+      "targets": {
+        "t1": 16.7,
+        "t2": 17.49,
+        "t3": 18.29,
+        "stop_loss": 15.11
       },
       "fundamentals": {
         "pe": 0,
@@ -55621,38 +56709,6 @@
       }
     },
     {
-      "stock_id": "8048",
-      "name": "德勝科技股份有限公司",
-      "market": "TPEx",
-      "close": 65.4,
-      "change_pct": -2.97,
-      "volume": 0.0,
-      "scores": {
-        "technical": 0.0,
-        "chips": 0.0,
-        "fundamental": 50.0,
-        "news": 44.06,
-        "sentiment": 41.621621621621685,
-        "total": 16.07
-      },
-      "total_score": 16.07,
-      "recommendation": "迴避",
-      "entry_low": 64.75,
-      "entry_high": 66.05,
-      "stop_loss": 62.13,
-      "targets": {
-        "t1": 68.67,
-        "t2": 71.94,
-        "t3": 75.21,
-        "stop_loss": 62.13
-      },
-      "fundamentals": {
-        "pe": 0,
-        "pb": 0,
-        "dy": 0
-      }
-    },
-    {
       "stock_id": "8390",
       "name": "金益鼎企業股份有限公司",
       "market": "TPEx",
@@ -55677,6 +56733,38 @@
         "t2": 125.95,
         "t3": 131.67,
         "stop_loss": 108.77
+      },
+      "fundamentals": {
+        "pe": 0,
+        "pb": 0,
+        "dy": 0
+      }
+    },
+    {
+      "stock_id": "8048",
+      "name": "德勝科技股份有限公司",
+      "market": "TPEx",
+      "close": 65.4,
+      "change_pct": -2.97,
+      "volume": 0.0,
+      "scores": {
+        "technical": 0.0,
+        "chips": 0.0,
+        "fundamental": 50.0,
+        "news": 44.06,
+        "sentiment": 41.621621621621685,
+        "total": 16.07
+      },
+      "total_score": 16.07,
+      "recommendation": "迴避",
+      "entry_low": 64.75,
+      "entry_high": 66.05,
+      "stop_loss": 62.13,
+      "targets": {
+        "t1": 68.67,
+        "t2": 71.94,
+        "t3": 75.21,
+        "stop_loss": 62.13
       },
       "fundamentals": {
         "pe": 0,
@@ -56389,38 +57477,6 @@
       }
     },
     {
-      "stock_id": "6125",
-      "name": "廣運機械工程股份有限公司",
-      "market": "TPEx",
-      "close": 59.8,
-      "change_pct": -2.61,
-      "volume": 0.0,
-      "scores": {
-        "technical": 0.0,
-        "chips": 0.0,
-        "fundamental": 50.0,
-        "news": 44.78,
-        "sentiment": 40.0,
-        "total": 15.98
-      },
-      "total_score": 15.98,
-      "recommendation": "迴避",
-      "entry_low": 59.2,
-      "entry_high": 60.4,
-      "stop_loss": 56.81,
-      "targets": {
-        "t1": 62.79,
-        "t2": 65.78,
-        "t3": 68.77,
-        "stop_loss": 56.81
-      },
-      "fundamentals": {
-        "pe": 0,
-        "pb": 0,
-        "dy": 0
-      }
-    },
-    {
       "stock_id": "6118",
       "name": "建達國際股份有限公司",
       "market": "TPEx",
@@ -56445,6 +57501,38 @@
         "t2": 18.7,
         "t3": 19.55,
         "stop_loss": 16.15
+      },
+      "fundamentals": {
+        "pe": 0,
+        "pb": 0,
+        "dy": 0
+      }
+    },
+    {
+      "stock_id": "6125",
+      "name": "廣運機械工程股份有限公司",
+      "market": "TPEx",
+      "close": 59.8,
+      "change_pct": -2.61,
+      "volume": 0.0,
+      "scores": {
+        "technical": 0.0,
+        "chips": 0.0,
+        "fundamental": 50.0,
+        "news": 44.78,
+        "sentiment": 40.0,
+        "total": 15.98
+      },
+      "total_score": 15.98,
+      "recommendation": "迴避",
+      "entry_low": 59.2,
+      "entry_high": 60.4,
+      "stop_loss": 56.81,
+      "targets": {
+        "t1": 62.79,
+        "t2": 65.78,
+        "t3": 68.77,
+        "stop_loss": 56.81
       },
       "fundamentals": {
         "pe": 0,
@@ -61031,45 +62119,45 @@
   ],
   "explode_top5": [
     {
-      "stock_id": "6494",
-      "name": "九齊科技股份有限公司",
-      "close": 68.8,
+      "stock_id": "9906",
+      "name": "欣巴巴",
+      "close": 43.3,
+      "volume": 320917.0,
+      "change_pct": 2.97,
+      "explode_prob": 1.0
+    },
+    {
+      "stock_id": "2344",
+      "name": "華邦電",
+      "close": 197.0,
+      "volume": 355003301.0,
+      "change_pct": 4.23,
+      "explode_prob": 1.0
+    },
+    {
+      "stock_id": "4991",
+      "name": "環宇通訊半導體控股股份有限公司",
+      "close": 587.0,
       "volume": 0.0,
-      "change_pct": 8.18,
+      "change_pct": 7.9,
       "explode_prob": 1.0
     },
     {
-      "stock_id": "1907",
-      "name": "永豐餘",
-      "close": 26.95,
-      "volume": 3479456.0,
-      "change_pct": 2.67,
+      "stock_id": "4755",
+      "name": "三福化",
+      "close": 144.0,
+      "volume": 491484.0,
+      "change_pct": 2.49,
       "explode_prob": 1.0
     },
     {
-      "stock_id": "4946",
-      "name": "紅心辣椒娛樂科技股份有限公司",
-      "close": 110.0,
-      "volume": 0.0,
-      "change_pct": 4.76,
-      "explode_prob": 1.0
-    },
-    {
-      "stock_id": "8155",
-      "name": "博智電子股份有限公司",
-      "close": 404.0,
-      "volume": 0.0,
-      "change_pct": 7.45,
-      "explode_prob": 1.0
-    },
-    {
-      "stock_id": "2855",
-      "name": "統一證",
-      "close": 52.6,
-      "volume": 9952253.0,
-      "change_pct": 2.33,
+      "stock_id": "8021",
+      "name": "尖點",
+      "close": 518.0,
+      "volume": 2033792.0,
+      "change_pct": 2.37,
       "explode_prob": 1.0
     }
   ],
-  "generated_at": "2026-06-16T19:12:59.846861+08:00"
+  "generated_at": "2026-06-16T23:58:00.006786+08:00"
 }
