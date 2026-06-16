@@ -54,17 +54,8 @@
     {
       "date": "20260616",
       "file": "scan_result_20260616.json",
-      "scan_time": "00:20:47"
-    },
-    {
-      "date": "20260615",
-      "file": "scan_result_20260615.json",
-      "scan_time": "13:27:13"
-    },
-    {
-      "date": "20260612",
-      "file": "scan_result_20260612.json",
-      "scan_time": "11:04:34"
+      "scan_time": "11:09:54",
+      "scanned_count": 873
     },
     {
       "date": "20260611",
@@ -117,6 +108,6 @@
       "file": "scan_result_20260605.json"
     }
   ],
-  "updated_at": "2026-06-16T00:20:47.350838+08:00",
+  "updated_at": "2026-06-16T11:09:54.996972+08:00",
   "latest": "20260610"
 }

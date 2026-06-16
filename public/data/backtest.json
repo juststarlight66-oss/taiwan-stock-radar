@@ -285,6 +285,78 @@
         "pct": null,
         "win": null
       }
+    },
+    {
+      "date": "20260610",
+      "prev_date": "20260609",
+      "results": [
+        {
+          "stock_id": "1455",
+          "name": "集盛",
+          "entry_date": "20260609",
+          "exit_date": "20260610",
+          "entry": 10.0,
+          "exit": null,
+          "return_pct": null,
+          "hit_t1": false,
+          "rank": 1,
+          "note": "no_today_price"
+        },
+        {
+          "stock_id": "1449",
+          "name": "佳和",
+          "entry_date": "20260609",
+          "exit_date": "20260610",
+          "entry": 14.9,
+          "exit": null,
+          "return_pct": null,
+          "hit_t1": false,
+          "rank": 2,
+          "note": "no_today_price"
+        },
+        {
+          "stock_id": "1786",
+          "name": "科妍",
+          "entry_date": "20260609",
+          "exit_date": "20260610",
+          "entry": 60.6,
+          "exit": null,
+          "return_pct": null,
+          "hit_t1": false,
+          "rank": 3,
+          "note": "no_today_price"
+        },
+        {
+          "stock_id": "2483",
+          "name": "百容",
+          "entry_date": "20260609",
+          "exit_date": "20260610",
+          "entry": 33.45,
+          "exit": null,
+          "return_pct": null,
+          "hit_t1": false,
+          "rank": 4,
+          "note": "no_today_price"
+        },
+        {
+          "stock_id": "6585",
+          "name": "鼎基",
+          "entry_date": "20260609",
+          "exit_date": "20260610",
+          "entry": 123.0,
+          "exit": null,
+          "return_pct": null,
+          "hit_t1": false,
+          "rank": 5,
+          "note": "no_today_price"
+        }
+      ],
+      "summary": {
+        "total": 5,
+        "with_data": 0,
+        "positive": 0,
+        "avg_return": 0
+      }
     }
   ],
   "grouped_records": [
@@ -856,7 +928,108 @@
           "win_rate": null,
           "avg_return": null,
           "pending": true,
-          "stocks": []
+          "stocks": [
+            {
+              "stock_id": "7839",
+              "name": "達人網科技股份有限公司",
+              "entry": 52.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3362",
+              "name": "先進光電科技股份有限公司",
+              "entry": 176.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5230",
+              "name": "雷笛克光學股份有限公司",
+              "entry": 19.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2061",
+              "name": "風青實業股份有限公司",
+              "entry": 39.75,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5228",
+              "name": "鈺鎧科技股份有限公司",
+              "entry": 76.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6259",
+              "name": "百徽股份有限公司",
+              "entry": 30.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3527",
+              "name": "聚積科技股份有限公司",
+              "entry": 65.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3516",
+              "name": "亞帝歐光電股份有限公司",
+              "entry": 27.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6174",
+              "name": "安碁科技股份有限公司",
+              "entry": 55.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5328",
+              "name": "華容股份有限公司",
+              "entry": 46.55,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
         },
         "T3": {
           "label": "T+3",
@@ -864,7 +1037,108 @@
           "win_rate": null,
           "avg_return": null,
           "pending": true,
-          "stocks": []
+          "stocks": [
+            {
+              "stock_id": "7839",
+              "name": "達人網科技股份有限公司",
+              "entry": 52.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3362",
+              "name": "先進光電科技股份有限公司",
+              "entry": 176.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5230",
+              "name": "雷笛克光學股份有限公司",
+              "entry": 19.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2061",
+              "name": "風青實業股份有限公司",
+              "entry": 39.75,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5228",
+              "name": "鈺鎧科技股份有限公司",
+              "entry": 76.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6259",
+              "name": "百徽股份有限公司",
+              "entry": 30.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3527",
+              "name": "聚積科技股份有限公司",
+              "entry": 65.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3516",
+              "name": "亞帝歐光電股份有限公司",
+              "entry": 27.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6174",
+              "name": "安碁科技股份有限公司",
+              "entry": 55.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5328",
+              "name": "華容股份有限公司",
+              "entry": 46.55,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
         },
         "T5": {
           "label": "T+5",
@@ -872,12 +1146,113 @@
           "win_rate": null,
           "avg_return": null,
           "pending": true,
-          "stocks": []
+          "stocks": [
+            {
+              "stock_id": "7839",
+              "name": "達人網科技股份有限公司",
+              "entry": 52.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3362",
+              "name": "先進光電科技股份有限公司",
+              "entry": 176.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5230",
+              "name": "雷笛克光學股份有限公司",
+              "entry": 19.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2061",
+              "name": "風青實業股份有限公司",
+              "entry": 39.75,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5228",
+              "name": "鈺鎧科技股份有限公司",
+              "entry": 76.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6259",
+              "name": "百徽股份有限公司",
+              "entry": 30.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3527",
+              "name": "聚積科技股份有限公司",
+              "entry": 65.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3516",
+              "name": "亞帝歐光電股份有限公司",
+              "entry": 27.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6174",
+              "name": "安碁科技股份有限公司",
+              "entry": 55.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5328",
+              "name": "華容股份有限公司",
+              "entry": 46.55,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
         }
       }
     },
     {
-      "scan_date": "2026-06-15",
+      "scan_date": "2026-06-10",
       "periods": {
         "T1": {
           "label": "T+1",
@@ -904,17 +1279,130 @@
           "stocks": []
         }
       }
+    },
+    {
+      "verify_date": "20260611",
+      "recommend_date": "20260610",
+      "records": [
+        {
+          "stock_id": "2505",
+          "name": "國揚",
+          "recommend_date": "20260610",
+          "verify_date": "20260611",
+          "entry_price": 19.45,
+          "exit_price": null,
+          "return_pct": null,
+          "status": "no_data"
+        },
+        {
+          "stock_id": "1618",
+          "name": "合機",
+          "recommend_date": "20260610",
+          "verify_date": "20260611",
+          "entry_price": 44.9,
+          "exit_price": null,
+          "return_pct": null,
+          "status": "no_data"
+        },
+        {
+          "stock_id": "2414",
+          "name": "精技",
+          "recommend_date": "20260610",
+          "verify_date": "20260611",
+          "entry_price": 56.9,
+          "exit_price": null,
+          "return_pct": null,
+          "status": "no_data"
+        },
+        {
+          "stock_id": "2642",
+          "name": "宅配通",
+          "recommend_date": "20260610",
+          "verify_date": "20260611",
+          "entry_price": 22.3,
+          "exit_price": null,
+          "return_pct": null,
+          "status": "no_data"
+        },
+        {
+          "stock_id": "6916",
+          "name": "華凌",
+          "recommend_date": "20260610",
+          "verify_date": "20260611",
+          "entry_price": 20.6,
+          "exit_price": null,
+          "return_pct": null,
+          "status": "no_data"
+        }
+      ],
+      "avg_return_pct": null,
+      "valid_count": 0,
+      "hit_count": 0,
+      "note": "TWSE API unavailable post-market; prices pending next trading session"
     }
   ],
+  "updated_at": "2026-06-11T11:07:45.876488+08:00",
+  "latest_date": "20260610",
   "history": [
     {
       "date": "2026/06/16",
-      "results": {}
+      "results": {
+        "7839": {
+          "name": "達人網科技股份有限公司",
+          "score": 70.12,
+          "close": 52.5
+        },
+        "3362": {
+          "name": "先進光電科技股份有限公司",
+          "score": 64.68,
+          "close": 176.5
+        },
+        "5230": {
+          "name": "雷笛克光學股份有限公司",
+          "score": 64.68,
+          "close": 19.3
+        },
+        "2061": {
+          "name": "風青實業股份有限公司",
+          "score": 64.67,
+          "close": 39.75
+        },
+        "5228": {
+          "name": "鈺鎧科技股份有限公司",
+          "score": 64.67,
+          "close": 76.2
+        },
+        "6259": {
+          "name": "百徽股份有限公司",
+          "score": 64.67,
+          "close": 30.35
+        },
+        "3527": {
+          "name": "聚積科技股份有限公司",
+          "score": 64.66,
+          "close": 65.3
+        },
+        "3516": {
+          "name": "亞帝歐光電股份有限公司",
+          "score": 64.66,
+          "close": 27.1
+        },
+        "6174": {
+          "name": "安碁科技股份有限公司",
+          "score": 64.66,
+          "close": 55.3
+        },
+        "5328": {
+          "name": "華容股份有限公司",
+          "score": 64.65,
+          "close": 46.55
+        }
+      }
     },
     {
-      "date": "2026/06/15",
+      "date": "2026/06/10",
       "results": {}
     }
   ],
-  "last_updated": "2026-06-16T00:20:47.350838+08:00"
+  "last_updated": "2026-06-16T11:09:54.996972+08:00"
 }
