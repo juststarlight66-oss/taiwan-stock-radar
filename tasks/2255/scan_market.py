@@ -40,16 +40,28 @@ class _CurlResponse:
         except Exception: return {}
 
 def _http_get(url, *, headers=None, timeout=30, verify=False, retries=3, backoff=2.0):
-    """帶 retry 的 requests.get 包裝 (curl繞過)"""
+    """帶 retry 的 requests.get 包裝 (curl 與 allorigins 繞過)"""
+    import urllib.parse
     last_err = None
     for att in range(retries):
         try:
             if 'twse.com.tw' in url:
-                cmd = ['curl', '-s', '-L', '-A', 'Mozilla/5.0', url]
-                res = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
+                # Try allorigins proxy for TWSE to avoid Cloudflare/WAF block in Actions
+                proxy_url = 'https://api.allorigins.win/raw?url=' + urllib.parse.quote(url)
+                try:
+                    res = requests.get(proxy_url, headers={'User-Agent': 'Mozilla/5.0'}, timeout=15)
+                    if res.status_code == 200:
+                        return res
+                except Exception:
+                    pass
+                
+                cmd = ['curl', '-s', '-L', '-A', 'Mozilla/5.0', '--max-time', '15', url]
+                res = subprocess.run(cmd, capture_output=True, text=True, timeout=20)
                 if res.returncode == 0 and ('"stat":"OK"' in res.stdout or '"data":' in res.stdout):
                     return _CurlResponse(res.stdout)
-            return requests.get(url, headers=headers, timeout=timeout, verify=verify)
+                # Do NOT fall through to requests.get(TWSE) - it tarpits and hangs the runner
+                raise RuntimeError(f"TWSE request blocked or timed out for {url}")
+            return requests.get(url, headers=headers, timeout=15, verify=verify)
         except Exception as e:
             last_err = e
             if att < retries - 1:
@@ -517,7 +529,7 @@ def run_scan(scan_date: str = None) -> Dict:
         print(f"[下載] 預先下載上櫃日K失敗，將在線程中個別獲取: {e}")
 
     # 3. 預先抓取全市場上市日K數據 (STOCK_DAY_ALL) - 一次性下載，避免1084次個別請求
-    STOCK_DAY_ALL_URL = "https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL"
+    STOCK_DAY_ALL_URL = "https://www.twse.com.tw/exchangeReport/STOCK_DAY_ALL?response=json"
     all_tse_quotes = {}
     try:
         print("[下載] 預先下載全市場上市日K數據 (STOCK_DAY_ALL)...")
