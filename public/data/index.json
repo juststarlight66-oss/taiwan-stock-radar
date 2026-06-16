@@ -54,7 +54,7 @@
     {
       "date": "20260616",
       "file": "scan_result_20260616.json",
-      "scan_time": "11:09:54",
+      "scan_time": "18:11:00",
       "scanned_count": 873
     },
     {
@@ -108,6 +108,6 @@
       "file": "scan_result_20260605.json"
     }
   ],
-  "updated_at": "2026-06-16T11:09:54.996972+08:00",
+  "updated_at": "2026-06-16T18:11:00.799708+08:00",
   "latest": "20260610"
 }
