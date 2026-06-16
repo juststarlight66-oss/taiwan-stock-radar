@@ -14,7 +14,7 @@ export interface AllScoresData {
   scan_date: string;
   scanned_count: number;
   history?: AllScoreHistoryEntry[];
-  all_stock_scores: ScanStock[];
+  all_stock_scores?: ScanStock[]; stocks?: ScanStock[];
 }
 
 const BASE = '/taiwan-stock-radar';
@@ -114,7 +114,7 @@ export function useAllScores() {
     fetcher,
     { refreshInterval: 0, revalidateOnFocus: false }
   );
-  const stocks: ScanStock[] = (data?.all_stock_scores ?? []).map(normalizeStock);
+  const stocks: ScanStock[] = (data?.all_stock_scores ?? data?.stocks ?? []).map(normalizeStock);
   return { data, stocks, error, isLoading };
 }
 
@@ -141,7 +141,7 @@ export function useOnDemandScan() {
       const res = await fetch(`${BASE}/data/all_scores.json`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const json: AllScoresData = await res.json();
-      const found = (json.all_stock_scores ?? []).find(
+      const found = (json.all_stock_scores ?? json.stocks ?? []).find(
         (s) => s.stock_id === stockId || s.stock_id === stockId.padStart(4, '0')
       );
       setResult({ stock: found ? normalizeStock(found) : null });

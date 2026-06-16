@@ -30,16 +30,30 @@ requests.packages.urllib3.disable_warnings()
 _TW_TZ = timezone(timedelta(hours=8))
 
 
+import subprocess, json as _json
+
+class _CurlResponse:
+    def __init__(self, text):
+        self.text = text
+    def json(self):
+        try: return _json.loads(self.text)
+        except Exception: return {}
+
 def _http_get(url, *, headers=None, timeout=30, verify=False, retries=3, backoff=2.0):
-    """帶 retry 的 requests.get 包裝"""
+    """帶 retry 的 requests.get 包裝 (curl繞過)"""
     last_err = None
     for att in range(retries):
         try:
+            if 'twse.com.tw' in url:
+                cmd = ['curl', '-s', '-L', '-A', 'Mozilla/5.0', url]
+                res = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
+                if res.returncode == 0 and ('"stat":"OK"' in res.stdout or '"data":' in res.stdout):
+                    return _CurlResponse(res.stdout)
             return requests.get(url, headers=headers, timeout=timeout, verify=verify)
         except Exception as e:
             last_err = e
             if att < retries - 1:
-                time.sleep(backoff ** att)
+                import time; time.sleep(backoff ** att)
     raise last_err
 
 
@@ -48,9 +62,9 @@ def _http_get(url, *, headers=None, timeout=30, verify=False, retries=3, backoff
 # ================================================================
 
 TSE_DAILY_URL = "https://www.twse.com.tw/exchangeReport/STOCK_DAY"
-LISTEDSTATUS = "https://openapi.twse.com.tw/v1/opendata/t187ap03_L"
+LISTEDSTATUS = "https://www.twse.com.tw/exchangeReport/STOCK_DAY_ALL?response=json"
 TPEX_DAILY_URL = "https://www.tpex.org.tw/openapi/v1/tpex_mainboard_daily_close_quotes"
-FUND_URL = "https://openapi.twse.com.tw/v1/exchangeReport/BWIBBU_ALL"
+FUND_URL = "https://www.twse.com.tw/exchangeReport/BWIBBU_ALL?response=json"
 TPEX_LISTED_URL = "https://www.tpex.org.tw/openapi/v1/mopsfin_t187ap03_O"
 
 # ================================================================
@@ -87,16 +101,15 @@ TOP_EXPLODE = 5
 # ================================================================
 
 def fetch_listed_stocks() -> List[Dict]:
-    """上市公司股票清單 (t187ap03_L: 欄位 '公司代號', '公司簡稱')"""
+    """上市公司股票清單 (STOCK_DAY_ALL)"""
     try:
-        resp = _http_get(LISTEDSTATUS, timeout=30)
-        data = resp.json()
-        rows = data if isinstance(data, list) else data.get('msgArr', [])
+        resp = _http_get(LISTEDSTATUS, headers={'User-Agent': 'Mozilla/5.0'}, timeout=30)
+        data = resp.json().get('data', [])
         result = []
-        for r in rows:
-            code = str(r.get('公司代號', '')).strip()
+        for r in data:
+            code = str(r[0]).strip()
             if len(code) == 4:
-                result.append({'Code': code, 'Name': str(r.get('公司簡稱', r.get('公司名稱', ''))).strip()})
+                result.append({'Code': code, 'Name': str(r[1]).strip()})
         return result
     except Exception as e:
         print(f"[錯誤] Listed stocks: {e}")
@@ -187,21 +200,23 @@ def fetch_tpex_day(stock_id: str, scan_date: str) -> Optional[Dict]:
 
 
 def fetch_fundamentals(stock_id: str) -> Dict:
-    """BWIBBU_ALL 本益比、殖利率、淨值比 (直接回傳 list of dicts, 欄位: Code, PEratio, PBratio, DividendYield)"""
+    """BWIBBU_ALL 本益比、殖利率、淨值比"""
     try:
-        resp = _http_get(FUND_URL, timeout=30)
-        data = resp.json()
-        # API 直接回傳 list，不需要 .get('data')
-        rows = data if isinstance(data, list) else data.get('data', [])
+        resp = _http_get(FUND_URL, headers={'User-Agent': 'Mozilla/5.0'}, timeout=30)
+        rows = resp.json().get('data', [])
         for row in rows:
-            if str(row.get('Code', '')).strip() == stock_id:
+            if str(row[0]).strip() == stock_id:
                 try:
-                    pe = float(str(row.get('PEratio', '0') or '0').replace(',', '').strip() or '0')
-                    pb = float(str(row.get('PBratio', '0') or '0').replace(',', '').strip() or '0')
-                    dy = float(str(row.get('DividendYield', '0') or '0').replace(',', '').strip() or '0')
+                    pe = float(str(row[2]).replace(',', '').replace('-', '0') or '0')
+                    dy = float(str(row[3]).replace(',', '').replace('-', '0') or '0')
+                    pb = float(str(row[4]).replace(',', '').replace('-', '0') or '0')
                     return {'pe': pe, 'pb': pb, 'dy': dy}
                 except Exception:
-                    return {'pe': 0.0, 'pb': 0.0, 'dy': 0.0}
+                    pass
+        return {'pe': 0, 'pb': 0, 'dy': 0}
+    except Exception as e:
+        print(f"[錯誤] Fund {stock_id}: {e}")
+        return {'pe': 0, 'pb': 0, 'dy': 0}
     except Exception:
         pass
     return {'pe': 0.0, 'pb': 0.0, 'dy': 0.0}
