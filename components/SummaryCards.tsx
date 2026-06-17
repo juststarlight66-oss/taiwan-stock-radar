@@ -46,7 +46,6 @@ function isStrongBuy(rec: string | undefined): boolean {
 
 export default function SummaryCards({ data }: Props) {
   const stocks = data.top10 ?? data.top_stocks ?? [];
-  const totalMax = Object.values(DIMENSION_CONFIG).reduce((s, c) => s + c.max, 0);
   const avgScore = stocks.length
     ? stocks.reduce((s, st) => s + st.total_score, 0) / stocks.length
     : 0;
@@ -68,7 +67,7 @@ export default function SummaryCards({ data }: Props) {
     : 0;
 
   const scannedPct  = data.scanned_count ? Math.min((data.scanned_count / 2200) * 100, 100) : 0;
-  const scorePct    = (avgScore / totalMax) * 100;
+  const scorePct    = avgScore; // total_score is already 0-100
   const sentimentScore = Math.round((strongBuy / Math.max(stocks.length, 1)) * 100);
 
   const cards = [
@@ -86,7 +85,7 @@ export default function SummaryCards({ data }: Props) {
       icon: <Zap className="w-4 h-4 text-amber-400" />,
       label: '平均評分',
       value: avgScore.toFixed(1),
-      sub: `滿分 ${totalMax}`,
+      sub: `滿分 100`,
       accent: 'border-amber-500/20 bg-amber-500/5',
       valueColor: 'text-amber-300',
       progress: <CircleProgress pct={scorePct} color="#fbbf24" />,
