@@ -6,11 +6,9 @@ import {
   getStockEntryLow, getStockEntryHigh, getStockStopLoss,
   getStockTarget1, getStockTarget2, getStockTarget3,
 } from '@/lib/scanTypes';
-import { X, Target, Shield, TrendingUp, TrendingDown, ExternalLink, Share2, Check, Sparkles, Activity } from 'lucide-react';
+import { X, Target, Shield, TrendingUp, TrendingDown, ExternalLink, Share2, Check, Sparkles } from 'lucide-react';
 import { useEffect, useState, useCallback } from 'react';
-import {
-  LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine,
-} from 'recharts';
+
 
 interface Props {
   stock: ScanStock;
@@ -125,68 +123,6 @@ function RadarChart({ stock }: { stock: ScanStock }) {
           );
         })}
       </div>
-    </div>
-  );
-}
-
-/** 盤中走勢圖：優先用 intraday_data，沒有則用模擬數據加 placeholder 提示 */
-function IntradayChart({ stock }: { stock: ScanStock }) {
-  const close = getStockClose(stock) ?? 100;
-  const changePct = getStockChangePct(stock) ?? 0;
-  const open = close / (1 + changePct / 100);
-  const isUp = changePct >= 0;
-  const color = isUp ? '#ef4444' : '#22c55e';
-  const entry = getStockEntryLow(stock);
-  const stop = getStockStopLoss(stock);
-  const t1 = getStockTarget1(stock);
-
-  // 嘗試使用 intraday_data 真實數據
-  const rawIntraday = (stock as Record<string, unknown>).intraday_data;
-  const hasRealData = Array.isArray(rawIntraday) && rawIntraday.length > 0;
-
-  let data: { time: string; price: number }[];
-  if (hasRealData) {
-    data = (rawIntraday as Array<{ time?: string; t?: string; price?: number; c?: number }>).map((p) => ({
-      time: p.time ?? p.t ?? '',
-      price: p.price ?? p.c ?? 0,
-    }));
-  } else {
-    // 模擬走勢（示意）
-    data = Array.from({ length: 20 }, (_, i) => {
-      const progress = i / 19;
-      const noise = (Math.random() - 0.5) * close * 0.015;
-      return {
-        time: `${9 + Math.floor((i * 5) / 60)}:${String((i * 5) % 60).padStart(2, '0')}`,
-        price: parseFloat((open + (close - open) * progress + noise).toFixed(2)),
-      };
-    });
-    data[data.length - 1].price = close;
-  }
-
-  return (
-    <div>
-      <div className="flex items-center gap-2 mb-2">
-        <Activity size={14} className="text-sky-500" />
-        <h3 className="text-sm font-semibold text-gray-700">
-          盤中走勢{hasRealData ? '' : '（示意）'}
-        </h3>
-        {!hasRealData && (
-          <span className="text-xs text-amber-500 bg-amber-50 px-2 py-0.5 rounded-full">
-            盤後無即時數據
-          </span>
-        )}
-      </div>
-      <ResponsiveContainer width="100%" height={140}>
-        <LineChart data={data} margin={{ top: 4, right: 8, bottom: 0, left: 8 }}>
-          <XAxis dataKey="time" tick={{ fontSize: 9 }} interval="preserveStartEnd" />
-          <YAxis domain={['auto', 'auto']} tick={{ fontSize: 9 }} tickFormatter={(v) => `${v}`} width={45} />
-          <Tooltip formatter={(v: number) => [`$${v}`, '價格']} />
-          <Line type="monotone" dataKey="price" stroke={color} strokeWidth={1.5} dot={false} />
-          {entry && <ReferenceLine y={entry} stroke="#10b981" strokeDasharray="3 3" label={{ value: '進場', fontSize: 9 }} />}
-          {stop && <ReferenceLine y={stop} stroke="#ef4444" strokeDasharray="3 3" label={{ value: '停損', fontSize: 9 }} />}
-          {t1 && <ReferenceLine y={t1} stroke="#3b82f6" strokeDasharray="3 3" label={{ value: 'T1', fontSize: 9 }} />}
-        </LineChart>
-      </ResponsiveContainer>
     </div>
   );
 }
@@ -325,11 +261,6 @@ export default function StockDetailModal({ stock, onClose, rank, isDemo }: Props
                 ? displayReason
                 : '暫無 AI 分析資料，請等待下次掃描更新。'}
             </p>
-          </div>
-
-          {/* 盤中走勢 */}
-          <div className="rounded-xl bg-gray-50 p-4">
-            <IntradayChart stock={stock} />
           </div>
 
           {/* 進場策略 */}
