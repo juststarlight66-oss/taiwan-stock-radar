@@ -42,6 +42,9 @@ jobs:
         env:
           PYTHONPATH: /home/runner/work
 
+      - name: Normalize and process results
+        run: python tasks/2255/normalize_and_process.py
+
       - name: Copy and update data files
         run: python tasks/2255/post_scan.py
 

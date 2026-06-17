@@ -27,7 +27,24 @@ scan_path = os.path.join(script_dir, 'scan_result.json')
 with open(scan_path, encoding='utf-8') as f:
     scan = json.load(f)
 
-print(f"Loaded scan_result.json: scanned_count={scan.get('scanned_count')}, scan_date={scan.get('scan_date')}")
+# Use actual scan_date from the scan result (dynamic, not hardcoded)
+SCAN_DATE = scan.get('scan_date', datetime.datetime.now(tz).strftime('%Y%m%d'))
+TODAY = SCAN_DATE
+# Derive date variants
+try:
+    today_dt = datetime.datetime.strptime(TODAY, '%Y%m%d')
+    TODAY_SLASH = today_dt.strftime('%Y/%m/%d')
+    TODAY_ISO = today_dt.strftime('%Y-%m-%d')
+except ValueError:
+    today_dt = datetime.datetime.now(tz)
+    TODAY_SLASH = today_dt.strftime('%Y/%m/%d')
+    TODAY_ISO = today_dt.strftime('%Y-%m-%d')
+
+# Find previous trading day (skip weekends)
+prev_dt = today_dt - datetime.timedelta(days=1)
+while prev_dt.weekday() >= 5:  # 5=Sat, 6=Sun
+    prev_dt -= datetime.timedelta(days=1)
+PREV_DATE = prev_dt.strftime('%Y%m%d')
 
 # ── Normalize top_stocks → top10 with dimensions/signals/strategy ─────────────
 def normalize_stock(s):
@@ -307,7 +324,7 @@ new_gr_entry = {
 }
 
 # Update T+1 for prev date entry if exists
-prev_iso = "2026-06-05"
+prev_iso = prev_dt.strftime('%Y-%m-%d')
 grouped = backtest_pub.get("grouped_records", [])
 if isinstance(grouped, dict):
     grouped = list(grouped.values())

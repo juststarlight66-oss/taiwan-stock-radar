@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-06-17T08:32:33Z",
+    "generated_at": "2026-06-17T03:10:43Z",
     "date": "20260617",
     "lookback_days": 252,
     "strategies": [
@@ -14,16 +14,16 @@
   },
   "aggregate": {
     "ma_crossover": {
-      "total_trades": 129,
-      "win_count": 62,
+      "total_trades": 130,
+      "win_count": 63,
       "loss_count": 67,
-      "win_rate": 48.06,
-      "loss_rate": 51.94,
-      "profit_loss_ratio": 3.36,
-      "avg_return_pct": 7.12,
+      "win_rate": 48.46,
+      "loss_rate": 51.54,
+      "profit_loss_ratio": 3.32,
+      "avg_return_pct": 7.07,
       "max_return_pct": 103.2,
       "min_return_pct": -19.82,
-      "sharpe_ratio": 5.02,
+      "sharpe_ratio": 5.0,
       "max_drawdown_pct": 85.33,
       "avg_hold_days": 13.5
     },
@@ -474,9 +474,9 @@
           "loss_count": 1,
           "win_rate": 66.67,
           "loss_rate": 33.33,
-          "profit_loss_ratio": 5.68,
-          "avg_return_pct": 17.29,
-          "max_return_pct": 32.46,
+          "profit_loss_ratio": 5.62,
+          "avg_return_pct": 17.12,
+          "max_return_pct": 31.94,
           "min_return_pct": -5.01,
           "sharpe_ratio": 13.91,
           "max_drawdown_pct": 5.01,
@@ -1960,12 +1960,12 @@
             "loss_count": 2,
             "win_rate": 33.33,
             "loss_rate": 66.67,
-            "profit_loss_ratio": 0.92,
-            "avg_return_pct": -2.83,
+            "profit_loss_ratio": 0.95,
+            "avg_return_pct": -2.68,
             "max_return_pct": 7.29,
-            "min_return_pct": -11.42,
-            "sharpe_ratio": -4.76,
-            "max_drawdown_pct": 15.79,
+            "min_return_pct": -10.96,
+            "sharpe_ratio": -4.6,
+            "max_drawdown_pct": 15.33,
             "avg_hold_days": 16.0
           },
           "trade_count": 3
@@ -1994,12 +1994,12 @@
             "loss_count": 6,
             "win_rate": 45.45,
             "loss_rate": 54.55,
-            "profit_loss_ratio": 1.77,
-            "avg_return_pct": 0.89,
+            "profit_loss_ratio": 1.81,
+            "avg_return_pct": 0.93,
             "max_return_pct": 11.53,
-            "min_return_pct": -13.59,
-            "sharpe_ratio": 2.15,
-            "max_drawdown_pct": 13.59,
+            "min_return_pct": -13.14,
+            "sharpe_ratio": 2.29,
+            "max_drawdown_pct": 13.14,
             "avg_hold_days": 9.3
           },
           "trade_count": 11
@@ -2319,9 +2319,9 @@
             "loss_count": 1,
             "win_rate": 66.67,
             "loss_rate": 33.33,
-            "profit_loss_ratio": 5.68,
-            "avg_return_pct": 17.29,
-            "max_return_pct": 32.46,
+            "profit_loss_ratio": 5.62,
+            "avg_return_pct": 17.12,
+            "max_return_pct": 31.94,
             "min_return_pct": -5.01,
             "sharpe_ratio": 13.91,
             "max_drawdown_pct": 5.01,
@@ -2564,12 +2564,12 @@
             "loss_count": 4,
             "win_rate": 55.56,
             "loss_rate": 44.44,
-            "profit_loss_ratio": 0.81,
-            "avg_return_pct": 0.03,
+            "profit_loss_ratio": 0.78,
+            "avg_return_pct": -0.05,
             "max_return_pct": 6.29,
-            "min_return_pct": -8.97,
-            "sharpe_ratio": 0.08,
-            "max_drawdown_pct": 8.97,
+            "min_return_pct": -9.62,
+            "sharpe_ratio": -0.14,
+            "max_drawdown_pct": 9.62,
             "avg_hold_days": 9.1
           },
           "trade_count": 9
@@ -2981,20 +2981,20 @@
       "strategies": {
         "ma_crossover": {
           "metrics": {
-            "total_trades": 2,
-            "win_count": 1,
+            "total_trades": 3,
+            "win_count": 2,
             "loss_count": 1,
-            "win_rate": 50.0,
-            "loss_rate": 50.0,
-            "profit_loss_ratio": 0.61,
-            "avg_return_pct": -1.47,
+            "win_rate": 66.67,
+            "loss_rate": 33.33,
+            "profit_loss_ratio": 0.37,
+            "avg_return_pct": -0.63,
             "max_return_pct": 4.51,
             "min_return_pct": -7.44,
-            "sharpe_ratio": -2.75,
+            "sharpe_ratio": -1.63,
             "max_drawdown_pct": 7.44,
-            "avg_hold_days": 13.5
+            "avg_hold_days": 14.0
           },
-          "trade_count": 2
+          "trade_count": 3
         },
         "breakout": {
           "metrics": {
