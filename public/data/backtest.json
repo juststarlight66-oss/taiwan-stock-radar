@@ -1000,6 +1000,16 @@
               "pending": true
             },
             {
+              "stock_id": "1225",
+              "name": "福懋油",
+              "entry": 33.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
               "stock_id": "3530",
               "name": "晶相光",
               "entry": 71.5,
@@ -1013,16 +1023,6 @@
               "stock_id": "9928",
               "name": "中視",
               "entry": 19.05,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "8215",
-              "name": "明基材",
-              "entry": 32.05,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1109,6 +1109,16 @@
               "pending": true
             },
             {
+              "stock_id": "1225",
+              "name": "福懋油",
+              "entry": 33.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
               "stock_id": "3530",
               "name": "晶相光",
               "entry": 71.5,
@@ -1122,16 +1132,6 @@
               "stock_id": "9928",
               "name": "中視",
               "entry": 19.05,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "8215",
-              "name": "明基材",
-              "entry": 32.05,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1218,6 +1218,16 @@
               "pending": true
             },
             {
+              "stock_id": "1225",
+              "name": "福懋油",
+              "entry": 33.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
               "stock_id": "3530",
               "name": "晶相光",
               "entry": 71.5,
@@ -1231,16 +1241,6 @@
               "stock_id": "9928",
               "name": "中視",
               "entry": 19.05,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "8215",
-              "name": "明基材",
-              "entry": 32.05,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1411,6 +1411,11 @@
           "score": 90.05,
           "close": 32.2
         },
+        "1225": {
+          "name": "福懋油",
+          "score": 89.95,
+          "close": 33.0
+        },
         "3530": {
           "name": "晶相光",
           "score": 89.5,
@@ -1420,11 +1425,6 @@
           "name": "中視",
           "score": 89.46,
           "close": 19.05
-        },
-        "8215": {
-          "name": "明基材",
-          "score": 89.25,
-          "close": 32.05
         }
       }
     },
@@ -1437,5 +1437,5 @@
       "results": {}
     }
   ],
-  "last_updated": "2026-06-17T19:17:43.701622+08:00"
+  "last_updated": "2026-06-17T20:30:45.523670+08:00"
 }
