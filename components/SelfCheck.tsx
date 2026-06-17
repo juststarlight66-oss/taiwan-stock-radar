@@ -314,7 +314,7 @@ export default function SelfCheck() {
                       <div className="bg-white rounded-lg border border-gray-200 p-2.5 text-center">
                         <p className="text-[10px] text-gray-400 mb-0.5">建議進場</p>
                         <p className="text-xs font-bold text-gray-800">
-                          (() => { const el = getStockEntryLow(stock); const eh = getStockEntryHigh(stock); return el && el > 0 ? `${el}–${eh}` : '—'; })()
+                          {getStockEntryLow(stock) ? `${getStockEntryLow(stock)}\u2013${getStockEntryHigh(stock)}` : '\u2014'}
                         </p>
                       </div>
                       <div className="bg-white rounded-lg border border-red-100 p-2.5 text-center">
@@ -324,7 +324,7 @@ export default function SelfCheck() {
                       <div className="bg-white rounded-lg border border-emerald-100 p-2.5 text-center">
                         <p className="text-[10px] text-gray-400 mb-0.5">目標 T1/T2/T3</p>
                         <p className="text-xs font-bold text-emerald-600">
-                          (() => { const t1 = getStockTarget1(stock); return t1 && t1 > 0 ? `${t1} / ${getStockTarget2(stock) ?? '-'} / ${getStockTarget3(stock) ?? '-'}` : '—'; })()
+                          {getStockTarget1(stock) ? `${getStockTarget1(stock)} / ${getStockTarget2(stock) ?? '-'} / ${getStockTarget3(stock) ?? '-'}` : '\u2014'}
                         </p>
                       </div>
                       <div className="bg-white rounded-lg border border-gray-200 p-2.5 text-center">
