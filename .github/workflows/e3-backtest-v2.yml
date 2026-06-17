@@ -23,6 +23,9 @@ on:
         required: false
         default: '252'
         type: string
+  schedule:
+    # Weekly Friday 22:45 CST (UTC+8) = 14:45 UTC
+    - cron: '45 14 * * 5'
 
 jobs:
   backtest:
@@ -59,7 +62,7 @@ jobs:
             git commit -m "E3 backtest $(date +%Y%m%d)"
             git push origin HEAD:main
           fi
-      - uses: peaceiris/actions-gh-pages@v3
+      - uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./gh-pages

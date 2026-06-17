@@ -191,6 +191,16 @@ def load_scan_result() -> Optional[Dict]:
                 pass
         return data
     
+    # 嘗試 latest.json (collect2245/tasks 產生的備用格式)
+    file_path = GH_PAGES_DIR / 'latest.json'
+    if file_path.exists():
+        with open(file_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        scan_date = data.get('scan_date', '')
+        if scan_date:
+            print(f"[INFO] latest.json date: {scan_date}")
+        return data
+
     print(f"[ERROR] No scan result found in {GH_PAGES_DIR}")
     return None
 
@@ -199,12 +209,14 @@ def extract_top_stocks(data: Dict, top_n: int = 10) -> List[Dict]:
     """從掃描結果提取 Top N 股票"""
     stocks = []
     
-    # 嘗試多種可能的結構
+    # 嘗試多種可能的結構 (支援新舊 schema)
     top10 = data.get('top10', [])
     if not top10:
         top10 = data.get('top_10', [])
     if not top10:
-        all_stocks = data.get('stocks', data.get('all_stocks', []))
+        top10 = data.get('top_stocks', [])  # collect2245/tasks scan_market.py schema
+    if not top10:
+        all_stocks = data.get('stocks', data.get('all_stocks', data.get('all_stock_scores', [])))
         # Sort by total_score descending
         all_stocks = sorted(all_stocks, key=lambda x: x.get('total_score', 0), reverse=True)
         top10 = all_stocks[:top_n]
@@ -279,8 +291,12 @@ def main():
     scan_date_str = data.get('scan_date', 'unknown')
     try:
         scan_date = datetime.strptime(scan_date_str, '%Y/%m/%d')
-    except:
-        scan_date = datetime.now() - timedelta(days=1)
+    except ValueError:
+        try:
+            scan_date = datetime.strptime(scan_date_str, '%Y%m%d')
+        except ValueError:
+            # 如果轉換都失敗，用昨天日期
+            scan_date = datetime.now() - timedelta(days=1)
     
     print(f"\n掃描日期：{scan_date_str}")
     print(f"全市場掃描數：{data.get('scanned_count', 'N/A')}")

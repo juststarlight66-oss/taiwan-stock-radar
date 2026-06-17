@@ -12,6 +12,9 @@ on:
         required: false
         type: string
         default: '10'
+  schedule:
+    # Daily 18:00 CST (UTC+8) = 10:00 UTC, Mon-Fri
+    - cron: '0 10 * * 1-5'
 
 jobs:
   verify:

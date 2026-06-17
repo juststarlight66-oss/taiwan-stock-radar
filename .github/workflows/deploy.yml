@@ -66,6 +66,17 @@ jobs:
           print(f'[ok] {len(index["stocks"])} stocks indexed')
           EOF
 
+      - name: Copy scan data for verify-predictions
+        run: |
+          mkdir -p public/data
+          echo "[deploy] Copying scan result JSONs to public/data/ ..."
+          for f in tasks/2255/scan_result.json tasks/2255/latest.json tasks/2255/all_scores.json; do
+            if [ -f "$f" ]; then
+              cp -v "$f" public/data/
+            fi
+          done
+          ls -la public/data/
+
       - name: Install dependencies
         run: npm ci --no-fund --no-audit
 
