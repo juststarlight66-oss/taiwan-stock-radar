@@ -1,9 +1,8 @@
 {
   "to": "juststarlight66@gmail.com",
-  "subject": "【台股掃描報告】2026/06/11 | Top 10 推薦 | 掃描870檔",
+  "subject": "【台股掃描報告】2026/06/17 | Top 10 推薦 | 掃描1300檔",
   "html_path": "public/report_v5.html",
-  "scan_date": "20260611",
-  "scanned_count": 870,
-  "top_count": 10,
-  "generated_at": "2026-06-11T11:08:36.345214+08:00"
+  "scan_date": "20260617",
+  "scanned_count": 1300,
+  "generated_at": "2026-06-17T03:25:33.484319"
 }
