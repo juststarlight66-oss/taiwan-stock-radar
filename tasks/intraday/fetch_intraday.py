@@ -178,7 +178,9 @@ def compute_score(stock_id: str, quote: dict, hist: list[dict]) -> tuple[float, 
         details["rsi"] = round(rsi_proxy, 1)
     score += dim2
 
-    # ── Dimension 3: MA5 status (0-15) ────────────────────────────────────────
+    # ── Dimension 3: Trend Quality (0-15) ────────────────────────────────────────
+    # Part A: MA alignment (0-10) - MA5 > MA10 > MA20 = strong uptrend
+    # Part B: Consecutive up days (0-5) - momentum persistence
     closes_hist = []
     for h in hist:
         c = h.get("ClosingPrice") or h.get("closing_price") or ""
@@ -187,24 +189,58 @@ def compute_score(stock_id: str, quote: dict, hist: list[dict]) -> tuple[float, 
         except (ValueError, TypeError):
             pass
 
-    if len(closes_hist) >= 2:
-        ma5_bars = closes_hist[-5:] if len(closes_hist) >= 5 else closes_hist
-        ma5 = sum(ma5_bars) / len(ma5_bars)
-        if cur > ma5 * 1.02:
-            dim3 = 15
-            details["ma5_status"] = "強勢突破"
-        elif cur > ma5:
-            dim3 = 10
-            details["ma5_status"] = "站上均線"
-        elif cur > ma5 * 0.98:
-            dim3 = 5
-            details["ma5_status"] = "貼近均線"
+    dim3 = 0
+    if len(closes_hist) >= 20:
+        ma5  = sum(closes_hist[-5:]) / 5
+        ma10 = sum(closes_hist[-10:]) / 10
+        ma20 = sum(closes_hist[-20:]) / 20
+        if ma5 > ma10 > ma20:
+            dim3 += 10
+            details["ma_alignment"] = "多頭排列"
+        elif ma5 > ma10:
+            dim3 += 7
+            details["ma_alignment"] = "短多"
+        elif ma5 > ma20:
+            dim3 += 4
+            details["ma_alignment"] = "中長線偏多"
         else:
-            dim3 = 2
-            details["ma5_status"] = "跌破均線"
+            dim3 += 2
+            details["ma_alignment"] = "空頭排列"
+    elif len(closes_hist) >= 5:
+        ma5 = sum(closes_hist[-5:]) / 5
+        if cur > ma5 * 1.02:
+            dim3 += 6
+            details["ma_alignment"] = "強勢突破"
+        elif cur > ma5:
+            dim3 += 4
+            details["ma_alignment"] = "站上均線"
+        elif cur > ma5 * 0.98:
+            dim3 += 3
+            details["ma_alignment"] = "貼近均線"
+        else:
+            dim3 += 2
+            details["ma_alignment"] = "跌破均線"
     else:
-        dim3 = 5
-        details["ma5_status"] = "資料不足"
+        dim3 += 2
+        details["ma_alignment"] = "資料不足"
+
+    # Part B: at least 2 of last 3 days closed up
+    if len(closes_hist) >= 4:
+        up_days = 0
+        for i in range(1, 4):
+            if closes_hist[-i] > closes_hist[-i-1]:
+                up_days += 1
+        if up_days >= 2:
+            dim3 += 5
+            details["up_days"] = f"{up_days}/3"
+        elif up_days == 1:
+            dim3 += 2
+            details["up_days"] = f"{up_days}/3"
+        else:
+            details["up_days"] = f"{up_days}/3"
+    else:
+        dim3 += 2
+        details["up_days"] = "資料不足"
     score += dim3
 
     # ── Dimension 4: Volume Surge (0-15) ─────────────────────────────────────
@@ -212,7 +248,7 @@ def compute_score(stock_id: str, quote: dict, hist: list[dict]) -> tuple[float, 
     if len(vols_hist) >= 2 and volume:
         avg_5d_vol = sum(vols_hist[-5:]) / min(len(vols_hist), 5)
         if avg_5d_vol > 0:
-            estimated_full_day_vol = volume * 1000 * 1.5
+            estimated_full_day_vol = volume * 1000 * 1.10  # 13:05 已完成 ~90% 交易時間
             vol_ratio = estimated_full_day_vol / avg_5d_vol
             if vol_ratio >= 2.5:
                 dim4 = 15
@@ -236,6 +272,26 @@ def compute_score(stock_id: str, quote: dict, hist: list[dict]) -> tuple[float, 
         dim4 = 5
         details["vol_ratio"] = "資料不足"
     score += dim4
+
+    # ── ATR calculation (for dynamic target/stop) ──────────────────────────
+    tr_values = []
+    prev_close_atr = None
+    for h in hist:
+        high_atr = _safe_float(h.get("High") or h.get("high"))
+        low_atr = _safe_float(h.get("Low") or h.get("low"))
+        close_atr = _safe_float(h.get("ClosingPrice") or h.get("closing_price"))
+        if high_atr and low_atr and close_atr:
+            if prev_close_atr is not None:
+                tr = max(high_atr - low_atr,
+                         abs(high_atr - prev_close_atr),
+                         abs(low_atr - prev_close_atr))
+                tr_values.append(tr)
+            prev_close_atr = close_atr
+    if len(tr_values) >= 2:
+        atr = sum(tr_values[-14:]) / min(len(tr_values), 14)
+        details["atr"] = round(atr, 2)
+    else:
+        details["atr"] = 0
 
     # ── Dimension 5: New High Proximity (0-20) ────────────────────────────────
     if len(closes_hist) >= 2:
@@ -303,7 +359,7 @@ def scan_intraday_top5(history_bulk: dict[str, list[dict]]) -> list[dict]:
             continue
         hist = history_bulk.get(sid, [])
         score, details = compute_score(sid, q, hist)
-        if score >= 20:
+        if score >= 50:
             scored.append({
                 "stock_id": sid,
                 "name": q.get("name", sid),
@@ -533,9 +589,14 @@ def main():
         q = s["quote"]
         cur = q.get("current") or 0
         entry = round(cur, 2)
-        target = round(cur * 1.08, 2) if cur else 0
-        stop_loss = round(cur * 0.95, 2) if cur else 0
         det = s["details"]
+        atr = det.get("atr", 0)
+        if atr and atr > 0:
+            target = round(cur + atr * 1.5, 2) if cur else 0
+            stop_loss = round(cur - atr * 1.0, 2) if cur else 0
+        else:
+            target = round(cur * 1.08, 2) if cur else 0
+            stop_loss = round(cur * 0.95, 2) if cur else 0
         stocks_out.append({
             "stock_id": s["stock_id"],
             "name": s["name"],
@@ -550,7 +611,9 @@ def main():
             "dimensions": {
                 "momentum": det.get("momentum", ""),
                 "rsi": det.get("rsi"),
-                "ma5_status": det.get("ma5_status", ""),
+                "ma_alignment": det.get("ma_alignment", ""),
+                "up_days": det.get("up_days", ""),
+                "atr": det.get("atr"),
                 "vol_ratio": det.get("vol_ratio", ""),
                 "breakout": det.get("breakout", ""),
             },
