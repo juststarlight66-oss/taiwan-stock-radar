@@ -1,6 +1,6 @@
 'use client';
 import { useState, useMemo, useCallback } from 'react';
-import { useAllScoresHistory, useOnDemandScan } from '@/lib/useScanData';
+import { useAllScores, useOnDemandScan } from '@/lib/useScanData';
 import { ScanStock, DIMENSION_CONFIG } from '@/lib/scanTypes';
 import {
   Search, X, AlertCircle, ChevronDown, ChevronUp,
@@ -94,8 +94,7 @@ interface OnDemandResult { stock: ScanStock | null; error?: string; }
 
 export default function SelfCheck() {
   // all_scores history for search pool
-  const { data: allData, isLoading: allLoading } = useAllScoresHistory();
-  const allStocks: ScanStock[] = allData?.all_stock_scores ?? [];
+  const { stocks: allStocks, isLoading: allLoading } = useAllScores();
 
   // on-demand single-stock scan
   const { scan, result: scanResult, isLoading: scanLoading } = useOnDemandScan();
