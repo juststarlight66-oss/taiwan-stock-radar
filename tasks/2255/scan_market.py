@@ -615,6 +615,13 @@ def run_scan(scan_date: str = None) -> Dict:
                 'change_pct': day.get('change_pct', 0),
                 'volume': day.get('volume', 0),
                 'scores': scores,
+                'dimensions': {
+                    'technical': scores.get('technical', 0),
+                    'fundamental': scores.get('fundamental', 0),
+                    'chips': scores.get('chips', 0),
+                    'news': scores.get('news', 0),
+                    'sentiment': scores.get('sentiment', 0)
+                },
                 'total_score': scores['total'],
                 'recommendation': rec,
                 'entry_low': entry_low,
@@ -672,9 +679,15 @@ def save_results(result: Dict, output_dir: str = None) -> Dict[str, str]:
         json.dump(result, f, ensure_ascii=False, indent=2)
     paths['latest_json'] = latest_json_path
 
+    all_scores_path = os.path.join(output_dir, 'all_scores.json')
+    with open(all_scores_path, 'w', encoding='utf-8') as f:
+        json.dump(result, f, ensure_ascii=False, indent=2)
+    paths['all_scores'] = all_scores_path
+
     print(f"[儲存] {dated_path}")
     print(f"[儲存] {latest_path}")
     print(f"[儲存] {latest_json_path}")
+    print(f"[儲存] {all_scores_path}")
     return paths
 
 
