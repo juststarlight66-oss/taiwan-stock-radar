@@ -80,6 +80,22 @@ FUND_URL = "https://www.twse.com.tw/exchangeReport/BWIBBU_ALL?response=json"
 TPEX_LISTED_URL = "https://www.tpex.org.tw/openapi/v1/mopsfin_t187ap03_O"
 
 # ================================================================
+# 產業分類對照 (SecuritiesIndustryCode → 中文分類)
+# ================================================================
+TPEX_INDUSTRY_MAP = {
+    '02': '食品工業', '03': '塑膠工業', '04': '紡織纖維',
+    '05': '電機機械', '06': '電器電纜', '10': '鋼鐵工業',
+    '14': '建材營造', '15': '航運業', '16': '觀光事業',
+    '17': '金融保險', '20': '其他', '21': '化學工業',
+    '22': '生技醫療業', '23': '油電燃氣業', '24': '半導體業',
+    '25': '電腦及週邊設備業', '26': '光電業', '27': '通信網路業',
+    '28': '電子零組件業', '29': '電子通路業', '30': '資訊服務業',
+    '31': '其他電子業', '32': '文化創意業', '33': '農業科技業',
+    '35': '其他', '36': '電子商務', '37': '運動休閒',
+    '38': '貿易百貨',
+}
+
+# ================================================================
 # 全域參數
 # ================================================================
 
@@ -111,6 +127,17 @@ TOP_EXPLODE = 5
 # ================================================================
 # 資料層：上市股票、上櫃股票、日K、基本面
 # ================================================================
+def fetch_tse_industry() -> Dict[str, str]:
+    """上市股票產業分類 (openapi.twse.com.tw/v1/industry/listed: {code, industry})"""
+    try:
+        resp = _http_get("https://openapi.twse.com.tw/v1/industry/listed", headers={'User-Agent': 'Mozilla/5.0'}, timeout=30)
+        data = resp.json()
+        if isinstance(data, list):
+            return {item['code']: item['industry'] for item in data if 'code' in item and 'industry' in item}
+    except Exception as e:
+        print(f"[錯誤] TSE industry: {e}")
+    return {}
+
 
 def fetch_listed_stocks() -> List[Dict]:
     """上市公司股票清單 (STOCK_DAY_ALL)"""
@@ -129,7 +156,7 @@ def fetch_listed_stocks() -> List[Dict]:
 
 
 def fetch_tpex_stocks() -> List[Dict]:
-    """上櫃股票清單 (mopsfin_t187ap03_O: 欄位 'SecuritiesCompanyCode', 'CompanyName')"""
+    """上櫃股票清單 (mopsfin_t187ap03_O: 欄位 'SecuritiesCompanyCode', 'CompanyName', 'SecuritiesIndustryCode')"""
     try:
         resp = _http_get(TPEX_LISTED_URL, timeout=30)
         data = resp.json()
@@ -138,7 +165,11 @@ def fetch_tpex_stocks() -> List[Dict]:
         for r in rows:
             code = str(r.get('SecuritiesCompanyCode', '')).strip()
             if len(code) == 4:
-                result.append({'Code': code, 'Name': str(r.get('CompanyName', '')).strip()})
+                result.append({
+                    'Code': code,
+                    'Name': str(r.get('CompanyName', '')).strip(),
+                    'IndustryCode': str(r.get('SecuritiesIndustryCode', '')).strip(),
+                })
         return result
     except Exception as e:
         print(f"[錯誤] TPEx stocks: {e}")
@@ -458,17 +489,23 @@ def run_scan(scan_date: str = None) -> Dict:
     tpex = fetch_tpex_stocks()
     print(f"[清單] TSE={len(tse)}, TPEx={len(tpex)}")
 
+    # 取得產業分類
+    tse_industry = fetch_tse_industry()
+
     all_stocks: Dict[str, Dict] = {}
     for s in tse:
         sid = str(s.get('Code', '')).strip()
         name = str(s.get('Name', '')).strip()
         if sid:
-            all_stocks[sid] = {'name': name, 'market': 'TSE'}
+            sector = tse_industry.get(sid, '')
+            all_stocks[sid] = {'name': name, 'market': 'TSE', 'sector_name': sector}
     for s in tpex:
         sid = str(s.get('Code', '')).strip()
         name = str(s.get('Name', '')).strip()
         if sid and sid not in all_stocks:
-            all_stocks[sid] = {'name': name, 'market': 'TPEx'}
+            ind_code = str(s.get('IndustryCode', '')).strip()
+            sector = TPEX_INDUSTRY_MAP.get(ind_code, '')
+            all_stocks[sid] = {'name': name, 'market': 'TPEx', 'sector_name': sector}
 
     print(f"[掃描] 總股數: {len(all_stocks)}")
 
@@ -611,6 +648,7 @@ def run_scan(scan_date: str = None) -> Dict:
                 'stock_id': sid,
                 'name': name,
                 'market': market,
+                'sector_name': info.get('sector_name', ''),
                 'close': close,
                 'change_pct': day.get('change_pct', 0),
                 'volume': day.get('volume', 0),
