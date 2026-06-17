@@ -199,6 +199,34 @@ export default function StockDetailModal({ stock, onClose, rank, isDemo }: Props
   const changePct = getStockChangePct(stock);
   const rec = getStockRecommendation(stock);
   const reason = getStockReason(stock);
+  const dims = getStockDimensions(stock);
+  /** 從五維分數自動生成簡短白話文摘要（reason 不存在時使用） */
+  function generateSummary(): string {
+    const tech = dims?.technical ?? 0;
+    const fund = dims?.fundamental ?? 0;
+    const chips = dims?.chips ?? 0;
+    const news = dims?.news ?? 0;
+    const sent = dims?.sentiment ?? 0;
+    const strong: string[] = [];
+    const weak: string[] = [];
+    if (tech >= 75) strong.push('技術面強勢');
+    else if (tech <= 40) weak.push('技術面偏弱');
+    if (fund >= 70) strong.push('基本面穩健');
+    else if (fund <= 30) weak.push('基本面不佳');
+    if (chips >= 70) strong.push('籌碼集中');
+    else if (chips <= 30) weak.push('籌碼鬆散');
+    if (news >= 70) strong.push('消息面樂觀');
+    if (sent >= 70) strong.push('市場情緒正面');
+    const strongText = strong.length ? `優勢：${strong.join('、')}。` : '';
+    const weakText = weak.length ? `注意：${weak.join('、')}。` : '';
+    const score = stock.total_score ?? 0;
+    const overview = score >= 75 ? '整體評價優異，具備上漲動能。' :
+                     score >= 60 ? '整體評價中上，可留意進場機會。' :
+                     score >= 45 ? '整體評價中性，方向尚不明確。' :
+                     '整體評價偏弱，建議保守操作。';
+    return `${strongText}${weakText}${overview}`;
+  }
+  const displayReason = (reason && reason.trim().length > 0) ? reason : generateSummary();
   const entryLow = getStockEntryLow(stock);
   const entryHigh = getStockEntryHigh(stock);
   const stopLoss = getStockStopLoss(stock);
@@ -293,8 +321,8 @@ export default function StockDetailModal({ stock, onClose, rank, isDemo }: Props
               <span className="text-sm font-semibold text-indigo-700">AI 白話文分析</span>
             </div>
             <p className="text-sm text-gray-700 leading-relaxed">
-              {reason && reason.trim().length > 0
-                ? reason
+              {displayReason && displayReason.trim().length > 0
+                ? displayReason
                 : '暫無 AI 分析資料，請等待下次掃描更新。'}
             </p>
           </div>

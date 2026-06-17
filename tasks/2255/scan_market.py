@@ -1,19 +1,21 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-台股五維分析掃描腳本 - 22:55 收盤報告核心引擎
-版本：v7.3 (per-stock TPEx try/except, cache fallback, zero-price guard)
+台股五維分析掃描腳本 - v8 (真實 RSI/MA/ATR + 產業板塊 + 周轉率)
+版本：v8.0 (real technical indicators, sector correlation, turnover-based sentiment)
 
 五維分析框架：
-  技術面 (40%)：均線糾結、爆量突破、創高、RSI 超賣/超買、量價關係
-  籌碼面 (25%)：融資變化、法人買賣超、主力進出軌跡
+  技術面 (40%)：真實 RSI(7) + MA5/MA10/MA20 交叉 + ATR 波動 + K 線位置
+  籌碼面 (25%)：量價突破、成交量動能
   基本面 (15%)：本益比、殖利率、股價淨值比（BWIBBU_ALL 真實數據）
-  消息面 (10%)：產業新聞熱度、地緣政治風險、美股連動
-  情緒面 (10%)：周轉率、成交量比、散戶參與度
+  消息面 (10%)：同產業板塊連動評分（同族群股價同向性）
+  情緒面 (10%)：成交量 / 均量周轉率（散戶參與度代理）
 
 ML 爆漲股預測（RandomForestClassifier）：
-  特徵工程：RSI、量比、動能、波動率、均線乖離率、連續漲跌天數、周轉率
-  目標：預測隔日漲停（+9.5% 以上）機率 Top 5
+  使用歷史日 K 建立 lagged 特徵集（前 N 日 → 隔日漲停），
+  不同於舊版直接用當日特徵標記當日結果
+
+目標價/停損：以個股 ATR(7) 為基礎動態計算，非固定百分比
 
 輸出：五維綜合評分 Top 10 標的 + 爆漲預測 Top 5
 """
@@ -21,7 +23,7 @@ ML 爆漲股預測（RandomForestClassifier）：
 import json, os, sys, time, warnings
 warnings.filterwarnings('ignore')
 from datetime import datetime, timedelta, date, timezone
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import requests
 requests.packages.urllib3.disable_warnings()
@@ -70,7 +72,7 @@ def _http_get(url, *, headers=None, timeout=30, verify=False, retries=3, backoff
 
 
 # ================================================================
-# 資料來源：政府開放資料、均線、融資、法人、基本面、BWIBBU_ALL
+# 資料來源
 # ================================================================
 
 TSE_DAILY_URL = "https://www.twse.com.tw/exchangeReport/STOCK_DAY"
@@ -80,7 +82,7 @@ FUND_URL = "https://www.twse.com.tw/exchangeReport/BWIBBU_ALL?response=json"
 TPEX_LISTED_URL = "https://www.tpex.org.tw/openapi/v1/mopsfin_t187ap03_O"
 
 # ================================================================
-# 產業分類對照 (SecuritiesIndustryCode → 中文分類)
+# 產業分類對照
 # ================================================================
 TPEX_INDUSTRY_MAP = {
     '02': '食品工業', '03': '塑膠工業', '04': '紡織纖維',
@@ -101,6 +103,12 @@ TPEX_INDUSTRY_MAP = {
 
 TOP_N = 10
 MAX_WORKERS = 50
+TOP_EXPLODE = 5
+RSI_PERIOD = 7          # RSI 計算週期（需 7+1 以上交易日）
+ATR_PERIOD = 7          # ATR 計算週期
+LOOKBACK_DAYS = 20      # 至少需要的前期日數（MA20）
+HISTORY_MONTHS = 2      # 抓取歷史月數（確保有足夠 K 線）
+
 DIMENSION_WEIGHTS = {
     'tech': 0.40,
     'chips': 0.25,
@@ -121,7 +129,82 @@ if os.path.exists(_w):
     except Exception:
         pass
 
-TOP_EXPLODE = 5
+
+# ================================================================
+# 技術指標計算函式 (v8 新增)
+# ================================================================
+
+def compute_rsi(closes: List[float], period: int = RSI_PERIOD) -> float:
+    """Wilder's RSI"""
+    if len(closes) < period + 1:
+        return 50.0
+    deltas = [closes[i] - closes[i - 1] for i in range(1, len(closes))]
+    gains = [d if d > 0 else 0 for d in deltas]
+    losses = [-d if d < 0 else 0 for d in deltas]
+    avg_gain = sum(gains[:period]) / period
+    avg_loss = sum(losses[:period]) / period
+    rs = avg_gain / avg_loss if avg_loss != 0 else 100.0
+    rsi = 100.0 - (100.0 / (1.0 + rs))
+    for i in range(period, len(deltas)):
+        avg_gain = (avg_gain * (period - 1) + gains[i]) / period
+        avg_loss = (avg_loss * (period - 1) + losses[i]) / period
+        rs = avg_gain / avg_loss if avg_loss != 0 else 100.0
+        rsi = 100.0 - (100.0 / (1.0 + rs))
+    return round(rsi, 2)
+
+
+def compute_ma(closes: List[float], period: int) -> Optional[float]:
+    """Simple Moving Average"""
+    if len(closes) < period:
+        return None
+    return round(sum(closes[-period:]) / period, 2)
+
+
+def compute_atr(highs: List[float], lows: List[float], closes: List[float],
+                period: int = ATR_PERIOD) -> float:
+    """Average True Range"""
+    if len(closes) < period + 1:
+        # fallback: use range-based volatility
+        if len(closes) >= 2:
+            trs = []
+            for i in range(1, len(closes)):
+                h, l = highs[i], lows[i]
+                c_prev = closes[i - 1]
+                tr = max(h - l, abs(h - c_prev), abs(l - c_prev))
+                trs.append(tr)
+            return round(sum(trs) / len(trs), 2) if trs else closes[-1] * 0.03
+        return closes[-1] * 0.03
+
+    trs = []
+    for i in range(1, len(closes)):
+        h, l, c_prev = highs[i], lows[i], closes[i - 1]
+        tr = max(h - l, abs(h - c_prev), abs(l - c_prev))
+        trs.append(tr)
+
+    atr = sum(trs[:period]) / period
+    for i in range(period, len(trs)):
+        atr = (atr * (period - 1) + trs[i]) / period
+    return round(atr, 2)
+
+
+def compute_targets(close: float, atr: float, change_pct: float = 0) -> Dict:
+    """
+    ATR-based 進場策略
+    - entry_low/high: close ± 0.5 ATR（窄帶進場）
+    - stop_loss: close - 2 ATR（2 倍波動停損）
+    - t1/t2/t3: close + 1x/2x/3x ATR
+    對高波動股（ATR 大）目標價更寬，低波動股更窄
+    """
+    if atr <= 0:
+        atr = close * 0.02
+    return {
+        'entry_low': round(close - 0.5 * atr, 2),
+        'entry_high': round(close + 0.5 * atr, 2),
+        'stop_loss': round(close - 2.0 * atr, 2),
+        't1': round(close + 1.0 * atr, 2),
+        't2': round(close + 2.0 * atr, 2),
+        't3': round(close + 3.0 * atr, 2),
+    }
 
 
 # ================================================================
@@ -158,7 +241,7 @@ def fetch_listed_stocks() -> List[Dict]:
 
 
 def fetch_tpex_stocks() -> List[Dict]:
-    """上櫃股票清單 (mopsfin_t187ap03_O: 欄位 'SecuritiesCompanyCode', 'CompanyName', 'SecuritiesIndustryCode')"""
+    """上櫃股票清單"""
     try:
         resp = _http_get(TPEX_LISTED_URL, timeout=30)
         data = resp.json()
@@ -178,45 +261,97 @@ def fetch_tpex_stocks() -> List[Dict]:
         return []
 
 
-def fetch_stock_day(stock_id: str, scan_date: str) -> Optional[Dict]:
-    """TSE 日 K"""
+def fetch_stock_day_history(stock_id: str, scan_date: str) -> Optional[Dict]:
+    """
+    抓取個股近 2 個月日 K 歷史，回傳：
+    - 當日行情 (close, volume, open, high, low, change, change_pct)
+    - 歷史清單 history [{close, high, low, open, volume, date}, ...]（按日期遞增）
+    歷史順序：最早→最近
+    """
     try:
-        url = f"{TSE_DAILY_URL}?date={scan_date}&stockNo={stock_id}"
-        resp = _http_get(url, timeout=20)
-        data = resp.json()
-        rows = data.get('data', [])
-        if not rows:
+        # 解析 scan_date 為 date 物件
+        sd = datetime.strptime(scan_date, '%Y%m%d')
+        all_rows = []
+
+        # 抓取最近 HISTORY_MONTHS 個月的日 K
+        for m_offset in range(HISTORY_MONTHS - 1, -1, -1):
+            target_month = sd.replace(day=1) - timedelta(days=m_offset * 30)
+            month_str = target_month.strftime('%Y%m01')
+            url = f"{TSE_DAILY_URL}?date={month_str}&stockNo={stock_id}"
+            resp = _http_get(url, timeout=20)
+            data = resp.json()
+            rows = data.get('data', [])
+            for row in rows:
+                try:
+                    d = str(row[0]).replace(' ', '').replace('\u3000', '')
+                    # TWSE format: YYYYMMDD or YYYY/MM/DD
+                    if '/' in d:
+                        parts = d.split('/')
+                        d = f"{int(parts[0]) + 1911}{parts[1].zfill(2)}{parts[2].zfill(2)}"
+                    close = float(str(row[6]).replace(',', ''))
+                    if close <= 0:
+                        continue
+                    volume = float(str(row[1]).replace(',', ''))
+                    open_p = float(str(row[3]).replace(',', ''))
+                    high = float(str(row[4]).replace(',', ''))
+                    low = float(str(row[5]).replace(',', ''))
+                    all_rows.append({
+                        'date': d, 'close': close, 'volume': volume,
+                        'open': open_p, 'high': high, 'low': low,
+                    })
+                except (ValueError, IndexError):
+                    continue
+
+        if not all_rows:
             return None
-        row = rows[-1]
-        try:
-            close = float(str(row[6]).replace(',', ''))
-            if close <= 0:
-                return None
-            volume = float(str(row[1]).replace(',', ''))
-            open_p = float(str(row[3]).replace(',', ''))
-            high = float(str(row[4]).replace(',', ''))
-            low = float(str(row[5]).replace(',', ''))
-            chg_str = str(row[7]).replace(',', '').strip()
-            chg = 0.0 if chg_str in ('+', '-', '', 'X', '--') else float(chg_str)
-            prev = close - chg
-            chg_pct = round(chg / prev * 100, 2) if prev != 0 else 0.0
-            return {'stock_id': stock_id, 'close': close, 'volume': volume,
-                    'open': open_p, 'high': high, 'low': low,
-                    'change': chg, 'change_pct': chg_pct, 'market': 'TSE'}
-        except (ValueError, IndexError):
-            return None
+
+        # 按日期排序，取最後 LOOKBACK_DAYS+RSI_PERIOD+5 筆
+        all_rows.sort(key=lambda r: r['date'])
+        if len(all_rows) > LOOKBACK_DAYS + RSI_PERIOD + 10:
+            all_rows = all_rows[-(LOOKBACK_DAYS + RSI_PERIOD + 10):]
+
+        # 最後一筆就是當日
+        latest = all_rows[-1]
+        chg_str_val = ''  # TWSE API 第 8 欄
+        # 計算 change_pct 從歷史數據
+        if len(all_rows) >= 2:
+            prev_close = all_rows[-2]['close']
+            chg = latest['close'] - prev_close
+            chg_pct = round(chg / prev_close * 100, 2) if prev_close != 0 else 0
+        else:
+            chg = 0
+            chg_pct = 0
+
+        return {
+            'stock_id': stock_id,
+            'close': latest['close'],
+            'volume': latest['volume'],
+            'open': latest['open'],
+            'high': latest['high'],
+            'low': latest['low'],
+            'change': chg,
+            'change_pct': chg_pct,
+            'market': 'TSE',
+            'history': all_rows,  # list of dicts
+        }
     except Exception:
         return None
 
 
+def fetch_stock_day(stock_id: str, scan_date: str) -> Optional[Dict]:
+    """TSE 日 K - 向後相容接口（呼叫 fetch_stock_day_history）"""
+    return fetch_stock_day_history(stock_id, scan_date)
+
+
 def fetch_tpex_day(stock_id: str, scan_date: str) -> Optional[Dict]:
-    """TPEx 日 K (tpex_mainboard_daily_close_quotes: 回傳全市場 list of dicts, 需自行 filter)"""
+    """
+    TPEx 日 K - 從 tpex_mainboard_daily_close_quotes 取全市場數據
+    包含 history（批量下載的全市場數據僅有當天，不含歷史）
+    """
     try:
         resp = _http_get(TPEX_DAILY_URL, timeout=30)
         data = resp.json()
-        # API 直接回傳 list，不需要 .get('data')
         rows = data if isinstance(data, list) else data.get('data', [])
-        # filter by SecuritiesCompanyCode
         matched = [r for r in rows if str(r.get('SecuritiesCompanyCode', '')).strip() == stock_id]
         if not matched:
             return None
@@ -237,7 +372,8 @@ def fetch_tpex_day(stock_id: str, scan_date: str) -> Optional[Dict]:
             chg_pct = round(chg / prev * 100, 2) if prev != 0 else 0.0
             return {'stock_id': stock_id, 'close': close, 'volume': volume,
                     'open': open_p, 'high': high, 'low': low,
-                    'change': chg, 'change_pct': chg_pct, 'market': 'TPEx'}
+                    'change': chg, 'change_pct': chg_pct, 'market': 'TPEx',
+                    'history': []}  # TPEx bulk 不含歷史
         except (ValueError, KeyError):
             return None
     except Exception:
@@ -262,86 +398,180 @@ def fetch_fundamentals(stock_id: str) -> Dict:
     except Exception as e:
         print(f"[錯誤] Fund {stock_id}: {e}")
         return {'pe': 0, 'pb': 0, 'dy': 0}
-    except Exception:
-        pass
-    return {'pe': 0.0, 'pb': 0.0, 'dy': 0.0}
 
 
 # ================================================================
-# 評分層：五維評分函數
+# 板塊統計計算 (v8 新增 - 用於消息面評分)
+# ================================================================
+
+def compute_sector_stats(stock_data: Dict[str, Dict]) -> Dict[str, Dict]:
+    """
+    計算各產業板塊當日均值：平均漲跌幅、上漲/下跌家數比例
+    stock_data: {stock_id: {'change_pct': X, 'sector_name': Y, ...}}
+    returns: {sector_name: {'avg_chg': float, 'up_ratio': float, 'count': int}}
+    """
+    sectors: Dict[str, List[float]] = {}
+    for sid, d in stock_data.items():
+        sec = d.get('sector_name', '其他')
+        chg = d.get('change_pct', 0)
+        if sec not in sectors:
+            sectors[sec] = []
+        sectors[sec].append(chg)
+
+    result = {}
+    for sec, chgs in sectors.items():
+        if not chgs:
+            continue
+        up_count = sum(1 for c in chgs if c > 0)
+        result[sec] = {
+            'avg_chg': round(sum(chgs) / len(chgs), 2),
+            'up_ratio': round(up_count / len(chgs), 2) if chgs else 0,
+            'count': len(chgs),
+        }
+    return result
+
+
+def compute_turnover_rate_proxy(volume: float, close: float) -> float:
+    """
+    周轉率代理值（無股本數據時的近似）
+    假設：股本 = close × 100（極簡化，僅用於相對比較）
+    實際周轉率 = volume / shares_outstanding
+    """
+    if close <= 0 or volume <= 0:
+        return 0.0
+    # 極簡近似：交易量 / (股價 × 100000) → 約等於周轉率×100
+    proxy = volume / (close * 100)
+    return round(min(proxy, 100.0), 4)
+
+
+# ================================================================
+# v8 評分層：五維評分函數（真實 RSI/MA/ATR）
 # ================================================================
 
 def score_technical(d: Dict) -> float:
+    """
+    技術面 40% 權重
+    使用真實 RSI(7) + MA5/MA10/MA20 多空排列 + K 線位置 + ATR 波動
+    """
     close = d.get('close', 0)
     if close <= 0:
         return 0.0
-    chg = d.get('change_pct', 0)
-    vol = d.get('volume', 0)
+    history = d.get('history', [])
+    score = 50.0  # 基準
+
+    if history and len(history) >= 8:
+        closes = [h['close'] for h in history]
+        highs = [h['high'] for h in history]
+        lows = [h['low'] for h in history]
+
+        # RSI(7) 評分
+        rsi = compute_rsi(closes, RSI_PERIOD)
+        if rsi >= 75:
+            score += 15  # 強勢但注意超買
+        elif rsi >= 60:
+            score += 20   # 多頭動能最佳區
+        elif rsi >= 45:
+            score += 5    # 中性偏多
+        elif rsi >= 30:
+            score -= 5    # 中性偏空
+        else:
+            score -= 10   # 超賣 → 可能反彈，不扣太多
+
+        # MA 多空排列
+        ma5 = compute_ma(closes, 5)
+        ma10 = compute_ma(closes, 10)
+        ma20 = compute_ma(closes, 20)
+        if ma5 and ma10 and ma20:
+            if ma5 > ma10 > ma20:
+                score += 15  # 多頭排列
+            elif ma5 < ma10 < ma20:
+                score -= 10  # 空頭排列
+            elif ma5 > ma10:
+                score += 5   # 短期轉強
+
+            # MA 乖離
+            if ma20 and ma20 > 0:
+                deviation = (close - ma20) / ma20 * 100
+                if 3 <= deviation <= 10:
+                    score += 5
+                elif deviation > 15:
+                    score -= 10  # 乖離過大
+
+        # ATR 波動
+        atr = compute_atr(highs, lows, closes, ATR_PERIOD)
+        atr_pct = atr / close * 100 if close > 0 else 0
+        if 2 <= atr_pct <= 5:
+            score += 5   # 適度波動有利交易
+        elif atr_pct < 1:
+            score -= 5   # 太冷
+
+    else:
+        # fallback：只用當日數據
+        chg = d.get('change_pct', 0)
+        score += chg * 2  # 溫和代理
+
+    # K 線位置（收盤在高低範圍的位置）
     high = d.get('high', close)
     low = d.get('low', close)
-    open_p = d.get('open', close)
-    score = 0.0
-
-    if chg >= 9:
-        score += 40
-    elif chg >= 5:
-        score += 30
-    elif chg >= 2:
-        score += 20
-    elif chg > 0:
-        score += 10
-    elif chg < -5:
-        score -= 20
-    elif chg < -2:
-        score -= 10
-
-    if vol >= 10000:
-        score += 20
-    elif vol >= 3000:
-        score += 12
-    elif vol >= 500:
-        score += 5
-
     rng = high - low
     if rng > 0:
         pos = (close - low) / rng
-        score += pos * 15
+        score += (pos - 0.3) * 15  # 收在上方加分
 
-    body = abs(close - open_p)
-    if rng > 0:
-        score += (body / rng) * 10
-
-    rsi_proxy = 50 + chg * 3
-    rsi_proxy = max(0, min(100, rsi_proxy))
-    if rsi_proxy >= 70:
-        score += 15
-    elif rsi_proxy <= 30:
-        score -= 10
+    # 量能加分
+    vol = d.get('volume', 0)
+    if vol >= 10000:
+        score += 10
+    elif vol >= 3000:
+        score += 5
 
     return max(0.0, min(100.0, score))
 
 
 def score_chips(d: Dict) -> float:
+    """
+    籌碼面 25% 權重
+    量價突破 + 動能強度
+    """
     vol = d.get('volume', 0)
     chg = d.get('change_pct', 0)
-    score = 0.0
+    history = d.get('history', [])
+    score = 40.0  # 基準稍低，讓極端值更突出
 
-    if vol >= 20000 and chg >= 3:
-        score += 40
-    elif vol >= 5000 and chg >= 1:
+    # 爆量突破
+    if history and len(history) >= 5:
+        avg_vol_5 = sum(h['volume'] for h in history[-6:-1]) / 5 if len(history) >= 6 else vol
+        vol_ratio = vol / avg_vol_5 if avg_vol_5 > 0 else 1
+        if vol_ratio >= 2.5 and chg >= 3:
+            score += 35   # 爆量突破
+        elif vol_ratio >= 1.5 and chg >= 2:
+            score += 20   # 放量上攻
+        elif vol_ratio >= 1.2:
+            score += 8
+
+    # 絕對量能
+    if vol >= 20000 and chg >= 2:
         score += 25
-    elif vol >= 1000:
-        score += 10
-
-    if chg >= 5:
-        score += 30
-    elif chg >= 2:
+    elif vol >= 5000 and chg >= 1:
         score += 15
+    elif vol >= 1000:
+        score += 5
+
+    # 漲幅
+    if chg >= 7:
+        score += 20
+    elif chg >= 3:
+        score += 10
+    elif chg < -5:
+        score -= 15
+    elif chg < -3:
+        score -= 8
 
     return max(0.0, min(100.0, score))
 
 
 def score_fundamental(d: Dict) -> float:
+    """基本面 15% 權重（沿用既有邏輯，穩定可靠）"""
     f = d.get('fundamentals', {})
     pe = f.get('pe', 0)
     pb = f.get('pb', 0)
@@ -373,31 +603,85 @@ def score_fundamental(d: Dict) -> float:
 
 
 def score_news(d: Dict) -> float:
+    """
+    消息面 10% 權重 (v8 重寫)
+    改為：同產業板塊連動評分
+    如果同族群股票普遍上漲，表示有產業級消息支撐（如政策、供需）
+    """
+    sector_stats = d.get('_sector_stats', {})
+    sector_name = d.get('sector_name', '')
     chg = d.get('change_pct', 0)
-    score = 50.0 + chg * 2
+    score = 50.0
+
+    if sector_name and sector_name in sector_stats:
+        s = sector_stats[sector_name]
+        avg = s.get('avg_chg', 0)
+        up_ratio = s.get('up_ratio', 0)
+
+        # 產業板塊強勢
+        if avg > 2 and up_ratio > 0.6:
+            score += 25
+        elif avg > 1:
+            score += 15
+        elif avg < -2 and up_ratio < 0.4:
+            score -= 15
+
+        # 相對板塊強弱
+        if chg > avg + 2:
+            score += 15  # 領漲同族群
+        elif chg < avg - 2:
+            score -= 10  # 落後同族群
+        elif abs(chg - avg) <= 1:
+            score += 5   # 穩定跟隨
+    else:
+        # 無板塊數據 fallback
+        score += chg
+
     return max(0.0, min(100.0, score))
 
 
 def score_sentiment(d: Dict) -> float:
+    """
+    市場情緒 10% 權重 (v8 重寫)
+    改為：周轉率代理 + 振幅情緒
+    高周轉率 = 散戶參與熱絡 = 市場情緒高
+    """
     vol = d.get('volume', 0)
-    chg = d.get('change_pct', 0)
     close = d.get('close', 0)
+    chg = d.get('change_pct', 0)
     high = d.get('high', close)
     low = d.get('low', close)
+    history = d.get('history', [])
     score = 50.0
 
-    if vol >= 5000:
-        score += 15
-    elif vol >= 1000:
-        score += 8
+    # 周轉率代理（相對於歷史均量）
+    if history and len(history) >= 5:
+        avg_vol_5 = sum(h['volume'] for h in history[-6:-1]) / 5 if len(history) >= 6 else vol
+        volume_ratio = vol / avg_vol_5 if avg_vol_5 > 0 else 1
+        if volume_ratio >= 3:
+            score += 20  # 極度熱絡
+        elif volume_ratio >= 2:
+            score += 12
+        elif volume_ratio >= 1.3:
+            score += 6
+        elif volume_ratio < 0.5:
+            score -= 10  # 極度冷清
+    else:
+        # fallback: 絕對量
+        if vol >= 10000:
+            score += 10
+        elif vol >= 3000:
+            score += 5
 
+    # 振幅情緒
     rng = high - low
     if rng > 0 and close > 0:
         pos = (close - low) / rng
-        score += (pos - 0.5) * 20
+        score += (pos - 0.5) * 15  # 收高=買氣強
 
+    # 漲跌方向
     if chg > 3:
-        score += 10
+        score += 8
     elif chg < -3:
         score -= 10
 
@@ -405,6 +689,7 @@ def score_sentiment(d: Dict) -> float:
 
 
 def compute_composite_score(d: Dict) -> Dict:
+    """五維加權總分"""
     scores = {
         'technical': score_technical(d),
         'chips': score_chips(d),
@@ -425,10 +710,15 @@ def compute_composite_score(d: Dict) -> Dict:
 
 
 # ================================================================
-# ML 爆漲預測
+# ML 爆漲預測 (v8 修正：使用歷史 lagged 特徵)
 # ================================================================
 
 def predict_explode_top5(candidates: List[Dict]) -> List[Dict]:
+    """
+    使用歷史日 K 建立 lagged 特徵集：
+    對每檔有足夠歷史數據的候選股，取前 N 日特徵 → 隔日漲標籤
+    訓練 RF，然後對當日候選股做預測
+    """
     try:
         import numpy as np
         from sklearn.ensemble import RandomForestClassifier
@@ -438,33 +728,77 @@ def predict_explode_top5(candidates: List[Dict]) -> List[Dict]:
     if len(candidates) < 20:
         return []
 
-    X, ids = [], []
+    # 建立訓練集：從每檔股票的歷史中提取 lagged 樣本
+    X_train, y_train = [], []
+    X_today, today_ids = [], []
+
     for c in candidates:
-        chg = c.get('change_pct', 0)
-        vol = c.get('volume', 0)
-        close = c.get('close', 0)
-        high = c.get('high', close)
-        low = c.get('low', close)
-        rng = (high - low) / close * 100 if close > 0 else 0
-        rsi = max(0, min(100, 50 + chg * 3))
-        X.append([chg, np.log1p(vol), rsi, rng])
-        ids.append(c)
+        history = c.get('_history', [])
+        close_today = c.get('close', 0)
+        high_today = c.get('high', close_today)
+        low_today = c.get('low', close_today)
+        vol_today = c.get('volume', 0)
+        chg_today = c.get('change_pct', 0)
 
-    X = np.array(X, dtype=float)
-    threshold = np.percentile(X[:, 0], 90)
-    y = (X[:, 0] >= threshold).astype(int)
+        if history and len(history) >= 10:
+            # 從歷史 K 線建立 lagged 樣本
+            for i in range(5, len(history) - 1):
+                prev = history[i]
+                next_day = history[i + 1]
+                prev_close = prev['close']
+                if prev_close <= 0:
+                    continue
+                next_chg = (next_day['close'] - prev_close) / prev_close * 100
 
-    if y.sum() < 2:
+                # 特徵：前一日漲跌幅、量比（近5日均量）、RSI(7)、振幅
+                closes_win = [h['close'] for h in history[max(0, i - 9):i + 1]]
+                rsi_val = compute_rsi(closes_win, RSI_PERIOD) if len(closes_win) >= RSI_PERIOD + 1 else 50
+                prev_high = prev['high']
+                prev_low = prev['low']
+                amp = (prev_high - prev_low) / prev_close * 100 if prev_close > 0 else 0
+
+                # 量比（近5日均量）
+                vol_win = [h['volume'] for h in history[max(0, i - 4):i + 1]]
+                avg_vol = sum(vol_win) / len(vol_win) if vol_win else prev['volume']
+                vol_ratio = prev['volume'] / avg_vol if avg_vol > 0 else 1
+
+                prev_chg = (prev_close - history[i - 1]['close']) / history[i - 1]['close'] * 100 if i > 0 else 0
+
+                X_train.append([prev_chg, np.log1p(prev['volume']), rsi_val, amp, vol_ratio])
+                y_train.append(1 if next_chg >= 9.5 else 0)
+
+            # 當日特徵（用於預測明天）
+            closes_full = [h['close'] for h in history]
+            rsi_today = compute_rsi(closes_full, RSI_PERIOD)
+            amp_today = (high_today - low_today) / close_today * 100 if close_today > 0 else 0
+
+            vol_win_today = [h['volume'] for h in history[-6:-1]] if len(history) >= 6 else [vol_today]
+            avg_vol_today = sum(vol_win_today) / len(vol_win_today) if vol_win_today else vol_today
+            vol_ratio_today = vol_today / avg_vol_today if avg_vol_today > 0 else 1
+
+            X_today.append([chg_today, np.log1p(vol_today), rsi_today, amp_today, vol_ratio_today])
+            today_ids.append(c)
+        else:
+            # 無歷史 fallback
+            amp = (high_today - low_today) / close_today * 100 if close_today > 0 else 0
+            X_today.append([chg_today, np.log1p(vol_today), 50, amp, 1.0])
+            today_ids.append(c)
+
+    if len(X_train) < 20 or sum(y_train) < 2:
         return []
+
+    X_train_arr = np.array(X_train, dtype=float)
+    y_train_arr = np.array(y_train, dtype=int)
+    X_today_arr = np.array(X_today, dtype=float)
 
     try:
         rf = RandomForestClassifier(n_estimators=50, max_depth=4, random_state=42)
-        rf.fit(X, y)
-        probs = rf.predict_proba(X)[:, 1]
+        rf.fit(X_train_arr, y_train_arr)
+        probs = rf.predict_proba(X_today_arr)[:, 1]
         top_idx = np.argsort(probs)[::-1][:TOP_EXPLODE]
         result = []
         for i in top_idx:
-            c = ids[i]
+            c = today_ids[i]
             result.append({
                 'stock_id': c.get('stock_id', ''),
                 'name': c.get('name', c.get('stock_id', '')),
@@ -485,7 +819,7 @@ def predict_explode_top5(candidates: List[Dict]) -> List[Dict]:
 def run_scan(scan_date: str = None) -> Dict:
     if scan_date is None:
         scan_date = os.environ.get('SCAN_DATE') or datetime.now(_TW_TZ).strftime('%Y%m%d')
-    print(f"[掃描] 日期: {scan_date}")
+    print(f"[掃描] 日期: {scan_date} (v8: 真實 RSI/MA/ATR + 板塊 + 周轉率)")
 
     tse = fetch_listed_stocks()
     tpex = fetch_tpex_stocks()
@@ -511,7 +845,9 @@ def run_scan(scan_date: str = None) -> Dict:
 
     print(f"[掃描] 總股數: {len(all_stocks)}")
 
-    # 1. 預先抓取全市場基本面數據 (BWIBBU_ALL) 以防在線程中重複抓取導致 IP 封鎖與卡死
+    # ---- Phase 1: 預先抓取全市場數據 ----
+
+    # 1. 基本面
     all_fundamentals = {}
     try:
         print("[下載] 預先下載全市場基本面數據 (BWIBBU_ALL)...")
@@ -519,20 +855,21 @@ def run_scan(scan_date: str = None) -> Dict:
         data = resp.json()
         rows = data if isinstance(data, list) else data.get('data', [])
         for row in rows:
-            code = str(row.get('Code', '')).strip()
+            # BWIBBU_ALL returns list of lists: [Code, Name, PE, DY, PB, ...]
+            code = str(row[0]).strip()
             if code:
                 try:
-                    pe = float(str(row.get('PEratio', '0') or '0').replace(',', '').strip() or '0')
-                    pb = float(str(row.get('PBratio', '0') or '0').replace(',', '').strip() or '0')
-                    dy = float(str(row.get('DividendYield', '0') or '0').replace(',', '').strip() or '0')
+                    pe = float(str(row[2]).replace(',', '').replace('-', '0') or '0')
+                    dy = float(str(row[3]).replace(',', '').replace('-', '0') or '0')
+                    pb = float(str(row[4]).replace(',', '').replace('-', '0') or '0')
                     all_fundamentals[code] = {'pe': pe, 'pb': pb, 'dy': dy}
                 except Exception:
                     all_fundamentals[code] = {'pe': 0.0, 'pb': 0.0, 'dy': 0.0}
         print(f"[下載] 成功下載 {len(all_fundamentals)} 筆基本面數據")
     except Exception as e:
-        print(f"[下載] 預先下載基本面失敗，將在線程中個別獲取: {e}")
+        print(f"[下載] 預先下載基本面失敗: {e}")
 
-    # 2. 預先抓取全市場上櫃日K數據 以防在線程中重複抓取
+    # 2. 上櫃日 K（全市場）
     all_tpex_quotes = {}
     try:
         print("[下載] 預先下載全市場上櫃日K數據...")
@@ -565,9 +902,10 @@ def run_scan(scan_date: str = None) -> Dict:
                     continue
         print(f"[下載] 成功下載 {len(all_tpex_quotes)} 筆上櫃日K數據")
     except Exception as e:
-        print(f"[下載] 預先下載上櫃日K失敗，將在線程中個別獲取: {e}")
+        print(f"[下載] 預先下載上櫃日K失敗: {e}")
 
-    # 3. 預先抓取全市場上市日K數據 (STOCK_DAY_ALL) - 一次性下載，避免1084次個別請求
+    # 3. 上市日 K（全市場）
+    # STOCK_DAY_ALL returns list of lists: [Code, Name, Volume, Value, Open, High, Low, Close, Change(+/-/X), TxCount]
     STOCK_DAY_ALL_URL = "https://www.twse.com.tw/exchangeReport/STOCK_DAY_ALL?response=json"
     all_tse_quotes = {}
     try:
@@ -576,19 +914,17 @@ def run_scan(scan_date: str = None) -> Dict:
         data = resp.json()
         rows = data if isinstance(data, list) else data.get('data', [])
         for row in rows:
-            code = str(row.get('Code', '')).strip()
-            if code:
+            code = str(row[0]).strip()
+            if code and len(code) == 4:
                 try:
-                    def _tf(key):
-                        return float(str(row.get(key, '0') or '0').replace(',', '').strip() or '0')
-                    close = _tf('ClosingPrice')
+                    close = float(str(row[7]).replace(',', ''))
                     if close <= 0:
                         continue
-                    volume = _tf('TradeVolume')
-                    open_p = _tf('OpeningPrice')
-                    high = _tf('HighestPrice')
-                    low = _tf('LowestPrice')
-                    chg_str = str(row.get('Change', '0') or '0').replace(',', '').strip()
+                    volume = float(str(row[2]).replace(',', ''))
+                    open_p = float(str(row[4]).replace(',', ''))
+                    high = float(str(row[5]).replace(',', ''))
+                    low = float(str(row[6]).replace(',', ''))
+                    chg_str = str(row[8]).replace(',', '').strip()
                     chg = 0.0 if chg_str in ('+', '-', '', 'X', '--') else float(chg_str)
                     prev = close - chg
                     chg_pct = round(chg / prev * 100, 2) if prev != 0 else 0.0
@@ -601,67 +937,134 @@ def run_scan(scan_date: str = None) -> Dict:
                     continue
         print(f"[下載] 成功下載 {len(all_tse_quotes)} 筆上市日K數據")
     except Exception as e:
-        print(f"[下載] 預先下載上市日K失敗，將在線程中個別獲取: {e}")
+        print(f"[下載] 預先下載上市日K失敗: {e}")
 
+    # Phase 2: 計算產業板塊統計（用於消息面評分）
+    print("[分析] 計算產業板塊統計...")
+    sector_data: Dict[str, Dict] = {}
+    for sid, info in all_stocks.items():
+        day = all_tse_quotes.get(sid) or all_tpex_quotes.get(sid)
+        if day and day.get('close', 0) > 0:
+            sector_data[sid] = {
+                'change_pct': day.get('change_pct', 0),
+                'sector_name': info.get('sector_name', ''),
+                'close': day['close'],
+                'volume': day['volume'],
+            }
+    sector_stats = compute_sector_stats(sector_data)
+    print(f"[分析] 板塊統計完成: {len(sector_stats)} 個產業")
+
+    # Phase 3: 平行處理每檔股票（含歷史抓取）
     results = []
+    # 快取歷史抓取結果（避免同股票重複請求）
+    history_cache: Dict[str, Dict] = {}
 
     def process_one(sid: str, info: Dict) -> Optional[Dict]:
         market = info['market']
         name = info['name']
+        sector = info.get('sector_name', '')
         try:
+            # 取得當日數據
             if market == 'TSE':
-                # 優先使用預先批次下載的上市日K
                 if sid in all_tse_quotes:
                     day = all_tse_quotes[sid]
                 else:
-                    day = fetch_stock_day(sid, scan_date)
+                    return None
             else:
-                # 優先使用預先批次下載的上櫃日K
                 if sid in all_tpex_quotes:
                     day = all_tpex_quotes[sid]
                 else:
-                    try:
-                        day = fetch_tpex_day(sid, scan_date)
-                    except Exception:
-                        day = fetch_stock_day(sid, scan_date)
+                    return None
+
             if day is None or day.get('close', 0) <= 0:
                 return None
-            
-            # 優先使用預先批次下載的基本面
+
+            close = day['close']
+            vol = day['volume']
+
+            # 僅對成交量 > 100 張 且 股價 > 0 的股票抓取歷史（節省 API 請求）
+            history = []
+            if vol >= 100 and close > 0:
+                cache_key = f"{sid}_{market}"
+                if cache_key in history_cache:
+                    history = history_cache[cache_key].get('history', [])
+                else:
+                    # 上市股：用 STOCK_DAY 抓取歷史
+                    if market == 'TSE':
+                        hist_result = fetch_stock_day_history(sid, scan_date)
+                        if hist_result and hist_result.get('history'):
+                            history = hist_result['history']
+                            history_cache[cache_key] = hist_result
+                    # 上櫃股歷史：也呼叫 TSE API（上櫃股在 TSE 日 K 也會有資料）
+                    else:
+                        try:
+                            hist_result = fetch_stock_day_history(sid, scan_date)
+                            if hist_result and hist_result.get('history'):
+                                history = hist_result['history']
+                                history_cache[cache_key] = hist_result
+                        except Exception:
+                            history = []
+
+            # 使用已獲得的歷史數據改寫 day['change_pct']（更精確）
+            if history and len(history) >= 2:
+                day['change_pct'] = round(
+                    (history[-1]['close'] - history[-2]['close']) / history[-2]['close'] * 100, 2
+                )
+
+            # 基本面
             if sid in all_fundamentals:
                 fund = all_fundamentals[sid]
             else:
                 fund = fetch_fundamentals(sid)
 
-            d = {**day, 'fundamentals': fund, 'name': name}
-            scores = compute_composite_score(d)
-            close = day['close']
-            entry_low = round(close * 0.99, 2)
-            entry_high = round(close * 1.01, 2)
-            stop_loss = round(close * 0.95, 2)
-            targets = {
-                't1': round(close * 1.05, 2),
-                't2': round(close * 1.10, 2),
-                't3': round(close * 1.15, 2),
-                'stop_loss': stop_loss,
+            # 計算技術指標
+            atr_val = close * 0.02  # default 2%
+            if history:
+                closes_h = [h['close'] for h in history]
+                highs_h = [h['high'] for h in history]
+                lows_h = [h['low'] for h in history]
+                atr_val = compute_atr(highs_h, lows_h, closes_h, ATR_PERIOD)
+
+            # 組合數據
+            d = {
+                **day,
+                'fundamentals': fund,
+                'name': name,
+                'sector_name': sector,
+                '_sector_stats': sector_stats,
+                'history': history.copy() if history else [],
+                '_history': history.copy() if history else [],
             }
-            rec = '強烈推薦' if scores['total'] >= 75 else ('推薦' if scores['total'] >= 60 else ('觀察' if scores['total'] >= 45 else '迴避'))
+
+            # 評分
+            scores = compute_composite_score(d)
+
+            # ATR 目標價
+            targets = compute_targets(close, atr_val, day.get('change_pct', 0))
+
+            rec = '強烈推薦' if scores['total'] >= 75 else (
+                '推薦' if scores['total'] >= 60 else (
+                '觀察' if scores['total'] >= 45 else '迴避'))
+
             return {
                 'stock_id': sid,
                 'name': name,
                 'market': market,
-                'sector_name': info.get('sector_name', ''),
+                'sector_name': sector,
                 'close': close,
                 'change_pct': day.get('change_pct', 0),
-                'volume': day.get('volume', 0),
+                'volume': vol,
                 'scores': scores,
                 'total_score': scores['total'],
                 'recommendation': rec,
-                'entry_low': entry_low,
-                'entry_high': entry_high,
-                'stop_loss': stop_loss,
+                'entry_low': targets['entry_low'],
+                'entry_high': targets['entry_high'],
+                'stop_loss': targets['stop_loss'],
                 'targets': targets,
                 'fundamentals': fund,
+                'rsi': compute_rsi([h['close'] for h in history], RSI_PERIOD) if history and len(history) >= 8 else None,
+                'vol_ratio': (vol / (sum(h['volume'] for h in history[-6:-1]) / 5) if history and len(history) >= 6 and sum(h['volume'] for h in history[-6:-1]) > 0 else None),
+                '_history': history,  # 保留歷史數據供 ML 使用
             }
         except Exception:
             return None
@@ -676,8 +1079,19 @@ def run_scan(scan_date: str = None) -> Dict:
     results.sort(key=lambda x: x.get('total_score', 0), reverse=True)
     print(f"[結果] 有效股數: {len(results)}")
 
+    # Phase 4: ML 爆漲預測
     explode_top5 = predict_explode_top5(results)
     top10 = results[:TOP_N]
+
+    # 清除每個 stock 的內部資料（_history 體積過大，不應寫入 JSON）
+    for r in results:
+        r.pop('_history', None)
+        r.pop('history', None)
+        r.pop('_sector_stats', None)
+    for r in top10:
+        r.pop('_history', None)
+        r.pop('history', None)
+        r.pop('_sector_stats', None)
 
     return {
         'scan_date': scan_date,
@@ -707,42 +1121,37 @@ def save_results(result: Dict, output_dir: str = None) -> Dict[str, str]:
         json.dump(result, f, ensure_ascii=False, indent=2)
     paths['latest'] = latest_path
 
-    latest_json_path = os.path.join(output_dir, 'latest.json')
-    with open(latest_json_path, 'w', encoding='utf-8') as f:
-        json.dump(result, f, ensure_ascii=False, indent=2)
-    paths['latest_json'] = latest_json_path
-
-    print(f"[儲存] {dated_path}")
-    print(f"[儲存] {latest_path}")
-    print(f"[儲存] {latest_json_path}")
+    print(f"[儲存] dated={dated_path}")
+    print(f"[儲存] latest={latest_path}")
     return paths
 
 
-def print_report(result: Dict) -> None:
-    top = result.get('top_stocks', [])
-    print(f"\n{'='*60}")
-    print(f"台股五維分析 Top {TOP_N}")
-    print(f"掃描日期: {result['scan_date']}  有效股: {result['scanned_count']}")
-    print(f"{'='*60}")
-    for i, s in enumerate(top, 1):
-        sc = s.get('scores', {})
-        tg = s.get('targets', {})
-        print(f"\n#{i:2d} {s['stock_id']} {s['name']} [{s['market']}]")
-        print(f"     收盤：{s['close']:.2f}  成交量：{s['volume']:.0f}張")
-        print(f"     綜合分：{sc['total']:.2f}  "
-              f"技術:{sc['technical']:.1f} 籌碼:{sc['chips']:.1f} "
-              f"基本:{sc['fundamental']:.1f} 消息:{sc['news']:.1f} 情緒:{sc['sentiment']:.1f}")
-        print(f"     目標：T1={tg['t1']}  T2={tg['t2']}  T3={tg['t3']}  停損={tg['stop_loss']}")
-
-    print(f"\n{'─'*60}")
-    print(f"ML 爆漲預測 Top {TOP_EXPLODE}")
-    print(f"{'─'*60}")
-    for i, s in enumerate(result.get('explode_top5', []), 1):
-        print(f"#{i} {s['stock_id']} {s['name']}  爆漲機率：{s['explode_prob']*100:.1f}%  "
-              f"收盤：{s['close']:.2f}  量：{s['volume']:.0f}張")
-
-
 if __name__ == '__main__':
-    result = run_scan()
-    save_results(result)
-    print_report(result)
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--date', default=None, help='scan date YYYYMMDD')
+    parser.add_argument('--output', default=None, help='output directory')
+    args = parser.parse_args()
+
+    result = run_scan(args.date)
+    paths = save_results(result, args.output)
+
+    top10 = result.get('top_stocks', [])
+    print(f"\n{'='*50}")
+    print(f"Top 10 推薦 (v8 真實 RSI/MA/ATR)")
+    print(f"{'='*50}")
+    for i, s in enumerate(top10, 1):
+        sc = s.get('scores', {})
+        print(f"  #{i} {s['stock_id']} {s['name']} "
+              f"| {s.get('total_score', 0):.1f}分 "
+              f"| T:{sc.get('technical', 0):.0f} C:{sc.get('chips', 0):.0f} "
+              f"F:{sc.get('fundamental', 0):.0f} N:{sc.get('news', 0):.0f} "
+              f"S:{sc.get('sentiment', 0):.0f}")
+
+    explode = result.get('explode_top5', [])
+    if explode:
+        print(f"\n爆漲 Top 5:")
+        for i, s in enumerate(explode, 1):
+            print(f"  #{i} {s['stock_id']} {s['name']} "
+                  f"| prob={s.get('explode_prob', 0):.1%} "
+                  f"| ${s.get('close', 0):.1f}")

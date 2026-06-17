@@ -39,20 +39,20 @@ def normalize_stock(s):
     entry_high = float(s.get('entry_high', close * 1.02) or close * 1.02)
     stop_loss = float(s.get('stop_loss', close * 0.93) or close * 0.93)
 
-    # Map scores to dimensions (raw 0-100 → weighted within dimension max)
+    # Map scores to dimensions (raw 0-100 → pass through as-is; frontend expects 0-100 scale)
     tech_raw = float(scores.get('technical', scores.get('tech', 0)) or 0)
     chips_raw = float(scores.get('chips', 0) or 0)
     fund_raw = float(scores.get('fundamental', 0) or 0)
     news_raw = float(scores.get('news', 0) or 0)
     sent_raw = float(scores.get('sentiment', 0) or 0)
 
-    # Scale raw 0-100 to dimension maxes: tech=40, fund=40, news=10, sentiment=10, chips=10
+    # All dimensions 0-100 raw (v8: real RSI/MA/ATR scoring, no false scaling)
     dimensions = {
-        "technical": round(tech_raw / 100 * 40, 2),
-        "fundamental": round(fund_raw / 100 * 40, 2),
-        "news": round(news_raw / 100 * 10, 2),
-        "sentiment": round(sent_raw / 100 * 10, 2),
-        "chips": round(chips_raw / 100 * 10, 2),
+        "technical": round(tech_raw, 2),
+        "fundamental": round(fund_raw, 2),
+        "news": round(news_raw, 2),
+        "sentiment": round(sent_raw, 2),
+        "chips": round(chips_raw, 2),
     }
 
     # Generate signals based on scores
@@ -96,7 +96,7 @@ def normalize_stock(s):
         "stock_id": s.get('stock_id', ''),
         "name": s.get('name', ''),
         "market": s.get('market', 'TWSE'),
-        "sector": s.get('sector', s.get('industry', '其他')),
+        "sector": s.get('sector_name', s.get('sector', s.get('industry', '其他'))),
         "close": close,
         "change_pct": change_pct,
         "volume": float(s.get('volume', 0) or 0),
