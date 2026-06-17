@@ -20,7 +20,7 @@ interface Props {
 function getActionStyle(rec: string | undefined) {
   if (!rec) return { bg: 'bg-gray-100', border: 'border-gray-300', text: 'text-gray-600', label: '觀望' };
   const r = rec.toLowerCase();
-  if (r.includes('★★★') || r.includes('strong') || r.includes('強力')) {
+  if (r.includes('★★★') || r.includes('strong') || r.includes('強力') || r.includes('強烈')) {
     return { bg: 'bg-red-50', border: 'border-red-400', text: 'text-red-600', label: '強力買進' };
   }
   if (r.includes('積極')) {

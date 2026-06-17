@@ -67,7 +67,7 @@ function ThreeKeyPrices({ stock }: { stock: ScanStock }) {
 function getActionColor(rec: string | undefined): string {
   if (!rec) return 'bg-gray-100 text-gray-500';
   const r = rec.toLowerCase();
-  if (r.includes('★★★') || r.includes('strong') || r.includes('強力')) return 'bg-red-100 text-red-700';
+  if (r.includes('★★★') || r.includes('strong') || r.includes('強力') || r.includes('強烈')) return 'bg-red-100 text-red-700';
   if (r.includes('積極')) return 'bg-orange-100 text-orange-700';
   if (r.includes('買進') || r.includes('buy')) return 'bg-emerald-100 text-emerald-700';
   if (r.includes('逢低')) return 'bg-sky-100 text-sky-700';
