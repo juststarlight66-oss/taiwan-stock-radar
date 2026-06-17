@@ -125,6 +125,37 @@ async function fetchLiveQuotes(stockIds: string[]): Promise<Record<string, LiveQ
   }
 }
 
+async function fetchLiveQuotesWithController(stockIds: string[], signal: AbortSignal): Promise<Record<string, LiveQuote>> {
+  const queryParts = stockIds.map((id) => `tse_${id}.tw`).join('|');
+  const url = `${TWSE_API}?ex_ch=${encodeURIComponent(queryParts)}&json=1&delay=0`;
+
+  const res = await fetch(url, { signal });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const data = await res.json();
+  const result: Record<string, LiveQuote> = {};
+
+  for (const m of data.msgArray ?? []) {
+    const id = m.c as string;
+    if (!id) continue;
+    const current = parseFloat(m.z) || parseFloat(m.y) || null;
+    const prev_close = parseFloat(m.y) || null;
+    result[id] = {
+      stock_id: id,
+      name: m.n ?? '',
+      current,
+      open: parseFloat(m.o) || null,
+      high: parseFloat(m.h) || null,
+      low: parseFloat(m.l) || null,
+      prev_close,
+      volume: parseInt(m.v) || null,
+      time: m.t ?? '',
+      date: m.d ?? '',
+      change_pct: current && prev_close ? ((current - prev_close) / prev_close) * 100 : null,
+    };
+  }
+  return result;
+}
+
 // ── Score Bar ─────────────────────────────────────────────────────────────────
 
 function ScoreBar({ label, value, max, color }: { label: string; value: number; max: number; color: string }) {
@@ -264,6 +295,7 @@ export default function IntradayPage() {
   const [snapshot, setSnapshot] = useState<IntradaySnapshot | null>(null);
   const [latestData, setLatestData] = useState<LatestData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [liveQuoteStatus, setLiveQuoteStatus] = useState<'idle' | 'loading' | 'done' | 'timeout'>('idle');
   const [error, setError] = useState<string | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'intraday' | 'latest'>('intraday');
@@ -272,9 +304,14 @@ export default function IntradayPage() {
 
   const loadData = useCallback(async () => {
     try {
+      setLoading(true);
+      setLiveQuoteStatus('idle');
+      setError(null);
+
+      // Phase 1: Load static JSONs (no cache-busting — let browser reuse them)
       const [intradayRes, latestRes] = await Promise.all([
-        fetch(`${BASE}/data/intraday.json`, { cache: 'no-store' }),
-        fetch(`${BASE}/data/latest.json`, { cache: 'no-store' }),
+        fetch(`${BASE}/data/intraday.json`),
+        fetch(`${BASE}/data/latest.json`),
       ]);
 
       const rawIntraday: any = await intradayRes.json();
@@ -327,29 +364,72 @@ export default function IntradayPage() {
         },
       }));
 
+      // ── Render immediately with snapshot fallbacks ──────────────────
+      const initialSnapshot: IntradaySnapshot = {
+        ...intradayData,
+        stocks: (intradayData?.stocks ?? []).map((s) => ({
+          ...s,
+          live: fallbackQuotes[s.stock_id] ?? s.live,
+        })),
+      };
+
+      setSnapshot(initialSnapshot);
+      setLatestData({ ...latest, top10: latestStocks as unknown as LatestData['top10'] });
+      setLastRefresh(new Date());
+      setLoading(false);
+
+      // Phase 2: Fetch live quotes in background with 5s timeout
       const intradayStocksList = intradayData?.stocks ?? [];
       const allIds = [
         ...intradayStocksList.map((s) => s.stock_id),
         ...latestStocks.map((s) => s.stock_id),
       ];
       const uniqueIds = [...new Set(allIds)];
-      const quotes = await fetchLiveQuotes(uniqueIds);
 
-      // Merge: TWSE real-time quotes override intraday snapshot fallbacks
-      const mergedQuotes: Record<string, LiveQuote> = { ...fallbackQuotes, ...quotes };
+      if (uniqueIds.length > 0) {
+        setLiveQuoteStatus('loading');
+        let twseQuotes: Record<string, LiveQuote> = {};
 
-      if (intradayData && intradayData.stocks) {
-        intradayData.stocks = intradayData.stocks.map((s) => ({ ...s, live: mergedQuotes[s.stock_id] ?? s.live }));
+        try {
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 5000);
+          const result = await fetchLiveQuotesWithController(uniqueIds, controller.signal);
+          clearTimeout(timeoutId);
+          twseQuotes = result;
+        } catch (e: any) {
+          if (e?.name === 'AbortError' || e?.message?.includes('aborted')) {
+            console.warn('Live quotes timed out after 5s, using snapshot fallbacks');
+          }
+        }
+
+        const mergedQuotes: Record<string, LiveQuote> = { ...fallbackQuotes, ...twseQuotes };
+
+        setSnapshot((prev) => {
+          if (!prev) return prev;
+          return {
+            ...prev,
+            stocks: prev.stocks?.map((s) => ({
+              ...s,
+              live: mergedQuotes[s.stock_id] ?? s.live,
+            })),
+          };
+        });
+        setLatestData((prev) => {
+          if (!prev?.top10) return prev;
+          return {
+            ...prev,
+            top10: prev.top10.map((s: any) => ({
+              ...s,
+              live: mergedQuotes[s.stock_id] ?? s.live,
+            })),
+          };
+        });
+        setLiveQuoteStatus(Object.keys(twseQuotes).length > 0 ? 'done' : 'timeout');
       }
-      const latestWithLive = latestStocks.map((s) => ({ ...s, live: mergedQuotes[s.stock_id] }));
-
-      setSnapshot(intradayData);
-      setLatestData({ ...latest, top10: latestWithLive as unknown as LatestData['top10'] });
-      setLastRefresh(new Date());
     } catch (e) {
       setError(e instanceof Error ? e.message : '載入失敗');
-    } finally {
       setLoading(false);
+    } finally {
       setRefreshing(false);
     }
   }, []);
@@ -416,6 +496,12 @@ export default function IntradayPage() {
             <div className="flex items-center gap-3 mt-3 text-sm text-sky-100">
               <span>盤中掃描：{snapshot.scan_date}</span>
               <span className="bg-white/10 px-2 py-0.5 rounded">{intradayStocks.length} 支候選</span>
+              {liveQuoteStatus === 'loading' && (
+                <span className="flex items-center gap-1 bg-white/10 px-2 py-0.5 rounded">
+                  <RefreshCw className="w-3 h-3 animate-spin" />
+                  即時報價更新中...
+                </span>
+              )}
             </div>
           )}
         </div>
