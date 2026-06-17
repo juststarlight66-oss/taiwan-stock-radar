@@ -85,12 +85,25 @@ export interface ScanStock {
   narrative?:  StockNarrative;
 }
 
+// ML 爆漲預測項目
+export interface ExplodePredictStock {
+  stock_id: string;
+  name?: string;
+  stock_name?: string;
+  explode_prob: number;  // 0-1, 爆漲機率
+  total_score?: number;
+  recommendation?: string;
+  close?: number;
+  change_pct?: number;
+}
+
 // ── ScanResult：每日掃描主結果格式 ──
 export interface ScanResult {
   scan_date:     string;
   scanned_count: number;
   top10?:        ScanStock[];
   top_stocks?:   ScanStock[];
+  explode_top5?: ExplodePredictStock[];
   total_stocks?: number;
   market_trend?: string;
   trend_label?:  string;
