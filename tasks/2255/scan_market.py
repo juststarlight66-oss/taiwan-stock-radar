@@ -1102,8 +1102,8 @@ def run_scan(scan_date: str = None) -> Dict:
     # 診斷：分市場統計，定位哪個 API 在掉資料
     tse_results = [r for r in results if r.get('market') == 'TSE']
     tpex_results = [r for r in results if r.get('market') == 'TPEx']
-    tse_total = sum(1 for s in all_stocks if isinstance(s, dict) and s.get('market') == 'TSE')
-    tpex_total = sum(1 for s in all_stocks if isinstance(s, dict) and s.get('market') == 'TPEx')
+    tse_total = sum(1 for s in all_stocks.values() if s.get('market') == 'TSE')
+    tpex_total = sum(1 for s in all_stocks.values() if s.get('market') == 'TPEx')
     print(f"[診斷] TSE: {len(tse_results)}/{tse_total}, TPEx: {len(tpex_results)}/{tpex_total}")
     print(f"[診斷] TSE quote 覆蓋率: {len(all_tse_quotes)}, TPEx quote 覆蓋率: {len(all_tpex_quotes)}")
 
