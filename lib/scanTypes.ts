@@ -70,9 +70,11 @@ export interface ScanStock {
   hold_days?:         string;
   position?:          string;
   max_loss_per_lot?:  number;
+  targets?:           { t1?: number; t2?: number; t3?: number; stop_loss?: number };
   volume?:            number;
   rsi?:               number;
   vol_ratio?:         number;
+  market?:            string;
   // ── 巢狀結構（舊格式相容）──
   dimensions?: ScanDimensions;
   signals?:    ScanSignals;
@@ -108,7 +110,12 @@ export function getStockName(s: ScanStock): string {
 }
 
 export function getStockSector(s: ScanStock): string {
-  return s.sector_name ?? s.sector ?? '—';
+  const sector = s.sector_name ?? s.sector;
+  if (sector) return sector;
+  if (s.market === 'TSE') return '上市';
+  if (s.market === 'OTC') return '上櫃';
+  if (s.market === 'ESB') return '興櫃';
+  return '—';
 }
 
 export function getStockClose(s: ScanStock): number | undefined {
@@ -140,15 +147,15 @@ export function getStockStopLoss(s: ScanStock): number | undefined {
 }
 
 export function getStockTarget1(s: ScanStock): number | undefined {
-  return s.target1 ?? s.strategy?.target1 ?? s.strategy?.target;
+  return s.target1 ?? s.strategy?.target1 ?? s.strategy?.target ?? s.targets?.t1;
 }
 
 export function getStockTarget2(s: ScanStock): number | undefined {
-  return s.target2 ?? s.strategy?.target2;
+  return s.target2 ?? s.strategy?.target2 ?? s.targets?.t2;
 }
 
 export function getStockTarget3(s: ScanStock): number | undefined {
-  return s.target3 ?? s.strategy?.target3;
+  return s.target3 ?? s.strategy?.target3 ?? s.targets?.t3;
 }
 
 export function getStockDimensions(s: ScanStock): ScanDimensions {

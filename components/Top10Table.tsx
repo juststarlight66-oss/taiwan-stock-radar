@@ -3,7 +3,8 @@ import { useState } from 'react';
 import {
   ScanStock, DIMENSION_CONFIG,
   getStockName, getStockSector, getStockRecommendation,
-  getStockEntryLow, getStockEntryHigh, getStockStopLoss, getStockTarget1,
+  getStockEntryLow, getStockEntryHigh, getStockStopLoss,
+  getStockTarget1, getStockTarget2, getStockTarget3,
 } from '@/lib/scanTypes';
 import StockDetailModal from './StockDetailModal';
 import { WatchlistToggleBtn } from './WatchlistPanel';
@@ -43,7 +44,9 @@ function ThreeKeyPrices({ stock }: { stock: ScanStock }) {
   const entryLow = getStockEntryLow(stock);
   const entryHigh = getStockEntryHigh(stock);
   const stopLoss = getStockStopLoss(stock);
-  const target = getStockTarget1(stock);
+  const target1 = getStockTarget1(stock);
+  const target2 = getStockTarget2(stock);
+  const target3 = getStockTarget3(stock);
   return (
     <div className="text-xs space-y-0.5 text-gray-600">
       <div>
@@ -53,7 +56,10 @@ function ThreeKeyPrices({ stock }: { stock: ScanStock }) {
           : entryLow || entryHigh || '—'}
       </div>
       <div><span className="text-red-500 font-medium">停損</span>{stopLoss ?? '—'}</div>
-      <div><span className="text-sky-500 font-medium">目標</span>{target ?? '—'}</div>
+      {target1 && <div><span className="text-sky-500 font-medium">目標一</span>{target1}</div>}
+      {target2 && <div><span className="text-sky-400 font-medium">目標二</span>{target2}</div>}
+      {target3 && <div><span className="text-sky-300 font-medium">目標三</span>{target3}</div>}
+      {!target1 && !target2 && !target3 && <div><span className="text-sky-500 font-medium">目標</span>—</div>}
     </div>
   );
 }
