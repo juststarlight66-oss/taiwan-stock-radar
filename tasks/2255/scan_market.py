@@ -127,15 +127,17 @@ TOP_EXPLODE = 5
 # ================================================================
 # 資料層：上市股票、上櫃股票、日K、基本面
 # ================================================================
-def fetch_tse_industry() -> Dict[str, str]:
-    """上市股票產業分類 (openapi.twse.com.tw/v1/industry/listed: {code, industry})"""
+def load_stock_industry() -> Dict[str, str]:
+    """載入靜態產業分類對照表 (stock_code → industry_name)"""
     try:
-        resp = _http_get("https://openapi.twse.com.tw/v1/industry/listed", headers={'User-Agent': 'Mozilla/5.0'}, timeout=30)
-        data = resp.json()
-        if isinstance(data, list):
-            return {item['code']: item['industry'] for item in data if 'code' in item and 'industry' in item}
+        p = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'stock_industry.json')
+        if os.path.exists(p):
+            with open(p, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            return data.get('stock_industry', {})
+        print(f"[警告] stock_industry.json 不存在於 {p}")
     except Exception as e:
-        print(f"[錯誤] TSE industry: {e}")
+        print(f"[錯誤] 載入 stock_industry.json: {e}")
     return {}
 
 
@@ -489,22 +491,22 @@ def run_scan(scan_date: str = None) -> Dict:
     tpex = fetch_tpex_stocks()
     print(f"[清單] TSE={len(tse)}, TPEx={len(tpex)}")
 
-    # 取得產業分類
-    tse_industry = fetch_tse_industry()
+    # 載入產業分類對照
+    stock_industry = load_stock_industry()
 
     all_stocks: Dict[str, Dict] = {}
     for s in tse:
         sid = str(s.get('Code', '')).strip()
         name = str(s.get('Name', '')).strip()
         if sid:
-            sector = tse_industry.get(sid, '')
+            sector = stock_industry.get(sid, '')
             all_stocks[sid] = {'name': name, 'market': 'TSE', 'sector_name': sector}
     for s in tpex:
         sid = str(s.get('Code', '')).strip()
         name = str(s.get('Name', '')).strip()
         if sid and sid not in all_stocks:
             ind_code = str(s.get('IndustryCode', '')).strip()
-            sector = TPEX_INDUSTRY_MAP.get(ind_code, '')
+            sector = TPEX_INDUSTRY_MAP.get(ind_code, '') or stock_industry.get(sid, '')
             all_stocks[sid] = {'name': name, 'market': 'TPEx', 'sector_name': sector}
 
     print(f"[掃描] 總股數: {len(all_stocks)}")
