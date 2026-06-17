@@ -1,7 +1,7 @@
 'use client';
 import { useState, useMemo, useCallback } from 'react';
 import { useAllScores, useOnDemandScan } from '@/lib/useScanData';
-import { ScanStock, DIMENSION_CONFIG } from '@/lib/scanTypes';
+import { ScanStock, DIMENSION_CONFIG, getStockDimensions, getStockEntryLow, getStockEntryHigh, getStockStopLoss, getStockTarget1, getStockTarget2, getStockTarget3 } from '@/lib/scanTypes';
 import {
   Search, X, AlertCircle, ChevronDown, ChevronUp,
   ArrowUpRight, ArrowDownRight, Plus, Trash2, Share2, Check,
@@ -52,7 +52,8 @@ function CompareRadar({ stocks }: { stocks: ScanStock[] }) {
     const cfg = DIMENSION_CONFIG[key];
     const entry: Record<string, string | number> = { dim: cfg.label };
     stocks.forEach((s) => {
-      const raw = (s.dimensions as unknown as Record<string, number>)?.[key] ?? 0;
+	      const sDims = getStockDimensions(s);
+	      const raw = (sDims as unknown as Record<string, number>)[key] ?? 0;
       entry[s.stock_id] = Math.round((raw / cfg.max) * 100);
     });
     return entry;
@@ -235,12 +236,13 @@ export default function SelfCheck() {
           {watchlist.map((stock) => {
             const action = ACTION_MAP[stock.recommendation] ?? ACTION_MAP['觀望'];
             const isExpanded = expandedId === stock.stock_id;
-            const dims = DIM_KEYS.map(k => ({
-              key: k,
-              label: DIMENSION_CONFIG[k].label,
-              max: DIMENSION_CONFIG[k].max,
-              value: (stock.dimensions as unknown as Record<string, number>)?.[k] ?? 0,
-            }));
+            const stockDims = getStockDimensions(stock);
+	            const dims = DIM_KEYS.map(k => ({
+	              key: k,
+	              label: DIMENSION_CONFIG[k].label,
+	              max: DIMENSION_CONFIG[k].max,
+	              value: (stockDims as unknown as Record<string, number>)[k] ?? 0,
+	            }));
             return (
               <div
                 key={stock.stock_id}
@@ -312,22 +314,22 @@ export default function SelfCheck() {
                       <div className="bg-white rounded-lg border border-gray-200 p-2.5 text-center">
                         <p className="text-[10px] text-gray-400 mb-0.5">建議進場</p>
                         <p className="text-xs font-bold text-gray-800">
-                          {stock.entry_low > 0 ? `${stock.entry_low}–${stock.entry_high}` : '—'}
+                          (() => { const el = getStockEntryLow(stock); const eh = getStockEntryHigh(stock); return el && el > 0 ? `${el}–${eh}` : '—'; })()
                         </p>
                       </div>
                       <div className="bg-white rounded-lg border border-red-100 p-2.5 text-center">
                         <p className="text-[10px] text-gray-400 mb-0.5">停損</p>
-                        <p className="text-xs font-bold text-red-600">{stock.stop_loss > 0 ? stock.stop_loss : '—'}</p>
+                        <p className="text-xs font-bold text-red-600">{getStockStopLoss(stock) ?? '—'}</p>
                       </div>
                       <div className="bg-white rounded-lg border border-emerald-100 p-2.5 text-center">
                         <p className="text-[10px] text-gray-400 mb-0.5">目標 T1/T2/T3</p>
                         <p className="text-xs font-bold text-emerald-600">
-                          {stock.target1 > 0 ? `${stock.target1} / ${stock.target2} / ${stock.target3}` : '—'}
+                          (() => { const t1 = getStockTarget1(stock); return t1 && t1 > 0 ? `${t1} / ${getStockTarget2(stock) ?? '-'} / ${getStockTarget3(stock) ?? '-'}` : '—'; })()
                         </p>
                       </div>
                       <div className="bg-white rounded-lg border border-gray-200 p-2.5 text-center">
                         <p className="text-[10px] text-gray-400 mb-0.5">持有</p>
-                        <p className="text-xs font-bold text-gray-800">{stock.hold_days || '—'}</p>
+                        <p className="text-xs font-bold text-gray-800">{stock.hold_days ?? stock.strategy?.recommendation ?? '—'}</p>
                       </div>
                     </div>
 
