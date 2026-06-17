@@ -40,7 +40,9 @@ function isStrongBuy(rec: string | undefined): boolean {
     r.includes('★★★') ||
     r.includes('strong') ||
     r.includes('強力') ||
-    r.includes('積極')
+    r.includes('強烈') ||
+    r.includes('積極') ||
+    r.includes('推薦')
   );
 }
 
@@ -50,7 +52,7 @@ export default function SummaryCards({ data }: Props) {
     ? stocks.reduce((s, st) => s + st.total_score, 0) / stocks.length
     : 0;
 
-  const strongBuy = stocks.filter((s) => isStrongBuy(s?.strategy?.recommendation)).length;
+  const strongBuy = stocks.filter((s) => isStrongBuy(s?.recommendation ?? s?.strategy?.recommendation)).length;
 
   const topSectors = [...new Set(stocks.map((s) => s.sector))].slice(0, 3);
 
