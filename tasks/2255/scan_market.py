@@ -722,6 +722,7 @@ def predict_explode_top5(candidates: List[Dict]) -> List[Dict]:
     try:
         import numpy as np
         from sklearn.ensemble import RandomForestClassifier
+        from sklearn.calibration import CalibratedClassifierCV
     except ImportError:
         return []
 
@@ -792,7 +793,8 @@ def predict_explode_top5(candidates: List[Dict]) -> List[Dict]:
     X_today_arr = np.array(X_today, dtype=float)
 
     try:
-        rf = RandomForestClassifier(n_estimators=50, max_depth=4, random_state=42)
+        base_rf = RandomForestClassifier(n_estimators=50, max_depth=8, min_samples_split=10, min_samples_leaf=5, class_weight='balanced', random_state=42)
+        rf = CalibratedClassifierCV(estimator=base_rf, method='isotonic', cv=min(5, max(2, sum(y_train_arr))))
         rf.fit(X_train_arr, y_train_arr)
         probs = rf.predict_proba(X_today_arr)[:, 1]
         top_idx = np.argsort(probs)[::-1][:TOP_EXPLODE]
@@ -871,12 +873,21 @@ def run_scan(scan_date: str = None) -> Dict:
 
     # 2. 上櫃日 K（全市場）
     all_tpex_quotes = {}
+    fetch_errors = set()
     try:
         print("[下載] 預先下載全市場上櫃日K數據...")
         resp = _http_get(TPEX_DAILY_URL, timeout=30)
         data = resp.json()
+        if not data:
+            print("[警告] TPEx daily_close_quotes URL 傳回空資料，嘗試 Fallback...")
+            resp = _http_get(TPEX_LISTED_URL, timeout=30)
+            data = resp.json()
+            # fallback only returns list of stocks, the rest of data won't exist in all_tpex_quotes
+            # but we won't fail here and let the later parallel process handle history fetch
+
         rows = data if isinstance(data, list) else data.get('data', [])
         for row in rows:
+            # TPEX_LISTED_URL format vs TPEX_DAILY_URL
             code = str(row.get('SecuritiesCompanyCode', '')).strip()
             if code:
                 try:
@@ -903,6 +914,7 @@ def run_scan(scan_date: str = None) -> Dict:
         print(f"[下載] 成功下載 {len(all_tpex_quotes)} 筆上櫃日K數據")
     except Exception as e:
         print(f"[下載] 預先下載上櫃日K失敗: {e}")
+        fetch_errors.add(f"TPEx Bulk Fetch Failed: {e}")
 
     # 3. 上市日 K（全市場）
     # STOCK_DAY_ALL returns list of lists: [Code, Name, Volume, Value, Open, High, Low, Close, Change(+/-/X), TxCount]
@@ -1066,18 +1078,29 @@ def run_scan(scan_date: str = None) -> Dict:
                 'vol_ratio': (vol / (sum(h['volume'] for h in history[-6:-1]) / 5) if history and len(history) >= 6 and sum(h['volume'] for h in history[-6:-1]) > 0 else None),
                 '_history': history,  # 保留歷史數據供 ML 使用
             }
-        except Exception:
-            return None
+        except Exception as e:
+            return {'error': True, 'stock_id': sid, 'reason': str(e)}
 
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as ex:
         futures = {ex.submit(process_one, sid, info): sid for sid, info in all_stocks.items()}
         for fut in as_completed(futures):
             r = fut.result()
             if r is not None:
-                results.append(r)
+                if r.get('error'):
+                    fetch_errors.add(f"Failed to process {r['stock_id']}: {r['reason']}")
+                else:
+                    results.append(r)
 
     results.sort(key=lambda x: x.get('total_score', 0), reverse=True)
-    print(f"[結果] 有效股數: {len(results)}")
+    scanned_count = len(results)
+    print(f"[結果] 總股數: {len(all_stocks)}, 有效掃描: {scanned_count}, 失敗: {len(all_stocks) - scanned_count}, 失敗率: {((len(all_stocks) - scanned_count) / len(all_stocks)) * 100:.1f}%")
+    if scanned_count < 1500:
+        print(f"⚠️ [警告] 掃描數異常偏低 ({scanned_count} < 1500)")
+    
+    if fetch_errors:
+        print(f"\n[錯誤統計] 共有 {min(len(fetch_errors), 10)} 種失敗原因 (顯示前10筆):")
+        for err in list(fetch_errors)[:10]:
+            print(f"  - {err}")
 
     # Phase 4: ML 爆漲預測
     explode_top5 = predict_explode_top5(results)
