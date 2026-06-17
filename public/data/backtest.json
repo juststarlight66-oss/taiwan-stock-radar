@@ -928,7 +928,108 @@
           "win_rate": null,
           "avg_return": null,
           "pending": true,
-          "stocks": []
+          "stocks": [
+            {
+              "stock_id": "2610",
+              "name": "華航",
+              "entry": 21.85,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6142",
+              "name": "友勁",
+              "entry": 9.39,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2431",
+              "name": "聯昌",
+              "entry": 11.95,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2316",
+              "name": "楠梓電",
+              "entry": 187.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1456",
+              "name": "怡華",
+              "entry": 15.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2332",
+              "name": "友訊",
+              "entry": 18.25,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6757",
+              "name": "台灣虎航",
+              "entry": 59.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1225",
+              "name": "福懋油",
+              "entry": 33.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6962",
+              "name": "奕力-KY",
+              "entry": 38.55,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6670",
+              "name": "復盛應用",
+              "entry": 300.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
         },
         "T3": {
           "label": "T+3",
@@ -936,7 +1037,108 @@
           "win_rate": null,
           "avg_return": null,
           "pending": true,
-          "stocks": []
+          "stocks": [
+            {
+              "stock_id": "2610",
+              "name": "華航",
+              "entry": 21.85,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6142",
+              "name": "友勁",
+              "entry": 9.39,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2431",
+              "name": "聯昌",
+              "entry": 11.95,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2316",
+              "name": "楠梓電",
+              "entry": 187.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1456",
+              "name": "怡華",
+              "entry": 15.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2332",
+              "name": "友訊",
+              "entry": 18.25,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6757",
+              "name": "台灣虎航",
+              "entry": 59.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1225",
+              "name": "福懋油",
+              "entry": 33.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6962",
+              "name": "奕力-KY",
+              "entry": 38.55,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6670",
+              "name": "復盛應用",
+              "entry": 300.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
         },
         "T5": {
           "label": "T+5",
@@ -944,7 +1146,108 @@
           "win_rate": null,
           "avg_return": null,
           "pending": true,
-          "stocks": []
+          "stocks": [
+            {
+              "stock_id": "2610",
+              "name": "華航",
+              "entry": 21.85,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6142",
+              "name": "友勁",
+              "entry": 9.39,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2431",
+              "name": "聯昌",
+              "entry": 11.95,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2316",
+              "name": "楠梓電",
+              "entry": 187.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1456",
+              "name": "怡華",
+              "entry": 15.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2332",
+              "name": "友訊",
+              "entry": 18.25,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6757",
+              "name": "台灣虎航",
+              "entry": 59.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1225",
+              "name": "福懋油",
+              "entry": 33.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6962",
+              "name": "奕力-KY",
+              "entry": 38.55,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6670",
+              "name": "復盛應用",
+              "entry": 300.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
         }
       }
     },
@@ -953,10 +1256,10 @@
       "periods": {
         "T1": {
           "label": "T+1",
-          "backtest_date": null,
+          "backtest_date": "2026-06-17",
           "win_rate": null,
           "avg_return": null,
-          "pending": true,
+          "pending": false,
           "stocks": []
         },
         "T3": {
@@ -1072,7 +1375,58 @@
   "history": [
     {
       "date": "2026/06/17",
-      "results": {}
+      "results": {
+        "2610": {
+          "name": "華航",
+          "score": 91.35,
+          "close": 21.85
+        },
+        "6142": {
+          "name": "友勁",
+          "score": 91.3,
+          "close": 9.39
+        },
+        "2431": {
+          "name": "聯昌",
+          "score": 91.25,
+          "close": 11.95
+        },
+        "2316": {
+          "name": "楠梓電",
+          "score": 91.2,
+          "close": 187.0
+        },
+        "1456": {
+          "name": "怡華",
+          "score": 91.19,
+          "close": 15.15
+        },
+        "2332": {
+          "name": "友訊",
+          "score": 90.25,
+          "close": 18.25
+        },
+        "6757": {
+          "name": "台灣虎航",
+          "score": 90.2,
+          "close": 59.1
+        },
+        "1225": {
+          "name": "福懋油",
+          "score": 89.95,
+          "close": 33.0
+        },
+        "6962": {
+          "name": "奕力-KY",
+          "score": 89.0,
+          "close": 38.55
+        },
+        "6670": {
+          "name": "復盛應用",
+          "score": 88.96,
+          "close": 300.5
+        }
+      }
     },
     {
       "date": "2026/06/16",
@@ -1083,5 +1437,5 @@
       "results": {}
     }
   ],
-  "last_updated": "2026-06-17T11:10:26.795189+08:00"
+  "last_updated": "2026-06-17T16:44:36.029034+08:00"
 }
