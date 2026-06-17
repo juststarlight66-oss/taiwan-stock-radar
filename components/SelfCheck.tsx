@@ -329,7 +329,7 @@ export default function SelfCheck() {
                       </div>
                       <div className="bg-white rounded-lg border border-gray-200 p-2.5 text-center">
                         <p className="text-[10px] text-gray-400 mb-0.5">持有</p>
-                        <p className="text-xs font-bold text-gray-800">{stock.hold_days ?? stock.strategy?.recommendation ?? '—'}</p>
+                        <p className="text-xs font-bold text-gray-800">{stock.hold_days || stock.strategy?.recommendation || '—'}</p>
                       </div>
                     </div>
 
