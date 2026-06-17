@@ -7,12 +7,21 @@ import React, { use } from 'react';
 
 // For Next.js static export: provide empty paths to build purely client-side
 
-const ACTION_MAP: Record<string, { label: string; text: string; bg: string; border: string; dot: string }> = {
-  '強力買進': { label: '強力買進 🔥', text: 'text-red-600 font-bold',    bg: 'bg-red-50',     border: 'border-red-200',    dot: 'bg-red-500' },
-  '買進':     { label: '買進 ✅',      text: 'text-orange-600 font-bold', bg: 'bg-orange-50',  border: 'border-orange-200', dot: 'bg-orange-500' },
-  '觀望':     { label: '觀望 ⏳',      text: 'text-gray-500',             bg: 'bg-gray-50',    border: 'border-gray-200',   dot: 'bg-gray-400' },
-  '偏弱':     { label: '偏弱 ⚠️',     text: 'text-emerald-600',          bg: 'bg-emerald-50', border: 'border-emerald-200', dot: 'bg-emerald-500' },
-};
+function getActionStyle(rec: string | undefined) {
+  if (!rec) return { label: '觀望 ⏳', text: 'text-gray-500', bg: 'bg-gray-50', border: 'border-gray-200', dot: 'bg-gray-400' };
+  const r = rec.toLowerCase();
+  if (r.includes('★★★') || r.includes('strong') || r.includes('強力') || r.includes('強烈'))
+    return { label: '強力買進 🔥', text: 'text-red-600 font-bold', bg: 'bg-red-50', border: 'border-red-200', dot: 'bg-red-500' };
+  if (r.includes('積極'))
+    return { label: '積極買進 ⚡', text: 'text-orange-600 font-bold', bg: 'bg-orange-50', border: 'border-orange-200', dot: 'bg-orange-500' };
+  if (r.includes('買進') || r.includes('buy'))
+    return { label: '買進 ✅', text: 'text-emerald-600 font-bold', bg: 'bg-emerald-50', border: 'border-emerald-200', dot: 'bg-emerald-500' };
+  if (r.includes('逢低'))
+    return { label: '逢低佈局 📉', text: 'text-sky-600 font-bold', bg: 'bg-sky-50', border: 'border-sky-200', dot: 'bg-sky-500' };
+  if (r.includes('觀望') || r.includes('wait') || r.includes('hold'))
+    return { label: '觀望 ⏳', text: 'text-gray-500', bg: 'bg-gray-50', border: 'border-gray-200', dot: 'bg-gray-400' };
+  return { label: '偏弱 ⚠️', text: 'text-emerald-600', bg: 'bg-emerald-50', border: 'border-emerald-200', dot: 'bg-emerald-500' };
+}
 
 export default function StockDetailPage({ params }: { params: Promise<{ code: string }> }) {
   const resolvedParams = use(params);
@@ -61,7 +70,7 @@ export default function StockDetailPage({ params }: { params: Promise<{ code: st
   const sign = isUp ? '+' : '';
 
   const rec = getStockRecommendation(stock) || '觀望';
-  const actionStyle = ACTION_MAP[rec] || ACTION_MAP['觀望'];
+  const actionStyle = getActionStyle(rec);
   const reason = getStockReason(stock) || '無特別說明';
   
   const dims = getStockDimensions(stock);
