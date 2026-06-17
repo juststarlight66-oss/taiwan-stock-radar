@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import useSWR from 'swr';
-import { ScanStock } from '@/lib/scanTypes';
+import { ScanStock, getStockDimensions } from '@/lib/scanTypes';
 import { BarChart3, ChevronDown, ChevronUp } from 'lucide-react';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
@@ -16,7 +16,7 @@ interface ScanRawData {
   explosive_top5: ScanStock[];
 }
 
-function DimensionBadge({ label, score, maxScore = 25 }: { label: string; score: number | undefined; maxScore?: number }) {
+function DimensionBadge({ label, score, maxScore = 100 }: { label: string; score: number | undefined; maxScore?: number }) {
   const pct = (score ?? 0) / maxScore;
   const color = pct >= 0.8 ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40' :
                 pct >= 0.6 ? 'bg-blue-500/20 text-blue-300 border-blue-500/40' :
@@ -30,6 +30,7 @@ function DimensionBadge({ label, score, maxScore = 25 }: { label: string; score:
 }
 
 function StockCard({ stock, expanded, onToggle }: { stock: ScanStock; expanded: boolean; onToggle: () => void }) {
+  const dims = getStockDimensions(stock);
   const up = (stock.change_pct ?? 0) >= 0;
 
   return (
@@ -59,11 +60,11 @@ function StockCard({ stock, expanded, onToggle }: { stock: ScanStock; expanded: 
       {expanded && (
         <div className="px-3 pb-3 space-y-3 border-t border-gray-700/40 pt-3">
           <div className="flex flex-wrap gap-1.5">
-            <DimensionBadge label="技術" score={stock.dimensions?.technical} />
-            <DimensionBadge label="籌碼" score={stock.dimensions?.chips} />
-            <DimensionBadge label="基本面" score={stock.dimensions?.fundamental} />
-            <DimensionBadge label="消息" score={stock.dimensions?.news} />
-            <DimensionBadge label="情緒" score={stock.dimensions?.sentiment} />
+            <DimensionBadge label="技術" score={dims.technical} />
+            <DimensionBadge label="籌碼" score={dims.chips} />
+            <DimensionBadge label="基本面" score={dims.fundamental} />
+            <DimensionBadge label="消息" score={dims.news} />
+            <DimensionBadge label="情緒" score={dims.sentiment} />
           </div>
 
           <div className="grid grid-cols-2 gap-2 text-xs">
@@ -161,12 +162,12 @@ export default function StockRecommendations() {
       <div className="rounded-lg border border-gray-700/60 bg-gray-800/50 p-4">
         <div className="text-xs font-semibold text-gray-300 mb-2">評分機制說明</div>
         <div className="grid grid-cols-2 gap-1 text-[10px] text-gray-400">
-          <div>總分 = 技術 + 籌碼 + 基本面 + 消息 + 情緒</div>
-          <div>最高分: 125 分（每維度各 25 分）</div>
-          <div className="text-emerald-400">&gt;= 80: 強烈買進</div>
-          <div className="text-blue-400">60-79: 建議買進</div>
-          <div className="text-yellow-400">40-59: 觀望</div>
-          <div className="text-red-400">&lt; 40: 減碼</div>
+          <div>總分 = 技術×0.40 + 籌碼×0.25 + 基本面×0.15 + 消息×0.10 + 情緒×0.10</div>
+          <div>各維度滿分: 100 分（加權總分滿分 100）</div>
+          <div className="text-emerald-400">&gt;= 75: 強烈買進</div>
+          <div className="text-blue-400">60-74: 建議買進</div>
+          <div className="text-yellow-400">45-59: 觀望</div>
+          <div className="text-red-400">&lt; 45: 迴避</div>
         </div>
       </div>
     </div>

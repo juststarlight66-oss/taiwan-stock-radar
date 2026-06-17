@@ -76,7 +76,7 @@ const DIM_LABELS: Record<string, string> = {
   momentum: '動能', volume: '量能', breakout: '突破', gap: '跳空',
 };
 const DIM_MAX: Record<string, number> = {
-  technical: 40, fundamental: 40, news: 10, sentiment: 10, chips: 10,
+  technical: 100, fundamental: 100, news: 100, sentiment: 100, chips: 100,
   momentum: 30, volume: 25, breakout: 25, gap: 20,
 };
 const DIM_COLORS: Record<string, string> = {
@@ -196,7 +196,7 @@ function DimensionChart({ dims }: { dims: IntradayStock['dimensions'] }) {
   const entries = Object.entries(dims).map(([k, v]) => ({
     name: DIM_LABELS[k] ?? k,
     value: v,
-    max: DIM_MAX[k] ?? 40,
+    max: DIM_MAX[k] ?? 100,
     color: DIM_COLORS[k] ?? '#94a3b8',
     fill: DIM_COLORS[k] ?? '#94a3b8',
   }));
@@ -280,7 +280,7 @@ function StockCard({ stock, expanded, onToggle }: {
 
           <div className="space-y-1">
             {Object.entries(stock.dimensions).map(([k, v]) => (
-              <ScoreBar key={k} label={DIM_LABELS[k] ?? k} value={v} max={DIM_MAX[k] ?? 40} color={DIM_COLORS[k] ?? '#94a3b8'} />
+              <ScoreBar key={k} label={DIM_LABELS[k] ?? k} value={v} max={DIM_MAX[k] ?? 100} color={DIM_COLORS[k] ?? '#94a3b8'} />
             ))}
           </div>
         </div>

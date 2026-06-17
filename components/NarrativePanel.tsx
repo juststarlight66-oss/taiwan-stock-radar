@@ -1,6 +1,6 @@
 'use client';
 
-import { ScanStock, StockNarrative } from '@/lib/scanTypes';
+import { ScanStock, StockNarrative, getStockDimensions } from '@/lib/scanTypes';
 import { Brain, TrendingUp, BarChart3, ShieldAlert, Zap } from 'lucide-react';
 
 interface Props {
@@ -27,7 +27,7 @@ function isWatch(rec: string): boolean {
 
 /** 從五維分數 + 策略 + 技術指標自動生成白話文解析 */
 function generateNarrative(stock: ScanStock): StockNarrative {
-  const dims = stock.dimensions;
+  const dims = getStockDimensions(stock);
   const tech = dims?.technical ?? 0;
   const fund = dims?.fundamental ?? 0;
   const news = dims?.news ?? 0;
@@ -52,13 +52,13 @@ function generateNarrative(stock: ScanStock): StockNarrative {
 
   // ── 技術面 ──
   let techText = '';
-  if (tech >= 35) {
+  if (tech >= 88) {
     techText = '技術面極強，多頭排列完整，均線多頭發散';
-  } else if (tech >= 30) {
+  } else if (tech >= 75) {
     techText = '技術面偏多，短期動能強勁，均線結構健康';
-  } else if (tech >= 25) {
+  } else if (tech >= 62) {
     techText = '技術面中性偏多，均線糾結待突破，短線具反彈機會';
-  } else if (tech >= 18) {
+  } else if (tech >= 45) {
     techText = '技術面偏弱，均線壓力沉重，短線震盪整理中';
   } else {
     techText = '技術面弱勢，空頭排列明顯，反彈即壓力';
@@ -70,13 +70,13 @@ function generateNarrative(stock: ScanStock): StockNarrative {
 
   // ── 籌碼面 ──
   let chipsText = '';
-  if (chips >= 8) {
+  if (chips >= 80) {
     chipsText = '籌碼集中度高，法人持續買超，大戶持股穩定';
-  } else if (chips >= 6) {
+  } else if (chips >= 60) {
     chipsText = '籌碼偏集中，法人小幅買超，主力尚在布局';
-  } else if (chips >= 4) {
+  } else if (chips >= 40) {
     chipsText = '籌碼中性，法人買賣互見，尚無明顯方向';
-  } else if (chips >= 2) {
+  } else if (chips >= 20) {
     chipsText = '籌碼偏分散，法人站在賣方，需留意籌碼鬆動';
   } else {
     chipsText = '籌碼弱勢，法人明顯出脫，散戶持股偏高';
@@ -87,13 +87,13 @@ function generateNarrative(stock: ScanStock): StockNarrative {
 
   // ── 基本面 ──
   let fundText = '';
-  if (fund >= 35) {
+  if (fund >= 88) {
     fundText = '基本面優異，營收獲利雙成長，評價偏低具安全邊際';
-  } else if (fund >= 28) {
+  } else if (fund >= 70) {
     fundText = '基本面良好，獲利穩定，營收溫和成長';
-  } else if (fund >= 20) {
+  } else if (fund >= 50) {
     fundText = '基本面持平，營運尚穩但成長動能不足，需關注後續營收';
-  } else if (fund >= 12) {
+  } else if (fund >= 30) {
     fundText = '基本面偏弱，營收或獲利出現下滑，評價偏高';
   } else {
     fundText = '基本面疲弱，營運壓力大，財報數字不佳';
@@ -105,8 +105,8 @@ function generateNarrative(stock: ScanStock): StockNarrative {
   if (rsi && rsi >= 75) risks.push('RSI 過熱，短線回檔壓力大');
   if (volRatio && volRatio >= 3) risks.push('爆量後可能出現量縮拉回');
   if (tech < 20 && fund < 20) risks.push('技術面與基本面雙弱，趨勢尚未落底');
-  if (news < 3 && sent < 3) risks.push('市場關注度低，缺乏催化劑');
-  if (chips < 3) risks.push('籌碼鬆散，法人持續減碼');
+  if (news < 30 && sent < 30) risks.push('市場關注度低，缺乏催化劑');
+  if (chips < 30) risks.push('籌碼鬆散，法人持續減碼');
   if (risks.length === 0) risks.push('短線波動風險可控，但仍需設好停損');
   const riskText = risks.slice(0, 3).join('；') + '。';
 

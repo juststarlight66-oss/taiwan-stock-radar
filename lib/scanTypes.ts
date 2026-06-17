@@ -1,11 +1,11 @@
 // Scan result types matching the 2255 daily scan output
 
 export interface ScanDimensions {
-  technical:   number;  // 0-40
-  fundamental: number;  // 0-40
-  news:        number;  // 0-10
-  sentiment:   number;  // 0-10
-  chips:       number;  // 0-10
+  technical:   number;  // 0-100 (v7+ 五維評分 scale)
+  fundamental: number;  // 0-100
+  news:        number;  // 0-100
+  sentiment:   number;  // 0-100
+  chips:       number;  // 0-100
 }
 
 export interface ScanSignals {
@@ -57,6 +57,8 @@ export interface ScanStock {
   fundamental_score?: number;
   news_score?:        number;
   sentiment_score?:   number;
+  // ── 巢狀 scores（scan_market.py v7+ 格式：{technical, chips, fundamental, news, sentiment, total}）──
+  scores?:       ScanDimensions;
   sector_boost?:      number;
   power_combo?:       boolean;
   recommendation?:    string;
@@ -97,11 +99,11 @@ export interface ScanResult {
 
 // ── DIMENSION_CONFIG：各維度設定（SelfCheck 等元件使用）──
 export const DIMENSION_CONFIG: Record<string, { label: string; max: number; color: string }> = {
-  technical:   { label: '技術面',  max: 40, color: '#38bdf8' },
-  fundamental: { label: '基本面',  max: 40, color: '#34d399' },
-  chips:       { label: '籌碼面',  max: 10, color: '#f87171' },
-  news:        { label: '消息面',  max: 10, color: '#f59e0b' },
-  sentiment:   { label: '市場情緒', max: 10, color: '#a78bfa' },
+  technical:   { label: '技術面',  max: 100, color: '#38bdf8' },
+  fundamental: { label: '基本面',  max: 100, color: '#34d399' },
+  chips:       { label: '籌碼面',  max: 100, color: '#f87171' },
+  news:        { label: '消息面',  max: 100, color: '#f59e0b' },
+  sentiment:   { label: '市場情緒', max: 100, color: '#a78bfa' },
 };
 
 // ── 輔助函式：統一取值（相容平坦 & 巢狀兩種格式）──
@@ -159,6 +161,17 @@ export function getStockTarget3(s: ScanStock): number | undefined {
 }
 
 export function getStockDimensions(s: ScanStock): ScanDimensions {
+  // v7+ 格式：scores 巢狀物件 (scan_market.py 輸出)
+  if (s.scores) {
+    return {
+      technical:   s.scores.technical   ?? 0,
+      fundamental: s.scores.fundamental ?? 0,
+      news:        s.scores.news        ?? 0,
+      sentiment:   s.scores.sentiment   ?? 0,
+      chips:       s.scores.chips       ?? 0,
+    };
+  }
+  // 舊格式：s.dimensions 或平坦欄位
   if (s.dimensions) return s.dimensions;
   return {
     technical:   s.technical_score   ?? 0,

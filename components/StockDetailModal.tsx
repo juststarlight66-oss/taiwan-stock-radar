@@ -50,7 +50,7 @@ function RadarChart({ stock }: { stock: ScanStock }) {
   const keys = ['technical', 'fundamental', 'chips', 'news', 'sentiment'] as const;
   const labels = ['技術面', '基本面', '籌碼面', '消息面', '市場情緒'];
   const maxVals: Record<string, number> = {
-    technical: 40, fundamental: 40, chips: 10, news: 5, sentiment: 5,
+    technical: 100, fundamental: 100, chips: 100, news: 100, sentiment: 100,
   };
 
   const cx = 110; const cy = 110; const r = 80;
