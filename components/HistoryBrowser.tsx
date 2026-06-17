@@ -4,11 +4,21 @@ import { useDateScan } from '@/lib/useScanData';
 import Top10Table from './Top10Table';
 import SummaryCards from './SummaryCards';
 import { demoScanResult } from '@/lib/demoScanData';
-import { Calendar, ChevronLeft, ChevronRight, Search, Clock, TrendingUp, TrendingDown, Minus, BarChart2 } from 'lucide-react';
+import {
+  ChevronLeft, ChevronRight, Search, Clock, TrendingUp,
+  TrendingDown, Minus, BarChart2, Calendar, Database, ArrowRight,
+} from 'lucide-react';
 
 const BASE = '/taiwan-stock-radar';
 
 // ── Types ────────────────────────────────────────────────────────
+interface ScanEntry {
+  date: string;
+  file: string;
+  scan_time: string;
+  scanned_count?: number;
+}
+
 interface BacktestStock {
   stock_id: string;
   name: string;
@@ -22,7 +32,7 @@ interface BacktestStock {
 }
 
 interface PeriodData {
-  label: string;          // 'T+1' | 'T+3' | 'T+5'
+  label: string;
   backtest_date: string;
   win_rate: number | null;
   avg_return: number | null;
@@ -48,13 +58,13 @@ function formatDate(d: string) {
   if (s.length !== 8) return d;
   return `${s.slice(0,4)}/${s.slice(4,6)}/${s.slice(6,8)}`;
 }
-function toISO(d: string) {
-  const s = d.replace(/[-/]/g, '');
+function normDate(d: string) {
+  const s = d.replace(/[-\/]/g, '');
+  if (s.length !== 8) return d;
   return `${s.slice(0,4)}-${s.slice(4,6)}-${s.slice(6,8)}`;
 }
-function normDate(d: string) { return toISO(d.replace(/\//g,'').replace(/-/g,'')); }
 
-// ── Schema normalization (old → new field mapping) ────────────────
+// ── Schema normalization ─────────────────────────────────────────
 function normalizeBacktest(raw: unknown): BacktestData {
   const data = raw as Record<string, unknown> | null;
   const grouped: BacktestRecord[] = ((data?.grouped_records as any[]) || []).map((rec: any) => {
@@ -93,26 +103,55 @@ function normalizeBacktest(raw: unknown): BacktestData {
   return { version: (data?.version ?? 2) as number, grouped_records: grouped };
 }
 
+// ── Skeleton Cards for loading ───────────────────────────────────
+function SkeletonList({ count = 5 }: { count?: number }) {
+  return (
+    <div className="grid gap-3">
+      {Array.from({ length: count }).map((_, i) => (
+        <div key={i} className="p-4 bg-white border border-gray-200 rounded-xl animate-pulse">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gray-200 rounded-lg" />
+              <div className="space-y-2">
+                <div className="h-4 w-28 bg-gray-200 rounded" />
+                <div className="h-3 w-20 bg-gray-100 rounded" />
+              </div>
+            </div>
+            <div className="flex gap-4">
+              <div className="h-3 w-14 bg-gray-200 rounded" />
+              <div className="h-3 w-14 bg-gray-200 rounded" />
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 // ── Component ────────────────────────────────────────────────────
 export default function HistoryBrowser({ initialDates }: Props) {
-  const [dates, setDates]             = useState<string[]>(initialDates ?? []);
+  const [scanEntries, setScanEntries] = useState<ScanEntry[]>([]);
   const [loadingIndex, setLoadingIndex] = useState(!initialDates);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const [backtest, setBacktest]       = useState<BacktestData | null>(null);
+  const [backtest, setBacktest] = useState<BacktestData | null>(null);
   const [activePeriod, setActivePeriod] = useState<'T1'|'T3'|'T5'>('T1');
   const [currentPage, setCurrentPage] = useState(0);
 
   const PAGE_SIZE = 20;
 
-  // Load index.json to get available dates
+  // Load index.json to get available dates with scan count
   useEffect(() => {
     if (initialDates) return;
     setLoadingIndex(true);
     fetch(`${BASE}/data/index.json`)
       .then(r => r.json())
       .then(d => {
-        setDates((d.available_dates ?? []).slice().reverse());
+        // Prefer 'scans' array (richer: has scanned_count), fallback to available_dates
+        const entries: ScanEntry[] = (d.scans ?? []).length > 0
+          ? (d.scans as ScanEntry[]).slice().reverse()
+          : (d.available_dates ?? []).map((date: string) => ({ date, file: '', scan_time: '' }));
+        setScanEntries(entries);
         setLoadingIndex(false);
       })
       .catch(() => setLoadingIndex(false));
@@ -129,129 +168,134 @@ export default function HistoryBrowser({ initialDates }: Props) {
   // reset page when search changes
   useEffect(() => { setCurrentPage(0); }, [searchQuery]);
 
-  const filteredDates = searchQuery
-    ? dates.filter(d => d.includes(searchQuery.replace(/\//g,'').replace(/-/g,'')))
-    : dates;
+  const filteredEntries = searchQuery
+    ? scanEntries.filter(e => e.date.includes(searchQuery.replace(/[-\/]/g, '')))
+    : scanEntries;
 
-  const totalPages = Math.ceil(filteredDates.length / PAGE_SIZE);
-  const pagedDates = filteredDates.slice(currentPage * PAGE_SIZE, (currentPage + 1) * PAGE_SIZE);
+  const totalPages = Math.ceil(filteredEntries.length / PAGE_SIZE);
+  const pagedEntries = filteredEntries.slice(currentPage * PAGE_SIZE, (currentPage + 1) * PAGE_SIZE);
+  const selectedEntry = scanEntries.find(e => e.date === selectedDate);
 
   if (loadingIndex) {
-    return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4" />
-          <p className="text-gray-500">載入歷史資料中...</p>
-        </div>
-      </div>
-    );
+    return <SkeletonList count={5} />;
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-7xl mx-auto px-4 py-8">
-
-        {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-2">
-            <Calendar className="w-8 h-8 text-blue-600" />
-            <h1 className="text-3xl font-bold text-gray-900">歷史記錄</h1>
-          </div>
-          <p className="text-gray-500 ml-11">查看過去每日掃描結果與回測績效</p>
+    <div>
+      {selectedDate ? (
+        /* ── Detail view ── */
+        <div>
+          <button
+            onClick={() => setSelectedDate(null)}
+            className="mb-5 flex items-center gap-1.5 text-sm text-blue-600 hover:text-blue-800 font-medium transition-colors"
+          >
+            <ChevronLeft className="w-4 h-4" /> 返回列表
+          </button>
+          <HistoryDetail
+            date={selectedDate}
+            backtest={backtest}
+            activePeriod={activePeriod}
+            setActivePeriod={setActivePeriod}
+            entry={selectedEntry}
+          />
         </div>
-
-        {selectedDate ? (
-          /* ── Detail view ── */
-          <div>
-            <button
-              onClick={() => setSelectedDate(null)}
-              className="mb-6 flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium"
-            >
-              <ChevronLeft className="w-4 h-4" /> 返回列表
-            </button>
-            <HistoryDetail date={selectedDate} backtest={backtest} activePeriod={activePeriod} setActivePeriod={setActivePeriod} />
+      ) : (
+        /* ── List view ── */
+        <div>
+          {/* Search bar */}
+          <div className="mb-5 relative">
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <input
+              type="text"
+              placeholder="搜尋日期 (YYYYMMDD)"
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+              className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition-all"
+            />
           </div>
-        ) : (
-          /* ── List view ── */
-          <div>
 
-            {/* search bar */}
-            <div className="mb-6 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-              <input
-                type="text"
-                placeholder="搜尋日期 (e.g. 20260501)"
-                value={searchQuery}
-                onChange={e => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
+          {/* Pagination info */}
+          {totalPages > 1 && (
+            <div className="flex items-center justify-between mb-4 text-xs text-gray-500">
+              <span>
+                {filteredEntries.length} 筆記錄
+                {searchQuery && `（符合 ${filteredEntries.length} 筆）`}
+                ，第 {currentPage + 1} / {totalPages} 頁
+              </span>
+              <div className="flex gap-1">
+                <button
+                  onClick={() => setCurrentPage(p => Math.max(0, p - 1))}
+                  disabled={currentPage === 0}
+                  className="p-1.5 rounded-lg hover:bg-gray-100 disabled:opacity-30 transition-opacity"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => setCurrentPage(p => Math.min(totalPages - 1, p + 1))}
+                  disabled={currentPage === totalPages - 1}
+                  className="p-1.5 rounded-lg hover:bg-gray-100 disabled:opacity-30 transition-opacity"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
             </div>
+          )}
 
-            {/* pagination controls */}
-            {totalPages > 1 && (
-              <div className="flex items-center justify-between mb-4 text-sm text-gray-600">
-                <span>{filteredDates.length} 筆記錄，第 {currentPage + 1} / {totalPages} 頁</span>
-                <div className="flex gap-2">
+          {/* Date list */}
+          {pagedEntries.length === 0 ? (
+            <div className="text-center py-16 text-gray-400">
+              <Calendar className="w-10 h-10 mx-auto mb-3 opacity-30" />
+              <p className="text-sm">找不到符合條件記錄</p>
+            </div>
+          ) : (
+            <div className="grid gap-2.5">
+              {pagedEntries.map(entry => {
+                const date = entry.date;
+                const btRec = backtest?.grouped_records.find(r => normDate(r.scan_date) === normDate(date));
+                return (
                   <button
-                    onClick={() => setCurrentPage(p => Math.max(0, p - 1))}
-                    disabled={currentPage === 0}
-                    className="p-1 rounded hover:bg-gray-100 disabled:opacity-40"
+                    key={date}
+                    onClick={() => setSelectedDate(date)}
+                    className="w-full text-left p-4 bg-white border border-gray-200 rounded-xl hover:border-blue-400 hover:shadow-sm transition-all active:scale-[0.99]"
                   >
-                    <ChevronLeft className="w-4 h-4" />
-                  </button>
-                  <button
-                    onClick={() => setCurrentPage(p => Math.min(totalPages - 1, p + 1))}
-                    disabled={currentPage === totalPages - 1}
-                    className="p-1 rounded hover:bg-gray-100 disabled:opacity-40"
-                  >
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* date list */}
-            {pagedDates.length === 0 ? (
-              <div className="text-center py-16 text-gray-400">
-                <Calendar className="w-12 h-12 mx-auto mb-4 opacity-30" />
-                <p>找不到符合的記錄</p>
-              </div>
-            ) : (
-              <div className="grid gap-3">
-                {pagedDates.map(date => {
-                  const btRec = backtest?.grouped_records.find(r => normDate(r.scan_date) === normDate(date));
-                  return (
-                    <button
-                      key={date}
-                      onClick={() => setSelectedDate(date)}
-                      className="w-full text-left p-4 bg-white border border-gray-200 rounded-xl hover:border-blue-400 hover:shadow-md transition-all"
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
-                            <Calendar className="w-5 h-5 text-blue-600" />
-                          </div>
-                          <div>
-                            <div className="font-semibold text-gray-900">{formatDate(date)}</div>
-                            <div className="text-xs text-gray-500 flex items-center gap-1">
-                              <Clock className="w-3 h-3" /> 收盤後掃描
-                            </div>
+                    <div className="flex items-center justify-between gap-4">
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center shrink-0">
+                          <Calendar className="w-5 h-5 text-blue-600" />
+                        </div>
+                        <div className="min-w-0">
+                          <div className="font-semibold text-gray-900">{formatDate(date)}</div>
+                          <div className="text-xs text-gray-400 flex items-center gap-2 mt-0.5">
+                            <Clock className="w-3 h-3 shrink-0" />
+                            <span>{entry.scan_time || '收盤後'}</span>
+                            {entry.scanned_count != null && (
+                              <>
+                                <span className="text-gray-300">|</span>
+                                <Database className="w-3 h-3 shrink-0" />
+                                <span>{entry.scanned_count.toLocaleString()} 檔</span>
+                              </>
+                            )}
                           </div>
                         </div>
+                      </div>
+                      <div className="flex items-center gap-3 shrink-0">
                         {btRec ? (
                           <BacktestSummary rec={btRec} />
                         ) : (
-                          <div className="text-xs text-gray-400">回測待驗證</div>
+                          <div className="text-xs text-gray-400 px-2 py-1 bg-gray-50 rounded-lg">
+                            回測待驗證
+                          </div>
                         )}
+                        <ArrowRight className="w-4 h-4 text-gray-300" />
                       </div>
-                    </button>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        )}
-      </div>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
@@ -270,13 +314,13 @@ function BacktestSummary({ rec }: { rec: BacktestRecord }) {
     <div className="flex items-center gap-3 text-xs">
       <div className={`flex items-center gap-1 font-semibold ${color}`}>
         <BarChart2 className="w-3 h-3" />
-        勝率 {wr.toFixed(0)}%
+        勝率{wr.toFixed(0)}%
       </div>
       <div className={`flex items-center gap-1 ${avg >= 0 ? 'text-green-600' : 'text-red-500'}`}>
         <Icon className="w-3 h-3" />
         {avg >= 0 ? '+' : ''}{avg.toFixed(1)}%
       </div>
-      <div className="text-gray-400">{best.label}</div>
+      <div className="text-gray-400 font-mono text-[10px]">{best.label}</div>
     </div>
   );
 }
@@ -287,11 +331,13 @@ function HistoryDetail({
   backtest,
   activePeriod,
   setActivePeriod,
+  entry,
 }: {
   date: string;
   backtest: BacktestData | null;
   activePeriod: 'T1'|'T3'|'T5';
   setActivePeriod: (p: 'T1'|'T3'|'T5') => void;
+  entry?: ScanEntry;
 }) {
   const { data, loading, error } = useDateScan(date);
   const btRec = backtest?.grouped_records.find(r => normDate(r.scan_date) === normDate(date));
@@ -305,9 +351,9 @@ function HistoryDetail({
       stock_id: s.stock_id,
       stock_name: s.name,
       close: s.entry,
-      strategy: { entry: s.entry, stop_loss: s.stop_loss, target: s.stop_loss ? s.entry + (s.entry - s.stop_loss) * 2 : s.entry * 1.05 }
+      strategy: { entry: s.entry, stop_loss: s.stop_loss, target: s.stop_loss ? s.entry + (s.entry - s.stop_loss) * 2 : s.entry * 1.05 },
     })) || [],
-    all_stock_scores: []
+    all_stock_scores: [],
   } : demoScanResult);
 
   const scanResult = resolvedData;
@@ -315,14 +361,21 @@ function HistoryDetail({
   if (loading) {
     return (
       <div className="flex items-center justify-center py-16">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600" />
+        <div className="animate-spin rounded-full h-7 w-7 border-2 border-blue-600 border-t-transparent" />
       </div>
     );
   }
+
   if (error) {
     return (
-      <div className="text-center py-16 text-red-400">
-        <p>無法載入 {formatDate(date)} 的資料</p>
+      <div className="text-center py-16">
+        <p className="text-sm text-red-400 mb-3">無法載入 {formatDate(date)} 的資料</p>
+        <div className="max-w-md mx-auto bg-red-50 border border-red-100 rounded-xl p-4">
+          <p className="text-xs text-red-600/70">
+            此日期的掃描結果可能尚未保存或已被清除。<br />
+            點擊上方「返回列表」瀏覽其他日期。
+          </p>
+        </div>
       </div>
     );
   }
@@ -331,12 +384,16 @@ function HistoryDetail({
     <div>
       {/* Date heading */}
       <div className="mb-6 flex items-center gap-3">
-        <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-          <Calendar className="w-6 h-6 text-blue-600" />
+        <div className="w-11 h-11 bg-blue-100 rounded-xl flex items-center justify-center shrink-0">
+          <Calendar className="w-5 h-5 text-blue-600" />
         </div>
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">{formatDate(date)}</h2>
-          <p className="text-sm text-gray-500">歷史掃描結果</p>
+          <h2 className="text-xl font-bold text-gray-900">{formatDate(date)}</h2>
+          <p className="text-sm text-gray-500 mt-0.5">
+            歷史掃描結果
+            {entry?.scanned_count != null && ` · ${entry.scanned_count.toLocaleString()} 檔`}
+            {entry?.scan_time && ` · ${entry.scan_time}`}
+          </p>
         </div>
       </div>
 
@@ -344,7 +401,7 @@ function HistoryDetail({
       <SummaryCards data={scanResult} />
 
       {/* Top 10 table */}
-      <div className="mt-8">
+      <div className="mt-6">
         <Top10Table
           stocks={scanResult.top10 ?? scanResult.top_stocks ?? []}
           scanDate={scanResult.scan_date}
@@ -355,8 +412,9 @@ function HistoryDetail({
       {/* Backtest section */}
       {btRec && (
         <div className="mt-8">
-          <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-            <BarChart2 className="w-5 h-5 text-blue-600" /> 回測績效
+          <h3 className="text-base font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <BarChart2 className="w-5 h-5 text-blue-600" />
+            回測績效
           </h3>
 
           {/* Period tabs */}
@@ -368,15 +426,17 @@ function HistoryDetail({
                 <button
                   key={k}
                   onClick={() => setActivePeriod(k)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                     activePeriod === k
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                      ? 'bg-blue-600 text-white shadow-sm'
+                      : 'bg-white border border-gray-200 text-gray-600 hover:border-gray-300'
                   }`}
                 >
                   {p.label}
                   {!p.pending && p.win_rate != null && (
-                    <span className="ml-1 opacity-80">{p.win_rate.toFixed(0)}%</span>
+                    <span className={`ml-1.5 ${activePeriod === k ? 'opacity-80' : 'text-blue-600'}`}>
+                      {p.win_rate.toFixed(0)}%
+                    </span>
                   )}
                 </button>
               );
@@ -385,64 +445,83 @@ function HistoryDetail({
 
           {/* Period detail */}
           {period && (
-            <div className="bg-gray-50 rounded-xl p-4">
+            <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
               {period.pending ? (
-                <p className="text-gray-400 text-sm text-center py-4">驗證中，尚未到期</p>
+                <p className="text-gray-400 text-sm text-center py-8">
+                  驗證中，尚未到期
+                </p>
               ) : (
                 <>
-                  <div className="flex gap-6 mb-4 text-sm">
+                  {/* Summary stats */}
+                  <div className="flex flex-wrap gap-6 p-4 border-b border-gray-100 text-sm">
                     <div>
                       <span className="text-gray-500">勝率</span>
-                      <span className={`ml-2 font-bold ${(period.win_rate ?? 0) >= 60 ? 'text-green-600' : (period.win_rate ?? 0) >= 40 ? 'text-yellow-600' : 'text-red-500'}`}>
+                      <span className={`ml-2 font-bold ${
+                        (period.win_rate ?? 0) >= 60 ? 'text-green-600'
+                        : (period.win_rate ?? 0) >= 40 ? 'text-yellow-600'
+                        : 'text-red-500'
+                      }`}>
                         {period.win_rate?.toFixed(1) ?? '-'}%
                       </span>
                     </div>
                     <div>
                       <span className="text-gray-500">平均報酬</span>
-                      <span className={`ml-2 font-bold ${(period.avg_return ?? 0) >= 0 ? 'text-green-600' : 'text-red-500'}`}>
+                      <span className={`ml-2 font-bold ${
+                        (period.avg_return ?? 0) >= 0 ? 'text-green-600' : 'text-red-500'
+                      }`}>
                         {(period.avg_return ?? 0) >= 0 ? '+' : ''}{period.avg_return?.toFixed(2) ?? '-'}%
                       </span>
                     </div>
                     <div>
                       <span className="text-gray-500">驗證日</span>
-                      <span className="ml-2 text-gray-700">{period.backtest_date}</span>
+                      <span className="ml-2 text-gray-700">
+                        {period.backtest_date ? formatDate(period.backtest_date) : '-'}
+                      </span>
                     </div>
                   </div>
 
+                  {/* Stocks table */}
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm">
                       <thead>
-                        <tr className="text-left text-gray-500 border-b border-gray-200">
-                          <th className="pb-2 pr-4">股票</th>
-                          <th className="pb-2 pr-4">進場價</th>
-                          <th className="pb-2 pr-4">停損</th>
-                          <th className="pb-2 pr-4">收盤</th>
-                          <th className="pb-2 pr-4">報酬</th>
-                          <th className="pb-2">結果</th>
+                        <tr className="text-left text-gray-400 border-b border-gray-100 text-xs">
+                          <th className="py-3 px-4 font-medium">股票</th>
+                          <th className="py-3 px-4 font-medium">進場價</th>
+                          <th className="py-3 px-4 font-medium">停損</th>
+                          <th className="py-3 px-4 font-medium">收盤</th>
+                          <th className="py-3 px-4 font-medium">報酬</th>
+                          <th className="py-3 px-4 font-medium">結果</th>
                         </tr>
                       </thead>
                       <tbody>
                         {period.stocks.map(s => (
-                          <tr key={s.stock_id} className="border-b border-gray-100 last:border-0">
-                            <td className="py-2 pr-4">
-                              <span className="font-medium text-gray-900">{s.stock_id}</span>
-                              <span className="text-gray-500 ml-1 text-xs">{s.name}</span>
+                          <tr key={s.stock_id} className="border-b border-gray-50 last:border-0 hover:bg-gray-50/50 transition-colors">
+                            <td className="py-2.5 px-4">
+                              <span className="font-medium text-gray-900 mr-1.5">{s.stock_id}</span>
+                              <span className="text-gray-400 text-xs">{s.name}</span>
                             </td>
-                            <td className="py-2 pr-4 text-gray-700">{s.entry?.toFixed(2) ?? '-'}</td>
-                            <td className="py-2 pr-4 text-gray-500">{s.stop_loss?.toFixed(2) ?? '-'}</td>
-                            <td className="py-2 pr-4 text-gray-700">{s.close?.toFixed(2) ?? '-'}</td>
-                            <td className={`py-2 pr-4 font-medium ${s.pending ? 'text-gray-400' : (s.return_pct ?? 0) >= 0 ? 'text-green-600' : 'text-red-500'}`}>
-                              {s.pending ? '待驗證' : `${(s.return_pct ?? 0) >= 0 ? '+' : ''}${s.return_pct?.toFixed(2) ?? '-'}%`}
+                            <td className="py-2.5 px-4 text-gray-700 font-mono text-xs">{s.entry?.toFixed(2) ?? '-'}</td>
+                            <td className="py-2.5 px-4 text-gray-500 font-mono text-xs">{s.stop_loss?.toFixed(2) ?? '-'}</td>
+                            <td className="py-2.5 px-4 text-gray-700 font-mono text-xs">{s.close?.toFixed(2) ?? '-'}</td>
+                            <td className={`py-2.5 px-4 font-mono text-xs font-medium ${
+                              s.pending ? 'text-gray-400'
+                              : (s.return_pct ?? 0) >= 0 ? 'text-green-600'
+                              : 'text-red-500'
+                            }`}>
+                              {s.pending
+                                ? '待驗證'
+                                : `${(s.return_pct ?? 0) >= 0 ? '+' : ''}${s.return_pct?.toFixed(2) ?? '-'}%`
+                              }
                             </td>
-                            <td className="py-2">
+                            <td className="py-2.5 px-4">
                               {s.pending ? (
-                                <span className="text-xs text-gray-400">待驗證</span>
+                                <span className="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-md">待驗證</span>
                               ) : s.hit_target ? (
-                                <span className="text-xs text-green-600 font-medium">達標</span>
+                                <span className="text-xs text-green-600 bg-green-50 px-2 py-0.5 rounded-md font-medium">達標</span>
                               ) : s.hit_stoploss ? (
-                                <span className="text-xs text-red-500 font-medium">停損</span>
+                                <span className="text-xs text-red-500 bg-red-50 px-2 py-0.5 rounded-md font-medium">停損</span>
                               ) : (
-                                <span className="text-xs text-gray-500">持有中</span>
+                                <span className="text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded-md">持有中</span>
                               )}
                             </td>
                           </tr>
