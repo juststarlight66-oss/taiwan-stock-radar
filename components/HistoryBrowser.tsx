@@ -137,6 +137,7 @@ export default function HistoryBrowser({ initialDates }: Props) {
   const [backtest, setBacktest] = useState<BacktestData | null>(null);
   const [activePeriod, setActivePeriod] = useState<'T1'|'T3'|'T5'>('T1');
   const [currentPage, setCurrentPage] = useState(0);
+  const [showChart, setShowChart]           = useState(true);
 
   const PAGE_SIZE = 20;
 
@@ -197,6 +198,8 @@ export default function HistoryBrowser({ initialDates }: Props) {
             activePeriod={activePeriod}
             setActivePeriod={setActivePeriod}
             entry={selectedEntry}
+            showChart={showChart}
+            setShowChart={setShowChart}
           />
         </div>
       ) : (
@@ -213,6 +216,13 @@ export default function HistoryBrowser({ initialDates }: Props) {
               className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition-all"
             />
           </div>
+
+          {/* Overall backtest stats */}
+          {backtest && backtest.grouped_records.length > 0 && (
+            <div className="mb-5 bg-white border border-gray-200 rounded-xl p-4">
+              <OverallBacktestStats records={backtest.grouped_records} />
+            </div>
+          )}
 
           {/* Pagination info */}
           {totalPages > 1 && (
@@ -325,6 +335,126 @@ function BacktestSummary({ rec }: { rec: BacktestRecord }) {
   );
 }
 
+// ── PeriodComparisonChart ────────────────────────────────────────
+function PeriodComparisonChart({ periods }: { periods: BacktestRecord['periods'] }) {
+  const entries = (['T1','T3','T5'] as const)
+    .map(k => ({ key: k, label: periods[k]?.label ?? ({T1:'T+1',T3:'T+3',T5:'T+5'}[k]), p: periods[k] }))
+    .filter(e => e.p);
+  const verified = entries.filter(e => !e.p!.pending);
+  if (verified.length === 0) return <p className="text-sm text-gray-400 text-center py-4">尚無已完成驗證的週期</p>;
+  const maxWR = Math.max(...verified.map(e => e.p!.win_rate ?? 0), 100);
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      {/* Win rate bars */}
+      <div>
+        <h4 className="text-xs font-semibold text-gray-500 mb-3 tracking-wide">勝率</h4>
+        <div className="space-y-2.5">
+          {entries.map(e => {
+            const wr = e.p?.win_rate ?? 0;
+            const pending = e.p?.pending ?? true;
+            const w = pending ? 0 : Math.max(4, (wr / maxWR) * 100);
+            const color = pending ? 'bg-gray-200'
+              : wr >= 60 ? 'bg-green-500' : wr >= 40 ? 'bg-yellow-500' : 'bg-red-500';
+            return (
+              <div key={e.key} className="flex items-center gap-3">
+                <span className="text-xs text-gray-500 w-10 text-right font-mono shrink-0">{e.label}</span>
+                <div className="flex-1 h-5 bg-gray-100 rounded-full overflow-hidden">
+                  <div
+                    className={`h-full rounded-full ${color} transition-all duration-500 ease-out`}
+                    style={{ width: `${w}%` }}
+                  />
+                </div>
+                <span className={`text-xs font-semibold w-12 shrink-0 ${pending ? 'text-gray-400' : 'text-gray-900'}`}>
+                  {pending ? '待驗證' : `${wr.toFixed(0)}%`}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      {/* Avg return bars */}
+      <div>
+        <h4 className="text-xs font-semibold text-gray-500 mb-3 tracking-wide">平均報酬</h4>
+        <div className="space-y-2.5">
+          {entries.map(e => {
+            const ar = e.p?.avg_return ?? 0;
+            const pending = e.p?.pending ?? true;
+            const absMax = Math.max(...verified.map(v => Math.abs(v.p!.avg_return ?? 0)), 1);
+            const w = pending ? 0 : Math.max(4, (Math.abs(ar) / absMax) * 100);
+            const isPositive = ar >= 0;
+            const color = pending ? 'bg-gray-200' : isPositive ? 'bg-green-500' : 'bg-red-500';
+            return (
+              <div key={e.key} className="flex items-center gap-3">
+                <span className="text-xs text-gray-500 w-10 text-right font-mono shrink-0">{e.label}</span>
+                <div className="flex-1 h-5 bg-gray-100 rounded-full overflow-hidden">
+                  <div
+                    className={`h-full rounded-full ${color} transition-all duration-500 ease-out ${!isPositive && !pending ? 'ml-auto' : ''}`}
+                    style={{ width: `${w}%` }}
+                  />
+                </div>
+                <span className={`text-xs font-semibold w-14 shrink-0 ${pending ? 'text-gray-400' : isPositive ? 'text-green-600' : 'text-red-500'}`}>
+                  {pending ? '待驗證' : `${isPositive ? '+' : ''}${ar.toFixed(2)}%`}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── OverallBacktestStats ─────────────────────────────────────────
+function OverallBacktestStats({ records }: { records: BacktestRecord[] }) {
+  const allPeriods: { label: string; wr: number; ar: number }[] = [];
+  for (const rec of records) {
+    for (const k of (['T1','T3','T5'] as const)) {
+      const p = rec.periods[k];
+      if (p && !p.pending && p.win_rate != null) {
+        allPeriods.push({ label: p.label, wr: p.win_rate, ar: p.avg_return ?? 0 });
+      }
+    }
+  }
+  if (allPeriods.length === 0) return <p className="text-sm text-gray-400 text-center">尚無已完成驗證的記錄</p>;
+  const avgWR = allPeriods.reduce((s, v) => s + v.wr, 0) / allPeriods.length;
+  const avgAR = allPeriods.reduce((s, v) => s + v.ar, 0) / allPeriods.length;
+  const bestWR = allPeriods.reduce((a, b) => b.wr > a.wr ? b : a);
+  const bestAR = allPeriods.reduce((a, b) => b.ar > a.ar ? b : a);
+  const wrColor = avgWR >= 60 ? 'text-green-600' : avgWR >= 40 ? 'text-yellow-600' : 'text-red-500';
+  return (
+    <div>
+      <h4 className="text-xs font-semibold text-gray-500 mb-3 tracking-wide flex items-center gap-1.5">
+        <BarChart2 className="w-3.5 h-3.5" />
+        累計回測 ({records.length} 日 · {allPeriods.length} 筆已驗證週期)
+      </h4>
+      <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+        <div>
+          <span className="text-gray-500">平均勝率</span>
+          <span className={`ml-2 font-bold ${wrColor}`}>{avgWR.toFixed(1)}%</span>
+        </div>
+        <div>
+          <span className="text-gray-500">平均報酬</span>
+          <span className={`ml-2 font-bold ${avgAR >= 0 ? 'text-green-600' : 'text-red-500'}`}>
+            {avgAR >= 0 ? '+' : ''}{avgAR.toFixed(2)}%
+          </span>
+        </div>
+        <div>
+          <span className="text-gray-500">最佳勝率</span>
+          <span className="ml-2 font-bold text-green-600">
+            {bestWR.label} {bestWR.wr.toFixed(0)}%
+          </span>
+        </div>
+        <div>
+          <span className="text-gray-500">最佳報酬</span>
+          <span className="ml-2 font-bold text-green-600">
+            {bestAR.label} {bestAR.ar >= 0 ? '+' : ''}{bestAR.ar.toFixed(2)}%
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── HistoryDetail ─────────────────────────────────────────────────
 function HistoryDetail({
   date,
@@ -332,12 +462,16 @@ function HistoryDetail({
   activePeriod,
   setActivePeriod,
   entry,
+  showChart,
+  setShowChart,
 }: {
   date: string;
   backtest: BacktestData | null;
   activePeriod: 'T1'|'T3'|'T5';
   setActivePeriod: (p: 'T1'|'T3'|'T5') => void;
   entry?: ScanEntry;
+  showChart: boolean;
+  setShowChart: (v: boolean) => void;
 }) {
   const { data, loading, error } = useDateScan(date);
   const btRec = backtest?.grouped_records.find(r => normDate(r.scan_date) === normDate(date));
@@ -416,6 +550,21 @@ function HistoryDetail({
             <BarChart2 className="w-5 h-5 text-blue-600" />
             回測績效
           </h3>
+
+          {/* Period trend chart */}
+          <button
+            onClick={() => setShowChart(!showChart)}
+            className="mb-3 flex items-center gap-1.5 text-xs text-gray-500 hover:text-gray-700 transition-colors"
+          >
+            <BarChart2 className="w-3.5 h-3.5" />
+            三週期趨勢比較
+            <span className="text-gray-300 ml-0.5">{showChart ? '▼' : '▶'}</span>
+          </button>
+          {showChart && (
+            <div className="mb-5 bg-white border border-gray-100 rounded-xl p-4">
+              <PeriodComparisonChart periods={btRec.periods} />
+            </div>
+          )}
 
           {/* Period tabs */}
           <div className="flex gap-2 mb-4">
