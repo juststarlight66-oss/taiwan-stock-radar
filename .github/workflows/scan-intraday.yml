@@ -57,4 +57,5 @@ jobs:
           cp /tmp/intraday-tmp.json data/intraday.json
           git add data/intraday.json
           git diff --cached --quiet || git commit -m "data: intraday scan $(date +%Y%m%d-%H%M)"
-          git push origin gh-pages
+          # Use --force to handle concurrent pushes from deploy.yml
+          git push --force origin gh-pages
