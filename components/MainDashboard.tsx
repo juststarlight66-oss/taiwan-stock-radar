@@ -4,6 +4,7 @@ import { useLatestScan } from '@/lib/useScanData';
 import { demoScanResult } from '@/lib/demoScanData';
 import SummaryCards from './SummaryCards';
 import Top10Table from './Top10Table';
+import ExplodeTop5Cards from './ExplodeTop5Cards';
 import DisclaimerModal from './DisclaimerModal';
 import TopNav from './TopNav';
 import { RefreshCw, ScanLine } from 'lucide-react';
@@ -95,6 +96,7 @@ export default function MainDashboard() {
                 scannedCount={scanData.scanned_count}
                 isDemo={isDemo}
               />
+              <ExplodeTop5Cards stocks={scanData.explode_top5 ?? []} />
             </>
           ) : isLoading ? (
             <div className="text-center py-20 text-gray-400 text-sm">正在載入掃描資料...</div>
