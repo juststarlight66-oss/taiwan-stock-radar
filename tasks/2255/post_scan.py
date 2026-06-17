@@ -39,6 +39,28 @@ for src_name, dst_name in files_to_copy:
     else:
         print(f"WARNING: {src_name} not found, skipping")
 
+# --- Generate accurate all_scores.json from latest.json ---
+latest_path = os.path.join(script_dir, 'latest.json')
+if os.path.exists(latest_path):
+    try:
+        with open(latest_path, 'r', encoding='utf-8') as f:
+            latest_data = json.load(f)
+        if 'all_stock_scores' in latest_data:
+            all_scores_data = {
+                "scan_date": latest_data.get("scan_date", date_str),
+                "generated_at": now.isoformat(),
+                "total_stocks": len(latest_data["all_stock_scores"]),
+                "all_stock_scores": latest_data["all_stock_scores"]
+            }
+            all_scores_output_path = os.path.join(data_dir, 'all_scores.json')
+            with open(all_scores_output_path, 'w', encoding='utf-8') as f:
+                json.dump(all_scores_data, f, ensure_ascii=False, indent=2)
+            print(f"Generated {all_scores_output_path} from latest.json ({len(latest_data['all_stock_scores'])} stocks)")
+    except Exception as e:
+        print(f"ERROR: Failed to generate all_scores.json: {e}")
+else:
+    print("WARNING: latest.json not found, skipping all_scores.json generation")
+
 # --- Update index.json ---
 index_path = os.path.join(data_dir, 'index.json')
 if os.path.exists(index_path):
