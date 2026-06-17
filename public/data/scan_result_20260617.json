@@ -1,7 +1,328 @@
 {
   "scan_date": "20260616",
-  "generated_at": "2026-06-17T08:54:47.425094+08:00",
-  "total_stocks": 1897,
+  "scanned_count": 1897,
+  "top_stocks": [
+    {
+      "stock_id": "1905",
+      "name": "華紙",
+      "market": "TSE",
+      "close": 14.15,
+      "change_pct": 9.69,
+      "volume": 14957118.0,
+      "scores": {
+        "technical": 98.21428571428572,
+        "chips": 70.0,
+        "fundamental": 65.0,
+        "news": 69.38,
+        "sentiment": 85.0,
+        "total": 81.97
+      },
+      "total_score": 81.97,
+      "recommendation": "強烈推薦",
+      "entry_low": 14.01,
+      "entry_high": 14.29,
+      "stop_loss": 13.44,
+      "targets": {
+        "t1": 14.86,
+        "t2": 15.57,
+        "t3": 16.27,
+        "stop_loss": 13.44
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.96,
+        "dy": 0.0
+      }
+    },
+    {
+      "stock_id": "3550",
+      "name": "聯穎",
+      "market": "TSE",
+      "close": 30.85,
+      "change_pct": 9.98,
+      "volume": 10939707.0,
+      "scores": {
+        "technical": 98.76923076923077,
+        "chips": 70.0,
+        "fundamental": 58.0,
+        "news": 69.96000000000001,
+        "sentiment": 85.0,
+        "total": 81.2
+      },
+      "total_score": 81.2,
+      "recommendation": "強烈推薦",
+      "entry_low": 30.54,
+      "entry_high": 31.16,
+      "stop_loss": 29.31,
+      "targets": {
+        "t1": 32.39,
+        "t2": 33.94,
+        "t3": 35.48,
+        "stop_loss": 29.31
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 1.99,
+        "dy": 0.0
+      }
+    },
+    {
+      "stock_id": "3008",
+      "name": "大立光",
+      "market": "TSE",
+      "close": 4860.0,
+      "change_pct": 9.95,
+      "volume": 3306359.0,
+      "scores": {
+        "technical": 99.26829268292683,
+        "chips": 70.0,
+        "fundamental": 53.0,
+        "news": 69.9,
+        "sentiment": 85.0,
+        "total": 80.65
+      },
+      "total_score": 80.65,
+      "recommendation": "強烈推薦",
+      "entry_low": 4811.4,
+      "entry_high": 4908.6,
+      "stop_loss": 4617.0,
+      "targets": {
+        "t1": 5103.0,
+        "t2": 5346.0,
+        "t3": 5589.0,
+        "stop_loss": 4617.0
+      },
+      "fundamentals": {
+        "pe": 30.34,
+        "pb": 3.44,
+        "dy": 1.65
+      }
+    },
+    {
+      "stock_id": "2434",
+      "name": "統懋",
+      "market": "TSE",
+      "close": 38.0,
+      "change_pct": 9.99,
+      "volume": 646250.0,
+      "scores": {
+        "technical": 100.0,
+        "chips": 70.0,
+        "fundamental": 50.0,
+        "news": 69.98,
+        "sentiment": 85.0,
+        "total": 80.5
+      },
+      "total_score": 80.5,
+      "recommendation": "強烈推薦",
+      "entry_low": 37.62,
+      "entry_high": 38.38,
+      "stop_loss": 36.1,
+      "targets": {
+        "t1": 39.9,
+        "t2": 41.8,
+        "t3": 43.7,
+        "stop_loss": 36.1
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 3.01,
+        "dy": 0.0
+      }
+    },
+    {
+      "stock_id": "2342",
+      "name": "茂矽",
+      "market": "TSE",
+      "close": 48.05,
+      "change_pct": 9.95,
+      "volume": 15338141.0,
+      "scores": {
+        "technical": 100.0,
+        "chips": 70.0,
+        "fundamental": 50.0,
+        "news": 69.9,
+        "sentiment": 85.0,
+        "total": 80.49
+      },
+      "total_score": 80.49,
+      "recommendation": "強烈推薦",
+      "entry_low": 47.57,
+      "entry_high": 48.53,
+      "stop_loss": 45.65,
+      "targets": {
+        "t1": 50.45,
+        "t2": 52.86,
+        "t3": 55.26,
+        "stop_loss": 45.65
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 3.27,
+        "dy": 0.0
+      }
+    },
+    {
+      "stock_id": "4976",
+      "name": "佳凌",
+      "market": "TSE",
+      "close": 38.05,
+      "change_pct": 9.97,
+      "volume": 6809301.0,
+      "scores": {
+        "technical": 99.71830985915493,
+        "chips": 70.0,
+        "fundamental": 50.0,
+        "news": 69.94,
+        "sentiment": 85.0,
+        "total": 80.38
+      },
+      "total_score": 80.38,
+      "recommendation": "強烈推薦",
+      "entry_low": 37.67,
+      "entry_high": 38.43,
+      "stop_loss": 36.15,
+      "targets": {
+        "t1": 39.95,
+        "t2": 41.85,
+        "t3": 43.76,
+        "stop_loss": 36.15
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 2.45,
+        "dy": 0.0
+      }
+    },
+    {
+      "stock_id": "6668",
+      "name": "中揚光",
+      "market": "TSE",
+      "close": 43.8,
+      "change_pct": 9.91,
+      "volume": 4960209.0,
+      "scores": {
+        "technical": 98.60465116279069,
+        "chips": 70.0,
+        "fundamental": 50.0,
+        "news": 69.82,
+        "sentiment": 85.0,
+        "total": 79.92
+      },
+      "total_score": 79.92,
+      "recommendation": "強烈推薦",
+      "entry_low": 43.36,
+      "entry_high": 44.24,
+      "stop_loss": 41.61,
+      "targets": {
+        "t1": 45.99,
+        "t2": 48.18,
+        "t3": 50.37,
+        "stop_loss": 41.61
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 2.19,
+        "dy": 0.0
+      }
+    },
+    {
+      "stock_id": "2399",
+      "name": "映泰",
+      "market": "TSE",
+      "close": 52.8,
+      "change_pct": 10.0,
+      "volume": 14018120.0,
+      "scores": {
+        "technical": 98.19999999999999,
+        "chips": 70.0,
+        "fundamental": 50.0,
+        "news": 70.0,
+        "sentiment": 85.0,
+        "total": 79.78
+      },
+      "total_score": 79.78,
+      "recommendation": "強烈推薦",
+      "entry_low": 52.27,
+      "entry_high": 53.33,
+      "stop_loss": 50.16,
+      "targets": {
+        "t1": 55.44,
+        "t2": 58.08,
+        "t3": 60.72,
+        "stop_loss": 50.16
+      },
+      "fundamentals": {
+        "pe": 33.85,
+        "pb": 3.82,
+        "dy": 0.0
+      }
+    },
+    {
+      "stock_id": "6949",
+      "name": "沛爾生醫-創",
+      "market": "TSE",
+      "close": 814.0,
+      "change_pct": 10.0,
+      "volume": 462456.0,
+      "scores": {
+        "technical": 99.29577464788733,
+        "chips": 70.0,
+        "fundamental": 40.0,
+        "news": 70.0,
+        "sentiment": 85.0,
+        "total": 78.72
+      },
+      "total_score": 78.72,
+      "recommendation": "強烈推薦",
+      "entry_low": 805.86,
+      "entry_high": 822.14,
+      "stop_loss": 773.3,
+      "targets": {
+        "t1": 854.7,
+        "t2": 895.4,
+        "t3": 936.1,
+        "stop_loss": 773.3
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 20.05,
+        "dy": 0.0
+      }
+    },
+    {
+      "stock_id": "4551",
+      "name": "智伸科",
+      "market": "TSE",
+      "close": 183.5,
+      "change_pct": 9.88,
+      "volume": 2379377.0,
+      "scores": {
+        "technical": 93.33333333333333,
+        "chips": 70.0,
+        "fundamental": 53.0,
+        "news": 69.76,
+        "sentiment": 85.0,
+        "total": 78.26
+      },
+      "total_score": 78.26,
+      "recommendation": "強烈推薦",
+      "entry_low": 181.66,
+      "entry_high": 185.34,
+      "stop_loss": 174.32,
+      "targets": {
+        "t1": 192.68,
+        "t2": 201.85,
+        "t3": 211.02,
+        "stop_loss": 174.32
+      },
+      "fundamentals": {
+        "pe": 27.51,
+        "pb": 2.36,
+        "dy": 2.29
+      }
+    }
+  ],
   "all_stock_scores": [
     {
       "stock_id": "1905",
@@ -60707,5 +61028,48 @@
         "dy": 0
       }
     }
-  ]
+  ],
+  "explode_top5": [
+    {
+      "stock_id": "6494",
+      "name": "九齊科技股份有限公司",
+      "close": 68.8,
+      "volume": 0.0,
+      "change_pct": 8.18,
+      "explode_prob": 1.0
+    },
+    {
+      "stock_id": "1907",
+      "name": "永豐餘",
+      "close": 26.95,
+      "volume": 3479456.0,
+      "change_pct": 2.67,
+      "explode_prob": 1.0
+    },
+    {
+      "stock_id": "4946",
+      "name": "紅心辣椒娛樂科技股份有限公司",
+      "close": 110.0,
+      "volume": 0.0,
+      "change_pct": 4.76,
+      "explode_prob": 1.0
+    },
+    {
+      "stock_id": "8155",
+      "name": "博智電子股份有限公司",
+      "close": 404.0,
+      "volume": 0.0,
+      "change_pct": 7.45,
+      "explode_prob": 1.0
+    },
+    {
+      "stock_id": "2855",
+      "name": "統一證",
+      "close": 52.6,
+      "volume": 9952253.0,
+      "change_pct": 2.33,
+      "explode_prob": 1.0
+    }
+  ],
+  "generated_at": "2026-06-16T19:12:59.846861+08:00"
 }
