@@ -95,9 +95,45 @@ def http_get(url, retries=3):
         try:
             r = requests.get(url, headers=HEADERS, timeout=30, verify=False)
             r.raise_for_status()
-            data = r.json()
-            if isinstance(data, list) and len(data) > 0:
-                return data
+            text = r.text
+            if not text or not text.strip():
+                return []
+            # Try standard json first
+            try:
+                data = json.loads(text)
+                if isinstance(data, list) and len(data) > 0:
+                    return data
+                if isinstance(data, dict):
+                    arr = data.get('data', data.get('msgArr', []))
+                    if isinstance(arr, list) and len(arr) > 0:
+                        return arr
+                return []
+            except json.JSONDecodeError:
+                # Handle truncated JSON: find the last valid object and re-wrap
+                pass
+            # Attempt to salvage truncated JSON arrays (common TPEx issue)
+            try:
+                decoder = json.JSONDecoder()
+                # Find last valid closing brace/bracket
+                text_stripped = text.strip()
+                if text_stripped.startswith('['):
+                    # Try to find the last complete object
+                    last_valid_end = 0
+                    obj_end = 0
+                    while obj_end < len(text_stripped):
+                        try:
+                            obj, obj_end = decoder.raw_decode(text_stripped, obj_end)
+                            last_valid_end = obj_end
+                        except json.JSONDecodeError:
+                            break
+                    if last_valid_end > 0:
+                        salvage = text_stripped[:last_valid_end].rstrip().rstrip(',')
+                        data = json.loads(salvage + ']')
+                        if isinstance(data, list) and len(data) > 0:
+                            print(f"  [salvage] 截斷JSON救援成功: {len(data)} 筆 (原 {len(text)} bytes)")
+                            return data
+            except Exception:
+                pass
             return []
         except Exception as e:
             print(f"  [重試 {i+1}] {url}: {e}")
