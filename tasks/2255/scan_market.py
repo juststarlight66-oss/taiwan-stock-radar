@@ -110,12 +110,6 @@ LOOKBACK_DAYS = 20      # 至少需要的前期日數（MA20）
 HISTORY_MONTHS = 2      # 抓取歷史月數（確保有足夠 K 線）
 MIN_VOLUME = 500        # 最低成交量門檻（張），過濾流動性不佳的冷門股
 
-# 強勢族群關鍵字 → 額外加分（用於 compute_composite_score）
-HOT_SECTOR_KEYWORDS = {
-    '被動元件': 5,
-    '記憶體': 5,
-    '功率半導體': 5,
-}
 
 DIMENSION_WEIGHTS = {
     'tech': 0.40,
@@ -713,11 +707,19 @@ def compute_composite_score(d: Dict) -> Dict:
         scores['news'] * w['news'] +
         scores['sentiment'] * w['sentiment']
     )
-    # 強勢族群額外加分：被動元件、記憶體、功率半導體（+N 分直接加在總分）
-    for kw, bonus in HOT_SECTOR_KEYWORDS.items():
-        if kw in d.get('name', ''):
-            total += bonus
-            break
+    # 強勢族群額外加分：當日產業板塊漲幅達一定水準即加分（動態，不須硬編）
+    sector_name = d.get('sector_name', '')
+    sector_stats = d.get('_sector_stats', {})
+    if sector_name and sector_name in sector_stats:
+        s = sector_stats[sector_name]
+        avg = s.get('avg_chg', 0)
+        up_ratio = s.get('up_ratio', 0)
+        if avg >= 2 and up_ratio >= 0.6:
+            total += 5   # 產業全面強漲
+        elif avg >= 1:
+            total += 3   # 產業溫和偏多
+        if d.get('change_pct', 0) > avg + 2:
+            total += 2   # 個股領漲同族群
     scores['total'] = round(total, 2)
     return scores
 
