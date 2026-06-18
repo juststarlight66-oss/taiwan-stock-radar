@@ -33,6 +33,40 @@ def log(msg: str):
     print(f"[{ts}] {msg}", flush=True)
 
 
+def check_git_clean():
+    """Check if the repository working directory is clean."""
+    try:
+        r = subprocess.run(["git", "status", "--porcelain"], cwd=REPO_DIR, capture_output=True, text=True)
+        if r.returncode == 0 and r.stdout.strip():
+            log("WARNING: git working directory is not clean before scan!")
+            log(r.stdout.strip())
+            return False
+        return True
+    except Exception as e:
+        log(f"WARNING: failed to check git status: {e}")
+        return False
+
+
+def validate_json_file(path: Path) -> bool:
+    """Check if the given path contains well-formed JSON without git conflict markers."""
+    if not path.exists():
+        # Fine if it doesn't exist yet before write
+        return True
+    try:
+        text = path.read_text(encoding="utf-8")
+        if "<<<<<<<" in text:
+            log(f"ERROR: git conflict markers found in {path}")
+            return False
+        json.loads(text)
+        return True
+    except json.JSONDecodeError as e:
+        log(f"ERROR: malformed JSON in {path}: {e}")
+        return False
+    except Exception as e:
+        log(f"ERROR: failed to read {path}: {e}")
+        return False
+
+
 def fetch_url(url: str, timeout: int = 15) -> bytes:
     ctx = ssl.create_default_context()
     ctx.check_hostname = False
@@ -88,10 +122,11 @@ def fetch_market_breadth() -> list[str]:
     # If OpenAPI fails, fall back to the MIS API (which returns all stocks)
     data = fetch_json(f"{TWSE_API}?ex_ch=tse_tse.tw&json=1&delay=0", timeout=20)
     ids = []
-    for m in data.get("msgArray", []):
-        sid = m.get("c", "")
-        if sid:
-            ids.append(sid)
+    if isinstance(data, dict):
+        for m in data.get("msgArray", []):
+            sid = m.get("c", "")
+            if sid:
+                ids.append(sid)
     return ids
 
 
@@ -574,6 +609,10 @@ def git_commit_push(repo_dir: Path, message: str):
 # ── Main ──────────────────────────────────────────────────────────────────────
 
 def main():
+    if not check_git_clean():
+        # continue, just log warning for dev
+        pass
+
     now_tw = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=8)))
     today_str = now_tw.strftime("%Y%m%d")
     log(f"盤中隔日沖掃描開始 ({now_tw.strftime('%Y-%m-%d %H:%M:%S')} TWN)")
@@ -641,6 +680,10 @@ def main():
     with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
         json.dump(snapshot, f, ensure_ascii=False, indent=2)
     log(f"Written: {OUTPUT_JSON}")
+
+    if not validate_json_file(OUTPUT_JSON):
+        log(f"ABORTING scan: created JSON file {OUTPUT_JSON} is malformed or corrupted.")
+        sys.exit(1)
 
     log("Committing and pushing intraday.json...")
     commit_msg = (
