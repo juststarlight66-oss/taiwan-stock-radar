@@ -29,6 +29,22 @@ jobs:
       - name: Install dependencies
         run: pip install requests
 
+      - name: Pre-scan: check repo is clean
+        run: |
+          if ! git diff --quiet; then
+            echo "::error::Working directory is dirty before scan - aborting"
+            git status --porcelain
+            exit 1
+          fi
+          # Also check for existing conflict markers in output files
+          for f in public/data/intraday.json public/data/latest.json; do
+            if [ -f "$f" ] && grep -q '^<<<<<<<' "$f" 2>/dev/null; then
+              echo "::error::$f contains git conflict markers"
+              exit 1
+            fi
+          done
+          echo "Repo is clean."
+
       - name: Run intraday scan
         run: |
           # Remove any existing directory before creating symlink
