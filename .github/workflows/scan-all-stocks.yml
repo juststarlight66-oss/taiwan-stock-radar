@@ -59,11 +59,11 @@ jobs:
 
       - name: Sync to gh-pages
         run: |
-          git fetch origin gh-pages
-          git checkout gh-pages
-          git checkout main -- public/data/all_scores.json
-          cp public/data/all_scores.json data/all_scores.json
+          git fetch origin main gh-pages
+          mkdir -p data
+          git show origin/main:public/data/all_scores.json > data/all_scores.json
+          git checkout -B gh-pages origin/gh-pages --force
           git add data/all_scores.json
           git diff --staged --quiet || git commit -m "data: sync all_scores.json from main scan"
           git push origin gh-pages
-          git checkout main
+          git checkout @{-1}

@@ -25,7 +25,7 @@ HEADERS = {
     "User-Agent": "Mozilla/5.0 (compatible; StockRadar/1.0)",
 }
 
-URL_STOCK_DAY_ALL = "https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL"
+URL_STOCK_DAY_ALL = "https://www.twse.com.tw/exchangeReport/STOCK_DAY_ALL?response=json"
 URL_BWIBBU_ALL    = "https://openapi.twse.com.tw/v1/exchangeReport/BWIBBU_ALL"
 URL_TPEX_CLOSE    = "https://www.tpex.org.tw/openapi/v1/tpex_mainboard_daily_close_quotes"
 URL_TPEX_PE       = "https://www.tpex.org.tw/openapi/v1/tpex_mainboard_peratio_analysis"
@@ -192,34 +192,33 @@ def build_record(sid, name, close, volume, pe, yield_pct, pbr, sector):
 def fetch_twse():
     print("[TWSE] 取得上市股票日收盤...")
     day_all = http_get(URL_STOCK_DAY_ALL)
-    pe_all  = http_get(URL_BWIBBU_ALL)
     if not day_all:
         print("[TWSE] 無資料（非交易日或 API 異常）")
         return []
 
-    pe_map = {}
-    for row in pe_all:
-        sid = str(row.get("Code", "")).strip()
-        pe_map[sid] = {
-            "pe":    safe_float(row.get("PEratio", 0)),
-            "yield": safe_float(row.get("DividendYield", 0)),
-            "pbr":   safe_float(row.get("PBratio", 0)),
-        }
-
+    # BWIBBU_ALL (PE/PBR/Yield) blocked by TWSE security; skip for now
     records = []
     for row in day_all:
-        sid   = str(row.get("Code", "")).strip()
-        name  = str(row.get("Name", "")).strip()
-        close = safe_float(row.get("ClosingPrice", 0))
-        vol   = safe_int(row.get("TradeVolume", 0)) // 1000
+        # Old TWSE endpoint returns positional arrays:
+        # [證券代號, 證券名稱, 成交股數, 成交金額, 開盤價, 最高價, 最低價, 收盤價, 漲跌價差, 成交筆數]
+        if isinstance(row, (list, tuple)):
+            sid   = str(row[0]).strip() if len(row) > 0 else ""
+            name  = str(row[1]).strip() if len(row) > 1 else ""
+            vol   = safe_int(row[2]) // 1000 if len(row) > 2 else 0
+            close = safe_float(row[7]) if len(row) > 7 else 0.0
+        else:
+            # OpenAPI format (fallback)
+            sid   = str(row.get("Code", "")).strip()
+            name  = str(row.get("Name", "")).strip()
+            close = safe_float(row.get("ClosingPrice", 0))
+            vol   = safe_int(row.get("TradeVolume", 0)) // 1000
         if not sid or close <= 0:
             continue
         if not is_common_stock(sid):
             continue
-        p = pe_map.get(sid, {})
         records.append(build_record(
             sid, name, close, vol,
-            p.get("pe", 0), p.get("yield", 0), p.get("pbr", 0),
+            0, 0, 0,  # PE/PBR/Yield unavailable from old endpoint
             infer_sector(sid)
         ))
     print(f"[TWSE] 共 {len(records)} 檔")
