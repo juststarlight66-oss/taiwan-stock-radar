@@ -920,11 +920,343 @@
       }
     },
     {
-      "scan_date": "2026-06-17",
+      "scan_date": "2026-06-18",
       "periods": {
         "T1": {
           "label": "T+1",
           "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "6243",
+              "name": "迅杰",
+              "entry": 34.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6719",
+              "name": "力智",
+              "entry": 260.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1708",
+              "name": "東鹼",
+              "entry": 50.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "8081",
+              "name": "致新",
+              "entry": 319.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1301",
+              "name": "台塑",
+              "entry": 51.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1310",
+              "name": "台苯",
+              "entry": 9.26,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5283",
+              "name": "禾聯碩",
+              "entry": 54.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6695",
+              "name": "芯鼎",
+              "entry": 58.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6257",
+              "name": "矽格",
+              "entry": 235.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1568",
+              "name": "倉佑",
+              "entry": 46.05,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "6243",
+              "name": "迅杰",
+              "entry": 34.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6719",
+              "name": "力智",
+              "entry": 260.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1708",
+              "name": "東鹼",
+              "entry": 50.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "8081",
+              "name": "致新",
+              "entry": 319.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1301",
+              "name": "台塑",
+              "entry": 51.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1310",
+              "name": "台苯",
+              "entry": 9.26,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5283",
+              "name": "禾聯碩",
+              "entry": 54.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6695",
+              "name": "芯鼎",
+              "entry": 58.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6257",
+              "name": "矽格",
+              "entry": 235.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1568",
+              "name": "倉佑",
+              "entry": 46.05,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "6243",
+              "name": "迅杰",
+              "entry": 34.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6719",
+              "name": "力智",
+              "entry": 260.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1708",
+              "name": "東鹼",
+              "entry": 50.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "8081",
+              "name": "致新",
+              "entry": 319.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1301",
+              "name": "台塑",
+              "entry": 51.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1310",
+              "name": "台苯",
+              "entry": 9.26,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5283",
+              "name": "禾聯碩",
+              "entry": 54.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6695",
+              "name": "芯鼎",
+              "entry": 58.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6257",
+              "name": "矽格",
+              "entry": 235.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1568",
+              "name": "倉佑",
+              "entry": 46.05,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scan_date": "2026-06-17",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": "2026-06-18",
           "win_rate": null,
           "avg_return": null,
           "pending": true,
@@ -1374,6 +1706,61 @@
   "latest_date": "20260610",
   "history": [
     {
+      "date": "2026/06/18",
+      "results": {
+        "6243": {
+          "name": "迅杰",
+          "score": 98.25,
+          "close": 34.9
+        },
+        "6719": {
+          "name": "力智",
+          "score": 97.9,
+          "close": 260.5
+        },
+        "1708": {
+          "name": "東鹼",
+          "score": 97.15,
+          "close": 50.3
+        },
+        "8081": {
+          "name": "致新",
+          "score": 96.67,
+          "close": 319.0
+        },
+        "1301": {
+          "name": "台塑",
+          "score": 96.26,
+          "close": 51.7
+        },
+        "1310": {
+          "name": "台苯",
+          "score": 95.53,
+          "close": 9.26
+        },
+        "5283": {
+          "name": "禾聯碩",
+          "score": 95.4,
+          "close": 54.5
+        },
+        "6695": {
+          "name": "芯鼎",
+          "score": 95.23,
+          "close": 58.4
+        },
+        "6257": {
+          "name": "矽格",
+          "score": 95.2,
+          "close": 235.0
+        },
+        "1568": {
+          "name": "倉佑",
+          "score": 94.5,
+          "close": 46.05
+        }
+      }
+    },
+    {
       "date": "2026/06/17",
       "results": {
         "2618": {
@@ -1437,5 +1824,5 @@
       "results": {}
     }
   ],
-  "last_updated": "2026-06-17T20:30:45.523670+08:00"
+  "last_updated": "2026-06-18T19:22:42.262179+08:00"
 }

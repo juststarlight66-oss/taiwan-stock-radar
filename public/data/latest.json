@@ -1,120 +1,18 @@
 {
-  "scan_date": "20260617",
-  "scan_date_slash": "2026/06/17",
-  "scanned_count": 1916,
-  "generated_at": "2026-06-17T20:30:45.142174+08:00",
+  "scan_date": "20260618",
+  "scan_date_slash": "2026/06/18",
+  "scanned_count": 1078,
+  "generated_at": "2026-06-18T19:22:42.050577+08:00",
   "top10": [
     {
-      "stock_id": "2618",
-      "name": "長榮航",
+      "stock_id": "6243",
+      "name": "迅杰",
       "market": "TSE",
-      "sector": "航運業",
-      "close": 42.55,
-      "change_pct": 7.04,
-      "volume": 192198094.0,
-      "total_score": 92.6,
-      "dimensions": {
-        "technical": 100.0,
-        "fundamental": 86.0,
-        "news": 65.0,
-        "sentiment": 82.04,
-        "chips": 100.0
-      },
-      "signals": [
-        "技術面強勢突破",
-        "均線多頭排列",
-        "籌碼集中法人買超",
-        "市場情緒熱絡",
-        "基本面優質",
-        "強勢漲停鎖板"
-      ],
-      "strategy": {
-        "entry_low": 41.76,
-        "entry_high": 43.34,
-        "stop_loss": 39.39,
-        "target1": 44.13,
-        "target2": 45.71,
-        "target3": 47.29,
-        "advice": "強烈推薦",
-        "hold_days": "3-5日",
-        "risk_reward": "1:1.0"
-      },
-      "entry_low": 41.76,
-      "entry_high": 43.34,
-      "stop_loss": 39.39,
-      "targets": {
-        "t1": 44.13,
-        "t2": 45.71,
-        "t3": 47.29,
-        "stop_loss": 39.39
-      },
-      "fundamentals": {
-        "pe": 8.07,
-        "pb": 1.7,
-        "dy": 4.7
-      },
-      "recommendation": "強烈推薦"
-    },
-    {
-      "stock_id": "2610",
-      "name": "華航",
-      "market": "TSE",
-      "sector": "航運業",
-      "close": 21.85,
-      "change_pct": 3.07,
-      "volume": 152758333.0,
-      "total_score": 91.35,
-      "dimensions": {
-        "technical": 99.5,
-        "fundamental": 86.0,
-        "news": 65.0,
-        "sentiment": 71.5,
-        "chips": 100.0
-      },
-      "signals": [
-        "技術面強勢突破",
-        "均線多頭排列",
-        "籌碼集中法人買超",
-        "市場情緒熱絡",
-        "基本面優質",
-        "量價齊揚"
-      ],
-      "strategy": {
-        "entry_low": 21.46,
-        "entry_high": 22.24,
-        "stop_loss": 20.31,
-        "target1": 22.62,
-        "target2": 23.39,
-        "target3": 24.16,
-        "advice": "強烈推薦",
-        "hold_days": "3-5日",
-        "risk_reward": "1:1.0"
-      },
-      "entry_low": 21.46,
-      "entry_high": 22.24,
-      "stop_loss": 20.31,
-      "targets": {
-        "t1": 22.62,
-        "t2": 23.39,
-        "t3": 24.16,
-        "stop_loss": 20.31
-      },
-      "fundamentals": {
-        "pe": 8.54,
-        "pb": 1.3,
-        "dy": 3.75
-      },
-      "recommendation": "強烈推薦"
-    },
-    {
-      "stock_id": "2431",
-      "name": "聯昌",
-      "market": "TSE",
-      "sector": "電子零組件業",
-      "close": 11.95,
-      "change_pct": 9.63,
-      "volume": 1633571.0,
-      "total_score": 91.25,
+      "sector": "半導體業",
+      "close": 34.9,
+      "change_pct": 9.92,
+      "volume": 990524.0,
+      "total_score": 98.25,
       "dimensions": {
         "technical": 100.0,
         "fundamental": 58.0,
@@ -131,44 +29,44 @@
         "強勢漲停鎖板"
       ],
       "strategy": {
-        "entry_low": 11.66,
-        "entry_high": 12.23,
-        "stop_loss": 10.81,
-        "target1": 12.52,
-        "target2": 13.09,
-        "target3": 13.66,
+        "entry_low": 34.13,
+        "entry_high": 35.67,
+        "stop_loss": 31.82,
+        "target1": 36.44,
+        "target2": 37.98,
+        "target3": 39.52,
         "advice": "強烈推薦",
         "hold_days": "3-5日",
         "risk_reward": "1:1.0"
       },
-      "entry_low": 11.66,
-      "entry_high": 12.23,
-      "stop_loss": 10.81,
+      "entry_low": 34.13,
+      "entry_high": 35.67,
+      "stop_loss": 31.82,
       "targets": {
-        "t1": 12.52,
-        "t2": 13.09,
-        "t3": 13.66,
-        "stop_loss": 10.81
+        "t1": 36.44,
+        "t2": 37.98,
+        "t3": 39.52,
+        "stop_loss": 31.82
       },
       "fundamentals": {
         "pe": 0.0,
-        "pb": 1.24,
-        "dy": 0.0
+        "pb": 2.05,
+        "dy": 3.44
       },
       "recommendation": "強烈推薦"
     },
     {
-      "stock_id": "2316",
-      "name": "楠梓電",
+      "stock_id": "6719",
+      "name": "力智",
       "market": "TSE",
-      "sector": "電子零組件業",
-      "close": 187.0,
-      "change_pct": 10.0,
-      "volume": 11978644.0,
-      "total_score": 91.2,
+      "sector": "半導體業",
+      "close": 260.5,
+      "change_pct": 9.92,
+      "volume": 4105995.0,
+      "total_score": 97.9,
       "dimensions": {
         "technical": 100.0,
-        "fundamental": 63.0,
+        "fundamental": 61.0,
         "news": 90.0,
         "sentiment": 77.5,
         "chips": 100.0
@@ -182,148 +80,98 @@
         "強勢漲停鎖板"
       ],
       "strategy": {
-        "entry_low": 180.56,
-        "entry_high": 193.44,
-        "stop_loss": 161.24,
-        "target1": 199.88,
-        "target2": 212.76,
-        "target3": 225.64,
+        "entry_low": 253.15,
+        "entry_high": 267.85,
+        "stop_loss": 231.1,
+        "target1": 275.2,
+        "target2": 289.9,
+        "target3": 304.6,
         "advice": "強烈推薦",
         "hold_days": "3-5日",
         "risk_reward": "1:1.0"
       },
-      "entry_low": 180.56,
-      "entry_high": 193.44,
-      "stop_loss": 161.24,
+      "entry_low": 253.15,
+      "entry_high": 267.85,
+      "stop_loss": 231.1,
       "targets": {
-        "t1": 199.88,
-        "t2": 212.76,
-        "t3": 225.64,
-        "stop_loss": 161.24
+        "t1": 275.2,
+        "t2": 289.9,
+        "t3": 304.6,
+        "stop_loss": 231.1
       },
       "fundamentals": {
-        "pe": 12.11,
-        "pb": 2.47,
-        "dy": 1.07
+        "pe": 36.28,
+        "pb": 1.92,
+        "dy": 1.77
       },
       "recommendation": "強烈推薦"
     },
     {
-      "stock_id": "1456",
-      "name": "怡華",
+      "stock_id": "1708",
+      "name": "東鹼",
       "market": "TSE",
-      "sector": "建材營造",
-      "close": 15.15,
-      "change_pct": 4.12,
-      "volume": 290715.0,
-      "total_score": 91.19,
+      "sector": "化學工業",
+      "close": 50.3,
+      "change_pct": 9.95,
+      "volume": 21194533.0,
+      "total_score": 97.15,
       "dimensions": {
         "technical": 100.0,
-        "fundamental": 85.0,
+        "fundamental": 76.0,
         "news": 80.0,
-        "sentiment": 66.93,
-        "chips": 95.0
-      },
-      "signals": [
-        "技術面強勢突破",
-        "均線多頭排列",
-        "籌碼集中法人買超",
-        "消息面題材發酵",
-        "基本面優質",
-        "量價齊揚"
-      ],
-      "strategy": {
-        "entry_low": 14.78,
-        "entry_high": 15.52,
-        "stop_loss": 13.67,
-        "target1": 15.89,
-        "target2": 16.63,
-        "target3": 17.37,
-        "advice": "強烈推薦",
-        "hold_days": "3-5日",
-        "risk_reward": "1:1.0"
-      },
-      "entry_low": 14.78,
-      "entry_high": 15.52,
-      "stop_loss": 13.67,
-      "targets": {
-        "t1": 15.89,
-        "t2": 16.63,
-        "t3": 17.37,
-        "stop_loss": 13.67
-      },
-      "fundamentals": {
-        "pe": 4.39,
-        "pb": 0.75,
-        "dy": 0.0
-      },
-      "recommendation": "強烈推薦"
-    },
-    {
-      "stock_id": "6757",
-      "name": "台灣虎航",
-      "market": "TSE",
-      "sector": "航運業",
-      "close": 59.1,
-      "change_pct": 4.79,
-      "volume": 17890228.0,
-      "total_score": 90.2,
-      "dimensions": {
-        "technical": 98.0,
-        "fundamental": 78.0,
-        "news": 65.0,
-        "sentiment": 78.0,
+        "sentiment": 77.5,
         "chips": 100.0
       },
       "signals": [
         "技術面強勢突破",
         "均線多頭排列",
         "籌碼集中法人買超",
+        "消息面題材發酵",
         "市場情緒熱絡",
         "基本面優質",
-        "量價齊揚"
+        "強勢漲停鎖板"
       ],
       "strategy": {
-        "entry_low": 57.75,
-        "entry_high": 60.45,
-        "stop_loss": 53.68,
-        "target1": 61.81,
-        "target2": 64.52,
-        "target3": 67.23,
+        "entry_low": 49.08,
+        "entry_high": 51.52,
+        "stop_loss": 45.42,
+        "target1": 52.74,
+        "target2": 55.18,
+        "target3": 57.62,
         "advice": "強烈推薦",
         "hold_days": "3-5日",
         "risk_reward": "1:1.0"
       },
-      "entry_low": 57.75,
-      "entry_high": 60.45,
-      "stop_loss": 53.68,
+      "entry_low": 49.08,
+      "entry_high": 51.52,
+      "stop_loss": 45.42,
       "targets": {
-        "t1": 61.81,
-        "t2": 64.52,
-        "t3": 67.23,
-        "stop_loss": 53.68
+        "t1": 52.74,
+        "t2": 55.18,
+        "t3": 57.62,
+        "stop_loss": 45.42
       },
       "fundamentals": {
-        "pe": 9.5,
-        "pb": 3.6,
-        "dy": 4.09
+        "pe": 14.93,
+        "pb": 1.69,
+        "dy": 3.18
       },
       "recommendation": "強烈推薦"
     },
     {
-      "stock_id": "3092",
-      "name": "鴻碩",
+      "stock_id": "8081",
+      "name": "致新",
       "market": "TSE",
-      "sector": "電子零組件業",
-      "close": 32.2,
-      "change_pct": 9.9,
-      "volume": 2568489.0,
-      "total_score": 90.05,
+      "sector": "半導體業",
+      "close": 319.0,
+      "change_pct": 8.69,
+      "volume": 3986055.0,
+      "total_score": 96.67,
       "dimensions": {
-        "technical": 100.0,
-        "fundamental": 50.0,
+        "technical": 93.83,
+        "fundamental": 65.0,
         "news": 90.0,
-        "sentiment": 85.5,
+        "sentiment": 83.83,
         "chips": 100.0
       },
       "signals": [
@@ -335,46 +183,148 @@
         "強勢漲停鎖板"
       ],
       "strategy": {
-        "entry_low": 31.39,
-        "entry_high": 33.01,
-        "stop_loss": 28.96,
-        "target1": 33.82,
-        "target2": 35.44,
-        "target3": 37.06,
+        "entry_low": 312.12,
+        "entry_high": 325.88,
+        "stop_loss": 291.48,
+        "target1": 332.76,
+        "target2": 346.52,
+        "target3": 360.28,
         "advice": "強烈推薦",
         "hold_days": "3-5日",
         "risk_reward": "1:1.0"
       },
-      "entry_low": 31.39,
-      "entry_high": 33.01,
-      "stop_loss": 28.96,
+      "entry_low": 312.12,
+      "entry_high": 325.88,
+      "stop_loss": 291.48,
       "targets": {
-        "t1": 33.82,
-        "t2": 35.44,
-        "t3": 37.06,
-        "stop_loss": 28.96
+        "t1": 332.76,
+        "t2": 346.52,
+        "t3": 360.28,
+        "stop_loss": 291.48
+      },
+      "fundamentals": {
+        "pe": 18.16,
+        "pb": 3.77,
+        "dy": 5.02
+      },
+      "recommendation": "強烈推薦"
+    },
+    {
+      "stock_id": "1301",
+      "name": "台塑",
+      "market": "TSE",
+      "sector": "塑膠工業",
+      "close": 51.7,
+      "change_pct": 7.82,
+      "volume": 188508912.0,
+      "total_score": 96.26,
+      "dimensions": {
+        "technical": 100.0,
+        "fundamental": 65.0,
+        "news": 80.0,
+        "sentiment": 85.06,
+        "chips": 100.0
+      },
+      "signals": [
+        "技術面強勢突破",
+        "均線多頭排列",
+        "籌碼集中法人買超",
+        "消息面題材發酵",
+        "市場情緒熱絡",
+        "強勢漲停鎖板"
+      ],
+      "strategy": {
+        "entry_low": 50.61,
+        "entry_high": 52.79,
+        "stop_loss": 47.34,
+        "target1": 53.88,
+        "target2": 56.06,
+        "target3": 58.24,
+        "advice": "強烈推薦",
+        "hold_days": "3-5日",
+        "risk_reward": "1:1.0"
+      },
+      "entry_low": 50.61,
+      "entry_high": 52.79,
+      "stop_loss": 47.34,
+      "targets": {
+        "t1": 53.88,
+        "t2": 56.06,
+        "t3": 58.24,
+        "stop_loss": 47.34
       },
       "fundamentals": {
         "pe": 0.0,
-        "pb": 2.54,
+        "pb": 0.84,
+        "dy": 0.97
+      },
+      "recommendation": "強烈推薦"
+    },
+    {
+      "stock_id": "1310",
+      "name": "台苯",
+      "market": "TSE",
+      "sector": "塑膠工業",
+      "close": 9.26,
+      "change_pct": 6.31,
+      "volume": 12944781.0,
+      "total_score": 95.53,
+      "dimensions": {
+        "technical": 98.56,
+        "fundamental": 65.0,
+        "news": 80.0,
+        "sentiment": 83.56,
+        "chips": 100.0
+      },
+      "signals": [
+        "技術面強勢突破",
+        "均線多頭排列",
+        "籌碼集中法人買超",
+        "消息面題材發酵",
+        "市場情緒熱絡",
+        "強勢漲停鎖板"
+      ],
+      "strategy": {
+        "entry_low": 9.07,
+        "entry_high": 9.45,
+        "stop_loss": 8.52,
+        "target1": 9.63,
+        "target2": 10.0,
+        "target3": 10.37,
+        "advice": "強烈推薦",
+        "hold_days": "3-5日",
+        "risk_reward": "1:1.0"
+      },
+      "entry_low": 9.07,
+      "entry_high": 9.45,
+      "stop_loss": 8.52,
+      "targets": {
+        "t1": 9.63,
+        "t2": 10.0,
+        "t3": 10.37,
+        "stop_loss": 8.52
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.67,
         "dy": 0.0
       },
       "recommendation": "強烈推薦"
     },
     {
-      "stock_id": "1225",
-      "name": "福懋油",
+      "stock_id": "5283",
+      "name": "禾聯碩",
       "market": "TSE",
-      "sector": "食品工業",
-      "close": 33.0,
-      "change_pct": 3.12,
-      "volume": 1784093.0,
-      "total_score": 89.95,
+      "sector": "電器電纜",
+      "close": 54.5,
+      "change_pct": 3.02,
+      "volume": 265579.0,
+      "total_score": 95.4,
       "dimensions": {
         "technical": 100.0,
-        "fundamental": 66.0,
+        "fundamental": 93.0,
         "news": 65.0,
-        "sentiment": 85.5,
+        "sentiment": 79.5,
         "chips": 100.0
       },
       "signals": [
@@ -382,44 +332,147 @@
         "均線多頭排列",
         "籌碼集中法人買超",
         "市場情緒熱絡",
+        "基本面優質",
         "量價齊揚"
       ],
       "strategy": {
-        "entry_low": 32.35,
-        "entry_high": 33.65,
-        "stop_loss": 30.42,
-        "target1": 34.29,
-        "target2": 35.58,
-        "target3": 36.87,
+        "entry_low": 53.95,
+        "entry_high": 55.05,
+        "stop_loss": 52.32,
+        "target1": 55.59,
+        "target2": 56.68,
+        "target3": 57.77,
         "advice": "強烈推薦",
         "hold_days": "3-5日",
         "risk_reward": "1:1.0"
       },
-      "entry_low": 32.35,
-      "entry_high": 33.65,
-      "stop_loss": 30.42,
+      "entry_low": 53.95,
+      "entry_high": 55.05,
+      "stop_loss": 52.32,
       "targets": {
-        "t1": 34.29,
-        "t2": 35.58,
-        "t3": 36.87,
-        "stop_loss": 30.42
+        "t1": 55.59,
+        "t2": 56.68,
+        "t3": 57.77,
+        "stop_loss": 52.32
       },
       "fundamentals": {
-        "pe": 19.3,
-        "pb": 1.99,
-        "dy": 3.03
+        "pe": 9.22,
+        "pb": 1.0,
+        "dy": 3.67
       },
       "recommendation": "強烈推薦"
     },
     {
-      "stock_id": "3530",
-      "name": "晶相光",
+      "stock_id": "6695",
+      "name": "芯鼎",
       "market": "TSE",
       "sector": "半導體業",
-      "close": 71.5,
-      "change_pct": 10.0,
-      "volume": 1523738.0,
-      "total_score": 89.5,
+      "close": 58.4,
+      "change_pct": 7.16,
+      "volume": 2758613.0,
+      "total_score": 95.23,
+      "dimensions": {
+        "technical": 98.05,
+        "fundamental": 50.0,
+        "news": 90.0,
+        "sentiment": 75.05,
+        "chips": 100.0
+      },
+      "signals": [
+        "技術面強勢突破",
+        "均線多頭排列",
+        "籌碼集中法人買超",
+        "消息面題材發酵",
+        "市場情緒熱絡",
+        "強勢漲停鎖板"
+      ],
+      "strategy": {
+        "entry_low": 56.53,
+        "entry_high": 60.27,
+        "stop_loss": 50.92,
+        "target1": 62.14,
+        "target2": 65.88,
+        "target3": 69.62,
+        "advice": "強烈推薦",
+        "hold_days": "3-5日",
+        "risk_reward": "1:1.0"
+      },
+      "entry_low": 56.53,
+      "entry_high": 60.27,
+      "stop_loss": 50.92,
+      "targets": {
+        "t1": 62.14,
+        "t2": 65.88,
+        "t3": 69.62,
+        "stop_loss": 50.92
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 3.77,
+        "dy": 0.0
+      },
+      "recommendation": "強烈推薦"
+    },
+    {
+      "stock_id": "6257",
+      "name": "矽格",
+      "market": "TSE",
+      "sector": "半導體業",
+      "close": 235.0,
+      "change_pct": 9.81,
+      "volume": 17090675.0,
+      "total_score": 95.2,
+      "dimensions": {
+        "technical": 100.0,
+        "fundamental": 43.0,
+        "news": 90.0,
+        "sentiment": 77.5,
+        "chips": 100.0
+      },
+      "signals": [
+        "技術面強勢突破",
+        "均線多頭排列",
+        "籌碼集中法人買超",
+        "消息面題材發酵",
+        "市場情緒熱絡",
+        "強勢漲停鎖板"
+      ],
+      "strategy": {
+        "entry_low": 228.44,
+        "entry_high": 241.56,
+        "stop_loss": 208.78,
+        "target1": 248.11,
+        "target2": 261.22,
+        "target3": 274.33,
+        "advice": "強烈推薦",
+        "hold_days": "3-5日",
+        "risk_reward": "1:1.0"
+      },
+      "entry_low": 228.44,
+      "entry_high": 241.56,
+      "stop_loss": 208.78,
+      "targets": {
+        "t1": 248.11,
+        "t2": 261.22,
+        "t3": 274.33,
+        "stop_loss": 208.78
+      },
+      "fundamentals": {
+        "pe": 35.13,
+        "pb": 5.2,
+        "dy": 1.79
+      },
+      "recommendation": "強烈推薦"
+    },
+    {
+      "stock_id": "1568",
+      "name": "倉佑",
+      "market": "TSE",
+      "sector": "汽車工業",
+      "close": 46.05,
+      "change_pct": 9.9,
+      "volume": 4203808.0,
+      "total_score": 94.5,
       "dimensions": {
         "technical": 100.0,
         "fundamental": 53.0,
@@ -436,129 +489,79 @@
         "強勢漲停鎖板"
       ],
       "strategy": {
-        "entry_low": 69.72,
-        "entry_high": 73.28,
-        "stop_loss": 64.38,
-        "target1": 75.06,
-        "target2": 78.62,
-        "target3": 82.18,
+        "entry_low": 44.55,
+        "entry_high": 47.54,
+        "stop_loss": 40.07,
+        "target1": 49.04,
+        "target2": 52.03,
+        "target3": 55.02,
         "advice": "強烈推薦",
         "hold_days": "3-5日",
         "risk_reward": "1:1.0"
       },
-      "entry_low": 69.72,
-      "entry_high": 73.28,
-      "stop_loss": 64.38,
+      "entry_low": 44.55,
+      "entry_high": 47.54,
+      "stop_loss": 40.07,
       "targets": {
-        "t1": 75.06,
-        "t2": 78.62,
-        "t3": 82.18,
-        "stop_loss": 64.38
+        "t1": 49.04,
+        "t2": 52.03,
+        "t3": 55.02,
+        "stop_loss": 40.07
       },
       "fundamentals": {
-        "pe": 35.22,
-        "pb": 2.22,
-        "dy": 1.12
-      },
-      "recommendation": "強烈推薦"
-    },
-    {
-      "stock_id": "9928",
-      "name": "中視",
-      "market": "TSE",
-      "sector": "其他",
-      "close": 19.05,
-      "change_pct": 5.54,
-      "volume": 216711.0,
-      "total_score": 89.46,
-      "dimensions": {
-        "technical": 100.0,
-        "fundamental": 65.0,
-        "news": 65.0,
-        "sentiment": 82.09,
-        "chips": 100.0
-      },
-      "signals": [
-        "技術面強勢突破",
-        "均線多頭排列",
-        "籌碼集中法人買超",
-        "市場情緒熱絡",
-        "強勢漲停鎖板"
-      ],
-      "strategy": {
-        "entry_low": 18.84,
-        "entry_high": 19.27,
-        "stop_loss": 18.19,
-        "target1": 19.48,
-        "target2": 19.91,
-        "target3": 20.34,
-        "advice": "強烈推薦",
-        "hold_days": "3-5日",
-        "risk_reward": "1:1.0"
-      },
-      "entry_low": 18.84,
-      "entry_high": 19.27,
-      "stop_loss": 18.19,
-      "targets": {
-        "t1": 19.48,
-        "t2": 19.91,
-        "t3": 20.34,
-        "stop_loss": 18.19
-      },
-      "fundamentals": {
-        "pe": 0.0,
-        "pb": 0.64,
-        "dy": 0.0
+        "pe": 34.37,
+        "pb": 2.57,
+        "dy": 2.17
       },
       "recommendation": "強烈推薦"
     }
   ],
   "explode_top5": [
     {
-      "stock_id": "9906",
-      "name": "欣巴巴",
-      "close": 47.6,
-      "volume": 503518.0,
-      "change_pct": 9.93,
-      "explode_prob": 0.365
+      "stock_id": "3090",
+      "name": "日電貿",
+      "close": 332.5,
+      "volume": 23571289.0,
+      "change_pct": 9.92,
+      "explode_prob": 0.374
     },
     {
-      "stock_id": "3296",
-      "name": "勝德",
-      "close": 27.1,
-      "volume": 555274.0,
+      "stock_id": "2305",
+      "name": "全友",
+      "close": 33.65,
+      "volume": 9123312.0,
+      "change_pct": 9.97,
+      "explode_prob": 0.372
+    },
+    {
+      "stock_id": "2243",
+      "name": "宏旭-KY",
+      "close": 51.7,
+      "volume": 1614835.0,
+      "change_pct": 10.0,
+      "explode_prob": 0.371
+    },
+    {
+      "stock_id": "6909",
+      "name": "創控",
+      "close": 50.9,
+      "volume": 536234.0,
       "change_pct": 9.94,
-      "explode_prob": 0.357
+      "explode_prob": 0.369
     },
     {
-      "stock_id": "6949",
-      "name": "沛爾生醫-創",
-      "close": 895.0,
-      "volume": 303249.0,
+      "stock_id": "1708",
+      "name": "東鹼",
+      "close": 50.3,
+      "volume": 21194533.0,
       "change_pct": 9.95,
-      "explode_prob": 0.355
-    },
-    {
-      "stock_id": "6715",
-      "name": "嘉基",
-      "close": 475.0,
-      "volume": 1019294.0,
-      "change_pct": 9.95,
-      "explode_prob": 0.335
-    },
-    {
-      "stock_id": "3092",
-      "name": "鴻碩",
-      "close": 32.2,
-      "volume": 2568489.0,
-      "change_pct": 9.9,
-      "explode_prob": 0.331
+      "explode_prob": 0.364
     }
   ],
   "market_summary": {
-    "avg_score": 58.84,
-    "bullish_count": 1130,
-    "bearish_count": 587,
-    "flat_count": 199
+    "avg_score": 64.03,
+    "bullish_count": 584,
+    "bearish_count": 396,
+    "flat_count": 98
   }
 }
