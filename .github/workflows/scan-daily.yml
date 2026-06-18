@@ -9,9 +9,6 @@ on:
         default: ''
   push:
     branches: [main]
-    paths:
-      - 'tasks/**'
-      - 'public/**'
 
 jobs:
   scan:
