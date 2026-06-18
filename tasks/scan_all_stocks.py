@@ -80,6 +80,19 @@ def infer_sector(sid: str) -> str:
     return "其他"
 
 
+def is_common_stock(sid: str) -> bool:
+    """只保留 4 位數的普通股股票代碼（排除 ETF、權證、特別股）"""
+    s = str(sid).strip()
+    if not s.isdigit():
+        return False
+    if len(s) != 4:
+        return False
+    # 排除 00xx 開頭的 ETF（如 0050、00632R 雖然超過 4 位但 4 位數的 00xx 也是 ETF）
+    if s.startswith("0"):
+        return False
+    return True
+
+
 def safe_float(v, default=0.0):
     try: return float(str(v).replace(",", "").replace("+", "").replace("-", "0") or "0")
     except: return default
@@ -201,6 +214,8 @@ def fetch_twse():
         vol   = safe_int(row.get("TradeVolume", 0)) // 1000
         if not sid or close <= 0:
             continue
+        if not is_common_stock(sid):
+            continue
         p = pe_map.get(sid, {})
         records.append(build_record(
             sid, name, close, vol,
@@ -235,6 +250,8 @@ def fetch_tpex():
         close = safe_float(row.get("Close", 0))
         vol   = safe_int(row.get("TradingShares", 0)) // 1000
         if not sid or close <= 0:
+            continue
+        if not is_common_stock(sid):
             continue
         p = pe_map.get(sid, {})
         records.append(build_record(
