@@ -108,6 +108,14 @@ RSI_PERIOD = 7          # RSI 計算週期（需 7+1 以上交易日）
 ATR_PERIOD = 7          # ATR 計算週期
 LOOKBACK_DAYS = 20      # 至少需要的前期日數（MA20）
 HISTORY_MONTHS = 2      # 抓取歷史月數（確保有足夠 K 線）
+MIN_VOLUME = 500        # 最低成交量門檻（張），過濾流動性不佳的冷門股
+
+# 強勢族群關鍵字 → 額外加分（用於 compute_composite_score）
+HOT_SECTOR_KEYWORDS = {
+    '被動元件': 5,
+    '記憶體': 5,
+    '功率半導體': 5,
+}
 
 DIMENSION_WEIGHTS = {
     'tech': 0.40,
@@ -705,6 +713,11 @@ def compute_composite_score(d: Dict) -> Dict:
         scores['news'] * w['news'] +
         scores['sentiment'] * w['sentiment']
     )
+    # 強勢族群額外加分：被動元件、記憶體、功率半導體（+N 分直接加在總分）
+    for kw, bonus in HOT_SECTOR_KEYWORDS.items():
+        if kw in d.get('name', ''):
+            total += bonus
+            break
     scores['total'] = round(total, 2)
     return scores
 
@@ -995,6 +1008,10 @@ def run_scan(scan_date: str = None) -> Dict:
 
             close = day['close']
             vol = day['volume']
+
+            # ── 成交量門檻篩選：過濾流動性不佳的冷門股 ──
+            if vol < MIN_VOLUME:
+                return None
 
             # 僅對成交量 > 100 張 且 股價 > 0 的股票抓取歷史（節省 API 請求）
             history = []
