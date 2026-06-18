@@ -3,245 +3,303 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>台股掃描報告 2026/06/17</title>
+<title>台股掃描報告 2026/06/18</title>
 <style>
-body { font-family: -apple-system, 'Microsoft JhengHei', sans-serif; background:#fff; color:#1a202c; max-width:800px; margin:0 auto; padding:20px; }
-h1 { color:#2b6cb0; border-bottom:2px solid #2b6cb0; padding-bottom:10px; }
-h2 { color:#2d3748; margin-top:30px; }
+body { font-family: -apple-system, 'Microsoft JhengHei', sans-serif; background:#fff; color:#1a202c; max-width:900px; margin:0 auto; padding:20px; }
+h1 { color:#2b6cb0; border-bottom:3px solid #2b6cb0; padding-bottom:12px; font-size:24px; }
+h2 { color:#2d3748; margin-top:30px; font-size:18px; }
 table { width:100%; border-collapse:collapse; font-size:13px; }
 th { background:#2b6cb0; color:white; padding:10px 8px; text-align:left; }
-.card { background:#f7fafc; border:1px solid #e2e8f0; border-radius:8px; padding:16px; margin:16px 0; }
+.card { background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:20px; margin:20px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+.badge { display:inline-block; padding:2px 8px; border-radius:4px; font-size:11px; font-weight:bold; }
+.badge-up { background:#fed7d7; color:#c53030; }
+.badge-down { background:#c6f6d5; color:#276749; }
+.score-bar { display:inline-block; height:6px; border-radius:3px; background:#e2e8f0; width:100%; }
+.score-fill { height:6px; border-radius:3px; background:#3182ce; }
+.highlight { color:#e53e3e; font-weight:bold; }
+.dim-row { display:flex; gap:10px; align-items:center; }
+.dim-chip { padding:2px 10px; border-radius:12px; font-size:12px; font-weight:bold; }
+.dim-hi { background:#dcfce7; color:#166534; }
+.dim-md { background:#fef9c3; color:#854d0e; }
+.dim-lo { background:#fee2e2; color:#991b1b; }
 </style>
 </head>
 <body>
-<h1>台股掃描報告 2026/06/17</h1>
-<p>掃描時間: 2026/06/17 19:00 CST | 掃描檔數: 1300 | 市場狀態: 正常交易</p>
+<h1>📊 台股掃描報告 2026/06/18</h1>
+<p style="color:#718096;font-size:14px;">
+掃描時間: 2026/06/18 19:00 CST | 掃描檔數: <strong>1078</strong> | 
+市場評分: <strong>63.4</strong> | 
+看好: <span class="badge badge-up">256</span> 
+看淡: <span class="badge badge-down">3</span>
+</p>
 
 <div class="card">
-<h2 style="margin-top:0">📊 Top 10 強勢推薦</h2>
+<h2>🏆 Top 10 強勢推薦</h2>
+<p style="font-size:12px;color:#718096">五維評分: 技術面(T) | 籌碼面(C) | 基本面(F) | 消息面(N) | 情緒面(S)</p>
 <table>
-<thead><tr><th>#</th><th>代號</th><th>名稱</th><th>收盤</th><th>漲跌</th><th>評分</th><th>五維分數</th><th>進出場點位</th><th>建議</th></tr></thead>
+<thead><tr><th>#</th><th>代號</th><th>名稱</th><th>收盤</th><th>漲跌</th><th>總分</th><th>五維分數</th><th>進出場點位</th><th>建議</th></tr></thead>
 <tbody><tr style="border-bottom:1px solid #e2e8f0">
 <td style="padding:8px">1</td>
-<td style="padding:8px;font-weight:bold">1905</td>
-<td style="padding:8px">華紙</td>
-<td style="padding:8px;color:#e53e3e;text-align:right">14.15</td>
-<td style="padding:8px;color:#e53e3e;text-align:right">+9.7%</td>
-<td style="padding:8px;text-align:right;font-weight:bold">82.0</td>
+<td style="padding:8px;font-weight:bold">6243</td>
+<td style="padding:8px">迅杰</td>
+<td style="padding:8px;color:#e53e3e;text-align:right">34.90</td>
+<td style="padding:8px;color:#e53e3e;text-align:right">+9.9%</td>
+<td style="padding:8px;text-align:right;font-weight:bold">98.2</td>
 <td style="padding:8px;font-size:11px">
-技術:98 消息:69 籌碼:70 情緒:85 基本:0
+技術:100 消息:90 籌碼:100 情緒:86 基本:58
 </td>
 <td style="padding:8px;font-size:12px">
-進:14.01-14.29<br>
-T1:14.86 T2:15.57 T3:16.27<br>
-停損:13.44
+進:34.13-35.67<br>
+T1:36.44 T2:37.98 T3:39.52<br>
+停損:31.82
 </td>
 <td style="padding:8px;font-weight:bold;color:#2b6cb0">強烈推薦</td>
 </tr><tr style="border-bottom:1px solid #e2e8f0">
 <td style="padding:8px">2</td>
-<td style="padding:8px;font-weight:bold">2434</td>
-<td style="padding:8px">統懋</td>
-<td style="padding:8px;color:#e53e3e;text-align:right">38.00</td>
-<td style="padding:8px;color:#e53e3e;text-align:right">+10.0%</td>
-<td style="padding:8px;text-align:right;font-weight:bold">80.5</td>
+<td style="padding:8px;font-weight:bold">1301</td>
+<td style="padding:8px">台塑</td>
+<td style="padding:8px;color:#e53e3e;text-align:right">51.70</td>
+<td style="padding:8px;color:#e53e3e;text-align:right">+7.8%</td>
+<td style="padding:8px;text-align:right;font-weight:bold">96.3</td>
 <td style="padding:8px;font-size:11px">
-技術:100 消息:70 籌碼:70 情緒:85 基本:0
+技術:100 消息:80 籌碼:100 情緒:85 基本:65
 </td>
 <td style="padding:8px;font-size:12px">
-進:37.62-38.38<br>
-T1:39.9 T2:41.8 T3:43.7<br>
-停損:36.1
+進:50.61-52.79<br>
+T1:53.88 T2:56.06 T3:58.24<br>
+停損:47.34
 </td>
 <td style="padding:8px;font-weight:bold;color:#2b6cb0">強烈推薦</td>
 </tr><tr style="border-bottom:1px solid #e2e8f0">
 <td style="padding:8px">3</td>
-<td style="padding:8px;font-weight:bold">2342</td>
-<td style="padding:8px">茂矽</td>
-<td style="padding:8px;color:#e53e3e;text-align:right">48.05</td>
-<td style="padding:8px;color:#e53e3e;text-align:right">+9.9%</td>
-<td style="padding:8px;text-align:right;font-weight:bold">80.5</td>
+<td style="padding:8px;font-weight:bold">1310</td>
+<td style="padding:8px">台苯</td>
+<td style="padding:8px;color:#e53e3e;text-align:right">9.26</td>
+<td style="padding:8px;color:#e53e3e;text-align:right">+6.3%</td>
+<td style="padding:8px;text-align:right;font-weight:bold">95.5</td>
 <td style="padding:8px;font-size:11px">
-技術:100 消息:70 籌碼:70 情緒:85 基本:0
+技術:99 消息:80 籌碼:100 情緒:84 基本:65
 </td>
 <td style="padding:8px;font-size:12px">
-進:47.57-48.53<br>
-T1:50.45 T2:52.86 T3:55.26<br>
-停損:45.65
+進:9.07-9.45<br>
+T1:9.63 T2:10.0 T3:10.37<br>
+停損:8.52
 </td>
 <td style="padding:8px;font-weight:bold;color:#2b6cb0">強烈推薦</td>
 </tr><tr style="border-bottom:1px solid #e2e8f0">
 <td style="padding:8px">4</td>
-<td style="padding:8px;font-weight:bold">2302</td>
-<td style="padding:8px">麗正</td>
-<td style="padding:8px;color:#e53e3e;text-align:right">41.80</td>
-<td style="padding:8px;color:#e53e3e;text-align:right">+10.0%</td>
-<td style="padding:8px;text-align:right;font-weight:bold">78.1</td>
+<td style="padding:8px;font-weight:bold">5283</td>
+<td style="padding:8px">禾聯碩</td>
+<td style="padding:8px;color:#e53e3e;text-align:right">54.50</td>
+<td style="padding:8px;color:#e53e3e;text-align:right">+3.0%</td>
+<td style="padding:8px;text-align:right;font-weight:bold">95.4</td>
 <td style="padding:8px;font-size:11px">
-技術:100 消息:70 籌碼:70 情緒:85 基本:0
+技術:100 消息:65 籌碼:100 情緒:80 基本:93
 </td>
 <td style="padding:8px;font-size:12px">
-進:41.38-42.22<br>
-T1:43.89 T2:45.98 T3:48.07<br>
-停損:39.71
+進:53.95-55.05<br>
+T1:55.59 T2:56.68 T3:57.77<br>
+停損:52.32
 </td>
 <td style="padding:8px;font-weight:bold;color:#2b6cb0">強烈推薦</td>
 </tr><tr style="border-bottom:1px solid #e2e8f0">
 <td style="padding:8px">5</td>
-<td style="padding:8px;font-weight:bold">6209</td>
-<td style="padding:8px">今國光</td>
-<td style="padding:8px;color:#e53e3e;text-align:right">95.30</td>
-<td style="padding:8px;color:#e53e3e;text-align:right">+9.9%</td>
-<td style="padding:8px;text-align:right;font-weight:bold">77.9</td>
+<td style="padding:8px;font-weight:bold">6695</td>
+<td style="padding:8px">芯鼎</td>
+<td style="padding:8px;color:#e53e3e;text-align:right">58.40</td>
+<td style="padding:8px;color:#e53e3e;text-align:right">+7.2%</td>
+<td style="padding:8px;text-align:right;font-weight:bold">95.2</td>
 <td style="padding:8px;font-size:11px">
-技術:99 消息:70 籌碼:70 情緒:85 基本:0
+技術:98 消息:90 籌碼:100 情緒:75 基本:50
 </td>
 <td style="padding:8px;font-size:12px">
-進:94.35-96.25<br>
-T1:100.06 T2:104.83 T3:109.59<br>
-停損:90.53
+進:56.53-60.27<br>
+T1:62.14 T2:65.88 T3:69.62<br>
+停損:50.92
 </td>
 <td style="padding:8px;font-weight:bold;color:#2b6cb0">強烈推薦</td>
 </tr><tr style="border-bottom:1px solid #e2e8f0">
 <td style="padding:8px">6</td>
-<td style="padding:8px;font-weight:bold">2243</td>
-<td style="padding:8px">宏旭-KY</td>
-<td style="padding:8px;color:#e53e3e;text-align:right">44.95</td>
-<td style="padding:8px;color:#e53e3e;text-align:right">+9.9%</td>
-<td style="padding:8px;text-align:right;font-weight:bold">77.2</td>
+<td style="padding:8px;font-weight:bold">6257</td>
+<td style="padding:8px">矽格</td>
+<td style="padding:8px;color:#e53e3e;text-align:right">235.00</td>
+<td style="padding:8px;color:#e53e3e;text-align:right">+9.8%</td>
+<td style="padding:8px;text-align:right;font-weight:bold">95.2</td>
 <td style="padding:8px;font-size:11px">
-技術:92 消息:70 籌碼:70 情緒:85 基本:0
+技術:100 消息:90 籌碼:100 情緒:78 基本:43
 </td>
 <td style="padding:8px;font-size:12px">
-進:44.5-45.4<br>
-T1:47.2 T2:49.45 T3:51.69<br>
-停損:42.7
+進:228.44-241.56<br>
+T1:248.11 T2:261.22 T3:274.33<br>
+停損:208.78
 </td>
 <td style="padding:8px;font-weight:bold;color:#2b6cb0">強烈推薦</td>
 </tr><tr style="border-bottom:1px solid #e2e8f0">
 <td style="padding:8px">7</td>
-<td style="padding:8px;font-weight:bold">3504</td>
-<td style="padding:8px">揚明光</td>
-<td style="padding:8px;color:#e53e3e;text-align:right">89.40</td>
-<td style="padding:8px;color:#e53e3e;text-align:right">+8.9%</td>
-<td style="padding:8px;text-align:right;font-weight:bold">75.5</td>
+<td style="padding:8px;font-weight:bold">6177</td>
+<td style="padding:8px">達麗</td>
+<td style="padding:8px;color:#e53e3e;text-align:right">50.40</td>
+<td style="padding:8px;color:#e53e3e;text-align:right">+4.5%</td>
+<td style="padding:8px;text-align:right;font-weight:bold">94.8</td>
 <td style="padding:8px;font-size:11px">
-技術:88 消息:68 籌碼:70 情緒:84 基本:0
+技術:99 消息:65 籌碼:100 情緒:79 基本:93
 </td>
 <td style="padding:8px;font-size:12px">
-進:88.51-90.29<br>
-T1:93.87 T2:98.34 T3:102.81<br>
-停損:84.93
+進:49.59-51.21<br>
+T1:52.03 T2:53.66 T3:55.29<br>
+停損:47.14
 </td>
 <td style="padding:8px;font-weight:bold;color:#2b6cb0">強烈推薦</td>
 </tr><tr style="border-bottom:1px solid #e2e8f0">
 <td style="padding:8px">8</td>
-<td style="padding:8px;font-weight:bold">6415</td>
-<td style="padding:8px">矽力*-KY</td>
-<td style="padding:8px;color:#e53e3e;text-align:right">588.00</td>
+<td style="padding:8px;font-weight:bold">1568</td>
+<td style="padding:8px">倉佑</td>
+<td style="padding:8px;color:#e53e3e;text-align:right">46.05</td>
 <td style="padding:8px;color:#e53e3e;text-align:right">+9.9%</td>
-<td style="padding:8px;text-align:right;font-weight:bold">75.5</td>
+<td style="padding:8px;text-align:right;font-weight:bold">94.5</td>
 <td style="padding:8px;font-size:11px">
-技術:97 消息:70 籌碼:70 情緒:85 基本:0
+技術:100 消息:80 籌碼:100 情緒:86 基本:53
 </td>
 <td style="padding:8px;font-size:12px">
-進:582.12-593.88<br>
-T1:617.4 T2:646.8 T3:676.2<br>
-停損:558.6
+進:44.55-47.54<br>
+T1:49.04 T2:52.03 T3:55.02<br>
+停損:40.07
 </td>
 <td style="padding:8px;font-weight:bold;color:#2b6cb0">強烈推薦</td>
 </tr><tr style="border-bottom:1px solid #e2e8f0">
 <td style="padding:8px">9</td>
-<td style="padding:8px;font-weight:bold">2379</td>
-<td style="padding:8px">瑞昱</td>
-<td style="padding:8px;color:#e53e3e;text-align:right">678.00</td>
-<td style="padding:8px;color:#e53e3e;text-align:right">+6.9%</td>
-<td style="padding:8px;text-align:right;font-weight:bold">74.8</td>
+<td style="padding:8px;font-weight:bold">1725</td>
+<td style="padding:8px">元禎</td>
+<td style="padding:8px;color:#e53e3e;text-align:right">37.45</td>
+<td style="padding:8px;color:#e53e3e;text-align:right">+10.0%</td>
+<td style="padding:8px;text-align:right;font-weight:bold">93.9</td>
 <td style="padding:8px;font-size:11px">
-技術:88 消息:64 籌碼:70 情緒:85 基本:0
+技術:96 消息:80 籌碼:100 情緒:86 基本:61
 </td>
 <td style="padding:8px;font-size:12px">
-進:671.22-684.78<br>
-T1:711.9 T2:745.8 T3:779.7<br>
-停損:644.1
+進:36.67-38.23<br>
+T1:39.02 T2:40.59 T3:42.16<br>
+停損:34.31
 </td>
-<td style="padding:8px;font-weight:bold;color:#2b6cb0">推薦</td>
+<td style="padding:8px;font-weight:bold;color:#2b6cb0">強烈推薦</td>
 </tr><tr style="border-bottom:1px solid #e2e8f0">
 <td style="padding:8px">10</td>
-<td style="padding:8px;font-weight:bold">1714</td>
-<td style="padding:8px">和桐</td>
-<td style="padding:8px;color:#e53e3e;text-align:right">17.95</td>
-<td style="padding:8px;color:#e53e3e;text-align:right">+7.5%</td>
-<td style="padding:8px;text-align:right;font-weight:bold">73.8</td>
+<td style="padding:8px;font-weight:bold">6672</td>
+<td style="padding:8px">騰輝電子-KY</td>
+<td style="padding:8px;color:#e53e3e;text-align:right">245.50</td>
+<td style="padding:8px;color:#e53e3e;text-align:right">+8.4%</td>
+<td style="padding:8px;text-align:right;font-weight:bold">93.5</td>
 <td style="padding:8px;font-size:11px">
-技術:81 消息:65 籌碼:70 情緒:81 基本:0
+技術:100 消息:90 籌碼:100 情緒:68 基本:38
 </td>
 <td style="padding:8px;font-size:12px">
-進:17.77-18.13<br>
-T1:18.85 T2:19.75 T3:20.64<br>
-停損:17.05
+進:238.06-252.94<br>
+T1:260.37 T2:275.24 T3:290.11<br>
+停損:215.76
 </td>
-<td style="padding:8px;font-weight:bold;color:#2b6cb0">推薦</td>
+<td style="padding:8px;font-weight:bold;color:#2b6cb0">強烈推薦</td>
 </tr></tbody></table>
 </div>
 
 <div class="card">
-<h2>📈 爆漲股預測</h2>
-<p>基於五維分析模型 (v2)，下列個股展現強勢突破訊號：</p>
+<h2>🚀 爆漲股預測</h2>
+<p style="font-size:13px;color:#718096">基於五維分析模型 (v2)，下列個股展現強勢突破訊號，具爆漲潛力：</p>
 <table>
-<thead><tr><th>代號</th><th>名稱</th><th>收盤</th><th>漲幅</th><th>總分</th><th>潛在目標</th></tr></thead>
+<thead><tr><th>代號</th><th>名稱</th><th>收盤</th><th>漲幅</th><th>爆漲機率</th></tr></thead>
 <tbody><tr>
-<td style="padding:8px;font-weight:bold">1905</td>
-<td style="padding:8px">華紙</td>
-<td style="padding:8px;color:#e53e3e;text-align:right">14.15</td>
-<td style="padding:8px;color:#e53e3e;text-align:right">+9.7%</td>
-<td style="padding:8px;text-align:right">82.0</td>
-<td style="padding:8px">T1:14.86 T2:15.57 T3:16.27</td>
-</tr><tr>
-<td style="padding:8px;font-weight:bold">2434</td>
-<td style="padding:8px">統懋</td>
-<td style="padding:8px;color:#e53e3e;text-align:right">38.00</td>
+<td style="padding:8px;font-weight:bold">2243</td>
+<td style="padding:8px">宏旭-KY</td>
+<td style="padding:8px;color:#e53e3e;text-align:right">51.70</td>
 <td style="padding:8px;color:#e53e3e;text-align:right">+10.0%</td>
-<td style="padding:8px;text-align:right">80.5</td>
-<td style="padding:8px">T1:39.9 T2:41.8 T3:43.7</td>
+<td style="padding:8px;text-align:right;font-weight:bold">0.4%</td>
 </tr><tr>
-<td style="padding:8px;font-weight:bold">2342</td>
-<td style="padding:8px">茂矽</td>
-<td style="padding:8px;color:#e53e3e;text-align:right">48.05</td>
-<td style="padding:8px;color:#e53e3e;text-align:right">+9.9%</td>
-<td style="padding:8px;text-align:right">80.5</td>
-<td style="padding:8px">T1:50.45 T2:52.86 T3:55.26</td>
-</tr><tr>
-<td style="padding:8px;font-weight:bold">2302</td>
-<td style="padding:8px">麗正</td>
-<td style="padding:8px;color:#e53e3e;text-align:right">41.80</td>
+<td style="padding:8px;font-weight:bold">2305</td>
+<td style="padding:8px">全友</td>
+<td style="padding:8px;color:#e53e3e;text-align:right">33.65</td>
 <td style="padding:8px;color:#e53e3e;text-align:right">+10.0%</td>
-<td style="padding:8px;text-align:right">78.1</td>
-<td style="padding:8px">T1:43.89 T2:45.98 T3:48.07</td>
+<td style="padding:8px;text-align:right;font-weight:bold">0.4%</td>
 </tr><tr>
-<td style="padding:8px;font-weight:bold">6209</td>
-<td style="padding:8px">今國光</td>
-<td style="padding:8px;color:#e53e3e;text-align:right">95.30</td>
+<td style="padding:8px;font-weight:bold">6405</td>
+<td style="padding:8px">悅城</td>
+<td style="padding:8px;color:#e53e3e;text-align:right">71.50</td>
+<td style="padding:8px;color:#e53e3e;text-align:right">+10.0%</td>
+<td style="padding:8px;text-align:right;font-weight:bold">0.3%</td>
+</tr><tr>
+<td style="padding:8px;font-weight:bold">6861</td>
+<td style="padding:8px">睿生光電</td>
+<td style="padding:8px;color:#e53e3e;text-align:right">371.00</td>
 <td style="padding:8px;color:#e53e3e;text-align:right">+9.9%</td>
-<td style="padding:8px;text-align:right">77.9</td>
-<td style="padding:8px">T1:100.06 T2:104.83 T3:109.59</td>
+<td style="padding:8px;text-align:right;font-weight:bold">0.3%</td>
+</tr><tr>
+<td style="padding:8px;font-weight:bold">6830</td>
+<td style="padding:8px">汎銓</td>
+<td style="padding:8px;color:#e53e3e;text-align:right">564.00</td>
+<td style="padding:8px;color:#e53e3e;text-align:right">+9.9%</td>
+<td style="padding:8px;text-align:right;font-weight:bold">0.3%</td>
 </tr></tbody></table>
 </div>
 
 <div class="card">
 <h2>🛡️ 空頭防衛提示</h2>
-<p>大盤掃描: 全市場 1300 檔已完成五維分析。若大盤轉弱，建議降低持股至 30% 以下，優先停損弱勢持股，增加現金部位。</p>
-<p>⚠️ 停損紀律: 個股跌破停損價立即出場，不抱期待。</p>
+<p>全市場 1078 檔已完成五維分析掃描。</p>
+<ul style="font-size:13px;line-height:1.8">
+<li>📉 <strong>風險控管</strong>: 若大盤轉弱，建議降低持股至 30% 以下</li>
+<li>⚠️ <strong>停損紀律</strong>: 個股跌破停損價立即出場，不抱期待</li>
+<li>💰 <strong>現金部位</strong>: 建議保留至少 40% 現金以應對市場波動</li>
+<li>📊 <strong>分散風險</strong>: 單一個股持倉不超過總資金 15%</li>
+</ul>
 </div>
 
 <div class="card">
-<h2>📋 T+N 歷史驗證</h2>
-<p>前次推薦追蹤 (基於前一日 Top 5 之 T+1 報酬):</p>
-<p style="font-size:12px;color:#718096">※ 驗證數據來自 backtest.json，自動於每次掃描更新。</p>
+<h2>📋 T+N 歷史績效追蹤</h2>
+<p style="font-size:12px;color:#718096">最近 5 筆 T+1 驗證記錄 (前日 Top 5 推薦次日報酬):</p>
+<table>
+<thead><tr><th>日期</th><th>代號</th><th>名稱</th><th>前日收盤</th><th>次日收盤</th><th>報酬率</th></tr></thead>
+<tbody><tr>
+<td style="padding:6px">20260618</td>
+<td style="padding:6px;font-weight:bold">2618</td>
+<td style="padding:6px">長榮航</td>
+<td style="padding:6px;text-align:right">42.55</td>
+<td style="padding:6px;text-align:right">42.55</td>
+<td style="padding:6px;text-align:right;color:#38a169;font-weight:bold">+0.00%</td>
+</tr><tr>
+<td style="padding:6px">20260618</td>
+<td style="padding:6px;font-weight:bold">2610</td>
+<td style="padding:6px">華航</td>
+<td style="padding:6px;text-align:right">21.85</td>
+<td style="padding:6px;text-align:right">22.00</td>
+<td style="padding:6px;text-align:right;color:#e53e3e;font-weight:bold">+0.69%</td>
+</tr><tr>
+<td style="padding:6px">20260618</td>
+<td style="padding:6px;font-weight:bold">2431</td>
+<td style="padding:6px">聯昌</td>
+<td style="padding:6px;text-align:right">11.95</td>
+<td style="padding:6px;text-align:right">11.65</td>
+<td style="padding:6px;text-align:right;color:#38a169;font-weight:bold">-2.51%</td>
+</tr><tr>
+<td style="padding:6px">20260618</td>
+<td style="padding:6px;font-weight:bold">2316</td>
+<td style="padding:6px">楠梓電</td>
+<td style="padding:6px;text-align:right">187.00</td>
+<td style="padding:6px;text-align:right">205.50</td>
+<td style="padding:6px;text-align:right;color:#e53e3e;font-weight:bold">+9.89%</td>
+</tr><tr>
+<td style="padding:6px">20260618</td>
+<td style="padding:6px;font-weight:bold">1456</td>
+<td style="padding:6px">怡華</td>
+<td style="padding:6px;text-align:right">15.15</td>
+<td style="padding:6px;text-align:right">15.50</td>
+<td style="padding:6px;text-align:right;color:#e53e3e;font-weight:bold">+2.31%</td>
+</tr></tbody></table>
+<p style="margin-top:12px;font-size:14px">
+近5筆平均報酬: <strong style="color:#e53e3e">+2.08%</strong> | 
+勝率: <strong>3/5 (60%)</strong>
+</p>
 </div>
 
-<div style="text-align:center;color:#a0aec0;font-size:11px;margin-top:30px">
-自動化掃描 · 2026/06/17 更新 · v7.1 籌碼強化版<br>
-資料來源：TWSE OpenAPI · 僅供參考，投資決策請自行判斷
+<div style="text-align:center;color:#a0aec0;font-size:11px;margin-top:30px;padding:20px 0;border-top:1px solid #e2e8f0">
+自動化掃描 · 2026/06/18 更新 · v2 五維模型<br>
+資料來源: TWSE OpenAPI · 僅供參考，投資決策請自行判斷
 </div>
 </body>
 </html>

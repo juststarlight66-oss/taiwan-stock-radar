@@ -2,7 +2,7 @@
   "scan_date": "20260618",
   "scan_date_slash": "2026/06/18",
   "scanned_count": 1078,
-  "generated_at": "2026-06-18T19:22:42.050577+08:00",
+  "generated_at": "2026-06-18T19:21:56.340723+08:00",
   "top10": [
     {
       "stock_id": "6243",
@@ -14,198 +14,53 @@
       "volume": 990524.0,
       "total_score": 98.25,
       "dimensions": {
-        "technical": 100.0,
-        "fundamental": 58.0,
-        "news": 90.0,
-        "sentiment": 85.5,
-        "chips": 100.0
+        "technical": {
+          "score": 100.0,
+          "signal": "bullish"
+        },
+        "chips": {
+          "score": 100.0,
+          "signal": "bullish"
+        },
+        "fundamental": {
+          "score": 58.0,
+          "signal": "bullish"
+        },
+        "news": {
+          "score": 90.0,
+          "signal": "bullish"
+        },
+        "sentiment": {
+          "score": 85.5,
+          "signal": "bullish"
+        }
       },
-      "signals": [
-        "技術面強勢突破",
-        "均線多頭排列",
-        "籌碼集中法人買超",
-        "消息面題材發酵",
-        "市場情緒熱絡",
-        "強勢漲停鎖板"
-      ],
+      "signals": {
+        "rsi": 71.18,
+        "vol_ratio": 4.7284715353388,
+        "ma_trend": "up"
+      },
       "strategy": {
         "entry_low": 34.13,
         "entry_high": 35.67,
         "stop_loss": 31.82,
-        "target1": 36.44,
-        "target2": 37.98,
-        "target3": 39.52,
-        "advice": "強烈推薦",
-        "hold_days": "3-5日",
-        "risk_reward": "1:1.0"
+        "targets": []
       },
       "entry_low": 34.13,
       "entry_high": 35.67,
       "stop_loss": 31.82,
       "targets": {
+        "entry_low": 34.13,
+        "entry_high": 35.67,
+        "stop_loss": 31.82,
         "t1": 36.44,
         "t2": 37.98,
-        "t3": 39.52,
-        "stop_loss": 31.82
+        "t3": 39.52
       },
       "fundamentals": {
         "pe": 0.0,
         "pb": 2.05,
         "dy": 3.44
-      },
-      "recommendation": "強烈推薦"
-    },
-    {
-      "stock_id": "6719",
-      "name": "力智",
-      "market": "TSE",
-      "sector": "半導體業",
-      "close": 260.5,
-      "change_pct": 9.92,
-      "volume": 4105995.0,
-      "total_score": 97.9,
-      "dimensions": {
-        "technical": 100.0,
-        "fundamental": 61.0,
-        "news": 90.0,
-        "sentiment": 77.5,
-        "chips": 100.0
-      },
-      "signals": [
-        "技術面強勢突破",
-        "均線多頭排列",
-        "籌碼集中法人買超",
-        "消息面題材發酵",
-        "市場情緒熱絡",
-        "強勢漲停鎖板"
-      ],
-      "strategy": {
-        "entry_low": 253.15,
-        "entry_high": 267.85,
-        "stop_loss": 231.1,
-        "target1": 275.2,
-        "target2": 289.9,
-        "target3": 304.6,
-        "advice": "強烈推薦",
-        "hold_days": "3-5日",
-        "risk_reward": "1:1.0"
-      },
-      "entry_low": 253.15,
-      "entry_high": 267.85,
-      "stop_loss": 231.1,
-      "targets": {
-        "t1": 275.2,
-        "t2": 289.9,
-        "t3": 304.6,
-        "stop_loss": 231.1
-      },
-      "fundamentals": {
-        "pe": 36.28,
-        "pb": 1.92,
-        "dy": 1.77
-      },
-      "recommendation": "強烈推薦"
-    },
-    {
-      "stock_id": "1708",
-      "name": "東鹼",
-      "market": "TSE",
-      "sector": "化學工業",
-      "close": 50.3,
-      "change_pct": 9.95,
-      "volume": 21194533.0,
-      "total_score": 97.15,
-      "dimensions": {
-        "technical": 100.0,
-        "fundamental": 76.0,
-        "news": 80.0,
-        "sentiment": 77.5,
-        "chips": 100.0
-      },
-      "signals": [
-        "技術面強勢突破",
-        "均線多頭排列",
-        "籌碼集中法人買超",
-        "消息面題材發酵",
-        "市場情緒熱絡",
-        "基本面優質",
-        "強勢漲停鎖板"
-      ],
-      "strategy": {
-        "entry_low": 49.08,
-        "entry_high": 51.52,
-        "stop_loss": 45.42,
-        "target1": 52.74,
-        "target2": 55.18,
-        "target3": 57.62,
-        "advice": "強烈推薦",
-        "hold_days": "3-5日",
-        "risk_reward": "1:1.0"
-      },
-      "entry_low": 49.08,
-      "entry_high": 51.52,
-      "stop_loss": 45.42,
-      "targets": {
-        "t1": 52.74,
-        "t2": 55.18,
-        "t3": 57.62,
-        "stop_loss": 45.42
-      },
-      "fundamentals": {
-        "pe": 14.93,
-        "pb": 1.69,
-        "dy": 3.18
-      },
-      "recommendation": "強烈推薦"
-    },
-    {
-      "stock_id": "8081",
-      "name": "致新",
-      "market": "TSE",
-      "sector": "半導體業",
-      "close": 319.0,
-      "change_pct": 8.69,
-      "volume": 3986055.0,
-      "total_score": 96.67,
-      "dimensions": {
-        "technical": 93.83,
-        "fundamental": 65.0,
-        "news": 90.0,
-        "sentiment": 83.83,
-        "chips": 100.0
-      },
-      "signals": [
-        "技術面強勢突破",
-        "均線多頭排列",
-        "籌碼集中法人買超",
-        "消息面題材發酵",
-        "市場情緒熱絡",
-        "強勢漲停鎖板"
-      ],
-      "strategy": {
-        "entry_low": 312.12,
-        "entry_high": 325.88,
-        "stop_loss": 291.48,
-        "target1": 332.76,
-        "target2": 346.52,
-        "target3": 360.28,
-        "advice": "強烈推薦",
-        "hold_days": "3-5日",
-        "risk_reward": "1:1.0"
-      },
-      "entry_low": 312.12,
-      "entry_high": 325.88,
-      "stop_loss": 291.48,
-      "targets": {
-        "t1": 332.76,
-        "t2": 346.52,
-        "t3": 360.28,
-        "stop_loss": 291.48
-      },
-      "fundamentals": {
-        "pe": 18.16,
-        "pb": 3.77,
-        "dy": 5.02
       },
       "recommendation": "強烈推薦"
     },
@@ -219,39 +74,48 @@
       "volume": 188508912.0,
       "total_score": 96.26,
       "dimensions": {
-        "technical": 100.0,
-        "fundamental": 65.0,
-        "news": 80.0,
-        "sentiment": 85.06,
-        "chips": 100.0
+        "technical": {
+          "score": 100.0,
+          "signal": "bullish"
+        },
+        "chips": {
+          "score": 100.0,
+          "signal": "bullish"
+        },
+        "fundamental": {
+          "score": 65.0,
+          "signal": "bullish"
+        },
+        "news": {
+          "score": 80.0,
+          "signal": "bullish"
+        },
+        "sentiment": {
+          "score": 85.0588235294118,
+          "signal": "bullish"
+        }
       },
-      "signals": [
-        "技術面強勢突破",
-        "均線多頭排列",
-        "籌碼集中法人買超",
-        "消息面題材發酵",
-        "市場情緒熱絡",
-        "強勢漲停鎖板"
-      ],
+      "signals": {
+        "rsi": 72.04,
+        "vol_ratio": 7.087777984080227,
+        "ma_trend": "up"
+      },
       "strategy": {
         "entry_low": 50.61,
         "entry_high": 52.79,
         "stop_loss": 47.34,
-        "target1": 53.88,
-        "target2": 56.06,
-        "target3": 58.24,
-        "advice": "強烈推薦",
-        "hold_days": "3-5日",
-        "risk_reward": "1:1.0"
+        "targets": []
       },
       "entry_low": 50.61,
       "entry_high": 52.79,
       "stop_loss": 47.34,
       "targets": {
+        "entry_low": 50.61,
+        "entry_high": 52.79,
+        "stop_loss": 47.34,
         "t1": 53.88,
         "t2": 56.06,
-        "t3": 58.24,
-        "stop_loss": 47.34
+        "t3": 58.24
       },
       "fundamentals": {
         "pe": 0.0,
@@ -270,39 +134,48 @@
       "volume": 12944781.0,
       "total_score": 95.53,
       "dimensions": {
-        "technical": 98.56,
-        "fundamental": 65.0,
-        "news": 80.0,
-        "sentiment": 83.56,
-        "chips": 100.0
+        "technical": {
+          "score": 98.56451612903226,
+          "signal": "bullish"
+        },
+        "chips": {
+          "score": 100.0,
+          "signal": "bullish"
+        },
+        "fundamental": {
+          "score": 65.0,
+          "signal": "bullish"
+        },
+        "news": {
+          "score": 80.0,
+          "signal": "bullish"
+        },
+        "sentiment": {
+          "score": 83.56451612903226,
+          "signal": "bullish"
+        }
       },
-      "signals": [
-        "技術面強勢突破",
-        "均線多頭排列",
-        "籌碼集中法人買超",
-        "消息面題材發酵",
-        "市場情緒熱絡",
-        "強勢漲停鎖板"
-      ],
+      "signals": {
+        "rsi": 71.87,
+        "vol_ratio": 3.8389747495282385,
+        "ma_trend": "up"
+      },
       "strategy": {
         "entry_low": 9.07,
         "entry_high": 9.45,
         "stop_loss": 8.52,
-        "target1": 9.63,
-        "target2": 10.0,
-        "target3": 10.37,
-        "advice": "強烈推薦",
-        "hold_days": "3-5日",
-        "risk_reward": "1:1.0"
+        "targets": []
       },
       "entry_low": 9.07,
       "entry_high": 9.45,
       "stop_loss": 8.52,
       "targets": {
+        "entry_low": 9.07,
+        "entry_high": 9.45,
+        "stop_loss": 8.52,
         "t1": 9.63,
         "t2": 10.0,
-        "t3": 10.37,
-        "stop_loss": 8.52
+        "t3": 10.37
       },
       "fundamentals": {
         "pe": 0.0,
@@ -321,39 +194,48 @@
       "volume": 265579.0,
       "total_score": 95.4,
       "dimensions": {
-        "technical": 100.0,
-        "fundamental": 93.0,
-        "news": 65.0,
-        "sentiment": 79.5,
-        "chips": 100.0
+        "technical": {
+          "score": 100.0,
+          "signal": "bullish"
+        },
+        "chips": {
+          "score": 100.0,
+          "signal": "bullish"
+        },
+        "fundamental": {
+          "score": 93.0,
+          "signal": "bullish"
+        },
+        "news": {
+          "score": 65.0,
+          "signal": "bullish"
+        },
+        "sentiment": {
+          "score": 79.5,
+          "signal": "bullish"
+        }
       },
-      "signals": [
-        "技術面強勢突破",
-        "均線多頭排列",
-        "籌碼集中法人買超",
-        "市場情緒熱絡",
-        "基本面優質",
-        "量價齊揚"
-      ],
+      "signals": {
+        "rsi": 75.86,
+        "vol_ratio": 3.0747064557732875,
+        "ma_trend": "up"
+      },
       "strategy": {
         "entry_low": 53.95,
         "entry_high": 55.05,
         "stop_loss": 52.32,
-        "target1": 55.59,
-        "target2": 56.68,
-        "target3": 57.77,
-        "advice": "強烈推薦",
-        "hold_days": "3-5日",
-        "risk_reward": "1:1.0"
+        "targets": []
       },
       "entry_low": 53.95,
       "entry_high": 55.05,
       "stop_loss": 52.32,
       "targets": {
+        "entry_low": 53.95,
+        "entry_high": 55.05,
+        "stop_loss": 52.32,
         "t1": 55.59,
         "t2": 56.68,
-        "t3": 57.77,
-        "stop_loss": 52.32
+        "t3": 57.77
       },
       "fundamentals": {
         "pe": 9.22,
@@ -372,39 +254,48 @@
       "volume": 2758613.0,
       "total_score": 95.23,
       "dimensions": {
-        "technical": 98.05,
-        "fundamental": 50.0,
-        "news": 90.0,
-        "sentiment": 75.05,
-        "chips": 100.0
+        "technical": {
+          "score": 98.05102040816325,
+          "signal": "bullish"
+        },
+        "chips": {
+          "score": 100.0,
+          "signal": "bullish"
+        },
+        "fundamental": {
+          "score": 50.0,
+          "signal": "bullish"
+        },
+        "news": {
+          "score": 90.0,
+          "signal": "bullish"
+        },
+        "sentiment": {
+          "score": 75.05102040816325,
+          "signal": "bullish"
+        }
       },
-      "signals": [
-        "技術面強勢突破",
-        "均線多頭排列",
-        "籌碼集中法人買超",
-        "消息面題材發酵",
-        "市場情緒熱絡",
-        "強勢漲停鎖板"
-      ],
+      "signals": {
+        "rsi": 64.52,
+        "vol_ratio": 2.1116450713842285,
+        "ma_trend": "up"
+      },
       "strategy": {
         "entry_low": 56.53,
         "entry_high": 60.27,
         "stop_loss": 50.92,
-        "target1": 62.14,
-        "target2": 65.88,
-        "target3": 69.62,
-        "advice": "強烈推薦",
-        "hold_days": "3-5日",
-        "risk_reward": "1:1.0"
+        "targets": []
       },
       "entry_low": 56.53,
       "entry_high": 60.27,
       "stop_loss": 50.92,
       "targets": {
+        "entry_low": 56.53,
+        "entry_high": 60.27,
+        "stop_loss": 50.92,
         "t1": 62.14,
         "t2": 65.88,
-        "t3": 69.62,
-        "stop_loss": 50.92
+        "t3": 69.62
       },
       "fundamentals": {
         "pe": 0.0,
@@ -423,44 +314,113 @@
       "volume": 17090675.0,
       "total_score": 95.2,
       "dimensions": {
-        "technical": 100.0,
-        "fundamental": 43.0,
-        "news": 90.0,
-        "sentiment": 77.5,
-        "chips": 100.0
+        "technical": {
+          "score": 100.0,
+          "signal": "bullish"
+        },
+        "chips": {
+          "score": 100.0,
+          "signal": "bullish"
+        },
+        "fundamental": {
+          "score": 43.0,
+          "signal": "bullish"
+        },
+        "news": {
+          "score": 90.0,
+          "signal": "bullish"
+        },
+        "sentiment": {
+          "score": 77.5,
+          "signal": "bullish"
+        }
       },
-      "signals": [
-        "技術面強勢突破",
-        "均線多頭排列",
-        "籌碼集中法人買超",
-        "消息面題材發酵",
-        "市場情緒熱絡",
-        "強勢漲停鎖板"
-      ],
+      "signals": {
+        "rsi": 66.8,
+        "vol_ratio": 2.4759010467939566,
+        "ma_trend": "up"
+      },
       "strategy": {
         "entry_low": 228.44,
         "entry_high": 241.56,
         "stop_loss": 208.78,
-        "target1": 248.11,
-        "target2": 261.22,
-        "target3": 274.33,
-        "advice": "強烈推薦",
-        "hold_days": "3-5日",
-        "risk_reward": "1:1.0"
+        "targets": []
       },
       "entry_low": 228.44,
       "entry_high": 241.56,
       "stop_loss": 208.78,
       "targets": {
+        "entry_low": 228.44,
+        "entry_high": 241.56,
+        "stop_loss": 208.78,
         "t1": 248.11,
         "t2": 261.22,
-        "t3": 274.33,
-        "stop_loss": 208.78
+        "t3": 274.33
       },
       "fundamentals": {
         "pe": 35.13,
         "pb": 5.2,
         "dy": 1.79
+      },
+      "recommendation": "強烈推薦"
+    },
+    {
+      "stock_id": "6177",
+      "name": "達麗",
+      "market": "TSE",
+      "sector": "建材營造",
+      "close": 50.4,
+      "change_pct": 4.46,
+      "volume": 8039039.0,
+      "total_score": 94.84,
+      "dimensions": {
+        "technical": {
+          "score": 98.77586206896551,
+          "signal": "bullish"
+        },
+        "chips": {
+          "score": 100.0,
+          "signal": "bullish"
+        },
+        "fundamental": {
+          "score": 93.0,
+          "signal": "bullish"
+        },
+        "news": {
+          "score": 65.0,
+          "signal": "bullish"
+        },
+        "sentiment": {
+          "score": 78.77586206896551,
+          "signal": "bullish"
+        }
+      },
+      "signals": {
+        "rsi": 84.4,
+        "vol_ratio": 3.1814075786388374,
+        "ma_trend": "up"
+      },
+      "strategy": {
+        "entry_low": 49.59,
+        "entry_high": 51.21,
+        "stop_loss": 47.14,
+        "targets": []
+      },
+      "entry_low": 49.59,
+      "entry_high": 51.21,
+      "stop_loss": 47.14,
+      "targets": {
+        "entry_low": 49.59,
+        "entry_high": 51.21,
+        "stop_loss": 47.14,
+        "t1": 52.03,
+        "t2": 53.66,
+        "t3": 55.29
+      },
+      "fundamentals": {
+        "pe": 6.75,
+        "pb": 1.87,
+        "dy": 5.95
       },
       "recommendation": "強烈推薦"
     },
@@ -474,39 +434,48 @@
       "volume": 4203808.0,
       "total_score": 94.5,
       "dimensions": {
-        "technical": 100.0,
-        "fundamental": 53.0,
-        "news": 80.0,
-        "sentiment": 85.5,
-        "chips": 100.0
+        "technical": {
+          "score": 100.0,
+          "signal": "bullish"
+        },
+        "chips": {
+          "score": 100.0,
+          "signal": "bullish"
+        },
+        "fundamental": {
+          "score": 53.0,
+          "signal": "bullish"
+        },
+        "news": {
+          "score": 80.0,
+          "signal": "bullish"
+        },
+        "sentiment": {
+          "score": 85.5,
+          "signal": "bullish"
+        }
       },
-      "signals": [
-        "技術面強勢突破",
-        "均線多頭排列",
-        "籌碼集中法人買超",
-        "消息面題材發酵",
-        "市場情緒熱絡",
-        "強勢漲停鎖板"
-      ],
+      "signals": {
+        "rsi": 66.71,
+        "vol_ratio": 10.525850857605574,
+        "ma_trend": "up"
+      },
       "strategy": {
         "entry_low": 44.55,
         "entry_high": 47.54,
         "stop_loss": 40.07,
-        "target1": 49.04,
-        "target2": 52.03,
-        "target3": 55.02,
-        "advice": "強烈推薦",
-        "hold_days": "3-5日",
-        "risk_reward": "1:1.0"
+        "targets": []
       },
       "entry_low": 44.55,
       "entry_high": 47.54,
       "stop_loss": 40.07,
       "targets": {
+        "entry_low": 44.55,
+        "entry_high": 47.54,
+        "stop_loss": 40.07,
         "t1": 49.04,
         "t2": 52.03,
-        "t3": 55.02,
-        "stop_loss": 40.07
+        "t3": 55.02
       },
       "fundamentals": {
         "pe": 34.37,
@@ -514,16 +483,136 @@
         "dy": 2.17
       },
       "recommendation": "強烈推薦"
+    },
+    {
+      "stock_id": "1725",
+      "name": "元禎",
+      "market": "TSE",
+      "sector": "化學工業",
+      "close": 37.45,
+      "change_pct": 9.99,
+      "volume": 767095.0,
+      "total_score": 93.9,
+      "dimensions": {
+        "technical": {
+          "score": 95.5,
+          "signal": "bullish"
+        },
+        "chips": {
+          "score": 100.0,
+          "signal": "bullish"
+        },
+        "fundamental": {
+          "score": 61.0,
+          "signal": "bullish"
+        },
+        "news": {
+          "score": 80.0,
+          "signal": "bullish"
+        },
+        "sentiment": {
+          "score": 85.5,
+          "signal": "bullish"
+        }
+      },
+      "signals": {
+        "rsi": 84.0,
+        "vol_ratio": 3.2524063554410216,
+        "ma_trend": "up"
+      },
+      "strategy": {
+        "entry_low": 36.67,
+        "entry_high": 38.23,
+        "stop_loss": 34.31,
+        "targets": []
+      },
+      "entry_low": 36.67,
+      "entry_high": 38.23,
+      "stop_loss": 34.31,
+      "targets": {
+        "entry_low": 36.67,
+        "entry_high": 38.23,
+        "stop_loss": 34.31,
+        "t1": 39.02,
+        "t2": 40.59,
+        "t3": 42.16
+      },
+      "fundamentals": {
+        "pe": 23.12,
+        "pb": 1.01,
+        "dy": 2.86
+      },
+      "recommendation": "強烈推薦"
+    },
+    {
+      "stock_id": "6672",
+      "name": "騰輝電子-KY",
+      "market": "TSE",
+      "sector": "電子零組件業",
+      "close": 245.5,
+      "change_pct": 8.39,
+      "volume": 7230125.0,
+      "total_score": 93.55,
+      "dimensions": {
+        "technical": {
+          "score": 100.0,
+          "signal": "bullish"
+        },
+        "chips": {
+          "score": 100.0,
+          "signal": "bullish"
+        },
+        "fundamental": {
+          "score": 38.0,
+          "signal": "neutral"
+        },
+        "news": {
+          "score": 90.0,
+          "signal": "bullish"
+        },
+        "sentiment": {
+          "score": 68.5,
+          "signal": "bullish"
+        }
+      },
+      "signals": {
+        "rsi": 68.78,
+        "vol_ratio": 1.5976705173322379,
+        "ma_trend": "up"
+      },
+      "strategy": {
+        "entry_low": 238.06,
+        "entry_high": 252.94,
+        "stop_loss": 215.76,
+        "targets": []
+      },
+      "entry_low": 238.06,
+      "entry_high": 252.94,
+      "stop_loss": 215.76,
+      "targets": {
+        "entry_low": 238.06,
+        "entry_high": 252.94,
+        "stop_loss": 215.76,
+        "t1": 260.37,
+        "t2": 275.24,
+        "t3": 290.11
+      },
+      "fundamentals": {
+        "pe": 44.39,
+        "pb": 4.72,
+        "dy": 1.36
+      },
+      "recommendation": "強烈推薦"
     }
   ],
   "explode_top5": [
     {
-      "stock_id": "3090",
-      "name": "日電貿",
-      "close": 332.5,
-      "volume": 23571289.0,
-      "change_pct": 9.92,
-      "explode_prob": 0.374
+      "stock_id": "2243",
+      "name": "宏旭-KY",
+      "close": 51.7,
+      "volume": 1614835.0,
+      "change_pct": 10.0,
+      "explode_prob": 0.378
     },
     {
       "stock_id": "2305",
@@ -531,37 +620,37 @@
       "close": 33.65,
       "volume": 9123312.0,
       "change_pct": 9.97,
-      "explode_prob": 0.372
+      "explode_prob": 0.365
     },
     {
-      "stock_id": "2243",
-      "name": "宏旭-KY",
-      "close": 51.7,
-      "volume": 1614835.0,
+      "stock_id": "6405",
+      "name": "悅城",
+      "close": 71.5,
+      "volume": 714399.0,
       "change_pct": 10.0,
-      "explode_prob": 0.371
+      "explode_prob": 0.334
     },
     {
-      "stock_id": "6909",
-      "name": "創控",
-      "close": 50.9,
-      "volume": 536234.0,
+      "stock_id": "6861",
+      "name": "睿生光電",
+      "close": 371.0,
+      "volume": 1470777.0,
+      "change_pct": 9.93,
+      "explode_prob": 0.333
+    },
+    {
+      "stock_id": "6830",
+      "name": "汎銓",
+      "close": 564.0,
+      "volume": 851108.0,
       "change_pct": 9.94,
-      "explode_prob": 0.369
-    },
-    {
-      "stock_id": "1708",
-      "name": "東鹼",
-      "close": 50.3,
-      "volume": 21194533.0,
-      "change_pct": 9.95,
-      "explode_prob": 0.364
+      "explode_prob": 0.328
     }
   ],
   "market_summary": {
-    "avg_score": 64.03,
-    "bullish_count": 584,
-    "bearish_count": 396,
-    "flat_count": 98
+    "avg_score": 63.4,
+    "bullish_count": 256,
+    "bearish_count": 3,
+    "flat_count": 819
   }
 }

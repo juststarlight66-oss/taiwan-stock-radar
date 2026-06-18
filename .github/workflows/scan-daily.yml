@@ -1,14 +1,14 @@
 name: Daily Market Scan
 
 on:
-  schedule:
-    - cron: '0 11 * * 1-5'  # \u6bcf\u65e5\u53f0\u7063\u6642\u9593 19:00\uff08UTC+8 = UTC 11:00\uff09\uff0c\u50c5\u9031\u4e00\u81f3\u9031\u4e94
   workflow_dispatch:
     inputs:
       scan_date:
         description: 'Scan date YYYYMMDD'
         required: false
         default: ''
+  push:
+    branches: [main]
 
 jobs:
   scan:
@@ -36,6 +36,21 @@ jobs:
         run: |
           mkdir -p /home/runner/work/tasks/shared
           echo "def run_backtest(stock_id, strategy='all', days=60): return {}" > /home/runner/work/tasks/shared/per_stock_backtest.py
+
+      - name: Pre-scan: check repo is clean
+        run: |
+          if ! git diff --quiet; then
+            echo "::error::Working directory is dirty before scan - aborting"
+            git status --porcelain
+            exit 1
+          fi
+          for f in public/data/intraday.json public/data/latest.json public/data/all_scores.json; do
+            if [ -f "$f" ] && grep -q '^<<<<<<<' "$f" 2>/dev/null; then
+              echo "::error::$f contains git conflict markers"
+              exit 1
+            fi
+          done
+          echo "Repo is clean."
 
       - name: Run scan
         run: python tasks/2255/scan_market.py
