@@ -56,6 +56,7 @@ jobs:
         run: python tasks/2255/scan_market.py
         env:
           PYTHONPATH: /home/runner/work
+          SCAN_DATE: ${{ github.event.inputs.scan_date }}
 
       - name: Normalize and process results
         run: python tasks/2255/normalize_and_process.py
