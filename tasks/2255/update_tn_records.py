@@ -216,7 +216,8 @@ def step1_add_today_top10(backtest: dict, latest: dict) -> bool:
         return False
 
     records: list = backtest.setdefault('records', [])
-    existing_dates = {r['entry_date'] for r in records}
+    # Only consider records that have entry_date (skip verification/eval records)
+    existing_dates = {r['entry_date'] for r in records if 'entry_date' in r}
     if scan_date in existing_dates:
         print(f'[INFO] {scan_date} already in records — skipping step1')
         return False
@@ -312,6 +313,8 @@ def step3_rebuild_grouped(backtest: dict) -> None:
     records = backtest.get('records', [])
     by_date: dict[str, list] = defaultdict(list)
     for rec in records:
+        if 'entry_date' not in rec:
+            continue  # skip verification records (eval_date schema)
         by_date[rec['entry_date']].append(rec)
 
     grouped = []
