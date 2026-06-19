@@ -78,19 +78,19 @@ jobs:
           ls -la public/data/
 
           # Patch scanned_count in latest.json to match actual all_scores.json count
-          python3 -c "
-import json, sys
-try:
-    with open('public/data/all_scores.json') as f: all_scores = json.load(f)
-    actual_list = all_scores if isinstance(all_scores, list) else all_scores.get('all_stock_scores', all_scores.get('stocks', []))
-    with open('public/data/latest.json') as f: latest = json.load(f)
-    old = latest.get('scanned_count', 0)
-    latest['scanned_count'] = len(actual_list)
-    with open('public/data/latest.json', 'w') as f: json.dump(latest, f, ensure_ascii=False)
-    print(f'[deploy] Patched scanned_count: {old} -> {len(actual_list)}')
-except Exception as e:
-    print(f'[deploy] Patch failed (non-fatal): {e}')
-"
+          python3 << 'PYEOF'
+import json
+with open('public/data/all_scores.json') as f:
+    all_scores = json.load(f)
+actual_list = all_scores if isinstance(all_scores, list) else all_scores.get('all_stock_scores', all_scores.get('stocks', []))
+with open('public/data/latest.json') as f:
+    latest = json.load(f)
+old = latest.get('scanned_count', 0)
+latest['scanned_count'] = len(actual_list)
+with open('public/data/latest.json', 'w') as f:
+    json.dump(latest, f, ensure_ascii=False)
+print(f'[deploy] Patched scanned_count: {old} -> {len(actual_list)}')
+PYEOF
 
       - name: Install dependencies
         run: npm ci --no-fund --no-audit
