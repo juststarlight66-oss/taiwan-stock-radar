@@ -161,9 +161,14 @@ def _is_trading_day(d: datetime.date) -> bool:
 
 def _nth_trading_day_after(start_date_str: str, n: int) -> str:
     """Return the date string of the n-th trading day after start_date_str."""
-    try:
-        d = datetime.strptime(start_date_str, '%Y-%m-%d').date()
-    except ValueError:
+    # Support both YYYY-MM-DD and YYYYMMDD formats
+    for fmt in ('%Y-%m-%d', '%Y%m%d'):
+        try:
+            d = datetime.strptime(start_date_str, fmt).date()
+            break
+        except ValueError:
+            continue
+    else:
         return ''
     count = 0
     while count < n:
