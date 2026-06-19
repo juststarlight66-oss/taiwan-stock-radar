@@ -2,7 +2,7 @@
   "scan_date": "20260618",
   "scan_date_slash": "2026/06/18",
   "scanned_count": 1078,
-  "generated_at": "2026-06-19T02:19:00+08:00",
+  "generated_at": "2026-06-19T10:19:01+08:00",
   "top10": [
     {
       "stock_id": "6243",
@@ -14,14 +14,29 @@
       "volume": 990524.0,
       "total_score": 98.25,
       "dimensions": {
-        "technical": {"score": 100.0, "signal": "bullish"},
-        "chips": {"score": 100.0, "signal": "bullish"},
-        "fundamental": {"score": 58.0, "signal": "neutral"},
-        "news": {"score": 90.0, "signal": "bullish"},
-        "sentiment": {"score": 85.5, "signal": "bullish"}
+        "technical": {
+          "score": 100.0,
+          "signal": "bullish"
+        },
+        "chips": {
+          "score": 100.0,
+          "signal": "bullish"
+        },
+        "fundamental": {
+          "score": 58.0,
+          "signal": "neutral"
+        },
+        "news": {
+          "score": 90.0,
+          "signal": "bullish"
+        },
+        "sentiment": {
+          "score": 85.5,
+          "signal": "bullish"
+        }
       },
-      "target_price": 38.39,
-      "stop_loss": 33.15,
+      "target_price": 36.44,
+      "stop_loss": 31.82,
       "holding_days": 5
     },
     {
@@ -31,17 +46,32 @@
       "sector": "塑膠工業",
       "close": 51.7,
       "change_pct": 7.82,
-      "volume": 187944477.0,
+      "volume": 188508912.0,
       "total_score": 96.26,
       "dimensions": {
-        "technical": {"score": 95.0, "signal": "bullish"},
-        "chips": {"score": 98.0, "signal": "bullish"},
-        "fundamental": {"score": 60.0, "signal": "neutral"},
-        "news": {"score": 92.0, "signal": "bullish"},
-        "sentiment": {"score": 88.3, "signal": "bullish"}
+        "technical": {
+          "score": 100.0,
+          "signal": "bullish"
+        },
+        "chips": {
+          "score": 100.0,
+          "signal": "bullish"
+        },
+        "fundamental": {
+          "score": 65.0,
+          "signal": "neutral"
+        },
+        "news": {
+          "score": 80.0,
+          "signal": "bullish"
+        },
+        "sentiment": {
+          "score": 85.0588235294118,
+          "signal": "bullish"
+        }
       },
-      "target_price": 55.01,
-      "stop_loss": 49.37,
+      "target_price": 53.88,
+      "stop_loss": 47.34,
       "holding_days": 5
     },
     {
@@ -50,18 +80,33 @@
       "market": "TSE",
       "sector": "塑膠工業",
       "close": 9.26,
-      "change_pct": 6.5,
-      "volume": 26300285.0,
+      "change_pct": 6.31,
+      "volume": 12944781.0,
       "total_score": 95.53,
       "dimensions": {
-        "technical": {"score": 95.0, "signal": "bullish"},
-        "chips": {"score": 98.0, "signal": "bullish"},
-        "fundamental": {"score": 58.0, "signal": "neutral"},
-        "news": {"score": 90.0, "signal": "bullish"},
-        "sentiment": {"score": 86.65, "signal": "bullish"}
+        "technical": {
+          "score": 98.56451612903226,
+          "signal": "bullish"
+        },
+        "chips": {
+          "score": 100.0,
+          "signal": "bullish"
+        },
+        "fundamental": {
+          "score": 65.0,
+          "signal": "neutral"
+        },
+        "news": {
+          "score": 80.0,
+          "signal": "bullish"
+        },
+        "sentiment": {
+          "score": 83.56451612903226,
+          "signal": "bullish"
+        }
       },
-      "target_price": 9.86,
-      "stop_loss": 8.83,
+      "target_price": 9.63,
+      "stop_loss": 8.52,
       "holding_days": 5
     },
     {
@@ -70,18 +115,33 @@
       "market": "TSE",
       "sector": "電器電纜",
       "close": 54.5,
-      "change_pct": 4.41,
-      "volume": 1171000.0,
+      "change_pct": 3.02,
+      "volume": 265579.0,
       "total_score": 95.4,
       "dimensions": {
-        "technical": {"score": 95.0, "signal": "bullish"},
-        "chips": {"score": 98.0, "signal": "bullish"},
-        "fundamental": {"score": 58.0, "signal": "neutral"},
-        "news": {"score": 90.0, "signal": "bullish"},
-        "sentiment": {"score": 86.0, "signal": "bullish"}
+        "technical": {
+          "score": 100.0,
+          "signal": "bullish"
+        },
+        "chips": {
+          "score": 100.0,
+          "signal": "bullish"
+        },
+        "fundamental": {
+          "score": 93.0,
+          "signal": "neutral"
+        },
+        "news": {
+          "score": 65.0,
+          "signal": "bullish"
+        },
+        "sentiment": {
+          "score": 79.5,
+          "signal": "bullish"
+        }
       },
-      "target_price": 58.0,
-      "stop_loss": 52.03,
+      "target_price": 55.59,
+      "stop_loss": 52.32,
       "holding_days": 5
     },
     {
@@ -90,18 +150,33 @@
       "market": "TSE",
       "sector": "半導體業",
       "close": 58.4,
-      "change_pct": 4.94,
-      "volume": 12828000.0,
+      "change_pct": 7.16,
+      "volume": 2758613.0,
       "total_score": 95.23,
       "dimensions": {
-        "technical": {"score": 95.0, "signal": "bullish"},
-        "chips": {"score": 98.0, "signal": "bullish"},
-        "fundamental": {"score": 58.0, "signal": "neutral"},
-        "news": {"score": 90.0, "signal": "bullish"},
-        "sentiment": {"score": 85.13, "signal": "bullish"}
+        "technical": {
+          "score": 98.05102040816325,
+          "signal": "bullish"
+        },
+        "chips": {
+          "score": 100.0,
+          "signal": "bullish"
+        },
+        "fundamental": {
+          "score": 50.0,
+          "signal": "neutral"
+        },
+        "news": {
+          "score": 90.0,
+          "signal": "bullish"
+        },
+        "sentiment": {
+          "score": 75.05102040816325,
+          "signal": "bullish"
+        }
       },
-      "target_price": 62.15,
-      "stop_loss": 55.77,
+      "target_price": 62.14,
+      "stop_loss": 50.92,
       "holding_days": 5
     },
     {
@@ -111,17 +186,32 @@
       "sector": "半導體業",
       "close": 235.0,
       "change_pct": 9.81,
-      "volume": 59717883.0,
+      "volume": 17090675.0,
       "total_score": 95.2,
       "dimensions": {
-        "technical": {"score": 95.0, "signal": "bullish"},
-        "chips": {"score": 98.0, "signal": "bullish"},
-        "fundamental": {"score": 58.0, "signal": "neutral"},
-        "news": {"score": 90.0, "signal": "bullish"},
-        "sentiment": {"score": 85.0, "signal": "bullish"}
+        "technical": {
+          "score": 100.0,
+          "signal": "bullish"
+        },
+        "chips": {
+          "score": 100.0,
+          "signal": "bullish"
+        },
+        "fundamental": {
+          "score": 43.0,
+          "signal": "neutral"
+        },
+        "news": {
+          "score": 90.0,
+          "signal": "bullish"
+        },
+        "sentiment": {
+          "score": 77.5,
+          "signal": "bullish"
+        }
       },
-      "target_price": 258.41,
-      "stop_loss": 220.85,
+      "target_price": 248.11,
+      "stop_loss": 208.78,
       "holding_days": 5
     },
     {
@@ -130,18 +220,33 @@
       "market": "TSE",
       "sector": "建材營造",
       "close": 50.4,
-      "change_pct": 5.0,
-      "volume": 4135961.0,
+      "change_pct": 4.46,
+      "volume": 8039039.0,
       "total_score": 94.84,
       "dimensions": {
-        "technical": {"score": 95.0, "signal": "bullish"},
-        "chips": {"score": 95.0, "signal": "bullish"},
-        "fundamental": {"score": 58.0, "signal": "neutral"},
-        "news": {"score": 90.0, "signal": "bullish"},
-        "sentiment": {"score": 86.18, "signal": "bullish"}
+        "technical": {
+          "score": 98.77586206896551,
+          "signal": "bullish"
+        },
+        "chips": {
+          "score": 100.0,
+          "signal": "bullish"
+        },
+        "fundamental": {
+          "score": 93.0,
+          "signal": "neutral"
+        },
+        "news": {
+          "score": 65.0,
+          "signal": "bullish"
+        },
+        "sentiment": {
+          "score": 78.77586206896551,
+          "signal": "bullish"
+        }
       },
-      "target_price": 54.36,
-      "stop_loss": 47.38,
+      "target_price": 52.03,
+      "stop_loss": 47.14,
       "holding_days": 5
     },
     {
@@ -150,18 +255,33 @@
       "market": "TSE",
       "sector": "汽車工業",
       "close": 46.05,
-      "change_pct": 5.38,
-      "volume": 8351740.0,
+      "change_pct": 9.9,
+      "volume": 4203808.0,
       "total_score": 94.5,
       "dimensions": {
-        "technical": {"score": 95.0, "signal": "bullish"},
-        "chips": {"score": 95.0, "signal": "bullish"},
-        "fundamental": {"score": 58.0, "signal": "neutral"},
-        "news": {"score": 90.0, "signal": "bullish"},
-        "sentiment": {"score": 84.5, "signal": "bullish"}
+        "technical": {
+          "score": 100.0,
+          "signal": "bullish"
+        },
+        "chips": {
+          "score": 100.0,
+          "signal": "bullish"
+        },
+        "fundamental": {
+          "score": 53.0,
+          "signal": "neutral"
+        },
+        "news": {
+          "score": 80.0,
+          "signal": "bullish"
+        },
+        "sentiment": {
+          "score": 85.5,
+          "signal": "bullish"
+        }
       },
-      "target_price": 49.65,
-      "stop_loss": 43.29,
+      "target_price": 49.04,
+      "stop_loss": 40.07,
       "holding_days": 5
     },
     {
@@ -170,18 +290,33 @@
       "market": "TSE",
       "sector": "化學工業",
       "close": 37.45,
-      "change_pct": 0.81,
-      "volume": 192500.0,
+      "change_pct": 9.99,
+      "volume": 767095.0,
       "total_score": 93.9,
       "dimensions": {
-        "technical": {"score": 95.0, "signal": "bullish"},
-        "chips": {"score": 95.0, "signal": "bullish"},
-        "fundamental": {"score": 58.0, "signal": "neutral"},
-        "news": {"score": 90.0, "signal": "bullish"},
-        "sentiment": {"score": 81.5, "signal": "bullish"}
+        "technical": {
+          "score": 95.5,
+          "signal": "bullish"
+        },
+        "chips": {
+          "score": 100.0,
+          "signal": "bullish"
+        },
+        "fundamental": {
+          "score": 61.0,
+          "signal": "neutral"
+        },
+        "news": {
+          "score": 80.0,
+          "signal": "bullish"
+        },
+        "sentiment": {
+          "score": 85.5,
+          "signal": "bullish"
+        }
       },
-      "target_price": 40.38,
-      "stop_loss": 35.2,
+      "target_price": 39.02,
+      "stop_loss": 34.31,
       "holding_days": 5
     },
     {
@@ -190,18 +325,33 @@
       "market": "TSE",
       "sector": "電子零組件業",
       "close": 245.5,
-      "change_pct": 5.59,
-      "volume": 2895710.0,
+      "change_pct": 8.39,
+      "volume": 7230125.0,
       "total_score": 93.55,
       "dimensions": {
-        "technical": {"score": 95.0, "signal": "bullish"},
-        "chips": {"score": 95.0, "signal": "bullish"},
-        "fundamental": {"score": 58.0, "signal": "neutral"},
-        "news": {"score": 90.0, "signal": "bullish"},
-        "sentiment": {"score": 79.75, "signal": "bullish"}
+        "technical": {
+          "score": 100.0,
+          "signal": "bullish"
+        },
+        "chips": {
+          "score": 100.0,
+          "signal": "bullish"
+        },
+        "fundamental": {
+          "score": 38.0,
+          "signal": "neutral"
+        },
+        "news": {
+          "score": 90.0,
+          "signal": "bullish"
+        },
+        "sentiment": {
+          "score": 68.5,
+          "signal": "bullish"
+        }
       },
-      "target_price": 264.66,
-      "stop_loss": 228.51,
+      "target_price": 260.37,
+      "stop_loss": 215.76,
       "holding_days": 5
     }
   ],
@@ -215,42 +365,42 @@
       "explode_prob": 0.378
     },
     {
-      "stock_id": "2109",
-      "name": "華豐",
-      "close": 14.65,
-      "volume": 190000.0,
-      "change_pct": 2.27,
-      "explode_prob": 0.35
+      "stock_id": "2305",
+      "name": "全友",
+      "close": 33.65,
+      "volume": 9123312.0,
+      "change_pct": 9.97,
+      "explode_prob": 0.365
     },
     {
-      "stock_id": "2740",
-      "name": "天蔥",
-      "close": 28.45,
-      "volume": 48000.0,
-      "change_pct": 2.34,
-      "explode_prob": 0.329
+      "stock_id": "6405",
+      "name": "悅城",
+      "close": 71.5,
+      "volume": 714399.0,
+      "change_pct": 10.0,
+      "explode_prob": 0.334
     },
     {
-      "stock_id": "3236",
-      "name": "千如",
-      "close": 34.0,
-      "volume": 13873000.0,
-      "change_pct": 4.29,
-      "explode_prob": 0.315
+      "stock_id": "6861",
+      "name": "睿生光電",
+      "close": 371.0,
+      "volume": 1470777.0,
+      "change_pct": 9.93,
+      "explode_prob": 0.333
     },
     {
-      "stock_id": "2105",
-      "name": "正新",
-      "close": 29.7,
-      "volume": 3814000.0,
-      "change_pct": 3.66,
-      "explode_prob": 0.301
+      "stock_id": "6830",
+      "name": "汎銓",
+      "close": 564.0,
+      "volume": 851108.0,
+      "change_pct": 9.94,
+      "explode_prob": 0.328
     }
   ],
   "market_summary": {
-    "avg_score": 45.2,
-    "bullish_count": 312,
-    "bearish_count": 412,
-    "flat_count": 354
+    "avg_score": 63.4,
+    "bullish_count": 374,
+    "bearish_count": 170,
+    "flat_count": 534
   }
 }
