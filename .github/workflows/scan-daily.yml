@@ -7,13 +7,6 @@ on:
         description: 'Scan date YYYYMMDD'
         required: false
         default: ''
-  push:
-    branches: [main]
-    paths-ignore:
-      - 'tasks/2255/**'
-      - 'public/data/**'
-      - 'e3_backtest_*.json'
-      - 'gh-pages/**'
 
 jobs:
   scan:
