@@ -49,6 +49,20 @@ export function useLatestScan() {
     fetcher,
     swrConfig
   );
+  // Normalize stocks so downstream components always get clean ScanStock objects
+  if (data) {
+    const topStocks = (data.top10 ?? data.top_stocks ?? []).map(normalizeStock);
+    return {
+      data: {
+        ...data,
+        top10: topStocks,
+        top_stocks: topStocks,
+        explode_top5: (data.explode_top5 ?? []).map(normalizeStock),
+      } as ScanResult,
+      error,
+      isLoading,
+    };
+  }
   return { data, error, isLoading };
 }
 
@@ -86,40 +100,105 @@ function inferSector(stockId: string): string {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+function extractDimValue(val: any): number {
+  if (val === undefined || val === null) return 0;
+  if (typeof val === 'number') return val;
+  if (typeof val === 'object' && 'score' in val) return Number(val.score) || 0;
+  return 0;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function normalizeStock(s: any): ScanStock {
+  const rawEntryLow = s.entry_low ?? s.strategy?.entry_low ?? (s.strategy?.entry ?? undefined) ?? (s.targets?.entry_low ?? undefined);
+  const rawEntryHigh = s.entry_high ?? s.strategy?.entry_high ?? (s.strategy?.entry ?? undefined) ?? (s.targets?.entry_high ?? undefined);
+  const rawStopLoss = s.stop_loss ?? s.strategy?.stop_loss ?? (s.targets?.stop_loss ?? undefined);
+  
+  // Derive targets: prefer flat > strategy > targets > target_price old format
+  const t1 = s.target1 ?? s.strategy?.target1 ?? s.strategy?.target ?? s.targets?.t1;
+  const t2 = s.target2 ?? s.strategy?.target2 ?? s.targets?.t2;
+  const t3 = s.target3 ?? s.strategy?.target3 ?? s.targets?.t3;
+  // Old format has single target_price — derive t1/t2/t3 from it
+  const tp = (t1 == null) ? (s.target_price ?? 0) : null;
+  const target1 = t1 ?? (tp ? tp : 0);
+  const target2 = t2 ?? (tp ? Math.round(tp * 1.04 * 100) / 100 : 0);
+  const target3 = t3 ?? (tp ? Math.round(tp * 1.08 * 100) / 100 : 0);
+  
+  // Entry prices: derive from close if missing
+  const close = s.close ?? 0;
+  const entryLow = rawEntryLow ?? (close > 0 ? Math.round(close * 0.97 * 100) / 100 : 0);
+  const entryHigh = rawEntryHigh ?? (close > 0 ? Math.round(close * 1.02 * 100) / 100 : 0);
+  const stopLoss = rawStopLoss ?? (close > 0 ? Math.round(close * 0.93 * 100) / 100 : 0);
+  
+  // Recommendation: generate from total_score if missing
+  const totalScore = s.total_score ?? 0;
+  const rawRec = s.recommendation ?? s.strategy?.recommendation;
+  const recommendation = rawRec
+    ? rawRec
+    : totalScore >= 90 ? '強烈推薦'
+    : totalScore >= 80 ? '強力買進'
+    : totalScore >= 70 ? '買進'
+    : totalScore >= 60 ? '逢低佈局'
+    : totalScore >= 50 ? '觀望'
+    : '偏弱';
+  
+  // Dimensions: handle both flat numbers and {score,signal} nested objects
+  const rawDimTech = s.dimensions?.technical ?? 0;
+  const rawDimChips = s.dimensions?.chips ?? 0;
+  const rawDimFund = s.dimensions?.fundamental ?? 0;
+  const rawDimNews = s.dimensions?.news ?? 0;
+  const rawDimSent = s.dimensions?.sentiment ?? 0;
+  
   return {
     stock_id: s.stock_id,
     stock_name: s.stock_name ?? s.name ?? s.stock_id,
     name: s.stock_name ?? s.name ?? s.stock_id,
     sector_name: s.sector_name ?? s.sector ?? inferSector(s.stock_id ?? ''),
     sector: s.sector_name ?? s.sector ?? inferSector(s.stock_id ?? ''),
-    close: s.close ?? 0,
+    close,
     change_pct: s.change_pct ?? 0,
-    total_score: s.total_score ?? 0,
-    technical_score: s.technical_score ?? s.dimensions?.technical ?? (s.scores?.technical != null ? Math.round(s.scores.technical * 40 / 100) : 0),
-    chips_score: s.chips_score ?? s.dimensions?.chips ?? (s.scores?.chips != null ? Math.round(s.scores.chips * 10 / 100) : 0),
-    fundamental_score: s.fundamental_score ?? s.dimensions?.fundamental ?? (s.scores?.fundamental != null ? Math.round(s.scores.fundamental * 40 / 100) : 0),
-    news_score: s.news_score ?? s.dimensions?.news ?? (s.scores?.news != null ? Math.round(s.scores.news * 10 / 100) : 0),
-    sentiment_score: s.sentiment_score ?? s.dimensions?.sentiment ?? (s.scores?.sentiment != null ? Math.round(s.scores.sentiment * 10 / 100) : 0),
-    rsi: s.rsi ?? 50,
-    vol_ratio: s.vol_ratio ?? 1,
+    total_score: totalScore,
+    technical_score: s.technical_score ?? extractDimValue(rawDimTech) ?? (s.scores?.technical != null ? Math.round(s.scores.technical * 40 / 100) : 0),
+    chips_score: s.chips_score ?? extractDimValue(rawDimChips) ?? (s.scores?.chips != null ? Math.round(s.scores.chips * 10 / 100) : 0),
+    fundamental_score: s.fundamental_score ?? extractDimValue(rawDimFund) ?? (s.scores?.fundamental != null ? Math.round(s.scores.fundamental * 40 / 100) : 0),
+    news_score: s.news_score ?? extractDimValue(rawDimNews) ?? (s.scores?.news != null ? Math.round(s.scores.news * 10 / 100) : 0),
+    sentiment_score: s.sentiment_score ?? extractDimValue(rawDimSent) ?? (s.scores?.sentiment != null ? Math.round(s.scores.sentiment * 10 / 100) : 0),
+    rsi: s.rsi ?? (s.details?.rsi ?? s.signals?.rsi ?? 50),
+    vol_ratio: s.vol_ratio ?? (s.details?.vol_ratio ?? s.signals?.vol_ratio ?? 1),
     volume: s.volume ?? 0,
-    recommendation: s.recommendation ?? s.strategy?.recommendation ?? '',
+    recommendation,
     reason: s.reason ?? '',
-    entry_low: s.entry_low ?? s.strategy?.entry_low ?? 0,
-    entry_high: s.entry_high ?? s.strategy?.entry_high ?? 0,
-    stop_loss: s.stop_loss ?? s.strategy?.stop_loss ?? 0,
-    target1: s.target1 ?? s.strategy?.target1 ?? s.targets?.t1 ?? 0,
-    target2: s.target2 ?? s.strategy?.target2 ?? s.targets?.t2 ?? 0,
-    target3: s.target3 ?? s.strategy?.target3 ?? s.targets?.t3 ?? 0,
-    hold_days: s.hold_days ?? s.strategy?.hold_days ?? '',
+    entry_low: entryLow,
+    entry_high: entryHigh,
+    stop_loss: stopLoss,
+    target1,
+    target2,
+    target3,
+    hold_days: s.hold_days ?? s.strategy?.hold_days ?? (s.holding_days != null ? String(s.holding_days) : ''),
     position: s.position ?? '',
     max_loss_per_lot: s.max_loss_per_lot ?? 0,
     sector_boost: s.sector_boost ?? 0,
     power_combo: s.power_combo ?? false,
     signals: s.signals ?? {},
-    dimensions: s.dimensions ?? undefined,
-    strategy: s.strategy ?? {},
+    // Normalize dimensions to flat numbers for downstream consumers
+    dimensions: {
+      technical: extractDimValue(rawDimTech) || (s.technical_score ?? 0),
+      chips: extractDimValue(rawDimChips) || (s.chips_score ?? 0),
+      fundamental: extractDimValue(rawDimFund) || (s.fundamental_score ?? 0),
+      news: extractDimValue(rawDimNews) || (s.news_score ?? 0),
+      sentiment: extractDimValue(rawDimSent) || (s.sentiment_score ?? 0),
+    } as ScanDimensions,
+    strategy: {
+      ...(s.strategy ?? {}),
+      entry_low: entryLow,
+      entry_high: entryHigh,
+      stop_loss: stopLoss,
+      target1,
+      target2,
+      target3,
+      recommendation,
+    },
+    // Preserve targets for getStockTarget* getters
+    targets: s.targets ?? { t1: target1, t2: target2, t3: target3 },
   };
 }
 
