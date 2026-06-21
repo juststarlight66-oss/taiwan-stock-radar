@@ -7,8 +7,6 @@ on:
         description: 'Scan date YYYYMMDD'
         required: false
         default: ''
-  push:
-    branches: [main]
 
 jobs:
   scan:
