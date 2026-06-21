@@ -147,7 +147,17 @@ export default function SelfCheck() {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">自選股健診</h1>
+            <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+              自選股健診
+              {allLoading && (
+                <span className="flex items-center gap-1 text-sky-500 text-xs font-normal border border-sky-100 bg-sky-50 px-2 py-0.5 rounded-full">
+                  <span className="w-3 h-3 flex items-center justify-center relative">
+                    <span className="animate-spin w-full h-full border-[1.5px] border-sky-500 border-t-transparent rounded-full" />
+                  </span>
+                  正在載入掃描數據
+                </span>
+              )}
+            </h1>
             <p className="text-sm text-gray-500 mt-0.5">加入自選股，即時查看五維評分與操作建議</p>
           </div>
           {watchlist.length >= 2 && (
