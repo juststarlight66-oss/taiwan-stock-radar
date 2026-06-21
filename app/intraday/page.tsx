@@ -308,131 +308,147 @@ export default function IntradayPage() {
       setLiveQuoteStatus('idle');
       setError(null);
 
-      // Phase 1: Load static JSONs (no cache-busting — let browser reuse them)
-      const [intradayRes, latestRes] = await Promise.all([
-        fetch(`${BASE}/data/intraday.json`),
-        fetch(`${BASE}/data/latest.json`),
-      ]);
-
-      const rawIntraday: any = await intradayRes.json();
-      const intradayData: IntradaySnapshot = rawIntraday as IntradaySnapshot;
-
-      // Build fallback live quotes from intraday.json stocks[].live
-      // (used when TWSE real-time API is unreachable from browser)
-      const fallbackQuotes: Record<string, LiveQuote> = {};
-      for (const s of rawIntraday.stocks ?? []) {
-        const live = s.live;
-        if (live?.current && s.stock_id) {
-          fallbackQuotes[s.stock_id] = {
-            stock_id: s.stock_id,
-            name: s.name ?? '',
-            current: live.current ?? null,
-            open: live.open ?? null,
-            high: live.high ?? null,
-            low: live.low ?? null,
-            prev_close: live.prev_close ?? null,
-            volume: live.volume ?? null,
-            time: live.time ?? '',
-            date: rawIntraday.scanned_at ?? '',
-            change_pct: live.change_pct ?? null,
-          };
-        }
-      }
-
-      const latest: LatestData = await latestRes.json();
-
-      const rawLatestList = latest.top10 ?? latest.top_stocks ?? latest.explosive_top5 ?? latest.explode_top5 ?? [];
-      const latestStocks: IntradayStock[] = rawLatestList.map((s: any) => ({
-        stock_id: s.stock_id,
-        name: s.stock_name ?? s.name ?? s.stock_id,
-        sector: s.sector_name ?? s.sector ?? '',
-        entry: s.entry_low ?? s.strategy?.entry ?? s.close ?? 0,
-        stop_loss: s.stop_loss ?? s.strategy?.stop_loss ?? (s.close ?? 0) * 0.95,
-        target: s.target1 ?? s.strategy?.target ?? (s.close ?? 0) * 1.1,
-        target1: s.target1 ?? s.strategy?.target1,
-        target2: s.target2 ?? s.strategy?.target2,
-        target3: s.target3 ?? s.strategy?.target3,
-        upside: s.strategy?.upside ?? 0,
-        total_score: s.total_score,
-        recommendation: s.recommendation ?? s.strategy?.recommendation ?? '觀望',
-        dimensions: s.dimensions ?? {
-          technical: s.technical_score ?? s.scores?.technical ?? 0,
-          fundamental: s.fundamental_score ?? s.scores?.fundamental ?? 0,
-          chips: s.chips_score ?? s.scores?.chips ?? 0,
-          news: s.news_score ?? s.scores?.news ?? 0,
-          sentiment: s.sentiment_score ?? s.scores?.sentiment ?? 0,
-        },
-      }));
-
-      // ── Render immediately with snapshot fallbacks ──────────────────
-      const initialSnapshot: IntradaySnapshot = {
-        ...intradayData,
-        stocks: (intradayData?.stocks ?? []).map((s) => ({
-          ...s,
-          live: fallbackQuotes[s.stock_id] ?? s.live,
-        })),
-      };
-
-      setSnapshot(initialSnapshot);
-      setLatestData({ ...latest, top10: latestStocks as unknown as LatestData['top10'] });
-      setLastRefresh(new Date());
-      setLoading(false);
-
-      // Phase 2: Fetch live quotes in background with 5s timeout
-      const intradayStocksList = intradayData?.stocks ?? [];
-      const allIds = [
-        ...intradayStocksList.map((s) => s.stock_id),
-        ...latestStocks.map((s) => s.stock_id),
-      ];
-      const uniqueIds = [...new Set(allIds)];
-
-      if (uniqueIds.length > 0) {
-        setLiveQuoteStatus('loading');
-        let twseQuotes: Record<string, LiveQuote> = {};
-
+        let rawIntraday: any = null;
+        let intradayData: IntradaySnapshot | null = null;
         try {
           const controller = new AbortController();
-          const timeoutId = setTimeout(() => controller.abort(), 5000);
-          const result = await fetchLiveQuotesWithController(uniqueIds, controller.signal);
-          clearTimeout(timeoutId);
-          twseQuotes = result;
-        } catch (e: any) {
-          if (e?.name === 'AbortError' || e?.message?.includes('aborted')) {
-            console.warn('Live quotes timed out after 5s, using snapshot fallbacks');
+          const timeoutId = setTimeout(() => controller.abort(), 15000);
+          
+          try {
+            const [intradayRes, latestRes] = await Promise.all([
+              fetch(`${BASE}/data/intraday.json`, { signal: controller.signal }),
+              fetch(`${BASE}/data/latest.json`, { signal: controller.signal }),
+            ]);
+            clearTimeout(timeoutId);
+            
+            rawIntraday = await intradayRes.json();
+            intradayData = rawIntraday as IntradaySnapshot;
+            const latest: LatestData = await latestRes.json();
+            
+            // Build fallback live quotes from intraday.json stocks[].live
+            // (used when TWSE real-time API is unreachable from browser)
+            const fallbackQuotes: Record<string, LiveQuote> = {};
+            for (const s of rawIntraday?.stocks ?? []) {
+              const live = s.live;
+              if (live?.current && s.stock_id) {
+                fallbackQuotes[s.stock_id] = {
+                  stock_id: s.stock_id,
+                  name: s.name ?? '',
+                  current: live.current ?? null,
+                  open: live.open ?? null,
+                  high: live.high ?? null,
+                  low: live.low ?? null,
+                  prev_close: live.prev_close ?? null,
+                  volume: live.volume ?? null,
+                  time: live.time ?? '',
+                  date: rawIntraday.scanned_at ?? '',
+                  change_pct: live.change_pct ?? null,
+                };
+              }
+            }
+
+            const rawLatestList = latest.top10 ?? latest.top_stocks ?? latest.explosive_top5 ?? latest.explode_top5 ?? [];
+            const latestStocks: IntradayStock[] = rawLatestList.map((s: any) => ({
+              stock_id: s.stock_id,
+              name: s.stock_name ?? s.name ?? s.stock_id,
+              sector: s.sector_name ?? s.sector ?? '',
+              entry: s.entry_low ?? s.strategy?.entry ?? s.close ?? 0,
+              stop_loss: s.stop_loss ?? s.strategy?.stop_loss ?? (s.close ?? 0) * 0.95,
+              target: s.target1 ?? s.strategy?.target ?? (s.close ?? 0) * 1.1,
+              target1: s.target1 ?? s.strategy?.target1,
+              target2: s.target2 ?? s.strategy?.target2,
+              target3: s.target3 ?? s.strategy?.target3,
+              upside: s.strategy?.upside ?? 0,
+              total_score: s.total_score,
+              recommendation: s.recommendation ?? s.strategy?.recommendation ?? '觀望',
+              dimensions: s.dimensions ?? {
+                technical: s.technical_score ?? s.scores?.technical ?? 0,
+                fundamental: s.fundamental_score ?? s.scores?.fundamental ?? 0,
+                chips: s.chips_score ?? s.scores?.chips ?? 0,
+                news: s.news_score ?? s.scores?.news ?? 0,
+                sentiment: s.sentiment_score ?? s.scores?.sentiment ?? 0,
+              },
+            }));
+
+            // ── Render immediately with snapshot fallbacks ──────────────────
+            const initialSnapshot: IntradaySnapshot = {
+              ...(intradayData || { scan_date: '', fetched_at: '', stocks: [] }),
+              stocks: (intradayData?.stocks ?? []).map((s) => ({
+                ...s,
+                live: fallbackQuotes[s.stock_id] ?? s.live,
+              })),
+            };
+
+            setSnapshot(initialSnapshot);
+            setLatestData({ ...latest, top10: latestStocks as unknown as LatestData['top10'] });
+            setLastRefresh(new Date());
+            setLoading(false);
+
+            // Phase 2: Fetch live quotes in background with 5s timeout
+            const intradayStocksList = intradayData?.stocks ?? [];
+            const allIds = [
+              ...intradayStocksList.map((s) => s.stock_id),
+              ...latestStocks.map((s) => s.stock_id),
+            ];
+            const uniqueIds = [...new Set(allIds)];
+
+            if (uniqueIds.length > 0) {
+              setLiveQuoteStatus('loading');
+              let twseQuotes: Record<string, LiveQuote> = {};
+
+              try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 5000);
+                const result = await fetchLiveQuotesWithController(uniqueIds, controller.signal);
+                clearTimeout(timeoutId);
+                twseQuotes = result;
+              } catch (e: any) {
+                if (e?.name === 'AbortError' || e?.message?.includes('aborted')) {
+                  console.warn('Live quotes timed out after 5s, using snapshot fallbacks');
+                }
+              }
+
+              const mergedQuotes: Record<string, LiveQuote> = { ...fallbackQuotes, ...twseQuotes };
+
+              setSnapshot((prev) => {
+                if (!prev) return prev;
+                return {
+                  ...prev,
+                  stocks: prev.stocks?.map((s) => ({
+                    ...s,
+                    live: mergedQuotes[s.stock_id] ?? s.live,
+                  })),
+                };
+              });
+              setLatestData((prev) => {
+                if (!prev?.top10) return prev;
+                return {
+                  ...prev,
+                  top10: prev.top10.map((s: any) => ({
+                    ...s,
+                    live: mergedQuotes[s.stock_id] ?? s.live,
+                  })),
+                };
+              });
+              setLiveQuoteStatus(Object.keys(twseQuotes).length > 0 ? 'done' : 'timeout');
+            }
+          } catch (e: any) {
+            clearTimeout(timeoutId);
+            if (e?.name === 'AbortError') {
+              throw new Error('資料載入逾時 (超過 15 秒)');
+            }
+            throw e;
           }
+        } catch (e) {
+          setError(e instanceof Error ? e.message : '載入失敗');
         }
-
-        const mergedQuotes: Record<string, LiveQuote> = { ...fallbackQuotes, ...twseQuotes };
-
-        setSnapshot((prev) => {
-          if (!prev) return prev;
-          return {
-            ...prev,
-            stocks: prev.stocks?.map((s) => ({
-              ...s,
-              live: mergedQuotes[s.stock_id] ?? s.live,
-            })),
-          };
-        });
-        setLatestData((prev) => {
-          if (!prev?.top10) return prev;
-          return {
-            ...prev,
-            top10: prev.top10.map((s: any) => ({
-              ...s,
-              live: mergedQuotes[s.stock_id] ?? s.live,
-            })),
-          };
-        });
-        setLiveQuoteStatus(Object.keys(twseQuotes).length > 0 ? 'done' : 'timeout');
+      } catch (e) {
+        setError(e instanceof Error ? e.message : '載入失敗');
+      } finally {
+        setLoading(false);
+        setRefreshing(false);
       }
-    } catch (e) {
-      setError(e instanceof Error ? e.message : '載入失敗');
-      setLoading(false);
-    } finally {
-      setRefreshing(false);
-    }
-  }, []);
+    }, []);
 
   useEffect(() => { loadData(); }, [loadData]);
 

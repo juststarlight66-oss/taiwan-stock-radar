@@ -19,27 +19,42 @@ export interface AllScoresData {
 
 const BASE = '/taiwan-stock-radar';
 
-const fetcher = (url: string) =>
-  fetch(url).then((r) => {
+const fetcher = async (url: string) => {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 15000); // 15s timeout
+  
+  try {
+    const r = await fetch(url, { signal: controller.signal });
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
-    return r.json();
-  });
+    return await r.json();
+  } catch (error) {
+    if (error instanceof Error && error.name === 'AbortError') {
+      throw new Error(`Fetch timeout for ${url}`);
+    }
+    throw error;
+  } finally {
+    clearTimeout(timeoutId);
+  }
+};
+
+const swrConfig = {
+  refreshInterval: 0,
+  revalidateOnFocus: false,
+  errorRetryCount: 2,
+};
 
 export function useLatestScan() {
   const { data, error, isLoading } = useSWR<ScanResult>(
     `${BASE}/data/latest.json`,
     fetcher,
-    { refreshInterval: 0, revalidateOnFocus: false }
+    swrConfig
   );
   return { data, error, isLoading };
 }
 
 export function useDateScan(date: string | null) {
   const key = date ? `${BASE}/data/scan_result_${date.replace(/-/g, '')}.json` : null;
-  const { data, error, isLoading } = useSWR<ScanResult>(key, fetcher, {
-    refreshInterval: 0,
-    revalidateOnFocus: false,
-  });
+  const { data, error, isLoading } = useSWR<ScanResult>(key, fetcher, swrConfig);
   return { data, error, isLoading };
 }
 
@@ -47,7 +62,7 @@ export function useHistoryIndex() {
   const { data, error, isLoading } = useSWR<{ available_dates: string[] }>(
     `${BASE}/data/index.json`,
     fetcher,
-    { refreshInterval: 0, revalidateOnFocus: false }
+    swrConfig
   );
   return { dates: data?.available_dates ?? [], error, isLoading };
 }
@@ -112,7 +127,7 @@ export function useAllScores() {
   const { data, error, isLoading } = useSWR<AllScoresData>(
     `${BASE}/data/all_scores.json`,
     fetcher,
-    { refreshInterval: 0, revalidateOnFocus: false }
+    swrConfig
   );
   const stocks: ScanStock[] = (data?.all_stock_scores ?? data?.stocks ?? []).map(normalizeStock);
   return { data, stocks, error, isLoading };
@@ -123,7 +138,7 @@ export function useDateStockSearch(date: string | null, stockId: string | null) 
   if (!data || !stockId) return null;
   return (
     (data.top_stocks ?? []).find(
-      (s) => s.stock_id === stockId || s.stock_id.padStart(4, '0') === stockId.padStart(4, '0')
+      (s: any) => s.stock_id === stockId || s.stock_id.padStart(4, '0') === stockId.padStart(4, '0')
     ) ?? null
   );
 }
@@ -137,17 +152,24 @@ export function useOnDemandScan() {
     if (!stockId) return;
     setIsLoading(true);
     setResult(null);
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 15000);
     try {
-      const res = await fetch(`${BASE}/data/all_scores.json`);
+      const res = await fetch(`${BASE}/data/all_scores.json`, { signal: controller.signal });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const json: AllScoresData = await res.json();
       const found = (json.all_stock_scores ?? json.stocks ?? []).find(
-        (s) => s.stock_id === stockId || s.stock_id === stockId.padStart(4, '0')
+        (s: any) => s.stock_id === stockId || s.stock_id === stockId.padStart(4, '0')
       );
       setResult({ stock: found ? normalizeStock(found) : null });
-    } catch (e) {
-      setResult({ stock: null, error: e instanceof Error ? e.message : String(e) });
+    } catch (e: any) {
+      if (e.name === 'AbortError') {
+        setResult({ stock: null, error: 'Fetch timeout' });
+      } else {
+        setResult({ stock: null, error: e instanceof Error ? e.message : String(e) });
+      }
     } finally {
+      clearTimeout(timeoutId);
       setIsLoading(false);
     }
   }, []);
@@ -160,7 +182,7 @@ export function useAllScoresHistory() {
   const { data, error, isLoading } = useSWR<AllScoresData>(
     `${BASE}/data/all_scores.json`,
     fetcher,
-    { refreshInterval: 0, revalidateOnFocus: false }
+    swrConfig
   );
   return { data: data ?? null, error, isLoading };
 }
