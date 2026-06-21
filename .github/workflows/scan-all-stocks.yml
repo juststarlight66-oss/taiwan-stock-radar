@@ -1,15 +1,6 @@
-name: scan-all-stocks
-
+name: Scan All Stocks
 on:
   workflow_dispatch:
-    inputs:
-      force:
-        description: 'Force re-scan even on non-trading day'
-        required: false
-        default: 'true'
-  schedule:
-    # Every Monday 09:15 CST (UTC+8) = 01:15 UTC
-    - cron: '15 1 * * 1'
 
 jobs:
   scan-all-stocks:
