@@ -7,8 +7,8 @@ on:
         description: 'Scan date YYYYMMDD'
         required: false
         default: ''
-  schedule:
-    - cron: '0 11 * * 1-5'
+  push:
+    branches: [main]
 
 jobs:
   scan:
