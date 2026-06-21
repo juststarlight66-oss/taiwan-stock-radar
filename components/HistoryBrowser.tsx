@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { useDateScan } from '@/lib/useScanData';
+import { useDateScan, ScanResult } from '@/lib/useScanData';
 import Top10Table from './Top10Table';
 import SummaryCards from './SummaryCards';
 import { demoScanResult } from '@/lib/demoScanData';
@@ -149,10 +149,13 @@ export default function HistoryBrowser({ initialDates }: Props) {
       .then(r => r.json())
       .then(d => {
         // Prefer 'scans' array (richer: has scanned_count), fallback to available_dates
-        const entries: ScanEntry[] = (d.scans ?? []).length > 0
-          ? (d.scans as ScanEntry[]).slice().reverse()
-          : (d.available_dates ?? []).map((date: string) => ({ date, file: '', scan_time: '' }));
-        setScanEntries(entries);
+        if (d.scans && Array.isArray(d.scans) && d.scans.length > 0) {
+          setScanEntries(d.scans.slice().reverse());
+        } else if (d.available_dates && Array.isArray(d.available_dates)) {
+          setScanEntries(d.available_dates.map((date: string) => ({ date, file: '', scan_time: '' })).reverse());
+        } else {
+          setScanEntries([]);
+        }
         setLoadingIndex(false);
       })
       .catch(() => setLoadingIndex(false));
@@ -473,7 +476,7 @@ function HistoryDetail({
   showChart: boolean;
   setShowChart: (v: boolean) => void;
 }) {
-  const { data, loading, error } = useDateScan(date);
+  const { data, isLoading, error } = useDateScan(date);
   const btRec = backtest?.grouped_records.find(r => normDate(r.scan_date) === normDate(date));
   const period = btRec?.periods[activePeriod];
   const hasError = !!error;
@@ -484,15 +487,41 @@ function HistoryDetail({
     top10: btRec.periods.T1?.stocks.map(s => ({
       stock_id: s.stock_id,
       stock_name: s.name,
+      name: s.name,
+      sector: '',
       close: s.entry,
+      change_pct: 0,
+      total_score: 0,
+      technical_score: 0,
+      chips_score: 0,
+      fundamental_score: 0,
+      news_score: 0,
+      sentiment_score: 0,
+      rsi: 50,
+      vol_ratio: 1,
+      volume: 0,
+      recommendation: '',
+      reason: '',
+      entry_low: s.entry,
+      entry_high: s.entry,
+      stop_loss: s.stop_loss ?? 0,
+      target1: s.stop_loss ? s.entry + (s.entry - s.stop_loss) * 2 : s.entry * 1.05,
+      target2: 0,
+      target3: 0,
+      hold_days: '',
+      position: '',
+      max_loss_per_lot: 0,
+      sector_boost: 0,
+      power_combo: false,
+      signals: {},
       strategy: { entry: s.entry, stop_loss: s.stop_loss, target: s.stop_loss ? s.entry + (s.entry - s.stop_loss) * 2 : s.entry * 1.05 },
     })) || [],
     all_stock_scores: [],
-  } : demoScanResult);
+  } as unknown as ScanResult : demoScanResult);
 
   const scanResult = resolvedData;
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="flex items-center justify-center py-16">
         <div className="animate-spin rounded-full h-7 w-7 border-2 border-blue-600 border-t-transparent" />
