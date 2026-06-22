@@ -108,7 +108,7 @@ RSI_PERIOD = 7          # RSI 計算週期（需 7+1 以上交易日）
 ATR_PERIOD = 7          # ATR 計算週期
 LOOKBACK_DAYS = 20      # 至少需要的前期日數（MA20）
 HISTORY_MONTHS = 2      # 抓取歷史月數（確保有足夠 K 線）
-MIN_VOLUME = 50         # 最低成交量門檻（張），過濾流動性極差的冷門股（從500降至50以涵蓋更多小型股）
+MIN_VOLUME = 0         # 最低成交量門檻（張），放寬以涵蓋所有股票
 
 
 DIMENSION_WEIGHTS = {
@@ -1064,9 +1064,9 @@ def run_scan(scan_date: str = None) -> Dict:
             if vol < MIN_VOLUME:
                 return None
 
-            # 僅對成交量 > 100 張 且 股價 > 0 的股票抓取歷史（節省 API 請求）
+            # 僅對股價 > 0 的股票抓取歷史（節省 API 請求）
             history = []
-            if vol >= 100 and close > 0:
+            if close > 0:
                 cache_key = f"{sid}_{market}"
                 if cache_key in history_cache:
                     history = history_cache[cache_key].get('history', [])
