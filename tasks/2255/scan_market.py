@@ -108,7 +108,7 @@ RSI_PERIOD = 7          # RSI 計算週期（需 7+1 以上交易日）
 ATR_PERIOD = 7          # ATR 計算週期
 LOOKBACK_DAYS = 20      # 至少需要的前期日數（MA20）
 HISTORY_MONTHS = 2      # 抓取歷史月數（確保有足夠 K 線）
-MIN_VOLUME = 0         # 最低成交量門檻（張），放寬以涵蓋所有股票
+MIN_VOLUME = 500        # 最低成交量門檻（張），過濾流動性不佳的冷門股
 
 
 DIMENSION_WEIGHTS = {
@@ -312,10 +312,8 @@ def fetch_stock_day_history(stock_id: str, scan_date: str) -> Optional[Dict]:
         if len(all_rows) > LOOKBACK_DAYS + RSI_PERIOD + 10:
             all_rows = all_rows[-(LOOKBACK_DAYS + RSI_PERIOD + 10):]
 
-        # 最後一筆就是當日 - 必須驗證日期匹配 scan_date
+        # 最後一筆就是當日
         latest = all_rows[-1]
-        if latest['date'] != scan_date:
-            return None  # 該股票最新資料日期不符，跳過（可能被 TWSE WAF 阻擋或資料過期）
         chg_str_val = ''  # TWSE API 第 8 欄
         # 計算 change_pct 從歷史數據
         if len(all_rows) >= 2:
@@ -360,15 +358,6 @@ def fetch_tpex_day(stock_id: str, scan_date: str) -> Optional[Dict]:
         if not matched:
             return None
         row = matched[-1]
-        # Validate date matches scan_date (TPEx uses Minguo calendar: 1150618 = 20260618)
-        tp_date = str(row.get('Date', '')).strip()
-        if tp_date:
-            # Convert scan_date "20260618" to Minguo "1150618"
-            if len(scan_date) == 8:
-                minguo_year = int(scan_date[:4]) - 1911
-                expected_tp_date = f"{minguo_year}{scan_date[4:]}"
-                if tp_date != expected_tp_date:
-                    return None  # Date mismatch - stale data
         try:
             def _f(key):
                 return float(str(row.get(key, '0') or '0').replace(',', '').strip() or '0')
@@ -899,59 +888,21 @@ def run_scan(scan_date: str = None) -> Dict:
     except Exception as e:
         print(f"[下載] 預先下載基本面失敗: {e}")
 
-    # helper: salvage truncated JSON arrays (common TPEx API issue)
-    def _salvage_json(text: str) -> list:
-        """Try to salvage a truncated JSON array by finding the last complete object."""
-        if not text or not text.strip():
-            return []
-        try:
-            data = json.loads(text)
-            if isinstance(data, list):
-                return data
-            return data.get('data', data.get('msgArr', []))
-        except json.JSONDecodeError:
-            pass
-        text_stripped = text.strip()
-        if text_stripped.startswith('['):
-            decoder = json.JSONDecoder()
-            last_valid_end = 0
-            obj_end = 0
-            while obj_end < len(text_stripped):
-                try:
-                    obj, obj_end = decoder.raw_decode(text_stripped, obj_end)
-                    last_valid_end = obj_end
-                except json.JSONDecodeError:
-                    break
-            if last_valid_end > 0:
-                salvage = text_stripped[:last_valid_end].rstrip().rstrip(',')
-                data = json.loads(salvage + ']')
-                if isinstance(data, list) and len(data) > 0:
-                    print(f"  [salvage] 截斷JSON救援成功: {len(data)} 筆 (原 {len(text)} bytes)")
-                    return data
-        return []
-
     # 2. 上櫃日 K（全市場）
     all_tpex_quotes = {}
     fetch_errors = set()
     try:
         print("[下載] 預先下載全市場上櫃日K數據...")
         resp = _http_get(TPEX_DAILY_URL, timeout=30)
-        # Use robust parsing to handle truncated JSON from TPEx API
-        if isinstance(resp, _CurlResponse):
-            data = _salvage_json(resp.text) or resp.json()
-        else:
-            try:
-                data = resp.json()
-            except Exception:
-                data = _salvage_json(resp.text)
+        data = resp.json()
         if not data:
             print("[警告] TPEx daily_close_quotes URL 傳回空資料，嘗試 Fallback...")
             resp = _http_get(TPEX_LISTED_URL, timeout=30)
-            data = resp.json() if not isinstance(resp, _CurlResponse) else (_salvage_json(resp.text) or resp.json())
+            data = resp.json()
             # fallback only returns list of stocks, the rest of data won't exist in all_tpex_quotes
             # but we won't fail here and let the later parallel process handle history fetch
 
-        rows = data if isinstance(data, list) else data.get('data', data.get('msgArr', []))
+        rows = data if isinstance(data, list) else data.get('data', [])
         for row in rows:
             # TPEX_LISTED_URL format vs TPEX_DAILY_URL
             code = str(row.get('SecuritiesCompanyCode', '')).strip()
@@ -1064,9 +1015,9 @@ def run_scan(scan_date: str = None) -> Dict:
             if vol < MIN_VOLUME:
                 return None
 
-            # 僅對股價 > 0 的股票抓取歷史（節省 API 請求）
+            # 僅對成交量 > 100 張 且 股價 > 0 的股票抓取歷史（節省 API 請求）
             history = []
-            if close > 0:
+            if vol >= 100 and close > 0:
                 cache_key = f"{sid}_{market}"
                 if cache_key in history_cache:
                     history = history_cache[cache_key].get('history', [])

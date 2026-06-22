@@ -7,14 +7,17 @@ on:
         description: 'Scan date YYYYMMDD'
         required: false
         default: ''
-  schedule:
-    - cron: '0 11 * * 1-5'
+  push:
+    branches: [main]
 
 jobs:
   scan:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      actions: write
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -53,7 +56,6 @@ jobs:
         run: python tasks/2255/scan_market.py
         env:
           PYTHONPATH: /home/runner/work
-          SCAN_DATE: ${{ github.event.inputs.scan_date }}
 
       - name: Normalize and process results
         run: python tasks/2255/normalize_and_process.py
@@ -77,6 +79,18 @@ jobs:
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add tasks/2255/scan_result.json tasks/2255/all_scores.json tasks/2255/latest.json tasks/2255/backtest.json tasks/2255/index.json e3_backtest_*.json gh-pages/ 2>/dev/null || true
-          git diff --staged --quiet || git commit -m "data: $(date +%Y%m%d) evening scan (auto)"
+          git add public/data/ tasks/2255/scan_result.json tasks/2255/all_scores.json tasks/2255/latest.json e3_backtest_*.json gh-pages/ 2>/dev/null || true
+          git diff --staged --quiet || git commit -m "data: $(date +%Y%m%d) evening scan + E3 backtest (auto)"
+          git pull --rebase origin main || true
           git push origin main
+
+      - name: Trigger deploy
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'deploy.yml',
+              ref: 'main'
+            });

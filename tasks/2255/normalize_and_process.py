@@ -109,15 +109,6 @@ def normalize_stock(s):
         "risk_reward": f"1:{round((float(targets.get('t1', close*1.05) or close*1.05) - entry_low) / max(entry_low - stop_loss, 0.01), 1)}",
     }
 
-    # Ensure scores array format for the frontend exactly matching what's expected
-    scores_array = [
-        {"type": "technical", "score": dimensions["technical"], "max": 100},
-        {"type": "fundamental", "score": dimensions["fundamental"], "max": 100},
-        {"type": "news", "score": dimensions["news"], "max": 100},
-        {"type": "sentiment", "score": dimensions["sentiment"], "max": 100},
-        {"type": "chips", "score": dimensions["chips"], "max": 100},
-    ]
-
     return {
         "stock_id": s.get('stock_id', ''),
         "name": s.get('name', ''),
@@ -128,7 +119,6 @@ def normalize_stock(s):
         "volume": float(s.get('volume', 0) or 0),
         "total_score": float(s.get('total_score', 0) or 0),
         "dimensions": dimensions,
-        "scores": scores_array,
         "signals": signals,
         "strategy": strategy,
         "entry_low": round(entry_low, 2),

@@ -161,14 +161,9 @@ def _is_trading_day(d: datetime.date) -> bool:
 
 def _nth_trading_day_after(start_date_str: str, n: int) -> str:
     """Return the date string of the n-th trading day after start_date_str."""
-    # Support both YYYY-MM-DD and YYYYMMDD formats
-    for fmt in ('%Y-%m-%d', '%Y%m%d'):
-        try:
-            d = datetime.strptime(start_date_str, fmt).date()
-            break
-        except ValueError:
-            continue
-    else:
+    try:
+        d = datetime.strptime(start_date_str, '%Y-%m-%d').date()
+    except ValueError:
         return ''
     count = 0
     while count < n:
@@ -221,8 +216,7 @@ def step1_add_today_top10(backtest: dict, latest: dict) -> bool:
         return False
 
     records: list = backtest.setdefault('records', [])
-    # Only consider records that have entry_date (skip verification/eval records)
-    existing_dates = {r['entry_date'] for r in records if 'entry_date' in r}
+    existing_dates = {r['entry_date'] for r in records}
     if scan_date in existing_dates:
         print(f'[INFO] {scan_date} already in records — skipping step1')
         return False
@@ -318,8 +312,6 @@ def step3_rebuild_grouped(backtest: dict) -> None:
     records = backtest.get('records', [])
     by_date: dict[str, list] = defaultdict(list)
     for rec in records:
-        if 'entry_date' not in rec:
-            continue  # skip verification records (eval_date schema)
         by_date[rec['entry_date']].append(rec)
 
     grouped = []

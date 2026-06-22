@@ -12,13 +12,13 @@ function TrendArrow({ value, threshold = 60 }: { value: number; threshold?: numb
   return <Minus className="w-3.5 h-3.5 text-gray-500" />;
 }
 
-function CircleProgress({ pct, color = '#38bdf8', size = 44, bgStroke = '#334155' }: { pct: number; color?: string; size?: number; bgStroke?: string }) {
+function CircleProgress({ pct, color = '#38bdf8', size = 44 }: { pct: number; color?: string; size?: number }) {
   const r = (size - 6) / 2;
   const circ = 2 * Math.PI * r;
   const offset = circ * (1 - Math.min(pct / 100, 1));
   return (
     <svg width={size} height={size} className="-rotate-90">
-      <circle cx={size / 2} cy={size / 2} r={r} stroke={bgStroke} strokeWidth={3} fill="none" />
+      <circle cx={size / 2} cy={size / 2} r={r} stroke="#1e293b" strokeWidth={3} fill="none" />
       <circle
         cx={size / 2} cy={size / 2} r={r}
         stroke={color} strokeWidth={3} fill="none"

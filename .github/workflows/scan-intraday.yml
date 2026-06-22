@@ -6,7 +6,6 @@ on:
     # \u6bcf\u4ea4\u6613\u65e5\u53f0\u7063\u6642\u9593 13:05 \u57f7\u884c (UTC 05:05)
     - cron: '5 5 * * 1-5'
 
-
 permissions:
   contents: write
 
@@ -30,7 +29,7 @@ jobs:
       - name: Install dependencies
         run: pip install requests
 
-      - name: "Pre-scan: check repo is clean"
+      - name: Pre-scan: check repo is clean
         run: |
           if ! git diff --quiet; then
             echo "::error::Working directory is dirty before scan - aborting"

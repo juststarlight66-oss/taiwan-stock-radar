@@ -1,7 +1,7 @@
 {
   "meta": {
-    "generated_at": "2026-06-19T17:03:21Z",
-    "date": "20260619",
+    "generated_at": "2026-06-10T14:23:35Z",
+    "date": "20260610",
     "lookback_days": 252,
     "strategies": [
       "ma_crossover",
@@ -14,45 +14,45 @@
   },
   "aggregate": {
     "ma_crossover": {
-      "total_trades": 127,
-      "win_count": 61,
-      "loss_count": 66,
-      "win_rate": 48.03,
-      "loss_rate": 51.97,
-      "profit_loss_ratio": 3.35,
-      "avg_return_pct": 7.01,
+      "total_trades": 123,
+      "win_count": 63,
+      "loss_count": 60,
+      "win_rate": 51.22,
+      "loss_rate": 48.78,
+      "profit_loss_ratio": 3.56,
+      "avg_return_pct": 8.23,
       "max_return_pct": 103.2,
       "min_return_pct": -19.82,
-      "sharpe_ratio": 4.92,
+      "sharpe_ratio": 5.72,
       "max_drawdown_pct": 85.33,
-      "avg_hold_days": 13.3
+      "avg_hold_days": 13.8
     },
     "breakout": {
-      "total_trades": 144,
-      "win_count": 69,
-      "loss_count": 75,
-      "win_rate": 47.92,
-      "loss_rate": 52.08,
-      "profit_loss_ratio": 2.89,
-      "avg_return_pct": 5.69,
+      "total_trades": 153,
+      "win_count": 72,
+      "loss_count": 81,
+      "win_rate": 47.06,
+      "loss_rate": 52.94,
+      "profit_loss_ratio": 2.97,
+      "avg_return_pct": 5.38,
       "max_return_pct": 43.33,
       "min_return_pct": -18.85,
-      "sharpe_ratio": 5.87,
-      "max_drawdown_pct": 38.56,
-      "avg_hold_days": 9.1
+      "sharpe_ratio": 5.75,
+      "max_drawdown_pct": 37.17,
+      "avg_hold_days": 9.0
     },
     "pattern": {
-      "total_trades": 532,
-      "win_count": 297,
-      "loss_count": 235,
-      "win_rate": 55.83,
-      "loss_rate": 44.17,
-      "profit_loss_ratio": 2.1,
-      "avg_return_pct": 4.59,
+      "total_trades": 545,
+      "win_count": 299,
+      "loss_count": 246,
+      "win_rate": 54.86,
+      "loss_rate": 45.14,
+      "profit_loss_ratio": 2.21,
+      "avg_return_pct": 4.55,
       "max_return_pct": 91.01,
       "min_return_pct": -16.79,
-      "sharpe_ratio": 5.19,
-      "max_drawdown_pct": 38.33,
+      "sharpe_ratio": 5.18,
+      "max_drawdown_pct": 39.27,
       "avg_hold_days": 9.0
     }
   },
@@ -107,70 +107,21 @@
       }
     },
     {
-      "symbol": "2454",
-      "name": "2454.TW",
-      "score": 66.97,
+      "symbol": "6415",
+      "name": "6415.TW",
+      "score": 67.67,
       "strategies": {
         "ma_crossover": {
-          "total_trades": 1,
-          "win_count": 1,
-          "loss_count": 0,
-          "win_rate": 100.0,
-          "loss_rate": 0.0,
-          "profit_loss_ratio": 999,
-          "avg_return_pct": 103.2,
-          "max_return_pct": 103.2,
-          "min_return_pct": 103.2,
-          "sharpe_ratio": 0,
-          "max_drawdown_pct": 0,
-          "avg_hold_days": 20.0
-        },
-        "breakout": {
           "total_trades": 2,
           "win_count": 2,
           "loss_count": 0,
           "win_rate": 100.0,
           "loss_rate": 0.0,
           "profit_loss_ratio": 999,
-          "avg_return_pct": 20.09,
-          "max_return_pct": 28.21,
-          "min_return_pct": 11.96,
-          "sharpe_ratio": 27.75,
-          "max_drawdown_pct": 0,
-          "avg_hold_days": 10.0
-        },
-        "pattern": {
-          "total_trades": 9,
-          "win_count": 6,
-          "loss_count": 3,
-          "win_rate": 66.67,
-          "loss_rate": 33.33,
-          "profit_loss_ratio": 3.76,
-          "avg_return_pct": 13.45,
-          "max_return_pct": 42.18,
-          "min_return_pct": -8.26,
-          "sharpe_ratio": 11.21,
-          "max_drawdown_pct": 16.48,
-          "avg_hold_days": 9.2
-        }
-      }
-    },
-    {
-      "symbol": "6415",
-      "name": "6415.TW",
-      "score": 64.3,
-      "strategies": {
-        "ma_crossover": {
-          "total_trades": 1,
-          "win_count": 1,
-          "loss_count": 0,
-          "win_rate": 100.0,
-          "loss_rate": 0.0,
-          "profit_loss_ratio": 999,
-          "avg_return_pct": 54.59,
+          "avg_return_pct": 40.62,
           "max_return_pct": 54.59,
-          "min_return_pct": 54.59,
-          "sharpe_ratio": 0,
+          "min_return_pct": 26.65,
+          "sharpe_ratio": 32.64,
           "max_drawdown_pct": 0,
           "avg_hold_days": 20.0
         },
@@ -181,45 +132,45 @@
           "win_rate": 100.0,
           "loss_rate": 0.0,
           "profit_loss_ratio": 999,
-          "avg_return_pct": 30.4,
+          "avg_return_pct": 27.45,
           "max_return_pct": 37.36,
           "min_return_pct": 18.33,
-          "sharpe_ratio": 45.98,
+          "sharpe_ratio": 45.67,
           "max_drawdown_pct": 0,
           "avg_hold_days": 7.7
         },
         "pattern": {
-          "total_trades": 9,
+          "total_trades": 10,
           "win_count": 4,
-          "loss_count": 5,
-          "win_rate": 44.44,
-          "loss_rate": 55.56,
-          "profit_loss_ratio": 3.27,
-          "avg_return_pct": 7.12,
+          "loss_count": 6,
+          "win_rate": 40.0,
+          "loss_rate": 60.0,
+          "profit_loss_ratio": 3.66,
+          "avg_return_pct": 6.33,
           "max_return_pct": 41.16,
           "min_return_pct": -12.66,
-          "sharpe_ratio": 5.72,
+          "sharpe_ratio": 5.21,
           "max_drawdown_pct": 21.51,
-          "avg_hold_days": 8.4
+          "avg_hold_days": 8.6
         }
       }
     },
     {
       "symbol": "2303",
       "name": "2303.TW",
-      "score": 64.03,
+      "score": 64.56,
       "strategies": {
         "ma_crossover": {
-          "total_trades": 1,
-          "win_count": 1,
+          "total_trades": 2,
+          "win_count": 2,
           "loss_count": 0,
           "win_rate": 100.0,
           "loss_rate": 0.0,
           "profit_loss_ratio": 999,
-          "avg_return_pct": 53.23,
+          "avg_return_pct": 33.73,
           "max_return_pct": 53.23,
-          "min_return_pct": 53.23,
-          "sharpe_ratio": 0,
+          "min_return_pct": 14.23,
+          "sharpe_ratio": 19.42,
           "max_drawdown_pct": 0,
           "avg_hold_days": 20.0
         },
@@ -238,74 +189,25 @@
           "avg_hold_days": 10.5
         },
         "pattern": {
-          "total_trades": 7,
+          "total_trades": 8,
           "win_count": 5,
-          "loss_count": 2,
-          "win_rate": 71.43,
-          "loss_rate": 28.57,
-          "profit_loss_ratio": 2.07,
-          "avg_return_pct": 8.2,
+          "loss_count": 3,
+          "win_rate": 62.5,
+          "loss_rate": 37.5,
+          "profit_loss_ratio": 2.04,
+          "avg_return_pct": 6.75,
           "max_return_pct": 42.3,
           "min_return_pct": -8.84,
-          "sharpe_ratio": 7.81,
-          "max_drawdown_pct": 13.78,
-          "avg_hold_days": 9.7
-        }
-      }
-    },
-    {
-      "symbol": "3406",
-      "name": "3406.TW",
-      "score": 61.06,
-      "strategies": {
-        "ma_crossover": {
-          "total_trades": 2,
-          "win_count": 2,
-          "loss_count": 0,
-          "win_rate": 100.0,
-          "loss_rate": 0.0,
-          "profit_loss_ratio": 999,
-          "avg_return_pct": 19.16,
-          "max_return_pct": 23.75,
-          "min_return_pct": 14.57,
-          "sharpe_ratio": 46.86,
-          "max_drawdown_pct": 0,
-          "avg_hold_days": 20.0
-        },
-        "breakout": {
-          "total_trades": 3,
-          "win_count": 2,
-          "loss_count": 1,
-          "win_rate": 66.67,
-          "loss_rate": 33.33,
-          "profit_loss_ratio": 28.59,
-          "avg_return_pct": 8.24,
-          "max_return_pct": 17.68,
-          "min_return_pct": -0.44,
-          "sharpe_ratio": 14.4,
-          "max_drawdown_pct": 0.44,
-          "avg_hold_days": 15.0
-        },
-        "pattern": {
-          "total_trades": 10,
-          "win_count": 7,
-          "loss_count": 3,
-          "win_rate": 70.0,
-          "loss_rate": 30.0,
-          "profit_loss_ratio": 1.33,
-          "avg_return_pct": 3.77,
-          "max_return_pct": 15.73,
-          "min_return_pct": -9.69,
-          "sharpe_ratio": 7.15,
-          "max_drawdown_pct": 17.22,
-          "avg_hold_days": 9.7
+          "sharpe_ratio": 6.16,
+          "max_drawdown_pct": 22.55,
+          "avg_hold_days": 8.6
         }
       }
     },
     {
       "symbol": "2383",
       "name": "2383.TW",
-      "score": 61.01,
+      "score": 63.08,
       "strategies": {
         "ma_crossover": {
           "total_trades": 1,
@@ -337,24 +239,24 @@
         },
         "pattern": {
           "total_trades": 9,
-          "win_count": 6,
-          "loss_count": 3,
-          "win_rate": 66.67,
-          "loss_rate": 33.33,
-          "profit_loss_ratio": 2.29,
-          "avg_return_pct": 9.53,
-          "max_return_pct": 35.57,
-          "min_return_pct": -10.03,
-          "sharpe_ratio": 8.73,
-          "max_drawdown_pct": 10.03,
-          "avg_hold_days": 9.4
+          "win_count": 7,
+          "loss_count": 2,
+          "win_rate": 77.78,
+          "loss_rate": 22.22,
+          "profit_loss_ratio": 2.42,
+          "avg_return_pct": 9.83,
+          "max_return_pct": 36.8,
+          "min_return_pct": -9.38,
+          "sharpe_ratio": 12.03,
+          "max_drawdown_pct": 9.38,
+          "avg_hold_days": 9.7
         }
       }
     },
     {
       "symbol": "2345",
       "name": "2345.TW",
-      "score": 60.57,
+      "score": 62.53,
       "strategies": {
         "ma_crossover": {
           "total_trades": 1,
@@ -385,25 +287,172 @@
           "avg_hold_days": 15.0
         },
         "pattern": {
+          "total_trades": 9,
+          "win_count": 6,
+          "loss_count": 3,
+          "win_rate": 66.67,
+          "loss_rate": 33.33,
+          "profit_loss_ratio": 2.94,
+          "avg_return_pct": 8.33,
+          "max_return_pct": 24.7,
+          "min_return_pct": -8.76,
+          "sharpe_ratio": 10.97,
+          "max_drawdown_pct": 8.76,
+          "avg_hold_days": 9.1
+        }
+      }
+    },
+    {
+      "symbol": "2454",
+      "name": "2454.TW",
+      "score": 60.88,
+      "strategies": {
+        "ma_crossover": {
+          "total_trades": 1,
+          "win_count": 1,
+          "loss_count": 0,
+          "win_rate": 100.0,
+          "loss_rate": 0.0,
+          "profit_loss_ratio": 999,
+          "avg_return_pct": 103.2,
+          "max_return_pct": 103.2,
+          "min_return_pct": 103.2,
+          "sharpe_ratio": 0,
+          "max_drawdown_pct": 0,
+          "avg_hold_days": 20.0
+        },
+        "breakout": {
+          "total_trades": 3,
+          "win_count": 2,
+          "loss_count": 1,
+          "win_rate": 66.67,
+          "loss_rate": 33.33,
+          "profit_loss_ratio": 5.5,
+          "avg_return_pct": 11.34,
+          "max_return_pct": 28.21,
+          "min_return_pct": -3.4,
+          "sharpe_ratio": 11.31,
+          "max_drawdown_pct": 3.4,
+          "avg_hold_days": 4.3
+        },
+        "pattern": {
+          "total_trades": 9,
+          "win_count": 6,
+          "loss_count": 3,
+          "win_rate": 66.67,
+          "loss_rate": 33.33,
+          "profit_loss_ratio": 3.76,
+          "avg_return_pct": 13.45,
+          "max_return_pct": 42.18,
+          "min_return_pct": -8.26,
+          "sharpe_ratio": 11.21,
+          "max_drawdown_pct": 16.48,
+          "avg_hold_days": 9.2
+        }
+      }
+    },
+    {
+      "symbol": "2327",
+      "name": "2327.TW",
+      "score": 60.49,
+      "strategies": {
+        "ma_crossover": {
+          "total_trades": 4,
+          "win_count": 2,
+          "loss_count": 2,
+          "win_rate": 50.0,
+          "loss_rate": 50.0,
+          "profit_loss_ratio": 1.65,
+          "avg_return_pct": 4.26,
+          "max_return_pct": 37.37,
+          "min_return_pct": -17.17,
+          "sharpe_ratio": 2.81,
+          "max_drawdown_pct": 26.08,
+          "avg_hold_days": 12.5
+        },
+        "breakout": {
+          "total_trades": 3,
+          "win_count": 3,
+          "loss_count": 0,
+          "win_rate": 100.0,
+          "loss_rate": 0.0,
+          "profit_loss_ratio": 999,
+          "avg_return_pct": 16.66,
+          "max_return_pct": 18.77,
+          "min_return_pct": 14.83,
+          "sharpe_ratio": 133.17,
+          "max_drawdown_pct": 0,
+          "avg_hold_days": 11.3
+        },
+        "pattern": {
+          "total_trades": 9,
+          "win_count": 7,
+          "loss_count": 2,
+          "win_rate": 77.78,
+          "loss_rate": 22.22,
+          "profit_loss_ratio": 1.21,
+          "avg_return_pct": 8.16,
+          "max_return_pct": 37.54,
+          "min_return_pct": -12.54,
+          "sharpe_ratio": 7.97,
+          "max_drawdown_pct": 15.66,
+          "avg_hold_days": 9.0
+        }
+      }
+    },
+    {
+      "symbol": "3406",
+      "name": "3406.TW",
+      "score": 58.37,
+      "strategies": {
+        "ma_crossover": {
+          "total_trades": 2,
+          "win_count": 2,
+          "loss_count": 0,
+          "win_rate": 100.0,
+          "loss_rate": 0.0,
+          "profit_loss_ratio": 999,
+          "avg_return_pct": 9.36,
+          "max_return_pct": 14.57,
+          "min_return_pct": 4.15,
+          "sharpe_ratio": 20.17,
+          "max_drawdown_pct": 0,
+          "avg_hold_days": 20.0
+        },
+        "breakout": {
+          "total_trades": 3,
+          "win_count": 2,
+          "loss_count": 1,
+          "win_rate": 66.67,
+          "loss_rate": 33.33,
+          "profit_loss_ratio": 28.59,
+          "avg_return_pct": 8.24,
+          "max_return_pct": 17.68,
+          "min_return_pct": -0.44,
+          "sharpe_ratio": 14.4,
+          "max_drawdown_pct": 0.44,
+          "avg_hold_days": 15.0
+        },
+        "pattern": {
           "total_trades": 10,
           "win_count": 6,
           "loss_count": 4,
           "win_rate": 60.0,
           "loss_rate": 40.0,
-          "profit_loss_ratio": 2.53,
-          "avg_return_pct": 6.69,
-          "max_return_pct": 24.7,
-          "min_return_pct": -8.76,
-          "sharpe_ratio": 8.41,
-          "max_drawdown_pct": 8.76,
-          "avg_hold_days": 8.6
+          "profit_loss_ratio": 1.98,
+          "avg_return_pct": 3.88,
+          "max_return_pct": 15.73,
+          "min_return_pct": -9.69,
+          "sharpe_ratio": 7.32,
+          "max_drawdown_pct": 13.7,
+          "avg_hold_days": 9.7
         }
       }
     },
     {
       "symbol": "3042",
       "name": "3042.TW",
-      "score": 58.6,
+      "score": 55.77,
       "strategies": {
         "ma_crossover": {
           "total_trades": 2,
@@ -420,114 +469,18 @@
           "avg_hold_days": 18.0
         },
         "breakout": {
-          "total_trades": 4,
-          "win_count": 2,
-          "loss_count": 2,
-          "win_rate": 50.0,
-          "loss_rate": 50.0,
-          "profit_loss_ratio": 13.36,
-          "avg_return_pct": 11.09,
-          "max_return_pct": 27.56,
-          "min_return_pct": -2.55,
-          "sharpe_ratio": 11.6,
-          "max_drawdown_pct": 3.59,
-          "avg_hold_days": 9.0
-        },
-        "pattern": {
-          "total_trades": 10,
-          "win_count": 6,
-          "loss_count": 4,
-          "win_rate": 60.0,
-          "loss_rate": 40.0,
-          "profit_loss_ratio": 3.05,
-          "avg_return_pct": 6.91,
-          "max_return_pct": 37.76,
-          "min_return_pct": -8.38,
-          "sharpe_ratio": 7.15,
-          "max_drawdown_pct": 16.66,
-          "avg_hold_days": 8.4
-        }
-      }
-    },
-    {
-      "symbol": "1303",
-      "name": "1303.TW",
-      "score": 57.66,
-      "strategies": {
-        "ma_crossover": {
-          "total_trades": 2,
-          "win_count": 2,
-          "loss_count": 0,
-          "win_rate": 100.0,
-          "loss_rate": 0.0,
-          "profit_loss_ratio": 999,
-          "avg_return_pct": 7.59,
-          "max_return_pct": 11.19,
-          "min_return_pct": 3.99,
-          "sharpe_ratio": 23.67,
-          "max_drawdown_pct": 0,
-          "avg_hold_days": 20.0
-        },
-        "breakout": {
           "total_trades": 3,
-          "win_count": 2,
-          "loss_count": 1,
-          "win_rate": 66.67,
-          "loss_rate": 33.33,
-          "profit_loss_ratio": 4.74,
-          "avg_return_pct": 14.17,
-          "max_return_pct": 32.46,
-          "min_return_pct": -5.01,
-          "sharpe_ratio": 12.0,
-          "max_drawdown_pct": 5.01,
-          "avg_hold_days": 11.3
-        },
-        "pattern": {
-          "total_trades": 10,
-          "win_count": 6,
-          "loss_count": 4,
-          "win_rate": 60.0,
-          "loss_rate": 40.0,
-          "profit_loss_ratio": 1.87,
-          "avg_return_pct": 5.28,
-          "max_return_pct": 26.97,
-          "min_return_pct": -10.07,
-          "sharpe_ratio": 6.51,
-          "max_drawdown_pct": 17.02,
-          "avg_hold_days": 9.2
-        }
-      }
-    },
-    {
-      "symbol": "3264",
-      "name": "3264.TWO",
-      "score": 55.76,
-      "strategies": {
-        "ma_crossover": {
-          "total_trades": 0,
-          "win_rate": 0.0,
-          "loss_rate": 0.0,
-          "profit_loss_ratio": 0.0,
-          "avg_return_pct": 0.0,
-          "max_return_pct": 0.0,
-          "min_return_pct": 0.0,
-          "sharpe_ratio": 0.0,
-          "max_drawdown_pct": 0.0,
-          "avg_hold_days": 0.0
-        },
-        "breakout": {
-          "total_trades": 1,
           "win_count": 1,
-          "loss_count": 0,
-          "win_rate": 100.0,
-          "loss_rate": 0.0,
-          "profit_loss_ratio": 999,
-          "avg_return_pct": 26.51,
-          "max_return_pct": 26.51,
-          "min_return_pct": 26.51,
-          "sharpe_ratio": 0,
-          "max_drawdown_pct": 0,
-          "avg_hold_days": 15.0
+          "loss_count": 2,
+          "win_rate": 33.33,
+          "loss_rate": 66.67,
+          "profit_loss_ratio": 11.37,
+          "avg_return_pct": 5.61,
+          "max_return_pct": 20.41,
+          "min_return_pct": -2.55,
+          "sharpe_ratio": 6.93,
+          "max_drawdown_pct": 3.59,
+          "avg_hold_days": 7.0
         },
         "pattern": {
           "total_trades": 10,
@@ -535,69 +488,20 @@
           "loss_count": 5,
           "win_rate": 50.0,
           "loss_rate": 50.0,
-          "profit_loss_ratio": 3.25,
-          "avg_return_pct": 6.82,
-          "max_return_pct": 34.26,
-          "min_return_pct": -10.22,
-          "sharpe_ratio": 6.75,
-          "max_drawdown_pct": 18.88,
-          "avg_hold_days": 8.6
-        }
-      }
-    },
-    {
-      "symbol": "6531",
-      "name": "6531.TW",
-      "score": 53.72,
-      "strategies": {
-        "ma_crossover": {
-          "total_trades": 2,
-          "win_count": 2,
-          "loss_count": 0,
-          "win_rate": 100.0,
-          "loss_rate": 0.0,
-          "profit_loss_ratio": 999,
-          "avg_return_pct": 38.18,
-          "max_return_pct": 71.62,
-          "min_return_pct": 4.74,
-          "sharpe_ratio": 12.82,
-          "max_drawdown_pct": 0,
-          "avg_hold_days": 20.0
-        },
-        "breakout": {
-          "total_trades": 3,
-          "win_count": 1,
-          "loss_count": 2,
-          "win_rate": 33.33,
-          "loss_rate": 66.67,
-          "profit_loss_ratio": 4.03,
-          "avg_return_pct": 5.15,
-          "max_return_pct": 30.69,
-          "min_return_pct": -15.13,
-          "sharpe_ratio": 3.5,
-          "max_drawdown_pct": 15.13,
-          "avg_hold_days": 7.7
-        },
-        "pattern": {
-          "total_trades": 7,
-          "win_count": 6,
-          "loss_count": 1,
-          "win_rate": 85.71,
-          "loss_rate": 14.29,
-          "profit_loss_ratio": 1.75,
-          "avg_return_pct": 12.29,
-          "max_return_pct": 32.58,
-          "min_return_pct": -9.03,
-          "sharpe_ratio": 13.22,
-          "max_drawdown_pct": 9.03,
-          "avg_hold_days": 9.6
+          "profit_loss_ratio": 3.71,
+          "avg_return_pct": 5.8,
+          "max_return_pct": 37.76,
+          "min_return_pct": -8.38,
+          "sharpe_ratio": 5.91,
+          "max_drawdown_pct": 16.66,
+          "avg_hold_days": 8.4
         }
       }
     },
     {
       "symbol": "8046",
       "name": "8046.TW",
-      "score": 52.85,
+      "score": 55.63,
       "strategies": {
         "ma_crossover": {
           "total_trades": 2,
@@ -629,24 +533,314 @@
         },
         "pattern": {
           "total_trades": 10,
+          "win_count": 5,
+          "loss_count": 5,
+          "win_rate": 50.0,
+          "loss_rate": 50.0,
+          "profit_loss_ratio": 3.43,
+          "avg_return_pct": 7.07,
+          "max_return_pct": 26.13,
+          "min_return_pct": -9.15,
+          "sharpe_ratio": 7.88,
+          "max_drawdown_pct": 9.15,
+          "avg_hold_days": 7.7
+        }
+      }
+    },
+    {
+      "symbol": "8299",
+      "name": "8299.TWO",
+      "score": 55.6,
+      "strategies": {
+        "ma_crossover": {
+          "total_trades": 2,
+          "win_count": 1,
+          "loss_count": 1,
+          "win_rate": 50.0,
+          "loss_rate": 50.0,
+          "profit_loss_ratio": 2.79,
+          "avg_return_pct": 10.12,
+          "max_return_pct": 31.55,
+          "min_return_pct": -11.31,
+          "sharpe_ratio": 5.3,
+          "max_drawdown_pct": 11.31,
+          "avg_hold_days": 13.0
+        },
+        "breakout": {
+          "total_trades": 2,
+          "win_count": 2,
+          "loss_count": 0,
+          "win_rate": 100.0,
+          "loss_rate": 0.0,
+          "profit_loss_ratio": 999,
+          "avg_return_pct": 13.18,
+          "max_return_pct": 14.97,
+          "min_return_pct": 11.38,
+          "sharpe_ratio": 82.39,
+          "max_drawdown_pct": 0,
+          "avg_hold_days": 9.0
+        },
+        "pattern": {
+          "total_trades": 9,
+          "win_count": 2,
+          "loss_count": 7,
+          "win_rate": 22.22,
+          "loss_rate": 77.78,
+          "profit_loss_ratio": 4.1,
+          "avg_return_pct": 0.99,
+          "max_return_pct": 31.96,
+          "min_return_pct": -10.85,
+          "sharpe_ratio": 0.93,
+          "max_drawdown_pct": 32.08,
+          "avg_hold_days": 8.0
+        }
+      }
+    },
+    {
+      "symbol": "3264",
+      "name": "3264.TWO",
+      "score": 55.54,
+      "strategies": {
+        "ma_crossover": {
+          "total_trades": 0,
+          "win_rate": 0.0,
+          "loss_rate": 0.0,
+          "profit_loss_ratio": 0.0,
+          "avg_return_pct": 0.0,
+          "max_return_pct": 0.0,
+          "min_return_pct": 0.0,
+          "sharpe_ratio": 0.0,
+          "max_drawdown_pct": 0.0,
+          "avg_hold_days": 0.0
+        },
+        "breakout": {
+          "total_trades": 1,
+          "win_count": 1,
+          "loss_count": 0,
+          "win_rate": 100.0,
+          "loss_rate": 0.0,
+          "profit_loss_ratio": 999,
+          "avg_return_pct": 26.51,
+          "max_return_pct": 26.51,
+          "min_return_pct": 26.51,
+          "sharpe_ratio": 0,
+          "max_drawdown_pct": 0,
+          "avg_hold_days": 15.0
+        },
+        "pattern": {
+          "total_trades": 10,
           "win_count": 6,
           "loss_count": 4,
           "win_rate": 60.0,
           "loss_rate": 40.0,
-          "profit_loss_ratio": 1.5,
-          "avg_return_pct": 4.75,
-          "max_return_pct": 26.13,
-          "min_return_pct": -12.32,
-          "sharpe_ratio": 5.36,
-          "max_drawdown_pct": 12.32,
-          "avg_hold_days": 7.2
+          "profit_loss_ratio": 2.47,
+          "avg_return_pct": 7.85,
+          "max_return_pct": 38.95,
+          "min_return_pct": -10.22,
+          "sharpe_ratio": 7.53,
+          "max_drawdown_pct": 18.88,
+          "avg_hold_days": 8.6
+        }
+      }
+    },
+    {
+      "symbol": "1303",
+      "name": "1303.TW",
+      "score": 55.24,
+      "strategies": {
+        "ma_crossover": {
+          "total_trades": 2,
+          "win_count": 2,
+          "loss_count": 0,
+          "win_rate": 100.0,
+          "loss_rate": 0.0,
+          "profit_loss_ratio": 999,
+          "avg_return_pct": 7.59,
+          "max_return_pct": 11.19,
+          "min_return_pct": 3.99,
+          "sharpe_ratio": 23.67,
+          "max_drawdown_pct": 0,
+          "avg_hold_days": 20.0
+        },
+        "breakout": {
+          "total_trades": 2,
+          "win_count": 1,
+          "loss_count": 1,
+          "win_rate": 50.0,
+          "loss_rate": 50.0,
+          "profit_loss_ratio": 4.87,
+          "avg_return_pct": 9.71,
+          "max_return_pct": 24.42,
+          "min_return_pct": -5.01,
+          "sharpe_ratio": 7.4,
+          "max_drawdown_pct": 5.01,
+          "avg_hold_days": 9.5
+        },
+        "pattern": {
+          "total_trades": 10,
+          "win_count": 6,
+          "loss_count": 4,
+          "win_rate": 60.0,
+          "loss_rate": 40.0,
+          "profit_loss_ratio": 1.87,
+          "avg_return_pct": 5.28,
+          "max_return_pct": 26.97,
+          "min_return_pct": -10.07,
+          "sharpe_ratio": 6.51,
+          "max_drawdown_pct": 17.02,
+          "avg_hold_days": 9.2
+        }
+      }
+    },
+    {
+      "symbol": "3481",
+      "name": "3481.TW",
+      "score": 55.08,
+      "strategies": {
+        "ma_crossover": {
+          "total_trades": 3,
+          "win_count": 2,
+          "loss_count": 1,
+          "win_rate": 66.67,
+          "loss_rate": 33.33,
+          "profit_loss_ratio": 5.38,
+          "avg_return_pct": 37.6,
+          "max_return_pct": 87.56,
+          "min_return_pct": -11.56,
+          "sharpe_ratio": 12.04,
+          "max_drawdown_pct": 11.56,
+          "avg_hold_days": 15.7
+        },
+        "breakout": {
+          "total_trades": 3,
+          "win_count": 2,
+          "loss_count": 1,
+          "win_rate": 66.67,
+          "loss_rate": 33.33,
+          "profit_loss_ratio": 4.02,
+          "avg_return_pct": 18.9,
+          "max_return_pct": 38.7,
+          "min_return_pct": -8.06,
+          "sharpe_ratio": 12.4,
+          "max_drawdown_pct": 8.06,
+          "avg_hold_days": 8.3
+        },
+        "pattern": {
+          "total_trades": 9,
+          "win_count": 5,
+          "loss_count": 4,
+          "win_rate": 55.56,
+          "loss_rate": 44.44,
+          "profit_loss_ratio": 4.27,
+          "avg_return_pct": 16.6,
+          "max_return_pct": 72.05,
+          "min_return_pct": -12.68,
+          "sharpe_ratio": 8.65,
+          "max_drawdown_pct": 12.68,
+          "avg_hold_days": 7.9
+        }
+      }
+    },
+    {
+      "symbol": "2308",
+      "name": "2308.TW",
+      "score": 53.93,
+      "strategies": {
+        "ma_crossover": {
+          "total_trades": 0,
+          "win_rate": 0.0,
+          "loss_rate": 0.0,
+          "profit_loss_ratio": 0.0,
+          "avg_return_pct": 0.0,
+          "max_return_pct": 0.0,
+          "min_return_pct": 0.0,
+          "sharpe_ratio": 0.0,
+          "max_drawdown_pct": 0.0,
+          "avg_hold_days": 0.0
+        },
+        "breakout": {
+          "total_trades": 1,
+          "win_count": 1,
+          "loss_count": 0,
+          "win_rate": 100.0,
+          "loss_rate": 0.0,
+          "profit_loss_ratio": 999,
+          "avg_return_pct": 20.0,
+          "max_return_pct": 20.0,
+          "min_return_pct": 20.0,
+          "sharpe_ratio": 0,
+          "max_drawdown_pct": 0,
+          "avg_hold_days": 13.0
+        },
+        "pattern": {
+          "total_trades": 10,
+          "win_count": 6,
+          "loss_count": 4,
+          "win_rate": 60.0,
+          "loss_rate": 40.0,
+          "profit_loss_ratio": 1.94,
+          "avg_return_pct": 5.99,
+          "max_return_pct": 24.75,
+          "min_return_pct": -9.01,
+          "sharpe_ratio": 7.38,
+          "max_drawdown_pct": 9.01,
+          "avg_hold_days": 8.4
+        }
+      }
+    },
+    {
+      "symbol": "6531",
+      "name": "6531.TW",
+      "score": 52.91,
+      "strategies": {
+        "ma_crossover": {
+          "total_trades": 2,
+          "win_count": 2,
+          "loss_count": 0,
+          "win_rate": 100.0,
+          "loss_rate": 0.0,
+          "profit_loss_ratio": 999,
+          "avg_return_pct": 38.18,
+          "max_return_pct": 71.62,
+          "min_return_pct": 4.74,
+          "sharpe_ratio": 12.82,
+          "max_drawdown_pct": 0,
+          "avg_hold_days": 20.0
+        },
+        "breakout": {
+          "total_trades": 4,
+          "win_count": 2,
+          "loss_count": 2,
+          "win_rate": 50.0,
+          "loss_rate": 50.0,
+          "profit_loss_ratio": 2.72,
+          "avg_return_pct": 6.55,
+          "max_return_pct": 30.69,
+          "min_return_pct": -15.13,
+          "sharpe_ratio": 5.39,
+          "max_drawdown_pct": 15.13,
+          "avg_hold_days": 9.5
+        },
+        "pattern": {
+          "total_trades": 7,
+          "win_count": 5,
+          "loss_count": 2,
+          "win_rate": 71.43,
+          "loss_rate": 28.57,
+          "profit_loss_ratio": 2.48,
+          "avg_return_pct": 12.45,
+          "max_return_pct": 32.58,
+          "min_return_pct": -9.03,
+          "sharpe_ratio": 11.64,
+          "max_drawdown_pct": 9.03,
+          "avg_hold_days": 9.6
         }
       }
     },
     {
       "symbol": "2409",
       "name": "2409.TW",
-      "score": 52.55,
+      "score": 52.19,
       "strategies": {
         "ma_crossover": {
           "total_trades": 2,
@@ -663,88 +857,39 @@
           "avg_hold_days": 17.0
         },
         "breakout": {
-          "total_trades": 2,
-          "win_count": 1,
+          "total_trades": 3,
+          "win_count": 2,
           "loss_count": 1,
-          "win_rate": 50.0,
-          "loss_rate": 50.0,
-          "profit_loss_ratio": 3.18,
-          "avg_return_pct": 9.03,
+          "win_rate": 66.67,
+          "loss_rate": 33.33,
+          "profit_loss_ratio": 2.5,
+          "avg_return_pct": 11.0,
           "max_return_pct": 26.33,
           "min_return_pct": -8.27,
-          "sharpe_ratio": 5.86,
+          "sharpe_ratio": 9.9,
           "max_drawdown_pct": 8.27,
-          "avg_hold_days": 13.0
+          "avg_hold_days": 9.7
         },
         "pattern": {
-          "total_trades": 10,
-          "win_count": 6,
+          "total_trades": 12,
+          "win_count": 8,
           "loss_count": 4,
-          "win_rate": 60.0,
-          "loss_rate": 40.0,
-          "profit_loss_ratio": 2.79,
-          "avg_return_pct": 8.69,
+          "win_rate": 66.67,
+          "loss_rate": 33.33,
+          "profit_loss_ratio": 1.59,
+          "avg_return_pct": 6.93,
           "max_return_pct": 44.8,
-          "min_return_pct": -9.51,
-          "sharpe_ratio": 7.73,
-          "max_drawdown_pct": 9.51,
-          "avg_hold_days": 8.9
-        }
-      }
-    },
-    {
-      "symbol": "2610",
-      "name": "2610.TW",
-      "score": 52.1,
-      "strategies": {
-        "ma_crossover": {
-          "total_trades": 1,
-          "win_count": 1,
-          "loss_count": 0,
-          "win_rate": 100.0,
-          "loss_rate": 0.0,
-          "profit_loss_ratio": 999,
-          "avg_return_pct": 7.55,
-          "max_return_pct": 7.55,
-          "min_return_pct": 7.55,
-          "sharpe_ratio": 0,
-          "max_drawdown_pct": 0,
-          "avg_hold_days": 20.0
-        },
-        "breakout": {
-          "total_trades": 2,
-          "win_count": 1,
-          "loss_count": 1,
-          "win_rate": 50.0,
-          "loss_rate": 50.0,
-          "profit_loss_ratio": 3.18,
-          "avg_return_pct": 2.34,
-          "max_return_pct": 6.84,
-          "min_return_pct": -2.15,
-          "sharpe_ratio": 5.86,
-          "max_drawdown_pct": 2.15,
-          "avg_hold_days": 12.0
-        },
-        "pattern": {
-          "total_trades": 9,
-          "win_count": 5,
-          "loss_count": 4,
-          "win_rate": 55.56,
-          "loss_rate": 44.44,
-          "profit_loss_ratio": 3.49,
-          "avg_return_pct": 2.29,
-          "max_return_pct": 12.53,
-          "min_return_pct": -3.2,
-          "sharpe_ratio": 7.68,
-          "max_drawdown_pct": 6.13,
-          "avg_hold_days": 10.0
+          "min_return_pct": -11.01,
+          "sharpe_ratio": 6.52,
+          "max_drawdown_pct": 20.52,
+          "avg_hold_days": 7.9
         }
       }
     },
     {
       "symbol": "3017",
       "name": "3017.TW",
-      "score": 51.22,
+      "score": 51.56,
       "strategies": {
         "ma_crossover": {
           "total_trades": 2,
@@ -775,123 +920,74 @@
           "avg_hold_days": 15.0
         },
         "pattern": {
-          "total_trades": 10,
-          "win_count": 7,
+          "total_trades": 11,
+          "win_count": 8,
           "loss_count": 3,
-          "win_rate": 70.0,
-          "loss_rate": 30.0,
-          "profit_loss_ratio": 1.14,
-          "avg_return_pct": 5.05,
+          "win_rate": 72.73,
+          "loss_rate": 27.27,
+          "profit_loss_ratio": 1.1,
+          "avg_return_pct": 5.33,
           "max_return_pct": 22.61,
           "min_return_pct": -15.6,
-          "sharpe_ratio": 6.46,
+          "sharpe_ratio": 7.06,
           "max_drawdown_pct": 18.3,
-          "avg_hold_days": 8.4
+          "avg_hold_days": 8.5
         }
       }
     },
     {
-      "symbol": "3481",
-      "name": "3481.TW",
-      "score": 51.12,
+      "symbol": "3443",
+      "name": "3443.TW",
+      "score": 51.34,
       "strategies": {
         "ma_crossover": {
-          "total_trades": 2,
-          "win_count": 1,
-          "loss_count": 1,
+          "total_trades": 4,
+          "win_count": 2,
+          "loss_count": 2,
           "win_rate": 50.0,
           "loss_rate": 50.0,
-          "profit_loss_ratio": 7.57,
-          "avg_return_pct": 38.0,
-          "max_return_pct": 87.56,
-          "min_return_pct": -11.56,
-          "sharpe_ratio": 8.61,
-          "max_drawdown_pct": 11.56,
-          "avg_hold_days": 13.5
+          "profit_loss_ratio": 5.11,
+          "avg_return_pct": 22.51,
+          "max_return_pct": 96.23,
+          "min_return_pct": -10.96,
+          "sharpe_ratio": 7.04,
+          "max_drawdown_pct": 21.92,
+          "avg_hold_days": 12.8
         },
         "breakout": {
-          "total_trades": 3,
-          "win_count": 2,
-          "loss_count": 1,
-          "win_rate": 66.67,
-          "loss_rate": 33.33,
-          "profit_loss_ratio": 4.02,
-          "avg_return_pct": 18.9,
-          "max_return_pct": 38.7,
-          "min_return_pct": -8.06,
-          "sharpe_ratio": 12.4,
-          "max_drawdown_pct": 8.06,
-          "avg_hold_days": 8.3
-        },
-        "pattern": {
-          "total_trades": 9,
-          "win_count": 5,
-          "loss_count": 4,
-          "win_rate": 55.56,
-          "loss_rate": 44.44,
-          "profit_loss_ratio": 3.6,
-          "avg_return_pct": 15.89,
-          "max_return_pct": 72.05,
-          "min_return_pct": -12.68,
-          "sharpe_ratio": 8.13,
-          "max_drawdown_pct": 12.68,
-          "avg_hold_days": 7.3
-        }
-      }
-    },
-    {
-      "symbol": "2891",
-      "name": "2891.TW",
-      "score": 50.55,
-      "strategies": {
-        "ma_crossover": {
           "total_trades": 2,
           "win_count": 2,
           "loss_count": 0,
           "win_rate": 100.0,
           "loss_rate": 0.0,
           "profit_loss_ratio": 999,
-          "avg_return_pct": 10.6,
-          "max_return_pct": 21.0,
-          "min_return_pct": 0.19,
-          "sharpe_ratio": 11.43,
+          "avg_return_pct": 18.16,
+          "max_return_pct": 32.3,
+          "min_return_pct": 4.02,
+          "sharpe_ratio": 14.42,
           "max_drawdown_pct": 0,
-          "avg_hold_days": 17.0
-        },
-        "breakout": {
-          "total_trades": 4,
-          "win_count": 1,
-          "loss_count": 3,
-          "win_rate": 25.0,
-          "loss_rate": 75.0,
-          "profit_loss_ratio": 2.67,
-          "avg_return_pct": -0.33,
-          "max_return_pct": 10.9,
-          "min_return_pct": -6.31,
-          "sharpe_ratio": -0.68,
-          "max_drawdown_pct": 12.23,
-          "avg_hold_days": 6.2
+          "avg_hold_days": 11.5
         },
         "pattern": {
-          "total_trades": 9,
-          "win_count": 8,
-          "loss_count": 1,
-          "win_rate": 88.89,
-          "loss_rate": 11.11,
-          "profit_loss_ratio": 2.16,
-          "avg_return_pct": 3.69,
-          "max_return_pct": 12.12,
-          "min_return_pct": -2.04,
-          "sharpe_ratio": 12.94,
-          "max_drawdown_pct": 2.04,
-          "avg_hold_days": 10.0
+          "total_trades": 11,
+          "win_count": 4,
+          "loss_count": 7,
+          "win_rate": 36.36,
+          "loss_rate": 63.64,
+          "profit_loss_ratio": 2.12,
+          "avg_return_pct": 1.02,
+          "max_return_pct": 38.22,
+          "min_return_pct": -11.25,
+          "sharpe_ratio": 1.08,
+          "max_drawdown_pct": 27.4,
+          "avg_hold_days": 7.3
         }
       }
     },
     {
       "symbol": "2357",
       "name": "2357.TW",
-      "score": 49.94,
+      "score": 50.79,
       "strategies": {
         "ma_crossover": {
           "total_trades": 1,
@@ -927,111 +1023,13 @@
           "loss_count": 3,
           "win_rate": 66.67,
           "loss_rate": 33.33,
-          "profit_loss_ratio": 2.53,
-          "avg_return_pct": 6.62,
+          "profit_loss_ratio": 2.94,
+          "avg_return_pct": 6.85,
           "max_return_pct": 43.3,
-          "min_return_pct": -8.39,
-          "sharpe_ratio": 6.76,
-          "max_drawdown_pct": 14.68,
+          "min_return_pct": -6.33,
+          "sharpe_ratio": 7.1,
+          "max_drawdown_pct": 12.62,
           "avg_hold_days": 10.0
-        }
-      }
-    },
-    {
-      "symbol": "2882",
-      "name": "2882.TW",
-      "score": 47.97,
-      "strategies": {
-        "ma_crossover": {
-          "total_trades": 1,
-          "win_count": 1,
-          "loss_count": 0,
-          "win_rate": 100.0,
-          "loss_rate": 0.0,
-          "profit_loss_ratio": 999,
-          "avg_return_pct": 7.05,
-          "max_return_pct": 7.05,
-          "min_return_pct": 7.05,
-          "sharpe_ratio": 0,
-          "max_drawdown_pct": 0,
-          "avg_hold_days": 20.0
-        },
-        "breakout": {
-          "total_trades": 3,
-          "win_count": 2,
-          "loss_count": 1,
-          "win_rate": 66.67,
-          "loss_rate": 33.33,
-          "profit_loss_ratio": 0.95,
-          "avg_return_pct": 2.42,
-          "max_return_pct": 7.82,
-          "min_return_pct": -8.04,
-          "sharpe_ratio": 4.24,
-          "max_drawdown_pct": 8.04,
-          "avg_hold_days": 8.7
-        },
-        "pattern": {
-          "total_trades": 10,
-          "win_count": 8,
-          "loss_count": 2,
-          "win_rate": 80.0,
-          "loss_rate": 20.0,
-          "profit_loss_ratio": 1.02,
-          "avg_return_pct": 4.0,
-          "max_return_pct": 25.15,
-          "min_return_pct": -8.97,
-          "sharpe_ratio": 7.16,
-          "max_drawdown_pct": 12.93,
-          "avg_hold_days": 9.7
-        }
-      }
-    },
-    {
-      "symbol": "3443",
-      "name": "3443.TW",
-      "score": 47.88,
-      "strategies": {
-        "ma_crossover": {
-          "total_trades": 3,
-          "win_count": 1,
-          "loss_count": 2,
-          "win_rate": 33.33,
-          "loss_rate": 66.67,
-          "profit_loss_ratio": 8.78,
-          "avg_return_pct": 24.77,
-          "max_return_pct": 96.23,
-          "min_return_pct": -10.96,
-          "sharpe_ratio": 6.35,
-          "max_drawdown_pct": 21.92,
-          "avg_hold_days": 10.3
-        },
-        "breakout": {
-          "total_trades": 1,
-          "win_count": 1,
-          "loss_count": 0,
-          "win_rate": 100.0,
-          "loss_rate": 0.0,
-          "profit_loss_ratio": 999,
-          "avg_return_pct": 32.3,
-          "max_return_pct": 32.3,
-          "min_return_pct": 32.3,
-          "sharpe_ratio": 0,
-          "max_drawdown_pct": 0,
-          "avg_hold_days": 8.0
-        },
-        "pattern": {
-          "total_trades": 11,
-          "win_count": 4,
-          "loss_count": 7,
-          "win_rate": 36.36,
-          "loss_rate": 63.64,
-          "profit_loss_ratio": 2.24,
-          "avg_return_pct": 1.29,
-          "max_return_pct": 38.22,
-          "min_return_pct": -11.25,
-          "sharpe_ratio": 1.39,
-          "max_drawdown_pct": 27.4,
-          "avg_hold_days": 7.5
         }
       }
     }
@@ -1060,20 +1058,20 @@
         },
         "breakout": {
           "metrics": {
-            "total_trades": 2,
-            "win_count": 0,
+            "total_trades": 3,
+            "win_count": 1,
             "loss_count": 2,
-            "win_rate": 0.0,
-            "loss_rate": 100.0,
-            "profit_loss_ratio": 0.0,
-            "avg_return_pct": -4.5,
-            "max_return_pct": -4.25,
+            "win_rate": 33.33,
+            "loss_rate": 66.67,
+            "profit_loss_ratio": 1.93,
+            "avg_return_pct": -0.11,
+            "max_return_pct": 8.66,
             "min_return_pct": -4.74,
-            "sharpe_ratio": -205.94,
+            "sharpe_ratio": -0.23,
             "max_drawdown_pct": 8.99,
-            "avg_hold_days": 8.5
+            "avg_hold_days": 10.7
           },
-          "trade_count": 2
+          "trade_count": 3
         },
         "pattern": {
           "metrics": {
@@ -1082,11 +1080,11 @@
             "loss_count": 2,
             "win_rate": 80.0,
             "loss_rate": 20.0,
-            "profit_loss_ratio": 2.33,
-            "avg_return_pct": 4.98,
-            "max_return_pct": 12.37,
+            "profit_loss_ratio": 2.24,
+            "avg_return_pct": 4.76,
+            "max_return_pct": 10.7,
             "min_return_pct": -3.36,
-            "sharpe_ratio": 13.59,
+            "sharpe_ratio": 14.49,
             "max_drawdown_pct": 5.98,
             "avg_hold_days": 10.0
           },
@@ -1139,13 +1137,13 @@
             "loss_count": 5,
             "win_rate": 44.44,
             "loss_rate": 55.56,
-            "profit_loss_ratio": 1.56,
-            "avg_return_pct": 0.99,
+            "profit_loss_ratio": 1.99,
+            "avg_return_pct": 1.86,
             "max_return_pct": 18.38,
             "min_return_pct": -10.5,
-            "sharpe_ratio": 1.45,
-            "max_drawdown_pct": 29.49,
-            "avg_hold_days": 9.4
+            "sharpe_ratio": 2.88,
+            "max_drawdown_pct": 27.95,
+            "avg_hold_days": 9.8
           },
           "trade_count": 9
         }
@@ -1174,20 +1172,20 @@
         },
         "breakout": {
           "metrics": {
-            "total_trades": 2,
+            "total_trades": 3,
             "win_count": 2,
-            "loss_count": 0,
-            "win_rate": 100.0,
-            "loss_rate": 0.0,
-            "profit_loss_ratio": 999,
-            "avg_return_pct": 20.09,
+            "loss_count": 1,
+            "win_rate": 66.67,
+            "loss_rate": 33.33,
+            "profit_loss_ratio": 5.5,
+            "avg_return_pct": 11.34,
             "max_return_pct": 28.21,
-            "min_return_pct": 11.96,
-            "sharpe_ratio": 27.75,
-            "max_drawdown_pct": 0,
-            "avg_hold_days": 10.0
+            "min_return_pct": -3.4,
+            "sharpe_ratio": 11.31,
+            "max_drawdown_pct": 3.4,
+            "avg_hold_days": 4.3
           },
-          "trade_count": 2
+          "trade_count": 3
         },
         "pattern": {
           "metrics": {
@@ -1214,20 +1212,18 @@
       "strategies": {
         "ma_crossover": {
           "metrics": {
-            "total_trades": 1,
-            "win_count": 0,
-            "loss_count": 1,
+            "total_trades": 0,
             "win_rate": 0.0,
-            "loss_rate": 100.0,
+            "loss_rate": 0.0,
             "profit_loss_ratio": 0.0,
-            "avg_return_pct": -12.1,
-            "max_return_pct": -12.1,
-            "min_return_pct": -12.1,
-            "sharpe_ratio": 0,
-            "max_drawdown_pct": 12.1,
-            "avg_hold_days": 12.0
+            "avg_return_pct": 0.0,
+            "max_return_pct": 0.0,
+            "min_return_pct": 0.0,
+            "sharpe_ratio": 0.0,
+            "max_drawdown_pct": 0.0,
+            "avg_hold_days": 0.0
           },
-          "trade_count": 1
+          "trade_count": 0
         },
         "breakout": {
           "metrics": {
@@ -1237,12 +1233,12 @@
             "win_rate": 100.0,
             "loss_rate": 0.0,
             "profit_loss_ratio": 999,
-            "avg_return_pct": 12.0,
-            "max_return_pct": 12.0,
-            "min_return_pct": 12.0,
+            "avg_return_pct": 20.0,
+            "max_return_pct": 20.0,
+            "min_return_pct": 20.0,
             "sharpe_ratio": 0,
             "max_drawdown_pct": 0,
-            "avg_hold_days": 5.0
+            "avg_hold_days": 13.0
           },
           "trade_count": 1
         },
@@ -1253,13 +1249,13 @@
             "loss_count": 4,
             "win_rate": 60.0,
             "loss_rate": 40.0,
-            "profit_loss_ratio": 1.87,
-            "avg_return_pct": 6.23,
+            "profit_loss_ratio": 1.94,
+            "avg_return_pct": 5.99,
             "max_return_pct": 24.75,
             "min_return_pct": -9.01,
-            "sharpe_ratio": 7.36,
+            "sharpe_ratio": 7.38,
             "max_drawdown_pct": 9.01,
-            "avg_hold_days": 8.0
+            "avg_hold_days": 8.4
           },
           "trade_count": 10
         }
@@ -1271,20 +1267,20 @@
       "strategies": {
         "ma_crossover": {
           "metrics": {
-            "total_trades": 2,
+            "total_trades": 3,
             "win_count": 2,
-            "loss_count": 0,
-            "win_rate": 100.0,
-            "loss_rate": 0.0,
-            "profit_loss_ratio": 999,
-            "avg_return_pct": 2.72,
+            "loss_count": 1,
+            "win_rate": 66.67,
+            "loss_rate": 33.33,
+            "profit_loss_ratio": 1.39,
+            "avg_return_pct": 1.16,
             "max_return_pct": 4.39,
-            "min_return_pct": 1.05,
-            "sharpe_ratio": 18.28,
-            "max_drawdown_pct": 0,
-            "avg_hold_days": 16.0
+            "min_return_pct": -1.95,
+            "sharpe_ratio": 5.82,
+            "max_drawdown_pct": 1.95,
+            "avg_hold_days": 17.0
           },
-          "trade_count": 2
+          "trade_count": 3
         },
         "breakout": {
           "metrics": {
@@ -1305,20 +1301,20 @@
         },
         "pattern": {
           "metrics": {
-            "total_trades": 10,
-            "win_count": 4,
+            "total_trades": 11,
+            "win_count": 5,
             "loss_count": 6,
-            "win_rate": 40.0,
-            "loss_rate": 60.0,
-            "profit_loss_ratio": 3.28,
-            "avg_return_pct": 2.83,
+            "win_rate": 45.45,
+            "loss_rate": 54.55,
+            "profit_loss_ratio": 3.18,
+            "avg_return_pct": 3.29,
             "max_return_pct": 31.17,
-            "min_return_pct": -10.47,
-            "sharpe_ratio": 3.77,
-            "max_drawdown_pct": 11.21,
-            "avg_hold_days": 9.6
+            "min_return_pct": -10.0,
+            "sharpe_ratio": 4.76,
+            "max_drawdown_pct": 10.0,
+            "avg_hold_days": 9.4
           },
-          "trade_count": 10
+          "trade_count": 11
         }
       }
     },
@@ -1328,52 +1324,52 @@
       "strategies": {
         "ma_crossover": {
           "metrics": {
-            "total_trades": 3,
-            "win_count": 1,
+            "total_trades": 4,
+            "win_count": 2,
             "loss_count": 2,
-            "win_rate": 33.33,
-            "loss_rate": 66.67,
-            "profit_loss_ratio": 2.87,
-            "avg_return_pct": 3.76,
+            "win_rate": 50.0,
+            "loss_rate": 50.0,
+            "profit_loss_ratio": 1.65,
+            "avg_return_pct": 4.26,
             "max_return_pct": 37.37,
             "min_return_pct": -17.17,
-            "sharpe_ratio": 2.03,
+            "sharpe_ratio": 2.81,
             "max_drawdown_pct": 26.08,
-            "avg_hold_days": 10.0
+            "avg_hold_days": 12.5
           },
-          "trade_count": 3
+          "trade_count": 4
         },
         "breakout": {
           "metrics": {
             "total_trades": 3,
-            "win_count": 2,
-            "loss_count": 1,
-            "win_rate": 66.67,
-            "loss_rate": 33.33,
-            "profit_loss_ratio": 17.5,
-            "avg_return_pct": 10.88,
+            "win_count": 3,
+            "loss_count": 0,
+            "win_rate": 100.0,
+            "loss_rate": 0.0,
+            "profit_loss_ratio": 999,
+            "avg_return_pct": 16.66,
             "max_return_pct": 18.77,
-            "min_return_pct": -0.96,
-            "sharpe_ratio": 16.54,
-            "max_drawdown_pct": 0.96,
-            "avg_hold_days": 11.0
+            "min_return_pct": 14.83,
+            "sharpe_ratio": 133.17,
+            "max_drawdown_pct": 0,
+            "avg_hold_days": 11.3
           },
           "trade_count": 3
         },
         "pattern": {
           "metrics": {
             "total_trades": 9,
-            "win_count": 6,
-            "loss_count": 3,
-            "win_rate": 66.67,
-            "loss_rate": 33.33,
-            "profit_loss_ratio": 1.5,
-            "avg_return_pct": 7.06,
+            "win_count": 7,
+            "loss_count": 2,
+            "win_rate": 77.78,
+            "loss_rate": 22.22,
+            "profit_loss_ratio": 1.21,
+            "avg_return_pct": 8.16,
             "max_return_pct": 37.54,
             "min_return_pct": -12.54,
-            "sharpe_ratio": 6.56,
+            "sharpe_ratio": 7.97,
             "max_drawdown_pct": 15.66,
-            "avg_hold_days": 8.7
+            "avg_hold_days": 9.0
           },
           "trade_count": 9
         }
@@ -1419,20 +1415,20 @@
         },
         "pattern": {
           "metrics": {
-            "total_trades": 10,
+            "total_trades": 9,
             "win_count": 6,
-            "loss_count": 4,
-            "win_rate": 60.0,
-            "loss_rate": 40.0,
-            "profit_loss_ratio": 2.53,
-            "avg_return_pct": 6.69,
+            "loss_count": 3,
+            "win_rate": 66.67,
+            "loss_rate": 33.33,
+            "profit_loss_ratio": 2.94,
+            "avg_return_pct": 8.33,
             "max_return_pct": 24.7,
             "min_return_pct": -8.76,
-            "sharpe_ratio": 8.41,
+            "sharpe_ratio": 10.97,
             "max_drawdown_pct": 8.76,
-            "avg_hold_days": 8.6
+            "avg_hold_days": 9.1
           },
-          "trade_count": 10
+          "trade_count": 9
         }
       }
     },
@@ -1477,17 +1473,17 @@
         "pattern": {
           "metrics": {
             "total_trades": 9,
-            "win_count": 6,
-            "loss_count": 3,
-            "win_rate": 66.67,
-            "loss_rate": 33.33,
-            "profit_loss_ratio": 1.21,
-            "avg_return_pct": 2.66,
+            "win_count": 5,
+            "loss_count": 4,
+            "win_rate": 55.56,
+            "loss_rate": 44.44,
+            "profit_loss_ratio": 1.55,
+            "avg_return_pct": 1.82,
             "max_return_pct": 9.6,
-            "min_return_pct": -8.61,
-            "sharpe_ratio": 6.35,
-            "max_drawdown_pct": 11.95,
-            "avg_hold_days": 10.0
+            "min_return_pct": -8.12,
+            "sharpe_ratio": 4.48,
+            "max_drawdown_pct": 12.99,
+            "avg_hold_days": 9.9
           },
           "trade_count": 9
         }
@@ -1499,54 +1495,54 @@
       "strategies": {
         "ma_crossover": {
           "metrics": {
+            "total_trades": 4,
+            "win_count": 1,
+            "loss_count": 3,
+            "win_rate": 25.0,
+            "loss_rate": 75.0,
+            "profit_loss_ratio": 0.76,
+            "avg_return_pct": -2.47,
+            "max_return_pct": 3.38,
+            "min_return_pct": -8.33,
+            "sharpe_ratio": -8.18,
+            "max_drawdown_pct": 13.26,
+            "avg_hold_days": 13.0
+          },
+          "trade_count": 4
+        },
+        "breakout": {
+          "metrics": {
             "total_trades": 3,
             "win_count": 1,
             "loss_count": 2,
             "win_rate": 33.33,
             "loss_rate": 66.67,
-            "profit_loss_ratio": 1.37,
-            "avg_return_pct": -0.52,
-            "max_return_pct": 3.38,
-            "min_return_pct": -2.86,
-            "sharpe_ratio": -2.41,
-            "max_drawdown_pct": 4.93,
-            "avg_hold_days": 11.3
+            "profit_loss_ratio": 2.58,
+            "avg_return_pct": 1.04,
+            "max_return_pct": 13.99,
+            "min_return_pct": -5.97,
+            "sharpe_ratio": 1.48,
+            "max_drawdown_pct": 10.86,
+            "avg_hold_days": 8.0
           },
           "trade_count": 3
         },
-        "breakout": {
-          "metrics": {
-            "total_trades": 2,
-            "win_count": 1,
-            "loss_count": 1,
-            "win_rate": 50.0,
-            "loss_rate": 50.0,
-            "profit_loss_ratio": 2.86,
-            "avg_return_pct": 4.55,
-            "max_return_pct": 13.99,
-            "min_return_pct": -4.89,
-            "sharpe_ratio": 5.41,
-            "max_drawdown_pct": 4.89,
-            "avg_hold_days": 8.5
-          },
-          "trade_count": 2
-        },
         "pattern": {
           "metrics": {
-            "total_trades": 9,
+            "total_trades": 10,
             "win_count": 6,
-            "loss_count": 3,
-            "win_rate": 66.67,
-            "loss_rate": 33.33,
-            "profit_loss_ratio": 0.97,
-            "avg_return_pct": 1.59,
+            "loss_count": 4,
+            "win_rate": 60.0,
+            "loss_rate": 40.0,
+            "profit_loss_ratio": 0.95,
+            "avg_return_pct": 0.88,
             "max_return_pct": 18.78,
             "min_return_pct": -6.09,
-            "sharpe_ratio": 3.36,
-            "max_drawdown_pct": 11.96,
+            "sharpe_ratio": 1.89,
+            "max_drawdown_pct": 16.91,
             "avg_hold_days": 10.0
           },
-          "trade_count": 9
+          "trade_count": 10
         }
       }
     },
@@ -1573,37 +1569,37 @@
         },
         "breakout": {
           "metrics": {
-            "total_trades": 4,
+            "total_trades": 5,
             "win_count": 2,
-            "loss_count": 2,
-            "win_rate": 50.0,
-            "loss_rate": 50.0,
-            "profit_loss_ratio": 2.0,
-            "avg_return_pct": 3.54,
+            "loss_count": 3,
+            "win_rate": 40.0,
+            "loss_rate": 60.0,
+            "profit_loss_ratio": 2.69,
+            "avg_return_pct": 2.51,
             "max_return_pct": 20.88,
             "min_return_pct": -8.53,
-            "sharpe_ratio": 4.17,
-            "max_drawdown_pct": 14.15,
-            "avg_hold_days": 8.8
+            "sharpe_ratio": 3.35,
+            "max_drawdown_pct": 15.77,
+            "avg_hold_days": 9.8
           },
-          "trade_count": 4
+          "trade_count": 5
         },
         "pattern": {
           "metrics": {
-            "total_trades": 9,
+            "total_trades": 10,
             "win_count": 4,
-            "loss_count": 5,
-            "win_rate": 44.44,
-            "loss_rate": 55.56,
-            "profit_loss_ratio": 2.54,
-            "avg_return_pct": 2.89,
+            "loss_count": 6,
+            "win_rate": 40.0,
+            "loss_rate": 60.0,
+            "profit_loss_ratio": 2.67,
+            "avg_return_pct": 2.5,
             "max_return_pct": 22.98,
             "min_return_pct": -8.18,
-            "sharpe_ratio": 4.33,
+            "sharpe_ratio": 3.62,
             "max_drawdown_pct": 16.96,
-            "avg_hold_days": 9.3
+            "avg_hold_days": 9.4
           },
-          "trade_count": 9
+          "trade_count": 10
         }
       }
     },
@@ -1613,20 +1609,20 @@
       "strategies": {
         "ma_crossover": {
           "metrics": {
-            "total_trades": 4,
+            "total_trades": 3,
             "win_count": 1,
-            "loss_count": 3,
-            "win_rate": 25.0,
-            "loss_rate": 75.0,
-            "profit_loss_ratio": 1.18,
-            "avg_return_pct": -0.88,
+            "loss_count": 2,
+            "win_rate": 33.33,
+            "loss_rate": 66.67,
+            "profit_loss_ratio": 0.85,
+            "avg_return_pct": -1.02,
             "max_return_pct": 2.27,
             "min_return_pct": -3.93,
-            "sharpe_ratio": -5.46,
+            "sharpe_ratio": -5.18,
             "max_drawdown_pct": 3.93,
-            "avg_hold_days": 10.2
+            "avg_hold_days": 13.3
           },
-          "trade_count": 4
+          "trade_count": 3
         },
         "breakout": {
           "metrics": {
@@ -1648,16 +1644,16 @@
         "pattern": {
           "metrics": {
             "total_trades": 10,
-            "win_count": 7,
-            "loss_count": 3,
-            "win_rate": 70.0,
-            "loss_rate": 30.0,
-            "profit_loss_ratio": 1.21,
-            "avg_return_pct": 1.31,
-            "max_return_pct": 7.17,
+            "win_count": 6,
+            "loss_count": 4,
+            "win_rate": 60.0,
+            "loss_rate": 40.0,
+            "profit_loss_ratio": 0.87,
+            "avg_return_pct": 0.26,
+            "max_return_pct": 3.33,
             "min_return_pct": -3.48,
-            "sharpe_ratio": 6.33,
-            "max_drawdown_pct": 3.68,
+            "sharpe_ratio": 1.72,
+            "max_drawdown_pct": 3.48,
             "avg_hold_days": 10.0
           },
           "trade_count": 10
@@ -1670,20 +1666,20 @@
       "strategies": {
         "ma_crossover": {
           "metrics": {
-            "total_trades": 1,
-            "win_count": 1,
+            "total_trades": 2,
+            "win_count": 2,
             "loss_count": 0,
             "win_rate": 100.0,
             "loss_rate": 0.0,
             "profit_loss_ratio": 999,
-            "avg_return_pct": 53.23,
+            "avg_return_pct": 33.73,
             "max_return_pct": 53.23,
-            "min_return_pct": 53.23,
-            "sharpe_ratio": 0,
+            "min_return_pct": 14.23,
+            "sharpe_ratio": 19.42,
             "max_drawdown_pct": 0,
             "avg_hold_days": 20.0
           },
-          "trade_count": 1
+          "trade_count": 2
         },
         "breakout": {
           "metrics": {
@@ -1704,20 +1700,20 @@
         },
         "pattern": {
           "metrics": {
-            "total_trades": 7,
+            "total_trades": 8,
             "win_count": 5,
-            "loss_count": 2,
-            "win_rate": 71.43,
-            "loss_rate": 28.57,
-            "profit_loss_ratio": 2.07,
-            "avg_return_pct": 8.2,
+            "loss_count": 3,
+            "win_rate": 62.5,
+            "loss_rate": 37.5,
+            "profit_loss_ratio": 2.04,
+            "avg_return_pct": 6.75,
             "max_return_pct": 42.3,
             "min_return_pct": -8.84,
-            "sharpe_ratio": 7.81,
-            "max_drawdown_pct": 13.78,
-            "avg_hold_days": 9.7
+            "sharpe_ratio": 6.16,
+            "max_drawdown_pct": 22.55,
+            "avg_hold_days": 8.6
           },
-          "trade_count": 7
+          "trade_count": 8
         }
       }
     },
@@ -1766,12 +1762,12 @@
             "loss_count": 5,
             "win_rate": 50.0,
             "loss_rate": 50.0,
-            "profit_loss_ratio": 4.53,
-            "avg_return_pct": 3.34,
+            "profit_loss_ratio": 3.58,
+            "avg_return_pct": 2.07,
             "max_return_pct": 16.28,
             "min_return_pct": -3.52,
-            "sharpe_ratio": 7.34,
-            "max_drawdown_pct": 9.47,
+            "sharpe_ratio": 5.64,
+            "max_drawdown_pct": 8.04,
             "avg_hold_days": 10.0
           },
           "trade_count": 10
@@ -1818,20 +1814,20 @@
         },
         "pattern": {
           "metrics": {
-            "total_trades": 10,
+            "total_trades": 11,
             "win_count": 8,
-            "loss_count": 2,
-            "win_rate": 80.0,
-            "loss_rate": 20.0,
-            "profit_loss_ratio": 1.02,
-            "avg_return_pct": 4.0,
+            "loss_count": 3,
+            "win_rate": 72.73,
+            "loss_rate": 27.27,
+            "profit_loss_ratio": 1.32,
+            "avg_return_pct": 3.73,
             "max_return_pct": 25.15,
-            "min_return_pct": -8.97,
-            "sharpe_ratio": 7.16,
-            "max_drawdown_pct": 12.93,
-            "avg_hold_days": 9.7
+            "min_return_pct": -9.79,
+            "sharpe_ratio": 6.67,
+            "max_drawdown_pct": 14.0,
+            "avg_hold_days": 9.5
           },
-          "trade_count": 10
+          "trade_count": 11
         }
       }
     },
@@ -1875,20 +1871,20 @@
         },
         "pattern": {
           "metrics": {
-            "total_trades": 10,
-            "win_count": 5,
+            "total_trades": 11,
+            "win_count": 6,
             "loss_count": 5,
-            "win_rate": 50.0,
-            "loss_rate": 50.0,
-            "profit_loss_ratio": 1.45,
-            "avg_return_pct": 0.4,
+            "win_rate": 54.55,
+            "loss_rate": 45.45,
+            "profit_loss_ratio": 1.14,
+            "avg_return_pct": 0.41,
             "max_return_pct": 4.73,
-            "min_return_pct": -2.99,
-            "sharpe_ratio": 2.36,
-            "max_drawdown_pct": 5.51,
+            "min_return_pct": -4.32,
+            "sharpe_ratio": 2.16,
+            "max_drawdown_pct": 5.59,
             "avg_hold_days": 10.0
           },
-          "trade_count": 10
+          "trade_count": 11
         }
       }
     },
@@ -1937,11 +1933,11 @@
             "loss_count": 1,
             "win_rate": 88.89,
             "loss_rate": 11.11,
-            "profit_loss_ratio": 2.16,
-            "avg_return_pct": 3.69,
-            "max_return_pct": 12.12,
+            "profit_loss_ratio": 1.89,
+            "avg_return_pct": 3.21,
+            "max_return_pct": 8.21,
             "min_return_pct": -2.04,
-            "sharpe_ratio": 12.94,
+            "sharpe_ratio": 13.88,
             "max_drawdown_pct": 2.04,
             "avg_hold_days": 10.0
           },
@@ -1955,54 +1951,54 @@
       "strategies": {
         "ma_crossover": {
           "metrics": {
+            "total_trades": 2,
+            "win_count": 1,
+            "loss_count": 1,
+            "win_rate": 50.0,
+            "loss_rate": 50.0,
+            "profit_loss_ratio": 1.67,
+            "avg_return_pct": 1.46,
+            "max_return_pct": 7.29,
+            "min_return_pct": -4.37,
+            "sharpe_ratio": 2.81,
+            "max_drawdown_pct": 4.37,
+            "avg_hold_days": 15.0
+          },
+          "trade_count": 2
+        },
+        "breakout": {
+          "metrics": {
             "total_trades": 3,
             "win_count": 1,
             "loss_count": 2,
             "win_rate": 33.33,
             "loss_rate": 66.67,
-            "profit_loss_ratio": 0.92,
-            "avg_return_pct": -2.83,
-            "max_return_pct": 7.29,
-            "min_return_pct": -11.42,
-            "sharpe_ratio": -4.76,
-            "max_drawdown_pct": 15.79,
-            "avg_hold_days": 16.0
-          },
-          "trade_count": 3
-        },
-        "breakout": {
-          "metrics": {
-            "total_trades": 3,
-            "win_count": 2,
-            "loss_count": 1,
-            "win_rate": 66.67,
-            "loss_rate": 33.33,
-            "profit_loss_ratio": 2.66,
-            "avg_return_pct": 3.79,
+            "profit_loss_ratio": 4.74,
+            "avg_return_pct": 1.91,
             "max_return_pct": 9.9,
             "min_return_pct": -2.63,
-            "sharpe_ratio": 9.6,
+            "sharpe_ratio": 4.36,
             "max_drawdown_pct": 2.63,
-            "avg_hold_days": 10.0
+            "avg_hold_days": 8.3
           },
           "trade_count": 3
         },
         "pattern": {
           "metrics": {
-            "total_trades": 10,
+            "total_trades": 9,
             "win_count": 4,
-            "loss_count": 6,
-            "win_rate": 40.0,
-            "loss_rate": 60.0,
-            "profit_loss_ratio": 1.86,
-            "avg_return_pct": 0.57,
+            "loss_count": 5,
+            "win_rate": 44.44,
+            "loss_rate": 55.56,
+            "profit_loss_ratio": 2.57,
+            "avg_return_pct": 1.23,
             "max_return_pct": 11.73,
-            "min_return_pct": -13.59,
-            "sharpe_ratio": 1.28,
-            "max_drawdown_pct": 13.59,
-            "avg_hold_days": 9.2
+            "min_return_pct": -3.18,
+            "sharpe_ratio": 4.0,
+            "max_drawdown_pct": 5.16,
+            "avg_hold_days": 10.0
           },
-          "trade_count": 10
+          "trade_count": 9
         }
       }
     },
@@ -2012,37 +2008,37 @@
       "strategies": {
         "ma_crossover": {
           "metrics": {
-            "total_trades": 4,
-            "win_count": 1,
+            "total_trades": 3,
+            "win_count": 0,
             "loss_count": 3,
-            "win_rate": 25.0,
-            "loss_rate": 75.0,
-            "profit_loss_ratio": 0.64,
-            "avg_return_pct": -1.25,
-            "max_return_pct": 1.37,
+            "win_rate": 0.0,
+            "loss_rate": 100.0,
+            "profit_loss_ratio": 0.0,
+            "avg_return_pct": -2.13,
+            "max_return_pct": -1.16,
             "min_return_pct": -4.03,
-            "sharpe_ratio": -9.01,
+            "sharpe_ratio": -20.48,
             "max_drawdown_pct": 6.38,
-            "avg_hold_days": 12.8
+            "avg_hold_days": 10.3
           },
-          "trade_count": 4
+          "trade_count": 3
         },
         "breakout": {
           "metrics": {
-            "total_trades": 2,
+            "total_trades": 3,
             "win_count": 1,
-            "loss_count": 1,
-            "win_rate": 50.0,
-            "loss_rate": 50.0,
-            "profit_loss_ratio": 3.06,
-            "avg_return_pct": 1.8,
+            "loss_count": 2,
+            "win_rate": 33.33,
+            "loss_rate": 66.67,
+            "profit_loss_ratio": 2.77,
+            "avg_return_pct": 0.5,
             "max_return_pct": 5.35,
-            "min_return_pct": -1.75,
-            "sharpe_ratio": 5.69,
-            "max_drawdown_pct": 1.75,
-            "avg_hold_days": 14.0
+            "min_return_pct": -2.11,
+            "sharpe_ratio": 1.87,
+            "max_drawdown_pct": 3.86,
+            "avg_hold_days": 11.0
           },
-          "trade_count": 2
+          "trade_count": 3
         },
         "pattern": {
           "metrics": {
@@ -2051,12 +2047,12 @@
             "loss_count": 5,
             "win_rate": 50.0,
             "loss_rate": 50.0,
-            "profit_loss_ratio": 1.34,
-            "avg_return_pct": 0.54,
+            "profit_loss_ratio": 1.25,
+            "avg_return_pct": 0.43,
             "max_return_pct": 10.2,
-            "min_return_pct": -5.9,
-            "sharpe_ratio": 1.73,
-            "max_drawdown_pct": 11.76,
+            "min_return_pct": -5.64,
+            "sharpe_ratio": 1.39,
+            "max_drawdown_pct": 12.47,
             "avg_hold_days": 10.0
           },
           "trade_count": 10
@@ -2069,20 +2065,20 @@
       "strategies": {
         "ma_crossover": {
           "metrics": {
-            "total_trades": 3,
+            "total_trades": 2,
             "win_count": 1,
-            "loss_count": 2,
-            "win_rate": 33.33,
-            "loss_rate": 66.67,
-            "profit_loss_ratio": 0.51,
-            "avg_return_pct": -1.04,
+            "loss_count": 1,
+            "win_rate": 50.0,
+            "loss_rate": 50.0,
+            "profit_loss_ratio": 0.35,
+            "avg_return_pct": -0.99,
             "max_return_pct": 1.07,
             "min_return_pct": -3.05,
-            "sharpe_ratio": -7.98,
-            "max_drawdown_pct": 4.18,
-            "avg_hold_days": 11.0
+            "sharpe_ratio": -5.39,
+            "max_drawdown_pct": 3.05,
+            "avg_hold_days": 9.0
           },
-          "trade_count": 3
+          "trade_count": 2
         },
         "breakout": {
           "metrics": {
@@ -2103,20 +2099,20 @@
         },
         "pattern": {
           "metrics": {
-            "total_trades": 9,
+            "total_trades": 10,
             "win_count": 3,
-            "loss_count": 6,
-            "win_rate": 33.33,
-            "loss_rate": 66.67,
-            "profit_loss_ratio": 2.0,
-            "avg_return_pct": -0.0,
+            "loss_count": 7,
+            "win_rate": 30.0,
+            "loss_rate": 70.0,
+            "profit_loss_ratio": 2.02,
+            "avg_return_pct": -0.37,
             "max_return_pct": 14.96,
             "min_return_pct": -8.28,
-            "sharpe_ratio": -0.01,
+            "sharpe_ratio": -0.82,
             "max_drawdown_pct": 16.32,
             "avg_hold_days": 9.8
           },
-          "trade_count": 9
+          "trade_count": 10
         }
       }
     },
@@ -2165,11 +2161,11 @@
             "loss_count": 4,
             "win_rate": 55.56,
             "loss_rate": 44.44,
-            "profit_loss_ratio": 3.49,
-            "avg_return_pct": 2.29,
-            "max_return_pct": 12.53,
+            "profit_loss_ratio": 2.46,
+            "avg_return_pct": 1.42,
+            "max_return_pct": 6.17,
             "min_return_pct": -3.2,
-            "sharpe_ratio": 7.68,
+            "sharpe_ratio": 7.3,
             "max_drawdown_pct": 6.13,
             "avg_hold_days": 10.0
           },
@@ -2183,37 +2179,37 @@
       "strategies": {
         "ma_crossover": {
           "metrics": {
-            "total_trades": 2,
+            "total_trades": 1,
             "win_count": 0,
-            "loss_count": 2,
+            "loss_count": 1,
             "win_rate": 0.0,
             "loss_rate": 100.0,
-            "profit_loss_ratio": 0.0,
-            "avg_return_pct": -2.44,
+            "profit_loss_ratio": 999,
+            "avg_return_pct": 0.0,
             "max_return_pct": 0.0,
-            "min_return_pct": -4.87,
-            "sharpe_ratio": -11.22,
-            "max_drawdown_pct": 4.87,
-            "avg_hold_days": 14.0
+            "min_return_pct": 0.0,
+            "sharpe_ratio": 0,
+            "max_drawdown_pct": 0,
+            "avg_hold_days": 16.0
           },
-          "trade_count": 2
+          "trade_count": 1
         },
         "breakout": {
           "metrics": {
-            "total_trades": 3,
+            "total_trades": 4,
             "win_count": 0,
-            "loss_count": 3,
+            "loss_count": 4,
             "win_rate": 0.0,
             "loss_rate": 100.0,
             "profit_loss_ratio": 0.0,
-            "avg_return_pct": -3.92,
+            "avg_return_pct": -3.66,
             "max_return_pct": -2.17,
             "min_return_pct": -6.52,
-            "sharpe_ratio": -27.1,
-            "max_drawdown_pct": 11.76,
-            "avg_hold_days": 10.3
+            "sharpe_ratio": -29.46,
+            "max_drawdown_pct": 14.64,
+            "avg_hold_days": 9.2
           },
-          "trade_count": 3
+          "trade_count": 4
         },
         "pattern": {
           "metrics": {
@@ -2222,11 +2218,11 @@
             "loss_count": 5,
             "win_rate": 50.0,
             "loss_rate": 50.0,
-            "profit_loss_ratio": 0.54,
-            "avg_return_pct": -1.29,
-            "max_return_pct": 5.94,
+            "profit_loss_ratio": 0.7,
+            "avg_return_pct": -0.82,
+            "max_return_pct": 7.38,
             "min_return_pct": -8.13,
-            "sharpe_ratio": -4.03,
+            "sharpe_ratio": -2.38,
             "max_drawdown_pct": 22.56,
             "avg_hold_days": 9.7
           },
@@ -2240,20 +2236,20 @@
       "strategies": {
         "ma_crossover": {
           "metrics": {
-            "total_trades": 3,
+            "total_trades": 2,
             "win_count": 2,
-            "loss_count": 1,
-            "win_rate": 66.67,
-            "loss_rate": 33.33,
-            "profit_loss_ratio": 0.66,
-            "avg_return_pct": 1.53,
+            "loss_count": 0,
+            "win_rate": 100.0,
+            "loss_rate": 0.0,
+            "profit_loss_ratio": 999,
+            "avg_return_pct": 9.28,
             "max_return_pct": 11.59,
-            "min_return_pct": -13.95,
-            "sharpe_ratio": 1.79,
-            "max_drawdown_pct": 13.95,
-            "avg_hold_days": 15.0
+            "min_return_pct": 6.96,
+            "sharpe_ratio": 44.97,
+            "max_drawdown_pct": 0,
+            "avg_hold_days": 19.0
           },
-          "trade_count": 3
+          "trade_count": 2
         },
         "breakout": {
           "metrics": {
@@ -2275,15 +2271,15 @@
         "pattern": {
           "metrics": {
             "total_trades": 9,
-            "win_count": 4,
-            "loss_count": 5,
-            "win_rate": 44.44,
-            "loss_rate": 55.56,
-            "profit_loss_ratio": 2.88,
-            "avg_return_pct": 2.81,
-            "max_return_pct": 26.87,
+            "win_count": 3,
+            "loss_count": 6,
+            "win_rate": 33.33,
+            "loss_rate": 66.67,
+            "profit_loss_ratio": 1.36,
+            "avg_return_pct": -0.86,
+            "max_return_pct": 10.57,
             "min_return_pct": -8.93,
-            "sharpe_ratio": 4.19,
+            "sharpe_ratio": -2.42,
             "max_drawdown_pct": 16.02,
             "avg_hold_days": 9.8
           },
@@ -2314,20 +2310,20 @@
         },
         "breakout": {
           "metrics": {
-            "total_trades": 3,
-            "win_count": 2,
+            "total_trades": 2,
+            "win_count": 1,
             "loss_count": 1,
-            "win_rate": 66.67,
-            "loss_rate": 33.33,
-            "profit_loss_ratio": 4.74,
-            "avg_return_pct": 14.17,
-            "max_return_pct": 32.46,
+            "win_rate": 50.0,
+            "loss_rate": 50.0,
+            "profit_loss_ratio": 4.87,
+            "avg_return_pct": 9.71,
+            "max_return_pct": 24.42,
             "min_return_pct": -5.01,
-            "sharpe_ratio": 12.0,
+            "sharpe_ratio": 7.4,
             "max_drawdown_pct": 5.01,
-            "avg_hold_days": 11.3
+            "avg_hold_days": 9.5
           },
-          "trade_count": 3
+          "trade_count": 2
         },
         "pattern": {
           "metrics": {
@@ -2354,20 +2350,20 @@
       "strategies": {
         "ma_crossover": {
           "metrics": {
-            "total_trades": 3,
+            "total_trades": 2,
             "win_count": 1,
-            "loss_count": 2,
-            "win_rate": 33.33,
-            "loss_rate": 66.67,
-            "profit_loss_ratio": 4.65,
-            "avg_return_pct": 4.85,
+            "loss_count": 1,
+            "win_rate": 50.0,
+            "loss_rate": 50.0,
+            "profit_loss_ratio": 15.11,
+            "avg_return_pct": 11.92,
             "max_return_pct": 25.54,
-            "min_return_pct": -9.29,
-            "sharpe_ratio": 4.21,
-            "max_drawdown_pct": 9.29,
-            "avg_hold_days": 10.3
+            "min_return_pct": -1.69,
+            "sharpe_ratio": 9.83,
+            "max_drawdown_pct": 1.69,
+            "avg_hold_days": 11.0
           },
-          "trade_count": 3
+          "trade_count": 2
         },
         "breakout": {
           "metrics": {
@@ -2388,20 +2384,20 @@
         },
         "pattern": {
           "metrics": {
-            "total_trades": 9,
+            "total_trades": 10,
             "win_count": 6,
-            "loss_count": 3,
-            "win_rate": 66.67,
-            "loss_rate": 33.33,
-            "profit_loss_ratio": 2.8,
-            "avg_return_pct": 6.41,
-            "max_return_pct": 21.45,
+            "loss_count": 4,
+            "win_rate": 60.0,
+            "loss_rate": 40.0,
+            "profit_loss_ratio": 2.7,
+            "avg_return_pct": 6.08,
+            "max_return_pct": 30.81,
             "min_return_pct": -9.35,
-            "sharpe_ratio": 9.44,
+            "sharpe_ratio": 7.37,
             "max_drawdown_pct": 9.35,
-            "avg_hold_days": 9.4
+            "avg_hold_days": 9.0
           },
-          "trade_count": 9
+          "trade_count": 10
         }
       }
     },
@@ -2445,20 +2441,20 @@
         },
         "pattern": {
           "metrics": {
-            "total_trades": 9,
-            "win_count": 1,
+            "total_trades": 10,
+            "win_count": 2,
             "loss_count": 8,
-            "win_rate": 11.11,
-            "loss_rate": 88.89,
-            "profit_loss_ratio": 3.54,
-            "avg_return_pct": -1.79,
+            "win_rate": 20.0,
+            "loss_rate": 80.0,
+            "profit_loss_ratio": 2.37,
+            "avg_return_pct": -1.05,
             "max_return_pct": 12.83,
-            "min_return_pct": -8.28,
-            "sharpe_ratio": -4.78,
-            "max_drawdown_pct": 27.89,
-            "avg_hold_days": 10.0
+            "min_return_pct": -8.53,
+            "sharpe_ratio": -2.9,
+            "max_drawdown_pct": 24.58,
+            "avg_hold_days": 9.7
           },
-          "trade_count": 9
+          "trade_count": 10
         }
       }
     },
@@ -2507,12 +2503,12 @@
             "loss_count": 3,
             "win_rate": 66.67,
             "loss_rate": 33.33,
-            "profit_loss_ratio": 2.53,
-            "avg_return_pct": 6.62,
+            "profit_loss_ratio": 2.94,
+            "avg_return_pct": 6.85,
             "max_return_pct": 43.3,
-            "min_return_pct": -8.39,
-            "sharpe_ratio": 6.76,
-            "max_drawdown_pct": 14.68,
+            "min_return_pct": -6.33,
+            "sharpe_ratio": 7.1,
+            "max_drawdown_pct": 12.62,
             "avg_hold_days": 10.0
           },
           "trade_count": 9
@@ -2525,20 +2521,20 @@
       "strategies": {
         "ma_crossover": {
           "metrics": {
-            "total_trades": 3,
+            "total_trades": 4,
             "win_count": 0,
-            "loss_count": 3,
+            "loss_count": 4,
             "win_rate": 0.0,
             "loss_rate": 100.0,
             "profit_loss_ratio": 0.0,
-            "avg_return_pct": -2.27,
+            "avg_return_pct": -2.12,
             "max_return_pct": -1.32,
             "min_return_pct": -3.7,
-            "sharpe_ratio": -28.59,
-            "max_drawdown_pct": 6.81,
-            "avg_hold_days": 11.0
+            "sharpe_ratio": -31.55,
+            "max_drawdown_pct": 8.5,
+            "avg_hold_days": 12.0
           },
-          "trade_count": 3
+          "trade_count": 4
         },
         "breakout": {
           "metrics": {
@@ -2564,13 +2560,13 @@
             "loss_count": 4,
             "win_rate": 55.56,
             "loss_rate": 44.44,
-            "profit_loss_ratio": 0.81,
-            "avg_return_pct": 0.03,
+            "profit_loss_ratio": 1.32,
+            "avg_return_pct": 0.78,
             "max_return_pct": 6.29,
-            "min_return_pct": -8.97,
-            "sharpe_ratio": 0.08,
-            "max_drawdown_pct": 8.97,
-            "avg_hold_days": 9.1
+            "min_return_pct": -5.54,
+            "sharpe_ratio": 3.17,
+            "max_drawdown_pct": 5.54,
+            "avg_hold_days": 10.0
           },
           "trade_count": 9
         }
@@ -2617,17 +2613,17 @@
         "pattern": {
           "metrics": {
             "total_trades": 9,
-            "win_count": 6,
-            "loss_count": 3,
-            "win_rate": 66.67,
-            "loss_rate": 33.33,
-            "profit_loss_ratio": 2.29,
-            "avg_return_pct": 9.53,
-            "max_return_pct": 35.57,
-            "min_return_pct": -10.03,
-            "sharpe_ratio": 8.73,
-            "max_drawdown_pct": 10.03,
-            "avg_hold_days": 9.4
+            "win_count": 7,
+            "loss_count": 2,
+            "win_rate": 77.78,
+            "loss_rate": 22.22,
+            "profit_loss_ratio": 2.42,
+            "avg_return_pct": 9.83,
+            "max_return_pct": 36.8,
+            "min_return_pct": -9.38,
+            "sharpe_ratio": 12.03,
+            "max_drawdown_pct": 9.38,
+            "avg_hold_days": 9.7
           },
           "trade_count": 9
         }
@@ -2639,52 +2635,52 @@
       "strategies": {
         "ma_crossover": {
           "metrics": {
-            "total_trades": 4,
-            "win_count": 2,
+            "total_trades": 3,
+            "win_count": 1,
             "loss_count": 2,
-            "win_rate": 50.0,
-            "loss_rate": 50.0,
-            "profit_loss_ratio": 1.59,
-            "avg_return_pct": 1.04,
-            "max_return_pct": 8.22,
+            "win_rate": 33.33,
+            "loss_rate": 66.67,
+            "profit_loss_ratio": 0.84,
+            "avg_return_pct": -1.36,
+            "max_return_pct": 2.96,
             "min_return_pct": -4.04,
-            "sharpe_ratio": 2.89,
+            "sharpe_ratio": -5.7,
             "max_drawdown_pct": 7.03,
-            "avg_hold_days": 11.2
+            "avg_hold_days": 10.0
           },
-          "trade_count": 4
+          "trade_count": 3
         },
         "breakout": {
           "metrics": {
-            "total_trades": 2,
+            "total_trades": 3,
             "win_count": 1,
-            "loss_count": 1,
-            "win_rate": 50.0,
-            "loss_rate": 50.0,
-            "profit_loss_ratio": 26.35,
-            "avg_return_pct": 13.56,
+            "loss_count": 2,
+            "win_rate": 33.33,
+            "loss_rate": 66.67,
+            "profit_loss_ratio": 8.19,
+            "avg_return_pct": 7.1,
             "max_return_pct": 28.19,
-            "min_return_pct": -1.07,
-            "sharpe_ratio": 10.4,
-            "max_drawdown_pct": 1.07,
-            "avg_hold_days": 10.0
+            "min_return_pct": -5.81,
+            "sharpe_ratio": 6.12,
+            "max_drawdown_pct": 6.88,
+            "avg_hold_days": 8.7
           },
-          "trade_count": 2
+          "trade_count": 3
         },
         "pattern": {
           "metrics": {
             "total_trades": 10,
-            "win_count": 3,
-            "loss_count": 7,
-            "win_rate": 30.0,
-            "loss_rate": 70.0,
-            "profit_loss_ratio": 4.38,
-            "avg_return_pct": 1.61,
+            "win_count": 5,
+            "loss_count": 5,
+            "win_rate": 50.0,
+            "loss_rate": 50.0,
+            "profit_loss_ratio": 2.95,
+            "avg_return_pct": 2.86,
             "max_return_pct": 25.71,
-            "min_return_pct": -8.56,
-            "sharpe_ratio": 2.76,
-            "max_drawdown_pct": 16.64,
-            "avg_hold_days": 9.5
+            "min_return_pct": -6.45,
+            "sharpe_ratio": 4.95,
+            "max_drawdown_pct": 12.83,
+            "avg_hold_days": 10.0
           },
           "trade_count": 10
         }
@@ -2730,20 +2726,20 @@
         },
         "pattern": {
           "metrics": {
-            "total_trades": 10,
-            "win_count": 6,
+            "total_trades": 11,
+            "win_count": 7,
             "loss_count": 4,
-            "win_rate": 60.0,
-            "loss_rate": 40.0,
-            "profit_loss_ratio": 1.45,
-            "avg_return_pct": 4.75,
+            "win_rate": 63.64,
+            "loss_rate": 36.36,
+            "profit_loss_ratio": 1.3,
+            "avg_return_pct": 4.7,
             "max_return_pct": 29.83,
             "min_return_pct": -13.71,
-            "sharpe_ratio": 4.82,
+            "sharpe_ratio": 5.03,
             "max_drawdown_pct": 25.0,
-            "avg_hold_days": 6.8
+            "avg_hold_days": 7.1
           },
-          "trade_count": 10
+          "trade_count": 11
         }
       }
     },
@@ -2753,20 +2749,20 @@
       "strategies": {
         "ma_crossover": {
           "metrics": {
-            "total_trades": 2,
-            "win_count": 1,
+            "total_trades": 3,
+            "win_count": 2,
             "loss_count": 1,
-            "win_rate": 50.0,
-            "loss_rate": 50.0,
-            "profit_loss_ratio": 7.57,
-            "avg_return_pct": 38.0,
+            "win_rate": 66.67,
+            "loss_rate": 33.33,
+            "profit_loss_ratio": 5.38,
+            "avg_return_pct": 37.6,
             "max_return_pct": 87.56,
             "min_return_pct": -11.56,
-            "sharpe_ratio": 8.61,
+            "sharpe_ratio": 12.04,
             "max_drawdown_pct": 11.56,
-            "avg_hold_days": 13.5
+            "avg_hold_days": 15.7
           },
-          "trade_count": 2
+          "trade_count": 3
         },
         "breakout": {
           "metrics": {
@@ -2792,13 +2788,13 @@
             "loss_count": 4,
             "win_rate": 55.56,
             "loss_rate": 44.44,
-            "profit_loss_ratio": 3.6,
-            "avg_return_pct": 15.89,
+            "profit_loss_ratio": 4.27,
+            "avg_return_pct": 16.6,
             "max_return_pct": 72.05,
             "min_return_pct": -12.68,
-            "sharpe_ratio": 8.13,
+            "sharpe_ratio": 8.65,
             "max_drawdown_pct": 12.68,
-            "avg_hold_days": 7.3
+            "avg_hold_days": 7.9
           },
           "trade_count": 9
         }
@@ -2827,37 +2823,37 @@
         },
         "breakout": {
           "metrics": {
-            "total_trades": 2,
-            "win_count": 1,
+            "total_trades": 3,
+            "win_count": 2,
             "loss_count": 1,
-            "win_rate": 50.0,
-            "loss_rate": 50.0,
-            "profit_loss_ratio": 3.18,
-            "avg_return_pct": 9.03,
+            "win_rate": 66.67,
+            "loss_rate": 33.33,
+            "profit_loss_ratio": 2.5,
+            "avg_return_pct": 11.0,
             "max_return_pct": 26.33,
             "min_return_pct": -8.27,
-            "sharpe_ratio": 5.86,
+            "sharpe_ratio": 9.9,
             "max_drawdown_pct": 8.27,
-            "avg_hold_days": 13.0
+            "avg_hold_days": 9.7
           },
-          "trade_count": 2
+          "trade_count": 3
         },
         "pattern": {
           "metrics": {
-            "total_trades": 10,
-            "win_count": 6,
+            "total_trades": 12,
+            "win_count": 8,
             "loss_count": 4,
-            "win_rate": 60.0,
-            "loss_rate": 40.0,
-            "profit_loss_ratio": 2.79,
-            "avg_return_pct": 8.69,
+            "win_rate": 66.67,
+            "loss_rate": 33.33,
+            "profit_loss_ratio": 1.59,
+            "avg_return_pct": 6.93,
             "max_return_pct": 44.8,
-            "min_return_pct": -9.51,
-            "sharpe_ratio": 7.73,
-            "max_drawdown_pct": 9.51,
-            "avg_hold_days": 8.9
+            "min_return_pct": -11.01,
+            "sharpe_ratio": 6.52,
+            "max_drawdown_pct": 20.52,
+            "avg_hold_days": 7.9
           },
-          "trade_count": 10
+          "trade_count": 12
         }
       }
     },
@@ -2884,20 +2880,20 @@
         },
         "breakout": {
           "metrics": {
-            "total_trades": 3,
+            "total_trades": 2,
             "win_count": 1,
-            "loss_count": 2,
-            "win_rate": 33.33,
-            "loss_rate": 66.67,
-            "profit_loss_ratio": 3.34,
-            "avg_return_pct": 3.42,
+            "loss_count": 1,
+            "win_rate": 50.0,
+            "loss_rate": 50.0,
+            "profit_loss_ratio": 4.11,
+            "avg_return_pct": 9.67,
             "max_return_pct": 25.58,
-            "min_return_pct": -9.09,
-            "sharpe_ratio": 2.82,
-            "max_drawdown_pct": 15.32,
-            "avg_hold_days": 10.3
+            "min_return_pct": -6.23,
+            "sharpe_ratio": 6.83,
+            "max_drawdown_pct": 6.23,
+            "avg_hold_days": 13.5
           },
-          "trade_count": 3
+          "trade_count": 2
         },
         "pattern": {
           "metrics": {
@@ -2906,11 +2902,11 @@
             "loss_count": 4,
             "win_rate": 60.0,
             "loss_rate": 40.0,
-            "profit_loss_ratio": 1.91,
-            "avg_return_pct": 8.65,
+            "profit_loss_ratio": 1.8,
+            "avg_return_pct": 7.89,
             "max_return_pct": 41.59,
             "min_return_pct": -16.79,
-            "sharpe_ratio": 6.42,
+            "sharpe_ratio": 6.19,
             "max_drawdown_pct": 37.8,
             "avg_hold_days": 7.1
           },
@@ -2942,17 +2938,17 @@
         "breakout": {
           "metrics": {
             "total_trades": 4,
-            "win_count": 2,
-            "loss_count": 2,
-            "win_rate": 50.0,
-            "loss_rate": 50.0,
-            "profit_loss_ratio": 3.12,
-            "avg_return_pct": 6.02,
-            "max_return_pct": 21.24,
+            "win_count": 1,
+            "loss_count": 3,
+            "win_rate": 25.0,
+            "loss_rate": 75.0,
+            "profit_loss_ratio": 2.66,
+            "avg_return_pct": -0.45,
+            "max_return_pct": 14.23,
             "min_return_pct": -6.31,
-            "sharpe_ratio": 6.91,
-            "max_drawdown_pct": 11.38,
-            "avg_hold_days": 8.2
+            "sharpe_ratio": -0.73,
+            "max_drawdown_pct": 16.04,
+            "avg_hold_days": 5.2
           },
           "trade_count": 4
         },
@@ -2963,13 +2959,13 @@
             "loss_count": 5,
             "win_rate": 44.44,
             "loss_rate": 55.56,
-            "profit_loss_ratio": 2.96,
-            "avg_return_pct": 2.59,
+            "profit_loss_ratio": 2.35,
+            "avg_return_pct": 2.03,
             "max_return_pct": 28.5,
-            "min_return_pct": -7.55,
-            "sharpe_ratio": 3.84,
-            "max_drawdown_pct": 7.55,
-            "avg_hold_days": 10.0
+            "min_return_pct": -8.51,
+            "sharpe_ratio": 2.91,
+            "max_drawdown_pct": 13.16,
+            "avg_hold_days": 9.8
           },
           "trade_count": 9
         }
@@ -2981,77 +2977,20 @@
       "strategies": {
         "ma_crossover": {
           "metrics": {
-            "total_trades": 3,
-            "win_count": 2,
-            "loss_count": 1,
-            "win_rate": 66.67,
-            "loss_rate": 33.33,
-            "profit_loss_ratio": 0.49,
-            "avg_return_pct": -0.07,
-            "max_return_pct": 4.51,
-            "min_return_pct": -7.44,
-            "sharpe_ratio": -0.18,
-            "max_drawdown_pct": 7.44,
-            "avg_hold_days": 14.3
-          },
-          "trade_count": 3
-        },
-        "breakout": {
-          "metrics": {
             "total_trades": 2,
             "win_count": 1,
             "loss_count": 1,
             "win_rate": 50.0,
             "loss_rate": 50.0,
-            "profit_loss_ratio": 0.06,
-            "avg_return_pct": -1.86,
-            "max_return_pct": 0.22,
-            "min_return_pct": -3.94,
-            "sharpe_ratio": -10.04,
-            "max_drawdown_pct": 3.94,
-            "avg_hold_days": 12.0
+            "profit_loss_ratio": 0.61,
+            "avg_return_pct": -1.47,
+            "max_return_pct": 4.51,
+            "min_return_pct": -7.44,
+            "sharpe_ratio": -2.75,
+            "max_drawdown_pct": 7.44,
+            "avg_hold_days": 13.5
           },
           "trade_count": 2
-        },
-        "pattern": {
-          "metrics": {
-            "total_trades": 9,
-            "win_count": 6,
-            "loss_count": 3,
-            "win_rate": 66.67,
-            "loss_rate": 33.33,
-            "profit_loss_ratio": 1.08,
-            "avg_return_pct": 1.55,
-            "max_return_pct": 8.63,
-            "min_return_pct": -6.48,
-            "sharpe_ratio": 4.86,
-            "max_drawdown_pct": 10.98,
-            "avg_hold_days": 10.0
-          },
-          "trade_count": 9
-        }
-      }
-    },
-    "3443": {
-      "symbol": "3443",
-      "name": "3443.TW",
-      "strategies": {
-        "ma_crossover": {
-          "metrics": {
-            "total_trades": 3,
-            "win_count": 1,
-            "loss_count": 2,
-            "win_rate": 33.33,
-            "loss_rate": 66.67,
-            "profit_loss_ratio": 8.78,
-            "avg_return_pct": 24.77,
-            "max_return_pct": 96.23,
-            "min_return_pct": -10.96,
-            "sharpe_ratio": 6.35,
-            "max_drawdown_pct": 21.92,
-            "avg_hold_days": 10.3
-          },
-          "trade_count": 3
         },
         "breakout": {
           "metrics": {
@@ -3061,14 +3000,71 @@
             "win_rate": 100.0,
             "loss_rate": 0.0,
             "profit_loss_ratio": 999,
-            "avg_return_pct": 32.3,
-            "max_return_pct": 32.3,
-            "min_return_pct": 32.3,
+            "avg_return_pct": 0.22,
+            "max_return_pct": 0.22,
+            "min_return_pct": 0.22,
             "sharpe_ratio": 0,
             "max_drawdown_pct": 0,
-            "avg_hold_days": 8.0
+            "avg_hold_days": 13.0
           },
           "trade_count": 1
+        },
+        "pattern": {
+          "metrics": {
+            "total_trades": 10,
+            "win_count": 6,
+            "loss_count": 4,
+            "win_rate": 60.0,
+            "loss_rate": 40.0,
+            "profit_loss_ratio": 0.87,
+            "avg_return_pct": 0.59,
+            "max_return_pct": 8.63,
+            "min_return_pct": -6.48,
+            "sharpe_ratio": 1.74,
+            "max_drawdown_pct": 17.39,
+            "avg_hold_days": 10.0
+          },
+          "trade_count": 10
+        }
+      }
+    },
+    "3443": {
+      "symbol": "3443",
+      "name": "3443.TW",
+      "strategies": {
+        "ma_crossover": {
+          "metrics": {
+            "total_trades": 4,
+            "win_count": 2,
+            "loss_count": 2,
+            "win_rate": 50.0,
+            "loss_rate": 50.0,
+            "profit_loss_ratio": 5.11,
+            "avg_return_pct": 22.51,
+            "max_return_pct": 96.23,
+            "min_return_pct": -10.96,
+            "sharpe_ratio": 7.04,
+            "max_drawdown_pct": 21.92,
+            "avg_hold_days": 12.8
+          },
+          "trade_count": 4
+        },
+        "breakout": {
+          "metrics": {
+            "total_trades": 2,
+            "win_count": 2,
+            "loss_count": 0,
+            "win_rate": 100.0,
+            "loss_rate": 0.0,
+            "profit_loss_ratio": 999,
+            "avg_return_pct": 18.16,
+            "max_return_pct": 32.3,
+            "min_return_pct": 4.02,
+            "sharpe_ratio": 14.42,
+            "max_drawdown_pct": 0,
+            "avg_hold_days": 11.5
+          },
+          "trade_count": 2
         },
         "pattern": {
           "metrics": {
@@ -3077,13 +3073,13 @@
             "loss_count": 7,
             "win_rate": 36.36,
             "loss_rate": 63.64,
-            "profit_loss_ratio": 2.24,
-            "avg_return_pct": 1.29,
+            "profit_loss_ratio": 2.12,
+            "avg_return_pct": 1.02,
             "max_return_pct": 38.22,
             "min_return_pct": -11.25,
-            "sharpe_ratio": 1.39,
+            "sharpe_ratio": 1.08,
             "max_drawdown_pct": 27.4,
-            "avg_hold_days": 7.5
+            "avg_hold_days": 7.3
           },
           "trade_count": 11
         }
@@ -3101,10 +3097,10 @@
             "win_rate": 100.0,
             "loss_rate": 0.0,
             "profit_loss_ratio": 999,
-            "avg_return_pct": 19.16,
-            "max_return_pct": 23.75,
-            "min_return_pct": 14.57,
-            "sharpe_ratio": 46.86,
+            "avg_return_pct": 9.36,
+            "max_return_pct": 14.57,
+            "min_return_pct": 4.15,
+            "sharpe_ratio": 20.17,
             "max_drawdown_pct": 0,
             "avg_hold_days": 20.0
           },
@@ -3130,16 +3126,16 @@
         "pattern": {
           "metrics": {
             "total_trades": 10,
-            "win_count": 7,
-            "loss_count": 3,
-            "win_rate": 70.0,
-            "loss_rate": 30.0,
-            "profit_loss_ratio": 1.33,
-            "avg_return_pct": 3.77,
+            "win_count": 6,
+            "loss_count": 4,
+            "win_rate": 60.0,
+            "loss_rate": 40.0,
+            "profit_loss_ratio": 1.98,
+            "avg_return_pct": 3.88,
             "max_return_pct": 15.73,
             "min_return_pct": -9.69,
-            "sharpe_ratio": 7.15,
-            "max_drawdown_pct": 17.22,
+            "sharpe_ratio": 7.32,
+            "max_drawdown_pct": 13.7,
             "avg_hold_days": 9.7
           },
           "trade_count": 10
@@ -3191,12 +3187,12 @@
             "loss_count": 4,
             "win_rate": 60.0,
             "loss_rate": 40.0,
-            "profit_loss_ratio": 0.96,
-            "avg_return_pct": 1.13,
+            "profit_loss_ratio": 0.72,
+            "avg_return_pct": 0.25,
             "max_return_pct": 9.38,
             "min_return_pct": -10.97,
-            "sharpe_ratio": 2.48,
-            "max_drawdown_pct": 13.37,
+            "sharpe_ratio": 0.55,
+            "max_drawdown_pct": 15.16,
             "avg_hold_days": 9.4
           },
           "trade_count": 10
@@ -3209,20 +3205,20 @@
       "strategies": {
         "ma_crossover": {
           "metrics": {
-            "total_trades": 3,
+            "total_trades": 2,
             "win_count": 1,
-            "loss_count": 2,
-            "win_rate": 33.33,
-            "loss_rate": 66.67,
-            "profit_loss_ratio": 0.24,
-            "avg_return_pct": -5.79,
+            "loss_count": 1,
+            "win_rate": 50.0,
+            "loss_rate": 50.0,
+            "profit_loss_ratio": 0.2,
+            "avg_return_pct": -4.75,
             "max_return_pct": 2.42,
             "min_return_pct": -11.92,
-            "sharpe_ratio": -12.43,
-            "max_drawdown_pct": 17.36,
-            "avg_hold_days": 13.3
+            "sharpe_ratio": -7.44,
+            "max_drawdown_pct": 11.92,
+            "avg_hold_days": 15.5
           },
-          "trade_count": 3
+          "trade_count": 2
         },
         "breakout": {
           "metrics": {
@@ -3243,20 +3239,20 @@
         },
         "pattern": {
           "metrics": {
-            "total_trades": 12,
-            "win_count": 6,
-            "loss_count": 6,
-            "win_rate": 50.0,
-            "loss_rate": 50.0,
-            "profit_loss_ratio": 1.11,
-            "avg_return_pct": 0.56,
+            "total_trades": 11,
+            "win_count": 7,
+            "loss_count": 4,
+            "win_rate": 63.64,
+            "loss_rate": 36.36,
+            "profit_loss_ratio": 0.9,
+            "avg_return_pct": 2.25,
             "max_return_pct": 18.56,
             "min_return_pct": -15.07,
-            "sharpe_ratio": 0.75,
+            "sharpe_ratio": 3.09,
             "max_drawdown_pct": 19.85,
-            "avg_hold_days": 7.8
+            "avg_hold_days": 9.1
           },
-          "trade_count": 12
+          "trade_count": 11
         }
       }
     },
@@ -3299,15 +3295,15 @@
         "pattern": {
           "metrics": {
             "total_trades": 10,
-            "win_count": 5,
-            "loss_count": 5,
-            "win_rate": 50.0,
-            "loss_rate": 50.0,
-            "profit_loss_ratio": 3.25,
-            "avg_return_pct": 6.82,
-            "max_return_pct": 34.26,
+            "win_count": 6,
+            "loss_count": 4,
+            "win_rate": 60.0,
+            "loss_rate": 40.0,
+            "profit_loss_ratio": 2.47,
+            "avg_return_pct": 7.85,
+            "max_return_pct": 38.95,
             "min_return_pct": -10.22,
-            "sharpe_ratio": 6.75,
+            "sharpe_ratio": 7.53,
             "max_drawdown_pct": 18.88,
             "avg_hold_days": 8.6
           },
@@ -3336,20 +3332,20 @@
         },
         "breakout": {
           "metrics": {
-            "total_trades": 3,
+            "total_trades": 4,
             "win_count": 2,
-            "loss_count": 1,
-            "win_rate": 66.67,
-            "loss_rate": 33.33,
-            "profit_loss_ratio": 2.27,
-            "avg_return_pct": 8.41,
-            "max_return_pct": 25.97,
+            "loss_count": 2,
+            "win_rate": 50.0,
+            "loss_rate": 50.0,
+            "profit_loss_ratio": 3.23,
+            "avg_return_pct": 5.21,
+            "max_return_pct": 23.81,
             "min_return_pct": -7.12,
-            "sharpe_ratio": 8.03,
-            "max_drawdown_pct": 7.12,
-            "avg_hold_days": 13.0
+            "sharpe_ratio": 6.09,
+            "max_drawdown_pct": 9.34,
+            "avg_hold_days": 13.5
           },
-          "trade_count": 3
+          "trade_count": 4
         },
         "pattern": {
           "metrics": {
@@ -3358,13 +3354,13 @@
             "loss_count": 3,
             "win_rate": 62.5,
             "loss_rate": 37.5,
-            "profit_loss_ratio": 2.62,
-            "avg_return_pct": 13.52,
+            "profit_loss_ratio": 4.15,
+            "avg_return_pct": 16.71,
             "max_return_pct": 40.89,
-            "min_return_pct": -11.32,
-            "sharpe_ratio": 10.0,
-            "max_drawdown_pct": 11.32,
-            "avg_hold_days": 7.9
+            "min_return_pct": -10.95,
+            "sharpe_ratio": 12.69,
+            "max_drawdown_pct": 10.95,
+            "avg_hold_days": 8.8
           },
           "trade_count": 8
         }
@@ -3393,33 +3389,33 @@
         },
         "breakout": {
           "metrics": {
-            "total_trades": 4,
-            "win_count": 2,
+            "total_trades": 3,
+            "win_count": 1,
             "loss_count": 2,
-            "win_rate": 50.0,
-            "loss_rate": 50.0,
-            "profit_loss_ratio": 13.36,
-            "avg_return_pct": 11.09,
-            "max_return_pct": 27.56,
+            "win_rate": 33.33,
+            "loss_rate": 66.67,
+            "profit_loss_ratio": 11.37,
+            "avg_return_pct": 5.61,
+            "max_return_pct": 20.41,
             "min_return_pct": -2.55,
-            "sharpe_ratio": 11.6,
+            "sharpe_ratio": 6.93,
             "max_drawdown_pct": 3.59,
-            "avg_hold_days": 9.0
+            "avg_hold_days": 7.0
           },
-          "trade_count": 4
+          "trade_count": 3
         },
         "pattern": {
           "metrics": {
             "total_trades": 10,
-            "win_count": 6,
-            "loss_count": 4,
-            "win_rate": 60.0,
-            "loss_rate": 40.0,
-            "profit_loss_ratio": 3.05,
-            "avg_return_pct": 6.91,
+            "win_count": 5,
+            "loss_count": 5,
+            "win_rate": 50.0,
+            "loss_rate": 50.0,
+            "profit_loss_ratio": 3.71,
+            "avg_return_pct": 5.8,
             "max_return_pct": 37.76,
             "min_return_pct": -8.38,
-            "sharpe_ratio": 7.15,
+            "sharpe_ratio": 5.91,
             "max_drawdown_pct": 16.66,
             "avg_hold_days": 8.4
           },
@@ -3524,20 +3520,20 @@
         },
         "pattern": {
           "metrics": {
-            "total_trades": 10,
-            "win_count": 7,
+            "total_trades": 11,
+            "win_count": 8,
             "loss_count": 3,
-            "win_rate": 70.0,
-            "loss_rate": 30.0,
-            "profit_loss_ratio": 1.14,
-            "avg_return_pct": 5.05,
+            "win_rate": 72.73,
+            "loss_rate": 27.27,
+            "profit_loss_ratio": 1.1,
+            "avg_return_pct": 5.33,
             "max_return_pct": 22.61,
             "min_return_pct": -15.6,
-            "sharpe_ratio": 6.46,
+            "sharpe_ratio": 7.06,
             "max_drawdown_pct": 18.3,
-            "avg_hold_days": 8.4
+            "avg_hold_days": 8.5
           },
-          "trade_count": 10
+          "trade_count": 11
         }
       }
     },
@@ -3581,20 +3577,20 @@
         },
         "pattern": {
           "metrics": {
-            "total_trades": 8,
-            "win_count": 4,
+            "total_trades": 9,
+            "win_count": 5,
             "loss_count": 4,
-            "win_rate": 50.0,
-            "loss_rate": 50.0,
-            "profit_loss_ratio": 2.43,
-            "avg_return_pct": 6.46,
+            "win_rate": 55.56,
+            "loss_rate": 44.44,
+            "profit_loss_ratio": 2.58,
+            "avg_return_pct": 8.95,
             "max_return_pct": 29.6,
             "min_return_pct": -9.64,
-            "sharpe_ratio": 6.03,
+            "sharpe_ratio": 8.08,
             "max_drawdown_pct": 17.71,
-            "avg_hold_days": 6.6
+            "avg_hold_days": 7.0
           },
-          "trade_count": 8
+          "trade_count": 9
         }
       }
     },
@@ -3621,35 +3617,35 @@
         },
         "breakout": {
           "metrics": {
-            "total_trades": 2,
+            "total_trades": 1,
             "win_count": 0,
-            "loss_count": 2,
+            "loss_count": 1,
             "win_rate": 0.0,
             "loss_rate": 100.0,
             "profit_loss_ratio": 0.0,
-            "avg_return_pct": -8.66,
+            "avg_return_pct": -5.6,
             "max_return_pct": -5.6,
-            "min_return_pct": -11.71,
-            "sharpe_ratio": -31.8,
-            "max_drawdown_pct": 17.31,
-            "avg_hold_days": 8.0
+            "min_return_pct": -5.6,
+            "sharpe_ratio": 0,
+            "max_drawdown_pct": 5.6,
+            "avg_hold_days": 13.0
           },
-          "trade_count": 2
+          "trade_count": 1
         },
         "pattern": {
           "metrics": {
             "total_trades": 10,
-            "win_count": 7,
-            "loss_count": 3,
-            "win_rate": 70.0,
-            "loss_rate": 30.0,
-            "profit_loss_ratio": 1.51,
-            "avg_return_pct": 6.85,
+            "win_count": 6,
+            "loss_count": 4,
+            "win_rate": 60.0,
+            "loss_rate": 40.0,
+            "profit_loss_ratio": 1.72,
+            "avg_return_pct": 5.14,
             "max_return_pct": 22.55,
             "min_return_pct": -11.64,
-            "sharpe_ratio": 8.71,
+            "sharpe_ratio": 6.17,
             "max_drawdown_pct": 11.64,
-            "avg_hold_days": 9.0
+            "avg_hold_days": 8.6
           },
           "trade_count": 10
         }
@@ -3678,35 +3674,35 @@
         },
         "breakout": {
           "metrics": {
-            "total_trades": 1,
-            "win_count": 0,
+            "total_trades": 2,
+            "win_count": 1,
             "loss_count": 1,
-            "win_rate": 0.0,
-            "loss_rate": 100.0,
-            "profit_loss_ratio": 0.0,
-            "avg_return_pct": -2.15,
-            "max_return_pct": -2.15,
+            "win_rate": 50.0,
+            "loss_rate": 50.0,
+            "profit_loss_ratio": 4.49,
+            "avg_return_pct": 3.75,
+            "max_return_pct": 9.65,
             "min_return_pct": -2.15,
-            "sharpe_ratio": 0,
+            "sharpe_ratio": 7.13,
             "max_drawdown_pct": 2.15,
-            "avg_hold_days": 9.0
+            "avg_hold_days": 12.0
           },
-          "trade_count": 1
+          "trade_count": 2
         },
         "pattern": {
           "metrics": {
             "total_trades": 11,
-            "win_count": 4,
-            "loss_count": 7,
-            "win_rate": 36.36,
-            "loss_rate": 63.64,
-            "profit_loss_ratio": 1.84,
-            "avg_return_pct": 0.23,
-            "max_return_pct": 20.59,
+            "win_count": 5,
+            "loss_count": 6,
+            "win_rate": 45.45,
+            "loss_rate": 54.55,
+            "profit_loss_ratio": 1.73,
+            "avg_return_pct": 1.7,
+            "max_return_pct": 26.14,
             "min_return_pct": -10.54,
-            "sharpe_ratio": 0.33,
+            "sharpe_ratio": 2.25,
             "max_drawdown_pct": 22.23,
-            "avg_hold_days": 8.1
+            "avg_hold_days": 8.4
           },
           "trade_count": 11
         }
@@ -3740,28 +3736,28 @@
             "loss_count": 2,
             "win_rate": 33.33,
             "loss_rate": 66.67,
-            "profit_loss_ratio": 1.55,
-            "avg_return_pct": -1.64,
-            "max_return_pct": 16.94,
+            "profit_loss_ratio": 3.36,
+            "avg_return_pct": 4.95,
+            "max_return_pct": 36.69,
             "min_return_pct": -15.01,
-            "sharpe_ratio": -1.57,
+            "sharpe_ratio": 2.83,
             "max_drawdown_pct": 21.85,
-            "avg_hold_days": 8.0
+            "avg_hold_days": 11.7
           },
           "trade_count": 3
         },
         "pattern": {
           "metrics": {
             "total_trades": 10,
-            "win_count": 6,
-            "loss_count": 4,
-            "win_rate": 60.0,
-            "loss_rate": 40.0,
-            "profit_loss_ratio": 3.4,
-            "avg_return_pct": 16.74,
+            "win_count": 5,
+            "loss_count": 5,
+            "win_rate": 50.0,
+            "loss_rate": 50.0,
+            "profit_loss_ratio": 4.48,
+            "avg_return_pct": 15.13,
             "max_return_pct": 91.01,
             "min_return_pct": -13.48,
-            "sharpe_ratio": 7.8,
+            "sharpe_ratio": 7.3,
             "max_drawdown_pct": 16.93,
             "avg_hold_days": 7.9
           },
@@ -3810,17 +3806,17 @@
         "pattern": {
           "metrics": {
             "total_trades": 10,
-            "win_count": 6,
-            "loss_count": 4,
-            "win_rate": 60.0,
-            "loss_rate": 40.0,
-            "profit_loss_ratio": 1.43,
-            "avg_return_pct": 2.68,
+            "win_count": 5,
+            "loss_count": 5,
+            "win_rate": 50.0,
+            "loss_rate": 50.0,
+            "profit_loss_ratio": 2.26,
+            "avg_return_pct": 3.24,
             "max_return_pct": 23.44,
-            "min_return_pct": -10.6,
-            "sharpe_ratio": 4.39,
-            "max_drawdown_pct": 14.78,
-            "avg_hold_days": 9.5
+            "min_return_pct": -8.9,
+            "sharpe_ratio": 4.87,
+            "max_drawdown_pct": 11.98,
+            "avg_hold_days": 9.4
           },
           "trade_count": 10
         }
@@ -3849,33 +3845,33 @@
         },
         "breakout": {
           "metrics": {
-            "total_trades": 1,
-            "win_count": 1,
+            "total_trades": 2,
+            "win_count": 2,
             "loss_count": 0,
             "win_rate": 100.0,
             "loss_rate": 0.0,
             "profit_loss_ratio": 999,
-            "avg_return_pct": 14.97,
+            "avg_return_pct": 13.18,
             "max_return_pct": 14.97,
-            "min_return_pct": 14.97,
-            "sharpe_ratio": 0,
+            "min_return_pct": 11.38,
+            "sharpe_ratio": 82.39,
             "max_drawdown_pct": 0,
-            "avg_hold_days": 15.0
+            "avg_hold_days": 9.0
           },
-          "trade_count": 1
+          "trade_count": 2
         },
         "pattern": {
           "metrics": {
             "total_trades": 9,
-            "win_count": 3,
-            "loss_count": 6,
-            "win_rate": 33.33,
-            "loss_rate": 66.67,
-            "profit_loss_ratio": 2.71,
-            "avg_return_pct": 1.98,
-            "max_return_pct": 29.36,
+            "win_count": 2,
+            "loss_count": 7,
+            "win_rate": 22.22,
+            "loss_rate": 77.78,
+            "profit_loss_ratio": 4.1,
+            "avg_return_pct": 0.99,
+            "max_return_pct": 31.96,
             "min_return_pct": -10.85,
-            "sharpe_ratio": 1.96,
+            "sharpe_ratio": 0.93,
             "max_drawdown_pct": 32.08,
             "avg_hold_days": 8.0
           },
@@ -3906,33 +3902,33 @@
         },
         "breakout": {
           "metrics": {
-            "total_trades": 3,
+            "total_trades": 4,
             "win_count": 1,
-            "loss_count": 2,
-            "win_rate": 33.33,
-            "loss_rate": 66.67,
-            "profit_loss_ratio": 4.25,
-            "avg_return_pct": 5.78,
+            "loss_count": 3,
+            "win_rate": 25.0,
+            "loss_rate": 75.0,
+            "profit_loss_ratio": 5.04,
+            "avg_return_pct": 3.31,
             "max_return_pct": 32.72,
             "min_return_pct": -7.84,
-            "sharpe_ratio": 3.93,
-            "max_drawdown_pct": 15.39,
-            "avg_hold_days": 3.7
+            "sharpe_ratio": 2.67,
+            "max_drawdown_pct": 19.49,
+            "avg_hold_days": 3.8
           },
-          "trade_count": 3
+          "trade_count": 4
         },
         "pattern": {
           "metrics": {
             "total_trades": 10,
-            "win_count": 5,
-            "loss_count": 5,
-            "win_rate": 50.0,
-            "loss_rate": 50.0,
-            "profit_loss_ratio": 1.38,
-            "avg_return_pct": 2.09,
+            "win_count": 4,
+            "loss_count": 6,
+            "win_rate": 40.0,
+            "loss_rate": 60.0,
+            "profit_loss_ratio": 2.04,
+            "avg_return_pct": 2.0,
             "max_return_pct": 62.01,
             "min_return_pct": -16.58,
-            "sharpe_ratio": 1.47,
+            "sharpe_ratio": 1.41,
             "max_drawdown_pct": 23.43,
             "avg_hold_days": 7.9
           },
@@ -3981,17 +3977,17 @@
         "pattern": {
           "metrics": {
             "total_trades": 10,
-            "win_count": 6,
-            "loss_count": 4,
-            "win_rate": 60.0,
-            "loss_rate": 40.0,
-            "profit_loss_ratio": 1.5,
-            "avg_return_pct": 4.75,
+            "win_count": 5,
+            "loss_count": 5,
+            "win_rate": 50.0,
+            "loss_rate": 50.0,
+            "profit_loss_ratio": 3.43,
+            "avg_return_pct": 7.07,
             "max_return_pct": 26.13,
-            "min_return_pct": -12.32,
-            "sharpe_ratio": 5.36,
-            "max_drawdown_pct": 12.32,
-            "avg_hold_days": 7.2
+            "min_return_pct": -9.15,
+            "sharpe_ratio": 7.88,
+            "max_drawdown_pct": 9.15,
+            "avg_hold_days": 7.7
           },
           "trade_count": 10
         }
@@ -4003,20 +3999,20 @@
       "strategies": {
         "ma_crossover": {
           "metrics": {
-            "total_trades": 1,
-            "win_count": 1,
+            "total_trades": 2,
+            "win_count": 2,
             "loss_count": 0,
             "win_rate": 100.0,
             "loss_rate": 0.0,
             "profit_loss_ratio": 999,
-            "avg_return_pct": 54.59,
+            "avg_return_pct": 40.62,
             "max_return_pct": 54.59,
-            "min_return_pct": 54.59,
-            "sharpe_ratio": 0,
+            "min_return_pct": 26.65,
+            "sharpe_ratio": 32.64,
             "max_drawdown_pct": 0,
             "avg_hold_days": 20.0
           },
-          "trade_count": 1
+          "trade_count": 2
         },
         "breakout": {
           "metrics": {
@@ -4026,10 +4022,10 @@
             "win_rate": 100.0,
             "loss_rate": 0.0,
             "profit_loss_ratio": 999,
-            "avg_return_pct": 30.4,
+            "avg_return_pct": 27.45,
             "max_return_pct": 37.36,
             "min_return_pct": 18.33,
-            "sharpe_ratio": 45.98,
+            "sharpe_ratio": 45.67,
             "max_drawdown_pct": 0,
             "avg_hold_days": 7.7
           },
@@ -4037,20 +4033,20 @@
         },
         "pattern": {
           "metrics": {
-            "total_trades": 9,
+            "total_trades": 10,
             "win_count": 4,
-            "loss_count": 5,
-            "win_rate": 44.44,
-            "loss_rate": 55.56,
-            "profit_loss_ratio": 3.27,
-            "avg_return_pct": 7.12,
+            "loss_count": 6,
+            "win_rate": 40.0,
+            "loss_rate": 60.0,
+            "profit_loss_ratio": 3.66,
+            "avg_return_pct": 6.33,
             "max_return_pct": 41.16,
             "min_return_pct": -12.66,
-            "sharpe_ratio": 5.72,
+            "sharpe_ratio": 5.21,
             "max_drawdown_pct": 21.51,
-            "avg_hold_days": 8.4
+            "avg_hold_days": 8.6
           },
-          "trade_count": 9
+          "trade_count": 10
         }
       }
     },
@@ -4095,17 +4091,17 @@
         "pattern": {
           "metrics": {
             "total_trades": 10,
-            "win_count": 5,
-            "loss_count": 5,
-            "win_rate": 50.0,
-            "loss_rate": 50.0,
-            "profit_loss_ratio": 1.61,
-            "avg_return_pct": 2.77,
-            "max_return_pct": 32.63,
+            "win_count": 4,
+            "loss_count": 6,
+            "win_rate": 40.0,
+            "loss_rate": 60.0,
+            "profit_loss_ratio": 2.54,
+            "avg_return_pct": 3.75,
+            "max_return_pct": 43.54,
             "min_return_pct": -10.01,
-            "sharpe_ratio": 2.97,
+            "sharpe_ratio": 3.2,
             "max_drawdown_pct": 26.16,
-            "avg_hold_days": 7.5
+            "avg_hold_days": 7.3
           },
           "trade_count": 10
         }
@@ -4134,33 +4130,33 @@
         },
         "breakout": {
           "metrics": {
-            "total_trades": 3,
-            "win_count": 1,
+            "total_trades": 4,
+            "win_count": 2,
             "loss_count": 2,
-            "win_rate": 33.33,
-            "loss_rate": 66.67,
-            "profit_loss_ratio": 4.03,
-            "avg_return_pct": 5.15,
+            "win_rate": 50.0,
+            "loss_rate": 50.0,
+            "profit_loss_ratio": 2.72,
+            "avg_return_pct": 6.55,
             "max_return_pct": 30.69,
             "min_return_pct": -15.13,
-            "sharpe_ratio": 3.5,
+            "sharpe_ratio": 5.39,
             "max_drawdown_pct": 15.13,
-            "avg_hold_days": 7.7
+            "avg_hold_days": 9.5
           },
-          "trade_count": 3
+          "trade_count": 4
         },
         "pattern": {
           "metrics": {
             "total_trades": 7,
-            "win_count": 6,
-            "loss_count": 1,
-            "win_rate": 85.71,
-            "loss_rate": 14.29,
-            "profit_loss_ratio": 1.75,
-            "avg_return_pct": 12.29,
+            "win_count": 5,
+            "loss_count": 2,
+            "win_rate": 71.43,
+            "loss_rate": 28.57,
+            "profit_loss_ratio": 2.48,
+            "avg_return_pct": 12.45,
             "max_return_pct": 32.58,
             "min_return_pct": -9.03,
-            "sharpe_ratio": 13.22,
+            "sharpe_ratio": 11.64,
             "max_drawdown_pct": 9.03,
             "avg_hold_days": 9.6
           },
@@ -4174,20 +4170,20 @@
       "strategies": {
         "ma_crossover": {
           "metrics": {
-            "total_trades": 4,
+            "total_trades": 3,
             "win_count": 1,
-            "loss_count": 3,
-            "win_rate": 25.0,
-            "loss_rate": 75.0,
-            "profit_loss_ratio": 7.1,
-            "avg_return_pct": 7.04,
+            "loss_count": 2,
+            "win_rate": 33.33,
+            "loss_rate": 66.67,
+            "profit_loss_ratio": 6.47,
+            "avg_return_pct": 11.24,
             "max_return_pct": 48.79,
             "min_return_pct": -9.38,
-            "sharpe_ratio": 4.01,
+            "sharpe_ratio": 5.48,
             "max_drawdown_pct": 15.08,
-            "avg_hold_days": 9.0
+            "avg_hold_days": 10.7
           },
-          "trade_count": 4
+          "trade_count": 3
         },
         "breakout": {
           "metrics": {
@@ -4213,13 +4209,13 @@
             "loss_count": 8,
             "win_rate": 27.27,
             "loss_rate": 72.73,
-            "profit_loss_ratio": 3.83,
-            "avg_return_pct": 1.78,
+            "profit_loss_ratio": 2.83,
+            "avg_return_pct": 0.29,
             "max_return_pct": 53.62,
             "min_return_pct": -12.27,
-            "sharpe_ratio": 1.55,
-            "max_drawdown_pct": 34.6,
-            "avg_hold_days": 8.9
+            "sharpe_ratio": 0.25,
+            "max_drawdown_pct": 26.07,
+            "avg_hold_days": 8.5
           },
           "trade_count": 11
         }

@@ -11,7 +11,6 @@ import { RefreshCw, ScanLine } from 'lucide-react';
 
 export default function MainDashboard() {
   const [showDisclaimer, setShowDisclaimer] = useState(false);
-  const [showDemo, setShowDemo] = useState(false);
   const { data, isLoading, error } = useLatestScan();
 
   useEffect(() => {
@@ -21,17 +20,8 @@ export default function MainDashboard() {
     }
   }, []);
 
-  useEffect(() => {
-    if (isLoading && !data) {
-      const timer = setTimeout(() => {
-        setShowDemo(true);
-      }, 10000);
-      return () => clearTimeout(timer);
-    }
-  }, [isLoading, data]);
-
-  const scanData = data ?? (error || showDemo ? demoScanResult : null);
-  const isDemo = !data && (!!error || showDemo);
+  const scanData = data ?? (error ? demoScanResult : null);
+  const isDemo = !data && !!error;
 
   const rightSlot = (
     <>

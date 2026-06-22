@@ -75,8 +75,6 @@ jobs:
               cp -v "$f" public/data/
             fi
           done
-          # Copy historical scan results too
-          cp -v tasks/2255/scan_result_*.json public/data/ 2>/dev/null || true
           ls -la public/data/
 
       - name: Install dependencies

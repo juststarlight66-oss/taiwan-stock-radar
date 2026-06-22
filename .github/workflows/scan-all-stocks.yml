@@ -1,6 +1,15 @@
-name: Scan All Stocks
+name: scan-all-stocks
+
 on:
   workflow_dispatch:
+    inputs:
+      force:
+        description: 'Force re-scan even on non-trading day'
+        required: false
+        default: 'true'
+  schedule:
+    # Every Monday 09:15 CST (UTC+8) = 01:15 UTC
+    - cron: '15 1 * * 1'
 
 jobs:
   scan-all-stocks:
@@ -22,20 +31,13 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install requests pytz numpy pandas scikit-learn yfinance beautifulsoup4 lxml httpx
+        run: pip install requests
 
-      - name: Create shared stub
-        run: |
-          mkdir -p /home/runner/work/tasks/shared
-          echo "def run_backtest(stock_id, strategy='all', days=60): return {}" > /home/runner/work/tasks/shared/per_stock_backtest.py
-
-      - name: Run full market scan (with 5-dimension scoring)
-        run: |
-          python tasks/2255/scan_market.py
-          python tasks/2255/normalize_and_process.py
-          python tasks/2255/post_scan.py
+      - name: Run full market scan (with fallback)
+        run: python tasks/scan_all_stocks.py
         env:
-          PYTHONPATH: /home/runner/work
+          OUTPUT_PATH: public/data/all_scores.json
+          SCAN_RESULT_PATH: public/data/scan_result.json
           FORCE: ${{ github.event.inputs.force || 'false' }}
 
       - name: Show output stats
@@ -43,24 +45,12 @@ jobs:
           echo "=== all_scores.json size ==="
           wc -c public/data/all_scores.json || echo "File not found"
           echo "=== Stock count ==="
-          python3 -c "import json; d=json.load(open('public/data/all_scores.json')); stocks=d.get('stocks', d.get('all_stock_scores', d)) if isinstance(d,dict) else d; print(f'{len(stocks)} stocks in all_scores.json'); sectors={}; [sectors.update({s.get('sector','\u5176\u4ed6'):sectors.get(s.get('sector','\u5176\u4ed6'),0)+1}) for s in (stocks if isinstance(stocks,list) else [])]; top5=sorted(sectors.items(),key=lambda x:-x[1])[:5]; print('Top 5 sectors:',top5)"
+          python3 -c "import json; d=json.load(open('public/data/all_scores.json')); stocks=d.get('all_stock_scores',d) if isinstance(d,dict) else d; print(f'{len(stocks)} stocks in all_scores.json'); sectors={}; [sectors.update({s.get('sector','\u5176\u4ed6'):sectors.get(s.get('sector','\u5176\u4ed6'),0)+1}) for s in (stocks if isinstance(stocks,list) else [])]; top5=sorted(sectors.items(),key=lambda x:-x[1])[:5]; print('Top 5 sectors:',top5)"
 
       - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/data/all_scores.json public/data/latest.json public/data/scan_result_*.json
-          git diff --staged --quiet || git commit -m "data: full scan update data files $(date '+%Y-%m-%d %H:%M CST')"
+          git add public/data/all_scores.json
+          git diff --staged --quiet || git commit -m "data: full scan update all_scores.json $(date '+%Y-%m-%d %H:%M CST')"
           git push
-
-      - name: Sync to gh-pages
-        run: |
-          git fetch origin main gh-pages
-          mkdir -p data
-          git show origin/main:public/data/all_scores.json > data/all_scores.json
-          git show origin/main:public/data/latest.json > data/latest.json
-          git checkout -B gh-pages origin/gh-pages --force
-          git add data/all_scores.json data/latest.json
-          git diff --staged --quiet || git commit -m "data: sync all_scores.json and latest.json from main scan"
-          git push origin gh-pages
-          git checkout @{-1}

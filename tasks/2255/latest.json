@@ -2,7 +2,7 @@
   "scan_date": "20260618",
   "scan_date_slash": "2026/06/18",
   "scanned_count": 1078,
-  "generated_at": "2026-06-19T10:19:01+08:00",
+  "generated_at": "2026-06-18T19:21:56.340723+08:00",
   "top10": [
     {
       "stock_id": "6243",
@@ -24,7 +24,7 @@
         },
         "fundamental": {
           "score": 58.0,
-          "signal": "neutral"
+          "signal": "bullish"
         },
         "news": {
           "score": 90.0,
@@ -35,9 +35,34 @@
           "signal": "bullish"
         }
       },
-      "target_price": 36.44,
+      "signals": {
+        "rsi": 71.18,
+        "vol_ratio": 4.7284715353388,
+        "ma_trend": "up"
+      },
+      "strategy": {
+        "entry_low": 34.13,
+        "entry_high": 35.67,
+        "stop_loss": 31.82,
+        "targets": []
+      },
+      "entry_low": 34.13,
+      "entry_high": 35.67,
       "stop_loss": 31.82,
-      "holding_days": 5
+      "targets": {
+        "entry_low": 34.13,
+        "entry_high": 35.67,
+        "stop_loss": 31.82,
+        "t1": 36.44,
+        "t2": 37.98,
+        "t3": 39.52
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 2.05,
+        "dy": 3.44
+      },
+      "recommendation": "強烈推薦"
     },
     {
       "stock_id": "1301",
@@ -59,7 +84,7 @@
         },
         "fundamental": {
           "score": 65.0,
-          "signal": "neutral"
+          "signal": "bullish"
         },
         "news": {
           "score": 80.0,
@@ -70,9 +95,34 @@
           "signal": "bullish"
         }
       },
-      "target_price": 53.88,
+      "signals": {
+        "rsi": 72.04,
+        "vol_ratio": 7.087777984080227,
+        "ma_trend": "up"
+      },
+      "strategy": {
+        "entry_low": 50.61,
+        "entry_high": 52.79,
+        "stop_loss": 47.34,
+        "targets": []
+      },
+      "entry_low": 50.61,
+      "entry_high": 52.79,
       "stop_loss": 47.34,
-      "holding_days": 5
+      "targets": {
+        "entry_low": 50.61,
+        "entry_high": 52.79,
+        "stop_loss": 47.34,
+        "t1": 53.88,
+        "t2": 56.06,
+        "t3": 58.24
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.84,
+        "dy": 0.97
+      },
+      "recommendation": "強烈推薦"
     },
     {
       "stock_id": "1310",
@@ -94,7 +144,7 @@
         },
         "fundamental": {
           "score": 65.0,
-          "signal": "neutral"
+          "signal": "bullish"
         },
         "news": {
           "score": 80.0,
@@ -105,9 +155,34 @@
           "signal": "bullish"
         }
       },
-      "target_price": 9.63,
+      "signals": {
+        "rsi": 71.87,
+        "vol_ratio": 3.8389747495282385,
+        "ma_trend": "up"
+      },
+      "strategy": {
+        "entry_low": 9.07,
+        "entry_high": 9.45,
+        "stop_loss": 8.52,
+        "targets": []
+      },
+      "entry_low": 9.07,
+      "entry_high": 9.45,
       "stop_loss": 8.52,
-      "holding_days": 5
+      "targets": {
+        "entry_low": 9.07,
+        "entry_high": 9.45,
+        "stop_loss": 8.52,
+        "t1": 9.63,
+        "t2": 10.0,
+        "t3": 10.37
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 0.67,
+        "dy": 0.0
+      },
+      "recommendation": "強烈推薦"
     },
     {
       "stock_id": "5283",
@@ -129,7 +204,7 @@
         },
         "fundamental": {
           "score": 93.0,
-          "signal": "neutral"
+          "signal": "bullish"
         },
         "news": {
           "score": 65.0,
@@ -140,9 +215,34 @@
           "signal": "bullish"
         }
       },
-      "target_price": 55.59,
+      "signals": {
+        "rsi": 75.86,
+        "vol_ratio": 3.0747064557732875,
+        "ma_trend": "up"
+      },
+      "strategy": {
+        "entry_low": 53.95,
+        "entry_high": 55.05,
+        "stop_loss": 52.32,
+        "targets": []
+      },
+      "entry_low": 53.95,
+      "entry_high": 55.05,
       "stop_loss": 52.32,
-      "holding_days": 5
+      "targets": {
+        "entry_low": 53.95,
+        "entry_high": 55.05,
+        "stop_loss": 52.32,
+        "t1": 55.59,
+        "t2": 56.68,
+        "t3": 57.77
+      },
+      "fundamentals": {
+        "pe": 9.22,
+        "pb": 1.0,
+        "dy": 3.67
+      },
+      "recommendation": "強烈推薦"
     },
     {
       "stock_id": "6695",
@@ -164,7 +264,7 @@
         },
         "fundamental": {
           "score": 50.0,
-          "signal": "neutral"
+          "signal": "bullish"
         },
         "news": {
           "score": 90.0,
@@ -175,9 +275,34 @@
           "signal": "bullish"
         }
       },
-      "target_price": 62.14,
+      "signals": {
+        "rsi": 64.52,
+        "vol_ratio": 2.1116450713842285,
+        "ma_trend": "up"
+      },
+      "strategy": {
+        "entry_low": 56.53,
+        "entry_high": 60.27,
+        "stop_loss": 50.92,
+        "targets": []
+      },
+      "entry_low": 56.53,
+      "entry_high": 60.27,
       "stop_loss": 50.92,
-      "holding_days": 5
+      "targets": {
+        "entry_low": 56.53,
+        "entry_high": 60.27,
+        "stop_loss": 50.92,
+        "t1": 62.14,
+        "t2": 65.88,
+        "t3": 69.62
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 3.77,
+        "dy": 0.0
+      },
+      "recommendation": "強烈推薦"
     },
     {
       "stock_id": "6257",
@@ -199,7 +324,7 @@
         },
         "fundamental": {
           "score": 43.0,
-          "signal": "neutral"
+          "signal": "bullish"
         },
         "news": {
           "score": 90.0,
@@ -210,9 +335,34 @@
           "signal": "bullish"
         }
       },
-      "target_price": 248.11,
+      "signals": {
+        "rsi": 66.8,
+        "vol_ratio": 2.4759010467939566,
+        "ma_trend": "up"
+      },
+      "strategy": {
+        "entry_low": 228.44,
+        "entry_high": 241.56,
+        "stop_loss": 208.78,
+        "targets": []
+      },
+      "entry_low": 228.44,
+      "entry_high": 241.56,
       "stop_loss": 208.78,
-      "holding_days": 5
+      "targets": {
+        "entry_low": 228.44,
+        "entry_high": 241.56,
+        "stop_loss": 208.78,
+        "t1": 248.11,
+        "t2": 261.22,
+        "t3": 274.33
+      },
+      "fundamentals": {
+        "pe": 35.13,
+        "pb": 5.2,
+        "dy": 1.79
+      },
+      "recommendation": "強烈推薦"
     },
     {
       "stock_id": "6177",
@@ -234,7 +384,7 @@
         },
         "fundamental": {
           "score": 93.0,
-          "signal": "neutral"
+          "signal": "bullish"
         },
         "news": {
           "score": 65.0,
@@ -245,9 +395,34 @@
           "signal": "bullish"
         }
       },
-      "target_price": 52.03,
+      "signals": {
+        "rsi": 84.4,
+        "vol_ratio": 3.1814075786388374,
+        "ma_trend": "up"
+      },
+      "strategy": {
+        "entry_low": 49.59,
+        "entry_high": 51.21,
+        "stop_loss": 47.14,
+        "targets": []
+      },
+      "entry_low": 49.59,
+      "entry_high": 51.21,
       "stop_loss": 47.14,
-      "holding_days": 5
+      "targets": {
+        "entry_low": 49.59,
+        "entry_high": 51.21,
+        "stop_loss": 47.14,
+        "t1": 52.03,
+        "t2": 53.66,
+        "t3": 55.29
+      },
+      "fundamentals": {
+        "pe": 6.75,
+        "pb": 1.87,
+        "dy": 5.95
+      },
+      "recommendation": "強烈推薦"
     },
     {
       "stock_id": "1568",
@@ -269,7 +444,7 @@
         },
         "fundamental": {
           "score": 53.0,
-          "signal": "neutral"
+          "signal": "bullish"
         },
         "news": {
           "score": 80.0,
@@ -280,9 +455,34 @@
           "signal": "bullish"
         }
       },
-      "target_price": 49.04,
+      "signals": {
+        "rsi": 66.71,
+        "vol_ratio": 10.525850857605574,
+        "ma_trend": "up"
+      },
+      "strategy": {
+        "entry_low": 44.55,
+        "entry_high": 47.54,
+        "stop_loss": 40.07,
+        "targets": []
+      },
+      "entry_low": 44.55,
+      "entry_high": 47.54,
       "stop_loss": 40.07,
-      "holding_days": 5
+      "targets": {
+        "entry_low": 44.55,
+        "entry_high": 47.54,
+        "stop_loss": 40.07,
+        "t1": 49.04,
+        "t2": 52.03,
+        "t3": 55.02
+      },
+      "fundamentals": {
+        "pe": 34.37,
+        "pb": 2.57,
+        "dy": 2.17
+      },
+      "recommendation": "強烈推薦"
     },
     {
       "stock_id": "1725",
@@ -304,7 +504,7 @@
         },
         "fundamental": {
           "score": 61.0,
-          "signal": "neutral"
+          "signal": "bullish"
         },
         "news": {
           "score": 80.0,
@@ -315,9 +515,34 @@
           "signal": "bullish"
         }
       },
-      "target_price": 39.02,
+      "signals": {
+        "rsi": 84.0,
+        "vol_ratio": 3.2524063554410216,
+        "ma_trend": "up"
+      },
+      "strategy": {
+        "entry_low": 36.67,
+        "entry_high": 38.23,
+        "stop_loss": 34.31,
+        "targets": []
+      },
+      "entry_low": 36.67,
+      "entry_high": 38.23,
       "stop_loss": 34.31,
-      "holding_days": 5
+      "targets": {
+        "entry_low": 36.67,
+        "entry_high": 38.23,
+        "stop_loss": 34.31,
+        "t1": 39.02,
+        "t2": 40.59,
+        "t3": 42.16
+      },
+      "fundamentals": {
+        "pe": 23.12,
+        "pb": 1.01,
+        "dy": 2.86
+      },
+      "recommendation": "強烈推薦"
     },
     {
       "stock_id": "6672",
@@ -350,9 +575,34 @@
           "signal": "bullish"
         }
       },
-      "target_price": 260.37,
+      "signals": {
+        "rsi": 68.78,
+        "vol_ratio": 1.5976705173322379,
+        "ma_trend": "up"
+      },
+      "strategy": {
+        "entry_low": 238.06,
+        "entry_high": 252.94,
+        "stop_loss": 215.76,
+        "targets": []
+      },
+      "entry_low": 238.06,
+      "entry_high": 252.94,
       "stop_loss": 215.76,
-      "holding_days": 5
+      "targets": {
+        "entry_low": 238.06,
+        "entry_high": 252.94,
+        "stop_loss": 215.76,
+        "t1": 260.37,
+        "t2": 275.24,
+        "t3": 290.11
+      },
+      "fundamentals": {
+        "pe": 44.39,
+        "pb": 4.72,
+        "dy": 1.36
+      },
+      "recommendation": "強烈推薦"
     }
   ],
   "explode_top5": [
@@ -399,8 +649,8 @@
   ],
   "market_summary": {
     "avg_score": 63.4,
-    "bullish_count": 374,
-    "bearish_count": 170,
-    "flat_count": 534
+    "bullish_count": 256,
+    "bearish_count": 3,
+    "flat_count": 819
   }
 }

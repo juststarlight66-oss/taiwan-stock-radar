@@ -25,7 +25,7 @@ HEADERS = {
     "User-Agent": "Mozilla/5.0 (compatible; StockRadar/1.0)",
 }
 
-URL_STOCK_DAY_ALL = "https://www.twse.com.tw/exchangeReport/STOCK_DAY_ALL?response=json"
+URL_STOCK_DAY_ALL = "https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL"
 URL_BWIBBU_ALL    = "https://openapi.twse.com.tw/v1/exchangeReport/BWIBBU_ALL"
 URL_TPEX_CLOSE    = "https://www.tpex.org.tw/openapi/v1/tpex_mainboard_daily_close_quotes"
 URL_TPEX_PE       = "https://www.tpex.org.tw/openapi/v1/tpex_mainboard_peratio_analysis"
@@ -80,19 +80,6 @@ def infer_sector(sid: str) -> str:
     return "其他"
 
 
-def is_common_stock(sid: str) -> bool:
-    """只保留 4 位數的普通股股票代碼（排除 ETF、權證、特別股）"""
-    s = str(sid).strip()
-    if not s.isdigit():
-        return False
-    if len(s) != 4:
-        return False
-    # 排除 00xx 開頭的 ETF（如 0050、00632R 雖然超過 4 位但 4 位數的 00xx 也是 ETF）
-    if s.startswith("0"):
-        return False
-    return True
-
-
 def safe_float(v, default=0.0):
     try: return float(str(v).replace(",", "").replace("+", "").replace("-", "0") or "0")
     except: return default
@@ -108,45 +95,9 @@ def http_get(url, retries=3):
         try:
             r = requests.get(url, headers=HEADERS, timeout=30, verify=False)
             r.raise_for_status()
-            text = r.text
-            if not text or not text.strip():
-                return []
-            # Try standard json first
-            try:
-                data = json.loads(text)
-                if isinstance(data, list) and len(data) > 0:
-                    return data
-                if isinstance(data, dict):
-                    arr = data.get('data', data.get('msgArr', []))
-                    if isinstance(arr, list) and len(arr) > 0:
-                        return arr
-                return []
-            except json.JSONDecodeError:
-                # Handle truncated JSON: find the last valid object and re-wrap
-                pass
-            # Attempt to salvage truncated JSON arrays (common TPEx issue)
-            try:
-                decoder = json.JSONDecoder()
-                # Find last valid closing brace/bracket
-                text_stripped = text.strip()
-                if text_stripped.startswith('['):
-                    # Try to find the last complete object
-                    last_valid_end = 0
-                    obj_end = 0
-                    while obj_end < len(text_stripped):
-                        try:
-                            obj, obj_end = decoder.raw_decode(text_stripped, obj_end)
-                            last_valid_end = obj_end
-                        except json.JSONDecodeError:
-                            break
-                    if last_valid_end > 0:
-                        salvage = text_stripped[:last_valid_end].rstrip().rstrip(',')
-                        data = json.loads(salvage + ']')
-                        if isinstance(data, list) and len(data) > 0:
-                            print(f"  [salvage] 截斷JSON救援成功: {len(data)} 筆 (原 {len(text)} bytes)")
-                            return data
-            except Exception:
-                pass
+            data = r.json()
+            if isinstance(data, list) and len(data) > 0:
+                return data
             return []
         except Exception as e:
             print(f"  [重試 {i+1}] {url}: {e}")
@@ -192,33 +143,32 @@ def build_record(sid, name, close, volume, pe, yield_pct, pbr, sector):
 def fetch_twse():
     print("[TWSE] 取得上市股票日收盤...")
     day_all = http_get(URL_STOCK_DAY_ALL)
+    pe_all  = http_get(URL_BWIBBU_ALL)
     if not day_all:
         print("[TWSE] 無資料（非交易日或 API 異常）")
         return []
 
-    # BWIBBU_ALL (PE/PBR/Yield) blocked by TWSE security; skip for now
+    pe_map = {}
+    for row in pe_all:
+        sid = str(row.get("Code", "")).strip()
+        pe_map[sid] = {
+            "pe":    safe_float(row.get("PEratio", 0)),
+            "yield": safe_float(row.get("DividendYield", 0)),
+            "pbr":   safe_float(row.get("PBratio", 0)),
+        }
+
     records = []
     for row in day_all:
-        # Old TWSE endpoint returns positional arrays:
-        # [證券代號, 證券名稱, 成交股數, 成交金額, 開盤價, 最高價, 最低價, 收盤價, 漲跌價差, 成交筆數]
-        if isinstance(row, (list, tuple)):
-            sid   = str(row[0]).strip() if len(row) > 0 else ""
-            name  = str(row[1]).strip() if len(row) > 1 else ""
-            vol   = safe_int(row[2]) // 1000 if len(row) > 2 else 0
-            close = safe_float(row[7]) if len(row) > 7 else 0.0
-        else:
-            # OpenAPI format (fallback)
-            sid   = str(row.get("Code", "")).strip()
-            name  = str(row.get("Name", "")).strip()
-            close = safe_float(row.get("ClosingPrice", 0))
-            vol   = safe_int(row.get("TradeVolume", 0)) // 1000
+        sid   = str(row.get("Code", "")).strip()
+        name  = str(row.get("Name", "")).strip()
+        close = safe_float(row.get("ClosingPrice", 0))
+        vol   = safe_int(row.get("TradeVolume", 0)) // 1000
         if not sid or close <= 0:
             continue
-        if not is_common_stock(sid):
-            continue
+        p = pe_map.get(sid, {})
         records.append(build_record(
             sid, name, close, vol,
-            0, 0, 0,  # PE/PBR/Yield unavailable from old endpoint
+            p.get("pe", 0), p.get("yield", 0), p.get("pbr", 0),
             infer_sector(sid)
         ))
     print(f"[TWSE] 共 {len(records)} 檔")
@@ -249,8 +199,6 @@ def fetch_tpex():
         close = safe_float(row.get("Close", 0))
         vol   = safe_int(row.get("TradingShares", 0)) // 1000
         if not sid or close <= 0:
-            continue
-        if not is_common_stock(sid):
             continue
         p = pe_map.get(sid, {})
         records.append(build_record(

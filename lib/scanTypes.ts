@@ -174,13 +174,10 @@ export function getStockTarget3(s: ScanStock): number | undefined {
 }
 
 export function getStockDimensions(s: ScanStock): ScanDimensions {
-  const extract = (val: unknown): number => {
-    if (typeof val === 'number') return val;
-    if (val && typeof val === 'object' && 'score' in val) return Number((val as { score: unknown }).score) || 0;
-    return 0;
-  };
-  // v7+ 格式：scores 巢狀物件 (scan_market.py 輸出)
-  if (s.scores) {
+  // 優先使用 dimensions（v8 格式：{technical, fundamental, news, sentiment, chips} 物件）
+  if (s.dimensions && !Array.isArray(s.dimensions)) return s.dimensions as ScanDimensions;
+  // v7+ 格式：scores 巢狀物件 (scan_market.py 輸出)；跳過陣列格式
+  if (s.scores && !Array.isArray(s.scores)) {
     return {
       technical:   s.scores.technical   ?? 0,
       fundamental: s.scores.fundamental ?? 0,
@@ -189,16 +186,7 @@ export function getStockDimensions(s: ScanStock): ScanDimensions {
       chips:       s.scores.chips       ?? 0,
     };
   }
-  // dimensions: may be flat numbers, or {score,signal} nested objects (old format)
-  if (s.dimensions) {
-    return {
-      technical:   extract(s.dimensions.technical),
-      fundamental: extract(s.dimensions.fundamental),
-      news:        extract(s.dimensions.news),
-      sentiment:   extract(s.dimensions.sentiment),
-      chips:       extract(s.dimensions.chips),
-    };
-  }
+  // 舊格式：平坦欄位
   return {
     technical:   s.technical_score   ?? 0,
     fundamental: s.fundamental_score ?? 0,
