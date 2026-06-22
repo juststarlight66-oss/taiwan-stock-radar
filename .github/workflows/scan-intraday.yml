@@ -5,9 +5,7 @@ on:
   schedule:
     # \u6bcf\u4ea4\u6613\u65e5\u53f0\u7063\u6642\u9593 13:05 \u57f7\u884c (UTC 05:05)
     - cron: '5 5 * * 1-5'
-  push:
-    paths:
-      - '.github/workflows/scan-intraday.yml'
+
 
 permissions:
   contents: write
