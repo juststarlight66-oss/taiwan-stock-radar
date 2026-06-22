@@ -30,7 +30,7 @@ jobs:
       - name: Install dependencies
         run: pip install requests
 
-      - name: Pre-scan: check repo is clean
+      - name: "Pre-scan: check repo is clean"
         run: |
           if ! git diff --quiet; then
             echo "::error::Working directory is dirty before scan - aborting"
