@@ -83,6 +83,23 @@ const DIM_COLORS: Record<string, string> = {
   technical: '#38bdf8', fundamental: '#34d399', news: '#f59e0b', sentiment: '#a78bfa', chips: '#f87171',
   momentum: '#ef4444', volume: '#f97316', breakout: '#8b5cf6', gap: '#06b6d4',
 };
+/** 技術細節欄位：白話文標籤 + 獨立色 */
+const TECH_CONFIG: Record<string, { label: string; color: string }> = {
+  momentum:    { label: '今日漲勢強度', color: '#ef4444' },
+  rsi:         { label: '短線過熱程度', color: '#f97316' },
+  ma_alignment:{ label: '均線多空格局', color: '#3b82f6' },
+  up_days:     { label: '近期上漲天數', color: '#22c55e' },
+  vol_ratio:   { label: '今日量能對比', color: '#a855f7' },
+  atr:         { label: '每日波動幅度', color: '#06b6d4' },
+  breakout:    { label: 'K線型態判斷', color: '#6366f1' },
+  technical:   { label: '技術面評分', color: '#38bdf8' },
+  fundamental: { label: '基本面評分', color: '#34d399' },
+  news:        { label: '消息面評分', color: '#f59e0b' },
+  sentiment:   { label: '市場情緒評分', color: '#a78bfa' },
+  chips:       { label: '籌碼面評分', color: '#f87171' },
+  volume:      { label: '成交量變化', color: '#ec4899' },
+  gap:         { label: '跳空缺口感', color: '#14b8a6' },
+};
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -278,10 +295,25 @@ function StockCard({ stock, expanded, onToggle }: {
 
           <DimensionChart dims={stock.dimensions} />
 
-          <div className="space-y-1">
-            {Object.entries(stock.dimensions).map(([k, v]) => (
-              <ScoreBar key={k} label={DIM_LABELS[k] ?? k} value={v} max={DIM_MAX[k] ?? 100} color={DIM_COLORS[k] ?? '#94a3b8'} />
-            ))}
+          <div className="grid grid-cols-2 gap-2">
+            {Object.entries(stock.dimensions).map(([k, v]) => {
+              const cfg = TECH_CONFIG[k];
+              const isText = typeof v === 'string';
+              const c = cfg?.color ?? '#94a3b8';
+              const label = cfg?.label ?? k;
+              return (
+                <div key={k} className="rounded-lg p-2.5 border"
+                  style={{ borderColor: `${c}30`, backgroundColor: `${c}08` }}>
+                  <div className="flex items-center gap-1.5 mb-0.5">
+                    <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: c }} />
+                    <span className="text-xs text-gray-500">{label}</span>
+                  </div>
+                  <div className="text-sm font-bold" style={{ color: c }}>
+                    {isText ? v : typeof v === 'number' ? v : String(v)}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       )}
