@@ -1,6 +1,5 @@
 {
   "scan_type": "intraday_daytrade",
-  "scanned_at": "2026-06-23 13:11:48",
-  "data_note": "Generated via yfinance fallback (TWSE APIs returned 502)",
+  "scanned_at": "2026-06-23 13:13:34",
   "stocks": []
 }
