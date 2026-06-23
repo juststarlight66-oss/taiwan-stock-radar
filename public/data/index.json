@@ -2,5 +2,14 @@
   "available_dates": [
     "20260618"
   ],
-  "last_updated": "2026-06-18T19:21:56.340723+08:00"
+  "last_updated": "2026-06-18T19:21:56.340723+08:00",
+  "scans": [
+    {
+      "date": "20260623",
+      "file": "scan_result_20260623.json",
+      "scan_time": "19:13:31",
+      "scanned_count": 1074
+    }
+  ],
+  "updated_at": "2026-06-23T19:13:31.908363+08:00"
 }

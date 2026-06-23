@@ -896,7 +896,396 @@
           ]
         }
       }
+    },
+    {
+      "scan_date": "2026-06-23",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "6226",
+              "name": "光鼎",
+              "entry": 13.75,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3031",
+              "name": "佰鴻",
+              "entry": 32.05,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5283",
+              "name": "禾聯碩",
+              "entry": 57.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6573",
+              "name": "虹揚-KY",
+              "entry": 19.55,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6541",
+              "name": "泰福-KY",
+              "entry": 43.85,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2030",
+              "name": "彰源",
+              "entry": 20.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3229",
+              "name": "晟鈦",
+              "entry": 49.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5546",
+              "name": "永固-KY",
+              "entry": 17.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "7799",
+              "name": "禾榮科",
+              "entry": 424.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6525",
+              "name": "捷敏-KY",
+              "entry": 170.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "6226",
+              "name": "光鼎",
+              "entry": 13.75,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3031",
+              "name": "佰鴻",
+              "entry": 32.05,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5283",
+              "name": "禾聯碩",
+              "entry": 57.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6573",
+              "name": "虹揚-KY",
+              "entry": 19.55,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6541",
+              "name": "泰福-KY",
+              "entry": 43.85,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2030",
+              "name": "彰源",
+              "entry": 20.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3229",
+              "name": "晟鈦",
+              "entry": 49.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5546",
+              "name": "永固-KY",
+              "entry": 17.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "7799",
+              "name": "禾榮科",
+              "entry": 424.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6525",
+              "name": "捷敏-KY",
+              "entry": 170.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "6226",
+              "name": "光鼎",
+              "entry": 13.75,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3031",
+              "name": "佰鴻",
+              "entry": 32.05,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5283",
+              "name": "禾聯碩",
+              "entry": 57.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6573",
+              "name": "虹揚-KY",
+              "entry": 19.55,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6541",
+              "name": "泰福-KY",
+              "entry": 43.85,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2030",
+              "name": "彰源",
+              "entry": 20.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3229",
+              "name": "晟鈦",
+              "entry": 49.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5546",
+              "name": "永固-KY",
+              "entry": 17.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "7799",
+              "name": "禾榮科",
+              "entry": 424.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6525",
+              "name": "捷敏-KY",
+              "entry": 170.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
     }
   ],
-  "last_updated": "2026-06-18T19:21:56.340723+08:00"
+  "last_updated": "2026-06-23T19:13:31.908363+08:00",
+  "history": [
+    {
+      "date": "2026/06/23",
+      "results": {
+        "6226": {
+          "name": "光鼎",
+          "score": 90.75,
+          "close": 13.75
+        },
+        "3031": {
+          "name": "佰鴻",
+          "score": 89.88,
+          "close": 32.05
+        },
+        "5283": {
+          "name": "禾聯碩",
+          "score": 89.39,
+          "close": 57.4
+        },
+        "6573": {
+          "name": "虹揚-KY",
+          "score": 87.25,
+          "close": 19.55
+        },
+        "6541": {
+          "name": "泰福-KY",
+          "score": 87.02,
+          "close": 43.85
+        },
+        "2030": {
+          "name": "彰源",
+          "score": 85.13,
+          "close": 20.15
+        },
+        "3229": {
+          "name": "晟鈦",
+          "score": 84.3,
+          "close": 49.5
+        },
+        "5546": {
+          "name": "永固-KY",
+          "score": 84.0,
+          "close": 17.0
+        },
+        "7799": {
+          "name": "禾榮科",
+          "score": 83.45,
+          "close": 424.5
+        },
+        "6525": {
+          "name": "捷敏-KY",
+          "score": 83.3,
+          "close": 170.5
+        }
+      }
+    }
+  ]
 }

@@ -6,7 +6,7 @@ with open('public/data/latest.json') as f:
 
 scan_date = data['scan_date']
 scanned_count = data['scanned_count']
-top_stocks = data['top_stocks']
+top_stocks = data['top10']
 taiwan_date = f"{scan_date[:4]}/{scan_date[4:6]}/{scan_date[6:8]}"
 
 def safe_float(v, default=0.0):
@@ -15,7 +15,7 @@ def safe_float(v, default=0.0):
 
 rows = ""
 for i, r in enumerate(top_stocks, 1):
-    scores = r.get('scores', {})
+    scores = r.get('dimensions', {})
     targets = r.get('targets', {})
     s = scores
     close_val = safe_float(r.get('close', 0))
@@ -34,7 +34,7 @@ for i, r in enumerate(top_stocks, 1):
 <td style="padding:8px;color:#e53e3e;text-align:right">{pct_val:+.1f}%</td>
 <td style="padding:8px;text-align:right;font-weight:bold">{score_val:.1f}</td>
 <td style="padding:8px;font-size:11px">
-技術:{safe_float(s.get('技术面', s.get('technical',''))):.0f} 消息:{safe_float(s.get('消息面', s.get('news',''))):.0f} 籌碼:{safe_float(s.get('筹码面', s.get('chips',''))):.0f} 情緒:{safe_float(s.get('市场情绪', s.get('sentiment',''))):.0f} 基本:{safe_float(s.get('基本面', s.get('fundamentals',''))):.0f}
+技術:{safe_float(s.get('technical','')):.0f} 消息:{safe_float(s.get('news','')):.0f} 籌碼:{safe_float(s.get('chips','')):.0f} 情緒:{safe_float(s.get('sentiment','')):.0f} 基本:{safe_float(s.get('fundamental','')):.0f}
 </td>
 <td style="padding:8px;font-size:12px">
 進:{entry_low}-{entry_high}<br>

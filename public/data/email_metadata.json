@@ -1,11 +1,8 @@
 {
   "to": "juststarlight66@gmail.com",
-  "subject": "【台股掃描報告】2026/06/18 | Top 10 推薦 | 掃描1078檔",
-  "html_path": "/home/nebula/projects/juststarlight66-oss/taiwan-stock-radar/public/report_v5.html",
-  "scan_date": "20260618",
-  "scanned_count": 1078,
-  "top10_count": 10,
-  "backtest_avg_return": 2.08,
-  "backtest_win_rate": 60.0,
-  "generated_at": "2026-06-18T11:23:04.217429"
+  "subject": "【台股掃描報告】2026/06/23 | Top 10 推薦 | 掃描1074檔",
+  "html_path": "public/report_v5.html",
+  "scan_date": "20260623",
+  "scanned_count": 1074,
+  "generated_at": "2026-06-23T11:21:42.339820"
 }
