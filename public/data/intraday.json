@@ -1,47 +1,5 @@
 {
   "scan_type": "intraday_daytrade",
-  "scanned_at": "2026-06-23 13:14:31",
-  "stocks": [
-    {
-      "stock_id": "6243",
-      "name": "6243",
-      "sector": "",
-      "score": 64.0,
-      "details": {
-        "momentum": "極強",
-        "rsi": 92.6,
-        "ma_alignment": "資料不足",
-        "up_days": "資料不足",
-        "vol_ratio": "資料不足",
-        "atr": 0,
-        "breakout": "資料不足"
-      },
-      "total_score": 64.0,
-      "entry": 41.8,
-      "target": 45.14,
-      "stop_loss": 39.71,
-      "change_pct": 9.0,
-      "dimensions": {
-        "momentum": "極強",
-        "rsi": 92.6,
-        "ma_alignment": "資料不足",
-        "up_days": "資料不足",
-        "atr": 0,
-        "vol_ratio": "資料不足",
-        "breakout": "資料不足"
-      },
-      "live": {
-        "current": 41.79999923706055,
-        "open": 40.5,
-        "high": 42.150001525878906,
-        "low": 37.45000076293945,
-        "prev_close": 38.349998474121094,
-        "volume": 5761837,
-        "change_pct": 9.0,
-        "time": "",
-        "date": "",
-        "source": "yfinance fallback"
-      }
-    }
-  ]
+  "scanned_at": "2026-06-23 13:05:03",
+  "stocks": []
 }
