@@ -120,7 +120,10 @@ def fetch_market_breadth() -> list[str]:
     if all_ids:
         return sorted(all_ids)
     # If OpenAPI fails, fall back to the MIS API (which returns all stocks)
-    data = fetch_json(f"{TWSE_API}?ex_ch=tse_tse.tw&json=1&delay=0", timeout=20)
+    try:
+        data = fetch_json(f"{TWSE_API}?ex_ch=tse_tse.tw&json=1&delay=0", timeout=20)
+    except Exception as e:
+        data = {}
     ids = []
     if isinstance(data, dict):
         for m in data.get("msgArray", []):
