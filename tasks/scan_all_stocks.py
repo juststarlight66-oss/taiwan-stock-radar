@@ -9,7 +9,7 @@
 輸出格式：public/data/all_scores.json
 """
 
-import json, os, sys, time, warnings
+import json, os, sys, time, warnings, gzip
 warnings.filterwarnings('ignore')
 from datetime import datetime, timedelta, timezone
 import requests
@@ -90,6 +90,37 @@ def safe_int(v, default=0):
     except: return default
 
 
+def salvage_truncated_json(text):
+    """Salvage complete records from a truncated TPEx JSON array.
+
+    The TPEx daily close API often returns truncated JSON (last record cut off
+    mid-field). This finds the last valid } boundary, closes the array, and
+    parses whatever complete records were received. Returns valid records or None.
+    """
+    text = text.strip()
+    if not text.startswith("["):
+        return None
+
+    # Find the last complete object boundary: },  }], or ]
+    for end_marker in ("},", "}]", "]"):
+        idx = text.rfind(end_marker)
+        if idx == -1:
+            continue
+        # Snip at the closing } (inclusive); if marker was "]" we're done,
+        # otherwise close the array ourselves
+        valid = text[: idx + 1]
+        if not valid.endswith("]"):
+            valid += "]"
+        try:
+            result = json.loads(valid)
+            if isinstance(result, list) and len(result) > 0:
+                return result
+        except (json.JSONDecodeError, ValueError):
+            continue
+
+    return None
+
+
 def http_get(url, retries=3):
     for i in range(retries):
         try:
@@ -99,6 +130,53 @@ def http_get(url, retries=3):
             if isinstance(data, list) and len(data) > 0:
                 return data
             return []
+        except (requests.exceptions.ChunkedEncodingError,
+                requests.exceptions.ContentDecodingError):
+            # TPEx API closes connection mid-chunk; its response is gzip-
+            # compressed.  Make a fresh stream=True request so we can read
+            # raw bytes, decompress, and parse (or salvage if still truncated).
+            print(f"  [raw-fallback] transfer error, streaming raw response...")
+            try:
+                raw_resp = requests.get(
+                    url, headers=HEADERS, timeout=30, verify=False, stream=True
+                )
+                raw_resp.raise_for_status()
+                raw_gz = raw_resp.raw.read()
+                try:
+                    text = gzip.decompress(raw_gz).decode("utf-8", errors="replace")
+                except Exception:
+                    text = raw_gz.decode("utf-8", errors="replace")
+                data = json.loads(text)
+                if isinstance(data, list) and len(data) > 0:
+                    return data
+                salvaged = salvage_truncated_json(text)
+                if salvaged:
+                    print(f"  [salvage] recovered {len(salvaged)} from raw+gzip")
+                    return salvaged
+            except json.JSONDecodeError:
+                # Try salvage on decoded text
+                try:
+                    salvaged = salvage_truncated_json(text)
+                    if salvaged:
+                        print(f"  [salvage] recovered {len(salvaged)} from raw+gzip")
+                        return salvaged
+                except Exception:
+                    pass
+            except Exception as e2:
+                print(f"  [raw-fallback] error: {e2}")
+            return []
+        except json.JSONDecodeError:
+            # Already-decompressed JSON that is truncated
+            print(f"  [salvage] JSON decode failed for {url}, attempting truncation recovery...")
+            try:
+                salvaged = salvage_truncated_json(r.text)
+                if salvaged:
+                    print(f"  [salvage] recovered {len(salvaged)} records from truncated response")
+                    return salvaged
+            except Exception:
+                pass
+            print(f"  [重試 {i+1}] {url}: JSON decode error (truncated?), retrying...")
+            time.sleep(3 * (i + 1))
         except Exception as e:
             print(f"  [重試 {i+1}] {url}: {e}")
             time.sleep(3 * (i + 1))
