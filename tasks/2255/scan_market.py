@@ -71,32 +71,6 @@ def _http_get(url, *, headers=None, timeout=30, verify=False, retries=3, backoff
     raise last_err
 
 
-def _tpex_get(url, *, timeout=30, verify=False):
-    """TPEx gzip chunked fallback - handles truncated chunks via stream+raw read.
-    
-    TPEx API (tpex_mainboard_daily_close_quotes) returns gzip+chunked encoding.
-    When the server drops the connection mid-chunk, requests raises ChunkedEncodingError.
-    Workaround: stream=True, read raw bytes, manually decompress if gzip-compressed.
-    """
-    import gzip as _gzip
-    try:
-        resp = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'},
-                           stream=True, timeout=timeout, verify=verify)
-        raw = resp.raw.read()
-        # Check for gzip magic bytes
-        if raw[:2] == b'\x1f\x8b':
-            raw = _gzip.decompress(raw)
-        return json.loads(raw.decode('utf-8'))
-    except Exception:
-        # Fallback: normal requests.get with .json()
-        try:
-            r = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'},
-                            timeout=timeout, verify=verify)
-            return r.json()
-        except Exception:
-            return {}
-
-
 # ================================================================
 # 資料來源
 # ================================================================
@@ -271,7 +245,8 @@ def fetch_listed_stocks() -> List[Dict]:
 def fetch_tpex_stocks() -> List[Dict]:
     """上櫃股票清單"""
     try:
-        data = _tpex_get(TPEX_LISTED_URL, timeout=30)
+        resp = _http_get(TPEX_LISTED_URL, timeout=30)
+        data = resp.json()
         rows = data if isinstance(data, list) else data.get('msgArr', [])
         result = []
         for r in rows:
@@ -376,7 +351,8 @@ def fetch_tpex_day(stock_id: str, scan_date: str) -> Optional[Dict]:
     包含 history（批量下載的全市場數據僅有當天，不含歷史）
     """
     try:
-        data = _tpex_get(TPEX_DAILY_URL, timeout=30)
+        resp = _http_get(TPEX_DAILY_URL, timeout=30)
+        data = resp.json()
         rows = data if isinstance(data, list) else data.get('data', [])
         matched = [r for r in rows if str(r.get('SecuritiesCompanyCode', '')).strip() == stock_id]
         if not matched:
@@ -917,10 +893,12 @@ def run_scan(scan_date: str = None) -> Dict:
     fetch_errors = set()
     try:
         print("[下載] 預先下載全市場上櫃日K數據...")
-        data = _tpex_get(TPEX_DAILY_URL, timeout=30)
+        resp = _http_get(TPEX_DAILY_URL, timeout=30)
+        data = resp.json()
         if not data:
             print("[警告] TPEx daily_close_quotes URL 傳回空資料，嘗試 Fallback...")
-            data = _tpex_get(TPEX_LISTED_URL, timeout=30)
+            resp = _http_get(TPEX_LISTED_URL, timeout=30)
+            data = resp.json()
             # fallback only returns list of stocks, the rest of data won't exist in all_tpex_quotes
             # but we won't fail here and let the later parallel process handle history fetch
 
