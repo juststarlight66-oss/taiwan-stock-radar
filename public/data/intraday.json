@@ -1,35 +1,34 @@
 {
   "scan_type": "intraday_daytrade",
-  "scanned_at": "2026-06-23 13:14:07",
-  "data_note": "Generated via yfinance fallback (TWSE APIs returned 502)",
+  "scanned_at": "2026-06-23 13:14:31",
   "stocks": [
     {
       "stock_id": "6243",
-      "name": "迅杰",
+      "name": "6243",
       "sector": "",
-      "score": 97.0,
+      "score": 64.0,
       "details": {
         "momentum": "極強",
         "rsi": 92.6,
-        "ma_alignment": "短多",
-        "up_days": "3/3",
-        "vol_ratio": "爆發",
-        "atr": 1.83,
-        "breakout": "創新高"
+        "ma_alignment": "資料不足",
+        "up_days": "資料不足",
+        "vol_ratio": "資料不足",
+        "atr": 0,
+        "breakout": "資料不足"
       },
-      "total_score": 97.0,
+      "total_score": 64.0,
       "entry": 41.8,
-      "target": 44.54,
-      "stop_loss": 39.97,
+      "target": 45.14,
+      "stop_loss": 39.71,
       "change_pct": 9.0,
       "dimensions": {
         "momentum": "極強",
         "rsi": 92.6,
-        "ma_alignment": "短多",
-        "up_days": "3/3",
-        "atr": 1.83,
-        "vol_ratio": "爆發",
-        "breakout": "創新高"
+        "ma_alignment": "資料不足",
+        "up_days": "資料不足",
+        "atr": 0,
+        "vol_ratio": "資料不足",
+        "breakout": "資料不足"
       },
       "live": {
         "current": 41.79999923706055,
@@ -37,134 +36,11 @@
         "high": 42.150001525878906,
         "low": 37.45000076293945,
         "prev_close": 38.349998474121094,
-        "volume": 5438832,
+        "volume": 5761837,
         "change_pct": 9.0,
-        "time": "13:14:37",
-        "date": "20260623",
-        "source": "yfinance"
-      }
-    },
-    {
-      "stock_id": "2303",
-      "name": "聯電",
-      "sector": "",
-      "score": 80.0,
-      "details": {
-        "momentum": "強勢",
-        "rsi": 41.2,
-        "ma_alignment": "多頭排列",
-        "up_days": "3/3",
-        "vol_ratio": "爆發",
-        "atr": 10.61,
-        "breakout": "逼近前高"
-      },
-      "total_score": 80.0,
-      "entry": 171.0,
-      "target": 186.91,
-      "stop_loss": 160.39,
-      "change_pct": 6.88,
-      "dimensions": {
-        "momentum": "強勢",
-        "rsi": 41.2,
-        "ma_alignment": "多頭排列",
-        "up_days": "3/3",
-        "atr": 10.61,
-        "vol_ratio": "爆發",
-        "breakout": "逼近前高"
-      },
-      "live": {
-        "current": 171.0,
-        "open": 173.0,
-        "high": 176.0,
-        "low": 167.5,
-        "prev_close": 160.0,
-        "volume": 435913199,
-        "change_pct": 6.88,
-        "time": "13:14:11",
-        "date": "20260623",
-        "source": "yfinance"
-      }
-    },
-    {
-      "stock_id": "8046",
-      "name": "南電",
-      "sector": "",
-      "score": 74.0,
-      "details": {
-        "momentum": "偏強",
-        "rsi": 61.5,
-        "ma_alignment": "短多",
-        "up_days": "1/3",
-        "vol_ratio": "爆發",
-        "atr": 63.79,
-        "breakout": "逼近前高"
-      },
-      "total_score": 74.0,
-      "entry": 915.0,
-      "target": 1010.68,
-      "stop_loss": 851.21,
-      "change_pct": 5.9,
-      "dimensions": {
-        "momentum": "偏強",
-        "rsi": 61.5,
-        "ma_alignment": "短多",
-        "up_days": "1/3",
-        "atr": 63.79,
-        "vol_ratio": "爆發",
-        "breakout": "逼近前高"
-      },
-      "live": {
-        "current": 915.0,
-        "open": 875.0,
-        "high": 945.0,
-        "low": 867.0,
-        "prev_close": 864.0,
-        "volume": 31779813,
-        "change_pct": 5.9,
-        "time": "13:14:37",
-        "date": "20260623",
-        "source": "yfinance"
-      }
-    },
-    {
-      "stock_id": "3588",
-      "name": "通嘉",
-      "sector": "",
-      "score": 65.0,
-      "details": {
-        "momentum": "溫和",
-        "rsi": 31.7,
-        "ma_alignment": "短多",
-        "up_days": "3/3",
-        "vol_ratio": "爆發",
-        "atr": 3.42,
-        "breakout": "創新高"
-      },
-      "total_score": 65.0,
-      "entry": 68.8,
-      "target": 73.93,
-      "stop_loss": 65.38,
-      "change_pct": 3.77,
-      "dimensions": {
-        "momentum": "溫和",
-        "rsi": 31.7,
-        "ma_alignment": "短多",
-        "up_days": "3/3",
-        "atr": 3.42,
-        "vol_ratio": "爆發",
-        "breakout": "創新高"
-      },
-      "live": {
-        "current": 68.80000305175781,
-        "open": 69.0,
-        "high": 71.5999984741211,
-        "low": 67.5,
-        "prev_close": 66.30000305175781,
-        "volume": 4303612,
-        "change_pct": 3.77,
-        "time": "13:14:31",
-        "date": "20260623",
-        "source": "yfinance"
+        "time": "",
+        "date": "",
+        "source": "yfinance fallback"
       }
     }
   ]
