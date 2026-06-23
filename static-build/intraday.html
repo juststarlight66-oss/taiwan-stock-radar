@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>盤中監控 | 台灣股市雷達</title>
+    <meta name="description" content="台股盤中即時強勢弱勢標的監控。">
+    <meta name="theme-color" content="#030712">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <div class="container nav-content">
+            <a href="index.html" class="nav-brand">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-color);"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+                台股雷達
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">每日推薦</a>
+                <a href="intraday.html" class="nav-link active">盤中監控</a>
+                <a href="history.html" class="nav-link">歷史查詢</a>
+                <a href="selfcheck.html" class="nav-link">自主檢查</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <div id="status-indicator" class="timestamp">
+                    <span class="badge badge-sky">載入中...</span>
+                </div>
+                <button class="theme-toggle" aria-label="切換主題">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="moon-icon" style="display: none;"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sun-icon"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72 1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Hero -->
+        <div class="hero">
+            <div>
+                <h1 class="hero-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #38bdf8;"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                    盤中即時監控
+                    <span class="badge-ai" style="color: #fbbf24; border-color: rgba(245,158,11,0.2); background: rgba(245,158,11,0.1);">盤中模組</span>
+                </h1>
+                <p class="hero-subtitle">交易時間自動更新最強動能庫存，把握日內突破與異動機會。</p>
+            </div>
+            <div style="position: absolute; right: 1.5rem; top: 1.5rem; text-align: right;">
+                <div class="text-xs text-muted mb-1">最後更新時間</div>
+                <div id="update-time" class="text-base font-bold text-accent">--:--</div>
+                <div class="text-xs text-muted mt-2">自動更新：<span id="countdown">60</span>s</div>
+            </div>
+        </div>
+
+        <div id="error-container"></div>
+
+        <h2 class="text-lg font-bold mb-4 mt-6 flex items-center gap-2">
+            即時動能排序
+        </h2>
+        <div class="table-container">
+            <table id="intraday-table">
+                <thead>
+                    <tr>
+                        <th style="width: 50px; text-align: center;">名次</th>
+                        <th>標的</th>
+                        <th style="text-align: right;">目前報價</th>
+                        <th style="text-align: right;">漲跌</th>
+                        <th style="text-align: right;">成交量</th>
+                        <th style="text-align: right;">即時動能分數</th>
+                    </tr>
+                </thead>
+                <tbody id="intraday-body">
+                    <tr><td colspan="6" class="skeleton skeleton-card"></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Mobile Nav -->
+    <div class="mobile-nav">
+        <a href="index.html" class="mobile-nav-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+            推薦
+        </a>
+        <a href="intraday.html" class="mobile-nav-link active">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            盤中
+        </a>
+        <a href="history.html" class="mobile-nav-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+            歷史
+        </a>
+        <a href="selfcheck.html" class="mobile-nav-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+            檢查
+        </a>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        let countdownValue = 120;
+        let timer = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Toggle sun/moon icon based on theme
+            const updateIcons = () => {
+                const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                document.querySelectorAll('.sun-icon').forEach(el => el.style.display = isDark ? 'none' : 'block');
+                document.querySelectorAll('.moon-icon').forEach(el => el.style.display = isDark ? 'block' : 'none');
+            };
+            updateIcons();
+            document.querySelectorAll('.theme-toggle').forEach(btn => btn.addEventListener('click', updateIcons));
+
+            fetchData();
+        });
+
+        async function fetchData() {
+            clearTimeout(timer);
+            document.getElementById('status-indicator').innerHTML = `<span class="badge badge-sky">載入中...</span>`;
+            
+            try {
+                // First try intraday_latest.json
+                let data;
+                try {
+                    data = await APP.fetchJSON(`${APP.DATA_PREFIX}/intraday/intraday_latest.json`, 1);
+                } catch (e) {
+                    // Fallback to intraday.json
+                    data = await APP.fetchJSON(`${APP.DATA_PREFIX}/intraday.json`, 1);
+                }
+                renderPage(data);
+                document.getElementById('status-indicator').innerHTML = `<span class="badge badge-emerald">已更新</span>`;
+                
+                // Start countdown
+                countdownValue = 120;
+                tick();
+            } catch (err) {
+                console.error(err);
+                document.getElementById('status-indicator').innerHTML = `<span class="badge badge-red">連線失敗</span>`;
+                document.getElementById('error-container').innerHTML = `
+                    <div class="error-banner">
+                        <div>盤中心跳更新失敗。這可能表示盤中模組目前未運行或 GitHub Pages 尚未部署最新資料。</div>
+                        <button onclick="fetchData()">嘗試重新連線</button>
+                    </div>
+                `;
+                document.getElementById('intraday-body').innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 2rem; color: var(--text-muted);">無盤中資料</td></tr>`;
+            }
+        }
+
+        function tick() {
+            document.getElementById('countdown').textContent = countdownValue;
+            if (countdownValue <= 0) {
+                fetchData();
+            } else {
+                countdownValue--;
+                timer = setTimeout(tick, 1000);
+            }
+        }
+
+        function renderPage(data) {
+            // Format generation time if available
+            if (data.generated_at) {
+                const d = new Date(data.generated_at);
+                const hrs = String(d.getHours()).padStart(2, '0');
+                const mins = String(d.getMinutes()).padStart(2, '0');
+                document.getElementById('update-time').textContent = `${hrs}:${mins}`;
+            } else if (data.scan_date) {
+                document.getElementById('update-time').textContent = data.scan_date;
+            } else {
+                const now = new Date();
+                const hrs = String(now.getHours()).padStart(2, '0');
+                const mins = String(now.getMinutes()).padStart(2, '0');
+                document.getElementById('update-time').textContent = `${hrs}:${mins} (本地)`;
+            }
+
+            const stocks = data.top10 || data.top_stocks || data.stocks || [];
+            const tbody = document.getElementById('intraday-body');
+            
+            if (!stocks.length) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 2rem; color: var(--text-muted);">目前無盤中異動標的</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = stocks.map((stock, i) => {
+                const close = APP.formatNumber(stock.close || stock.price);
+                const changePct = stock.change_pct || 0;
+                const changeClass = APP.getChangeClass(changePct);
+                const colorClass = APP.getScoreColorClass(stock.total_score || stock.score || 0, 100);
+                const pct = Math.min(((stock.total_score || stock.score || 0) / 100) * 100, 100);
+
+                return `
+                    <tr>
+                        <td style="text-align: center;">
+                            <div class="badge ${i < 3 ? 'badge-amber' : 'badge-sky'}">${i + 1}</div>
+                        </td>
+                        <td>
+                            <div class="font-bold text-base flex items-center gap-2">
+                                ${stock.name} 
+                                <span class="text-xs text-muted font-normal">${stock.stock_id || stock.symbol || ''}</span>
+                            </div>
+                            <div class="text-xs text-muted mt-1">${stock.market || ''} ${stock.sector ? '· ' + stock.sector : ''}</div>
+                        </td>
+                        <td style="text-align: right;" class="font-medium">${close}</td>
+                        <td style="text-align: right;" class="${changeClass} font-medium">${APP.formatPercent(changePct)}</td>
+                        <td style="text-align: right;" class="text-muted text-sm">${stock.volume ? stock.volume.toLocaleString() : '—'}</td>
+                        <td style="text-align: right;">
+                            <div class="score-bar-wrapper justify-end">
+                                <div class="score-bar-track">
+                                    <div class="score-bar-fill ${colorClass}" style="width: ${pct}%"></div>
+                                </div>
+                                <span class="font-bold" style="width: 24px;">${Math.round(stock.total_score || stock.score || 0)}</span>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自主檢查 | 台灣股市雷達</title>
+    <meta name="description" content="AI 台股盤中自主檢查與股票雷達。">
+    <meta name="theme-color" content="#030712">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .search-container {
+            position: relative;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            font-size: 1.125rem;
+            border-radius: 0.75rem;
+            border: 2px solid var(--border-color);
+            background: var(--card-bg);
+            color: var(--text-main);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent-color);
+            border-width: 2px;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            margin-top: 0.5rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            z-index: 50;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .dropdown-menu.active {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background: var(--card-hover);
+        }
+
+        .watchlist-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .watchlist-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .watchlist-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card-header {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        
+        .card-body {
+            padding: 1rem;
+            flex: 1;
+        }
+
+        .remove-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 0.375rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        
+        .remove-btn:hover {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container nav-content">
+            <a href="index.html" class="nav-brand">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-color);"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+                台股雷達
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">每日推薦</a>
+                <a href="intraday.html" class="nav-link">盤中監控</a>
+                <a href="history.html" class="nav-link">歷史查詢</a>
+                <a href="selfcheck.html" class="nav-link active">自主檢查</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="theme-toggle" aria-label="切換主題">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="moon-icon" style="display: none;"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sun-icon"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72 1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Hero -->
+        <div class="hero">
+            <div>
+                <h1 class="hero-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #38bdf8;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                    自主檢查
+                    <span class="badge-ai">即時評分</span>
+                </h1>
+                <p class="hero-subtitle">輸入股票代號，即時查詢五維度評分與策略建議</p>
+                <div class="hero-badges">
+                    <span class="badge-ai" style="color: rgba(125,211,252,0.8);">技術面</span>
+                    <span class="badge-ai" style="color: rgba(125,211,252,0.8);">基本面</span>
+                    <span class="badge-ai" style="color: rgba(125,211,252,0.8);">消息面</span>
+                    <span class="badge-ai" style="color: rgba(125,211,252,0.8);">市場情緒</span>
+                    <span class="badge-ai" style="color: rgba(125,211,252,0.8);">籌碼面</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search UI -->
+        <div class="search-container">
+            <svg class="search-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="text" id="search-input" class="search-input" placeholder="輸入台股代號或名稱 (e.g. 2330, 台積電)..." autocomplete="off">
+            <div id="dropdown-menu" class="dropdown-menu"></div>
+        </div>
+
+        <div id="error-container"></div>
+        
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-lg font-bold">我的觀察名單 <span id="watchlist-count" class="text-muted text-sm font-normal"></span></h2>
+            <button id="share-btn" class="flex items-center gap-2 text-sm text-accent bg-transparent border-none cursor-pointer p-2 rounded hover:bg-sky-50 dark:hover:bg-sky-900/30 transition-colors">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" x2="12" y1="2" y2="15"/></svg>
+                <span id="share-text">分享連結</span>
+            </button>
+        </div>
+
+        <div id="watchlist-container" class="watchlist-grid">
+            <!-- Populated by JS -->
+            <div class="card p-8 flex flex-col items-center justify-center text-center text-muted" style="grid-column: 1 / -1; border-style: dashed;">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mb-4 text-light"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <p>搜尋並加入股票到底下觀察名單</p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Mobile Nav -->
+    <div class="mobile-nav">
+        <a href="index.html" class="mobile-nav-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+            推薦
+        </a>
+        <a href="intraday.html" class="mobile-nav-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            盤中
+        </a>
+        <a href="history.html" class="mobile-nav-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+            歷史
+        </a>
+        <a href="selfcheck.html" class="mobile-nav-link active">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+            檢查
+        </a>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        const ACTION_MAP = {
+            '強力買進': { label: '強力買進 🔥', text: 'text-up',    bg: 'badge-red' },
+            '強烈推薦': { label: '強烈推薦 🔥', text: 'text-up',    bg: 'badge-red' },
+            '買進':     { label: '買進 ✅',      text: 'text-amber-500', bg: 'badge-amber' },
+            '觀望':     { label: '觀望 ⏳',      text: 'text-muted',    bg: 'badge-gray' },
+            '偏弱':     { label: '偏弱 ⚠️',     text: 'text-emerald-500', bg: 'badge-emerald' },
+        };
+
+        let allStocks = [];
+        let watchlist = [];
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Theme setup
+            const updateIcons = () => {
+                const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                document.querySelectorAll('.sun-icon').forEach(el => el.style.display = isDark ? 'none' : 'block');
+                document.querySelectorAll('.moon-icon').forEach(el => el.style.display = isDark ? 'block' : 'none');
+            };
+            updateIcons();
+            document.querySelectorAll('.theme-toggle').forEach(btn => btn.addEventListener('click', updateIcons));
+
+            // Load data
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                const initialIds = (urlParams.get('stocks') || '').split(',').filter(Boolean);
+
+                // Fetch all scores for search pool
+                const rawData = await APP.fetchJSON(`${APP.DATA_PREFIX}/all_scores.json`);
+                // Format could be array or {stocks: []}
+                allStocks = Array.isArray(rawData) ? rawData : (rawData.stocks || rawData.data || []);
+                
+                document.getElementById('search-input').placeholder = `從 ${allStocks.length.toLocaleString()} 檔股票中搜尋...`;
+
+                // If URL has stocks, add them
+                if (initialIds.length > 0) {
+                    const toAdd = allStocks.filter(s => initialIds.includes(s.stock_id));
+                    watchlist = toAdd;
+                    renderWatchlist();
+                }
+
+                setupSearch();
+                setupShare();
+
+            } catch (err) {
+                console.error(err);
+                document.getElementById('error-container').innerHTML = `
+                    <div class="error-banner">
+                        <div>無法載入股票庫存資料，搜尋功能可能無法使用。</div>
+                    </div>
+                `;
+            }
+        });
+
+        function setupSearch() {
+            const input = document.getElementById('search-input');
+            const dropdown = document.getElementById('dropdown-menu');
+
+            input.addEventListener('input', (e) => {
+                const q = e.target.value.toLowerCase().trim();
+                if (!q) {
+                    dropdown.classList.remove('active');
+                    return;
+                }
+
+                const filtered = allStocks.filter(s => 
+                    s.stock_id.includes(q) || 
+                    (s.name || s.stock_name || '').toLowerCase().includes(q)
+                ).slice(0, 10);
+
+                if (filtered.length > 0) {
+                    dropdown.innerHTML = filtered.map(s => {
+                        const inList = watchlist.some(w => w.stock_id === s.stock_id);
+                        return `
+                            <div class="dropdown-item" onclick="addToWatchlist('${s.stock_id}')">
+                                <div>
+                                    <span class="font-bold">${s.name || s.stock_name}</span>
+                                    <span class="text-sm text-muted ml-2">${s.stock_id}</span>
+                                </div>
+                                <div>
+                                    ${inList ? '<span class="text-xs text-muted">已加入</span>' : '<span class="badge badge-sky">+ 加入</span>'}
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                    dropdown.classList.add('active');
+                } else {
+                    dropdown.innerHTML = `<div class="p-4 text-center text-muted">找不到相符標的</div>`;
+                    dropdown.classList.add('active');
+                }
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!input.contains(e.target) && !dropdown.contains(e.target)) {
+                    dropdown.classList.remove('active');
+                }
+            });
+        }
+
+        window.addToWatchlist = function(id) {
+            if (!watchlist.some(s => s.stock_id === id)) {
+                const stock = allStocks.find(s => s.stock_id === id);
+                if (stock) {
+                    watchlist.push(stock);
+                    renderWatchlist();
+                }
+            }
+            document.getElementById('search-input').value = '';
+            document.getElementById('dropdown-menu').classList.remove('active');
+        };
+
+        window.removeFromWatchlist = function(id) {
+            watchlist = watchlist.filter(s => s.stock_id !== id);
+            renderWatchlist();
+        };
+
+        function setupShare() {
+            document.getElementById('share-btn').addEventListener('click', () => {
+                if (watchlist.length === 0) return;
+                const ids = watchlist.map(s => s.stock_id).join(',');
+                const url = `${window.location.origin}${window.location.pathname}?stocks=${ids}`;
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(url).then(() => {
+                        const txt = document.getElementById('share-text');
+                        const old = txt.textContent;
+                        txt.textContent = '已複製連結！';
+                        setTimeout(() => txt.textContent = old, 2000);
+                    });
+                }
+            });
+        }
+
+        function renderWatchlist() {
+            const container = document.getElementById('watchlist-container');
+            document.getElementById('watchlist-count').textContent = `(${watchlist.length})`;
+
+            if (watchlist.length === 0) {
+                container.innerHTML = `
+                    <div class="card p-8 flex flex-col items-center justify-center text-center text-muted" style="grid-column: 1 / -1; border-style: dashed;">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mb-4 text-light"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                        <p>搜尋並加入股票到底下觀察名單</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = watchlist.map(stock => {
+                const name = stock.name || stock.stock_name || '--';
+                const score = Math.round(stock.total_score || 0);
+                const colorClass = APP.getScoreColorClass(score, 100);
+                
+                const rec = stock.recommendation || (stock.strategy || {}).advice || '推薦';
+                const styleDef = ACTION_MAP[rec] || { label: rec, text: 'text-accent', bg: 'badge-sky' };
+
+                const s = stock.strategy || {};
+                const t = stock.targets || {};
+                const entryLow = s.entry_low || stock.entry_low;
+                const entryHigh = s.entry_high || stock.entry_high;
+                const entry = (entryLow && entryHigh) ? `${entryLow}–${entryHigh}` : (entryLow || entryHigh || '—');
+
+                return `
+                    <div class="watchlist-card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="text-xl font-bold flex items-center gap-2">
+                                    ${name} <span class="text-sm font-normal text-muted">${stock.stock_id}</span>
+                                </h3>
+                                <div class="text-xs text-muted mt-1">${stock.market || ''} ${stock.sector ? '· ' + stock.sector : ''}</div>
+                            </div>
+                            <button class="remove-btn" onclick="removeFromWatchlist('${stock.stock_id}')" aria-label="移除">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="relative w-24 h-24 shrink-0 flex items-center justify-center">
+                                    <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                                        <circle cx="18" cy="18" r="15.915" fill="none" stroke="var(--border-color)" stroke-width="3" />
+                                        <circle cx="18" cy="18" r="15.915" fill="none" class="text-accent stroke-current" stroke-width="3" stroke-dasharray="${score}, 100" />
+                                    </svg>
+                                    <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                        <span class="text-2xl font-bold ${colorClass.replace('bg-', 'text-')}">${score}</span>
+                                        <span class="text-[10px] text-muted">總分</span>
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="mb-2"><span class="badge ${styleDef.bg}">${styleDef.label}</span></div>
+                                    <div class="text-xs text-muted mb-1">進場：<strong class="text-up ml-1">${entry}</strong></div>
+                                    <div class="text-xs text-muted mb-1">停損：<strong class="text-down ml-1">${s.stop_loss || t.stop_loss || stock.stop_loss || '—'}</strong></div>
+                                </div>
+                            </div>
+
+                            <div class="space-y-3">
+                                ${['technical', 'fundamental', 'news', 'sentiment', 'chips'].map(key => {
+                                    const dims = stock.dimensions || {};
+                                    const val = dims[key] || (dims[key] && dims[key].score) || 0;
+                                    const cfg = APP.DIMENSION_CONFIG[key];
+                                    const pct = Math.min((val / cfg.max) * 100, 100);
+                                    let barColor = pct >= 70 ? 'bg-sky-500' : pct >= 40 ? 'bg-amber-400' : 'bg-red-400';
+                                    
+                                    return `
+                                        <div class="flex items-center text-sm">
+                                            <span class="w-16 text-xs text-muted">${cfg.label}</span>
+                                            <div class="flex-1 mx-3 bg-gray-100 rounded-full h-1.5 overflow-hidden dark:bg-gray-800">
+                                                <div class="${barColor} h-full rounded-full" style="width: ${pct}%"></div>
+                                            </div>
+                                            <span class="w-8 text-right font-medium text-xs">${typeof val === 'object' ? val.score : Math.round(val)}</span>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+    </script>
+</body>
+</html>
