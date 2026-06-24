@@ -5,11 +5,16 @@
   "last_updated": "2026-06-18T19:21:56.340723+08:00",
   "scans": [
     {
+      "date": "20260624",
+      "file": "scan_result_20260624.json",
+      "scan_time": "19:14:32"
+    },
+    {
       "date": "20260623",
       "file": "scan_result_20260623.json",
       "scan_time": "19:13:31",
       "scanned_count": 1074
     }
   ],
-  "updated_at": "2026-06-23T19:13:31.908363+08:00"
+  "updated_at": "2026-06-24T19:14:32.008529+08:00"
 }
