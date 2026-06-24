@@ -455,7 +455,7 @@ def fetch_tpex_day(stock_id: str, scan_date: str) -> Optional[Dict]:
             close = _f('Close')
             if close <= 0:
                 return None
-            volume = _f('TradeVolume')
+            volume = _f('TradingShares')
             open_p = _f('Open')
             high = _f('High')
             low = _f('Low')
@@ -1002,7 +1002,7 @@ def run_scan(scan_date: str = None) -> Dict:
                     close = _f('Close')
                     if close <= 0:
                         continue
-                    volume = _f('TradeVolume')
+                    volume = _f('TradingShares')
                     open_p = _f('Open')
                     high = _f('High')
                     low = _f('Low')
