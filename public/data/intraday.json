@@ -1,7 +1,89 @@
 {
   "scan_type": "intraday_daytrade",
-  "scanned_at": "2026-06-24 12:41:11",
+  "scanned_at": "2026-06-24 12:42:25",
   "stocks": [
+    {
+      "stock_id": "8105",
+      "name": "凌巨",
+      "sector": "",
+      "score": 91.0,
+      "details": {
+        "momentum": "極強",
+        "rsi": 89.6,
+        "ma_alignment": "強勢突破",
+        "up_days": "0/3",
+        "vol_ratio": "爆發",
+        "atr": 0,
+        "breakout": "創新高"
+      },
+      "total_score": 91.0,
+      "entry": 23.25,
+      "target": 25.11,
+      "stop_loss": 22.09,
+      "change_pct": 8.64,
+      "dimensions": {
+        "momentum": "極強",
+        "rsi": 89.6,
+        "ma_alignment": "強勢突破",
+        "up_days": "0/3",
+        "atr": 0,
+        "vol_ratio": "爆發",
+        "breakout": "創新高"
+      },
+      "live": {
+        "current": 23.25,
+        "open": 21.15,
+        "high": 23.5,
+        "low": 21.1,
+        "prev_close": 21.4,
+        "volume": 32499,
+        "change_pct": 8.64,
+        "time": "12:42:38",
+        "date": "20260624",
+        "source": "tse"
+      }
+    },
+    {
+      "stock_id": "2399",
+      "name": "映泰",
+      "sector": "",
+      "score": 86.0,
+      "details": {
+        "momentum": "強勢",
+        "rsi": 80.5,
+        "ma_alignment": "強勢突破",
+        "up_days": "0/3",
+        "vol_ratio": "爆發",
+        "atr": 0,
+        "breakout": "創新高"
+      },
+      "total_score": 86.0,
+      "entry": 54.4,
+      "target": 58.75,
+      "stop_loss": 51.68,
+      "change_pct": 6.88,
+      "dimensions": {
+        "momentum": "強勢",
+        "rsi": 80.5,
+        "ma_alignment": "強勢突破",
+        "up_days": "0/3",
+        "atr": 0,
+        "vol_ratio": "爆發",
+        "breakout": "創新高"
+      },
+      "live": {
+        "current": 54.4,
+        "open": 51.6,
+        "high": 55.2,
+        "low": 51.1,
+        "prev_close": 50.9,
+        "volume": 18361,
+        "change_pct": 6.88,
+        "time": "12:42:36",
+        "date": "20260624",
+        "source": "tse"
+      }
+    },
     {
       "stock_id": "1303",
       "name": "南亞",
@@ -17,10 +99,10 @@
         "breakout": "創新高"
       },
       "total_score": 81.0,
-      "entry": 161.5,
-      "target": 174.42,
-      "stop_loss": 153.42,
-      "change_pct": 4.53,
+      "entry": 162.5,
+      "target": 175.5,
+      "stop_loss": 154.38,
+      "change_pct": 5.18,
       "dimensions": {
         "momentum": "偏強",
         "rsi": 100.0,
@@ -31,26 +113,26 @@
         "breakout": "創新高"
       },
       "live": {
-        "current": 161.5,
+        "current": 162.5,
         "open": 145.5,
-        "high": 161.5,
+        "high": 162.5,
         "low": 145.5,
         "prev_close": 154.5,
-        "volume": 41556,
-        "change_pct": 4.53,
-        "time": "12:41:19",
+        "volume": 42666,
+        "change_pct": 5.18,
+        "time": "12:42:34",
         "date": "20260624",
         "source": "tse"
       }
     },
     {
-      "stock_id": "1708",
-      "name": "東鹼",
+      "stock_id": "6695",
+      "name": "芯鼎",
       "sector": "",
       "score": 81.0,
       "details": {
-        "momentum": "偏強",
-        "rsi": 88.6,
+        "momentum": "強勢",
+        "rsi": 68.7,
         "ma_alignment": "強勢突破",
         "up_days": "0/3",
         "vol_ratio": "爆發",
@@ -58,13 +140,13 @@
         "breakout": "創新高"
       },
       "total_score": 81.0,
-      "entry": 51.9,
-      "target": 56.05,
-      "stop_loss": 49.3,
-      "change_pct": 5.17,
+      "entry": 66.8,
+      "target": 72.14,
+      "stop_loss": 63.46,
+      "change_pct": 6.54,
       "dimensions": {
-        "momentum": "偏強",
-        "rsi": 88.6,
+        "momentum": "強勢",
+        "rsi": 68.7,
         "ma_alignment": "強勢突破",
         "up_days": "0/3",
         "atr": 0,
@@ -72,96 +154,14 @@
         "breakout": "創新高"
       },
       "live": {
-        "current": 51.9,
-        "open": 48.8,
-        "high": 52.3,
-        "low": 48.8,
-        "prev_close": 49.35,
-        "volume": 9353,
-        "change_pct": 5.17,
-        "time": "12:41:15",
-        "date": "20260624",
-        "source": "tse"
-      }
-    },
-    {
-      "stock_id": "3051",
-      "name": "力特",
-      "sector": "",
-      "score": 81.0,
-      "details": {
-        "momentum": "強勢",
-        "rsi": 74.1,
-        "ma_alignment": "強勢突破",
-        "up_days": "0/3",
-        "vol_ratio": "爆發",
-        "atr": 0,
-        "breakout": "創新高"
-      },
-      "total_score": 81.0,
-      "entry": 29.15,
-      "target": 31.48,
-      "stop_loss": 27.69,
-      "change_pct": 7.17,
-      "dimensions": {
-        "momentum": "強勢",
-        "rsi": 74.1,
-        "ma_alignment": "強勢突破",
-        "up_days": "0/3",
-        "atr": 0,
-        "vol_ratio": "爆發",
-        "breakout": "創新高"
-      },
-      "live": {
-        "current": 29.15,
-        "open": 27.15,
-        "high": 29.9,
-        "low": 27.0,
-        "prev_close": 27.2,
-        "volume": 10996,
-        "change_pct": 7.17,
-        "time": "12:41:21",
-        "date": "20260624",
-        "source": "tse"
-      }
-    },
-    {
-      "stock_id": "3149",
-      "name": "正達",
-      "sector": "",
-      "score": 81.0,
-      "details": {
-        "momentum": "強勢",
-        "rsi": 79.5,
-        "ma_alignment": "強勢突破",
-        "up_days": "0/3",
-        "vol_ratio": "爆發",
-        "atr": 0,
-        "breakout": "創新高"
-      },
-      "total_score": 81.0,
-      "entry": 101.0,
-      "target": 109.08,
-      "stop_loss": 95.95,
-      "change_pct": 7.33,
-      "dimensions": {
-        "momentum": "強勢",
-        "rsi": 79.5,
-        "ma_alignment": "強勢突破",
-        "up_days": "0/3",
-        "atr": 0,
-        "vol_ratio": "爆發",
-        "breakout": "創新高"
-      },
-      "live": {
-        "current": 101.0,
-        "open": 91.9,
-        "high": 103.5,
-        "low": 91.3,
-        "prev_close": 94.1,
-        "volume": 31895,
-        "change_pct": 7.33,
-        "time": "12:41:15",
+        "current": 66.8,
+        "open": 62.5,
+        "high": 68.9,
+        "low": 62.2,
+        "prev_close": 62.7,
+        "volume": 10593,
+        "change_pct": 6.54,
+        "time": "12:42:33",
         "date": "20260624",
         "source": "tse"
       }
@@ -202,7 +202,7 @@
         "prev_close": 37.1,
         "volume": 2742,
         "change_pct": 3.91,
-        "time": "12:40:49",
+        "time": "12:42:39",
         "date": "20260624",
         "source": "tse"
       }
