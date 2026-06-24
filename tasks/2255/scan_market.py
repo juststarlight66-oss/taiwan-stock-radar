@@ -59,9 +59,19 @@ def _http_get(url, *, headers=None, timeout=30, verify=False, retries=3, backoff
                 
                 cmd = ['curl', '-s', '-L', '-A', 'Mozilla/5.0', '--max-time', '15', url]
                 res = subprocess.run(cmd, capture_output=True, text=True, timeout=20)
-                if res.returncode == 0 and ('"stat":"OK"' in res.stdout or '"data":' in res.stdout):
-                    return _CurlResponse(res.stdout)
-                # Do NOT fall through to requests.get(TWSE) - it tarpits and hangs the runner
+                if res.returncode == 0 and len(res.stdout) > 100:
+                    # Accept both JSON ("stat":"OK"/"data") and CSV (\"證券代號\") responses
+                    if '"stat":"OK"' in res.stdout or '"data":' in res.stdout:
+                        return _CurlResponse(res.stdout)
+                    if '證券代號' in res.stdout or '證券名稱' in res.stdout:
+                        return _CurlResponse(res.stdout)
+                # Last resort: try direct requests.get (TWSE sometimes works from certain IPs)
+                try:
+                    r = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'}, timeout=15, verify=False)
+                    if r.status_code == 200 and len(r.text) > 100:
+                        return r
+                except Exception:
+                    pass
                 raise RuntimeError(f"TWSE request blocked or timed out for {url}")
             return requests.get(url, headers=headers, timeout=15, verify=verify)
         except Exception as e:
@@ -1008,8 +1018,30 @@ def run_scan(scan_date: str = None) -> Dict:
     try:
         print("[下載] 預先下載全市場上市日K數據 (STOCK_DAY_ALL)...")
         resp = _http_get(STOCK_DAY_ALL_URL, timeout=30)
-        data = resp.json()
-        rows = data if isinstance(data, list) else data.get('data', [])
+        resp_text = resp.text
+        # TWSE sometimes returns CSV instead of JSON (depends on IP/session); parse both
+        if resp_text.strip().startswith('{'):
+            data = json.loads(resp_text)
+            rows = data if isinstance(data, list) else data.get('data', [])
+        else:
+            # CSV fallback: 日期,證券代號,證券名稱,成交股數,成交金額,開盤價,最高價,最低價,收盤價,漲跌價差,成交筆數
+            import csv, io
+            reader = csv.DictReader(io.StringIO(resp_text))
+            rows = []
+            for r in reader:
+                rows.append([
+                    r.get('證券代號', ''),    # 0: code
+                    r.get('證券名稱', ''),    # 1: name
+                    r.get('成交股數', ''),    # 2: volume
+                    r.get('成交金額', ''),    # 3: value
+                    r.get('開盤價', ''),      # 4: open
+                    r.get('最高價', ''),      # 5: high
+                    r.get('最低價', ''),      # 6: low
+                    r.get('收盤價', ''),      # 7: close
+                    r.get('漲跌價差', ''),    # 8: change
+                    r.get('成交筆數', ''),    # 9: tx_count
+                ])
+            print(f"[下載] TWSE 回傳 CSV 格式，解析 {len(rows)} 筆")
         for row in rows:
             code = str(row[0]).strip()
             if code and len(code) == 4:
