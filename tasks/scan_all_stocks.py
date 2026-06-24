@@ -183,6 +183,21 @@ def http_get(url, retries=3):
     return []
 
 
+def compute_targets_approx(close, atr_pct=0.02):
+    """ATR-based target prices: T1, T2, T3, entry range, stop-loss."""
+    atr = close * atr_pct
+    t1 = round(close + atr * 1.5, 2)
+    t2 = round(close + atr * 3.0, 2)
+    t3 = round(close + atr * 4.5, 2)
+    entry_low = round(close - atr * 1.0, 2)
+    entry_high = round(close + atr * 0.5, 2)
+    stop_loss = round(close - atr * 2.5, 2)
+    return {
+        "t1": t1, "t2": t2, "t3": t3, "stop_loss": stop_loss,
+        "entry_low": entry_low, "entry_high": entry_high
+    }
+
+
 def score_stock(volume, pe, yield_pct, pbr):
     """簡單的基礎評分 (0-100)"""
     score = 50
@@ -202,18 +217,29 @@ def score_stock(volume, pe, yield_pct, pbr):
     return min(score, 100)
 
 
-def build_record(sid, name, close, volume, pe, yield_pct, pbr, sector):
+def build_record(sid, name, close, volume, pe, yield_pct, pbr, sector, change_pct=0.0):
     score = score_stock(volume, pe, yield_pct, pbr)
+    # ATR approx: higher vol for big movers
+    atr_pct = 0.02
+    if abs(change_pct) > 8: atr_pct = 0.035
+    elif abs(change_pct) > 5: atr_pct = 0.03
+    elif abs(change_pct) > 3: atr_pct = 0.025
+    targets = compute_targets_approx(close, atr_pct)
     return {
         "stock_id": sid,
         "name": name,
         "close": close,
+        "change_pct": change_pct,
         "volume": volume,
         "pe": pe,
         "yield_pct": yield_pct,
         "pbr": pbr,
         "sector": sector,
         "score": score,
+        "entry_low": targets["entry_low"],
+        "entry_high": targets["entry_high"],
+        "stop_loss": targets["stop_loss"],
+        "targets": {"t1": targets["t1"], "t2": targets["t2"], "t3": targets["t3"], "stop_loss": targets["stop_loss"]},
         "updated_at": datetime.now(_TW_TZ).strftime("%Y-%m-%d %H:%M"),
     }
 
@@ -240,14 +266,16 @@ def fetch_twse():
         sid   = str(row.get("Code", "")).strip()
         name  = str(row.get("Name", "")).strip()
         close = safe_float(row.get("ClosingPrice", 0))
+        chg   = safe_float(row.get("Change", 0))
         vol   = safe_int(row.get("TradeVolume", 0)) // 1000
+        change_pct = round(chg / (close - chg) * 100, 2) if close != chg and close > 0 else 0.0
         if not sid or close <= 0:
             continue
         p = pe_map.get(sid, {})
         records.append(build_record(
             sid, name, close, vol,
             p.get("pe", 0), p.get("yield", 0), p.get("pbr", 0),
-            infer_sector(sid)
+            infer_sector(sid), change_pct
         ))
     print(f"[TWSE] 共 {len(records)} 檔")
     return records
@@ -275,14 +303,16 @@ def fetch_tpex():
         sid   = str(row.get("SecuritiesCompanyCode", "")).strip()
         name  = str(row.get("CompanyName", "")).strip()
         close = safe_float(row.get("Close", 0))
+        chg   = safe_float(row.get("Change", 0))
         vol   = safe_int(row.get("TradingShares", 0)) // 1000
+        change_pct = round(chg / (close - chg) * 100, 2) if close != chg and close > 0 else 0.0
         if not sid or close <= 0:
             continue
         p = pe_map.get(sid, {})
         records.append(build_record(
             sid, name, close, vol,
             p.get("pe", 0), p.get("yield", 0), p.get("pbr", 0),
-            infer_sector(sid)
+            infer_sector(sid), change_pct
         ))
     print(f"[TPEx] 共 {len(records)} 檔")
     return records
