@@ -71,28 +71,74 @@ def _http_get(url, *, headers=None, timeout=30, verify=False, retries=3, backoff
     raise last_err
 
 
+def salvage_truncated_json(text):
+    """從截斷的 TPEx JSON 陣列中恢復完整記錄。
+
+    TPEx daily close API 常回傳截斷的 JSON（最後一筆記錄被切斷）。
+    此函數找到最後一個有效的 } 邊界，關閉陣列，解析所有已接收的完整記錄。
+    回傳 list 或 None。
+    """
+    text = text.strip()
+    if not text.startswith('['):
+        return None
+    # 尋找最後一個完整物件邊界: }, 或 }] 或 ]
+    for end_marker in ('},', '}]', ']'):
+        idx = text.rfind(end_marker)
+        if idx == -1:
+            continue
+        # 裁切至結尾的 } (含); 若 marker 是 ] 則已完整，否則自行關閉陣列
+        valid = text[:idx + 1]
+        if not valid.endswith(']'):
+            valid += ']'
+        try:
+            result = json.loads(valid)
+            if isinstance(result, list) and len(result) > 0:
+                return result
+        except (json.JSONDecodeError, ValueError):
+            continue
+    return None
+
+
 def _tpex_get(url, *, timeout=30, verify=False):
-    """TPEx gzip chunked fallback - handles truncated chunks via stream+raw read.
-    
+    """TPEx gzip chunked fallback + 截斷 JSON 恢復。
+
     TPEx API (tpex_mainboard_daily_close_quotes) returns gzip+chunked encoding.
     When the server drops the connection mid-chunk, requests raises ChunkedEncodingError.
     Workaround: stream=True, read raw bytes, manually decompress if gzip-compressed.
+    If JSON is still truncated after decompression, salvage_truncated_json recovers
+    all complete records from the partial response.
     """
     import gzip as _gzip
     try:
         resp = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'},
                            stream=True, timeout=timeout, verify=verify)
-        raw = resp.raw.read()
+        raw_bytes = resp.raw.read()
         # Check for gzip magic bytes
-        if raw[:2] == b'\x1f\x8b':
-            raw = _gzip.decompress(raw)
-        return json.loads(raw.decode('utf-8'))
+        if raw_bytes[:2] == b'\x1f\x8b':
+            raw_bytes = _gzip.decompress(raw_bytes)
+        text = raw_bytes.decode('utf-8')
+        try:
+            return json.loads(text)
+        except json.JSONDecodeError:
+            # 解壓後 JSON 仍截斷 — 嘗試恢復完整記錄
+            salvaged = salvage_truncated_json(text)
+            if salvaged:
+                print(f"[TPEx] 截斷恢復: {len(salvaged)} 筆記錄（原始 JSON 被截斷）")
+                return salvaged
+            raise
     except Exception:
         # Fallback: normal requests.get with .json()
         try:
             r = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'},
                             timeout=timeout, verify=verify)
-            return r.json()
+            try:
+                return r.json()
+            except json.JSONDecodeError:
+                salvaged = salvage_truncated_json(r.text)
+                if salvaged:
+                    print(f"[TPEx-fallback] 截斷恢復: {len(salvaged)} 筆記錄")
+                    return salvaged
+                return {}
         except Exception:
             return {}
 
