@@ -312,9 +312,20 @@ def fetch_listed_stocks() -> List[Dict]:
     """上市公司股票清單 (STOCK_DAY_ALL)"""
     try:
         resp = _http_get(LISTEDSTATUS, headers={'User-Agent': 'Mozilla/5.0'}, timeout=30)
-        data = resp.json().get('data', [])
+        resp_text = resp.text
+        # TWSE may return CSV or JSON; parse both
+        if resp_text.strip().startswith('{'):
+            data = resp.json().get('data', [])
+            rows = data
+        else:
+            # CSV: 日期,證券代號,證券名稱,...
+            import csv, io
+            reader = csv.DictReader(io.StringIO(resp_text))
+            rows = []
+            for r in reader:
+                rows.append([r.get('證券代號', ''), r.get('證券名稱', '')])
         result = []
-        for r in data:
+        for r in rows:
             code = str(r[0]).strip()
             if len(code) == 4:
                 result.append({'Code': code, 'Name': str(r[1]).strip()})
