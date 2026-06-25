@@ -68,6 +68,19 @@ jobs:
             --days 252 \
             --output e3_backtest_$(date +%Y%m%d).json || true
 
+      - name: Run Strategy 3 (TPEx small-cap breakout)
+        run: python tasks/2255/strategy3_scan.py
+        env:
+          PYTHONPATH: /home/runner/work
+          OUTPUT: tasks/2255/strategy3_result.json
+
+      - name: Stage strategy3 result
+        run: |
+          if [ -f tasks/2255/strategy3_result.json ]; then
+            cp tasks/2255/strategy3_result.json public/data/strategy3_result.json
+            echo "Strategy3 result staged to public/data/"
+          fi
+
       - name: Stage E3 results for gh-pages
         run: |
           mkdir -p gh-pages
@@ -77,7 +90,7 @@ jobs:
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add public/data/ tasks/2255/scan_result.json tasks/2255/all_scores.json tasks/2255/latest.json e3_backtest_*.json gh-pages/ 2>/dev/null || true
+          git add public/data/ tasks/2255/scan_result.json tasks/2255/all_scores.json tasks/2255/latest.json tasks/2255/strategy3_result.json e3_backtest_*.json gh-pages/ 2>/dev/null || true
           git diff --staged --quiet || git commit -m "data: $(date +%Y%m%d) evening scan + E3 backtest (auto)"
           git pull --rebase origin main || true
           git push origin main

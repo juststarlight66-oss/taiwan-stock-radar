@@ -28,6 +28,12 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import requests
 requests.packages.urllib3.disable_warnings()
 
+try:
+    import yfinance as yf
+    HAS_YFINANCE = True
+except ImportError:
+    HAS_YFINANCE = False
+
 # 台灣時區 UTC+8
 _TW_TZ = timezone(timedelta(hours=8))
 
@@ -1022,6 +1028,72 @@ def run_scan(scan_date: str = None) -> Dict:
         print(f"[下載] 預先下載上櫃日K失敗: {e}")
         fetch_errors.add(f"TPEx Bulk Fetch Failed: {e}")
 
+    # 2b. 上櫃歷史日K（yfinance 批量下載，補 TPEx API 不含歷史的問題）
+    tpex_history_cache: Dict[str, List[Dict]] = {}
+    tpex_ids_with_history = set()
+    if HAS_YFINANCE:
+        tpex_ids = [sid for sid, info in all_stocks.items() if info.get('market') == 'TPEx']
+        if tpex_ids:
+            try:
+                print(f"[下載] yfinance 批量下載 {len(tpex_ids)} 檔上櫃股歷史日K...")
+                # yfinance batch download with .TWO suffix
+                ticker_str = ' '.join([f"{sid}.TWO" for sid in tpex_ids])
+                yf_data = yf.download(ticker_str, period='3mo', group_by='ticker',
+                                      progress=False, threads=True, auto_adjust=True)
+
+                for sid in tpex_ids:
+                    ticker_key = f"{sid}.TWO"
+                    if ticker_key in yf_data:
+                        df = yf_data[ticker_key]
+                        if df is not None and len(df) >= 8:
+                            history = []
+                            for idx, row in df.iterrows():
+                                try:
+                                    history.append({
+                                        'date': idx.strftime('%Y-%m-%d') if hasattr(idx, 'strftime') else str(idx),
+                                        'open': float(row.get('Open', 0)),
+                                        'high': float(row.get('High', 0)),
+                                        'low': float(row.get('Low', 0)),
+                                        'close': float(row.get('Close', 0)),
+                                        'volume': int(row.get('Volume', 0)),
+                                    })
+                                except Exception:
+                                    continue
+                            if history:
+                                tpex_history_cache[sid] = history
+                                tpex_ids_with_history.add(sid)
+
+                print(f"[下載] yfinance 成功取得 {len(tpex_history_cache)} 檔上櫃歷史日K")
+            except Exception as e:
+                print(f"[下載] yfinance 批量下載失敗: {e}，將使用單股查詢備援")
+                # Fallback: per-stock download
+                for sid in tpex_ids[:50]:  # limit to avoid rate-limiting
+                    try:
+                        ticker = yf.Ticker(f"{sid}.TWO")
+                        hist = ticker.history(period='3mo')
+                        if hist is not None and len(hist) >= 8:
+                            history = []
+                            for idx, row in hist.iterrows():
+                                try:
+                                    history.append({
+                                        'date': idx.strftime('%Y-%m-%d') if hasattr(idx, 'strftime') else str(idx),
+                                        'open': float(row.get('Open', 0)),
+                                        'high': float(row.get('High', 0)),
+                                        'low': float(row.get('Low', 0)),
+                                        'close': float(row.get('Close', 0)),
+                                        'volume': int(row.get('Volume', 0)),
+                                    })
+                                except Exception:
+                                    continue
+                            if history:
+                                tpex_history_cache[sid] = history
+                                tpex_ids_with_history.add(sid)
+                    except Exception:
+                        continue
+                print(f"[下載] yfinance 單股備援取得 {len(tpex_history_cache)} 檔上櫃歷史")
+    else:
+        print("[警告] yfinance 未安裝，上櫃股將使用簡化評分")
+
     # 3. 上市日 K（全市場）
     # STOCK_DAY_ALL returns list of lists: [Code, Name, Volume, Value, Open, High, Low, Close, Change(+/-/X), TxCount]
     STOCK_DAY_ALL_URL = "https://www.twse.com.tw/exchangeReport/STOCK_DAY_ALL?response=json"
@@ -1139,15 +1211,18 @@ def run_scan(scan_date: str = None) -> Dict:
                         if hist_result and hist_result.get('history'):
                             history = hist_result['history']
                             history_cache[cache_key] = hist_result
-                    # 上櫃股歷史：也呼叫 TSE API（上櫃股在 TSE 日 K 也會有資料）
+                    # 上櫃股歷史：優先用 yfinance 快取，fallback 到 TSE API
                     else:
-                        try:
-                            hist_result = fetch_stock_day_history(sid, scan_date)
-                            if hist_result and hist_result.get('history'):
-                                history = hist_result['history']
-                                history_cache[cache_key] = hist_result
-                        except Exception:
-                            history = []
+                        if sid in tpex_history_cache:
+                            history = tpex_history_cache[sid]
+                        else:
+                            try:
+                                hist_result = fetch_stock_day_history(sid, scan_date)
+                                if hist_result and hist_result.get('history'):
+                                    history = hist_result['history']
+                                    history_cache[cache_key] = hist_result
+                            except Exception:
+                                history = []
 
             # 使用已獲得的歷史數據改寫 day['change_pct']（更精確）
             if history and len(history) >= 2:
