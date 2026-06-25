@@ -47,10 +47,87 @@ jobs:
           echo "=== Stock count ==="
           python3 -c "import json; d=json.load(open('public/data/all_scores.json')); stocks=d.get('all_stock_scores',d) if isinstance(d,dict) else d; print(f'{len(stocks)} stocks in all_scores.json'); sectors={}; [sectors.update({s.get('sector','\u5176\u4ed6'):sectors.get(s.get('sector','\u5176\u4ed6'),0)+1}) for s in (stocks if isinstance(stocks,list) else [])]; top5=sorted(sectors.items(),key=lambda x:-x[1])[:5]; print('Top 5 sectors:',top5)"
 
+      - name: Generate latest.json and copy to tasks/2255
+        run: |
+          python3 << 'PYEOF'
+          import json, os, datetime
+          today = datetime.date.today().strftime('%Y%m%d')
+          today_slash = datetime.date.today().strftime('%Y/%m/%d')
+          now = datetime.datetime.now().isoformat()
+
+          # Load all_scores.json
+          with open('public/data/all_scores.json') as f:
+              all_data = json.load(f)
+          scores = all_data.get('all_stock_scores', [])
+          print(f"Loaded {len(scores)} stocks from all_scores.json")
+
+          # Build top10
+          top10 = sorted(scores, key=lambda s: s.get('total_score', 0), reverse=True)[:10]
+          for s in top10:
+              sc = s.get('scores', {})
+              s['dimensions'] = {
+                  'technical': sc.get('technical', 0),
+                  'fundamental': sc.get('fundamental', 0),
+                  'news': sc.get('news', 0),
+                  'sentiment': sc.get('sentiment', 0),
+                  'chips': sc.get('chips', 0),
+              }
+              if 'sector' not in s and 'sector_name' in s:
+                  s['sector'] = s['sector_name']
+              s.setdefault('signals', [])
+              s.setdefault('strategy', '\u4e94\u7dad\u5f37\u52e2')
+
+          # Build market_summary
+          sectors = {}
+          for s in scores:
+              sec = s.get('sector_name', s.get('sector', '\u5176\u4ed6'))
+              sectors.setdefault(sec, []).append(s.get('total_score', 0))
+          sector_detail = {sec: {'count': len(v), 'avg_score': round(sum(v)/len(v),1) if v else 0} for sec, v in sectors.items()}
+          market_summary = {
+              'avg_score': round(sum(s.get('total_score',0) for s in scores)/len(scores), 1) if scores else 0,
+              'sectors': len(sectors),
+              'sector_detail': sector_detail,
+          }
+
+          latest = {
+              'scan_date': today,
+              'scan_date_slash': today_slash,
+              'scanned_count': len(scores),
+              'generated_at': now,
+              'top10': top10,
+              'explode_top5': top10[:5],
+              'all_stock_scores': scores,
+              'market_summary': market_summary,
+          }
+
+          os.makedirs('public/data', exist_ok=True)
+          with open('public/data/latest.json', 'w') as f:
+              json.dump(latest, f, ensure_ascii=False)
+          print(f"Generated public/data/latest.json ({len(scores)} stocks)")
+
+          all_scores_out = {
+              'scan_date': today,
+              'generated_at': now,
+              'total_stocks': len(scores),
+              'all_stock_scores': scores,
+          }
+
+          os.makedirs('tasks/2255', exist_ok=True)
+          with open('tasks/2255/latest.json', 'w') as f:
+              json.dump(latest, f, ensure_ascii=False)
+          with open('tasks/2255/all_scores.json', 'w') as f:
+              json.dump(all_scores_out, f, ensure_ascii=False)
+          print(f"Generated tasks/2255/latest.json and tasks/2255/all_scores.json")
+
+          with open('public/data/all_scores.json', 'w') as f:
+              json.dump(all_scores_out, f, ensure_ascii=False)
+          print(f"Updated public/data/all_scores.json")
+          PYEOF
+
       - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/data/all_scores.json
-          git diff --staged --quiet || git commit -m "data: full scan update all_scores.json $(date '+%Y-%m-%d %H:%M CST')"
+          git add public/data/all_scores.json public/data/latest.json tasks/2255/all_scores.json tasks/2255/latest.json
+          git diff --staged --quiet || git commit -m "data: full scan update $(date '+%Y-%m-%d %H:%M CST')"
           git push
