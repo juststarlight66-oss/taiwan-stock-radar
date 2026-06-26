@@ -95,7 +95,12 @@ jobs:
               'scanned_count': len(scores),
               'generated_at': now,
               'top10': top10,
-              'explode_top5': top10[:5],
+              'explode_top5': [{
+                  **s,
+                  'explode_prob': round(min(0.95, max(0.05, (
+                      s.get('total_score', 50) / 100
+                  ))), 3),
+              } for s in top10[:5]],
               'all_stock_scores': scores,
               'market_summary': market_summary,
           }
