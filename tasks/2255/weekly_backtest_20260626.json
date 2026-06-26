@@ -1,0 +1,276 @@
+{
+  "report_date": "20260626",
+  "report_type": "weekly_backtest",
+  "generated_at": "2026-06-26T22:47:58.955962+08:00",
+  "week_ending": "2026-06-26",
+  "scan_days_this_week": [
+    "20260626"
+  ],
+  "summary": {
+    "total_recommendations": 10,
+    "scanned_stocks": 1959,
+    "top_sectors": [],
+    "avg_score": 81.41
+  },
+  "power_combo_indicators": {
+    "description": "三燈號指標 - T+N 追蹤框架",
+    "t1_win_rate": 33.3,
+    "t3_win_rate": null,
+    "t5_win_rate": null,
+    "avg_t5_return": null,
+    "stop_loss_triggers": 0,
+    "note": "基於 5 個 scan_day 的歷史數據"
+  },
+  "weekly_top10": [
+    {
+      "stock_id": "2236",
+      "name": "百達-KY",
+      "entry_date": "20260626",
+      "entry_price": 141.5,
+      "stop_loss": 135.84,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 87.55,
+      "close": 141.5,
+      "change_pct": 4.43,
+      "sector": "",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "2906",
+      "name": "高林",
+      "entry_date": "20260626",
+      "entry_price": 14.2,
+      "stop_loss": 13.63,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 84.17,
+      "close": 14.2,
+      "change_pct": 9.65,
+      "sector": "",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "4530",
+      "name": "宏易創新國際股份有限公司",
+      "entry_date": "20260626",
+      "entry_price": 27.85,
+      "stop_loss": 26.74,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 80.89,
+      "close": 27.85,
+      "change_pct": 9.86,
+      "sector": "",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "5321",
+      "name": "美而快國際股份有限公司",
+      "entry_date": "20260626",
+      "entry_price": 63.5,
+      "stop_loss": 60.96,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 80.89,
+      "close": 63.5,
+      "change_pct": 9.86,
+      "sector": "",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "5348",
+      "name": "正能量智能股份有限公司",
+      "entry_date": "20260626",
+      "entry_price": 18.5,
+      "stop_loss": 17.76,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 80.83,
+      "close": 18.5,
+      "change_pct": 9.79,
+      "sector": "",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "1435",
+      "name": "中福",
+      "entry_date": "20260626",
+      "entry_price": 22.65,
+      "stop_loss": 21.74,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 80.76,
+      "close": 22.65,
+      "change_pct": 9.95,
+      "sector": "",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "6226",
+      "name": "光鼎",
+      "entry_date": "20260626",
+      "entry_price": 18.25,
+      "stop_loss": 17.52,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 80.65,
+      "close": 18.25,
+      "change_pct": 9.94,
+      "sector": "",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "6986",
+      "name": "和迅生命科學股份有限公司",
+      "entry_date": "20260626",
+      "entry_price": 48.0,
+      "stop_loss": 46.08,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 79.46,
+      "close": 48.0,
+      "change_pct": 9.34,
+      "sector": "",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "8182",
+      "name": "加高電子股份有限公司",
+      "entry_date": "20260626",
+      "entry_price": 53.6,
+      "stop_loss": 51.46,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 79.46,
+      "close": 53.6,
+      "change_pct": 9.95,
+      "sector": "",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "6174",
+      "name": "安碁科技股份有限公司",
+      "entry_date": "20260626",
+      "entry_price": 54.2,
+      "stop_loss": 52.03,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 79.45,
+      "close": 54.2,
+      "change_pct": 9.94,
+      "sector": "",
+      "sector_boost": 0
+    }
+  ]
+}
