@@ -29,9 +29,9 @@ export default function StockDetailPage({ params }: { params: Promise<{ code: st
   
   // Note: Since we want the latest info by default and date isn't in path, checking the "latest" scan might be required,
   // but using generic latest/all_scores.json is simplest.
-  const { data: scores, loading, error } = useAllScores('latest');
+  const { stocks, isLoading, error } = useAllScores();
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="flex justify-center items-center h-48">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-slate-600"></div>
@@ -39,12 +39,12 @@ export default function StockDetailPage({ params }: { params: Promise<{ code: st
     );
   }
 
-  if (error || !scores) {
+  if (error || !stocks) {
     return <div className="text-red-500 p-4 text-center">載入資料失敗</div>;
   }
 
   // Find the exact stock
-  const stock = scores.find(s => String(s.stock_id) === code);
+  const stock = (stocks ?? []).find(s => String(s.stock_id) === code);
   
   if (!stock) {
     return (
