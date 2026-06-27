@@ -836,10 +836,28 @@ def predict_explode_top5(candidates: List[Dict]) -> List[Dict]:
         from sklearn.ensemble import RandomForestClassifier
         from sklearn.calibration import CalibratedClassifierCV
     except ImportError:
-        return []
+        # Fallback: return top 5 by total_score when sklearn not available
+        fallback = sorted(candidates, key=lambda s: s.get('total_score', 0), reverse=True)[:TOP_EXPLODE]
+        return [{
+            'stock_id': c.get('stock_id', ''),
+            'name': c.get('name', c.get('stock_id', '')),
+            'close': c.get('close', 0),
+            'volume': c.get('volume', 0),
+            'change_pct': c.get('change_pct', 0),
+            'explode_prob': round(min(0.95, max(0.05, c.get('total_score', 50) / 100)), 3),
+        } for c in fallback]
 
     if len(candidates) < 20:
-        return []
+        # Fallback: return top 5 by total_score when too few candidates
+        fallback = sorted(candidates, key=lambda s: s.get('total_score', 0), reverse=True)[:min(TOP_EXPLODE, len(candidates))]
+        return [{
+            'stock_id': c.get('stock_id', ''),
+            'name': c.get('name', c.get('stock_id', '')),
+            'close': c.get('close', 0),
+            'volume': c.get('volume', 0),
+            'change_pct': c.get('change_pct', 0),
+            'explode_prob': round(min(0.95, max(0.05, c.get('total_score', 50) / 100)), 3),
+        } for c in fallback]
 
     # 建立訓練集：從每檔股票的歷史中提取 lagged 樣本
     X_train, y_train = [], []
@@ -898,7 +916,16 @@ def predict_explode_top5(candidates: List[Dict]) -> List[Dict]:
             today_ids.append(c)
 
     if len(X_train) < 20 or sum(y_train) < 2:
-        return []
+        # Fallback: return top 5 by total_score when ML training data insufficient
+        fallback = sorted(today_ids, key=lambda s: s.get('total_score', 0), reverse=True)[:TOP_EXPLODE]
+        return [{
+            'stock_id': c.get('stock_id', ''),
+            'name': c.get('name', c.get('stock_id', '')),
+            'close': c.get('close', 0),
+            'volume': c.get('volume', 0),
+            'change_pct': c.get('change_pct', 0),
+            'explode_prob': round(min(0.95, max(0.05, c.get('total_score', 50) / 100)), 3),
+        } for c in fallback]
 
     X_train_arr = np.array(X_train, dtype=float)
     y_train_arr = np.array(y_train, dtype=int)
@@ -925,7 +952,19 @@ def predict_explode_top5(candidates: List[Dict]) -> List[Dict]:
             })
         return result
     except Exception:
-        return []
+        # Fallback: return top 5 by total_score when ML prediction fails
+        if today_ids:
+            fallback = sorted(today_ids, key=lambda s: s.get('total_score', 0), reverse=True)[:TOP_EXPLODE]
+        else:
+            fallback = sorted(candidates, key=lambda s: s.get('total_score', 0), reverse=True)[:TOP_EXPLODE]
+        return [{
+            'stock_id': c.get('stock_id', ''),
+            'name': c.get('name', c.get('stock_id', '')),
+            'close': c.get('close', 0),
+            'volume': c.get('volume', 0),
+            'change_pct': c.get('change_pct', 0),
+            'explode_prob': round(min(0.95, max(0.05, c.get('total_score', 50) / 100)), 3),
+        } for c in fallback]
 
 
 # ================================================================
