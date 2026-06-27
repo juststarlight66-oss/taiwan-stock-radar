@@ -1199,7 +1199,7 @@ def run_scan(scan_date: str = None) -> Dict:
     all_tse_quotes = {}
     try:
         print("[下載] 預先下載全市場上市日K數據 (STOCK_DAY_ALL)...")
-        resp = _http_get(STOCK_DAY_ALL_URL, timeout=30)
+        resp = _http_get(LISTEDSTATUS, timeout=30)
         resp_text = resp.text
         # TWSE sometimes returns CSV instead of JSON (depends on IP/session); parse both
         if resp_text.strip().startswith('{'):
