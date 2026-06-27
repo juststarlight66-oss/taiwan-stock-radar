@@ -200,12 +200,18 @@ MIN_VOLUME = 500        # 最低成交量門檻（張），過濾流動性不佳
 
 
 DIMENSION_WEIGHTS = {
-    'tech': 0.40,
+    'tech': 0.35,
     'chips': 0.25,
-    'fundamental': 0.15,
+    'fundamental': 0.10,
     'news': 0.10,
-    'sentiment': 0.10
+    'sentiment': 0.10,
+    'profit_space': 0.10
 }
+
+# 獲利空間評分常數
+PROFIT_FRESH_THRESHOLD = 10    # 30日漲幅 < 10% 視為「剛啟動」
+PROFIT_SURGE_BONUS = 10        # 剛啟動爆量的額外加分
+PROFIT_CHASE_WARN = 40         # 30日漲幅 > 40% 視為追高風險
 
 # Load external weights if available
 _w = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'dimension_weights.json')
@@ -563,14 +569,14 @@ def score_technical(d: Dict) -> float:
         highs = [h['high'] for h in history]
         lows = [h['low'] for h in history]
 
-        # RSI(7) 評分
+        # RSI(7) 評分（修正：避免在超買區推薦追高）
         rsi = compute_rsi(closes, RSI_PERIOD)
-        if rsi >= 75:
-            score += 15  # 強勢但注意超買
+        if rsi >= 70:
+            score += 5    # 強勢但已接近過熱，不加分太多
         elif rsi >= 60:
             score += 20   # 多頭動能最佳區
         elif rsi >= 45:
-            score += 5    # 中性偏多
+            score += 10   # 中性偏多
         elif rsi >= 30:
             score -= 5    # 中性偏空
         else:
@@ -739,6 +745,59 @@ def score_news(d: Dict) -> float:
     return max(0.0, min(100.0, score))
 
 
+def score_profit_space(d: Dict) -> float:
+    """
+    獲利空間評分 (profit_space) 10% 權重
+    核心邏輯：追強勢股要有獲利空間
+    - 30日漲幅越小 → 表示還沒大漲 → 進場後還有空間
+    - 30日漲幅小 + 量比高 → 剛啟動的信號 → 額外獎勵
+    - 30日漲幅大 → 追高風險高 → 降分
+    """
+    history = d.get('history', [])
+    chg_30d = 0.0
+    if history and len(history) >= 30:
+        closes_h = [h['close'] for h in history]
+        ref = closes_h[-(30 + 1)] if len(closes_h) >= 31 else closes_h[0]
+        if ref > 0:
+            chg_30d = (closes_h[-1] - ref) / ref * 100
+
+    score = 50.0  # 基準
+
+    # ── 30日漲幅評分：越小獲利空間越大 ──
+    if chg_30d < 5:
+        score += 30   # 幾乎沒漲，空間最大
+    elif chg_30d < 10:
+        score += 25   # 剛起步
+    elif chg_30d < 20:
+        score += 15   # 溫和上漲
+    elif chg_30d < 30:
+        score += 5    # 已有一段
+    elif chg_30d < 40:
+        score -= 5    # 需注意
+    else:
+        score -= 15   # 已大漲，追高風險高
+
+    # ── 剛啟動爆量獎勵 ──
+    # vol_ratio 高 + 30日漲幅小 = 真實起漲點
+    vol = d.get('volume', 0)
+    if history and len(history) >= 6:
+        avg_vol_5 = sum(h['volume'] for h in history[-6:-1]) / 5
+        vol_ratio = vol / avg_vol_5 if avg_vol_5 > 0 else 1
+        if vol_ratio >= 2.5 and chg_30d < PROFIT_FRESH_THRESHOLD:
+            score += PROFIT_SURGE_BONUS  # 剛啟動爆量，獎勵
+
+    # ── chg_5d 過熱懲罰 ──
+    if history and len(history) >= 6:
+        closes_h = [h['close'] for h in history]
+        ref_5 = closes_h[-(5 + 1)] if len(closes_h) >= 6 else closes_h[0]
+        if ref_5 > 0:
+            chg_5d = (closes_h[-1] - ref_5) / ref_5 * 100
+            if chg_5d > 20:
+                score -= 10  # 5日漲太多，短線過熱
+
+    return max(0.0, min(100.0, score))
+
+
 def score_sentiment(d: Dict) -> float:
     """
     市場情緒 10% 權重 (v8 重寫)
@@ -795,6 +854,7 @@ def compute_composite_score(d: Dict) -> Dict:
         'fundamental': score_fundamental(d),
         'news': score_news(d),
         'sentiment': score_sentiment(d),
+        'profit_space': score_profit_space(d),
     }
     w = DIMENSION_WEIGHTS
     total = (
@@ -802,7 +862,8 @@ def compute_composite_score(d: Dict) -> Dict:
         scores['chips'] * w['chips'] +
         scores['fundamental'] * w['fundamental'] +
         scores['news'] * w['news'] +
-        scores['sentiment'] * w['sentiment']
+        scores['sentiment'] * w['sentiment'] +
+        scores['profit_space'] * w['profit_space']
     )
     # 強勢族群額外加分：當日產業板塊漲幅達一定水準即加分（動態，不須硬編）
     sector_name = d.get('sector_name', '')
@@ -1135,7 +1196,6 @@ def run_scan(scan_date: str = None) -> Dict:
 
     # 3. 上市日 K（全市場）
     # STOCK_DAY_ALL returns list of lists: [Code, Name, Volume, Value, Open, High, Low, Close, Change(+/-/X), TxCount]
-    STOCK_DAY_ALL_URL = "https://www.twse.com.tw/exchangeReport/STOCK_DAY_ALL?response=json"
     all_tse_quotes = {}
     try:
         print("[下載] 預先下載全市場上市日K數據 (STOCK_DAY_ALL)...")
