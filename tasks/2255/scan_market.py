@@ -164,7 +164,7 @@ def _tpex_get(url, *, timeout=30, verify=False):
 # ================================================================
 
 TSE_DAILY_URL = "https://www.twse.com.tw/exchangeReport/STOCK_DAY"
-LISTEDSTATUS = "https://www.twse.com.tw/exchangeReport/STOCK_DAY_ALL?response=json"
+LISTEDSTATUS = "https://www.twse.com.tw/exchangeReport/STOCK_DAY_ALL"
 TPEX_DAILY_URL = "https://www.tpex.org.tw/openapi/v1/tpex_mainboard_daily_close_quotes"
 FUND_URL = "https://www.twse.com.tw/exchangeReport/BWIBBU_ALL?response=json"
 TPEX_LISTED_URL = "https://www.tpex.org.tw/openapi/v1/mopsfin_t187ap03_O"
