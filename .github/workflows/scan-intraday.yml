@@ -2,9 +2,10 @@ name: Scan Intraday
 
 on:
   workflow_dispatch:
-  schedule:
-    # \u6bcf\u4ea4\u6613\u65e5\u53f0\u7063\u6642\u9593 13:05 \u57f7\u884c (UTC 05:05)
-    - cron: '5 5 * * 1-5'
+  # schedule disabled - replaced by Nebula trigger intraday-1230 (12:30 TWN)
+  #   schedule:
+  #     # \u6bcf\u4ea4\u6613\u65e5\u53f0\u7063\u6642\u9593 13:05 \u57f7\u884c (UTC 05:05)
+  #     - cron: '5 5 * * 1-5'
 
 permissions:
   contents: write

@@ -665,6 +665,39 @@
         "pct": null,
         "win": null
       }
+    },
+    {
+      "stock_id": "1444",
+      "name": "力麗",
+      "entry_date": "20260626",
+      "entry_price": 7.41,
+      "exit_price": null,
+      "return_pct": null,
+      "original_score": 90.75,
+      "evaluated_date": "20260629",
+      "evaluated_at": "2026-06-29T19:07:03.464911+08:00"
+    },
+    {
+      "stock_id": "3717",
+      "name": "聯嘉投控",
+      "entry_date": "20260626",
+      "entry_price": 23.6,
+      "exit_price": null,
+      "return_pct": null,
+      "original_score": 86.39,
+      "evaluated_date": "20260629",
+      "evaluated_at": "2026-06-29T19:07:03.464911+08:00"
+    },
+    {
+      "stock_id": "1718",
+      "name": "中纖",
+      "entry_date": "20260626",
+      "entry_price": 11.15,
+      "exit_price": null,
+      "return_pct": null,
+      "original_score": 84.25,
+      "evaluated_date": "20260629",
+      "evaluated_at": "2026-06-29T19:07:03.464911+08:00"
     }
   ],
   "grouped_records": [
@@ -1984,5 +2017,5 @@
       }
     }
   ],
-  "last_updated": "2026-06-26T19:11:13.374090+08:00"
+  "last_updated": "2026-06-29T19:07:03.464911+08:00"
 }
