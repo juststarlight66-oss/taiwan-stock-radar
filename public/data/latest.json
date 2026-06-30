@@ -1,1 +1,826 @@
-{"scan_date": "20260629", "scan_date_slash": "2026/06/29", "scanned_count": 860, "tse_count": 0, "otc_count": 0, "sector_count": 27, "avg_score": 52.7, "generated_at": "2026-06-29T19:06:33.117986+08:00", "model_version": "v2", "v2_weights": {"tech": 0.25, "chips": 0.08, "fundamental": 0.23, "news": 0.32, "sentiment": 0.12}, "top10": [{"stock_id": "4174", "stock_name": "台灣浩鼎生技股份有限公司", "name": "台灣浩鼎生技股份有限公司", "sector": "", "close": 29.2, "total_score": 65.46, "scores": {"tech": 50, "chips": 85.0, "fundamental": 50.0, "news": 80.0, "sentiment": 75.5, "total": 65.5}, "dimensions": {"技術面": 50, "籌碼面": 85.0, "基本面": 50.0, "消息面": 80.0, "情緒面": 75.5}, "targets": {"entry_low": null, "entry_high": null, "stop_loss": null, "t1": null, "t2": null, "t3": null}, "signals": {}, "strategy": {}, "explode_prob": 0.655}, {"stock_id": "4707", "stock_name": "磐亞股份有限公司", "name": "磐亞股份有限公司", "sector": "", "close": 30.3, "total_score": 65.46, "scores": {"tech": 50, "chips": 85.0, "fundamental": 50.0, "news": 80.0, "sentiment": 75.5, "total": 65.5}, "dimensions": {"技術面": 50, "籌碼面": 85.0, "基本面": 50.0, "消息面": 80.0, "情緒面": 75.5}, "targets": {"entry_low": null, "entry_high": null, "stop_loss": null, "t1": null, "t2": null, "t3": null}, "signals": {}, "strategy": {}, "explode_prob": 0.655}, {"stock_id": "7714", "stock_name": "創泓科技股份有限公司", "name": "創泓科技股份有限公司", "sector": "", "close": 138.0, "total_score": 65.46, "scores": {"tech": 50, "chips": 85.0, "fundamental": 50.0, "news": 80.0, "sentiment": 75.5, "total": 65.5}, "dimensions": {"技術面": 50, "籌碼面": 85.0, "基本面": 50.0, "消息面": 80.0, "情緒面": 75.5}, "targets": {"entry_low": null, "entry_high": null, "stop_loss": null, "t1": null, "t2": null, "t3": null}, "signals": {}, "strategy": {}, "explode_prob": 0.655}, {"stock_id": "4726", "stock_name": "永昕生物醫藥股份有限公司", "name": "永昕生物醫藥股份有限公司", "sector": "", "close": 26.0, "total_score": 65.09, "scores": {"tech": 50, "chips": 85.0, "fundamental": 50.0, "news": 80.0, "sentiment": 72.4, "total": 65.1}, "dimensions": {"技術面": 50, "籌碼面": 85.0, "基本面": 50.0, "消息面": 80.0, "情緒面": 72.4}, "targets": {"entry_low": null, "entry_high": null, "stop_loss": null, "t1": null, "t2": null, "t3": null}, "signals": {}, "strategy": {}, "explode_prob": 0.651}, {"stock_id": "8477", "stock_name": "創業家數位股份有限公司", "name": "創業家數位股份有限公司", "sector": "", "close": 16.5, "total_score": 64.66, "scores": {"tech": 50, "chips": 75.0, "fundamental": 50.0, "news": 80.0, "sentiment": 75.5, "total": 64.7}, "dimensions": {"技術面": 50, "籌碼面": 75.0, "基本面": 50.0, "消息面": 80.0, "情緒面": 75.5}, "targets": {"entry_low": null, "entry_high": null, "stop_loss": null, "t1": null, "t2": null, "t3": null}, "signals": {}, "strategy": {}, "explode_prob": 0.647}, {"stock_id": "4743", "stock_name": "合一生技股份有限公司", "name": "合一生技股份有限公司", "sector": "", "close": 50.6, "total_score": 64.59, "scores": {"tech": 50, "chips": 75.0, "fundamental": 50.0, "news": 80.0, "sentiment": 74.9, "total": 64.6}, "dimensions": {"技術面": 50, "籌碼面": 75.0, "基本面": 50.0, "消息面": 80.0, "情緒面": 74.9}, "targets": {"entry_low": null, "entry_high": null, "stop_loss": null, "t1": null, "t2": null, "t3": null}, "signals": {}, "strategy": {}, "explode_prob": 0.646}, {"stock_id": "5321", "stock_name": "美而快國際股份有限公司", "name": "美而快國際股份有限公司", "sector": "", "close": 69.8, "total_score": 64.56, "scores": {"tech": 50, "chips": 85.0, "fundamental": 50.0, "news": 80.0, "sentiment": 68.0, "total": 64.6}, "dimensions": {"技術面": 50, "籌碼面": 85.0, "基本面": 50.0, "消息面": 80.0, "情緒面": 68.0}, "targets": {"entry_low": null, "entry_high": null, "stop_loss": null, "t1": null, "t2": null, "t3": null}, "signals": {}, "strategy": {}, "explode_prob": 0.646}, {"stock_id": "4147", "stock_name": "中裕新藥股份有限公司", "name": "中裕新藥股份有限公司", "sector": "", "close": 63.8, "total_score": 64.52, "scores": {"tech": 50, "chips": 75.0, "fundamental": 50.0, "news": 80.0, "sentiment": 74.3, "total": 64.5}, "dimensions": {"技術面": 50, "籌碼面": 75.0, "基本面": 50.0, "消息面": 80.0, "情緒面": 74.3}, "targets": {"entry_low": null, "entry_high": null, "stop_loss": null, "t1": null, "t2": null, "t3": null}, "signals": {}, "strategy": {}, "explode_prob": 0.645}, {"stock_id": "6712", "stock_name": "長聖國際生技股份有限公司", "name": "長聖國際生技股份有限公司", "sector": "", "close": 158.0, "total_score": 64.5, "scores": {"tech": 50, "chips": 85.0, "fundamental": 50.0, "news": 80.0, "sentiment": 67.5, "total": 64.5}, "dimensions": {"技術面": 50, "籌碼面": 85.0, "基本面": 50.0, "消息面": 80.0, "情緒面": 67.5}, "targets": {"entry_low": null, "entry_high": null, "stop_loss": null, "t1": null, "t2": null, "t3": null}, "signals": {}, "strategy": {}, "explode_prob": 0.645}, {"stock_id": "6929", "stock_name": "佑全藥品股份有限公司", "name": "佑全藥品股份有限公司", "sector": "", "close": 24.15, "total_score": 64.49, "scores": {"tech": 50, "chips": 75.0, "fundamental": 50.0, "news": 80.0, "sentiment": 74.1, "total": 64.5}, "dimensions": {"技術面": 50, "籌碼面": 75.0, "基本面": 50.0, "消息面": 80.0, "情緒面": 74.1}, "targets": {"entry_low": null, "entry_high": null, "stop_loss": null, "t1": null, "t2": null, "t3": null}, "signals": {}, "strategy": {}, "explode_prob": 0.645}], "explode_top5": [{"stock_id": "4174", "stock_name": "台灣浩鼎生技股份有限公司", "name": "台灣浩鼎生技股份有限公司", "sector": "", "close": 29.2, "total_score": 65.46, "scores": {"tech": 50, "chips": 85.0, "fundamental": 50.0, "news": 80.0, "sentiment": 75.5, "total": 65.5}, "dimensions": {"技術面": 50, "籌碼面": 85.0, "基本面": 50.0, "消息面": 80.0, "情緒面": 75.5}, "targets": {"entry_low": null, "entry_high": null, "stop_loss": null, "t1": null, "t2": null, "t3": null}, "signals": {}, "strategy": {}, "explode_prob": 0.655}, {"stock_id": "4707", "stock_name": "磐亞股份有限公司", "name": "磐亞股份有限公司", "sector": "", "close": 30.3, "total_score": 65.46, "scores": {"tech": 50, "chips": 85.0, "fundamental": 50.0, "news": 80.0, "sentiment": 75.5, "total": 65.5}, "dimensions": {"技術面": 50, "籌碼面": 85.0, "基本面": 50.0, "消息面": 80.0, "情緒面": 75.5}, "targets": {"entry_low": null, "entry_high": null, "stop_loss": null, "t1": null, "t2": null, "t3": null}, "signals": {}, "strategy": {}, "explode_prob": 0.655}, {"stock_id": "7714", "stock_name": "創泓科技股份有限公司", "name": "創泓科技股份有限公司", "sector": "", "close": 138.0, "total_score": 65.46, "scores": {"tech": 50, "chips": 85.0, "fundamental": 50.0, "news": 80.0, "sentiment": 75.5, "total": 65.5}, "dimensions": {"技術面": 50, "籌碼面": 85.0, "基本面": 50.0, "消息面": 80.0, "情緒面": 75.5}, "targets": {"entry_low": null, "entry_high": null, "stop_loss": null, "t1": null, "t2": null, "t3": null}, "signals": {}, "strategy": {}, "explode_prob": 0.655}, {"stock_id": "4726", "stock_name": "永昕生物醫藥股份有限公司", "name": "永昕生物醫藥股份有限公司", "sector": "", "close": 26.0, "total_score": 65.09, "scores": {"tech": 50, "chips": 85.0, "fundamental": 50.0, "news": 80.0, "sentiment": 72.4, "total": 65.1}, "dimensions": {"技術面": 50, "籌碼面": 85.0, "基本面": 50.0, "消息面": 80.0, "情緒面": 72.4}, "targets": {"entry_low": null, "entry_high": null, "stop_loss": null, "t1": null, "t2": null, "t3": null}, "signals": {}, "strategy": {}, "explode_prob": 0.651}, {"stock_id": "8477", "stock_name": "創業家數位股份有限公司", "name": "創業家數位股份有限公司", "sector": "", "close": 16.5, "total_score": 64.66, "scores": {"tech": 50, "chips": 75.0, "fundamental": 50.0, "news": 80.0, "sentiment": 75.5, "total": 64.7}, "dimensions": {"技術面": 50, "籌碼面": 75.0, "基本面": 50.0, "消息面": 80.0, "情緒面": 75.5}, "targets": {"entry_low": null, "entry_high": null, "stop_loss": null, "t1": null, "t2": null, "t3": null}, "signals": {}, "strategy": {}, "explode_prob": 0.647}], "backtest": {"scan_date": "20260629", "evaluated_scan_date": "20260626", "holding_period": "T+1", "top5_results": [{"stock_id": "1444", "name": "力麗", "entry_date": "20260626", "exit_date": "20260629", "entry_price": 7.41, "exit_price": null, "return_pct": null, "original_score": 90.75}, {"stock_id": "2236", "name": "百達-KY", "entry_date": "20260626", "exit_date": "20260629", "entry_price": 141.5, "exit_price": null, "return_pct": null, "original_score": 87.55}, {"stock_id": "3717", "name": "聯嘉投控", "entry_date": "20260626", "exit_date": "20260629", "entry_price": 23.6, "exit_price": null, "return_pct": null, "original_score": 86.39}, {"stock_id": "6226", "name": "光鼎", "entry_date": "20260626", "exit_date": "20260629", "entry_price": 18.25, "exit_price": null, "return_pct": null, "original_score": 85.45}, {"stock_id": "1718", "name": "中纖", "entry_date": "20260626", "exit_date": "20260629", "entry_price": 11.15, "exit_price": null, "return_pct": null, "original_score": 84.25}], "avg_return_pct": null, "win_rate_pct": null, "total_trades": 0, "winning_trades": 0}}
+{
+  "scan_date": "20260630",
+  "scan_date_slash": "2026/06/30",
+  "scanned_count": 1957,
+  "tse_count": 1088,
+  "otc_count": 0,
+  "sector_count": 34,
+  "avg_score": 73.2,
+  "generated_at": "2026-06-30T19:06:57.394223+08:00",
+  "model_version": "v9",
+  "v2_weights": {
+    "tech": 0.35,
+    "chips": 0.25,
+    "fundamental": 0.1,
+    "news": 0.1,
+    "sentiment": 0.1,
+    "profit_space": 0.1
+  },
+  "top10": [
+    {
+      "stock_id": "1810",
+      "stock_name": "和成",
+      "name": "和成",
+      "sector": "玻璃陶瓷",
+      "close": 21.35,
+      "total_score": 101.35,
+      "scores": {
+        "technical": 86.75,
+        "chips": 100.0,
+        "fundamental": 85.0,
+        "news": 90.0,
+        "sentiment": 81.75,
+        "profit_space": 65.0,
+        "total": 101.35
+      },
+      "dimensions": {
+        "technical": 86.75,
+        "chips": 100.0,
+        "fundamental": 85.0,
+        "news": 90.0,
+        "sentiment": 81.75,
+        "profit_space": 65.0
+      },
+      "targets": {
+        "entry_low": 20.82,
+        "entry_high": 21.88,
+        "stop_loss": 19.23,
+        "t1": 22.41,
+        "t2": 23.47,
+        "t3": 24.53
+      },
+      "signals": [
+        "技術面強勢",
+        "籌碼集中",
+        "基本面優",
+        "消息面佳",
+        "市場熱絡",
+        "強勢上攻"
+      ],
+      "strategy": {
+        "entry": "20.82-21.88",
+        "targets": {
+          "T1": 22.41,
+          "T2": 23.47,
+          "T3": 24.53
+        },
+        "stop_loss": 19.23,
+        "recommendation": "強烈推薦",
+        "holding_days": "3-5"
+      },
+      "explode_prob": 95
+    },
+    {
+      "stock_id": "3356",
+      "stock_name": "奇偶",
+      "name": "奇偶",
+      "sector": "光電業",
+      "close": 62.7,
+      "total_score": 100.81,
+      "scores": {
+        "technical": 82.72551724137932,
+        "chips": 75.0,
+        "fundamental": 93.0,
+        "news": 90.0,
+        "sentiment": 74.46551724137933,
+        "profit_space": 80.0,
+        "total": 100.81
+      },
+      "dimensions": {
+        "technical": 82.72551724137932,
+        "chips": 75.0,
+        "fundamental": 93.0,
+        "news": 90.0,
+        "sentiment": 74.46551724137933,
+        "profit_space": 80.0
+      },
+      "targets": {
+        "entry_low": 62.07,
+        "entry_high": 63.33,
+        "stop_loss": 60.19,
+        "t1": 63.95,
+        "t2": 65.21,
+        "t3": 66.46
+      },
+      "signals": [
+        "技術面強勢",
+        "籌碼集中",
+        "基本面優",
+        "消息面佳",
+        "市場熱絡",
+        "強勢上攻"
+      ],
+      "strategy": {
+        "entry": "62.07-63.33",
+        "targets": {
+          "T1": 63.95,
+          "T2": 65.21,
+          "T3": 66.46
+        },
+        "stop_loss": 60.19,
+        "recommendation": "強烈推薦",
+        "holding_days": "3-5"
+      },
+      "explode_prob": 95
+    },
+    {
+      "stock_id": "3015",
+      "stock_name": "全漢",
+      "name": "全漢",
+      "sector": "電子零組件業",
+      "close": 62.9,
+      "total_score": 96.46,
+      "scores": {
+        "technical": 81.58470588235294,
+        "chips": 85.0,
+        "fundamental": 73.0,
+        "news": 90.0,
+        "sentiment": 72.26470588235294,
+        "profit_space": 80.0,
+        "total": 96.46
+      },
+      "dimensions": {
+        "technical": 81.58470588235294,
+        "chips": 85.0,
+        "fundamental": 73.0,
+        "news": 90.0,
+        "sentiment": 72.26470588235294,
+        "profit_space": 80.0
+      },
+      "targets": {
+        "entry_low": 62.27,
+        "entry_high": 63.53,
+        "stop_loss": 60.38,
+        "t1": 64.16,
+        "t2": 65.42,
+        "t3": 66.67
+      },
+      "signals": [
+        "技術面強勢",
+        "籌碼集中",
+        "基本面優",
+        "消息面佳",
+        "市場熱絡",
+        "強勢上攻"
+      ],
+      "strategy": {
+        "entry": "62.27-63.53",
+        "targets": {
+          "T1": 64.16,
+          "T2": 65.42,
+          "T3": 66.67
+        },
+        "stop_loss": 60.38,
+        "recommendation": "強烈推薦",
+        "holding_days": "3-5"
+      },
+      "explode_prob": 95
+    },
+    {
+      "stock_id": "2429",
+      "stock_name": "銘旺科",
+      "name": "銘旺科",
+      "sector": "光電業",
+      "close": 44.9,
+      "total_score": 96.3,
+      "scores": {
+        "technical": 100.0,
+        "chips": 100.0,
+        "fundamental": 40.0,
+        "news": 90.0,
+        "sentiment": 77.5,
+        "profit_space": 90.0,
+        "total": 96.3
+      },
+      "dimensions": {
+        "technical": 100.0,
+        "chips": 100.0,
+        "fundamental": 40.0,
+        "news": 90.0,
+        "sentiment": 77.5,
+        "profit_space": 90.0
+      },
+      "targets": {
+        "entry_low": 43.51,
+        "entry_high": 46.29,
+        "stop_loss": 39.34,
+        "t1": 47.68,
+        "t2": 50.46,
+        "t3": 53.24
+      },
+      "signals": [
+        "技術面強勢",
+        "籌碼集中",
+        "基本面優",
+        "消息面佳",
+        "市場熱絡",
+        "強勢上攻"
+      ],
+      "strategy": {
+        "entry": "43.51-46.29",
+        "targets": {
+          "T1": 47.68,
+          "T2": 50.46,
+          "T3": 53.24
+        },
+        "stop_loss": 39.34,
+        "recommendation": "強烈推薦",
+        "holding_days": "3-5"
+      },
+      "explode_prob": 95
+    },
+    {
+      "stock_id": "4934",
+      "stock_name": "太極",
+      "name": "太極",
+      "sector": "光電業",
+      "close": 18.4,
+      "total_score": 95.97,
+      "scores": {
+        "technical": 95.5,
+        "chips": 100.0,
+        "fundamental": 50.0,
+        "news": 90.0,
+        "sentiment": 77.5,
+        "profit_space": 75.0,
+        "total": 95.97
+      },
+      "dimensions": {
+        "technical": 95.5,
+        "chips": 100.0,
+        "fundamental": 50.0,
+        "news": 90.0,
+        "sentiment": 77.5,
+        "profit_space": 75.0
+      },
+      "targets": {
+        "entry_low": 17.89,
+        "entry_high": 18.91,
+        "stop_loss": 16.36,
+        "t1": 19.42,
+        "t2": 20.44,
+        "t3": 21.46
+      },
+      "signals": [
+        "技術面強勢",
+        "籌碼集中",
+        "基本面優",
+        "消息面佳",
+        "市場熱絡",
+        "強勢上攻"
+      ],
+      "strategy": {
+        "entry": "17.89-18.91",
+        "targets": {
+          "T1": 19.42,
+          "T2": 20.44,
+          "T3": 21.46
+        },
+        "stop_loss": 16.36,
+        "recommendation": "強烈推薦",
+        "holding_days": "3-5"
+      },
+      "explode_prob": 95
+    },
+    {
+      "stock_id": "2323",
+      "stock_name": "中環",
+      "name": "中環",
+      "sector": "光電業",
+      "close": 11.55,
+      "total_score": 95.31,
+      "scores": {
+        "technical": 72.03846153846156,
+        "chips": 95.0,
+        "fundamental": 88.0,
+        "news": 90.0,
+        "sentiment": 68.03846153846156,
+        "profit_space": 55.0,
+        "total": 95.31
+      },
+      "dimensions": {
+        "technical": 72.03846153846156,
+        "chips": 95.0,
+        "fundamental": 88.0,
+        "news": 90.0,
+        "sentiment": 68.03846153846156,
+        "profit_space": 55.0
+      },
+      "targets": {
+        "entry_low": 11.27,
+        "entry_high": 11.84,
+        "stop_loss": 10.41,
+        "t1": 12.12,
+        "t2": 12.69,
+        "t3": 13.26
+      },
+      "signals": [
+        "技術面強勢",
+        "籌碼集中",
+        "基本面優",
+        "消息面佳",
+        "市場熱絡",
+        "強勢上攻"
+      ],
+      "strategy": {
+        "entry": "11.27-11.84",
+        "targets": {
+          "T1": 12.12,
+          "T2": 12.69,
+          "T3": 13.26
+        },
+        "stop_loss": 10.41,
+        "recommendation": "強烈推薦",
+        "holding_days": "3-5"
+      },
+      "explode_prob": 95
+    },
+    {
+      "stock_id": "3010",
+      "stock_name": "華立",
+      "name": "華立",
+      "sector": "電子通路業",
+      "close": 129.5,
+      "total_score": 94.88,
+      "scores": {
+        "technical": 76.1290909090909,
+        "chips": 75.0,
+        "fundamental": 76.0,
+        "news": 90.0,
+        "sentiment": 71.4090909090909,
+        "profit_space": 80.0,
+        "total": 94.88
+      },
+      "dimensions": {
+        "technical": 76.1290909090909,
+        "chips": 75.0,
+        "fundamental": 76.0,
+        "news": 90.0,
+        "sentiment": 71.4090909090909,
+        "profit_space": 80.0
+      },
+      "targets": {
+        "entry_low": 128.21,
+        "entry_high": 130.79,
+        "stop_loss": 124.32,
+        "t1": 132.09,
+        "t2": 134.68,
+        "t3": 137.27
+      },
+      "signals": [
+        "技術面強勢",
+        "籌碼集中",
+        "基本面優",
+        "消息面佳",
+        "市場熱絡"
+      ],
+      "strategy": {
+        "entry": "128.21-130.79",
+        "targets": {
+          "T1": 132.09,
+          "T2": 134.68,
+          "T3": 137.27
+        },
+        "stop_loss": 124.32,
+        "recommendation": "強烈推薦",
+        "holding_days": "3-5"
+      },
+      "explode_prob": 94.88
+    },
+    {
+      "stock_id": "6271",
+      "stock_name": "同欣電",
+      "name": "同欣電",
+      "sector": "半導體業",
+      "close": 267.0,
+      "total_score": 94.42,
+      "scores": {
+        "technical": 90.26,
+        "chips": 85.0,
+        "fundamental": 53.0,
+        "news": 90.0,
+        "sentiment": 75.5,
+        "profit_space": 80.0,
+        "total": 94.42
+      },
+      "dimensions": {
+        "technical": 90.26,
+        "chips": 85.0,
+        "fundamental": 53.0,
+        "news": 90.0,
+        "sentiment": 75.5,
+        "profit_space": 80.0
+      },
+      "targets": {
+        "entry_low": 264.33,
+        "entry_high": 269.67,
+        "stop_loss": 256.32,
+        "t1": 272.34,
+        "t2": 277.68,
+        "t3": 283.02
+      },
+      "signals": [
+        "技術面強勢",
+        "籌碼集中",
+        "基本面優",
+        "消息面佳",
+        "市場熱絡",
+        "強勢上攻"
+      ],
+      "strategy": {
+        "entry": "264.33-269.67",
+        "targets": {
+          "T1": 272.34,
+          "T2": 277.68,
+          "T3": 283.02
+        },
+        "stop_loss": 256.32,
+        "recommendation": "強烈推薦",
+        "holding_days": "3-5"
+      },
+      "explode_prob": 94.42
+    },
+    {
+      "stock_id": "6862",
+      "stock_name": "三集瑞-KY",
+      "name": "三集瑞-KY",
+      "sector": "電子零組件業",
+      "close": 201.5,
+      "total_score": 94.38,
+      "scores": {
+        "technical": 90.12,
+        "chips": 85.0,
+        "fundamental": 53.0,
+        "news": 90.0,
+        "sentiment": 75.5,
+        "profit_space": 80.0,
+        "total": 94.38
+      },
+      "dimensions": {
+        "technical": 90.12,
+        "chips": 85.0,
+        "fundamental": 53.0,
+        "news": 90.0,
+        "sentiment": 75.5,
+        "profit_space": 80.0
+      },
+      "targets": {
+        "entry_low": 199.49,
+        "entry_high": 203.51,
+        "stop_loss": 193.44,
+        "t1": 205.53,
+        "t2": 209.56,
+        "t3": 213.59
+      },
+      "signals": [
+        "技術面強勢",
+        "籌碼集中",
+        "基本面優",
+        "消息面佳",
+        "市場熱絡",
+        "強勢上攻"
+      ],
+      "strategy": {
+        "entry": "199.49-203.51",
+        "targets": {
+          "T1": 205.53,
+          "T2": 209.56,
+          "T3": 213.59
+        },
+        "stop_loss": 193.44,
+        "recommendation": "強烈推薦",
+        "holding_days": "3-5"
+      },
+      "explode_prob": 94.38
+    },
+    {
+      "stock_id": "6278",
+      "stock_name": "台表科",
+      "name": "台表科",
+      "sector": "光電業",
+      "close": 213.0,
+      "total_score": 94.37,
+      "scores": {
+        "technical": 90.08,
+        "chips": 85.0,
+        "fundamental": 53.0,
+        "news": 90.0,
+        "sentiment": 75.5,
+        "profit_space": 80.0,
+        "total": 94.37
+      },
+      "dimensions": {
+        "technical": 90.08,
+        "chips": 85.0,
+        "fundamental": 53.0,
+        "news": 90.0,
+        "sentiment": 75.5,
+        "profit_space": 80.0
+      },
+      "targets": {
+        "entry_low": 210.87,
+        "entry_high": 215.13,
+        "stop_loss": 204.48,
+        "t1": 217.26,
+        "t2": 221.52,
+        "t3": 225.78
+      },
+      "signals": [
+        "技術面強勢",
+        "籌碼集中",
+        "基本面優",
+        "消息面佳",
+        "市場熱絡",
+        "強勢上攻"
+      ],
+      "strategy": {
+        "entry": "210.87-215.13",
+        "targets": {
+          "T1": 217.26,
+          "T2": 221.52,
+          "T3": 225.78
+        },
+        "stop_loss": 204.48,
+        "recommendation": "強烈推薦",
+        "holding_days": "3-5"
+      },
+      "explode_prob": 94.37
+    }
+  ],
+  "explode_top5": [
+    {
+      "stock_id": "1810",
+      "stock_name": "和成",
+      "name": "和成",
+      "sector": "玻璃陶瓷",
+      "close": 21.35,
+      "total_score": 101.35,
+      "scores": {
+        "technical": 86.75,
+        "chips": 100.0,
+        "fundamental": 85.0,
+        "news": 90.0,
+        "sentiment": 81.75,
+        "profit_space": 65.0,
+        "total": 101.35
+      },
+      "dimensions": {
+        "technical": 86.75,
+        "chips": 100.0,
+        "fundamental": 85.0,
+        "news": 90.0,
+        "sentiment": 81.75,
+        "profit_space": 65.0
+      },
+      "targets": {
+        "entry_low": 20.82,
+        "entry_high": 21.88,
+        "stop_loss": 19.23,
+        "t1": 22.41,
+        "t2": 23.47,
+        "t3": 24.53
+      },
+      "signals": [
+        "技術面強勢",
+        "籌碼集中",
+        "基本面優",
+        "消息面佳",
+        "市場熱絡",
+        "強勢上攻"
+      ],
+      "strategy": {
+        "entry": "20.82-21.88",
+        "targets": {
+          "T1": 22.41,
+          "T2": 23.47,
+          "T3": 24.53
+        },
+        "stop_loss": 19.23,
+        "recommendation": "強烈推薦",
+        "holding_days": "3-5"
+      },
+      "explode_prob": 95
+    },
+    {
+      "stock_id": "3356",
+      "stock_name": "奇偶",
+      "name": "奇偶",
+      "sector": "光電業",
+      "close": 62.7,
+      "total_score": 100.81,
+      "scores": {
+        "technical": 82.72551724137932,
+        "chips": 75.0,
+        "fundamental": 93.0,
+        "news": 90.0,
+        "sentiment": 74.46551724137933,
+        "profit_space": 80.0,
+        "total": 100.81
+      },
+      "dimensions": {
+        "technical": 82.72551724137932,
+        "chips": 75.0,
+        "fundamental": 93.0,
+        "news": 90.0,
+        "sentiment": 74.46551724137933,
+        "profit_space": 80.0
+      },
+      "targets": {
+        "entry_low": 62.07,
+        "entry_high": 63.33,
+        "stop_loss": 60.19,
+        "t1": 63.95,
+        "t2": 65.21,
+        "t3": 66.46
+      },
+      "signals": [
+        "技術面強勢",
+        "籌碼集中",
+        "基本面優",
+        "消息面佳",
+        "市場熱絡",
+        "強勢上攻"
+      ],
+      "strategy": {
+        "entry": "62.07-63.33",
+        "targets": {
+          "T1": 63.95,
+          "T2": 65.21,
+          "T3": 66.46
+        },
+        "stop_loss": 60.19,
+        "recommendation": "強烈推薦",
+        "holding_days": "3-5"
+      },
+      "explode_prob": 95
+    },
+    {
+      "stock_id": "3015",
+      "stock_name": "全漢",
+      "name": "全漢",
+      "sector": "電子零組件業",
+      "close": 62.9,
+      "total_score": 96.46,
+      "scores": {
+        "technical": 81.58470588235294,
+        "chips": 85.0,
+        "fundamental": 73.0,
+        "news": 90.0,
+        "sentiment": 72.26470588235294,
+        "profit_space": 80.0,
+        "total": 96.46
+      },
+      "dimensions": {
+        "technical": 81.58470588235294,
+        "chips": 85.0,
+        "fundamental": 73.0,
+        "news": 90.0,
+        "sentiment": 72.26470588235294,
+        "profit_space": 80.0
+      },
+      "targets": {
+        "entry_low": 62.27,
+        "entry_high": 63.53,
+        "stop_loss": 60.38,
+        "t1": 64.16,
+        "t2": 65.42,
+        "t3": 66.67
+      },
+      "signals": [
+        "技術面強勢",
+        "籌碼集中",
+        "基本面優",
+        "消息面佳",
+        "市場熱絡",
+        "強勢上攻"
+      ],
+      "strategy": {
+        "entry": "62.27-63.53",
+        "targets": {
+          "T1": 64.16,
+          "T2": 65.42,
+          "T3": 66.67
+        },
+        "stop_loss": 60.38,
+        "recommendation": "強烈推薦",
+        "holding_days": "3-5"
+      },
+      "explode_prob": 95
+    },
+    {
+      "stock_id": "2429",
+      "stock_name": "銘旺科",
+      "name": "銘旺科",
+      "sector": "光電業",
+      "close": 44.9,
+      "total_score": 96.3,
+      "scores": {
+        "technical": 100.0,
+        "chips": 100.0,
+        "fundamental": 40.0,
+        "news": 90.0,
+        "sentiment": 77.5,
+        "profit_space": 90.0,
+        "total": 96.3
+      },
+      "dimensions": {
+        "technical": 100.0,
+        "chips": 100.0,
+        "fundamental": 40.0,
+        "news": 90.0,
+        "sentiment": 77.5,
+        "profit_space": 90.0
+      },
+      "targets": {
+        "entry_low": 43.51,
+        "entry_high": 46.29,
+        "stop_loss": 39.34,
+        "t1": 47.68,
+        "t2": 50.46,
+        "t3": 53.24
+      },
+      "signals": [
+        "技術面強勢",
+        "籌碼集中",
+        "基本面優",
+        "消息面佳",
+        "市場熱絡",
+        "強勢上攻"
+      ],
+      "strategy": {
+        "entry": "43.51-46.29",
+        "targets": {
+          "T1": 47.68,
+          "T2": 50.46,
+          "T3": 53.24
+        },
+        "stop_loss": 39.34,
+        "recommendation": "強烈推薦",
+        "holding_days": "3-5"
+      },
+      "explode_prob": 95
+    },
+    {
+      "stock_id": "4934",
+      "stock_name": "太極",
+      "name": "太極",
+      "sector": "光電業",
+      "close": 18.4,
+      "total_score": 95.97,
+      "scores": {
+        "technical": 95.5,
+        "chips": 100.0,
+        "fundamental": 50.0,
+        "news": 90.0,
+        "sentiment": 77.5,
+        "profit_space": 75.0,
+        "total": 95.97
+      },
+      "dimensions": {
+        "technical": 95.5,
+        "chips": 100.0,
+        "fundamental": 50.0,
+        "news": 90.0,
+        "sentiment": 77.5,
+        "profit_space": 75.0
+      },
+      "targets": {
+        "entry_low": 17.89,
+        "entry_high": 18.91,
+        "stop_loss": 16.36,
+        "t1": 19.42,
+        "t2": 20.44,
+        "t3": 21.46
+      },
+      "signals": [
+        "技術面強勢",
+        "籌碼集中",
+        "基本面優",
+        "消息面佳",
+        "市場熱絡",
+        "強勢上攻"
+      ],
+      "strategy": {
+        "entry": "17.89-18.91",
+        "targets": {
+          "T1": 19.42,
+          "T2": 20.44,
+          "T3": 21.46
+        },
+        "stop_loss": 16.36,
+        "recommendation": "強烈推薦",
+        "holding_days": "3-5"
+      },
+      "explode_prob": 95
+    }
+  ],
+  "backtest": {
+    "from_date": "20260629",
+    "to_date": "20260630",
+    "period": "T+1",
+    "top5_count": 5,
+    "winners": 3,
+    "avg_return_pct": 1.66,
+    "win_rate": 60
+  }
+}

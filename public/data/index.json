@@ -1,34 +1,18 @@
 {
   "available_dates": [
-    "20260629",
+    "20260618",
     "20260626",
-    "20260618"
+    "20260629",
+    "20260630"
   ],
-  "last_updated": "2026-06-29T19:06:33.117986+08:00",
-  "scans": [
-    {
-      "date": "20260629",
-      "file": "scan_result_20260629.json",
-      "scan_time": "19:06:33",
-      "scanned_count": 860
-    },
-    {
-      "date": "20260626",
-      "file": "scan_result_20260626.json",
-      "scan_time": "19:10:10",
-      "scanned_count": 1959
-    },
-    {
-      "date": "20260624",
-      "file": "scan_result_20260624.json",
-      "scan_time": "19:14:32"
-    },
-    {
-      "date": "20260623",
-      "file": "scan_result_20260623.json",
-      "scan_time": "19:13:31",
-      "scanned_count": 1074
+  "last_updated": "2026-06-30T19:06:57.394223+08:00",
+  "scans": {
+    "20260630": {
+      "date": "20260630",
+      "display": "2026/06/30",
+      "count": 1957,
+      "top_count": 10
     }
-  ],
-  "updated_at": "2026-06-29T19:06:33.117986+08:00"
+  },
+  "updated_at": "2026-06-30T19:06:57.394223+08:00"
 }
