@@ -757,6 +757,60 @@
   ],
   "grouped_records": [
     {
+      "scan_date": "20260629",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": "20260630",
+          "win_rate": 60,
+          "avg_return": 1.66,
+          "pending": false,
+          "stocks": [
+            {
+              "stock_id": "4174",
+              "name": "浩鼎",
+              "entry": 29.2,
+              "exit": 30.100000381469727,
+              "return_pct": 3.08,
+              "score": 65.46
+            },
+            {
+              "stock_id": "4707",
+              "name": "磐亞",
+              "entry": 30.3,
+              "exit": 29.299999237060547,
+              "return_pct": -3.3,
+              "score": 65.46
+            },
+            {
+              "stock_id": "7714",
+              "name": "創泓科技",
+              "entry": 138.0,
+              "exit": 151.5,
+              "return_pct": 9.78,
+              "score": 65.46
+            },
+            {
+              "stock_id": "4726",
+              "name": "永昕",
+              "entry": 26.0,
+              "exit": 25.600000381469727,
+              "return_pct": -1.54,
+              "score": 65.09
+            },
+            {
+              "stock_id": "8477",
+              "name": "創業家",
+              "entry": 16.5,
+              "exit": 16.549999237060547,
+              "return_pct": 0.3,
+              "score": 64.66
+            }
+          ]
+        }
+      }
+    },
+    {
       "scan_date": "20260626",
       "periods": {
         "T1": {
@@ -2072,6 +2126,188 @@
       }
     },
     {
+      "scan_date": "2026-07-01",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "3706",
+              "name": "神達",
+              "entry": 91.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2236",
+              "name": "百達-KY",
+              "entry": 161.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2243",
+              "name": "宏旭-KY",
+              "entry": 62.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1446",
+              "name": "宏和",
+              "entry": 17.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2250",
+              "name": "IKKA-KY",
+              "entry": 68.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "3706",
+              "name": "神達",
+              "entry": 91.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2236",
+              "name": "百達-KY",
+              "entry": 161.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2243",
+              "name": "宏旭-KY",
+              "entry": 62.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1446",
+              "name": "宏和",
+              "entry": 17.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2250",
+              "name": "IKKA-KY",
+              "entry": 68.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "3706",
+              "name": "神達",
+              "entry": 91.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2236",
+              "name": "百達-KY",
+              "entry": 161.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2243",
+              "name": "宏旭-KY",
+              "entry": 62.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1446",
+              "name": "宏和",
+              "entry": 17.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2250",
+              "name": "IKKA-KY",
+              "entry": 68.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
+    },
+    {
       "scan_date": "",
       "periods": {
         "T1": {
@@ -2083,61 +2319,39 @@
           "stocks": []
         }
       }
-    },
+    }
+  ],
+  "last_updated": "2026-07-01T19:06:29.921549+08:00",
+  "history": [
     {
-      "scan_date": "20260629",
-      "periods": {
-        "T1": {
-          "label": "T+1",
-          "backtest_date": "20260630",
-          "win_rate": 60,
-          "avg_return": 1.66,
-          "pending": false,
-          "stocks": [
-            {
-              "stock_id": "4174",
-              "name": "浩鼎",
-              "entry": 29.2,
-              "exit": 30.100000381469727,
-              "return_pct": 3.08,
-              "score": 65.46
-            },
-            {
-              "stock_id": "4707",
-              "name": "磐亞",
-              "entry": 30.3,
-              "exit": 29.299999237060547,
-              "return_pct": -3.3,
-              "score": 65.46
-            },
-            {
-              "stock_id": "7714",
-              "name": "創泓科技",
-              "entry": 138.0,
-              "exit": 151.5,
-              "return_pct": 9.78,
-              "score": 65.46
-            },
-            {
-              "stock_id": "4726",
-              "name": "永昕",
-              "entry": 26.0,
-              "exit": 25.600000381469727,
-              "return_pct": -1.54,
-              "score": 65.09
-            },
-            {
-              "stock_id": "8477",
-              "name": "創業家",
-              "entry": 16.5,
-              "exit": 16.549999237060547,
-              "return_pct": 0.3,
-              "score": 64.66
-            }
-          ]
+      "date": "2026/07/01",
+      "results": {
+        "3706": {
+          "name": "神達",
+          "score": 95.6,
+          "close": 91.3
+        },
+        "2236": {
+          "name": "百達-KY",
+          "score": 92.22,
+          "close": 161.0
+        },
+        "2243": {
+          "name": "宏旭-KY",
+          "score": 91.98,
+          "close": 62.0
+        },
+        "1446": {
+          "name": "宏和",
+          "score": 88.63,
+          "close": 17.7
+        },
+        "2250": {
+          "name": "IKKA-KY",
+          "score": 88.56,
+          "close": 68.6
         }
       }
     }
-  ],
-  "last_updated": "2026-06-30T19:07:52.748049+08:00"
+  ]
 }
