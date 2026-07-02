@@ -130,6 +130,9 @@ def main():
     tickers = [s["ticker"] for s in stock_list]
     all_quotes = {}
 
+    # Build ticker -> stock lookup for fast matching
+    ticker_to_stock = {s["ticker"]: s for s in stock_list}
+
     for i in range(0, len(tickers), BATCH_SIZE):
         batch_tickers = tickers[i:i + BATCH_SIZE]
         batch_num = i // BATCH_SIZE + 1
@@ -158,13 +161,10 @@ def main():
         # Extract latest row for each ticker
         # data is multi-index: (Price, Ticker) if multiple tickers
         for ticker in batch_tickers:
-            if ticker not in stock_list:
+            stock = ticker_to_stock.get(ticker)
+            if not stock:
                 continue
-            sid = [s["stock_id"] for s in stock_list[i:i+BATCH_SIZE] 
-                   if s["ticker"] == ticker]
-            if not sid:
-                continue
-            sid = sid[0]
+            sid = stock["stock_id"]
             
             try:
                 if len(batch_tickers) == 1:
