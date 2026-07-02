@@ -2126,7 +2126,7 @@
       }
     },
     {
-      "scan_date": "2026-07-01",
+      "scan_date": "2026-07-02",
       "periods": {
         "T1": {
           "label": "T+1",
@@ -2136,54 +2136,236 @@
           "pending": true,
           "stocks": [
             {
-              "stock_id": "3706",
-              "name": "神達",
-              "entry": 91.3,
+              "stock_id": "1305",
+              "name": "華夏",
+              "entry": 13.7,
               "close": null,
               "return_pct": null,
               "hit_target": null,
               "hit_stoploss": null,
               "pending": true
+            },
+            {
+              "stock_id": "1445",
+              "name": "大宇",
+              "entry": 12.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4763",
+              "name": "材料*-KY",
+              "entry": 49.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1409",
+              "name": "新纖",
+              "entry": 28.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1460",
+              "name": "宏遠",
+              "entry": 7.92,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "1305",
+              "name": "華夏",
+              "entry": 13.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1445",
+              "name": "大宇",
+              "entry": 12.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4763",
+              "name": "材料*-KY",
+              "entry": 49.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1409",
+              "name": "新纖",
+              "entry": 28.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1460",
+              "name": "宏遠",
+              "entry": 7.92,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "1305",
+              "name": "華夏",
+              "entry": 13.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1445",
+              "name": "大宇",
+              "entry": 12.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4763",
+              "name": "材料*-KY",
+              "entry": 49.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1409",
+              "name": "新纖",
+              "entry": 28.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1460",
+              "name": "宏遠",
+              "entry": 7.92,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scan_date": "2026-07-01",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": "2026-07-02",
+          "win_rate": 80.0,
+          "avg_return": 3.45,
+          "pending": false,
+          "stocks": [
+            {
+              "stock_id": "3706",
+              "name": "神達",
+              "entry": 91.3,
+              "close": 93.3,
+              "return_pct": 2.19,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": false
             },
             {
               "stock_id": "2236",
               "name": "百達-KY",
               "entry": 161.0,
-              "close": null,
-              "return_pct": null,
+              "close": 167.5,
+              "return_pct": 4.04,
               "hit_target": null,
               "hit_stoploss": null,
-              "pending": true
+              "pending": false
             },
             {
               "stock_id": "2243",
               "name": "宏旭-KY",
               "entry": 62.0,
-              "close": null,
-              "return_pct": null,
+              "close": 62.7,
+              "return_pct": 1.13,
               "hit_target": null,
               "hit_stoploss": null,
-              "pending": true
+              "pending": false
             },
             {
               "stock_id": "1446",
               "name": "宏和",
               "entry": 17.7,
-              "close": null,
-              "return_pct": null,
+              "close": 17.7,
+              "return_pct": 0.0,
               "hit_target": null,
               "hit_stoploss": null,
-              "pending": true
+              "pending": false
             },
             {
               "stock_id": "2250",
               "name": "IKKA-KY",
               "entry": 68.6,
-              "close": null,
-              "return_pct": null,
+              "close": 75.4,
+              "return_pct": 9.91,
               "hit_target": null,
               "hit_stoploss": null,
-              "pending": true
+              "pending": false
             }
           ]
         },
@@ -2321,8 +2503,38 @@
       }
     }
   ],
-  "last_updated": "2026-07-01T19:06:29.921549+08:00",
+  "last_updated": "2026-07-02T19:04:29.805901+08:00",
   "history": [
+    {
+      "date": "2026/07/02",
+      "results": {
+        "1305": {
+          "name": "華夏",
+          "score": 99.04,
+          "close": 13.7
+        },
+        "1445": {
+          "name": "大宇",
+          "score": 98.97,
+          "close": 12.35
+        },
+        "4763": {
+          "name": "材料*-KY",
+          "score": 97.53,
+          "close": 49.5
+        },
+        "1409": {
+          "name": "新纖",
+          "score": 97.44,
+          "close": 28.2
+        },
+        "1460": {
+          "name": "宏遠",
+          "score": 97.23,
+          "close": 7.92
+        }
+      }
+    },
     {
       "date": "2026/07/01",
       "results": {
