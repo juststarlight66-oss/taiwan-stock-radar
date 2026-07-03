@@ -2126,7 +2126,7 @@
       }
     },
     {
-      "scan_date": "2026-07-02",
+      "scan_date": "2026-07-03",
       "periods": {
         "T1": {
           "label": "T+1",
@@ -2134,6 +2134,188 @@
           "win_rate": null,
           "avg_return": null,
           "pending": true,
+          "stocks": [
+            {
+              "stock_id": "2816",
+              "name": "旺旺保",
+              "entry": 34.85,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1434",
+              "name": "福懋",
+              "entry": 18.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2103",
+              "name": "台橡",
+              "entry": 23.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2615",
+              "name": "萬海",
+              "entry": 82.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2348",
+              "name": "海悅",
+              "entry": 76.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "2816",
+              "name": "旺旺保",
+              "entry": 34.85,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1434",
+              "name": "福懋",
+              "entry": 18.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2103",
+              "name": "台橡",
+              "entry": 23.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2615",
+              "name": "萬海",
+              "entry": 82.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2348",
+              "name": "海悅",
+              "entry": 76.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "2816",
+              "name": "旺旺保",
+              "entry": 34.85,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1434",
+              "name": "福懋",
+              "entry": 18.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2103",
+              "name": "台橡",
+              "entry": 23.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2615",
+              "name": "萬海",
+              "entry": 82.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2348",
+              "name": "海悅",
+              "entry": 76.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scan_date": "2026-07-02",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": "2026-07-03",
+          "win_rate": 100.0,
+          "avg_return": 6.76,
+          "pending": false,
           "stocks": [
             {
               "stock_id": "1305",
@@ -2149,11 +2331,11 @@
               "stock_id": "1445",
               "name": "大宇",
               "entry": 12.35,
-              "close": null,
-              "return_pct": null,
+              "close": 12.6,
+              "return_pct": 2.02,
               "hit_target": null,
               "hit_stoploss": null,
-              "pending": true
+              "pending": false
             },
             {
               "stock_id": "4763",
@@ -2169,21 +2351,21 @@
               "stock_id": "1409",
               "name": "新纖",
               "entry": 28.2,
-              "close": null,
-              "return_pct": null,
+              "close": 31.0,
+              "return_pct": 9.93,
               "hit_target": null,
               "hit_stoploss": null,
-              "pending": true
+              "pending": false
             },
             {
               "stock_id": "1460",
               "name": "宏遠",
               "entry": 7.92,
-              "close": null,
-              "return_pct": null,
+              "close": 8.58,
+              "return_pct": 8.33,
               "hit_target": null,
               "hit_stoploss": null,
-              "pending": true
+              "pending": false
             }
           ]
         },
@@ -2503,8 +2685,38 @@
       }
     }
   ],
-  "last_updated": "2026-07-02T19:04:29.805901+08:00",
+  "last_updated": "2026-07-03T19:03:17.834355+08:00",
   "history": [
+    {
+      "date": "2026/07/03",
+      "results": {
+        "2816": {
+          "name": "旺旺保",
+          "score": 101.81,
+          "close": 34.85
+        },
+        "1434": {
+          "name": "福懋",
+          "score": 101.5,
+          "close": 18.9
+        },
+        "2103": {
+          "name": "台橡",
+          "score": 101.33,
+          "close": 23.5
+        },
+        "2615": {
+          "name": "萬海",
+          "score": 101.27,
+          "close": 82.8
+        },
+        "2348": {
+          "name": "海悅",
+          "score": 99.42,
+          "close": 76.0
+        }
+      }
+    },
     {
       "date": "2026/07/02",
       "results": {

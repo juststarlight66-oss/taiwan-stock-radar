@@ -7,20 +7,24 @@
     "20260618"
   ],
   "last_updated": "2026-06-30T19:06:57.394223+08:00",
-  "scans": {
-    "20260630": {
-      "date": "20260630",
-      "display": "2026/06/30",
-      "count": 1957,
-      "top_count": 10
+  "scans": [
+    {
+      "date": "20260703",
+      "file": "scan_result_20260703.json",
+      "scan_time": "19:03:17"
     },
-    "20260701": {
+    {
+      "date": "20260702",
+      "file": "scan_result_20260702.json"
+    },
+    {
       "date": "20260701",
-      "display": "2026/07/01",
-      "count": 1954,
-      "top_count": 10
+      "file": "scan_result_20260701.json"
     },
-    "20260702": "scan_result_20260702.json"
-  },
-  "updated_at": "2026-07-02T19:05:38.314995+08:00"
+    {
+      "date": "20260630",
+      "file": "scan_result_20260630.json"
+    }
+  ],
+  "updated_at": "2026-07-03T19:03:17.834355+08:00"
 }
