@@ -1,0 +1,281 @@
+{
+  "report_date": "20260703",
+  "report_type": "weekly_backtest",
+  "generated_at": "2026-07-03T14:53:29+08:00",
+  "week_ending": "2026-07-03",
+  "scan_days_this_week": [
+    "20260701",
+    "20260702",
+    "20260703"
+  ],
+  "summary": {
+    "total_recommendations": 10,
+    "scanned_stocks": 1960,
+    "top_sectors": [],
+    "avg_score": 99.73
+  },
+  "power_combo_indicators": {
+    "description": "三燈號指標 - T+N 追蹤框架",
+    "t1_win_rate": 33.3,
+    "t1_samples": 15,
+    "t3_win_rate": null,
+    "t3_samples": 0,
+    "t5_win_rate": null,
+    "t5_samples": 0,
+    "avg_t5_return": null,
+    "stop_loss_triggers": 0,
+    "note": "基於 43 筆歷史推薦的 T+N 追蹤數據"
+  },
+  "weekly_top10": [
+    {
+      "stock_id": "2816",
+      "name": "旺旺保",
+      "entry_date": "20260703",
+      "entry_price": 34.85,
+      "stop_loss": 33.46,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 101.81,
+      "close": 34.85,
+      "change_pct": 3.57,
+      "sector": "金融保險",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "1434",
+      "name": "福懋",
+      "entry_date": "20260703",
+      "entry_price": 18.9,
+      "stop_loss": 18.14,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 101.5,
+      "close": 18.9,
+      "change_pct": 8.0,
+      "sector": "紡織纖維",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "2103",
+      "name": "台橡",
+      "entry_date": "20260703",
+      "entry_price": 23.5,
+      "stop_loss": 22.56,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 101.33,
+      "close": 23.5,
+      "change_pct": 9.81,
+      "sector": "橡膠工業",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "2615",
+      "name": "萬海",
+      "entry_date": "20260703",
+      "entry_price": 82.8,
+      "stop_loss": 79.49,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 101.27,
+      "close": 82.8,
+      "change_pct": 4.94,
+      "sector": "航運業",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "2348",
+      "name": "海悅",
+      "entry_date": "20260703",
+      "entry_price": 76.0,
+      "stop_loss": 72.96,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 99.42,
+      "close": 76.0,
+      "change_pct": 5.85,
+      "sector": "其他",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "1304",
+      "name": "台聚",
+      "entry_date": "20260703",
+      "entry_price": 15.5,
+      "stop_loss": 14.88,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 99.39,
+      "close": 15.5,
+      "change_pct": 9.93,
+      "sector": "塑膠工業",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "4771",
+      "name": "望隼",
+      "entry_date": "20260703",
+      "entry_price": 215.0,
+      "stop_loss": 206.4,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 98.76,
+      "close": 215.0,
+      "change_pct": 6.7,
+      "sector": "生技醫療業",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "1314",
+      "name": "中石化",
+      "entry_date": "20260703",
+      "entry_price": 9.88,
+      "stop_loss": 9.48,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 98.39,
+      "close": 9.88,
+      "change_pct": 9.9,
+      "sector": "塑膠工業",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "1308",
+      "name": "亞聚",
+      "entry_date": "20260703",
+      "entry_price": 15.85,
+      "stop_loss": 15.22,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 97.77,
+      "close": 15.85,
+      "change_pct": 9.69,
+      "sector": "塑膠工業",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "6491",
+      "name": "晶碩",
+      "entry_date": "20260703",
+      "entry_price": 372.5,
+      "stop_loss": 357.6,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 97.7,
+      "close": 372.5,
+      "change_pct": 7.35,
+      "sector": "生技醫療業",
+      "sector_boost": 0
+    }
+  ]
+}
