@@ -2126,6 +2126,188 @@
       }
     },
     {
+      "scan_date": "2026-07-06",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "1609",
+              "name": "大亞",
+              "entry": 43.75,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1617",
+              "name": "榮星",
+              "entry": 26.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2362",
+              "name": "藍天",
+              "entry": 44.95,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6994",
+              "name": "富威電力",
+              "entry": 46.05,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2061",
+              "name": "風青實業股份有限公司",
+              "entry": 80.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "1609",
+              "name": "大亞",
+              "entry": 43.75,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1617",
+              "name": "榮星",
+              "entry": 26.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2362",
+              "name": "藍天",
+              "entry": 44.95,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6994",
+              "name": "富威電力",
+              "entry": 46.05,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2061",
+              "name": "風青實業股份有限公司",
+              "entry": 80.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "1609",
+              "name": "大亞",
+              "entry": 43.75,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1617",
+              "name": "榮星",
+              "entry": 26.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2362",
+              "name": "藍天",
+              "entry": 44.95,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6994",
+              "name": "富威電力",
+              "entry": 46.05,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2061",
+              "name": "風青實業股份有限公司",
+              "entry": 80.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
+    },
+    {
       "scan_date": "2026-07-03",
       "periods": {
         "T1": {
@@ -2685,8 +2867,38 @@
       }
     }
   ],
-  "last_updated": "2026-07-03T19:03:17.834355+08:00",
+  "last_updated": "2026-07-06T19:02:56.473743+08:00",
   "history": [
+    {
+      "date": "2026/07/06",
+      "results": {
+        "1609": {
+          "name": "大亞",
+          "score": 96.28,
+          "close": 43.75
+        },
+        "1617": {
+          "name": "榮星",
+          "score": 94.6,
+          "close": 26.7
+        },
+        "2362": {
+          "name": "藍天",
+          "score": 92.57,
+          "close": 44.95
+        },
+        "6994": {
+          "name": "富威電力",
+          "score": 90.62,
+          "close": 46.05
+        },
+        "2061": {
+          "name": "風青實業股份有限公司",
+          "score": 90.61,
+          "close": 80.1
+        }
+      }
+    },
     {
       "date": "2026/07/03",
       "results": {
