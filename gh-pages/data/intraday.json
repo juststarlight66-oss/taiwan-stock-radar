@@ -1,183 +1,193 @@
 {
   "scan_type": "intraday_daytrade",
-  "scanned_at": "2026-06-30 04:37:03",
-  "scanned_count": 1945,
-  "qualified_count": 5,
-  "data_note": "Generated from scan_result.json (yfinance unavailable); 180 qualified, top 5",
+  "scanned_at": "2026-07-07 12:32:04",
+  "scanned_count": 1957,
+  "qualified_count": 146,
+  "data_note": "scan_result.json fallback (TWSE API + yfinance blocked from cloud); 146 qualified from 1957 stocks; 3-9.5% change filter",
   "stocks": [
     {
-      "stock_id": "1710",
-      "name": "東聯",
+      "stock_id": "8926",
+      "name": "台汽電",
+      "sector": "油電燃氣業",
+      "score": 85.5,
+      "total_score": 85.5,
+      "entry": 81.0,
+      "target": 85.0,
+      "stop_loss": 77.0,
+      "change_pct": 8.0,
+      "details": {
+        "momentum": "極強",
+        "vol_ratio": "放大",
+        "breakout": "接近前高"
+      },
+      "dimensions": {
+        "technical": 99.27049180327869,
+        "chips": 100.0,
+        "fundamental": 53.0,
+        "news": 80.0,
+        "sentiment": 70.27049180327869,
+        "profit_space": 80.0,
+        "total": 85.5
+      },
+      "live": {
+        "current": 81.0,
+        "open": 81.0,
+        "high": 81.0,
+        "low": 81.0,
+        "prev_close": 81.0,
+        "volume": 12902218.0,
+        "change_pct": 8.0,
+        "time": "12:32:04",
+        "date": "20260707",
+        "source": "scan_fallback"
+      }
+    },
+    {
+      "stock_id": "6257",
+      "name": "矽格",
+      "sector": "半導體業",
+      "score": 81.8,
+      "total_score": 81.8,
+      "entry": 273.0,
+      "target": 286.7,
+      "stop_loss": 259.3,
+      "change_pct": 7.27,
+      "details": {
+        "momentum": "極強",
+        "vol_ratio": "放大",
+        "breakout": "區間整理"
+      },
+      "dimensions": {
+        "technical": 72.7,
+        "chips": 100.0,
+        "fundamental": 28.0,
+        "news": 65.0,
+        "sentiment": 69.7,
+        "profit_space": 70.0,
+        "total": 81.8
+      },
+      "live": {
+        "current": 273.0,
+        "open": 273.0,
+        "high": 273.0,
+        "low": 273.0,
+        "prev_close": 273.0,
+        "volume": 21963121.0,
+        "change_pct": 7.27,
+        "time": "12:32:04",
+        "date": "20260707",
+        "source": "scan_fallback"
+      }
+    },
+    {
+      "stock_id": "1727",
+      "name": "中華化",
       "sector": "化學工業",
-      "score": 55,
+      "score": 80.8,
+      "total_score": 80.8,
+      "entry": 101.5,
+      "target": 106.6,
+      "stop_loss": 96.4,
+      "change_pct": 9.49,
       "details": {
         "momentum": "極強",
-        "rsi": 0,
-        "ma_alignment": "N/A",
-        "up_days": "0/3",
-        "vol_ratio": "正常",
-        "atr": 0,
-        "breakout": "接近突破",
-        "gap": "N/A"
+        "vol_ratio": "放大",
+        "breakout": "接近前高"
       },
-      "total_score": 55,
-      "entry": 15.1,
-      "target": 15.55,
-      "stop_loss": 14.64,
-      "change_pct": 8.16,
       "dimensions": {
-        "momentum": "極強",
-        "rsi": 0,
-        "ma_alignment": "N/A",
-        "up_days": "0/3",
-        "atr": 0,
-        "vol_ratio": "正常"
+        "technical": 90.5,
+        "chips": 100.0,
+        "fundamental": 25.0,
+        "news": 80.0,
+        "sentiment": 77.5,
+        "profit_space": 90.0,
+        "total": 80.8
       },
       "live": {
-        "price": 15.25,
-        "change_pct": 8.16,
-        "volume": 15215158.0,
-        "vol_ratio": "1.0"
+        "current": 101.5,
+        "open": 101.5,
+        "high": 101.5,
+        "low": 101.5,
+        "prev_close": 101.5,
+        "volume": 9999039.0,
+        "change_pct": 9.49,
+        "time": "12:32:04",
+        "date": "20260707",
+        "source": "scan_fallback"
       }
     },
     {
-      "stock_id": "3360",
-      "name": "尚立股份有限公司",
-      "sector": "電子通路業",
-      "score": 55,
+      "stock_id": "6129",
+      "name": "普誠科技股份有限公司",
+      "sector": "半導體業",
+      "score": 80.0,
+      "total_score": 80.0,
+      "entry": 20.9,
+      "target": 21.9,
+      "stop_loss": 19.8,
+      "change_pct": 8.88,
       "details": {
         "momentum": "極強",
-        "rsi": 0,
-        "ma_alignment": "N/A",
-        "up_days": "0/3",
-        "vol_ratio": "正常",
-        "atr": 0,
-        "breakout": "接近突破",
-        "gap": "N/A"
+        "vol_ratio": "放大",
+        "breakout": "接近前高"
       },
-      "total_score": 55,
-      "entry": 20.44,
-      "target": 21.06,
-      "stop_loss": 19.82,
-      "change_pct": 8.12,
       "dimensions": {
-        "momentum": "極強",
-        "rsi": 0,
-        "ma_alignment": "N/A",
-        "up_days": "0/3",
-        "atr": 0,
-        "vol_ratio": "正常"
+        "technical": 86.76,
+        "chips": 85.0,
+        "fundamental": 50.0,
+        "news": 65.0,
+        "sentiment": 74.0,
+        "profit_space": 80.0,
+        "total": 80.0
       },
       "live": {
-        "price": 20.65,
-        "change_pct": 8.12,
-        "volume": 9462957.0,
-        "vol_ratio": "1.0"
+        "current": 20.85,
+        "open": 20.85,
+        "high": 20.85,
+        "low": 20.85,
+        "prev_close": 20.85,
+        "volume": 5919039.0,
+        "change_pct": 8.88,
+        "time": "12:32:04",
+        "date": "20260707",
+        "source": "scan_fallback"
       }
     },
     {
-      "stock_id": "6139",
-      "name": "亞翔",
-      "sector": "其他電子業",
-      "score": 55,
+      "stock_id": "8033",
+      "name": "雷虎",
+      "sector": "其他",
+      "score": 79.4,
+      "total_score": 79.4,
+      "entry": 222.0,
+      "target": 233.1,
+      "stop_loss": 210.9,
+      "change_pct": 8.56,
       "details": {
         "momentum": "極強",
-        "rsi": 0,
-        "ma_alignment": "N/A",
-        "up_days": "0/3",
-        "vol_ratio": "正常",
-        "atr": 0,
-        "breakout": "接近突破",
-        "gap": "N/A"
+        "vol_ratio": "放大",
+        "breakout": "接近前高"
       },
-      "total_score": 55,
-      "entry": 945.45,
-      "target": 974.1,
-      "stop_loss": 916.8,
-      "change_pct": 8.77,
       "dimensions": {
-        "momentum": "極強",
-        "rsi": 0,
-        "ma_alignment": "N/A",
-        "up_days": "0/3",
-        "atr": 0,
-        "vol_ratio": "正常"
+        "technical": 83.45333333333333,
+        "chips": 85.0,
+        "fundamental": 25.0,
+        "news": 65.0,
+        "sentiment": 71.33333333333334,
+        "profit_space": 80.0,
+        "total": 79.4
       },
       "live": {
-        "price": 955.0,
-        "change_pct": 8.77,
-        "volume": 10236515.0,
-        "vol_ratio": "1.0"
-      }
-    },
-    {
-      "stock_id": "4726",
-      "name": "永昕生物醫藥股份有限公司",
-      "sector": "生技醫療業",
-      "score": 50,
-      "details": {
-        "momentum": "極強",
-        "rsi": 0,
-        "ma_alignment": "N/A",
-        "up_days": "0/3",
-        "vol_ratio": "低量",
-        "atr": 0,
-        "breakout": "接近突破",
-        "gap": "N/A"
-      },
-      "total_score": 50,
-      "entry": 25.74,
-      "target": 26.52,
-      "stop_loss": 24.96,
-      "change_pct": 8.33,
-      "dimensions": {
-        "momentum": "極強",
-        "rsi": 0,
-        "ma_alignment": "N/A",
-        "up_days": "0/3",
-        "atr": 0,
-        "vol_ratio": "低量"
-      },
-      "live": {
-        "price": 26.0,
-        "change_pct": 8.33,
-        "volume": 497555.0,
-        "vol_ratio": "1.0"
-      }
-    },
-    {
-      "stock_id": "2415",
-      "name": "錩新",
-      "sector": "電子零組件業",
-      "score": 50,
-      "details": {
-        "momentum": "極強",
-        "rsi": 0,
-        "ma_alignment": "N/A",
-        "up_days": "0/3",
-        "vol_ratio": "低量",
-        "atr": 0,
-        "breakout": "接近突破",
-        "gap": "N/A"
-      },
-      "total_score": 50,
-      "entry": 37.08,
-      "target": 38.2,
-      "stop_loss": 35.95,
-      "change_pct": 8.39,
-      "dimensions": {
-        "momentum": "極強",
-        "rsi": 0,
-        "ma_alignment": "N/A",
-        "up_days": "0/3",
-        "atr": 0,
-        "vol_ratio": "低量"
-      },
-      "live": {
-        "price": 37.45,
-        "change_pct": 8.39,
-        "volume": 3203957.0,
-        "vol_ratio": "1.0"
+        "current": 222.0,
+        "open": 222.0,
+        "high": 222.0,
+        "low": 222.0,
+        "prev_close": 222.0,
+        "volume": 9733990.0,
+        "change_pct": 8.56,
+        "time": "12:32:04",
+        "date": "20260707",
+        "source": "scan_fallback"
       }
     }
   ]
