@@ -1,33 +1,33 @@
 {
   "scan_type": "intraday_daytrade",
-  "scanned_at": "2026-07-02 13:18:49",
+  "scanned_at": "2026-07-08 04:33:18",
   "scanned_count": 1946,
   "qualified_count": 95,
-  "data_note": "scan_result.json fallback (TWSE API 502 + yfinance timeout); 95 qualified from 1946 stocks; 3-9.5% change filter",
+  "data_note": "scan_result.json fallback (TWSE API + yfinance blocked); 95 qualified from 1946 stocks; 3.0-9.5% change filter",
   "stocks": [
     {
       "stock_id": "3617",
       "name": "碩天",
       "sector": "其他電子業",
-      "score": 90.55,
-      "total_score": 90.55,
-      "entry": 221.6,
-      "target": 229.4,
-      "stop_loss": 209.9,
+      "score": 95.0,
+      "total_score": 95.0,
+      "entry": 221.59,
+      "target": 233.32,
+      "stop_loss": 209.86,
       "change_pct": 6.37,
       "details": {
         "momentum": "強",
         "vol_ratio": 5.110798968804249,
-        "breakout": "多頭排列"
+        "breakout": "強勢突破"
       },
       "dimensions": {
         "technical": 100.0,
         "chips": 100.0,
         "fundamental": 58.0,
         "news": 65.0,
-        "sentiment": 83.45454545454545,
-        "profit_space": 35.3,
-        "total": 90.55
+        "sentiment": 83.5,
+        "profit_space": 40.0,
+        "total": 95.0
       },
       "live": {
         "current": 225.5,
@@ -37,45 +37,82 @@
         "prev_close": 225.5,
         "volume": 1179969.0,
         "change_pct": 6.37,
-        "time": "13:18:49",
-        "date": "20260702",
+        "time": "04:33:18",
+        "date": "20260708",
         "source": "scan_fallback"
       }
     },
     {
-      "stock_id": "3712",
-      "name": "永崴投控",
-      "sector": "電腦及週邊設備業",
-      "score": 83.2,
-      "total_score": 83.2,
-      "entry": 18.2,
-      "target": 18.9,
-      "stop_loss": 17.0,
-      "change_pct": 3.34,
+      "stock_id": "8046",
+      "name": "南電",
+      "sector": "電子零組件業",
+      "score": 73.08,
+      "total_score": 73.08,
+      "entry": 1011.42,
+      "target": 1112.16,
+      "stop_loss": 910.68,
+      "change_pct": 9.42,
       "details": {
-        "momentum": "中",
-        "vol_ratio": 1.2599253512247974,
-        "breakout": "區間整理"
+        "momentum": "強",
+        "vol_ratio": 1.1596544843915988,
+        "breakout": "強勢突破"
       },
       "dimensions": {
-        "technical": 93.00000000000004,
-        "chips": 83.0,
-        "fundamental": 73.0,
+        "technical": 88.3,
+        "chips": 85.0,
+        "fundamental": 25.0,
         "news": 65.0,
-        "sentiment": 58.000000000000036,
-        "profit_space": 41.8,
-        "total": 83.2
+        "sentiment": 65.5,
+        "profit_space": 40.0,
+        "total": 73.08
       },
       "live": {
-        "current": 18.55,
-        "open": 18.55,
-        "high": 18.55,
-        "low": 18.55,
-        "prev_close": 18.55,
-        "volume": 676337.0,
-        "change_pct": 3.34,
-        "time": "13:18:49",
-        "date": "20260702",
+        "current": 1045.0,
+        "open": 1045.0,
+        "high": 1045.0,
+        "low": 1045.0,
+        "prev_close": 1045.0,
+        "volume": 26849041.0,
+        "change_pct": 9.42,
+        "time": "04:33:18",
+        "date": "20260708",
+        "source": "scan_fallback"
+      }
+    },
+    {
+      "stock_id": "3008",
+      "name": "大立光",
+      "sector": "光電業",
+      "score": 67.39,
+      "total_score": 67.39,
+      "entry": 5018.29,
+      "target": 5458.42,
+      "stop_loss": 4578.16,
+      "change_pct": 5.41,
+      "details": {
+        "momentum": "強",
+        "vol_ratio": 1.1711663803297,
+        "breakout": "強勢突破"
+      },
+      "dimensions": {
+        "technical": 85.5,
+        "chips": 75.0,
+        "fundamental": 53.0,
+        "news": 65.0,
+        "sentiment": 62.6,
+        "profit_space": 40.0,
+        "total": 67.39
+      },
+      "live": {
+        "current": 5165.0,
+        "open": 5165.0,
+        "high": 5165.0,
+        "low": 5165.0,
+        "prev_close": 5165.0,
+        "volume": 3402611.0,
+        "change_pct": 5.41,
+        "time": "04:33:18",
+        "date": "20260708",
         "source": "scan_fallback"
       }
     },
@@ -83,25 +120,25 @@
       "stock_id": "5434",
       "name": "崇越",
       "sector": "電子通路業",
-      "score": 82.85,
-      "total_score": 82.85,
-      "entry": 494.8,
-      "target": 515.2,
-      "stop_loss": 464.2,
+      "score": 65.3,
+      "total_score": 65.3,
+      "entry": 494.81,
+      "target": 525.38,
+      "stop_loss": 464.24,
       "change_pct": 3.27,
       "details": {
         "momentum": "中",
         "vol_ratio": 1.3059645842595162,
-        "breakout": "多頭排列"
+        "breakout": "強勢突破"
       },
       "dimensions": {
-        "technical": 100.0,
+        "technical": 93.2,
         "chips": 83.0,
         "fundamental": 43.0,
         "news": 65.0,
         "sentiment": 71.5,
-        "profit_space": 41.2,
-        "total": 82.85
+        "profit_space": 40.0,
+        "total": 65.3
       },
       "live": {
         "current": 505.0,
@@ -111,82 +148,45 @@
         "prev_close": 505.0,
         "volume": 1462340.0,
         "change_pct": 3.27,
-        "time": "13:18:49",
-        "date": "20260702",
+        "time": "04:33:18",
+        "date": "20260708",
         "source": "scan_fallback"
       }
     },
     {
-      "stock_id": "2415",
-      "name": "錩新",
-      "sector": "電子零組件業",
-      "score": 82.59,
-      "total_score": 82.59,
-      "entry": 33.7,
-      "target": 34.4,
-      "stop_loss": 32.7,
-      "change_pct": 9.49,
+      "stock_id": "4555",
+      "name": "氣立",
+      "sector": "電機機械",
+      "score": 64.77,
+      "total_score": 64.77,
+      "entry": 46.59,
+      "target": 50.51,
+      "stop_loss": 42.68,
+      "change_pct": 3.68,
       "details": {
-        "momentum": "中",
-        "vol_ratio": 1.0,
-        "breakout": "區間整理"
-      },
-      "dimensions": {
-        "technical": 88.67642857142854,
-        "chips": 85.0,
-        "fundamental": 66.0,
-        "news": 65.0,
-        "sentiment": 74.69642857142854,
-        "profit_space": 20.2,
-        "total": 82.59
-      },
-      "live": {
-        "current": 34.05,
-        "open": 34.05,
-        "high": 34.05,
-        "low": 34.05,
-        "prev_close": 34.05,
-        "volume": 2733828.0,
-        "change_pct": 9.49,
-        "time": "13:18:49",
-        "date": "20260702",
-        "source": "scan_fallback"
-      }
-    },
-    {
-      "stock_id": "4976",
-      "name": "佳凌",
-      "sector": "光電業",
-      "score": 81.38,
-      "total_score": 81.38,
-      "entry": 40.9,
-      "target": 43.8,
-      "stop_loss": 36.6,
-      "change_pct": 9.01,
-      "details": {
-        "momentum": "中",
-        "vol_ratio": 0.7939826027903446,
+        "momentum": "弱",
+        "vol_ratio": 2.27597613210337,
         "breakout": "多頭排列"
       },
       "dimensions": {
-        "technical": 94.26470588235293,
-        "chips": 85.0,
-        "fundamental": 50.0,
+        "technical": 81.1,
+        "chips": 95.0,
+        "fundamental": 46.0,
         "news": 65.0,
-        "sentiment": 64.26470588235293,
-        "profit_space": 70.6,
-        "total": 81.38
+        "sentiment": 68.8,
+        "profit_space": 40.0,
+        "total": 64.77
       },
       "live": {
-        "current": 42.35,
-        "open": 42.35,
-        "high": 42.35,
-        "low": 42.35,
-        "prev_close": 42.35,
-        "volume": 9937784.0,
-        "change_pct": 9.01,
-        "time": "13:18:49",
-        "date": "20260702",
+        "current": 47.9,
+        "open": 47.9,
+        "high": 47.9,
+        "low": 47.9,
+        "prev_close": 47.9,
+        "volume": 763468.0,
+        "change_pct": 3.68,
+        "time": "04:33:18",
+        "date": "20260708",
         "source": "scan_fallback"
       }
     }
