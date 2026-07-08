@@ -1,7 +1,388 @@
 {
   "scan_date": "20260708",
-  "generated_at": "2026-07-08T11:25:43.193205",
-  "total_stocks": 1951,
+  "scanned_count": 1951,
+  "top_stocks": [
+    {
+      "stock_id": "2603",
+      "name": "長榮",
+      "market": "TSE",
+      "sector_name": "航運業",
+      "close": 196.0,
+      "change_pct": 4.26,
+      "volume": 16209496.0,
+      "scores": {
+        "technical": 79.02,
+        "chips": 75.0,
+        "fundamental": 100.0,
+        "news": 80.0,
+        "sentiment": 75.5,
+        "profit_space": 80.0,
+        "total": 96.41
+      },
+      "total_score": 96.41,
+      "recommendation": "強烈推薦",
+      "entry_low": 194.04,
+      "entry_high": 197.96,
+      "stop_loss": 188.16,
+      "targets": {
+        "entry_low": 194.04,
+        "entry_high": 197.96,
+        "stop_loss": 188.16,
+        "t1": 199.92,
+        "t2": 203.84,
+        "t3": 207.76
+      },
+      "fundamentals": {
+        "pe": 8.57,
+        "pb": 0.73,
+        "dy": 8.16
+      },
+      "rsi": null,
+      "vol_ratio": null
+    },
+    {
+      "stock_id": "2605",
+      "name": "新興",
+      "market": "TSE",
+      "sector_name": "航運業",
+      "close": 31.0,
+      "change_pct": 3.85,
+      "volume": 5326949.0,
+      "scores": {
+        "technical": 78.2,
+        "chips": 75.0,
+        "fundamental": 76.0,
+        "news": 80.0,
+        "sentiment": 75.5,
+        "profit_space": 80.0,
+        "total": 90.69
+      },
+      "total_score": 90.69,
+      "recommendation": "強烈推薦",
+      "entry_low": 30.69,
+      "entry_high": 31.31,
+      "stop_loss": 29.76,
+      "targets": {
+        "entry_low": 30.69,
+        "entry_high": 31.31,
+        "stop_loss": 29.76,
+        "t1": 31.62,
+        "t2": 32.24,
+        "t3": 32.86
+      },
+      "fundamentals": {
+        "pe": 14.83,
+        "pb": 1.03,
+        "dy": 3.23
+      },
+      "rsi": null,
+      "vol_ratio": null
+    },
+    {
+      "stock_id": "6142",
+      "name": "友勁",
+      "market": "TSE",
+      "sector_name": "通信網路業",
+      "close": 10.25,
+      "change_pct": 9.98,
+      "volume": 3575059.0,
+      "scores": {
+        "technical": 90.46000000000001,
+        "chips": 85.0,
+        "fundamental": 58.0,
+        "news": 80.0,
+        "sentiment": 75.5,
+        "profit_space": 80.0,
+        "total": 90.42
+      },
+      "total_score": 90.42,
+      "recommendation": "強烈推薦",
+      "entry_low": 10.15,
+      "entry_high": 10.35,
+      "stop_loss": 9.84,
+      "targets": {
+        "entry_low": 10.15,
+        "entry_high": 10.35,
+        "stop_loss": 9.84,
+        "t1": 10.46,
+        "t2": 10.66,
+        "t3": 10.87
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 1.2,
+        "dy": 0.0
+      },
+      "rsi": null,
+      "vol_ratio": null
+    },
+    {
+      "stock_id": "2332",
+      "name": "友訊",
+      "market": "TSE",
+      "sector_name": "通信網路業",
+      "close": 21.9,
+      "change_pct": 9.77,
+      "volume": 32491515.0,
+      "scores": {
+        "technical": 90.03999999999999,
+        "chips": 85.0,
+        "fundamental": 58.0,
+        "news": 80.0,
+        "sentiment": 75.5,
+        "profit_space": 80.0,
+        "total": 90.31
+      },
+      "total_score": 90.31,
+      "recommendation": "強烈推薦",
+      "entry_low": 21.68,
+      "entry_high": 22.12,
+      "stop_loss": 21.02,
+      "targets": {
+        "entry_low": 21.68,
+        "entry_high": 22.12,
+        "stop_loss": 21.02,
+        "t1": 22.34,
+        "t2": 22.78,
+        "t3": 23.21
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 1.59,
+        "dy": 0.0
+      },
+      "rsi": null,
+      "vol_ratio": null
+    },
+    {
+      "stock_id": "3564",
+      "name": "其陽科技股份有限公司",
+      "market": "TPEx",
+      "sector_name": "通信網路業",
+      "close": 56.1,
+      "change_pct": 10.0,
+      "volume": 1959665.0,
+      "scores": {
+        "technical": 90.5,
+        "chips": 85.0,
+        "fundamental": 50.0,
+        "news": 80.0,
+        "sentiment": 75.5,
+        "profit_space": 80.0,
+        "total": 88.59
+      },
+      "total_score": 88.59,
+      "recommendation": "強烈推薦",
+      "entry_low": 55.54,
+      "entry_high": 56.66,
+      "stop_loss": 53.86,
+      "targets": {
+        "entry_low": 55.54,
+        "entry_high": 56.66,
+        "stop_loss": 53.86,
+        "t1": 57.22,
+        "t2": 58.34,
+        "t3": 59.47
+      },
+      "fundamentals": {
+        "pe": 0,
+        "pb": 0,
+        "dy": 0
+      },
+      "rsi": null,
+      "vol_ratio": null
+    },
+    {
+      "stock_id": "3081",
+      "name": "聯亞光電工業股份有限公司",
+      "market": "TPEx",
+      "sector_name": "通信網路業",
+      "close": 2095.0,
+      "change_pct": 9.97,
+      "volume": 2243319.0,
+      "scores": {
+        "technical": 90.44,
+        "chips": 85.0,
+        "fundamental": 50.0,
+        "news": 80.0,
+        "sentiment": 75.5,
+        "profit_space": 80.0,
+        "total": 88.57
+      },
+      "total_score": 88.57,
+      "recommendation": "強烈推薦",
+      "entry_low": 2074.05,
+      "entry_high": 2115.95,
+      "stop_loss": 2011.2,
+      "targets": {
+        "entry_low": 2074.05,
+        "entry_high": 2115.95,
+        "stop_loss": 2011.2,
+        "t1": 2136.9,
+        "t2": 2178.8,
+        "t3": 2220.7
+      },
+      "fundamentals": {
+        "pe": 0,
+        "pb": 0,
+        "dy": 0
+      },
+      "rsi": null,
+      "vol_ratio": null
+    },
+    {
+      "stock_id": "2424",
+      "name": "隴華",
+      "market": "TSE",
+      "sector_name": "通信網路業",
+      "close": 10.5,
+      "change_pct": 9.95,
+      "volume": 465927.0,
+      "scores": {
+        "technical": 90.4,
+        "chips": 85.0,
+        "fundamental": 50.0,
+        "news": 80.0,
+        "sentiment": 75.5,
+        "profit_space": 80.0,
+        "total": 88.56
+      },
+      "total_score": 88.56,
+      "recommendation": "強烈推薦",
+      "entry_low": 10.39,
+      "entry_high": 10.61,
+      "stop_loss": 10.08,
+      "targets": {
+        "entry_low": 10.39,
+        "entry_high": 10.61,
+        "stop_loss": 10.08,
+        "t1": 10.71,
+        "t2": 10.92,
+        "t3": 11.13
+      },
+      "fundamentals": {
+        "pe": 0.0,
+        "pb": 2.26,
+        "dy": 0.0
+      },
+      "rsi": null,
+      "vol_ratio": null
+    },
+    {
+      "stock_id": "8442",
+      "name": "威宏-KY",
+      "market": "TSE",
+      "sector_name": "其他",
+      "close": 46.25,
+      "change_pct": 9.99,
+      "volume": 319336.0,
+      "scores": {
+        "technical": 90.48,
+        "chips": 85.0,
+        "fundamental": 80.0,
+        "news": 65.0,
+        "sentiment": 75.5,
+        "profit_space": 80.0,
+        "total": 87.68
+      },
+      "total_score": 87.68,
+      "recommendation": "強烈推薦",
+      "entry_low": 45.79,
+      "entry_high": 46.71,
+      "stop_loss": 44.4,
+      "targets": {
+        "entry_low": 45.79,
+        "entry_high": 46.71,
+        "stop_loss": 44.4,
+        "t1": 47.17,
+        "t2": 48.1,
+        "t3": 49.02
+      },
+      "fundamentals": {
+        "pe": 25.84,
+        "pb": 0.89,
+        "dy": 6.49
+      },
+      "rsi": null,
+      "vol_ratio": null
+    },
+    {
+      "stock_id": "2615",
+      "name": "萬海",
+      "market": "TSE",
+      "sector_name": "航運業",
+      "close": 79.4,
+      "change_pct": 3.12,
+      "volume": 6616401.0,
+      "scores": {
+        "technical": 76.74000000000001,
+        "chips": 75.0,
+        "fundamental": 93.0,
+        "news": 65.0,
+        "sentiment": 75.5,
+        "profit_space": 80.0,
+        "total": 87.44
+      },
+      "total_score": 87.44,
+      "recommendation": "強烈推薦",
+      "entry_low": 78.61,
+      "entry_high": 80.19,
+      "stop_loss": 76.22,
+      "targets": {
+        "entry_low": 78.61,
+        "entry_high": 80.19,
+        "stop_loss": 76.22,
+        "t1": 80.99,
+        "t2": 82.58,
+        "t3": 84.16
+      },
+      "fundamentals": {
+        "pe": 7.33,
+        "pb": 0.78,
+        "dy": 3.78
+      },
+      "rsi": null,
+      "vol_ratio": null
+    },
+    {
+      "stock_id": "3363",
+      "name": "上詮光纖通信股份有限公司",
+      "market": "TPEx",
+      "sector_name": "通信網路業",
+      "close": 640.0,
+      "change_pct": 9.03,
+      "volume": 8330680.0,
+      "scores": {
+        "technical": 86.14064516129032,
+        "chips": 85.0,
+        "fundamental": 50.0,
+        "news": 80.0,
+        "sentiment": 73.08064516129032,
+        "profit_space": 80.0,
+        "total": 87.2
+      },
+      "total_score": 87.2,
+      "recommendation": "強烈推薦",
+      "entry_low": 633.6,
+      "entry_high": 646.4,
+      "stop_loss": 614.4,
+      "targets": {
+        "entry_low": 633.6,
+        "entry_high": 646.4,
+        "stop_loss": 614.4,
+        "t1": 652.8,
+        "t2": 665.6,
+        "t3": 678.4
+      },
+      "fundamentals": {
+        "pe": 0,
+        "pb": 0,
+        "dy": 0
+      },
+      "rsi": null,
+      "vol_ratio": null
+    }
+  ],
   "all_stock_scores": [
     {
       "stock_id": "2603",
@@ -74141,5 +74522,48 @@
       "rsi": null,
       "vol_ratio": null
     }
-  ]
+  ],
+  "explode_top5": [
+    {
+      "stock_id": "2603",
+      "name": "長榮",
+      "close": 196.0,
+      "volume": 16209496.0,
+      "change_pct": 4.26,
+      "explode_prob": 0.95
+    },
+    {
+      "stock_id": "2605",
+      "name": "新興",
+      "close": 31.0,
+      "volume": 5326949.0,
+      "change_pct": 3.85,
+      "explode_prob": 0.907
+    },
+    {
+      "stock_id": "6142",
+      "name": "友勁",
+      "close": 10.25,
+      "volume": 3575059.0,
+      "change_pct": 9.98,
+      "explode_prob": 0.904
+    },
+    {
+      "stock_id": "2332",
+      "name": "友訊",
+      "close": 21.9,
+      "volume": 32491515.0,
+      "change_pct": 9.77,
+      "explode_prob": 0.903
+    },
+    {
+      "stock_id": "3564",
+      "name": "其陽科技股份有限公司",
+      "close": 56.1,
+      "volume": 1959665.0,
+      "change_pct": 10.0,
+      "explode_prob": 0.886
+    }
+  ],
+  "generated_at": "2026-07-08T19:07:59.720606+08:00"
 }
