@@ -2126,6 +2126,338 @@
       }
     },
     {
+      "scan_date": "2026-07-09",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": "2026-07-09",
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "1615",
+              "name": "大山",
+              "entry": 46.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4439",
+              "name": "冠星-KY",
+              "entry": 101.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2536",
+              "name": "宏普",
+              "entry": 19.55,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9802",
+              "name": "鈺齊-KY",
+              "entry": 75.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6214",
+              "name": "精誠",
+              "entry": 143.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1786",
+              "name": "科妍",
+              "entry": 56.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2527",
+              "name": "宏璟",
+              "entry": 42.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2248",
+              "name": "華勝-KY",
+              "entry": 59.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2356",
+              "name": "英業達",
+              "entry": 69.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3543",
+              "name": "州巧",
+              "entry": 33.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "1615",
+              "name": "大山",
+              "entry": 46.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4439",
+              "name": "冠星-KY",
+              "entry": 101.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2536",
+              "name": "宏普",
+              "entry": 19.55,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9802",
+              "name": "鈺齊-KY",
+              "entry": 75.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6214",
+              "name": "精誠",
+              "entry": 143.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1786",
+              "name": "科妍",
+              "entry": 56.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2527",
+              "name": "宏璟",
+              "entry": 42.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2248",
+              "name": "華勝-KY",
+              "entry": 59.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2356",
+              "name": "英業達",
+              "entry": 69.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3543",
+              "name": "州巧",
+              "entry": 33.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "1615",
+              "name": "大山",
+              "entry": 46.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4439",
+              "name": "冠星-KY",
+              "entry": 101.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2536",
+              "name": "宏普",
+              "entry": 19.55,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9802",
+              "name": "鈺齊-KY",
+              "entry": 75.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6214",
+              "name": "精誠",
+              "entry": 143.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1786",
+              "name": "科妍",
+              "entry": 56.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2527",
+              "name": "宏璟",
+              "entry": 42.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2248",
+              "name": "華勝-KY",
+              "entry": 59.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2356",
+              "name": "英業達",
+              "entry": 69.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3543",
+              "name": "州巧",
+              "entry": 33.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
+    },
+    {
       "scan_date": "2026-07-06",
       "periods": {
         "T1": {
@@ -2867,8 +3199,63 @@
       }
     }
   ],
-  "last_updated": "2026-07-06T19:02:56.473743+08:00",
+  "last_updated": "2026-07-09T19:07:00.500837+08:00",
   "history": [
+    {
+      "date": "2026/07/09",
+      "results": {
+        "1615": {
+          "name": "大山",
+          "score": 91.23,
+          "close": 46.4
+        },
+        "4439": {
+          "name": "冠星-KY",
+          "score": 88.83,
+          "close": 101.0
+        },
+        "2536": {
+          "name": "宏普",
+          "score": 86.84,
+          "close": 19.55
+        },
+        "9802": {
+          "name": "鈺齊-KY",
+          "score": 86.45,
+          "close": 75.0
+        },
+        "6214": {
+          "name": "精誠",
+          "score": 85.89,
+          "close": 143.5
+        },
+        "1786": {
+          "name": "科妍",
+          "score": 85.85,
+          "close": 56.0
+        },
+        "2527": {
+          "name": "宏璟",
+          "score": 85.34,
+          "close": 42.6
+        },
+        "2248": {
+          "name": "華勝-KY",
+          "score": 85.15,
+          "close": 59.0
+        },
+        "2356": {
+          "name": "英業達",
+          "score": 83.98,
+          "close": 69.8
+        },
+        "3543": {
+          "name": "州巧",
+          "score": 83.25,
+          "close": 33.4
+        }
+      }
+    },
     {
       "date": "2026/07/06",
       "results": {
