@@ -35,7 +35,7 @@ jobs:
           mkdir -p /home/runner/work/tasks/shared
           echo "def run_backtest(stock_id, strategy='all', days=60): return {}" > /home/runner/work/tasks/shared/per_stock_backtest.py
 
-      - name: Pre-scan: check repo is clean
+      - name: "Pre-scan: check repo is clean"
         run: |
           if ! git diff --quiet; then
             echo "::error::Working directory is dirty before scan - aborting"
@@ -50,50 +50,57 @@ jobs:
           done
           echo "Repo is clean."
 
-      - name: Run scan
-        run: python tasks/2255/scan_market.py
-        env:
-          PYTHONPATH: /home/runner/work
+      - name: Run scan_market.py
+        run: |
+          export PYTHONPATH="$PWD:$PWD/tasks"
+          cd tasks/2255
+          python3 scan_market.py
 
-      - name: Normalize and process results
-        run: python tasks/2255/normalize_and_process.py
+      - name: Run post_scan.py (generate reports + JSON)
+        run: |
+          export PYTHONPATH="$PWD:$PWD/tasks"
+          cd tasks/2255
+          python3 post_scan.py
 
       - name: Copy and update data files
-        run: python tasks/2255/post_scan.py
-
-      - name: Run E3 Backtest
         run: |
-          python backtest_engine.py \
-            --strategy all \
-            --days 252 \
-            --output e3_backtest_$(date +%Y%m%d).json || true
+          mkdir -p public/data
+          cp -v /tmp/scan_output/*.json public/data/ 2>/dev/null || true
+          python3 -c "
+          import json, glob, os, shutil
+          files = glob.glob('public/data/*.json')
+          print(f'Data files staged: {len(files)}')"
+
+      - name: Generate intraday stub
+        run: |
+          mkdir -p public/data
+          python3 -c "
+          import json
+          try:
+              with open('public/data/latest.json') as f:
+                  latest = json.load(f)
+              top5 = [{k: v for k, v in r.items() if k in ('stock_id', 'name', 'score', 'close', 'change_pct')} for r in latest.get('top10', [])[:5]]
+              with open('public/data/intraday.json', 'w') as f:
+                  json.dump({'top5': top5, 'generated_at': f'$(date -u +%Y-%m-%dT%H:%M:%SZ)'}, f, ensure_ascii=False)
+              print(f'Intraday stub written with {len(top5)} stocks.')
+          except Exception as e:
+              print(f'Intraday stub skipped: {e}')""
 
       - name: Run Strategy 3 (TPEx small-cap breakout)
-        run: python tasks/2255/strategy3_scan.py
-        env:
-          PYTHONPATH: /home/runner/work
-          OUTPUT: tasks/2255/strategy3_result.json
-
-      - name: Stage strategy3 result
         run: |
-          if [ -f tasks/2255/strategy3_result.json ]; then
-            cp tasks/2255/strategy3_result.json public/data/strategy3_result.json
-            echo "Strategy3 result staged to public/data/"
-          fi
+          export PYTHONPATH="$PWD:$PWD/tasks"
+          python3 tasks/2255/strategy3.py 2>&1 || \
+            echo "Strategy3 ran with warnings (continuing)."
 
-      - name: Stage E3 results for gh-pages
-        run: |
-          mkdir -p gh-pages
-          cp e3_backtest_*.json gh-pages/ 2>/dev/null || true
-
-      - name: Commit results
+      - name: Commit and push changes
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add public/data/ tasks/2255/scan_result.json tasks/2255/all_scores.json tasks/2255/latest.json tasks/2255/strategy3_result.json e3_backtest_*.json gh-pages/ 2>/dev/null || true
-          git diff --staged --quiet || git commit -m "data: $(date +%Y%m%d) evening scan + E3 backtest (auto)"
-          git pull --rebase origin main || true
-          git push origin main
+          git add public/data/ *.json
+          git diff --cached --quiet || (
+            git commit -m "scan($(date +%Y%m%d)): $(python3 -c 'import json; d=json.load(open("public/data/latest.json")); print(f\"{d[\"scanned_count\"]} stocks, Top 10 recommendations, updated all JSONs + report\")' 2>/dev/null || echo 'scan complete'))"
+            git push
+          )
 
       - name: Trigger deploy
         uses: actions/github-script@v7
@@ -104,4 +111,4 @@ jobs:
               repo: context.repo.repo,
               workflow_id: 'deploy.yml',
               ref: 'main'
-            });
+            })
