@@ -38,6 +38,13 @@ except ImportError:
 _TW_TZ = timezone(timedelta(hours=8))
 
 
+def normalize_name(name: str) -> str:
+    """Strip trailing 股份有限公司 suffix from stock names."""
+    if name.endswith("股份有限公司"):
+        return name[:-len("股份有限公司")]
+    return name
+
+
 import subprocess, json as _json
 
 class _CurlResponse:
@@ -1047,13 +1054,13 @@ def run_scan(scan_date: str = None) -> Dict:
     all_stocks: Dict[str, Dict] = {}
     for s in tse:
         sid = str(s.get('Code', '')).strip()
-        name = str(s.get('Name', '')).strip()
+        name = normalize_name(str(s.get('Name', '')).strip())
         if sid:
             sector = stock_industry.get(sid, '')
             all_stocks[sid] = {'name': name, 'market': 'TSE', 'sector_name': sector}
     for s in tpex:
         sid = str(s.get('Code', '')).strip()
-        name = str(s.get('Name', '')).strip()
+        name = normalize_name(str(s.get('Name', '')).strip())
         if sid and sid not in all_stocks:
             ind_code = str(s.get('IndustryCode', '')).strip()
             sector = TPEX_INDUSTRY_MAP.get(ind_code, '') or stock_industry.get(sid, '')
@@ -1272,7 +1279,7 @@ def run_scan(scan_date: str = None) -> Dict:
 
     def process_one(sid: str, info: Dict) -> Optional[Dict]:
         market = info['market']
-        name = info['name']
+        name = normalize_name(info['name'])
         sector = info.get('sector_name', '')
         try:
             # 取得當日數據

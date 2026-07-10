@@ -23,6 +23,13 @@ CHANGE_MAX = 9.5
 TOP_N = 5
 
 
+def normalize_name(name: str) -> str:
+    """Strip trailing 股份有限公司 suffix from stock names."""
+    if name.endswith("股份有限公司"):
+        return name[:-len("股份有限公司")]
+    return name
+
+
 def momentum_score(rsi, vol_ratio):
     """Score momentum based on RSI and volume ratio (0-100)."""
     score = 0
@@ -200,7 +207,7 @@ def main():
 
         scored.append({
             "stock_id": s["stock_id"],
-            "name": s["name"],
+            "name": normalize_name(s["name"]),
             "sector": s.get("sector_name", ""),
             "score": round(total, 2),
             "total_score": round(total, 2),
