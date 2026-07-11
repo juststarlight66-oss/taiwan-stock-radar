@@ -1,0 +1,50 @@
+name: "Weekly Report Email"
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Every Friday at 20:00 CST = 12:00 UTC
+    - cron: '0 12 * * 5'
+
+permissions:
+  contents: write
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+    steps:
+      - name: Checkout main (for scripts)
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generate weekly report
+        run: python scripts/weekly_report.py generate
+
+      - name: Send weekly report email
+        env:
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+        run: python scripts/weekly_report.py send
+
+      - name: Archive report to gh-pages
+        run: |
+          cp weekly_report.html /tmp/weekly_report.html
+          git fetch origin gh-pages
+          git checkout -B gh-pages origin/gh-pages
+          mkdir -p data
+          cp /tmp/weekly_report.html data/weekly_report.html
+          git add data/weekly_report.html
+          git diff --cached --quiet || (
+            git config user.name "GitHub Actions"
+            git config user.email "actions@github.com"
+            git commit -m "report: weekly report $(date +%Y%m%d-%H%M)"
+            git push --force origin gh-pages
+          )
