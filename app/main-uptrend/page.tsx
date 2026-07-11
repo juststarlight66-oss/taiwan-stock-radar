@@ -16,6 +16,8 @@ interface UptrendStock {
   vol_ratio: number;
   capital_yi: number;
   total_score: number;
+  streak_days?: number;
+  streak_bonus?: number;
   above_ma5: boolean;
   above_ma10: boolean;
   above_ma20: boolean;
@@ -128,6 +130,7 @@ export default function MainUptrendPage() {
                       <th className="text-right px-3 py-3 text-xs font-semibold text-gray-500">量比</th>
                       <th className="text-right px-3 py-3 text-xs font-semibold text-gray-500">股本(億)</th>
                       <th className="text-right px-3 py-3 text-xs font-semibold text-gray-500">總分</th>
+                      <th className="text-center px-3 py-3 text-xs font-semibold text-gray-500">連續天數</th>
                       <th className="text-center px-3 py-3 text-xs font-semibold text-gray-500">第一波攻擊</th>
                       <th className="text-center px-3 py-3 text-xs font-semibold text-gray-500">主升段強勢</th>
                       <th className="text-center px-3 py-3 text-xs font-semibold text-gray-500">MA 排列</th>
@@ -214,6 +217,16 @@ export default function MainUptrendPage() {
                             {stock.total_score}
                           </span>
                         </td>
+                        {/* Streak Days */}
+                        <td className="px-3 py-3 text-center">
+                          {(stock.streak_days ?? 0) > 0 ? (
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-purple-100 text-purple-700">
+                              {stock.streak_days}+ ({stock.streak_bonus ?? 0})
+                            </span>
+                          ) : (
+                            <span className="text-gray-300">-</span>
+                          )}
+                        </td>
                         {/* Signal 3 (第一波攻擊) */}
                         <td className="px-3 py-3 text-center">
                           {stock.signal_3 ? (
@@ -293,6 +306,7 @@ export default function MainUptrendPage() {
                 <div className="space-y-1.5">
                   <p><span className="font-semibold">篩選條件：</span>股本 &lt; 30億、股價 &gt; 5元、5日均量 &gt; 500張</p>
                   <p><span className="font-semibold">五維權重：</span>技術面 35%、籌碼面 25%、基本面 10%、消息面 10%、情緒面 10%、獲利空間 10%</p>
+                  <p><span className="font-semibold">連續強勢加分：</span>前 N 日連續出現於 Top 40 者，每天 +3 分，上限 +10 分（降低一日行情干擾）</p>
                   <p><span className="font-semibold">更新時間：</span>{data.generated_at || 'N/A'}</p>
                 </div>
               </div>
