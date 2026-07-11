@@ -38,13 +38,6 @@ except ImportError:
 _TW_TZ = timezone(timedelta(hours=8))
 
 
-def normalize_name(name: str) -> str:
-    """Strip trailing 股份有限公司 suffix from stock names."""
-    if name.endswith("股份有限公司"):
-        return name[:-len("股份有限公司")]
-    return name
-
-
 import subprocess, json as _json
 
 class _CurlResponse:
@@ -207,30 +200,30 @@ MIN_VOLUME = 500        # 最低成交量門檻（張），過濾流動性不佳
 
 
 DIMENSION_WEIGHTS = {
-    'tech': 0.25,
-    'chips': 0.22,
-    'fundamental': 0.21,
-    'news': 0.18,
-    'sentiment': 0.14,
-    'profit_space': 0.0
+    'tech': 0.35,
+    'chips': 0.25,
+    'fundamental': 0.10,
+    'news': 0.10,
+    'sentiment': 0.10,
+    'profit_space': 0.10
 }
 
-# ── 市場自適應權重 ──
-try:
-    from market_state import detect_market_state
-    ms = detect_market_state()
-    DIMENSION_WEIGHTS = {
-        'tech': ms.weights.get('tech', 0.25),
-        'chips': ms.weights.get('chips', 0.22),
-        'fundamental': ms.weights.get('fundamental', 0.21),
-        'news': ms.weights.get('news', 0.18),
-        'sentiment': ms.weights.get('sentiment', 0.14),
-        'profit_space': 0.0,
-    }
-    print(f"[market_state] {ms.state.upper()} | TAIEX {ms.taiex_close} | MA10={ms.ma10} MA20={ms.ma20} MA60={ms.ma60} | xover={ms.crossover_count}")
-    print(f"[market_state] 自適應權重: tech={DIMENSION_WEIGHTS['tech']:.2f} chips={DIMENSION_WEIGHTS['chips']:.2f} fund={DIMENSION_WEIGHTS['fundamental']:.2f} news={DIMENSION_WEIGHTS['news']:.2f} sent={DIMENSION_WEIGHTS['sentiment']:.2f}")
-except Exception as e:
-    print(f"[market_state] 無法讀取市場狀態，使用預設權重: {e}")
+# 獲利空間評分常數
+PROFIT_FRESH_THRESHOLD = 10    # 30日漲幅 < 10% 視為「剛啟動」
+PROFIT_SURGE_BONUS = 10        # 剛啟動爆量的額外加分
+PROFIT_CHASE_WARN = 40         # 30日漲幅 > 40% 視為追高風險
+
+# Load external weights if available
+_w = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'dimension_weights.json')
+if os.path.exists(_w):
+    try:
+        with open(_w, 'r', encoding='utf-8') as f:
+            _ext = json.load(f)
+        for k in ['tech', 'chips', 'fundamental', 'news', 'sentiment']:
+            if k in _ext:
+                DIMENSION_WEIGHTS[k] = float(_ext[k])
+    except Exception:
+        pass
 
 
 # ================================================================
@@ -642,38 +635,40 @@ def score_technical(d: Dict) -> float:
 
 def score_chips(d: Dict) -> float:
     """
-    籌碼面 25% 權重
-    量價突破 + 動能強度
+    v8.1: vol_ratio-based granular scoring
     """
     vol = d.get('volume', 0)
     chg = d.get('change_pct', 0)
     history = d.get('history', [])
-    score = 40.0  # 基準稍低，讓極端值更突出
+    score = 35.0
 
-    # 爆量突破
-    if history and len(history) >= 5:
+    # vol_ratio: use pre-computed value if available, else compute
+    vol_ratio = d.get('vol_ratio')
+    if vol_ratio is None and history and len(history) >= 5:
         avg_vol_5 = sum(h['volume'] for h in history[-6:-1]) / 5 if len(history) >= 6 else vol
         vol_ratio = vol / avg_vol_5 if avg_vol_5 > 0 else 1
-        if vol_ratio >= 2.5 and chg >= 3:
-            score += 35   # 爆量突破
-        elif vol_ratio >= 1.5 and chg >= 2:
-            score += 20   # 放量上攻
-        elif vol_ratio >= 1.2:
-            score += 8
 
-    # 絕對量能
+    # Continuous vol_ratio bonus (was 3 binary thresholds -> now granular, 0-35 pts)
+    if vol_ratio and vol_ratio >= 0.5:
+        score += min(35, vol_ratio * 10)
+    elif chg >= 2:
+        score += 5  # no vol_ratio data but positive move
+
+    # + ATR
     if vol >= 20000 and chg >= 2:
-        score += 25
+        score += 20
     elif vol >= 5000 and chg >= 1:
-        score += 15
+        score += 12
     elif vol >= 1000:
         score += 5
 
-    # 漲幅
-    if chg >= 7:
+    # +
+    if chg >= 9:
         score += 20
-    elif chg >= 3:
-        score += 10
+    elif chg >= 5:
+        score += 12
+    elif chg >= 2:
+        score += 6
     elif chg < -5:
         score -= 15
     elif chg < -3:
@@ -872,33 +867,48 @@ def compute_composite_score(d: Dict) -> Dict:
         scores['sentiment'] * w['sentiment'] +
         scores['profit_space'] * w['profit_space']
     )
-    # 強勢族群額外加分：當日產業板塊漲幅達一定水準即加分（動態，不須硬編）
+
+    # ---- v8.1 ----
+    # D: Sector momentum ranking bonus
     sector_name = d.get('sector_name', '')
     sector_stats = d.get('_sector_stats', {})
-    if sector_name and sector_name in sector_stats:
-        s = sector_stats[sector_name]
+    if sector_name and sector_stats:
+        ranked = sorted(sector_stats.items(), key=lambda kv: kv[1].get('avg_chg', 0), reverse=True)
+        n = len(ranked)
+        if n >= 3:
+            if sector_name in [r[0] for r in ranked[:3]]:
+                total += 5   # Top 3 sector
+            elif sector_name in [r[0] for r in ranked[-3:]]:
+                total -= 3   # Bottom 3 sector
+        if n >= 4:
+            if sector_name in [r[0] for r in ranked[:n//4]]:
+                total += 3   # Top quartile
+            elif sector_name in [r[0] for r in ranked[-(n//4):]]:
+                total -= 2   # Bottom quartile
+    elif sector_stats:
+        s = sector_stats.get(sector_name, {})
         avg = s.get('avg_chg', 0)
         up_ratio = s.get('up_ratio', 0)
         if avg >= 2 and up_ratio >= 0.6:
-            total += 5   # 產業全面強漲
+            total += 3
         elif avg >= 1:
-            total += 3   # 產業溫和偏多
-        if d.get('change_pct', 0) > avg + 2:
-            total += 2   # 個股領漲同族群
-    # ── 震盪盤防禦：30日漲幅>20%但量能萎縮 → 追高風險 ──
-    history_d = d.get('history', [])
-    vol_d = d.get('volume', 0)
-    if history_d and len(history_d) >= 30 and vol_d > 0:
-        closes_30 = [h['close'] for h in history_d]
-        volumes_30 = [h['volume'] for h in history_d]
-        ref_30 = closes_30[-(30 + 1)] if len(closes_30) >= 31 else closes_30[0]
-        if ref_30 > 0:
-            chg_30d_osc = (closes_30[-1] - ref_30) / ref_30 * 100
-            if chg_30d_osc > 20:
-                avg_vol_5 = sum(volumes_30[-6:-1]) / 5 if len(volumes_30) >= 6 else vol_d
-                avg_vol_20 = sum(volumes_30[-21:-1]) / 20 if len(volumes_30) >= 21 else avg_vol_5
-                if avg_vol_20 > 0 and avg_vol_5 < avg_vol_20 * 0.8:
-                    total -= 15  # 震盪盤：漲多量縮 → 降評
+            total += 1
+
+    # E: T+1 momentum proxy bonus
+    chg = d.get('change_pct', 0)
+    history = d.get('history', [])
+    if history and len(history) >= 5:
+        # 5-day momentum: avg daily change positive
+        chg_5d = [h.get('change_pct', 0) or 0 for h in history[-5:]]
+        if all(c > 0 for c in chg_5d) and chg > 0:
+            total += 3   # consistent positive momentum
+        elif sum(1 for c in chg_5d if c > 0) >= 3:
+            total += 1   # mostly positive
+        # T+1 proxy: today's level vs 5d avg level (continuation signal)
+        close_h = [h['close'] for h in history[-6:]]
+        if len(close_h) >= 2 and close_h[-1] > close_h[-2] and chg > 0:
+            total += 2   # consecutive up days — momentum building
+
     scores['total'] = round(total, 2)
     return scores
 
@@ -1068,13 +1078,13 @@ def run_scan(scan_date: str = None) -> Dict:
     all_stocks: Dict[str, Dict] = {}
     for s in tse:
         sid = str(s.get('Code', '')).strip()
-        name = normalize_name(str(s.get('Name', '')).strip())
+        name = str(s.get('Name', '')).strip()
         if sid:
             sector = stock_industry.get(sid, '')
             all_stocks[sid] = {'name': name, 'market': 'TSE', 'sector_name': sector}
     for s in tpex:
         sid = str(s.get('Code', '')).strip()
-        name = normalize_name(str(s.get('Name', '')).strip())
+        name = str(s.get('Name', '')).strip()
         if sid and sid not in all_stocks:
             ind_code = str(s.get('IndustryCode', '')).strip()
             sector = TPEX_INDUSTRY_MAP.get(ind_code, '') or stock_industry.get(sid, '')
@@ -1293,7 +1303,7 @@ def run_scan(scan_date: str = None) -> Dict:
 
     def process_one(sid: str, info: Dict) -> Optional[Dict]:
         market = info['market']
-        name = normalize_name(info['name'])
+        name = info['name']
         sector = info.get('sector_name', '')
         try:
             # 取得當日數據
@@ -1402,7 +1412,7 @@ def run_scan(scan_date: str = None) -> Dict:
                 'targets': targets,
                 'fundamentals': fund,
                 'rsi': compute_rsi([h['close'] for h in history], RSI_PERIOD) if history and len(history) >= 8 else None,
-                'vol_ratio': (vol / (sum(h['volume'] for h in history[-6:-1]) / 5) if history and len(history) >= 6 and sum(h['volume'] for h in history[-6:-1]) > 0 else None),
+                'vol_ratio': (vol / (sum(h['volume'] for h in history[-6:-1]) / 5) if history and len(history) >= 6 and sum(h['volume'] for h in history[-6:-1]) > 0 else 1.0),
                 '_history': history,  # 保留歷史數據供 ML 使用
             }
         except Exception as e:
