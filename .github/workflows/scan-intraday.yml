@@ -94,3 +94,13 @@ jobs:
             git diff --cached --quiet || git commit -m "data: intraday predictions capture $(date +%Y%m%d-%H%M)"
             git push --force origin gh-pages
           fi
+
+      - name: "Send intraday email notification"
+        env:
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: |
+          git checkout main
+          # Read from gh-pages to get the deployed version
+          cp data/intraday.json public/data/intraday.json 2>/dev/null || true
+          python scripts/send_intraday_email.py send
