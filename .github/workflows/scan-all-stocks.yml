@@ -55,10 +55,13 @@ jobs:
           today_slash = datetime.date.today().strftime('%Y/%m/%d')
           now = datetime.datetime.now().isoformat()
 
-          # Load all_scores.json
+          # Load all_scores.json (can be list or dict)
           with open('public/data/all_scores.json') as f:
               all_data = json.load(f)
-          scores = all_data.get('all_stock_scores', [])
+          if isinstance(all_data, list):
+              scores = all_data
+          else:
+              scores = all_data.get('all_stock_scores', [])
           print(f"Loaded {len(scores)} stocks from all_scores.json")
 
           # Build top10
