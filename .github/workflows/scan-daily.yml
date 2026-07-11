@@ -82,6 +82,11 @@ jobs:
           export PYTHONPATH="$PWD:$PWD/tasks"
           python3 scripts/track_predictions.py capture public/data/latest.json public/data/predictions_history.json
 
+      - name: "Capture main-uptrend predictions (Top 40)"
+        run: |
+          # Capture Top 40 picks from main_uptrend_result.json
+          python3 scripts/track_uptrend_predictions.py capture
+
       - name: Commit and push changes
         run: |
           git config user.name "GitHub Actions"

@@ -1,0 +1,58 @@
+name: "Verify Uptrend Predictions"
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Daily 18:45 CST (UTC+8) = 10:45 UTC, Mon-Fri
+    - cron: '45 10 * * 1-5'
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+    steps:
+      - name: Checkout gh-pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages-data
+
+      - name: Checkout main (for scripts)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main-repo
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install deps
+        run: pip install requests pytz numpy pandas yfinance
+
+      - name: Run verification
+        run: |
+          cd main-repo
+          cp ../gh-pages-data/data/uptrend_predictions_history.json public/data/ 2>/dev/null || true
+          python scripts/track_uptrend_predictions.py verify public/data/uptrend_predictions_history.json uptrend_predictions_history.json
+
+      - name: Push results to gh-pages
+        run: |
+          if [ -f main-repo/uptrend_predictions_history.json ]; then
+            cp main-repo/uptrend_predictions_history.json gh-pages-data/data/uptrend_predictions_history.json
+          fi
+          cd gh-pages-data
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add data/uptrend_predictions_history.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: update uptrend verification results [skip ci]"
+            git pull --rebase origin gh-pages || true
+            git push origin HEAD:gh-pages
+          fi
