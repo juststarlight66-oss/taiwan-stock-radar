@@ -1,6 +1,7 @@
 'use client';
 import TopNav from '@/components/TopNav';
 import SelfCheck from '@/components/SelfCheck';
+import PredictionsDashboard from '@/components/PredictionsDashboard';
 import { Search, Share2, ScanLine } from 'lucide-react';
 
 export default function SelfCheckPage() {
@@ -29,6 +30,8 @@ export default function SelfCheckPage() {
           </div>
 
           <SelfCheck />
+
+          <PredictionsDashboard />
         </div>
       </main>
 
