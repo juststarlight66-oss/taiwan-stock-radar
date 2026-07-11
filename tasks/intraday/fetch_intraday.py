@@ -278,7 +278,7 @@ def compute_score(stock_id: str, quote: dict, hist: list[dict]) -> tuple[float, 
         details["up_days"] = "資料不足"
     score += dim3
 
-    # ── Dimension 4: Volume Surge (0-15) ─────────────────────────────────────
+    # ── Dimension 4: Volume Surge (0-25) ─────────────────────────────────────
     vols_hist = [(_safe_int(h.get("TradeVolume")) or 0) // 20 for h in hist if h.get("TradeVolume")]
     if len(vols_hist) >= 2 and volume:
         avg_5d_vol = sum(vols_hist[-5:]) / min(len(vols_hist), 5)
@@ -286,25 +286,25 @@ def compute_score(stock_id: str, quote: dict, hist: list[dict]) -> tuple[float, 
             estimated_full_day_vol = volume * 1000 * 1.10  # 13:05 已完成 ~90% 交易時間
             vol_ratio = estimated_full_day_vol / avg_5d_vol
             if vol_ratio >= 2.5:
-                dim4 = 15
+                dim4 = 25
                 details["vol_ratio"] = "爆發"
             elif vol_ratio >= 1.8:
-                dim4 = 12
+                dim4 = 20
                 details["vol_ratio"] = "明顯放大"
             elif vol_ratio >= 1.3:
-                dim4 = 8
+                dim4 = 14
                 details["vol_ratio"] = "溫和放量"
             elif vol_ratio >= 1.0:
-                dim4 = 5
+                dim4 = 10
                 details["vol_ratio"] = "持平"
             else:
-                dim4 = 2
+                dim4 = 5
                 details["vol_ratio"] = "量縮"
         else:
-            dim4 = 2
+            dim4 = 5
             details["vol_ratio"] = "量縮"
     else:
-        dim4 = 5
+        dim4 = 10
         details["vol_ratio"] = "資料不足"
     score += dim4
 
@@ -328,32 +328,32 @@ def compute_score(stock_id: str, quote: dict, hist: list[dict]) -> tuple[float, 
     else:
         details["atr"] = 0
 
-    # ── Dimension 5: New High Proximity (0-20) ────────────────────────────────
+    # ── Dimension 5: New High Proximity (0-15) ────────────────────────────────
     if len(closes_hist) >= 2:
         recent_closes = closes_hist[-20:] if len(closes_hist) >= 20 else closes_hist
         high_20 = max(recent_closes)
         if high_20 > 0:
             dist_pct = (cur - high_20) / high_20 * 100
             if dist_pct >= 0:
-                dim5 = 20
+                dim5 = 15
                 details["breakout"] = "創新高"
             elif dist_pct >= -1.0:
-                dim5 = 15
+                dim5 = 10
                 details["breakout"] = "逼近前高"
             elif dist_pct >= -3.0:
-                dim5 = 10
+                dim5 = 7
                 details["breakout"] = "接近高點"
             elif dist_pct >= -5.0:
-                dim5 = 5
+                dim5 = 3
                 details["breakout"] = "區間偏高"
             else:
-                dim5 = 2
+                dim5 = 1
                 details["breakout"] = "偏低"
         else:
-            dim5 = 2
+            dim5 = 1
             details["breakout"] = "偏低"
     else:
-        dim5 = 5
+        dim5 = 3
         details["breakout"] = "資料不足"
     score += dim5
 
