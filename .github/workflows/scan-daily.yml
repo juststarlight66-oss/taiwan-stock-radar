@@ -77,6 +77,11 @@ jobs:
           python3 tasks/2255/strategy3.py 2>&1 || \
             echo "Strategy3 ran with warnings (continuing)."
 
+      - name: Capture today's predictions
+        run: |
+          export PYTHONPATH="$PWD:$PWD/tasks"
+          python3 scripts/track_predictions.py capture public/data/latest.json public/data/predictions_history.json
+
       - name: Commit and push changes
         run: |
           git config user.name "GitHub Actions"
