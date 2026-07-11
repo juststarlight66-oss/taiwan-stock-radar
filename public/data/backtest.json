@@ -2126,6 +2126,35 @@
       }
     },
     {
+      "scan_date": "2026-07-12",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": []
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": []
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": []
+        }
+      }
+    },
+    {
       "scan_date": "2026-07-09",
       "periods": {
         "T1": {
@@ -3199,8 +3228,12 @@
       }
     }
   ],
-  "last_updated": "2026-07-09T19:07:00.500837+08:00",
+  "last_updated": "2026-07-12T06:52:12.030807+08:00",
   "history": [
+    {
+      "date": "2026/07/12",
+      "results": {}
+    },
     {
       "date": "2026/07/09",
       "results": {

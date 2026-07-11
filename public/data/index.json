@@ -11,6 +11,11 @@
   "last_updated": "2026-07-09T19:07:00.500837+08:00",
   "scans": [
     {
+      "date": "20260712",
+      "file": "scan_result_20260712.json",
+      "scan_time": "06:52:12"
+    },
+    {
       "date": "20260709",
       "file": "scan_result_20260709.json",
       "scan_time": "19:07:00",
@@ -44,5 +49,5 @@
       "file": "scan_result_20260630.json"
     }
   ],
-  "updated_at": "2026-07-09T19:07:00.500837+08:00"
+  "updated_at": "2026-07-12T06:52:12.030807+08:00"
 }
