@@ -1,5 +1,5 @@
 'use client';
-import { Activity, Wifi, History, ScanLine, Clock, Search } from 'lucide-react';
+import { Activity, Wifi, History, ScanLine, Clock, Search, TrendingUp } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 const BASE = '/taiwan-stock-radar';
@@ -9,6 +9,7 @@ const NAV_ITEMS = [
   { label: '盤中監控',   href: `${BASE}/intraday`,   icon: <Wifi className="w-3.5 h-3.5" /> },
   { label: '歷史查詢',   href: `${BASE}/history`,    icon: <History className="w-3.5 h-3.5" /> },
   { label: '自主檢查',   href: `${BASE}/selfcheck`,  icon: <Search className="w-3.5 h-3.5" /> },
+  { label: '主升段掃描', href: `${BASE}/main-uptrend`, icon: <TrendingUp className="w-3.5 h-3.5" /> },
 ] as const;
 
 interface TopNavProps {
