@@ -10,6 +10,8 @@ const NAV_ITEMS = [
   { label: '歷史查詢',   href: `${BASE}/history`,    icon: <History className="w-3.5 h-3.5" /> },
   { label: '自主檢查',   href: `${BASE}/selfcheck`,  icon: <Search className="w-3.5 h-3.5" /> },
   { label: '主升段掃描', href: `${BASE}/main-uptrend`, icon: <TrendingUp className="w-3.5 h-3.5" /> },
+  { label: '盤中追蹤',   href: `${BASE}/intraday-predictions`, icon: <Wifi className="w-3.5 h-3.5 text-amber-500" /> },
+  { label: '主升段追蹤', href: `${BASE}/uptrend-predictions`, icon: <TrendingUp className="w-3.5 h-3.5 text-emerald-500" /> },
 ] as const;
 
 interface TopNavProps {
