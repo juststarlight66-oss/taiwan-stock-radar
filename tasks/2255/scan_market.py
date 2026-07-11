@@ -207,30 +207,30 @@ MIN_VOLUME = 500        # 最低成交量門檻（張），過濾流動性不佳
 
 
 DIMENSION_WEIGHTS = {
-    'tech': 0.35,
-    'chips': 0.25,
-    'fundamental': 0.10,
-    'news': 0.10,
-    'sentiment': 0.10,
-    'profit_space': 0.10
+    'tech': 0.25,
+    'chips': 0.22,
+    'fundamental': 0.21,
+    'news': 0.18,
+    'sentiment': 0.14,
+    'profit_space': 0.0
 }
 
-# 獲利空間評分常數
-PROFIT_FRESH_THRESHOLD = 10    # 30日漲幅 < 10% 視為「剛啟動」
-PROFIT_SURGE_BONUS = 10        # 剛啟動爆量的額外加分
-PROFIT_CHASE_WARN = 40         # 30日漲幅 > 40% 視為追高風險
-
-# Load external weights if available
-_w = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'dimension_weights.json')
-if os.path.exists(_w):
-    try:
-        with open(_w, 'r', encoding='utf-8') as f:
-            _ext = json.load(f)
-        for k in ['tech', 'chips', 'fundamental', 'news', 'sentiment', 'profit_space']:
-            if k in _ext:
-                DIMENSION_WEIGHTS[k] = float(_ext[k])
-    except Exception:
-        pass
+# ── 市場自適應權重 ──
+try:
+    from market_state import detect_market_state
+    ms = detect_market_state()
+    DIMENSION_WEIGHTS = {
+        'tech': ms.weights.get('tech', 0.25),
+        'chips': ms.weights.get('chips', 0.22),
+        'fundamental': ms.weights.get('fundamental', 0.21),
+        'news': ms.weights.get('news', 0.18),
+        'sentiment': ms.weights.get('sentiment', 0.14),
+        'profit_space': 0.0,
+    }
+    print(f"[market_state] {ms.state.upper()} | TAIEX {ms.taiex_close} | MA10={ms.ma10} MA20={ms.ma20} MA60={ms.ma60} | xover={ms.crossover_count}")
+    print(f"[market_state] 自適應權重: tech={DIMENSION_WEIGHTS['tech']:.2f} chips={DIMENSION_WEIGHTS['chips']:.2f} fund={DIMENSION_WEIGHTS['fundamental']:.2f} news={DIMENSION_WEIGHTS['news']:.2f} sent={DIMENSION_WEIGHTS['sentiment']:.2f}")
+except Exception as e:
+    print(f"[market_state] 無法讀取市場狀態，使用預設權重: {e}")
 
 
 # ================================================================
