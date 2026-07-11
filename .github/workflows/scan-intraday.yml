@@ -76,3 +76,21 @@ jobs:
           git diff --cached --quiet || git commit -m "data: intraday scan $(date +%Y%m%d-%H%M)"
           # Use --force to handle concurrent pushes from deploy.yml
           git push --force origin gh-pages
+
+      - name: "Capture predictions (intraday tracking)"
+        run: |
+          git checkout main  # back to main for script access
+          # Wait a moment for gh-pages CDN propagation
+          sleep 5
+          python scripts/track_intraday_predictions.py capture
+
+          # Push capture result to gh-pages
+          if [ -f public/data/intraday_predictions_history.json ]; then
+            cp public/data/intraday_predictions_history.json /tmp/intraday_hist.json
+            git fetch origin gh-pages
+            git checkout -B gh-pages origin/gh-pages
+            cp /tmp/intraday_hist.json data/intraday_predictions_history.json
+            git add data/intraday_predictions_history.json
+            git diff --cached --quiet || git commit -m "data: intraday predictions capture $(date +%Y%m%d-%H%M)"
+            git push --force origin gh-pages
+          fi
