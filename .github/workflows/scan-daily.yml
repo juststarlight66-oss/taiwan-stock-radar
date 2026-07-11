@@ -71,21 +71,6 @@ jobs:
           files = glob.glob('public/data/*.json')
           print(f'Data files staged: {len(files)}')"
 
-      - name: Generate intraday stub
-        run: |
-          mkdir -p public/data
-          python3 -c "
-          import json
-          try:
-              with open('public/data/latest.json') as f:
-                  latest = json.load(f)
-              top5 = [{k: v for k, v in r.items() if k in ('stock_id', 'name', 'score', 'close', 'change_pct')} for r in latest.get('top10', [])[:5]]
-              with open('public/data/intraday.json', 'w') as f:
-                  json.dump({'top5': top5, 'generated_at': f'$(date -u +%Y-%m-%dT%H:%M:%SZ)'}, f, ensure_ascii=False)
-              print(f'Intraday stub written with {len(top5)} stocks.')
-          except Exception as e:
-              print(f'Intraday stub skipped: {e}')""
-
       - name: Run Strategy 3 (TPEx small-cap breakout)
         run: |
           export PYTHONPATH="$PWD:$PWD/tasks"
