@@ -89,7 +89,7 @@ export default function MainUptrendPage() {
             <div>
               <h1 className="text-lg font-bold text-gray-900">主升段起漲掃描 Top 10</h1>
               <p className="text-xs text-gray-500 mt-0.5">
-                基於 Condition 三（第一波攻擊）+ Condition 一（主升段強勢）五維評分篩選
+                基於 Condition 三（第一波攻擊）底部起漲硬門檻 + 反向動能評分
               </p>
             </div>
             {data && (
@@ -297,16 +297,16 @@ export default function MainUptrendPage() {
           {/* Scoring methodology card */}
           {data && (
             <div className="bg-white rounded-xl border border-gray-200 p-5">
-              <h3 className="text-sm font-bold text-gray-900 mb-3">評分方法說明</h3>
+              <h3 className="text-sm font-bold text-gray-900 mb-3">評分方法說明（v3 — 底部起漲版）</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-gray-600">
                 <div className="space-y-1.5">
-                  <p><span className="font-semibold text-red-600">Condition 三 (第一波攻擊)：</span>股價站上 MA5/MA10/MA20 三線、成交量放大（量比&gt;1.5）、近期出現底部轉強訊號</p>
-                  <p><span className="font-semibold text-sky-600">Condition 一 (主升段強勢)：</span>趨勢確立、均線多頭排列、股價沿 MA5 攻擊、籌碼集中</p>
+                  <p><span className="font-semibold text-red-600">硬門檻（未通過不評分）：</span>chg_30d &lt; 10%、chg_5d &lt; 8%、vol_ratio &ge; 2.0、收盤 &gt; MA5</p>
+                  <p><span className="font-semibold text-sky-600">Condition 一（主升段強勢）：</span>僅標籤顯示，不影響排名（避免已漲高標的衝分數）</p>
                 </div>
                 <div className="space-y-1.5">
                   <p><span className="font-semibold">篩選條件：</span>股本 &lt; 30億、股價 &gt; 5元、5日均量 &gt; 500張</p>
-                  <p><span className="font-semibold">五維權重：</span>技術面 35%、籌碼面 25%、基本面 10%、消息面 10%、情緒面 10%、獲利空間 10%</p>
-                  <p><span className="font-semibold">連續強勢加分：</span>前 N 日連續出現於 Top 40 者，每天 +3 分，上限 +10 分（降低一日行情干擾）</p>
+                  <p><span className="font-semibold">五維權重：</span>量能(30) + 均線位置(25) + 底部新鮮度(20) + 股本品質(15) + 動能(10，反向：小漲高分、大漲懲罰)</p>
+                  <p><span className="font-semibold">連續強勢加分：</span>前 N 日連續出現於 Top 40 者，每天 +3 分，上限 +10 分</p>
                   <p><span className="font-semibold">更新時間：</span>{data.generated_at || 'N/A'}</p>
                 </div>
               </div>
