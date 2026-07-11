@@ -226,7 +226,7 @@ if os.path.exists(_w):
     try:
         with open(_w, 'r', encoding='utf-8') as f:
             _ext = json.load(f)
-        for k in ['tech', 'chips', 'fundamental', 'news', 'sentiment']:
+        for k in ['tech', 'chips', 'fundamental', 'news', 'sentiment', 'profit_space']:
             if k in _ext:
                 DIMENSION_WEIGHTS[k] = float(_ext[k])
     except Exception:
@@ -885,6 +885,20 @@ def compute_composite_score(d: Dict) -> Dict:
             total += 3   # 產業溫和偏多
         if d.get('change_pct', 0) > avg + 2:
             total += 2   # 個股領漲同族群
+    # ── 震盪盤防禦：30日漲幅>20%但量能萎縮 → 追高風險 ──
+    history_d = d.get('history', [])
+    vol_d = d.get('volume', 0)
+    if history_d and len(history_d) >= 30 and vol_d > 0:
+        closes_30 = [h['close'] for h in history_d]
+        volumes_30 = [h['volume'] for h in history_d]
+        ref_30 = closes_30[-(30 + 1)] if len(closes_30) >= 31 else closes_30[0]
+        if ref_30 > 0:
+            chg_30d_osc = (closes_30[-1] - ref_30) / ref_30 * 100
+            if chg_30d_osc > 20:
+                avg_vol_5 = sum(volumes_30[-6:-1]) / 5 if len(volumes_30) >= 6 else vol_d
+                avg_vol_20 = sum(volumes_30[-21:-1]) / 20 if len(volumes_30) >= 21 else avg_vol_5
+                if avg_vol_20 > 0 and avg_vol_5 < avg_vol_20 * 0.8:
+                    total -= 15  # 震盪盤：漲多量縮 → 降評
     scores['total'] = round(total, 2)
     return scores
 
