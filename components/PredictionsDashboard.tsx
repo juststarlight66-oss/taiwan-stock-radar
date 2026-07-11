@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Trophy, Target, Calendar, TrendingUp, TrendingDown, Minus, BarChart3 } from 'lucide-react';
+import { Trophy, Target, Calendar, TrendingUp, TrendingDown, Minus, BarChart3, RefreshCw, Zap } from 'lucide-react';
 
 // ── Types ────────────────────────────────────────────────────────────────
 
@@ -22,6 +22,22 @@ interface PredictionStock {
   entry_price: number;
   change_pct: number;
   sector: string;
+}
+
+interface BacktestProfile {
+  name: string;
+  win_rate: number;
+  avg_return: number;
+  total: number;
+  wins: number;
+}
+
+interface BacktestComparison {
+  generated_at: string;
+  scan_dates_used: number;
+  profiles: BacktestProfile[];
+  baseline: BacktestProfile | null;
+  top_profile: string | null;
 }
 
 const BASE = '/taiwan-stock-radar';
@@ -132,17 +148,20 @@ function ReturnBadge({ value, period }: { value: number | null; period: string }
 
 export default function PredictionsDashboard() {
   const [history, setHistory] = useState<PredictionDay[]>([]);
+  const [backtest, setBacktest] = useState<BacktestComparison | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch(`${BASE}/data/predictions_history.json`, { cache: 'no-store' })
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return res.json();
-      })
-      .then((data: PredictionDay[]) => {
-        setHistory(data.slice(0, 60)); // last 60 trading days
+    Promise.all([
+      fetch(`${BASE}/data/predictions_history.json`, { cache: 'no-store' }).then(r => r.json()),
+      fetch(`${BASE}/data/backtest_comparison.json`, { cache: 'no-store' })
+        .then(r => r.json())
+        .catch(() => null),
+    ])
+      .then(([hist, bt]: [PredictionDay[], BacktestComparison | null]) => {
+        setHistory(hist.slice(0, 60));
+        if (bt) setBacktest(bt);
       })
       .catch((err) => {
         setError(err.message);
@@ -341,6 +360,67 @@ export default function PredictionsDashboard() {
               <div className="w-2 h-2 rounded-full bg-emerald-500/80" />
               <span className="text-[8px] text-gray-400">T+1 &lt; 0</span>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Backtest Comparison (profile weights) */}
+      {backtest && backtest.profiles && backtest.profiles.length > 0 && (
+        <div className="px-5 pt-3 pb-0">
+          <div className="rounded-xl border border-purple-100 bg-purple-50/30 p-3">
+            <div className="flex items-center gap-2 mb-2">
+              <RefreshCw className="w-3.5 h-3.5 text-purple-500" />
+              <p className="text-[10px] text-purple-700 font-semibold">
+                權重回測對比（{backtest.scan_dates_used} 天資料）
+              </p>
+              {backtest.top_profile && (
+                <span className="text-[9px] text-purple-500 bg-purple-100 px-1.5 py-0.5 rounded-full">
+                  最佳: {backtest.top_profile}
+                </span>
+              )}
+            </div>
+            <div className="space-y-1">
+              {backtest.profiles.map((p) => {
+                const isTop = backtest.top_profile === p.name;
+                const isBase = p.name === 'baseline';
+                return (
+                  <div
+                    key={p.name}
+                    className={`flex items-center gap-2 px-3 py-1.5 rounded-lg ${
+                      isTop ? 'bg-purple-100 border border-purple-200' :
+                      isBase ? 'bg-white border border-purple-50' :
+                      'bg-white/60'
+                    }`}
+                  >
+                    <span className={`text-[10px] w-28 shrink-0 ${
+                      isTop ? 'text-purple-800 font-bold' : 'text-gray-700'
+                    }`}>
+                      {p.name.replace(/-/g, ' ')}
+                      {isBase && <span className="text-[8px] text-gray-400 ml-1">(current)</span>}
+                    </span>
+                    <div className="flex-1 relative h-5 bg-gray-100 rounded-full overflow-hidden min-w-[80px]">
+                      <div
+                        className="absolute inset-y-0 left-0 bg-gradient-to-r from-purple-400 to-purple-500 rounded-full transition-all"
+                        style={{ width: `${Math.min(p.win_rate, 100)}%` }}
+                      />
+                      <span className="absolute inset-0 flex items-center justify-center text-[9px] font-mono font-bold text-gray-700">
+                        {p.win_rate}%
+                      </span>
+                    </div>
+                    <span className="text-[9px] text-gray-500 w-16 text-right font-mono">
+                      {p.avg_return >= 0 ? '+' : ''}{p.avg_return}%
+                    </span>
+                    <span className="text-[8px] text-gray-400 w-12 text-right">
+                      ({p.wins}/{p.total})
+                    </span>
+                    {isTop && <Zap className="w-3 h-3 text-amber-500 shrink-0" />}
+                  </div>
+                );
+              })}
+            </div>
+            <p className="text-[8px] text-gray-400 mt-2 text-right">
+              每週六自動更新 | 模擬用同一天全市場數據、不同權重組合重新評分 Top 10
+            </p>
           </div>
         </div>
       )}
