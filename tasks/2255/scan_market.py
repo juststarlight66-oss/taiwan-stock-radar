@@ -167,6 +167,9 @@ TSE_DAILY_URL = "https://www.twse.com.tw/exchangeReport/STOCK_DAY"
 LISTEDSTATUS = "https://www.twse.com.tw/exchangeReport/STOCK_DAY_ALL"
 TPEX_DAILY_URL = "https://www.tpex.org.tw/openapi/v1/tpex_mainboard_daily_close_quotes"
 FUND_URL = "https://www.twse.com.tw/exchangeReport/BWIBBU_ALL?response=json"
+MARGN_URL = "https://www.twse.com.tw/exchangeReport/MI_MARGN?response=json&date={date}&selectType=ALL"
+TWT44U_URL = "https://www.twse.com.tw/fund/TWT44U?response=json&date={date}"
+TWT43U_URL = "https://www.twse.com.tw/fund/TWT43U?response=json&date={date}"
 TPEX_LISTED_URL = "https://www.tpex.org.tw/openapi/v1/mopsfin_t187ap03_O"
 
 # ================================================================
@@ -505,6 +508,85 @@ def fetch_fundamentals(stock_id: str) -> Dict:
         return {'pe': 0, 'pb': 0, 'dy': 0}
 
 
+def fetch_margin_all(scan_date: str) -> Dict[str, Dict]:
+    """v8.2: 下載全市場融資融券餘額"""
+    result = {}
+    try:
+        resp = _http_get(MARGN_URL.format(date=scan_date), timeout=30)
+        data = resp.json()
+        tables = data.get('tables', []) if isinstance(data, dict) else []
+        for t in tables:
+            rows = t.get('data', [])
+            if not rows or not t.get('fields', []) or len(t['fields']) < 14:
+                continue
+            for row in rows:
+                try:
+                    code = str(row[0]).strip()
+                    if not code or len(code) < 4:
+                        continue
+                    margin_today = float(str(row[6]).replace(',', ''))
+                    margin_prev = float(str(row[5]).replace(',', ''))
+                    short_today = float(str(row[10]).replace(',', ''))
+                    short_prev = float(str(row[9]).replace(',', ''))
+                    result[code] = {'margin_today': margin_today, 'margin_prev': margin_prev,
+                                   'short_today': short_today, 'short_prev': short_prev}
+                except (ValueError, IndexError):
+                    continue
+        print(f"[下載] 成功下載 {len(result)} 筆融資融券數據")
+    except Exception as e:
+        print(f"[下載] 融資融券數據下載失敗: {e}")
+    return result
+
+
+def fetch_trust_all(scan_date: str) -> Dict[str, int]:
+    """v8.2: 下載全市場投信買賣超"""
+    result = {}
+    try:
+        resp = _http_get(TWT44U_URL.format(date=scan_date), timeout=30)
+        data = resp.json()
+        rows = data.get('data', []) if isinstance(data, dict) else []
+        for row in rows:
+            try:
+                code = str(row[1]).strip()
+                if not code or len(code) < 4:
+                    continue
+                net_buy = float(str(row[5]).replace(',', '')) if len(row) >= 6 else 0
+                result[code] = int(net_buy)
+            except (ValueError, IndexError):
+                continue
+        print(f"[下載] 成功下載 {len(result)} 筆投信買賣超")
+    except Exception as e:
+        print(f"[下載] 投信買賣超下載失敗: {e}")
+    return result
+
+
+def fetch_dealer_all(scan_date: str) -> Dict[str, int]:
+    """v8.2: 下載全市場自營商買賣超（合計自行+避險）"""
+    result = {}
+    try:
+        resp = _http_get(TWT43U_URL.format(date=scan_date), timeout=30)
+        data = resp.json()
+        rows = data.get('data', []) if isinstance(data, dict) else []
+        for row in rows:
+            try:
+                code = str(row[0]).strip()
+                if not code or len(code) < 4:
+                    continue
+                dealer_net1 = int(float(str(row[4]).replace(',', ''))) if len(row) >= 5 else 0
+                dealer_net2 = int(float(str(row[7]).replace(',', ''))) if len(row) >= 8 else 0
+                total_net = dealer_net1 + dealer_net2
+                if code in result:
+                    result[code] += total_net
+                else:
+                    result[code] = total_net
+            except (ValueError, IndexError):
+                continue
+        print(f"[下載] 成功下載 {len(result)} 筆自營商買賣超")
+    except Exception as e:
+        print(f"[下載] 自營商買賣超下載失敗: {e}")
+    return result
+
+
 # ================================================================
 # 板塊統計計算 (v8 新增 - 用於消息面評分)
 # ================================================================
@@ -678,71 +760,90 @@ def score_chips(d: Dict) -> float:
 
 
 def score_fundamental(d: Dict) -> float:
-    """基本面 15% 權重（沿用既有邏輯，穩定可靠）"""
+    """v8.2: 連續式基本面評分 — PE/PB/DY 都用連續公式取代門檻"""
     f = d.get('fundamentals', {})
     pe = f.get('pe', 0)
     pb = f.get('pb', 0)
     dy = f.get('dy', 0)
-    score = 50.0
+    score = 0.0
 
-    if 0 < pe <= 10:
-        score += 20
-    elif 0 < pe <= 15:
-        score += 10
-    elif pe > 40 or pe < 0:
-        score -= 15
+    # PE: continuous — lower is better, inverse proportional (10 unique values across 5-40)
+    if pe > 0:
+        pe_score = max(0.0, min(25.0, 25 * (10 / max(pe, 5))))
+        score += pe_score
 
-    if 0 < pb <= 1:
-        score += 15
-    elif 0 < pb <= 2:
-        score += 8
-    elif pb > 5:
-        score -= 10
+    # PB: continuous — lower is better
+    if pb > 0:
+        pb_score = max(0.0, min(20.0, 20 * (1.5 / max(pb, 0.5))))
+        score += pb_score
 
-    if dy >= 5:
-        score += 15
-    elif dy >= 3:
-        score += 8
-    elif dy >= 1:
-        score += 3
+    # DY: continuous — higher is better
+    if dy >= 0:
+        dy_score = min(25.0, dy * 5)
+        score += dy_score
+
+    # PE x DY cross bonus: deep value combo (low PE + high yield)
+    if pe > 0 and dy > 0:
+        if pe < 15 and dy > 3:
+            cross = min(10.0, (15 - pe) * 0.5 + (dy - 3) * 2)
+            score += max(0.0, cross)
+
+    # Sector-relative PE normalization
+    sector_pe_avg = d.get('_sector_pe_avg', 0)
+    if sector_pe_avg > 0 and pe > 0:
+        pe_diff_pct = (pe - sector_pe_avg) / sector_pe_avg
+        if pe_diff_pct < -0.3:
+            score += 5
+        elif pe_diff_pct < -0.1:
+            score += 3
+        elif pe_diff_pct > 0.5:
+            score -= 3
 
     return max(0.0, min(100.0, score))
 
 
-def score_news(d: Dict) -> float:
-    """
-    消息面 10% 權重 (v8 重寫)
-    改為：同產業板塊連動評分
-    如果同族群股票普遍上漲，表示有產業級消息支撐（如政策、供需）
-    """
-    sector_stats = d.get('_sector_stats', {})
-    sector_name = d.get('sector_name', '')
-    chg = d.get('change_pct', 0)
+def score_flow(d: Dict) -> float:
+    """v8.2: 籌碼流向評分 — 融資券變化 + 法人買賣超 (取代舊消息面)"""
     score = 50.0
+    chg = d.get('change_pct', 0) or 0
+    vol = d.get('volume', 0) or 0
 
-    if sector_name and sector_name in sector_stats:
-        s = sector_stats[sector_name]
-        avg = s.get('avg_chg', 0)
-        up_ratio = s.get('up_ratio', 0)
+    flow = d.get('_flow', {})
+    margin_today = flow.get('margin_today', 0)
+    margin_prev = flow.get('margin_prev', 0)
+    short_today = flow.get('short_today', 0)
+    trust_net = flow.get('trust_net', 0)
+    dealer_net = flow.get('dealer_net', 0)
 
-        # 產業板塊強勢
-        if avg > 2 and up_ratio > 0.6:
-            score += 25
-        elif avg > 1:
-            score += 15
-        elif avg < -2 and up_ratio < 0.4:
-            score -= 15
+    # Margin balance change — continuous linear scoring
+    if margin_prev > 0:
+        margin_chg_pct = (margin_today - margin_prev) / margin_prev * 100
+        margin_signal = max(-15.0, min(15.0, -margin_chg_pct * 3))
+        score += margin_signal
 
-        # 相對板塊強弱
-        if chg > avg + 2:
-            score += 15  # 領漲同族群
-        elif chg < avg - 2:
-            score -= 10  # 落後同族群
-        elif abs(chg - avg) <= 1:
-            score += 5   # 穩定跟隨
-    else:
-        # 無板塊數據 fallback
-        score += chg
+    # Short ratio — moderate short interest = squeeze candidate
+    if margin_today > 0 and short_today > 0:
+        short_ratio = short_today / margin_today
+        if 0.01 <= short_ratio <= 0.15:
+            score += min(8.0, short_ratio * 40)
+
+    # Trust net buy — continuous proportional to volume
+    if vol > 0 and trust_net != 0:
+        trust_ratio = trust_net / vol
+        score += max(-15.0, min(15.0, trust_ratio * 300))
+
+    # Dealer net buy — continuous proportional to volume
+    if vol > 0 and dealer_net != 0:
+        dealer_ratio = dealer_net / vol
+        score += max(-10.0, min(10.0, dealer_ratio * 300))
+
+    # Price-margin divergence: price up + margin down = strongest signal
+    if margin_prev > 0 and chg > 0:
+        margin_chg_pct = (margin_today - margin_prev) / margin_prev * 100
+        if chg > 1 and margin_chg_pct < -1:
+            score += 8
+        elif chg > 1 and margin_chg_pct > 2:
+            score -= 6
 
     return max(0.0, min(100.0, score))
 
@@ -854,7 +955,7 @@ def compute_composite_score(d: Dict) -> Dict:
         'technical': score_technical(d),
         'chips': score_chips(d),
         'fundamental': score_fundamental(d),
-        'news': score_news(d),
+        'news': score_flow(d),  # v8.2: flow-based, uses _flow dict
         'sentiment': score_sentiment(d),
         'profit_space': score_profit_space(d),
     }
@@ -1115,6 +1216,25 @@ def run_scan(scan_date: str = None) -> Dict:
         print(f"[下載] 成功下載 {len(all_fundamentals)} 筆基本面數據")
     except Exception as e:
         print(f"[下載] 預先下載基本面失敗: {e}")
+
+    # 1b. v8.2 籌碼流向數據（融資券 + 法人買賣超）
+    all_margin = fetch_margin_all(scan_date)
+    all_trust = fetch_trust_all(scan_date)
+    all_dealer = fetch_dealer_all(scan_date)
+
+    # 1c. 計算產業 PE 中位數（用於基本面 sector-relative）
+    sector_pe_lists: Dict[str, List[float]] = {}
+    for code, f in all_fundamentals.items():
+        if f.get('pe', 0) > 0:
+            sec = stock_industry.get(code, '')
+            if sec:
+                sector_pe_lists.setdefault(sec, []).append(f['pe'])
+    sector_pe_avg = {}
+    for sec, pes in sector_pe_lists.items():
+        if pes:
+            pes_sorted = sorted(pes)
+            sector_pe_avg[sec] = pes_sorted[len(pes_sorted)//2]  # median
+    print(f"[分析] 計算 {len(sector_pe_avg)} 個產業 PE 中位數")
 
     # 2. 上櫃日 K（全市場）
     all_tpex_quotes = {}
@@ -1381,6 +1501,15 @@ def run_scan(scan_date: str = None) -> Dict:
                 'name': name,
                 'sector_name': sector,
                 '_sector_stats': sector_stats,
+                '_sector_pe_avg': sector_pe_avg.get(sector, 0),
+                '_flow': {
+                    'margin_today': all_margin.get(sid, {}).get('margin_today', 0),
+                    'margin_prev': all_margin.get(sid, {}).get('margin_prev', 0),
+                    'short_today': all_margin.get(sid, {}).get('short_today', 0),
+                    'short_prev': all_margin.get(sid, {}).get('short_prev', 0),
+                    'trust_net': all_trust.get(sid, 0),
+                    'dealer_net': all_dealer.get(sid, 0),
+                },
                 'history': history.copy() if history else [],
                 '_history': history.copy() if history else [],
             }

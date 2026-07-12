@@ -12,9 +12,9 @@ States:
   Bear  — index below 60MA (defensive / value-oriented)
 
 Weight philosophy:
-  Bull:  chase momentum — higher technical (trends persist) + news (catalysts stack)
-  Range: exploit mean-reversion — higher chips (volume breaks matter) + fundamental (value)
-  Bear:  capital preservation — higher fundamental (safety) + sentiment (oversold bounce)
+  Bull:  chase momentum — higher technical (trends persist) + flow (institutional follow)
+  Range: exploit mean-reversion — higher chips (volume breaks matter) + flow (margin signals)
+  Bear:  capital preservation — higher fundamental (safety) + sentiment (oversold bounce) + flow (margin contraction)
 """
 
 import json
@@ -34,23 +34,23 @@ TAIEX_TICKER = "^TWII"
 STATE_WEIGHTS = {
     "bull": {
         "tech": 0.30,
-        "chips": 0.20,
-        "fundamental": 0.15,
-        "news": 0.20,
-        "sentiment": 0.15,
+        "chips": 0.15,
+        "fundamental": 0.20,
+        "news": 0.25,
+        "sentiment": 0.10,
     },
     "range": {
         "tech": 0.20,
-        "chips": 0.30,
+        "chips": 0.25,
         "fundamental": 0.20,
-        "news": 0.15,
-        "sentiment": 0.15,
+        "news": 0.25,
+        "sentiment": 0.10,
     },
     "bear": {
         "tech": 0.15,
-        "chips": 0.15,
-        "fundamental": 0.35,
-        "news": 0.15,
+        "chips": 0.10,
+        "fundamental": 0.30,
+        "news": 0.25,
         "sentiment": 0.20,
     },
 }
