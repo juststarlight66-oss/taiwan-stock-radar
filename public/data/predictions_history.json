@@ -1,5 +1,119 @@
 [
   {
+    "scan_date": "20260712",
+    "captured_at": "2026-07-12T08:39:57.209214+08:00",
+    "state": "bull",
+    "weights": {
+      "tech": 0.3,
+      "chips": 0.15,
+      "fundamental": 0.2,
+      "news": 0.25,
+      "sentiment": 0.1
+    },
+    "top10": [
+      {
+        "stock_id": "1102",
+        "name": "亞泥",
+        "entry_price": 35.7,
+        "change_pct": 0.28,
+        "sector": "食品工業",
+        "market": "",
+        "total_score": 0
+      },
+      {
+        "stock_id": "1218",
+        "name": "泰山",
+        "entry_price": 16.85,
+        "change_pct": 1.51,
+        "sector": "食品工業",
+        "market": "",
+        "total_score": 0
+      },
+      {
+        "stock_id": "1402",
+        "name": "遠東新",
+        "entry_price": 27.45,
+        "change_pct": 1.48,
+        "sector": "紡織纖維",
+        "market": "",
+        "total_score": 0
+      },
+      {
+        "stock_id": "1446",
+        "name": "宏和",
+        "entry_price": 15.0,
+        "change_pct": 0.0,
+        "sector": "紡織纖維",
+        "market": "",
+        "total_score": 0
+      },
+      {
+        "stock_id": "2536",
+        "name": "宏普",
+        "entry_price": 19.55,
+        "change_pct": 3.17,
+        "sector": "建材營造",
+        "market": "",
+        "total_score": 0
+      },
+      {
+        "stock_id": "2603",
+        "name": "長榮",
+        "entry_price": 194.5,
+        "change_pct": 0.78,
+        "sector": "航運業",
+        "market": "",
+        "total_score": 0
+      },
+      {
+        "stock_id": "2618",
+        "name": "長榮航",
+        "entry_price": 39.6,
+        "change_pct": 0.64,
+        "sector": "航運業",
+        "market": "",
+        "total_score": 0
+      },
+      {
+        "stock_id": "2834",
+        "name": "臺企銀",
+        "entry_price": 17.95,
+        "change_pct": 1.7,
+        "sector": "金融保險",
+        "market": "",
+        "total_score": 0
+      },
+      {
+        "stock_id": "3005",
+        "name": "神基",
+        "entry_price": 112.0,
+        "change_pct": 4.19,
+        "sector": "電子零組件",
+        "market": "",
+        "total_score": 0
+      },
+      {
+        "stock_id": "9904",
+        "name": "寶成",
+        "entry_price": 24.25,
+        "change_pct": 0.21,
+        "sector": "綜合",
+        "market": "",
+        "total_score": 0
+      }
+    ],
+    "t1_close": null,
+    "t1_return": null,
+    "t1_check_date": null,
+    "t3_close": null,
+    "t3_return": null,
+    "t3_check_date": null,
+    "t5_close": null,
+    "t5_return": null,
+    "t5_check_date": null,
+    "win": null
+  },
+  {
     "scan_date": "20260711",
     "captured_at": "2026-07-12T07:58:44.390847+08:00",
     "state": "bull",
