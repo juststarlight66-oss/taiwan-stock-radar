@@ -1218,9 +1218,22 @@ def run_scan(scan_date: str = None) -> Dict:
         print(f"[下載] 預先下載基本面失敗: {e}")
 
     # 1b. v8.2 籌碼流向數據（融資券 + 法人買賣超）
-    all_margin = fetch_margin_all(scan_date)
-    all_trust = fetch_trust_all(scan_date)
-    all_dealer = fetch_dealer_all(scan_date)
+    # 融資/法人資料只在交易日有，需往前找最後交易日
+    flow_date = scan_date
+    for back in range(5):
+        try:
+            test = _http_get(MARGN_URL.format(date=flow_date), timeout=10)
+            test_data = test.json()
+            if test_data.get('stat') == 'OK':
+                break
+        except Exception:
+            pass
+        flow_date = (datetime.strptime(flow_date, '%Y%m%d') - timedelta(days=1)).strftime('%Y%m%d')
+    print(f"[下載] 籌碼流向使用日期: {flow_date}")
+
+    all_margin = fetch_margin_all(flow_date)
+    all_trust = fetch_trust_all(flow_date)
+    all_dealer = fetch_dealer_all(flow_date)
 
     # 1c. 計算產業 PE 中位數（用於基本面 sector-relative）
     sector_pe_lists: Dict[str, List[float]] = {}
