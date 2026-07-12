@@ -278,34 +278,35 @@ def compute_score(stock_id: str, quote: dict, hist: list[dict]) -> tuple[float, 
         details["up_days"] = "資料不足"
     score += dim3
 
-    # ── Dimension 4: Volume Surge (0-25) ─────────────────────────────────────
-    vols_hist = [(_safe_int(h.get("TradeVolume")) or 0) // 20 for h in hist if h.get("TradeVolume")]
-    if len(vols_hist) >= 2 and volume:
-        avg_5d_vol = sum(vols_hist[-5:]) / min(len(vols_hist), 5)
-        if avg_5d_vol > 0:
-            estimated_full_day_vol = volume * 1000 * 1.10  # 13:05 已完成 ~90% 交易時間
-            vol_ratio = estimated_full_day_vol / avg_5d_vol
-            if vol_ratio >= 2.5:
-                dim4 = 25
-                details["vol_ratio"] = "爆發"
-            elif vol_ratio >= 1.8:
-                dim4 = 20
-                details["vol_ratio"] = "明顯放大"
-            elif vol_ratio >= 1.3:
-                dim4 = 14
-                details["vol_ratio"] = "溫和放量"
-            elif vol_ratio >= 1.0:
-                dim4 = 10
-                details["vol_ratio"] = "持平"
-            else:
-                dim4 = 5
-                details["vol_ratio"] = "量縮"
-        else:
+    # ── Dimension 4: Volume Surge (0-15) ────────────────────────────────
+    # v3: use prev-day volume from scan_result.json, not sparse monthly history
+    baseline_vol = _safe_int(hist[0].get('_prev_volume')) if hist else 0
+    if baseline_vol and volume:
+        full_day_vol_est = volume * 1000  # MIS gives volume in lots, convert to shares
+        vol_ratio = full_day_vol_est / baseline_vol
+        if vol_ratio >= 2.5:
+            dim4 = 15
+            details['vol_ratio'] = '爆發'
+            details['vol_ratio_value'] = round(vol_ratio, 2)
+        elif vol_ratio >= 1.8:
+            dim4 = 12
+            details['vol_ratio'] = '明顯放大'
+            details['vol_ratio_value'] = round(vol_ratio, 2)
+        elif vol_ratio >= 1.3:
+            dim4 = 8
+            details['vol_ratio'] = '溫和放量'
+            details['vol_ratio_value'] = round(vol_ratio, 2)
+        elif vol_ratio >= 1.0:
             dim4 = 5
-            details["vol_ratio"] = "量縮"
+            details['vol_ratio'] = '持平'
+            details['vol_ratio_value'] = round(vol_ratio, 2)
+        else:
+            dim4 = 2
+            details['vol_ratio'] = '量縮'
+            details['vol_ratio_value'] = round(vol_ratio, 2)
     else:
-        dim4 = 10
-        details["vol_ratio"] = "資料不足"
+        dim4 = 5
+        details['vol_ratio'] = '資料不足'
     score += dim4
 
     # ── ATR calculation (for dynamic target/stop) ──────────────────────────
@@ -328,40 +329,42 @@ def compute_score(stock_id: str, quote: dict, hist: list[dict]) -> tuple[float, 
     else:
         details["atr"] = 0
 
-    # ── Dimension 5: New High Proximity (0-15) ────────────────────────────────
+    # ── Dimension 5: New High Proximity (0-20) ────────────────────────────────
     if len(closes_hist) >= 2:
         recent_closes = closes_hist[-20:] if len(closes_hist) >= 20 else closes_hist
         high_20 = max(recent_closes)
         if high_20 > 0:
             dist_pct = (cur - high_20) / high_20 * 100
             if dist_pct >= 0:
-                dim5 = 15
+                dim5 = 20
                 details["breakout"] = "創新高"
             elif dist_pct >= -1.0:
-                dim5 = 10
+                dim5 = 15
                 details["breakout"] = "逼近前高"
             elif dist_pct >= -3.0:
-                dim5 = 7
+                dim5 = 10
                 details["breakout"] = "接近高點"
             elif dist_pct >= -5.0:
-                dim5 = 3
+                dim5 = 5
                 details["breakout"] = "區間偏高"
             else:
-                dim5 = 1
+                dim5 = 2
                 details["breakout"] = "偏低"
         else:
-            dim5 = 1
+            dim5 = 2
             details["breakout"] = "偏低"
     else:
-        dim5 = 3
+        dim5 = 5
         details["breakout"] = "資料不足"
     score += dim5
 
     return round(score, 1), details
 
 
-def scan_intraday_top5(history_bulk: dict[str, list[dict]]) -> list[dict]:
+def scan_intraday_top5(history_bulk: dict[str, list[dict]], sector_stats: dict = None, stock_lookup: dict = None) -> list[dict]:
     """Full intraday scan: fetch live quotes + score + return Top 5."""
+    sector_stats = sector_stats or {}
+    stock_lookup = stock_lookup or {}
     log("Fetching market breadth...")
     all_ids = fetch_market_breadth()
     log(f"  found {len(all_ids)} stocks")
@@ -395,12 +398,21 @@ def scan_intraday_top5(history_bulk: dict[str, list[dict]]) -> list[dict]:
         hist = history_bulk.get(sid, [])
         score, details = compute_score(sid, q, hist)
         if score >= 50:
+            # v3: sector data
+            sec_name = ""
+            if hist:
+                sec_name = hist[0].get("_sector_name", "")
+            si = sector_stats.get(sec_name, {})
             scored.append({
                 "stock_id": sid,
                 "name": q.get("name", sid),
                 "quote": q,
                 "score": score,
                 "details": details,
+                "sector_name": sec_name,
+                "sector_rank": si.get("rank", 0),
+                "sector_momentum": si.get("momentum_label", ""),
+                "sector_avg_chg": si.get("avg_chg", 0),
             })
 
     scored.sort(key=lambda x: x["score"], reverse=True)
@@ -621,7 +633,43 @@ def main():
     history_bulk = fetch_day_history_bulk(today_str)
     log(f"  got history for {len(history_bulk)} stocks")
 
-    top5 = scan_intraday_top5(history_bulk)
+    # ── v3: load scan_result for sector stats + prev_volume enrichment ──
+    scan_result_path = REPO_DIR / "tasks/2255/scan_result.json"
+    sector_stats = {}
+    stock_lookup = {}
+    if scan_result_path.exists():
+        try:
+            with open(scan_result_path) as f:
+                scan_data = json.load(f)
+            for sc in scan_data.get("all_stock_scores", []):
+                stock_lookup[sc["stock_id"]] = sc
+            # Build sector stats
+            from collections import defaultdict
+            sectors_chg = defaultdict(list)
+            for sc in stock_lookup.values():
+                sec = sc.get("sector_name", "")
+                chg = sc.get("change_pct", 0) or 0
+                if sec and abs(chg) < 20:
+                    sectors_chg[sec].append(chg)
+            ranked = sorted(
+                [(sec, sum(chgs)/len(chgs)) for sec, chgs in sectors_chg.items() if len(chgs) >= 3],
+                key=lambda x: -x[1]
+            )
+            for rank, (sec, avg_chg) in enumerate(ranked, 1):
+                sector_stats[sec] = {"rank": rank, "avg_chg": round(avg_chg, 2),
+                    "momentum_label": "極強勢" if rank <= 6 else "強勢" if rank <= 12 else "中性" if rank <= 20 else "弱勢"}
+            log(f"  sector stats: {len(sector_stats)} sectors, #1: {ranked[0][0]}({ranked[0][1]:+.1f}%)")
+            # Enrich history bulk
+            for sid, entries in history_bulk.items():
+                sc = stock_lookup.get(sid, {})
+                for e in entries:
+                    e["_prev_volume"] = sc.get("volume", 0) or 0
+                    e["_sector_name"] = sc.get("sector_name", "")
+            log(f"  enriched {len(history_bulk)} stocks with prev_volume + sector")
+        except Exception as e:
+            log(f"  WARNING: scan_result enrichment failed: {e}")
+
+    top5 = scan_intraday_top5(history_bulk, sector_stats, stock_lookup)
 
     stocks_out = []
     for s in top5:
@@ -636,10 +684,22 @@ def main():
         else:
             target = round(cur * 1.08, 2) if cur else 0
             stop_loss = round(cur * 0.95, 2) if cur else 0
+
+        # ── Entry Zone Filter (v3) ─────────────────────────────────────
+        # Skip stocks where live.change_pct > target_pct/2
+        # (stock already ran up too much, bad entry)
+        prev_close = q.get("prev_close") or 0
+        if prev_close and target and cur:
+            target_pct_overall = (target - prev_close) / prev_close * 100
+            live_chg = q.get("change_pct") or 0
+            if live_chg > target_pct_overall / 2:
+                continue
         stocks_out.append({
             "stock_id": s["stock_id"],
             "name": s["name"],
-            "sector": "",
+            "sector": s.get("sector_name", ""),
+            "sector_rank": s.get("sector_rank", 0),
+            "sector_momentum": s.get("sector_momentum", ""),
             "score": s["score"],
             "details": det,
             "total_score": s["score"],
