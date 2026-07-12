@@ -205,6 +205,14 @@ def main():
 
         profit_space = calculate_profit_space(entry, stop, t1)
 
+        # Back-compute prev_close from close + change_pct so live.current
+        # and live.prev_close are distinct (not both == close).
+        close_val = s.get("close", 0)
+        if change_pct and change_pct != 0:
+            prev_close = round(close_val / (1 + change_pct / 100), 2)
+        else:
+            prev_close = close_val
+
         scored.append({
             "stock_id": s["stock_id"],
             "name": normalize_name(s["name"]),
@@ -230,11 +238,11 @@ def main():
                 "total": round(total, 2),
             },
             "live": {
-                "current": s.get("close", 0),
-                "open": s.get("close", 0),  # fallback (no intraday OHLC available)
-                "high": s.get("close", 0),
-                "low": s.get("close", 0),
-                "prev_close": s.get("close", 0),
+                "current": close_val,
+                "open": close_val,  # fallback (no intraday OHLC available)
+                "high": close_val,
+                "low": close_val,
+                "prev_close": prev_close,
                 "volume": s.get("volume", 0),
                 "change_pct": change_pct,
                 "time": datetime.now().strftime("%H:%M:%S"),
