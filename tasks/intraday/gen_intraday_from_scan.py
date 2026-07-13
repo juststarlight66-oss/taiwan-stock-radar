@@ -1,285 +1,323 @@
 #!/usr/bin/env python3
 """
-gen_intraday_from_scan.py - Fallback intraday.json generator
-Reads scan_result.json, filters 3-9.5% gainers, scores on 4 dimensions
-(momentum/volume/breakout/gap), outputs top 5 intraday.json
-"""
+Generate intraday.json from scan_result (latest.json) as a fallback
+when yfinance is blocked from the cloud sandbox.
 
+Filter: 3-9.5% change, score by momentum/volume/breakout/gap 4-dimensions.
+Output: Top 5 stocks for intraday daytrade.
+"""
 import json
 import os
 import sys
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
+from typing import Any
 
-REPO_DIR = os.environ.get(
-    "REPO_DIR", "/home/nebula/projects/juststarlight66-oss/taiwan-stock-radar"
-)
-PUBLIC_DATA = os.path.join(REPO_DIR, "public", "data")
-SCAN_RESULT = os.path.join(PUBLIC_DATA, "scan_result.json")
-OUTPUT_PATH = os.path.join(PUBLIC_DATA, "intraday.json")
+# Config
+MIN_CHANGE_PCT = 3.0
+MAX_CHANGE_PCT = 9.5
+DATA_SOURCE = os.environ.get("SCAN_DATA", "latest.json")
 
-# Filter: only stocks with 3% - 9.5% change (avoid limit-up outliers for day trade)
-CHANGE_MIN = 3.0
-CHANGE_MAX = 9.5
-TOP_N = 5
+def load_scan_data():
+    """Load scan result from latest.json or scan_result.json."""
+    base = "/home/nebula/projects/juststarlight66-oss/taiwan-stock-radar/public/data"
 
+    # Try latest.json first
+    path = os.path.join(base, "latest.json")
+    if not os.path.exists(path):
+        # Fall back to scan_result.json
+        path = os.path.join(base, "scan_result.json")
+    if not os.path.exists(path):
+        # Try to find the most recent scan_result_YYYYMMDD.json
+        import glob
+        files = sorted(glob.glob(os.path.join(base, "scan_result_*.json")), reverse=True)
+        if files:
+            path = files[0]
+        else:
+            raise FileNotFoundError("No scan result files found")
 
-def normalize_name(name: str) -> str:
-    """Strip trailing 股份有限公司 suffix from stock names."""
-    if name.endswith("股份有限公司"):
-        return name[:-len("股份有限公司")]
-    return name
+    print(f"Loading scan data from: {path}")
+    with open(path) as f:
+        data = json.load(f)
 
-
-def momentum_score(rsi, vol_ratio):
-    """Score momentum based on RSI and volume ratio (0-100)."""
-    score = 0
-    # RSI component (0-50)
-    if rsi is None:
-        rsi = 50
-    if rsi >= 75:
-        score += 50
-    elif rsi >= 65:
-        score += 40
-    elif rsi >= 55:
-        score += 30
-    elif rsi >= 45:
-        score += 20
-    else:
-        score += 10
-
-    # Volume ratio component (0-50)
-    if vol_ratio is None:
-        vol_ratio = 1.0
-    if vol_ratio >= 3.0:
-        score += 50
-    elif vol_ratio >= 2.0:
-        score += 40
-    elif vol_ratio >= 1.5:
-        score += 30
-    elif vol_ratio >= 1.0:
-        score += 20
-    else:
-        score += 10
-    return score
+    # Extract stocks list
+    stocks = data.get("all_stock_scores", data.get("stocks", []))
+    if isinstance(stocks, dict):
+        stocks = list(stocks.values())
+    print(f"Loaded {len(stocks)} stocks")
+    return stocks, data.get("scan_date", data.get("generated_at", "unknown"))
 
 
-def volume_score(vol_ratio):
-    """Score volume expansion (0-100)."""
-    if vol_ratio is None:
-        return 40
-    if vol_ratio >= 5.0:
-        return 100
-    elif vol_ratio >= 3.0:
-        return 85
-    elif vol_ratio >= 2.0:
-        return 70
-    elif vol_ratio >= 1.5:
-        return 55
-    elif vol_ratio >= 1.0:
-        return 40
-    else:
-        return 25
+def score_intraday(stock: dict) -> dict:
+    """
+    4-dimensional intraday scoring: momentum, volume, breakout, gap.
+    Returns enriched stock dict with intraday score.
+    """
+    change_pct = stock.get("change_pct", 0) or 0
+    close = stock.get("close", 0) or 0
+    rsi = stock.get("rsi", 50) or 50
+    vol_ratio = stock.get("vol_ratio", 1.0) or 1.0
+    scores = stock.get("scores", stock.get("dimensions", {}))
 
-
-def breakout_score(scores):
-    """Score breakout based on existing scores (0-100)."""
-    if scores is None:
-        return 40
-    # Weighted from existing dimensions
-    technical = scores.get("technical", 50)
-    chips = scores.get("chips", 50)
-    return (technical * 0.6 + chips * 0.4)
-
-
-def gap_score(change_pct, rsi):
-    """Score gap/day-trade potential (0-100)."""
-    score = 0
-    # Change component (0-60)
-    if change_pct >= 7:
-        score += 60
-    elif change_pct >= 5:
-        score += 50
+    # 1. Momentum score (0-100): based on change_pct and RSI
+    if change_pct >= 8:
+        momentum = 95
+    elif change_pct >= 6:
+        momentum = 85
     elif change_pct >= 4:
-        score += 40
+        momentum = 70
+    elif change_pct >= 3:
+        momentum = 55
     else:
-        score += 30
+        momentum = 30
 
-    # RSI component (0-40): moderate-high RSI is good for day trade
-    if rsi is None:
-        rsi = 50
-    if 65 <= rsi <= 80:
-        score += 40
-    elif 55 <= rsi <= 85:
-        score += 30
-    elif rsi > 85:
-        score += 15  # overbought -> risk
+    # Adjust with RSI
+    if rsi > 80:
+        momentum = max(momentum - 10, 20)
+    elif rsi > 70:
+        momentum = min(momentum + 5, 100)
+    elif rsi > 60:
+        momentum = min(momentum + 2, 100)
+
+    # 2. Volume score (0-100)
+    if vol_ratio >= 5:
+        vol_score = 95
+    elif vol_ratio >= 3:
+        vol_score = 85
+    elif vol_ratio >= 2:
+        vol_score = 75
+    elif vol_ratio >= 1.5:
+        vol_score = 60
+    elif vol_ratio >= 1.0:
+        vol_score = 40
     else:
-        score += 15
-    return score
+        vol_score = 20
 
+    # 3. Breakout score (0-100): based on technical score from scan
+    tech_score = scores.get("technical", 50)
+    if isinstance(tech_score, (int, float)):
+        breakout = tech_score
+    else:
+        breakout = 50
 
-def classify_momentum(rsi):
-    """Classify momentum as 強/中/弱."""
-    if rsi is None:
-        return "中"
-    if rsi >= 70:
-        return "強"
-    elif rsi >= 50:
-        return "中"
-    return "弱"
+    # 4. Gap score (0-100): based on change magnitude
+    if change_pct >= 8:
+        gap = 90
+    elif change_pct >= 6:
+        gap = 75
+    elif change_pct >= 4:
+        gap = 60
+    else:
+        gap = 40
 
+    # Weighted total (momentum: 30%, volume: 25%, breakout: 25%, gap: 20%)
+    total = (momentum * 0.30 + vol_score * 0.25 + breakout * 0.25 + gap * 0.20)
 
-def classify_breakout(scores):
-    """Classify breakout pattern."""
-    if scores is None:
-        return "區間整理"
-    technical = scores.get("technical", 50)
-    if technical >= 85:
-        return "強勢突破"
-    elif technical >= 70:
-        return "多頭排列"
-    elif technical >= 55:
-        return "區間整理"
-    return "弱勢"
+    # Momentum label
+    if momentum >= 85:
+        mom_label = "極強"
+    elif momentum >= 70:
+        mom_label = "強"
+    elif momentum >= 50:
+        mom_label = "中"
+    else:
+        mom_label = "弱"
 
+    # Volume label
+    if vol_ratio and vol_ratio >= 3:
+        vol_label = "極度放大"
+    elif vol_ratio and vol_ratio >= 2:
+        vol_label = "放大"
+    elif vol_ratio and vol_ratio >= 1.5:
+        vol_label = "略增"
+    else:
+        vol_label = "正常"
 
-def calculate_profit_space(entry, stop_loss, target):
-    """Calculate profit space as (target - entry) / (entry - stop_loss)."""
-    risk = entry - stop_loss
-    reward = target - entry
-    if risk <= 0:  # invalid
-        return 30.0
-    ratio = reward / risk
-    if ratio >= 3:
-        return 80.0
-    elif ratio >= 2:
-        return 60.0
-    elif ratio >= 1.5:
-        return 50.0
-    elif ratio >= 1.0:
-        return 40.0
-    return 30.0
+    # Breakout label
+    if breakup_score := scores.get("technical", 50):
+        if breakout >= 85:
+            brk_label = "強勢突破"
+        elif breakout >= 70:
+            brk_label = "多頭排列"
+        elif breakout >= 55:
+            brk_label = "接近前高"
+        else:
+            brk_label = "區間整理"
+    else:
+        brk_label = "區間整理"
+
+    # Entry / target / stop_loss
+    entry = close
+    target = round(close * 1.03, 2)
+    stop_loss = round(close * 0.97, 2)
+    if close > 100:
+        target = round(close * 1.02, 2)
+        stop_loss = round(close * 0.98, 2)
+
+    # Dimensions dict
+    dimensions = {
+        "technical": round(breakout, 2),
+        "chips": scores.get("chips", 50),
+        "fundamental": scores.get("fundamental", 50),
+        "news": scores.get("news", 50),
+        "sentiment": scores.get("sentiment", 50),
+        "profit_space": scores.get("profit_space", 50) if "profit_space" in scores else 50,
+        "total": round(total, 2),
+    }
+
+    return {
+        **stock,
+        "intra_score": round(total, 2),
+        "entry": entry,
+        "target": target,
+        "stop_loss": stop_loss,
+        "details": {
+            "momentum": mom_label,
+            "vol_ratio": vol_label,
+            "breakout": brk_label,
+        },
+        "dimensions": dimensions,
+    }
 
 
 def main():
-    if not os.path.exists(SCAN_RESULT):
-        print(f"ERROR: scan_result.json not found at {SCAN_RESULT}", file=sys.stderr)
-        sys.exit(1)
+    tz_taipei = timezone(timedelta(hours=8))
+    now = datetime.now(tz_taipei)
+    scan_date = now.strftime("%Y%m%d")
+    scan_time = now.strftime("%H:%M:%S")
 
-    with open(SCAN_RESULT) as f:
-        data = json.load(f)
+    # Load scan data
+    stocks, source_date = load_scan_data()
 
-    all_stocks = data.get("all_stock_scores", [])
-    print(f"Loaded {len(all_stocks)} stocks from scan_result.json")
-
-    # Filter by change_pct (positive only - day trade "強勢股")
+    # Filter by change_pct
     qualified = []
-    for s in all_stocks:
-        cp = s.get("change_pct", 0)
-        if cp is None or cp <= 0:
-            continue
-        if CHANGE_MIN <= cp <= CHANGE_MAX:
+    for s in stocks:
+        cp = s.get("change_pct", 0) or 0
+        if MIN_CHANGE_PCT <= cp <= MAX_CHANGE_PCT:
             qualified.append(s)
 
-    print(f"Qualified (3-9.5% change): {len(qualified)} stocks")
+    print(f"Qualified: {len(qualified)} stocks ({MIN_CHANGE_PCT}-{MAX_CHANGE_PCT}% change)")
 
-    # Score and rank
-    scored = []
-    for s in qualified:
-        rsi = s.get("rsi", 50)
-        vol_ratio = s.get("vol_ratio", 1.0)
-        change_pct = s.get("change_pct", 0)
-        scores = s.get("scores", {})
+    # Score each qualified stock
+    scored = [score_intraday(s) for s in qualified]
 
-        m_score = momentum_score(rsi, vol_ratio)
-        v_score = volume_score(vol_ratio)
-        b_score = breakout_score(scores)
-        g_score = gap_score(change_pct, rsi)
+    # Sort by intra_score descending
+    scored.sort(key=lambda x: x["intra_score"], reverse=True)
 
-        # Weighted total: momentum 30%, volume 25%, breakout 25%, gap 20%
-        total = m_score * 0.30 + v_score * 0.25 + b_score * 0.25 + g_score * 0.20
+    # Build output stocks list (all qualified, sorted)
+    output_stocks = []
+    for s in scored:
+        stock = s
+        name = stock.get("stock_name", stock.get("name", ""))
+        # Normalize name: strip trailing 股份有限公司
+        if name.endswith("股份有限公司"):
+            name = name[:-6]
 
-        entry = s.get("entry_low") or s.get("close", 0)
-        t1 = (s.get("targets") or {}).get("t1") or s.get("close", 0) * 1.03
-        stop = s.get("stop_loss") or s.get("close", 0) * 0.95
-
-        profit_space = calculate_profit_space(entry, stop, t1)
-
-        # Back-compute prev_close from close + change_pct so live.current
-        # and live.prev_close are distinct (not both == close).
-        close_val = s.get("close", 0)
-        if change_pct and change_pct != 0:
-            prev_close = round(close_val / (1 + change_pct / 100), 2)
+        entry = stock.get("entry", stock.get("close", 0))
+        close_val = stock.get("close", 0) or 0
+        cp_val = stock.get("change_pct", 0) or 0
+        # Compute prev_close from close + change_pct so the two are distinct
+        if cp_val != 0 and close_val != 0:
+            prev_close_val = round(close_val / (1 + cp_val / 100), 2)
         else:
-            prev_close = close_val
+            prev_close_val = close_val
 
-        scored.append({
-            "stock_id": s["stock_id"],
-            "name": normalize_name(s["name"]),
-            "sector": s.get("sector_name", ""),
-            "score": round(total, 2),
-            "total_score": round(total, 2),
+        output_stocks.append({
+            "stock_id": str(stock.get("stock_id", "")),
+            "name": name,
+            "sector": stock.get("sector_name", stock.get("sector", "")),
+            "score": stock["intra_score"],
+            "total_score": stock["intra_score"],
             "entry": entry,
-            "target": t1,
-            "stop_loss": stop,
-            "change_pct": change_pct,
-            "details": {
-                "momentum": classify_momentum(rsi),
-                "vol_ratio": vol_ratio,
-                "breakout": classify_breakout(scores),
-            },
-            "dimensions": {
-                "technical": round(b_score, 1),
-                "chips": round(scores.get("chips", 50), 1),
-                "fundamental": round(scores.get("fundamental", 50), 1),
-                "news": round(scores.get("news", 50), 1),
-                "sentiment": round(scores.get("sentiment", 50), 1),
-                "profit_space": round(profit_space, 1),
-                "total": round(total, 2),
-            },
+            "target": stock.get("target", round(entry * 1.03, 2)),
+            "stop_loss": stock.get("stop_loss", round(entry * 0.97, 2)),
+            "change_pct": cp_val,
+            "details": stock.get("details", {}),
+            "dimensions": stock.get("dimensions", {}),
             "live": {
                 "current": close_val,
-                "open": close_val,  # fallback (no intraday OHLC available)
+                "open": close_val,  # fallback: same as close
                 "high": close_val,
                 "low": close_val,
-                "prev_close": prev_close,
-                "volume": s.get("volume", 0),
-                "change_pct": change_pct,
-                "time": datetime.now().strftime("%H:%M:%S"),
-                "date": datetime.now().strftime("%Y%m%d"),
+                "prev_close": prev_close_val,
+                "volume": stock.get("volume", 0),
+                "change_pct": cp_val,
+                "time": scan_time,
+                "date": scan_date,
                 "source": "scan_fallback",
             },
         })
 
-    # Sort by total_score descending
-    scored.sort(key=lambda x: x["total_score"], reverse=True)
-
-    top = scored[:TOP_N]
-    print(f"Top {TOP_N}:")
-    for i, s in enumerate(top):
-        print(
-            f"  {i+1}. {s['stock_id']} {s['name']} "
-            f"score={s['total_score']} change={s['change_pct']}%"
-        )
-
+    # Build output
     output = {
         "scan_type": "intraday_daytrade",
-        "scanned_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "scanned_count": len(all_stocks),
-        "qualified_count": len(scored),
-        "data_note": (
-            f"scan_result.json fallback (TWSE API + yfinance blocked); "
-            f"{len(scored)} qualified from {len(all_stocks)} stocks; "
-            f"{CHANGE_MIN}-{CHANGE_MAX}% change filter"
-        ),
-        "stocks": top,
+        "scanned_at": now.strftime("%Y-%m-%d %H:%M:%S"),
+        "scanned_count": len(stocks),
+        "qualified_count": len(output_stocks),
+        "data_note": f"scan_result.json fallback (TWSE API + yfinance blocked); {len(output_stocks)} qualified from {len(stocks)} stocks; {MIN_CHANGE_PCT}-{MAX_CHANGE_PCT}% change filter",
+        "stocks": output_stocks,
     }
 
-    os.makedirs(PUBLIC_DATA, exist_ok=True)
-    with open(OUTPUT_PATH, "w") as f:
+    # Write output
+    out_dir = "/home/nebula/projects/juststarlight66-oss/taiwan-stock-radar/public/data"
+    os.makedirs(out_dir, exist_ok=True)
+    out_path = os.path.join(out_dir, "intraday.json")
+
+    with open(out_path, "w", encoding="utf-8") as f:
         json.dump(output, f, ensure_ascii=False, indent=2)
-    print(f"\nSaved {len(top)} stocks to {OUTPUT_PATH}")
+
+    print(f"Written {len(output_stocks)} stocks to {out_path}")
+    print(f"Top 5:")
+    for i, s in enumerate(output_stocks[:5]):
+        print(f"  {i+1}. {s['stock_id']} {s['name']} score={s['score']} change={s['change_pct']}%")
+
+    # Deploy to gh-pages
+    deploy_to_gh_pages(out_path, now)
+
+    return 0
+
+
+def deploy_to_gh_pages(local_path: str, now: datetime):
+    """Commit intraday.json to main branch. deploy.yml handles gh-pages push."""
+    import subprocess
+    import shutil
+
+    repo_dir = "/home/nebula/projects/juststarlight66-oss/taiwan-stock-radar"
+    target_rel = "public/data/intraday.json"
+
+    try:
+        # Copy to repo and commit to main -- deploy.yml auto-deploys to gh-pages
+        dest = os.path.join(repo_dir, target_rel)
+        os.makedirs(os.path.dirname(dest), exist_ok=True)
+        shutil.copy2(local_path, dest)
+
+        subprocess.run(
+            ["git", "-C", repo_dir, "add", target_rel],
+            capture_output=True, text=True, timeout=10
+        )
+        commit_result = subprocess.run(
+            ["git", "-C", repo_dir, "commit", "-m",
+             f"intraday scan {now.strftime('%Y-%m-%d %H:%M')} CST"],
+            capture_output=True, text=True, timeout=10
+        )
+
+        # Only push if there were changes
+        if "nothing to commit" in commit_result.stdout + commit_result.stderr:
+            print("[deploy] No changes to commit (intraday.json unchanged)")
+            return
+
+        push_result = subprocess.run(
+            ["git", "-C", repo_dir, "push", "origin", "main"],
+            capture_output=True, text=True, timeout=60
+        )
+
+        if push_result.returncode == 0:
+            print(f"[deploy] Pushed to main branch -> deploy.yml will handle gh-pages")
+        else:
+            print(f"[deploy] Push failed: {push_result.stderr.strip()}")
+
+    except Exception as e:
+        print(f"[deploy] ERROR: {e}")
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
