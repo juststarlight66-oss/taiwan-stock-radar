@@ -70,15 +70,27 @@ jobs:
         run: |
           python3 << 'PYEOF'
           import json, os, datetime
-          today = datetime.date.today().strftime('%Y%m%d')
-          today_slash = datetime.date.today().strftime('%Y/%m/%d')
-          now = datetime.datetime.now().isoformat()
           
-          # Load all_scores.json
+          # Only regenerate if latest.json was NOT already updated today by scan-daily
+          with open('public/data/latest.json') as f:
+              old_latest = json.load(f)
+          old_count = old_latest.get('scanned_count', 0)
+          
+          # Check if latest.json already has valid data (scan-daily produced it)
+          if old_count >= 1500:
+              print(f"SKIP: latest.json already has {old_count} stocks from scan-daily, no regeneration needed")
+              exit(0)
+          
+          # Load all_scores.json for fallback regeneration
           with open('public/data/all_scores.json') as f:
               all_data = json.load(f)
           scores = all_data.get('all_stock_scores', all_data.get('stocks', []))
           print(f"Loaded {len(scores)} stocks from all_scores.json")
+          
+          # Only regenerate if stock count is reasonable (1500-2500 expected)
+          if not (1500 <= len(scores) <= 4000):
+              print(f"SKIP: all_scores.json has {len(scores)} stocks, outside expected range — keeping existing latest.json")
+              exit(0)
           
           # Build top10 - prefer scores.total_score, fallback to direct total_score
           top10 = sorted(scores, key=lambda s: s.get('scores', {}).get('total', s.get('total_score', 0)), reverse=True)[:10]
