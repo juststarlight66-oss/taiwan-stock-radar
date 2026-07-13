@@ -1,6 +1,9 @@
 name: Daily Market Scan
 
 on:
+  schedule:
+    # 台灣時間 17:40 = UTC 09:40 (TWN = UTC+8)
+    - cron: '40 9 * * 1-5'
   workflow_dispatch:
     inputs:
       scan_date:
