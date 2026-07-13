@@ -39,11 +39,14 @@ for src_name, dst_name in files_to_copy:
     else:
         print(f"WARNING: {src_name} not found, skipping")
 
-# --- Generate accurate all_scores.json from latest.json ---
-latest_path = os.path.join(script_dir, 'latest.json')
-if os.path.exists(latest_path):
+# --- Generate accurate all_scores.json from scan_result.json (latest) ---
+# scan_market.py writes scan_result.json in tasks/2255/ — use THAT, not stale latest.json
+latest_json_path = os.path.join(script_dir, 'scan_result.json')
+if not os.path.exists(latest_json_path):
+    latest_json_path = os.path.join(script_dir, 'latest.json')  # fallback
+if os.path.exists(latest_json_path):  # Try scan_result.json first, fallback to latest.json
     try:
-        with open(latest_path, 'r', encoding='utf-8') as f:
+        with open(latest_json_path, 'r', encoding='utf-8') as f:
             latest_data = json.load(f)
         if 'all_stock_scores' in latest_data:
             all_scores_data = {
@@ -55,11 +58,17 @@ if os.path.exists(latest_path):
             all_scores_output_path = os.path.join(data_dir, 'all_scores.json')
             with open(all_scores_output_path, 'w', encoding='utf-8') as f:
                 json.dump(all_scores_data, f, ensure_ascii=False, indent=2)
-            print(f"Generated {all_scores_output_path} from latest.json ({len(latest_data['all_stock_scores'])} stocks)")
+            print(f"Generated {all_scores_output_path} from scan_result.json ({len(latest_data['all_stock_scores'])} stocks)")
+            
+            # Also write correct latest.json for dashboard main page
+            latest_output_path = os.path.join(data_dir, 'latest.json')
+            with open(latest_output_path, 'w', encoding='utf-8') as f:
+                json.dump(latest_data, f, ensure_ascii=False, indent=2)
+            print(f"Updated latest.json from scan_result.json ({latest_data.get('scanned_count', len(latest_data.get('all_stock_scores',[])))} stocks)")
     except Exception as e:
         print(f"ERROR: Failed to generate all_scores.json: {e}")
 else:
-    print("WARNING: latest.json not found, skipping all_scores.json generation")
+    print("WARNING: scan_result.json not found, skipping all_scores.json generation")
 
 # --- Update index.json ---
 index_path = os.path.join(data_dir, 'index.json')
