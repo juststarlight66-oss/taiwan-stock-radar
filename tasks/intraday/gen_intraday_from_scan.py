@@ -252,9 +252,9 @@ def main():
         "scan_type": "intraday_daytrade",
         "scanned_at": now.strftime("%Y-%m-%d %H:%M:%S"),
         "scanned_count": len(stocks),
-        "qualified_count": len(output_stocks),
-        "data_note": f"scan_result.json fallback (TWSE API + yfinance blocked); {len(output_stocks)} qualified from {len(stocks)} stocks; {MIN_CHANGE_PCT}-{MAX_CHANGE_PCT}% change filter",
-        "stocks": output_stocks,
+        "qualified_count": len(output_stocks),  # total qualified
+        "data_note": f"scan_result.json fallback (TWSE API + yfinance blocked); Top 5 from {len(output_stocks)} qualified stocks; {MIN_CHANGE_PCT}-{MAX_CHANGE_PCT}% change filter",
+        "stocks": output_stocks[:5],
     }
 
     # Write output
@@ -285,11 +285,7 @@ def deploy_to_gh_pages(local_path: str, now: datetime):
     target_rel = "public/data/intraday.json"
 
     try:
-        # Copy to repo and commit to main -- deploy.yml auto-deploys to gh-pages
-        dest = os.path.join(repo_dir, target_rel)
-        os.makedirs(os.path.dirname(dest), exist_ok=True)
-        shutil.copy2(local_path, dest)
-
+        # The file is already at the right path (same file). Just commit.
         subprocess.run(
             ["git", "-C", repo_dir, "add", target_rel],
             capture_output=True, text=True, timeout=10
