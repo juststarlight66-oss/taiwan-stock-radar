@@ -1,16 +1,1 @@
-{
-  "to": "juststarlight66@gmail.com",
-  "subject": "【台股掃描報告】2026/07/09 | Top 10 推薦 | 掃描 1944 檔",
-  "html_path": "public/data/report_v5.html",
-  "report_date": "2026/07/09",
-  "scan_date": "20260709",
-  "top_n": 10,
-  "scanned_count": 1944,
-  "top_score": 91.23,
-  "top3": [
-    "大山",
-    "冠星-KY",
-    "宏普"
-  ],
-  "generated_at": "2026-07-09T19:08:39.951634+08:00"
-}
+{"subject": "【台股掃描報告】2026/07/14 | Top 10 推薦 | 掃描1945檔", "recipient": "juststarlight66@gmail.com", "html_path": "report_v5.html", "scan_date": "20260714", "top_count": 10, "scanned_count": 1945, "generated_at": "2026-07-14T19:01:46.035359+08:00"}
