@@ -685,15 +685,6 @@ def main():
             target = round(cur * 1.08, 2) if cur else 0
             stop_loss = round(cur * 0.95, 2) if cur else 0
 
-        # ── Entry Zone Filter (v3) ─────────────────────────────────────
-        # Skip stocks where live.change_pct > target_pct/2
-        # (stock already ran up too much, bad entry)
-        prev_close = q.get("prev_close") or 0
-        if prev_close and target and cur:
-            target_pct_overall = (target - prev_close) / prev_close * 100
-            live_chg = q.get("change_pct") or 0
-            if live_chg > target_pct_overall / 2:
-                continue
         stocks_out.append({
             "stock_id": s["stock_id"],
             "name": s["name"],
