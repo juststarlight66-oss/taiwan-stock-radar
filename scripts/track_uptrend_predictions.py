@@ -28,7 +28,11 @@ HISTORY_FILE = "uptrend_predictions_history.json"
 # ── Helpers ──────────────────────────────────────────────────────────────
 
 def today_tw(): return datetime.now(TW_TZ).date()
-def date_from_str(s): return datetime.strptime(s.strip(), "%Y%m%d").date()
+def date_from_str(s):
+    s = s.strip()
+    if "-" in s and len(s) == 10:
+        s = s.replace("-", "")
+    return datetime.strptime(s, "%Y%m%d").date()
 def date_to_str(d): return d.strftime("%Y%m%d")
 
 def http_get_json(url, retries=3):
@@ -98,7 +102,7 @@ def cmd_capture():
         print("[capture] ERROR: no top40 in data")
         return False
 
-    scan_date = data.get("scan_date", date_to_str(today_tw()))
+    scan_date = data.get("scan_date", date_to_str(today_tw())).replace("-", "")
     print(f"[capture] scan_date={scan_date}, top40={len(top40)} stocks")
 
     entry = OrderedDict([
@@ -131,6 +135,10 @@ def cmd_capture():
     if os.path.exists(hist_path):
         with open(hist_path, "r", encoding="utf-8") as f:
             history = json.load(f)
+    # Normalize existing entries with YYYY-MM-DD dates
+    for h in history:
+        if "-" in h.get("scan_date", ""):
+            h["scan_date"] = h["scan_date"].replace("-", "")
 
     history = [h for h in history if h.get("scan_date") != scan_date]
     history.append(entry)

@@ -34,6 +34,13 @@ jobs:
       - name: Install deps
         run: pip install yfinance
 
+      - name: Capture today's picks
+        run: |
+          cd main-repo
+          cp ../gh-pages-data/data/intraday_predictions_history.json public/data/ 2>/dev/null || true
+          cp ../gh-pages-data/data/intraday.json public/data/ 2>/dev/null || true
+          python scripts/track_intraday_predictions.py capture public/data/intraday.json public/data/intraday_predictions_history.json
+
       - name: Run verification
         run: |
           cd main-repo

@@ -34,10 +34,15 @@ jobs:
       - name: Install deps
         run: pip install requests pytz numpy pandas yfinance
 
-      - name: Run verification
+      - name: Capture today's picks
         run: |
           cd main-repo
           cp ../gh-pages-data/data/uptrend_predictions_history.json public/data/ 2>/dev/null || true
+          python scripts/track_uptrend_predictions.py capture
+
+      - name: Run verification
+        run: |
+          cd main-repo
           python scripts/track_uptrend_predictions.py verify public/data/uptrend_predictions_history.json uptrend_predictions_history.json
 
       - name: Push results to gh-pages
