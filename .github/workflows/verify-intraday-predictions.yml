@@ -44,13 +44,16 @@ jobs:
       - name: Run verification
         run: |
           cd main-repo
-          python scripts/track_intraday_predictions.py verify
+          cp public/data/intraday_predictions_history.json . 2>/dev/null || true
+          python scripts/track_intraday_predictions.py verify public/data/intraday_predictions_history.json intraday_predictions_history.json
 
       - name: Push results to gh-pages
         run: |
           cd gh-pages-data
           if [ -f ../main-repo/intraday_predictions_history.json ]; then
             cp ../main-repo/intraday_predictions_history.json data/intraday_predictions_history.json
+          elif [ -f ../main-repo/public/data/intraday_predictions_history.json ]; then
+            cp ../main-repo/public/data/intraday_predictions_history.json data/intraday_predictions_history.json
           fi
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
