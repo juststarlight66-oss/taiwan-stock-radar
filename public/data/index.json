@@ -1,1 +1,42 @@
-{"available_dates": ["20260618", "20260626", "20260713"], "last_updated": "2026-07-14T11:00:20.875805", "scans": [{"date": "20260626", "file": "scan_result_20260626.json", "scan_time": "19:10:10", "scanned_count": 1959}, {"date": "20260624", "file": "scan_result_20260624.json", "scan_time": "19:14:32"}, {"date": "20260623", "file": "scan_result_20260623.json", "scan_time": "19:13:31", "scanned_count": 1074}, {"date": "20260713", "file": "scan_result_20260713.json", "scan_time": "19:09:26", "scanned_count": 868}], "updated_at": "2026-06-26T19:10:10.446162+08:00", "dates": ["20260714"]}
+{
+  "available_dates": [
+    "20260618",
+    "20260626",
+    "20260713"
+  ],
+  "last_updated": "2026-07-14T11:00:20.875805",
+  "scans": [
+    {
+      "date": "20260714",
+      "file": "scan_result_20260714.json",
+      "scan_time": "19:18:20"
+    },
+    {
+      "date": "20260713",
+      "file": "scan_result_20260713.json",
+      "scan_time": "19:09:26",
+      "scanned_count": 868
+    },
+    {
+      "date": "20260626",
+      "file": "scan_result_20260626.json",
+      "scan_time": "19:10:10",
+      "scanned_count": 1959
+    },
+    {
+      "date": "20260624",
+      "file": "scan_result_20260624.json",
+      "scan_time": "19:14:32"
+    },
+    {
+      "date": "20260623",
+      "file": "scan_result_20260623.json",
+      "scan_time": "19:13:31",
+      "scanned_count": 1074
+    }
+  ],
+  "updated_at": "2026-07-14T19:18:20.553971+08:00",
+  "dates": [
+    "20260714"
+  ]
+}
