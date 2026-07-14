@@ -1027,7 +1027,6 @@ def predict_explode_top5(candidates: List[Dict]) -> List[Dict]:
     try:
         import numpy as np
         from sklearn.ensemble import RandomForestClassifier
-        from sklearn.calibration import CalibratedClassifierCV
     except ImportError:
         # Fallback: return top 5 by total_score when sklearn not available
         fallback = sorted(candidates, key=lambda s: s.get('total_score', 0), reverse=True)[:TOP_EXPLODE]
@@ -1037,7 +1036,7 @@ def predict_explode_top5(candidates: List[Dict]) -> List[Dict]:
             'close': c.get('close', 0),
             'volume': c.get('volume', 0),
             'change_pct': c.get('change_pct', 0),
-            'explode_prob': round(min(0.95, max(0.05, c.get('total_score', 50) / 100)), 3),
+            'explode_prob': round(min(0.98, max(0.02, (c.get('total_score', 50) - 30) / 70)), 3),
         } for c in fallback]
 
     if len(candidates) < 20:
@@ -1049,7 +1048,7 @@ def predict_explode_top5(candidates: List[Dict]) -> List[Dict]:
             'close': c.get('close', 0),
             'volume': c.get('volume', 0),
             'change_pct': c.get('change_pct', 0),
-            'explode_prob': round(min(0.95, max(0.05, c.get('total_score', 50) / 100)), 3),
+            'explode_prob': round(min(0.98, max(0.02, (c.get('total_score', 50) - 30) / 70)), 3),
         } for c in fallback]
 
     # 建立訓練集：從每檔股票的歷史中提取 lagged 樣本
@@ -1089,7 +1088,7 @@ def predict_explode_top5(candidates: List[Dict]) -> List[Dict]:
                 prev_chg = (prev_close - history[i - 1]['close']) / history[i - 1]['close'] * 100 if i > 0 else 0
 
                 X_train.append([prev_chg, np.log1p(prev['volume']), rsi_val, amp, vol_ratio])
-                y_train.append(1 if next_chg >= 9.5 else 0)
+                y_train.append(1 if next_chg >= 7.0 else 0)
 
             # 當日特徵（用於預測明天）
             closes_full = [h['close'] for h in history]
@@ -1117,7 +1116,7 @@ def predict_explode_top5(candidates: List[Dict]) -> List[Dict]:
             'close': c.get('close', 0),
             'volume': c.get('volume', 0),
             'change_pct': c.get('change_pct', 0),
-            'explode_prob': round(min(0.95, max(0.05, c.get('total_score', 50) / 100)), 3),
+            'explode_prob': round(min(0.98, max(0.02, (c.get('total_score', 50) - 30) / 70)), 3),
         } for c in fallback]
 
     X_train_arr = np.array(X_train, dtype=float)
@@ -1125,24 +1124,31 @@ def predict_explode_top5(candidates: List[Dict]) -> List[Dict]:
     X_today_arr = np.array(X_today, dtype=float)
 
     try:
-        base_rf = RandomForestClassifier(n_estimators=50, max_depth=8, min_samples_split=10, min_samples_leaf=5, class_weight='balanced', random_state=42)
-        # sigmoid 比 isotonic 更穩定，尤其當正樣本極少時（isotonics 會產生 0.0/1.0 極端值）
-        cv_folds = min(5, max(2, sum(y_train_arr)))
-        rf = CalibratedClassifierCV(estimator=base_rf, method='sigmoid', cv=cv_folds)
+        rf = RandomForestClassifier(n_estimators=80, max_depth=12, min_samples_split=8, min_samples_leaf=3, class_weight='balanced', random_state=42)
         rf.fit(X_train_arr, y_train_arr)
         probs = rf.predict_proba(X_today_arr)[:, 1]
-        top_idx = np.argsort(probs)[::-1][:TOP_EXPLODE]
+        # 多樣性限制：最多 2 檔漲幅 > 9%（避免全選漲停股）
+        sorted_idx = np.argsort(probs)[::-1]
         result = []
-        for i in top_idx:
+        limit_hits = 0
+        for i in sorted_idx:
+            if len(result) >= TOP_EXPLODE:
+                break
             c = today_ids[i]
+            c_chg = abs(c.get('change_pct', 0))
+            if c_chg > 9.0:
+                if limit_hits >= 2:
+                    continue
+                limit_hits += 1
             result.append({
                 'stock_id': c.get('stock_id', ''),
                 'name': c.get('name', c.get('stock_id', '')),
                 'close': c.get('close', 0),
                 'volume': c.get('volume', 0),
                 'change_pct': c.get('change_pct', 0),
-                'explode_prob': round(max(0.05, min(0.95, float(probs[i]))), 3),
+                'explode_prob': round(float(np.clip(probs[i], 0.02, 0.98)), 3),
             })
+        # 若不足 5 檔就沒有其他候選了，直接截斷
         return result
     except Exception:
         # Fallback: return top 5 by total_score when ML prediction fails
@@ -1156,7 +1162,7 @@ def predict_explode_top5(candidates: List[Dict]) -> List[Dict]:
             'close': c.get('close', 0),
             'volume': c.get('volume', 0),
             'change_pct': c.get('change_pct', 0),
-            'explode_prob': round(min(0.95, max(0.05, c.get('total_score', 50) / 100)), 3),
+            'explode_prob': round(min(0.98, max(0.02, (c.get('total_score', 50) - 30) / 70)), 3),
         } for c in fallback]
 
 

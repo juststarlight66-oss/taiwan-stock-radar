@@ -72,10 +72,12 @@ stocks.sort(key=lambda s: s.get('total_score', 0), reverse=True)
 
 # === Build top10 ===
 top10 = stocks[:10]
-explode_top5 = [
-    {**s, 'explode_prob': round(min(0.95, max(0.05, s.get('total_score', 50) / 100)), 3)}
-    for s in stocks[:5]
-]
+explode_top5 = data.get('explode_top5', [])
+if not explode_top5 and stocks:
+    explode_top5 = [
+        {**s, 'explode_prob': round(min(0.98, max(0.02, (s.get('total_score', 50) - 30) / 70)), 3)}
+        for s in stocks[:5]
+    ]
 
 # === Build market_summary ===
 sectors = {}
