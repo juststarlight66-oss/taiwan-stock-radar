@@ -1,7 +1,7 @@
 [
   {
-    "scan_date": "2026-07-14",
-    "captured_at": "2026-07-14T19:18:22.045947+08:00",
+    "scan_date": "20260714",
+    "captured_at": "2026-07-14T21:10:52.203877+08:00",
     "scan_type": "main_uptrend",
     "top40": [
       {
@@ -311,7 +311,7 @@
     "win": null
   },
   {
-    "scan_date": "2026-07-13",
+    "scan_date": "20260713",
     "captured_at": "2026-07-13T20:43:47.684002+08:00",
     "scan_type": "main_uptrend",
     "top40": [
@@ -765,7 +765,7 @@
     "win": null
   },
   {
-    "scan_date": "2026-07-10",
+    "scan_date": "20260710",
     "captured_at": "2026-07-12T09:12:02.995018+08:00",
     "scan_type": "main_uptrend",
     "top40": [
