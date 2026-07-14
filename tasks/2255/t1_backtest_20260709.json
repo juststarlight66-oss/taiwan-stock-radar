@@ -1,0 +1,46 @@
+{
+  "test_date": "20260709",
+  "reference_date": "20260708",
+  "top5_results": [
+    {
+      "stock_id": "2603",
+      "name": "長榮",
+      "prev_close": 196.0,
+      "today_close": 194.5,
+      "t1_return_pct": -0.77
+    },
+    {
+      "stock_id": "2605",
+      "name": "新興",
+      "prev_close": 31.0,
+      "today_close": 30.450000762939453,
+      "t1_return_pct": -1.77
+    },
+    {
+      "stock_id": "6142",
+      "name": "友勁",
+      "prev_close": 10.25,
+      "today_close": 11.25,
+      "t1_return_pct": 9.76
+    },
+    {
+      "stock_id": "2332",
+      "name": "友訊",
+      "prev_close": 21.9,
+      "today_close": 24.049999237060547,
+      "t1_return_pct": 9.82
+    },
+    {
+      "stock_id": "3564",
+      "name": "其陽",
+      "prev_close": 56.1,
+      "today_close": 54.099998474121094,
+      "t1_return_pct": -3.57
+    }
+  ],
+  "summary": {
+    "count": 5,
+    "avg_return": 2.69,
+    "winners": 2
+  }
+}
