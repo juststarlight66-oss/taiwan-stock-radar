@@ -1,0 +1,40 @@
+[
+  {
+    "scan_date": "20260714",
+    "captured_at": "2026-07-14T21:07:00.640602+08:00",
+    "scan_type": "intraday_daytrade",
+    "top5": [
+      {
+        "stock_id": "4764",
+        "name": "雙鍵",
+        "entry_price": 317.0,
+        "change_pct": 4.79,
+        "sector": "化學工業",
+        "total_score": 81.0
+      },
+      {
+        "stock_id": "2103",
+        "name": "台橡",
+        "entry_price": 24.55,
+        "change_pct": 5.36,
+        "sector": "橡膠工業",
+        "total_score": 58.0
+      },
+      {
+        "stock_id": "2630",
+        "name": "亞航",
+        "entry_price": 59.1,
+        "change_pct": 4.23,
+        "sector": "航運業",
+        "total_score": 56.0
+      }
+    ],
+    "t1_return": null,
+    "t1_check_date": null,
+    "t3_return": null,
+    "t3_check_date": null,
+    "t5_return": null,
+    "t5_check_date": null,
+    "win": null
+  }
+]
