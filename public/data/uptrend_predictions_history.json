@@ -1,5 +1,52 @@
 [
   {
+    "scan_date": "20260715",
+    "captured_at": "2026-07-15T20:06:10.286114+08:00",
+    "scan_type": "main_uptrend",
+    "top40": [
+      {
+        "stock_id": "6161",
+        "name": "捷波",
+        "entry_price": 55.0,
+        "change_pct": 4.76,
+        "total_score": 90,
+        "signal_3": true,
+        "signal_1": false,
+        "chg_30d": -3.0,
+        "capital_yi": 5.62
+      },
+      {
+        "stock_id": "3680",
+        "name": "家登",
+        "entry_price": 531.0,
+        "change_pct": 6.52,
+        "total_score": 80,
+        "signal_3": true,
+        "signal_1": true,
+        "chg_30d": 0.76,
+        "capital_yi": 9.61
+      },
+      {
+        "stock_id": "5443",
+        "name": "均豪",
+        "entry_price": 108.0,
+        "change_pct": 3.35,
+        "total_score": 65,
+        "signal_3": false,
+        "signal_1": false,
+        "chg_30d": -9.19,
+        "capital_yi": 16.47
+      }
+    ],
+    "t1_return": null,
+    "t1_check_date": null,
+    "t3_return": null,
+    "t3_check_date": null,
+    "t5_return": null,
+    "t5_check_date": null,
+    "win": null
+  },
+  {
     "scan_date": "20260714",
     "captured_at": "2026-07-14T21:10:52.203877+08:00",
     "scan_type": "main_uptrend",
