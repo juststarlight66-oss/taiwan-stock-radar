@@ -57,7 +57,24 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "chore: update uptrend verification results [skip ci]"
+            git commit -m "chore: update uptrend verification results"
             git pull --rebase origin main || true
             git push origin HEAD:main
+          fi
+
+      - name: Push to gh-pages
+        run: |
+          cd main-repo
+          if [ -f public/data/uptrend_predictions_history.json ]; then
+            cp public/data/uptrend_predictions_history.json /tmp/uptrend_hist.json
+            git fetch origin gh-pages
+            git checkout -B gh-pages origin/gh-pages 2>/dev/null || git checkout gh-pages
+            cp /tmp/uptrend_hist.json data/uptrend_predictions_history.json
+            git add data/uptrend_predictions_history.json
+            if git diff --cached --quiet; then
+              echo "No changes to commit (gh-pages)"
+            else
+              git commit -m "chore: update uptrend predictions"
+              git push --force origin gh-pages
+            fi
           fi
