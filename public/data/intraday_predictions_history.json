@@ -1,5 +1,59 @@
 [
   {
+    "scan_date": "20260715",
+    "captured_at": "2026-07-15T19:59:03.753141+08:00",
+    "scan_type": "intraday_daytrade",
+    "top5": [
+      {
+        "stock_id": "1504",
+        "name": "東元",
+        "entry_price": 69.0,
+        "change_pct": 8.49,
+        "sector": "電機機械",
+        "total_score": 81.0
+      },
+      {
+        "stock_id": "2408",
+        "name": "南亞科",
+        "entry_price": 488.0,
+        "change_pct": 8.93,
+        "sector": "半導體業",
+        "total_score": 81.0
+      },
+      {
+        "stock_id": "3037",
+        "name": "欣興",
+        "entry_price": 953.0,
+        "change_pct": 9.04,
+        "sector": "電子零組件業",
+        "total_score": 81.0
+      },
+      {
+        "stock_id": "2303",
+        "name": "聯電",
+        "entry_price": 163.5,
+        "change_pct": 8.28,
+        "sector": "半導體業",
+        "total_score": 73.0
+      },
+      {
+        "stock_id": "3665",
+        "name": "貿聯-KY",
+        "entry_price": 1900.0,
+        "change_pct": 7.95,
+        "sector": "其他電子業",
+        "total_score": 73.0
+      }
+    ],
+    "t1_return": null,
+    "t1_check_date": null,
+    "t3_return": null,
+    "t3_check_date": null,
+    "t5_return": null,
+    "t5_check_date": null,
+    "win": null
+  },
+  {
     "scan_date": "20260714",
     "captured_at": "2026-07-14T21:10:35.536049+08:00",
     "scan_type": "intraday_daytrade",
