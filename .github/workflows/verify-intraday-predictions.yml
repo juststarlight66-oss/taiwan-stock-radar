@@ -59,7 +59,24 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "chore: verify intraday predictions [skip ci]"
+            git commit -m "chore: verify intraday predictions"
             git pull --rebase origin main || true
             git push origin HEAD:main
+          fi
+
+      - name: Push to gh-pages
+        run: |
+          cd main-repo
+          if [ -f public/data/intraday_predictions_history.json ]; then
+            cp public/data/intraday_predictions_history.json /tmp/intraday_hist.json
+            git fetch origin gh-pages
+            git checkout -B gh-pages origin/gh-pages 2>/dev/null || git checkout gh-pages
+            cp /tmp/intraday_hist.json data/intraday_predictions_history.json
+            git add data/intraday_predictions_history.json
+            if git diff --cached --quiet; then
+              echo "No changes to commit (gh-pages)"
+            else
+              git commit -m "chore: update intraday predictions"
+              git push --force origin gh-pages
+            fi
           fi
