@@ -51,7 +51,12 @@ jobs:
         run: |
           cd main-repo
           python scripts/verify_predictions_ci.py
-      
+
+      - name: Fill backtest win rates
+        run: |
+          cd main-repo
+          python scripts/fill_backtest_winrates.py
+
       - name: Push results to gh-pages
         run: |
           cd gh-pages-data
@@ -61,14 +66,20 @@ jobs:
           if [ -f ../main-repo/holding_paths.json ]; then
             cp ../main-repo/holding_paths.json data/holding_paths.json
           fi
+          # Also push updated backtest.json from main-repo
+          if [ -f ../main-repo/public/data/backtest.json ]; then
+            cp ../main-repo/public/data/backtest.json data/backtest.json
+          fi
+          if [ -f ../main-repo/public/data/all_scores.json ]; then
+            cp ../main-repo/public/data/all_scores.json data/all_scores.json
+          fi
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
-          git add data/predictions_history.json data/holding_paths.json 2>/dev/null || true
+          git add data/predictions_history.json data/holding_paths.json data/backtest.json data/all_scores.json 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "chore: update verification results [skip ci]"
-            # Pull rebase to handle concurrent gh-pages updates
+            git commit -m "chore: update verification results"
             git pull --rebase origin gh-pages || true
             git push origin HEAD:gh-pages
           fi

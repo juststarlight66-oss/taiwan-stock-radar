@@ -140,7 +140,7 @@ if os.path.exists(scan_path):
 
     # Build new grouped_records entry (T+1/T+3/T+5 all pending)
     new_gr_entry = {
-        "scan_date": date_iso,
+        "scan_date": date_str,
         "periods": {
             "T1": {
                 "label": "T+1",
@@ -173,7 +173,7 @@ if os.path.exists(scan_path):
     grouped = backtest.get("grouped_records", [])
     if isinstance(grouped, dict):
         grouped = list(grouped.values())
-    grouped = [g for g in grouped if isinstance(g, dict) and g.get("scan_date") != date_iso]
+    grouped = [g for g in grouped if isinstance(g, dict) and g.get("scan_date") != date_str]
     grouped.append(new_gr_entry)
     grouped.sort(key=lambda x: x.get("scan_date", ""), reverse=True)
     backtest["grouped_records"] = grouped[:90]

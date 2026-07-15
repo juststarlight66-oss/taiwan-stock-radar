@@ -20,7 +20,10 @@ TW_TZ = timezone(timedelta(hours=8))
 
 
 def date_from_str(s: str) -> date:
-    return datetime.strptime(s.strip(), "%Y%m%d").date()
+    s = s.strip()
+    if "-" in s:
+        return datetime.strptime(s, "%Y-%m-%d").date()
+    return datetime.strptime(s, "%Y%m%d").date()
 
 
 def get_nth_trading_close(stock_ids: list[str], scan_dt: date, n: int) -> dict[str, tuple[float | None, str | None]]:
