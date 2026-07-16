@@ -318,7 +318,7 @@ function BacktestSummary({ rec }: { rec: BacktestRecord }) {
   const best = verified.reduce((a, b) => (b.win_rate ?? 0) > (a.win_rate ?? 0) ? b : a);
   const wr = best.win_rate ?? 0;
   const avg = best.avg_return ?? 0;
-  const color = wr >= 60 ? 'text-green-600' : wr >= 40 ? 'text-yellow-600' : 'text-red-500';
+  const color = wr >= 60 ? 'text-red-500' : wr >= 40 ? 'text-yellow-600' : 'text-green-600';
   const Icon = avg > 0 ? TrendingUp : avg < 0 ? TrendingDown : Minus;
   return (
     <div className="flex items-center gap-3 text-xs">
@@ -326,7 +326,7 @@ function BacktestSummary({ rec }: { rec: BacktestRecord }) {
         <BarChart2 className="w-3 h-3" />
         勝率{wr.toFixed(0)}%
       </div>
-      <div className={`flex items-center gap-1 ${avg >= 0 ? 'text-green-600' : 'text-red-500'}`}>
+      <div className={`flex items-center gap-1 ${avg >= 0 ? 'text-red-500' : 'text-green-600'}`}>
         <Icon className="w-3 h-3" />
         {avg >= 0 ? '+' : ''}{avg.toFixed(1)}%
       </div>
@@ -354,7 +354,7 @@ function PeriodComparisonChart({ periods }: { periods: BacktestRecord['periods']
             const pending = e.p?.pending ?? true;
             const w = pending ? 0 : Math.max(4, (wr / maxWR) * 100);
             const color = pending ? 'bg-gray-200'
-              : wr >= 60 ? 'bg-green-500' : wr >= 40 ? 'bg-yellow-500' : 'bg-red-500';
+              : wr >= 60 ? 'bg-red-500' : wr >= 40 ? 'bg-yellow-500' : 'bg-green-500';
             return (
               <div key={e.key} className="flex items-center gap-3">
                 <span className="text-xs text-gray-500 w-10 text-right font-mono shrink-0">{e.label}</span>
@@ -382,7 +382,7 @@ function PeriodComparisonChart({ periods }: { periods: BacktestRecord['periods']
             const absMax = Math.max(...verified.map(v => Math.abs(v.p!.avg_return ?? 0)), 1);
             const w = pending ? 0 : Math.max(4, (Math.abs(ar) / absMax) * 100);
             const isPositive = ar >= 0;
-            const color = pending ? 'bg-gray-200' : isPositive ? 'bg-green-500' : 'bg-red-500';
+            const color = pending ? 'bg-gray-200' : isPositive ? 'bg-red-500' : 'bg-green-500';
             return (
               <div key={e.key} className="flex items-center gap-3">
                 <span className="text-xs text-gray-500 w-10 text-right font-mono shrink-0">{e.label}</span>
@@ -392,7 +392,7 @@ function PeriodComparisonChart({ periods }: { periods: BacktestRecord['periods']
                     style={{ width: `${w}%` }}
                   />
                 </div>
-                <span className={`text-xs font-semibold w-14 shrink-0 ${pending ? 'text-gray-400' : isPositive ? 'text-green-600' : 'text-red-500'}`}>
+                <span className={`text-xs font-semibold w-14 shrink-0 ${pending ? 'text-gray-400' : isPositive ? 'text-red-500' : 'text-green-600'}`}>
                   {pending ? '待驗證' : `${isPositive ? '+' : ''}${ar.toFixed(2)}%`}
                 </span>
               </div>
@@ -420,7 +420,7 @@ function OverallBacktestStats({ records }: { records: BacktestRecord[] }) {
   const avgAR = allPeriods.reduce((s, v) => s + v.ar, 0) / allPeriods.length;
   const bestWR = allPeriods.reduce((a, b) => b.wr > a.wr ? b : a);
   const bestAR = allPeriods.reduce((a, b) => b.ar > a.ar ? b : a);
-  const wrColor = avgWR >= 60 ? 'text-green-600' : avgWR >= 40 ? 'text-yellow-600' : 'text-red-500';
+  const wrColor = avgWR >= 60 ? 'text-red-500' : avgWR >= 40 ? 'text-yellow-600' : 'text-green-600';
   return (
     <div>
       <h4 className="text-xs font-semibold text-gray-500 mb-3 tracking-wide flex items-center gap-1.5">
@@ -434,19 +434,19 @@ function OverallBacktestStats({ records }: { records: BacktestRecord[] }) {
         </div>
         <div>
           <span className="text-gray-500">平均報酬</span>
-          <span className={`ml-2 font-bold ${avgAR >= 0 ? 'text-green-600' : 'text-red-500'}`}>
+          <span className={`ml-2 font-bold ${avgAR >= 0 ? 'text-red-500' : 'text-green-600'}`}>
             {avgAR >= 0 ? '+' : ''}{avgAR.toFixed(2)}%
           </span>
         </div>
         <div>
           <span className="text-gray-500">最佳勝率</span>
-          <span className="ml-2 font-bold text-green-600">
+          <span className="ml-2 font-bold text-red-500">
             {bestWR.label} {bestWR.wr.toFixed(0)}%
           </span>
         </div>
         <div>
           <span className="text-gray-500">最佳報酬</span>
-          <span className="ml-2 font-bold text-green-600">
+          <span className="ml-2 font-bold text-red-500">
             {bestAR.label} {bestAR.ar >= 0 ? '+' : ''}{bestAR.ar.toFixed(2)}%
           </span>
         </div>
@@ -606,9 +606,9 @@ function HistoryDetail({
                     <div>
                       <span className="text-gray-500">勝率</span>
                       <span className={`ml-2 font-bold ${
-                        (period.win_rate ?? 0) >= 60 ? 'text-green-600'
+                        (period.win_rate ?? 0) >= 60 ? 'text-red-500'
                         : (period.win_rate ?? 0) >= 40 ? 'text-yellow-600'
-                        : 'text-red-500'
+                        : 'text-green-600'
                       }`}>
                         {period.win_rate?.toFixed(1) ?? '-'}%
                       </span>
@@ -616,7 +616,7 @@ function HistoryDetail({
                     <div>
                       <span className="text-gray-500">平均報酬</span>
                       <span className={`ml-2 font-bold ${
-                        (period.avg_return ?? 0) >= 0 ? 'text-green-600' : 'text-red-500'
+                        (period.avg_return ?? 0) >= 0 ? 'text-red-500' : 'text-green-600'
                       }`}>
                         {(period.avg_return ?? 0) >= 0 ? '+' : ''}{period.avg_return?.toFixed(2) ?? '-'}%
                       </span>
@@ -654,8 +654,8 @@ function HistoryDetail({
                             <td className="py-2.5 px-4 text-gray-700 font-mono text-xs">{s.close?.toFixed(2) ?? '-'}</td>
                             <td className={`py-2.5 px-4 font-mono text-xs font-medium ${
                               s.pending ? 'text-gray-400'
-                              : (s.return_pct ?? 0) >= 0 ? 'text-green-600'
-                              : 'text-red-500'
+                              : (s.return_pct ?? 0) >= 0 ? 'text-red-500'
+                              : 'text-green-600'
                             }`}>
                               {s.pending
                                 ? '待驗證'
@@ -666,9 +666,9 @@ function HistoryDetail({
                               {s.pending ? (
                                 <span className="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-md">待驗證</span>
                               ) : s.hit_target ? (
-                                <span className="text-xs text-green-600 bg-green-50 px-2 py-0.5 rounded-md font-medium">達標</span>
+                                <span className="text-xs text-red-500 bg-red-50 px-2 py-0.5 rounded-md font-medium">達標</span>
                               ) : s.hit_stoploss ? (
-                                <span className="text-xs text-red-500 bg-red-50 px-2 py-0.5 rounded-md font-medium">停損</span>
+                                <span className="text-xs text-green-600 bg-green-50 px-2 py-0.5 rounded-md font-medium">停損</span>
                               ) : (
                                 <span className="text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded-md">持有中</span>
                               )}
