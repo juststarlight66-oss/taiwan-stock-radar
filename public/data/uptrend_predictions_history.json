@@ -803,13 +803,13 @@
         "capital_yi": 99
       }
     ],
-    "t1_return": null,
-    "t1_check_date": null,
+    "t1_return": 1.83,
+    "t1_check_date": "20260715",
     "t3_return": null,
     "t3_check_date": null,
     "t5_return": null,
     "t5_check_date": null,
-    "win": null
+    "win": true
   },
   {
     "scan_date": "20260713",
@@ -1257,13 +1257,13 @@
         "capital_yi": 99
       }
     ],
-    "t1_return": null,
-    "t1_check_date": null,
+    "t1_return": -2.24,
+    "t1_check_date": "20260714",
     "t3_return": null,
     "t3_check_date": null,
     "t5_return": null,
     "t5_check_date": null,
-    "win": null
+    "win": false
   },
   {
     "scan_date": "20260710",
@@ -1711,12 +1711,12 @@
         "capital_yi": 99
       }
     ],
-    "t1_return": null,
-    "t1_check_date": null,
-    "t3_return": null,
-    "t3_check_date": null,
+    "t1_return": -2.58,
+    "t1_check_date": "20260713",
+    "t3_return": -3.95,
+    "t3_check_date": "20260715",
     "t5_return": null,
     "t5_check_date": null,
-    "win": null
+    "win": false
   }
 ]
