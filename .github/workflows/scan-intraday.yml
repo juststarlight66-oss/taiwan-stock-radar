@@ -87,6 +87,7 @@ jobs:
           # Push capture result to gh-pages
           if [ -f public/data/intraday_predictions_history.json ]; then
             cp public/data/intraday_predictions_history.json /tmp/intraday_hist.json
+            git stash --include-untracked  # stash dirty file so checkout won't fail
             git fetch origin gh-pages
             git checkout -B gh-pages origin/gh-pages
             cp /tmp/intraday_hist.json data/intraday_predictions_history.json
