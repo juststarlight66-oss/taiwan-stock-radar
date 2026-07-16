@@ -1,5 +1,35 @@
 [
   {
+    "scan_date": "20260716",
+    "captured_at": "2026-07-16T20:01:02.384443+08:00",
+    "scan_type": "intraday_daytrade",
+    "top5": [
+      {
+        "stock_id": "1539",
+        "name": "巨庭",
+        "entry_price": 16.85,
+        "change_pct": 6.31,
+        "sector": "電機機械",
+        "total_score": 81.0
+      },
+      {
+        "stock_id": "6919",
+        "name": "康霈*",
+        "entry_price": 113.5,
+        "change_pct": 3.65,
+        "sector": "生技醫療業",
+        "total_score": 53.0
+      }
+    ],
+    "t1_return": null,
+    "t1_check_date": null,
+    "t3_return": null,
+    "t3_check_date": null,
+    "t5_return": null,
+    "t5_check_date": null,
+    "win": null
+  },
+  {
     "scan_date": "20260715",
     "captured_at": "2026-07-15T22:05:45.512042+08:00",
     "scan_type": "intraday_daytrade",
