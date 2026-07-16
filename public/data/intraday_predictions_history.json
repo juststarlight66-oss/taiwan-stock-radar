@@ -45,13 +45,13 @@
         "total_score": 73.0
       }
     ],
-    "t1_return": null,
-    "t1_check_date": null,
+    "t1_return": -3.09,
+    "t1_check_date": "20260716",
     "t3_return": null,
     "t3_check_date": null,
     "t5_return": null,
     "t5_check_date": null,
-    "win": null
+    "win": false
   },
   {
     "scan_date": "20260714",
@@ -83,12 +83,12 @@
         "total_score": 56.0
       }
     ],
-    "t1_return": null,
-    "t1_check_date": null,
-    "t3_return": null,
-    "t3_check_date": null,
+    "t1_return": 7.21,
+    "t1_check_date": "20260715",
+    "t3_return": -0.03,
+    "t3_check_date": "20260716",
     "t5_return": null,
     "t5_check_date": null,
-    "win": null
+    "win": false
   }
 ]
