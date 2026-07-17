@@ -1,5 +1,27 @@
 [
   {
+    "scan_date": "20260717",
+    "captured_at": "2026-07-17T19:52:30.839893+08:00",
+    "scan_type": "intraday_daytrade",
+    "top5": [
+      {
+        "stock_id": "6243",
+        "name": "迅杰",
+        "entry_price": 50.0,
+        "change_pct": 4.28,
+        "sector": "半導體業",
+        "total_score": 66.0
+      }
+    ],
+    "t1_return": null,
+    "t1_check_date": null,
+    "t3_return": null,
+    "t3_check_date": null,
+    "t5_return": null,
+    "t5_check_date": null,
+    "win": null
+  },
+  {
     "scan_date": "20260716",
     "captured_at": "2026-07-16T20:01:02.384443+08:00",
     "scan_type": "intraday_daytrade",
