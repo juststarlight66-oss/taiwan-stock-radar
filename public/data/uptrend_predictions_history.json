@@ -1,5 +1,41 @@
 [
   {
+    "scan_date": "20260720",
+    "captured_at": "2026-07-20T20:12:40.633487+08:00",
+    "scan_type": "main_uptrend",
+    "top40": [
+      {
+        "stock_id": "6811",
+        "name": "宏碁資訊",
+        "entry_price": 230.5,
+        "change_pct": -3.76,
+        "total_score": 84,
+        "signal_3": false,
+        "signal_1": true,
+        "chg_30d": 1.38,
+        "capital_yi": 4.14
+      },
+      {
+        "stock_id": "6643",
+        "name": "M31",
+        "entry_price": 430.5,
+        "change_pct": 9.96,
+        "total_score": 83,
+        "signal_3": true,
+        "signal_1": false,
+        "chg_30d": -22.57,
+        "capital_yi": 4.21
+      }
+    ],
+    "t1_return": null,
+    "t1_check_date": null,
+    "t3_return": null,
+    "t3_check_date": null,
+    "t5_return": null,
+    "t5_check_date": null,
+    "win": null
+  },
+  {
     "scan_date": "20260717",
     "captured_at": "2026-07-17T19:58:02.063631+08:00",
     "scan_type": "main_uptrend",
