@@ -1,5 +1,41 @@
 [
   {
+    "scan_date": "20260721",
+    "captured_at": "2026-07-21T19:40:55.463184+08:00",
+    "scan_type": "main_uptrend",
+    "top40": [
+      {
+        "stock_id": "3147",
+        "name": "大綜",
+        "entry_price": 228.5,
+        "change_pct": 9.86,
+        "total_score": 88,
+        "signal_3": true,
+        "signal_1": false,
+        "chg_30d": -19.68,
+        "capital_yi": 4.37
+      },
+      {
+        "stock_id": "6219",
+        "name": "富旺",
+        "entry_price": 13.35,
+        "change_pct": 3.89,
+        "total_score": 78,
+        "signal_3": true,
+        "signal_1": true,
+        "chg_30d": 4.3,
+        "capital_yi": 12.5
+      }
+    ],
+    "t1_return": null,
+    "t1_check_date": null,
+    "t3_return": null,
+    "t3_check_date": null,
+    "t5_return": null,
+    "t5_check_date": null,
+    "win": null
+  },
+  {
     "scan_date": "20260720",
     "captured_at": "2026-07-20T20:55:13.445169+08:00",
     "scan_type": "main_uptrend",
