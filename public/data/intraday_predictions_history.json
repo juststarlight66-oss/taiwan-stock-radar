@@ -1,5 +1,59 @@
 [
   {
+    "scan_date": "20260721",
+    "captured_at": "2026-07-21T20:08:09.456069+08:00",
+    "scan_type": "intraday_daytrade",
+    "top5": [
+      {
+        "stock_id": "8261",
+        "name": "富鼎",
+        "entry_price": 247.5,
+        "change_pct": 8.08,
+        "sector": "半導體業",
+        "total_score": 78.0
+      },
+      {
+        "stock_id": "2357",
+        "name": "華碩",
+        "entry_price": 731.0,
+        "change_pct": 6.25,
+        "sector": "電腦及週邊設備業",
+        "total_score": 76.0
+      },
+      {
+        "stock_id": "3035",
+        "name": "智原",
+        "entry_price": 194.0,
+        "change_pct": 6.3,
+        "sector": "半導體業",
+        "total_score": 73.0
+      },
+      {
+        "stock_id": "4763",
+        "name": "材料*-KY",
+        "entry_price": 51.0,
+        "change_pct": 4.94,
+        "sector": "化學工業",
+        "total_score": 71.0
+      },
+      {
+        "stock_id": "5222",
+        "name": "全訊",
+        "entry_price": 121.0,
+        "change_pct": 5.22,
+        "sector": "半導體業",
+        "total_score": 68.0
+      }
+    ],
+    "t1_return": null,
+    "t1_check_date": null,
+    "t3_return": null,
+    "t3_check_date": null,
+    "t5_return": null,
+    "t5_check_date": null,
+    "win": null
+  },
+  {
     "scan_date": "20260717",
     "captured_at": "2026-07-20T20:31:39.247572+08:00",
     "scan_type": "intraday_daytrade",
