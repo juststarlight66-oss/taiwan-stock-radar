@@ -7,6 +7,8 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 concurrency:
   group: "pages"
@@ -71,28 +73,23 @@ jobs:
           python3 << 'PYEOF'
           import json, os, datetime
           
-          # Only regenerate if latest.json was NOT already updated today by scan-daily
           with open('public/data/latest.json') as f:
               old_latest = json.load(f)
           old_count = old_latest.get('scanned_count', 0)
           
-          # Check if latest.json already has valid data (scan-daily produced it)
           if old_count >= 1500:
               print(f"SKIP: latest.json already has {old_count} stocks from scan-daily, no regeneration needed")
               exit(0)
           
-          # Load all_scores.json for fallback regeneration
           with open('public/data/all_scores.json') as f:
               all_data = json.load(f)
           scores = all_data.get('all_stock_scores', all_data.get('stocks', []))
           print(f"Loaded {len(scores)} stocks from all_scores.json")
           
-          # Only regenerate if stock count is reasonable (1500-2500 expected)
           if not (1500 <= len(scores) <= 4000):
               print(f"SKIP: all_scores.json has {len(scores)} stocks, outside expected range — keeping existing latest.json")
               exit(0)
           
-          # Build top10 - prefer scores.total_score, fallback to direct total_score
           top10 = sorted(scores, key=lambda s: s.get('scores', {}).get('total', s.get('total_score', 0)), reverse=True)[:10]
           for s in top10:
               sc = s.get('scores', {})
@@ -103,14 +100,13 @@ jobs:
                   'sentiment': sc.get('sentiment', 0),
                   'chips': sc.get('chips', 0),
               }
-              s['sector'] = s.get('sector_name', s.get('sector', '\u5176\u4ed6'))
+              s['sector'] = s.get('sector_name', s.get('sector', '其他'))
               s.setdefault('signals', [])
-              s.setdefault('strategy', '\u4e94\u7dad\u5f37\u52e2')
+              s.setdefault('strategy', '五維強勢')
           
-          # Build market_summary
           sectors = {}
           for s in scores:
-              sec = s.get('sector_name', s.get('sector', '\u5176\u4ed6'))
+              sec = s.get('sector_name', s.get('sector', '其他'))
               sectors.setdefault(sec, []).append(s.get('total_score', s.get('scores', {}).get('total', 0)))
           sector_detail = {sec: {'count': len(v), 'avg_score': round(sum(v)/len(v),1) if v else 0} for sec, v in sectors.items()}
           market_summary = {
@@ -135,7 +131,6 @@ jobs:
               'market_summary': market_summary,
           }
           
-          # Overwrite public/data/latest.json
           with open('public/data/latest.json', 'w') as f:
               json.dump(latest, f, ensure_ascii=False)
           print(f"Regenerated latest.json with {len(scores)} stocks")
@@ -149,6 +144,29 @@ jobs:
 
       - name: Add .nojekyll
         run: touch out/.nojekyll
+
+      - name: Configure GitHub Pages
+        run: |
+          set -e
+          echo "Checking if GitHub Pages is configured..."
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/pages")
+          
+          if [ "$HTTP_CODE" = "404" ]; then
+            echo "Pages not configured — enabling now..."
+            curl -s -X POST \
+              -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+              -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/${{ github.repository }}/pages" \
+              -d '{"source":{"branch":"gh-pages","path":"/"}}'
+            echo "Pages configured successfully."
+          elif [ "$HTTP_CODE" = "200" ]; then
+            echo "Pages already configured."
+          else
+            echo "Unexpected HTTP status: $HTTP_CODE"
+          fi
 
       - name: Deploy to gh-pages branch
         uses: peaceiris/actions-gh-pages@v4
