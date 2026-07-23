@@ -1,5 +1,59 @@
 [
   {
+    "scan_date": "20260723",
+    "captured_at": "2026-07-23T20:10:08.928979+08:00",
+    "scan_type": "intraday_daytrade",
+    "top5": [
+      {
+        "stock_id": "3665",
+        "name": "貿聯-KY",
+        "entry_price": 2285.0,
+        "change_pct": 8.04,
+        "sector": "其他電子業",
+        "total_score": 81.0
+      },
+      {
+        "stock_id": "2455",
+        "name": "全新",
+        "entry_price": 342.5,
+        "change_pct": 5.55,
+        "sector": "通信網路業",
+        "total_score": 71.0
+      },
+      {
+        "stock_id": "8271",
+        "name": "宇瞻",
+        "entry_price": 205.5,
+        "change_pct": 4.58,
+        "sector": "半導體業",
+        "total_score": 68.0
+      },
+      {
+        "stock_id": "6831",
+        "name": "邁科",
+        "entry_price": 667.0,
+        "change_pct": 5.04,
+        "sector": "電腦及週邊設備業",
+        "total_score": 58.0
+      },
+      {
+        "stock_id": "1301",
+        "name": "台塑",
+        "entry_price": 65.7,
+        "change_pct": 3.46,
+        "sector": "塑膠工業",
+        "total_score": 56.0
+      }
+    ],
+    "t1_return": null,
+    "t1_check_date": null,
+    "t3_return": null,
+    "t3_check_date": null,
+    "t5_return": null,
+    "t5_check_date": null,
+    "win": null
+  },
+  {
     "scan_date": "20260722",
     "captured_at": "2026-07-22T20:11:58.556849+08:00",
     "scan_type": "intraday_daytrade",
