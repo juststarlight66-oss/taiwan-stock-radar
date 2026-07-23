@@ -1,1 +1,61 @@
-{"available_dates": ["20260722", "20260717", "20260716", "20260715", "20260713", "20260626", "20260618"], "last_updated": "2026-07-22T11:40:04.971230", "scans": [{"date": "20260721", "file": "scan_result_20260721.json", "scan_time": "19:40:53"}, {"date": "20260716", "file": "scan_result_20260716.json", "scan_time": "19:29:36"}, {"date": "20260714", "file": "scan_result_20260714.json", "scan_time": "19:18:20"}, {"date": "20260713", "file": "scan_result_20260713.json", "scan_time": "19:09:26", "scanned_count": 868}, {"date": "20260626", "file": "scan_result_20260626.json", "scan_time": "19:10:10", "scanned_count": 1959}, {"date": "20260624", "file": "scan_result_20260624.json", "scan_time": "19:14:32"}, {"date": "20260623", "file": "scan_result_20260623.json", "scan_time": "19:13:31", "scanned_count": 1074}], "updated_at": "2026-07-21T19:40:53.817631+08:00", "dates": ["20260714"]}
+{
+  "available_dates": [
+    "20260722",
+    "20260717",
+    "20260716",
+    "20260715",
+    "20260713",
+    "20260626",
+    "20260618"
+  ],
+  "last_updated": "2026-07-22T11:40:04.971230",
+  "scans": [
+    {
+      "date": "20260723",
+      "file": "scan_result_20260723.json",
+      "scan_time": "19:38:02"
+    },
+    {
+      "date": "20260721",
+      "file": "scan_result_20260721.json",
+      "scan_time": "19:40:53"
+    },
+    {
+      "date": "20260716",
+      "file": "scan_result_20260716.json",
+      "scan_time": "19:29:36"
+    },
+    {
+      "date": "20260714",
+      "file": "scan_result_20260714.json",
+      "scan_time": "19:18:20"
+    },
+    {
+      "date": "20260713",
+      "file": "scan_result_20260713.json",
+      "scan_time": "19:09:26",
+      "scanned_count": 868
+    },
+    {
+      "date": "20260626",
+      "file": "scan_result_20260626.json",
+      "scan_time": "19:10:10",
+      "scanned_count": 1959
+    },
+    {
+      "date": "20260624",
+      "file": "scan_result_20260624.json",
+      "scan_time": "19:14:32"
+    },
+    {
+      "date": "20260623",
+      "file": "scan_result_20260623.json",
+      "scan_time": "19:13:31",
+      "scanned_count": 1074
+    }
+  ],
+  "updated_at": "2026-07-23T19:38:02.895270+08:00",
+  "dates": [
+    "20260714"
+  ]
+}
