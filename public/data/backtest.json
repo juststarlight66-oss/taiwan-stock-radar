@@ -6794,5 +6794,143 @@
       ],
       "generated_at": "2026-07-22T11:40:04.971230"
     }
-  ]
+  ],
+  "daily_results": [
+    {
+      "t_n_date": "20260716",
+      "reference_date": "20260715",
+      "reference_top5": [
+        {
+          "stock_id": "5538",
+          "name": "東明-KY",
+          "recommended_score": 85.48
+        },
+        {
+          "stock_id": "5871",
+          "name": "中租-KY",
+          "recommended_score": 84.96
+        },
+        {
+          "stock_id": "4440",
+          "name": "宜新實業",
+          "recommended_score": 84.7
+        },
+        {
+          "stock_id": "2069",
+          "name": "運錩",
+          "recommended_score": 83.59
+        },
+        {
+          "stock_id": "2027",
+          "name": "大成鋼",
+          "recommended_score": 83.35
+        }
+      ],
+      "t1_results": [
+        {
+          "stock_id": "5538",
+          "name": "東明-KY",
+          "prev_close": 35.20000076293945,
+          "curr_close": 34.599998474121094,
+          "return_pct": -1.7,
+          "status": "success"
+        },
+        {
+          "stock_id": "5871",
+          "name": "中租-KY",
+          "prev_close": 123.5,
+          "curr_close": 123.0,
+          "return_pct": -0.4,
+          "status": "success"
+        },
+        {
+          "stock_id": "4440",
+          "name": "宜新實業",
+          "prev_close": 17.399999618530273,
+          "curr_close": 17.25,
+          "return_pct": -0.86,
+          "status": "success"
+        },
+        {
+          "stock_id": "2069",
+          "name": "運錩",
+          "prev_close": 18.75,
+          "curr_close": 18.649999618530273,
+          "return_pct": -0.53,
+          "status": "success"
+        },
+        {
+          "stock_id": "2027",
+          "name": "大成鋼",
+          "prev_close": 41.150001525878906,
+          "curr_close": 43.75,
+          "return_pct": 6.32,
+          "status": "success"
+        }
+      ],
+      "summary": {
+        "avg_return_pct": 0.57,
+        "win_count": 1,
+        "total": 5
+      },
+      "generated_at": "2026-07-22T11:39:54.764602"
+    },
+    {
+      "backtest_date": "20260727",
+      "source_date": "20260724",
+      "total": 5,
+      "success": 5,
+      "avg_return": 1.05,
+      "win_count": 4,
+      "loss_count": 1,
+      "results": [
+        {
+          "stock_id": "6591",
+          "name": "動力-KY",
+          "prev_close": 45.0,
+          "curr_close": 45.05,
+          "return_pct": 0.11,
+          "prev_score": 89.61,
+          "status": "success"
+        },
+        {
+          "stock_id": "2376",
+          "name": "技嘉",
+          "prev_close": 348.0,
+          "curr_close": 349.5,
+          "return_pct": 0.43,
+          "prev_score": 87.15,
+          "status": "success"
+        },
+        {
+          "stock_id": "8114",
+          "name": "振樺電",
+          "prev_close": 221.0,
+          "curr_close": 217.5,
+          "return_pct": -1.58,
+          "prev_score": 86.9,
+          "status": "success"
+        },
+        {
+          "stock_id": "6669",
+          "name": "緯穎",
+          "prev_close": 5500.0,
+          "curr_close": 5745.0,
+          "return_pct": 4.45,
+          "prev_score": 86.08,
+          "status": "success"
+        },
+        {
+          "stock_id": "2027",
+          "name": "大成鋼",
+          "prev_close": 43.75,
+          "curr_close": 44.55,
+          "return_pct": 1.83,
+          "prev_score": 84.09,
+          "status": "success"
+        }
+      ]
+    }
+  ],
+  "updated": "2026-07-27T11:10:44.226215"
 }
