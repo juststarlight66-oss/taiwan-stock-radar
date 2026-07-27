@@ -1,5 +1,27 @@
 [
   {
+    "scan_date": "20260727",
+    "captured_at": "2026-07-27T21:25:40.217883+08:00",
+    "scan_type": "intraday_daytrade",
+    "top5": [
+      {
+        "stock_id": "9136",
+        "name": "巨騰-DR",
+        "entry_price": 12.0,
+        "change_pct": 8.11,
+        "sector": "存託憑證",
+        "total_score": 81.0
+      }
+    ],
+    "t1_return": null,
+    "t1_check_date": null,
+    "t3_return": null,
+    "t3_check_date": null,
+    "t5_return": null,
+    "t5_check_date": null,
+    "win": null
+  },
+  {
     "scan_date": "20260724",
     "captured_at": "2026-07-24T20:01:30.324550+08:00",
     "scan_type": "intraday_daytrade",
