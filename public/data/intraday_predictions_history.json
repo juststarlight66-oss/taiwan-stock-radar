@@ -1,5 +1,27 @@
 [
   {
+    "scan_date": "20260729",
+    "captured_at": "2026-07-29T20:29:05.315229+08:00",
+    "scan_type": "intraday_daytrade",
+    "top5": [
+      {
+        "stock_id": "8271",
+        "name": "宇瞻",
+        "entry_price": 214.5,
+        "change_pct": 4.63,
+        "sector": "半導體業",
+        "total_score": 81.0
+      }
+    ],
+    "t1_return": null,
+    "t1_check_date": null,
+    "t3_return": null,
+    "t3_check_date": null,
+    "t5_return": null,
+    "t5_check_date": null,
+    "win": null
+  },
+  {
     "scan_date": "20260728",
     "captured_at": "2026-07-28T20:20:57.318593+08:00",
     "scan_type": "intraday_daytrade",
