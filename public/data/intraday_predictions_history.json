@@ -1,5 +1,51 @@
 [
   {
+    "scan_date": "20260730",
+    "captured_at": "2026-07-30T20:12:25.382549+08:00",
+    "scan_type": "intraday_daytrade",
+    "top5": [
+      {
+        "stock_id": "2207",
+        "name": "和泰車",
+        "entry_price": 553.0,
+        "change_pct": 6.55,
+        "sector": "汽車工業",
+        "total_score": 86.0
+      },
+      {
+        "stock_id": "3094",
+        "name": "聯傑",
+        "entry_price": 32.9,
+        "change_pct": 6.99,
+        "sector": "半導體業",
+        "total_score": 71.0
+      },
+      {
+        "stock_id": "6969",
+        "name": "成信實業*-創",
+        "entry_price": 29.75,
+        "change_pct": 5.68,
+        "sector": "其他",
+        "total_score": 63.0
+      },
+      {
+        "stock_id": "2308",
+        "name": "台達電",
+        "entry_price": 1540.0,
+        "change_pct": 3.01,
+        "sector": "電子零組件業",
+        "total_score": 59.0
+      }
+    ],
+    "t1_return": null,
+    "t1_check_date": null,
+    "t3_return": null,
+    "t3_check_date": null,
+    "t5_return": null,
+    "t5_check_date": null,
+    "win": null
+  },
+  {
     "scan_date": "20260729",
     "captured_at": "2026-07-29T20:29:05.315229+08:00",
     "scan_type": "intraday_daytrade",
