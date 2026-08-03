@@ -3,272 +3,387 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>台股掃描報告 2026/07/22</title>
+<title>【台股掃描報告】2026/08/03</title>
 <style>
-body { font-family: -apple-system, 'Microsoft JhengHei', sans-serif; background:#f7fafc; color:#1a202c; max-width:900px; margin:0 auto; padding:20px; }
-h1 { color:#2b6cb0; border-bottom:3px solid #2b6cb0; padding-bottom:12px; font-size:24px; }
-h2 { color:#2d3748; margin-top:30px; font-size:18px; }
-table { width:100%; border-collapse:collapse; font-size:13px; }
-th { background:#2b6cb0; color:white; padding:10px 8px; text-align:left; }
-tr:nth-child(even) { background:#f7fafc; }
-.card { background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:20px; margin:20px 0; box-shadow:0 1px 3px rgba(0,0,0,0.1); }
-.badge { display:inline-block; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:bold; }
-.badge-up { background:#fed7d7; color:#c53030; }
-.badge-down { background:#c6f6d5; color:#276749; }
-.warning { background:#fff5f5; border-left:4px solid #fc8181; padding:12px 16px; margin:12px 0; }
-.info { background:#ebf8ff; border-left:4px solid #3182ce; padding:12px 16px; margin:12px 0; }
-.success { background:#f0fff4; border-left:4px solid #38a169; padding:12px 16px; margin:12px 0; }
-.footer { text-align:center; color:#a0aec0; font-size:11px; margin-top:30px; padding-top:20px; border-top:1px solid #e2e8f0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; background:#f5f7fa; margin:0; padding:0; color:#333; }
+  .container { max-width:900px; margin:0 auto; padding:20px; }
+  .header { background:linear-gradient(135deg,#1a3a5c,#2980b9); color:white; padding:28px 32px; border-radius:12px; margin-bottom:20px; }
+  .header h1 { margin:0 0 8px 0; font-size:22px; }
+  .header .meta { font-size:13px; opacity:0.85; }
+  .card { background:white; border-radius:10px; padding:20px; margin-bottom:16px; box-shadow:0 2px 8px rgba(0,0,0,0.07); }
+  .card h2 { font-size:16px; margin:0 0 14px 0; color:#1a3a5c; border-left:4px solid #2980b9; padding-left:10px; }
+  table { width:100%; border-collapse:collapse; }
+  th { background:#f8f9fa; padding:10px 8px; text-align:left; font-size:12px; color:#666; border-bottom:2px solid #e9ecef; }
+  .stat-row { display:flex; gap:16px; margin-bottom:16px; flex-wrap:wrap; }
+  .stat { background:#f8f9fa; padding:14px 20px; border-radius:8px; flex:1; min-width:120px; text-align:center; }
+  .stat .val { font-size:22px; font-weight:bold; color:#1a3a5c; }
+  .stat .lbl { font-size:12px; color:#999; margin-top:4px; }
+  .footer { text-align:center; color:#aaa; font-size:12px; margin-top:24px; }
 </style>
 </head>
 <body>
+<div class="container">
+  <div class="header">
+    <h1>🔍 台股五維掃描報告</h1>
+    <div class="meta">掃描日期：2026/08/03 ｜ 掃描檔數：1957 ｜ 生成時間：19:09:41 CST</div>
+  </div>
 
-<h1>台股掃描報告 2026/07/22</h1>
-<p style="color:#718096;font-size:14px;">
-掃描時間: 2026/07/22 19:00 CST | 掃描檔數: <strong>1957</strong> | 上市: 1091 | 上櫃: 0 | 產業: 34
-</p>
+  <div class="stat-row">
+    <div class="stat"><div class="val">1957</div><div class="lbl">掃描檔數</div></div>
+    <div class="stat"><div class="val">10</div><div class="lbl">Top 10 推薦</div></div>
+    <div class="stat"><div class="val">5</div><div class="lbl">爆漲候選</div></div>
+    <div class="stat"><div class="val">N/A</div><div class="lbl">前期勝率</div></div>
+    <div class="stat"><div class="val">N/A</div><div class="lbl">前期平均報酬</div></div>
+  </div>
 
-<div class="info">
-<strong>市場概況</strong><br>
-全市場平均評分: 56.6 | 涵蓋 34 個產業 | v2 五維模型 (技術25%+基本面23%+消息32%+情緒12%+籌碼8%)
-</div>
-
-<!-- Top 10 Recommendation Table -->
-<div class="card">
-<h2>Top 10 強勢推薦</h2>
-<table>
-<thead><tr>
-  <th style="width:30px">#</th><th>代號</th><th>名稱</th><th style="text-align:right">收盤</th>
-  <th style="text-align:right">漲跌</th><th style="text-align:right">總分</th><th>五維分數</th>
-  <th>進出場點位</th><th>建議</th>
-</tr></thead>
-<tbody>
-<tr>
-        <td style="padding:8px;text-align:center">1</td>
-        <td style="padding:8px;font-weight:bold">6591</td>
-        <td style="padding:8px">動力-KY</td>
-        <td style="padding:8px;color:#e53e3e;text-align:right;font-weight:bold">45.0</td>
-        <td style="padding:8px;color:#e53e3e;text-align:right">+2.04%</td>
-        <td style="padding:8px;text-align:right;font-weight:bold"><span style="display:inline-block;background:#2b6cb0;color:white;padding:2px 10px;border-radius:12px;font-size:14px">89.6</span></td>
-        <td style="padding:8px;font-size:11px"><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">技術:72</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">基本:84</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">消息:73</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">情緒:65</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">籌碼:66</span></td>
-        <td style="padding:8px;font-size:11px">進:44.55-45.45<br>T1:45.9 T2:46.8 T3:47.7<br>停損:43.2</td>
-        <td style="padding:8px;font-weight:bold;color:#2b6cb0">強烈推薦</td>
-        </tr><tr>
-        <td style="padding:8px;text-align:center">2</td>
-        <td style="padding:8px;font-weight:bold">2376</td>
-        <td style="padding:8px">技嘉</td>
-        <td style="padding:8px;color:#e53e3e;text-align:right;font-weight:bold">348.0</td>
-        <td style="padding:8px;color:#e53e3e;text-align:right">+2.05%</td>
-        <td style="padding:8px;text-align:right;font-weight:bold"><span style="display:inline-block;background:#2b6cb0;color:white;padding:2px 10px;border-radius:12px;font-size:14px">87.2</span></td>
-        <td style="padding:8px;font-size:11px"><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">技術:71</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">基本:44</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">消息:95</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">情緒:64</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">籌碼:66</span></td>
-        <td style="padding:8px;font-size:11px">進:344.52-351.48<br>T1:354.96 T2:361.92 T3:368.88<br>停損:334.08</td>
-        <td style="padding:8px;font-weight:bold;color:#2b6cb0">強烈推薦</td>
-        </tr><tr>
-        <td style="padding:8px;text-align:center">3</td>
-        <td style="padding:8px;font-weight:bold">8114</td>
-        <td style="padding:8px">振樺電</td>
-        <td style="padding:8px;color:#e53e3e;text-align:right;font-weight:bold">221.0</td>
-        <td style="padding:8px;color:#e53e3e;text-align:right">+9.95%</td>
-        <td style="padding:8px;text-align:right;font-weight:bold"><span style="display:inline-block;background:#2b6cb0;color:white;padding:2px 10px;border-radius:12px;font-size:14px">86.9</span></td>
-        <td style="padding:8px;font-size:11px"><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">技術:76</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">基本:65</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">消息:51</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">情緒:86</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">籌碼:100</span></td>
-        <td style="padding:8px;font-size:11px">進:214.91-227.09<br>T1:233.18 T2:245.36 T3:257.54<br>停損:196.64</td>
-        <td style="padding:8px;font-weight:bold;color:#2b6cb0">強烈推薦</td>
-        </tr><tr>
-        <td style="padding:8px;text-align:center">4</td>
-        <td style="padding:8px;font-weight:bold">6669</td>
-        <td style="padding:8px">緯穎</td>
-        <td style="padding:8px;color:#e53e3e;text-align:right;font-weight:bold">5500.0</td>
-        <td style="padding:8px;color:#e53e3e;text-align:right">+10.0%</td>
-        <td style="padding:8px;text-align:right;font-weight:bold"><span style="display:inline-block;background:#2b6cb0;color:white;padding:2px 10px;border-radius:12px;font-size:14px">86.1</span></td>
-        <td style="padding:8px;font-size:11px"><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">技術:90</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">基本:36</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">消息:56</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">情緒:86</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">籌碼:100</span></td>
-        <td style="padding:8px;font-size:11px">進:5341.48-5658.52<br>T1:5817.03 T2:6134.06 T3:6451.09<br>停損:4865.94</td>
-        <td style="padding:8px;font-weight:bold;color:#2b6cb0">強烈推薦</td>
-        </tr><tr>
-        <td style="padding:8px;text-align:center">5</td>
-        <td style="padding:8px;font-weight:bold">2027</td>
-        <td style="padding:8px">大成鋼</td>
-        <td style="padding:8px;color:#e53e3e;text-align:right;font-weight:bold">43.75</td>
-        <td style="padding:8px;color:#e53e3e;text-align:right">+6.32%</td>
-        <td style="padding:8px;text-align:right;font-weight:bold"><span style="display:inline-block;background:#dd6b20;color:white;padding:2px 10px;border-radius:12px;font-size:14px">84.1</span></td>
-        <td style="padding:8px;font-size:11px"><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">技術:96</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">基本:64</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">消息:52</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">情緒:81</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">籌碼:100</span></td>
-        <td style="padding:8px;font-size:11px">進:42.98-44.52<br>T1:45.3 T2:46.85 T3:48.4<br>停損:40.65</td>
-        <td style="padding:8px;font-weight:bold;color:#2b6cb0">強烈推薦</td>
-        </tr><tr>
-        <td style="padding:8px;text-align:center">6</td>
-        <td style="padding:8px;font-weight:bold">2542</td>
-        <td style="padding:8px">興富發</td>
-        <td style="padding:8px;color:#e53e3e;text-align:right;font-weight:bold">44.8</td>
-        <td style="padding:8px;color:#e53e3e;text-align:right">+1.59%</td>
-        <td style="padding:8px;text-align:right;font-weight:bold"><span style="display:inline-block;background:#dd6b20;color:white;padding:2px 10px;border-radius:12px;font-size:14px">84.1</span></td>
-        <td style="padding:8px;font-size:11px"><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">技術:74</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">基本:71</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">消息:92</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">情緒:68</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">籌碼:47</span></td>
-        <td style="padding:8px;font-size:11px">進:44.35-45.25<br>T1:45.7 T2:46.59 T3:47.49<br>停損:43.01</td>
-        <td style="padding:8px;font-weight:bold;color:#2b6cb0">強烈推薦</td>
-        </tr><tr>
-        <td style="padding:8px;text-align:center">7</td>
-        <td style="padding:8px;font-weight:bold">2317</td>
-        <td style="padding:8px">鴻海</td>
-        <td style="padding:8px;color:#e53e3e;text-align:right;font-weight:bold">251.5</td>
-        <td style="padding:8px;color:#e53e3e;text-align:right">+2.24%</td>
-        <td style="padding:8px;text-align:right;font-weight:bold"><span style="display:inline-block;background:#dd6b20;color:white;padding:2px 10px;border-radius:12px;font-size:14px">84.0</span></td>
-        <td style="padding:8px;font-size:11px"><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">技術:95</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">基本:48</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">消息:83</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">情緒:53</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">籌碼:75</span></td>
-        <td style="padding:8px;font-size:11px">進:247.12-255.88<br>T1:260.26 T2:269.02 T3:277.78<br>停損:233.98</td>
-        <td style="padding:8px;font-weight:bold;color:#2b6cb0">強烈推薦</td>
-        </tr><tr>
-        <td style="padding:8px;text-align:center">8</td>
-        <td style="padding:8px;font-weight:bold">6239</td>
-        <td style="padding:8px">力成</td>
-        <td style="padding:8px;color:#e53e3e;text-align:right;font-weight:bold">294.0</td>
-        <td style="padding:8px;color:#e53e3e;text-align:right">+8.09%</td>
-        <td style="padding:8px;text-align:right;font-weight:bold"><span style="display:inline-block;background:#dd6b20;color:white;padding:2px 10px;border-radius:12px;font-size:14px">83.5</span></td>
-        <td style="padding:8px;font-size:11px"><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">技術:83</span><span style="background:#fef9c3;color:#854d0e;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">基本:26</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">消息:82</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">情緒:72</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">籌碼:72</span></td>
-        <td style="padding:8px;font-size:11px">進:291.06-296.94<br>T1:299.88 T2:305.76 T3:311.64<br>停損:282.24</td>
-        <td style="padding:8px;font-weight:bold;color:#2b6cb0">強烈推薦</td>
-        </tr><tr>
-        <td style="padding:8px;text-align:center">9</td>
-        <td style="padding:8px;font-weight:bold">6605</td>
-        <td style="padding:8px">帝寶</td>
-        <td style="padding:8px;color:#e53e3e;text-align:right;font-weight:bold">135.5</td>
-        <td style="padding:8px;color:#e53e3e;text-align:right">+3.44%</td>
-        <td style="padding:8px;text-align:right;font-weight:bold"><span style="display:inline-block;background:#dd6b20;color:white;padding:2px 10px;border-radius:12px;font-size:14px">83.4</span></td>
-        <td style="padding:8px;font-size:11px"><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">技術:99</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">基本:80</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">消息:49</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">情緒:70</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">籌碼:79</span></td>
-        <td style="padding:8px;font-size:11px">進:133.59-137.41<br>T1:139.33 T2:143.16 T3:146.99<br>停損:127.84</td>
-        <td style="padding:8px;font-weight:bold;color:#2b6cb0">強烈推薦</td>
-        </tr><tr>
-        <td style="padding:8px;text-align:center">10</td>
-        <td style="padding:8px;font-weight:bold">3669</td>
-        <td style="padding:8px">圓展</td>
-        <td style="padding:8px;color:#e53e3e;text-align:right;font-weight:bold">36.4</td>
-        <td style="padding:8px;color:#e53e3e;text-align:right">+8.66%</td>
-        <td style="padding:8px;text-align:right;font-weight:bold"><span style="display:inline-block;background:#dd6b20;color:white;padding:2px 10px;border-radius:12px;font-size:14px">83.3</span></td>
-        <td style="padding:8px;font-size:11px"><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">技術:84</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">基本:49</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">消息:61</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">情緒:79</span><span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 2px">籌碼:100</span></td>
-        <td style="padding:8px;font-size:11px">進:35.53-37.27<br>T1:38.14 T2:39.88 T3:41.62<br>停損:32.92</td>
-        <td style="padding:8px;font-weight:bold;color:#2b6cb0">強烈推薦</td>
+  <div class="card">
+    <h2>📊 Top 10 五維評分推薦</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th><th>股票</th><th>總分</th><th>股價</th><th>進場區間</th><th>停損</th><th>目標價</th><th>建議</th>
         </tr>
-</tbody></table>
-</div>
+      </thead>
+      <tbody>
+    <tr style="border-bottom:1px solid #f0f0f0;">
+      <td style="padding:10px 8px;font-weight:bold;color:#333;">#1</td>
+      <td style="padding:10px 8px;">
+        <div style="font-weight:bold;font-size:15px;">6591 動力-KY</div>
+        <div style="color:#999;font-size:12px;">電腦及週邊設備業</div>
+      </td>
+      <td style="padding:10px 8px;text-align:center;">
+        <span style="font-size:16px;font-weight:bold;color:#27ae60;">89.6</span>
+      </td>
+      <td style="padding:10px 8px;text-align:center;">
+        <div style="font-size:14px;">45.0</div>
+        <div style="color:#e74c3c;font-size:12px;">+2.04%</div>
+      </td>
+      <td style="padding:10px 8px;font-size:12px;color:#27ae60;">
+        44.55 ~ 45.45
+      </td>
+      <td style="padding:10px 8px;font-size:12px;color:#e74c3c;">43.2</td>
+      <td style="padding:10px 8px;font-size:12px;">
+        <span style="color:#3498db;">T1:45.9</span><br>
+        <span style="color:#2980b9;">T2:46.8</span><br>
+        <span style="color:#1a5276;">T3:47.7</span>
+      </td>
+      <td style="padding:10px 8px;font-size:11px;color:#666;">強烈推薦</td>
+    </tr>
+    <tr style="border-bottom:1px solid #f0f0f0;">
+      <td style="padding:10px 8px;font-weight:bold;color:#333;">#2</td>
+      <td style="padding:10px 8px;">
+        <div style="font-weight:bold;font-size:15px;">2376 技嘉</div>
+        <div style="color:#999;font-size:12px;">電腦及週邊設備業</div>
+      </td>
+      <td style="padding:10px 8px;text-align:center;">
+        <span style="font-size:16px;font-weight:bold;color:#27ae60;">87.2</span>
+      </td>
+      <td style="padding:10px 8px;text-align:center;">
+        <div style="font-size:14px;">348.0</div>
+        <div style="color:#e74c3c;font-size:12px;">+2.05%</div>
+      </td>
+      <td style="padding:10px 8px;font-size:12px;color:#27ae60;">
+        344.52 ~ 351.48
+      </td>
+      <td style="padding:10px 8px;font-size:12px;color:#e74c3c;">334.08</td>
+      <td style="padding:10px 8px;font-size:12px;">
+        <span style="color:#3498db;">T1:354.96</span><br>
+        <span style="color:#2980b9;">T2:361.92</span><br>
+        <span style="color:#1a5276;">T3:368.88</span>
+      </td>
+      <td style="padding:10px 8px;font-size:11px;color:#666;">強烈推薦</td>
+    </tr>
+    <tr style="border-bottom:1px solid #f0f0f0;">
+      <td style="padding:10px 8px;font-weight:bold;color:#333;">#3</td>
+      <td style="padding:10px 8px;">
+        <div style="font-weight:bold;font-size:15px;">8114 振樺電</div>
+        <div style="color:#999;font-size:12px;">電腦及週邊設備業</div>
+      </td>
+      <td style="padding:10px 8px;text-align:center;">
+        <span style="font-size:16px;font-weight:bold;color:#27ae60;">86.9</span>
+      </td>
+      <td style="padding:10px 8px;text-align:center;">
+        <div style="font-size:14px;">221.0</div>
+        <div style="color:#e74c3c;font-size:12px;">+9.95%</div>
+      </td>
+      <td style="padding:10px 8px;font-size:12px;color:#27ae60;">
+        214.91 ~ 227.09
+      </td>
+      <td style="padding:10px 8px;font-size:12px;color:#e74c3c;">196.64</td>
+      <td style="padding:10px 8px;font-size:12px;">
+        <span style="color:#3498db;">T1:233.18</span><br>
+        <span style="color:#2980b9;">T2:245.36</span><br>
+        <span style="color:#1a5276;">T3:257.54</span>
+      </td>
+      <td style="padding:10px 8px;font-size:11px;color:#666;">強烈推薦</td>
+    </tr>
+    <tr style="border-bottom:1px solid #f0f0f0;">
+      <td style="padding:10px 8px;font-weight:bold;color:#333;">#4</td>
+      <td style="padding:10px 8px;">
+        <div style="font-weight:bold;font-size:15px;">6669 緯穎</div>
+        <div style="color:#999;font-size:12px;">電腦及週邊設備業</div>
+      </td>
+      <td style="padding:10px 8px;text-align:center;">
+        <span style="font-size:16px;font-weight:bold;color:#27ae60;">86.1</span>
+      </td>
+      <td style="padding:10px 8px;text-align:center;">
+        <div style="font-size:14px;">5500.0</div>
+        <div style="color:#e74c3c;font-size:12px;">+10.00%</div>
+      </td>
+      <td style="padding:10px 8px;font-size:12px;color:#27ae60;">
+        5341.48 ~ 5658.52
+      </td>
+      <td style="padding:10px 8px;font-size:12px;color:#e74c3c;">4865.94</td>
+      <td style="padding:10px 8px;font-size:12px;">
+        <span style="color:#3498db;">T1:5817.03</span><br>
+        <span style="color:#2980b9;">T2:6134.06</span><br>
+        <span style="color:#1a5276;">T3:6451.09</span>
+      </td>
+      <td style="padding:10px 8px;font-size:11px;color:#666;">強烈推薦</td>
+    </tr>
+    <tr style="border-bottom:1px solid #f0f0f0;">
+      <td style="padding:10px 8px;font-weight:bold;color:#333;">#5</td>
+      <td style="padding:10px 8px;">
+        <div style="font-weight:bold;font-size:15px;">2027 大成鋼</div>
+        <div style="color:#999;font-size:12px;">鋼鐵工業</div>
+      </td>
+      <td style="padding:10px 8px;text-align:center;">
+        <span style="font-size:16px;font-weight:bold;color:#27ae60;">84.1</span>
+      </td>
+      <td style="padding:10px 8px;text-align:center;">
+        <div style="font-size:14px;">43.75</div>
+        <div style="color:#e74c3c;font-size:12px;">+6.32%</div>
+      </td>
+      <td style="padding:10px 8px;font-size:12px;color:#27ae60;">
+        42.98 ~ 44.52
+      </td>
+      <td style="padding:10px 8px;font-size:12px;color:#e74c3c;">40.65</td>
+      <td style="padding:10px 8px;font-size:12px;">
+        <span style="color:#3498db;">T1:45.3</span><br>
+        <span style="color:#2980b9;">T2:46.85</span><br>
+        <span style="color:#1a5276;">T3:48.4</span>
+      </td>
+      <td style="padding:10px 8px;font-size:11px;color:#666;">強烈推薦</td>
+    </tr>
+    <tr style="border-bottom:1px solid #f0f0f0;">
+      <td style="padding:10px 8px;font-weight:bold;color:#333;">#6</td>
+      <td style="padding:10px 8px;">
+        <div style="font-weight:bold;font-size:15px;">2542 興富發</div>
+        <div style="color:#999;font-size:12px;">建材營造</div>
+      </td>
+      <td style="padding:10px 8px;text-align:center;">
+        <span style="font-size:16px;font-weight:bold;color:#27ae60;">84.1</span>
+      </td>
+      <td style="padding:10px 8px;text-align:center;">
+        <div style="font-size:14px;">44.8</div>
+        <div style="color:#e74c3c;font-size:12px;">+1.59%</div>
+      </td>
+      <td style="padding:10px 8px;font-size:12px;color:#27ae60;">
+        44.35 ~ 45.25
+      </td>
+      <td style="padding:10px 8px;font-size:12px;color:#e74c3c;">43.01</td>
+      <td style="padding:10px 8px;font-size:12px;">
+        <span style="color:#3498db;">T1:45.7</span><br>
+        <span style="color:#2980b9;">T2:46.59</span><br>
+        <span style="color:#1a5276;">T3:47.49</span>
+      </td>
+      <td style="padding:10px 8px;font-size:11px;color:#666;">強烈推薦</td>
+    </tr>
+    <tr style="border-bottom:1px solid #f0f0f0;">
+      <td style="padding:10px 8px;font-weight:bold;color:#333;">#7</td>
+      <td style="padding:10px 8px;">
+        <div style="font-weight:bold;font-size:15px;">2317 鴻海</div>
+        <div style="color:#999;font-size:12px;">其他電子業</div>
+      </td>
+      <td style="padding:10px 8px;text-align:center;">
+        <span style="font-size:16px;font-weight:bold;color:#27ae60;">84.0</span>
+      </td>
+      <td style="padding:10px 8px;text-align:center;">
+        <div style="font-size:14px;">251.5</div>
+        <div style="color:#e74c3c;font-size:12px;">+2.24%</div>
+      </td>
+      <td style="padding:10px 8px;font-size:12px;color:#27ae60;">
+        247.12 ~ 255.88
+      </td>
+      <td style="padding:10px 8px;font-size:12px;color:#e74c3c;">233.98</td>
+      <td style="padding:10px 8px;font-size:12px;">
+        <span style="color:#3498db;">T1:260.26</span><br>
+        <span style="color:#2980b9;">T2:269.02</span><br>
+        <span style="color:#1a5276;">T3:277.78</span>
+      </td>
+      <td style="padding:10px 8px;font-size:11px;color:#666;">強烈推薦</td>
+    </tr>
+    <tr style="border-bottom:1px solid #f0f0f0;">
+      <td style="padding:10px 8px;font-weight:bold;color:#333;">#8</td>
+      <td style="padding:10px 8px;">
+        <div style="font-weight:bold;font-size:15px;">6239 力成</div>
+        <div style="color:#999;font-size:12px;">半導體業</div>
+      </td>
+      <td style="padding:10px 8px;text-align:center;">
+        <span style="font-size:16px;font-weight:bold;color:#27ae60;">83.5</span>
+      </td>
+      <td style="padding:10px 8px;text-align:center;">
+        <div style="font-size:14px;">294.0</div>
+        <div style="color:#e74c3c;font-size:12px;">+8.09%</div>
+      </td>
+      <td style="padding:10px 8px;font-size:12px;color:#27ae60;">
+        291.06 ~ 296.94
+      </td>
+      <td style="padding:10px 8px;font-size:12px;color:#e74c3c;">282.24</td>
+      <td style="padding:10px 8px;font-size:12px;">
+        <span style="color:#3498db;">T1:299.88</span><br>
+        <span style="color:#2980b9;">T2:305.76</span><br>
+        <span style="color:#1a5276;">T3:311.64</span>
+      </td>
+      <td style="padding:10px 8px;font-size:11px;color:#666;">強烈推薦</td>
+    </tr>
+    <tr style="border-bottom:1px solid #f0f0f0;">
+      <td style="padding:10px 8px;font-weight:bold;color:#333;">#9</td>
+      <td style="padding:10px 8px;">
+        <div style="font-weight:bold;font-size:15px;">6605 帝寶</div>
+        <div style="color:#999;font-size:12px;">汽車工業</div>
+      </td>
+      <td style="padding:10px 8px;text-align:center;">
+        <span style="font-size:16px;font-weight:bold;color:#27ae60;">83.4</span>
+      </td>
+      <td style="padding:10px 8px;text-align:center;">
+        <div style="font-size:14px;">135.5</div>
+        <div style="color:#e74c3c;font-size:12px;">+3.44%</div>
+      </td>
+      <td style="padding:10px 8px;font-size:12px;color:#27ae60;">
+        133.59 ~ 137.41
+      </td>
+      <td style="padding:10px 8px;font-size:12px;color:#e74c3c;">127.84</td>
+      <td style="padding:10px 8px;font-size:12px;">
+        <span style="color:#3498db;">T1:139.33</span><br>
+        <span style="color:#2980b9;">T2:143.16</span><br>
+        <span style="color:#1a5276;">T3:146.99</span>
+      </td>
+      <td style="padding:10px 8px;font-size:11px;color:#666;">強烈推薦</td>
+    </tr>
+    <tr style="border-bottom:1px solid #f0f0f0;">
+      <td style="padding:10px 8px;font-weight:bold;color:#333;">#10</td>
+      <td style="padding:10px 8px;">
+        <div style="font-weight:bold;font-size:15px;">3669 圓展</div>
+        <div style="color:#999;font-size:12px;">通信網路業</div>
+      </td>
+      <td style="padding:10px 8px;text-align:center;">
+        <span style="font-size:16px;font-weight:bold;color:#27ae60;">83.3</span>
+      </td>
+      <td style="padding:10px 8px;text-align:center;">
+        <div style="font-size:14px;">36.4</div>
+        <div style="color:#e74c3c;font-size:12px;">+8.66%</div>
+      </td>
+      <td style="padding:10px 8px;font-size:12px;color:#27ae60;">
+        35.53 ~ 37.27
+      </td>
+      <td style="padding:10px 8px;font-size:12px;color:#e74c3c;">32.92</td>
+      <td style="padding:10px 8px;font-size:12px;">
+        <span style="color:#3498db;">T1:38.14</span><br>
+        <span style="color:#2980b9;">T2:39.88</span><br>
+        <span style="color:#1a5276;">T3:41.62</span>
+      </td>
+      <td style="padding:10px 8px;font-size:11px;color:#666;">強烈推薦</td>
+    </tr></tbody>
+    </table>
+  </div>
 
-<!-- Explosive Stock Prediction Cards -->
-<div class="card">
-<h2>爆漲股預測 Top 5</h2>
-<p style="color:#718096;font-size:13px;">基於 v2 五維分析模型 (技術25% + 基本面23% + 消息32% + 情緒12% + 籌碼8%)，下列個股展現強勢突破訊號</p>
-<div style="background:#f0fff4;border:1px solid #c6f6d5;border-radius:8px;padding:12px;margin:8px 0">
-          <div style="font-weight:bold;font-size:16px">6591 動力-KY
-            <span style="color:#e53e3e">45.0</span>
-            <span style="color:#38a169;margin-left:10px">+2.04%</span>
-            <span style="margin-left:10px;background:#3182ce;color:white;padding:2px 8px;border-radius:10px;font-size:12px">89.6分</span>
-          </div>
-          <div style="margin:6px 0;font-size:12px;color:#4a5568">
-            目標: T1(45.9) T2(46.8) T3(47.7) | 停損: 43.2
-          </div>
-          <div style="margin:4px 0"><span style="background:#ebf8ff;color:#2b6cb0;padding:2px 6px;border-radius:4px;font-size:10px;margin-right:4px">技術面強勢突破</span><span style="background:#ebf8ff;color:#2b6cb0;padding:2px 6px;border-radius:4px;font-size:10px;margin-right:4px">籌碼集中法人買超</span><span style="background:#ebf8ff;color:#2b6cb0;padding:2px 6px;border-radius:4px;font-size:10px;margin-right:4px">市場情緒熱絡</span><span style="background:#ebf8ff;color:#2b6cb0;padding:2px 6px;border-radius:4px;font-size:10px;margin-right:4px">基本面強勁</span></div>
-        </div><div style="background:#f0fff4;border:1px solid #c6f6d5;border-radius:8px;padding:12px;margin:8px 0">
-          <div style="font-weight:bold;font-size:16px">2376 技嘉
-            <span style="color:#e53e3e">348.0</span>
-            <span style="color:#38a169;margin-left:10px">+2.05%</span>
-            <span style="margin-left:10px;background:#3182ce;color:white;padding:2px 8px;border-radius:10px;font-size:12px">87.2分</span>
-          </div>
-          <div style="margin:6px 0;font-size:12px;color:#4a5568">
-            目標: T1(354.96) T2(361.92) T3(368.88) | 停損: 334.08
-          </div>
-          <div style="margin:4px 0"><span style="background:#ebf8ff;color:#2b6cb0;padding:2px 6px;border-radius:4px;font-size:10px;margin-right:4px">技術面強勢突破</span><span style="background:#ebf8ff;color:#2b6cb0;padding:2px 6px;border-radius:4px;font-size:10px;margin-right:4px">籌碼集中法人買超</span><span style="background:#ebf8ff;color:#2b6cb0;padding:2px 6px;border-radius:4px;font-size:10px;margin-right:4px">市場情緒熱絡</span><span style="background:#ebf8ff;color:#2b6cb0;padding:2px 6px;border-radius:4px;font-size:10px;margin-right:4px">基本面強勁</span></div>
-        </div><div style="background:#f0fff4;border:1px solid #c6f6d5;border-radius:8px;padding:12px;margin:8px 0">
-          <div style="font-weight:bold;font-size:16px">8114 振樺電
-            <span style="color:#e53e3e">221.0</span>
-            <span style="color:#38a169;margin-left:10px">+9.95%</span>
-            <span style="margin-left:10px;background:#3182ce;color:white;padding:2px 8px;border-radius:10px;font-size:12px">86.9分</span>
-          </div>
-          <div style="margin:6px 0;font-size:12px;color:#4a5568">
-            目標: T1(233.18) T2(245.36) T3(257.54) | 停損: 196.64
-          </div>
-          <div style="margin:4px 0"><span style="background:#ebf8ff;color:#2b6cb0;padding:2px 6px;border-radius:4px;font-size:10px;margin-right:4px">技術面強勢突破</span><span style="background:#ebf8ff;color:#2b6cb0;padding:2px 6px;border-radius:4px;font-size:10px;margin-right:4px">籌碼集中法人買超</span><span style="background:#ebf8ff;color:#2b6cb0;padding:2px 6px;border-radius:4px;font-size:10px;margin-right:4px">市場情緒熱絡</span><span style="background:#ebf8ff;color:#2b6cb0;padding:2px 6px;border-radius:4px;font-size:10px;margin-right:4px">爆量強勢上攻</span></div>
-        </div><div style="background:#f0fff4;border:1px solid #c6f6d5;border-radius:8px;padding:12px;margin:8px 0">
-          <div style="font-weight:bold;font-size:16px">6669 緯穎
-            <span style="color:#e53e3e">5500.0</span>
-            <span style="color:#38a169;margin-left:10px">+10.0%</span>
-            <span style="margin-left:10px;background:#3182ce;color:white;padding:2px 8px;border-radius:10px;font-size:12px">86.1分</span>
-          </div>
-          <div style="margin:6px 0;font-size:12px;color:#4a5568">
-            目標: T1(5817.03) T2(6134.06) T3(6451.09) | 停損: 4865.94
-          </div>
-          <div style="margin:4px 0"><span style="background:#ebf8ff;color:#2b6cb0;padding:2px 6px;border-radius:4px;font-size:10px;margin-right:4px">技術面強勢突破</span><span style="background:#ebf8ff;color:#2b6cb0;padding:2px 6px;border-radius:4px;font-size:10px;margin-right:4px">籌碼集中法人買超</span><span style="background:#ebf8ff;color:#2b6cb0;padding:2px 6px;border-radius:4px;font-size:10px;margin-right:4px">市場情緒熱絡</span><span style="background:#ebf8ff;color:#2b6cb0;padding:2px 6px;border-radius:4px;font-size:10px;margin-right:4px">爆量強勢上攻</span></div>
-        </div><div style="background:#f0fff4;border:1px solid #c6f6d5;border-radius:8px;padding:12px;margin:8px 0">
-          <div style="font-weight:bold;font-size:16px">2027 大成鋼
-            <span style="color:#e53e3e">43.75</span>
-            <span style="color:#38a169;margin-left:10px">+6.32%</span>
-            <span style="margin-left:10px;background:#3182ce;color:white;padding:2px 8px;border-radius:10px;font-size:12px">84.1分</span>
-          </div>
-          <div style="margin:6px 0;font-size:12px;color:#4a5568">
-            目標: T1(45.3) T2(46.85) T3(48.4) | 停損: 40.65
-          </div>
-          <div style="margin:4px 0"><span style="background:#ebf8ff;color:#2b6cb0;padding:2px 6px;border-radius:4px;font-size:10px;margin-right:4px">技術面強勢突破</span><span style="background:#ebf8ff;color:#2b6cb0;padding:2px 6px;border-radius:4px;font-size:10px;margin-right:4px">籌碼集中法人買超</span><span style="background:#ebf8ff;color:#2b6cb0;padding:2px 6px;border-radius:4px;font-size:10px;margin-right:4px">市場情緒熱絡</span><span style="background:#ebf8ff;color:#2b6cb0;padding:2px 6px;border-radius:4px;font-size:10px;margin-right:4px">爆量強勢上攻</span></div>
-        </div>
-</div>
+  <div class="card">
+    <h2>🚀 爆漲股預測 Top 5</h2>
+    <table>
+      <thead><tr><th>股票</th><th>爆漲機率</th><th>現價</th><th>訊號</th></tr></thead>
+      <tbody>
+    <tr style="border-bottom:1px solid #f0f0f0;">
+      <td style="padding:8px;">1591 <b>英屬開曼群島商駿</b></td>
+      <td style="padding:8px;text-align:center;">
+        <span style="font-size:15px;font-weight:bold;color:#e74c3c;">98.0%</span>
+        <div style="background:#eee;height:6px;border-radius:3px;margin-top:4px;"><div style="background:#e74c3c;width:98%;height:6px;border-radius:3px;"></div></div>
+      </td>
+      <td style="padding:8px;text-align:center;">34.25</td>
+      <td style="padding:8px;font-size:11px;color:#666;"></td>
+    </tr>
+    <tr style="border-bottom:1px solid #f0f0f0;">
+      <td style="padding:8px;">3523 <b>迎輝科技股份有限</b></td>
+      <td style="padding:8px;text-align:center;">
+        <span style="font-size:15px;font-weight:bold;color:#e74c3c;">96.8%</span>
+        <div style="background:#eee;height:6px;border-radius:3px;margin-top:4px;"><div style="background:#e74c3c;width:97%;height:6px;border-radius:3px;"></div></div>
+      </td>
+      <td style="padding:8px;text-align:center;">15.4</td>
+      <td style="padding:8px;font-size:11px;color:#666;"></td>
+    </tr>
+    <tr style="border-bottom:1px solid #f0f0f0;">
+      <td style="padding:8px;">3450 <b>聯鈞</b></td>
+      <td style="padding:8px;text-align:center;">
+        <span style="font-size:15px;font-weight:bold;color:#f39c12;">74.1%</span>
+        <div style="background:#eee;height:6px;border-radius:3px;margin-top:4px;"><div style="background:#f39c12;width:74%;height:6px;border-radius:3px;"></div></div>
+      </td>
+      <td style="padding:8px;text-align:center;">458.5</td>
+      <td style="padding:8px;font-size:11px;color:#666;"></td>
+    </tr>
+    <tr style="border-bottom:1px solid #f0f0f0;">
+      <td style="padding:8px;">2426 <b>鼎元</b></td>
+      <td style="padding:8px;text-align:center;">
+        <span style="font-size:15px;font-weight:bold;color:#f39c12;">72.6%</span>
+        <div style="background:#eee;height:6px;border-radius:3px;margin-top:4px;"><div style="background:#f39c12;width:73%;height:6px;border-radius:3px;"></div></div>
+      </td>
+      <td style="padding:8px;text-align:center;">58.8</td>
+      <td style="padding:8px;font-size:11px;color:#666;"></td>
+    </tr>
+    <tr style="border-bottom:1px solid #f0f0f0;">
+      <td style="padding:8px;">6141 <b>柏承</b></td>
+      <td style="padding:8px;text-align:center;">
+        <span style="font-size:15px;font-weight:bold;color:#f39c12;">68.9%</span>
+        <div style="background:#eee;height:6px;border-radius:3px;margin-top:4px;"><div style="background:#f39c12;width:69%;height:6px;border-radius:3px;"></div></div>
+      </td>
+      <td style="padding:8px;text-align:center;">42.0</td>
+      <td style="padding:8px;font-size:11px;color:#666;"></td>
+    </tr></tbody>
+    </table>
+  </div>
 
-<!-- Bear Market Defense -->
-<div class="card">
-<h2>空頭防衛邏輯</h2>
-<div class="warning">
-<strong>風險警示</strong><br>
-- 全市場 1957 檔已完成五維分析<br>- 若大盤轉弱 (加權指數跌破 5 日線)，建議降低持股至 30% 以下<br>
-- 優先停損弱勢持股 (評分 < 50)，增加現金部位<br>
-- 個股跌破停損價立即出場，嚴格執行停損紀律
-</div>
-<div class="info">
-<strong>防衛策略</strong><br>
-- 持股比例: 市場多頭 -> 60-80% | 震盪盤 -> 40-60% | 空頭 -> 20-30%<br>
-- 個股停損: 均價 -5% 或跌破目標停損價<br>
-- 獲利了結: T1 目標達成 -> 出 1/3 | T2 目標達成 -> 再出 1/3 | T3 全出
-</div>
-</div>
+  <div class="card">
+    <h2>📈 T+1 歷史驗證 (前日 Top 5)</h2>
+    <p style="color:#999;font-size:13px;">參考日期：20260715</p>
+    <table>
+      <thead><tr><th>股票</th><th>進場價</th><th>T+1 收盤</th><th>報酬率</th></tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid #f0f0f0;">
+          <td style="padding:8px;">5538 東明-KY</td>
+          <td style="padding:8px;text-align:center;"></td>
+          <td style="padding:8px;text-align:center;"></td>
+          <td style="padding:8px;text-align:center;font-weight:bold;color:#e74c3c;">-1.70%</td>
+        </tr>
+        <tr style="border-bottom:1px solid #f0f0f0;">
+          <td style="padding:8px;">5871 中租-KY</td>
+          <td style="padding:8px;text-align:center;"></td>
+          <td style="padding:8px;text-align:center;"></td>
+          <td style="padding:8px;text-align:center;font-weight:bold;color:#e74c3c;">-0.40%</td>
+        </tr>
+        <tr style="border-bottom:1px solid #f0f0f0;">
+          <td style="padding:8px;">4440 宜新實業</td>
+          <td style="padding:8px;text-align:center;"></td>
+          <td style="padding:8px;text-align:center;"></td>
+          <td style="padding:8px;text-align:center;font-weight:bold;color:#e74c3c;">-0.86%</td>
+        </tr>
+        <tr style="border-bottom:1px solid #f0f0f0;">
+          <td style="padding:8px;">2069 運錩</td>
+          <td style="padding:8px;text-align:center;"></td>
+          <td style="padding:8px;text-align:center;"></td>
+          <td style="padding:8px;text-align:center;font-weight:bold;color:#e74c3c;">-0.53%</td>
+        </tr>
+        <tr style="border-bottom:1px solid #f0f0f0;">
+          <td style="padding:8px;">2027 大成鋼</td>
+          <td style="padding:8px;text-align:center;"></td>
+          <td style="padding:8px;text-align:center;"></td>
+          <td style="padding:8px;text-align:center;font-weight:bold;color:#27ae60;">+6.32%</td>
+        </tr></tbody>
+    </table>
+  </div>
 
-<!-- T+N Historical Performance -->
-<div class="card">
-<h2>T+N 歷史績效摘要</h2>
-<table>
-<thead><tr><th>掃描日期</th><th>期間</th><th style="text-align:center">勝率</th><th style="text-align:center">平均報酬</th><th style="text-align:center">檔數</th></tr></thead>
-<tbody>
-</tbody></table>
-<p style="font-size:11px;color:#718096;margin-top:8px">T+N 定義: 以推薦日後第 N 個交易日收盤價計算報酬。勝率 = 正報酬檔數/總檔數 x 100%。</p>
+  <div class="footer">
+    台股雷達系統 · 每日 19:00 自動掃描 · 2026-08-03 19:09 CST<br>
+    <a href="https://juststarlight66-oss.github.io/taiwan-stock-radar/" style="color:#3498db;">查看線上儀表板</a>
+  </div>
 </div>
-
-<!-- Individual Stock Analysis -->
-<div class="card">
-<h2>Top 3 深度分析</h2>
-<div style="margin:12px 0;padding:12px;background:#f7fafc;border-radius:8px">
-<div style="font-weight:bold;font-size:15px">6591 動力-KY - 收盤 45.0 | 漲幅 +2.04% | 總分 89.6</div>
-<div style="font-size:12px;color:#4a5568;margin:6px 0">技術面強勢突破, 籌碼集中法人買超, 市場情緒熱絡, 消息面利多, 基本面穩健</div>
-<div style="font-size:11px;color:#718096">
-  進場: 44.55-45.45 |
-  目標: T1(45.9) T2(46.8) T3(47.7) |
-  停損: 43.2 |
-  建議: 強烈推薦
-</div>
-</div><div style="margin:12px 0;padding:12px;background:#f7fafc;border-radius:8px">
-<div style="font-weight:bold;font-size:15px">2376 技嘉 - 收盤 348.0 | 漲幅 +2.05% | 總分 87.2</div>
-<div style="font-size:12px;color:#4a5568;margin:6px 0">技術面強勢突破, 籌碼集中法人買超, 市場情緒熱絡, 消息面利多, 基本面穩健</div>
-<div style="font-size:11px;color:#718096">
-  進場: 344.52-351.48 |
-  目標: T1(354.96) T2(361.92) T3(368.88) |
-  停損: 334.08 |
-  建議: 強烈推薦
-</div>
-</div><div style="margin:12px 0;padding:12px;background:#f7fafc;border-radius:8px">
-<div style="font-weight:bold;font-size:15px">8114 振樺電 - 收盤 221.0 | 漲幅 +9.95% | 總分 86.9</div>
-<div style="font-size:12px;color:#4a5568;margin:6px 0">技術面強勢突破, 籌碼集中法人買超, 市場情緒熱絡, 爆量強勢上攻, 消息面利多, 基本面穩健</div>
-<div style="font-size:11px;color:#718096">
-  進場: 214.91-227.09 |
-  目標: T1(233.18) T2(245.36) T3(257.54) |
-  停損: 196.64 |
-  建議: 強烈推薦
-</div>
-</div>
-</div>
-
-<div class="footer">
-自動化掃描 · 台灣時間 2026/07/22 19:00 更新 · v2 五維評分模型<br>
-本報告僅供參考，不構成投資建議。投資決策請自行判斷，盈虧自負。<br>
-資料來源: Yahoo Finance · TWSE · TPEx
-</div>
-
 </body>
 </html>
