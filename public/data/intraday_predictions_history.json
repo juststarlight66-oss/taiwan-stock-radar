@@ -1,5 +1,59 @@
 [
   {
+    "scan_date": "20260804",
+    "captured_at": "2026-08-04T20:26:13.736453+08:00",
+    "scan_type": "intraday_daytrade",
+    "top5": [
+      {
+        "stock_id": "6831",
+        "name": "邁科",
+        "entry_price": 615.0,
+        "change_pct": 8.85,
+        "sector": "電腦及週邊設備業",
+        "total_score": 88.0
+      },
+      {
+        "stock_id": "3312",
+        "name": "弘憶股",
+        "entry_price": 48.0,
+        "change_pct": 8.6,
+        "sector": "電子通路業",
+        "total_score": 84.0
+      },
+      {
+        "stock_id": "2351",
+        "name": "順德",
+        "entry_price": 166.0,
+        "change_pct": 6.75,
+        "sector": "半導體業",
+        "total_score": 79.0
+      },
+      {
+        "stock_id": "6206",
+        "name": "飛捷",
+        "entry_price": 140.5,
+        "change_pct": 5.24,
+        "sector": "電腦及週邊設備業",
+        "total_score": 78.0
+      },
+      {
+        "stock_id": "8046",
+        "name": "南電",
+        "entry_price": 1035.0,
+        "change_pct": 8.6,
+        "sector": "電子零組件業",
+        "total_score": 78.0
+      }
+    ],
+    "t1_return": null,
+    "t1_check_date": null,
+    "t3_return": null,
+    "t3_check_date": null,
+    "t5_return": null,
+    "t5_check_date": null,
+    "win": null
+  },
+  {
     "scan_date": "20260730",
     "captured_at": "2026-08-03T21:25:15.226821+08:00",
     "scan_type": "intraday_daytrade",
