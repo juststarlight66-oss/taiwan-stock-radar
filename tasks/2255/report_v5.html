@@ -3,386 +3,431 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>【台股掃描報告】2026/08/03</title>
+<title>【台股掃描報告】2026/08/04</title>
 <style>
-  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; background:#f5f7fa; margin:0; padding:0; color:#333; }
-  .container { max-width:900px; margin:0 auto; padding:20px; }
-  .header { background:linear-gradient(135deg,#1a3a5c,#2980b9); color:white; padding:28px 32px; border-radius:12px; margin-bottom:20px; }
-  .header h1 { margin:0 0 8px 0; font-size:22px; }
-  .header .meta { font-size:13px; opacity:0.85; }
-  .card { background:white; border-radius:10px; padding:20px; margin-bottom:16px; box-shadow:0 2px 8px rgba(0,0,0,0.07); }
-  .card h2 { font-size:16px; margin:0 0 14px 0; color:#1a3a5c; border-left:4px solid #2980b9; padding-left:10px; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background:#f8f9fa; margin:0; padding:0; color:#2c3e50; }
+  .container { max-width:1100px; margin:0 auto; padding:20px; }
+  .header { background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460); color:#fff; padding:32px; border-radius:12px; margin-bottom:24px; text-align:center; }
+  .header h1 { margin:0 0 8px; font-size:24px; }
+  .header .subtitle { opacity:.8; font-size:14px; }
+  .stats { display:flex; gap:16px; margin-bottom:24px; flex-wrap:wrap; }
+  .stat-card { flex:1; min-width:140px; background:#fff; border-radius:10px; padding:20px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+  .stat-card .value { font-size:28px; font-weight:bold; color:#2c3e50; }
+  .stat-card .label { font-size:12px; color:#888; margin-top:4px; }
+  .section { background:#fff; border-radius:12px; padding:24px; margin-bottom:24px; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+  .section h2 { margin:0 0 20px; font-size:18px; color:#2c3e50; border-bottom:2px solid #e9ecef; padding-bottom:10px; }
   table { width:100%; border-collapse:collapse; }
-  th { background:#f8f9fa; padding:10px 8px; text-align:left; font-size:12px; color:#666; border-bottom:2px solid #e9ecef; }
-  .stat-row { display:flex; gap:16px; margin-bottom:16px; flex-wrap:wrap; }
-  .stat { background:#f8f9fa; padding:14px 20px; border-radius:8px; flex:1; min-width:120px; text-align:center; }
-  .stat .val { font-size:22px; font-weight:bold; color:#1a3a5c; }
-  .stat .lbl { font-size:12px; color:#999; margin-top:4px; }
-  .footer { text-align:center; color:#aaa; font-size:12px; margin-top:24px; }
+  th { background:#f8f9fa; padding:10px 8px; text-align:left; font-size:13px; color:#666; font-weight:600; }
+  .explode-grid { display:flex; flex-wrap:wrap; gap:8px; }
+  .footer { text-align:center; color:#888; font-size:12px; padding:20px; }
+  @media(max-width:600px) { .stats { flex-direction:column; } }
 </style>
 </head>
 <body>
 <div class="container">
   <div class="header">
-    <h1>🔍 台股五維掃描報告</h1>
-    <div class="meta">掃描日期：2026/08/03 ｜ 掃描檔數：1957 ｜ 生成時間：19:09:41 CST</div>
+    <h1>🎯 台股五維分析掃描報告</h1>
+    <div class="subtitle">2026/08/04 | 掃描 1947 檔 | 生成時間: 19:10 TWN</div>
   </div>
 
-  <div class="stat-row">
-    <div class="stat"><div class="val">1957</div><div class="lbl">掃描檔數</div></div>
-    <div class="stat"><div class="val">10</div><div class="lbl">Top 10 推薦</div></div>
-    <div class="stat"><div class="val">5</div><div class="lbl">爆漲候選</div></div>
-    <div class="stat"><div class="val">N/A</div><div class="lbl">前期勝率</div></div>
-    <div class="stat"><div class="val">N/A</div><div class="lbl">前期平均報酬</div></div>
+  <div class="stats">
+    <div class="stat-card">
+      <div class="value">1947</div>
+      <div class="label">掃描股票數</div>
+    </div>
+    <div class="stat-card">
+      <div class="value">10</div>
+      <div class="label">Top 推薦數</div>
+    </div>
+    <div class="stat-card">
+      <div class="value">0%</div>
+      <div class="label">近期勝率</div>
+    </div>
+    <div class="stat-card">
+      <div class="value">0.0%</div>
+      <div class="label">近期平均報酬</div>
+    </div>
   </div>
 
-  <div class="card">
-    <h2>📊 Top 10 五維評分推薦</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>#</th><th>股票</th><th>總分</th><th>股價</th><th>進場區間</th><th>停損</th><th>目標價</th><th>建議</th>
-        </tr>
-      </thead>
-      <tbody>
-    <tr style="border-bottom:1px solid #f0f0f0;">
-      <td style="padding:10px 8px;font-weight:bold;color:#333;">#1</td>
-      <td style="padding:10px 8px;">
-        <div style="font-weight:bold;font-size:15px;">6591 動力-KY</div>
-        <div style="color:#999;font-size:12px;">電腦及週邊設備業</div>
-      </td>
-      <td style="padding:10px 8px;text-align:center;">
-        <span style="font-size:16px;font-weight:bold;color:#27ae60;">89.6</span>
-      </td>
-      <td style="padding:10px 8px;text-align:center;">
-        <div style="font-size:14px;">45.0</div>
-        <div style="color:#e74c3c;font-size:12px;">+2.04%</div>
-      </td>
-      <td style="padding:10px 8px;font-size:12px;color:#27ae60;">
-        44.55 ~ 45.45
-      </td>
-      <td style="padding:10px 8px;font-size:12px;color:#e74c3c;">43.2</td>
-      <td style="padding:10px 8px;font-size:12px;">
-        <span style="color:#3498db;">T1:45.9</span><br>
-        <span style="color:#2980b9;">T2:46.8</span><br>
-        <span style="color:#1a5276;">T3:47.7</span>
-      </td>
-      <td style="padding:10px 8px;font-size:11px;color:#666;">強烈推薦</td>
-    </tr>
-    <tr style="border-bottom:1px solid #f0f0f0;">
-      <td style="padding:10px 8px;font-weight:bold;color:#333;">#2</td>
-      <td style="padding:10px 8px;">
-        <div style="font-weight:bold;font-size:15px;">2376 技嘉</div>
-        <div style="color:#999;font-size:12px;">電腦及週邊設備業</div>
-      </td>
-      <td style="padding:10px 8px;text-align:center;">
-        <span style="font-size:16px;font-weight:bold;color:#27ae60;">87.2</span>
-      </td>
-      <td style="padding:10px 8px;text-align:center;">
-        <div style="font-size:14px;">348.0</div>
-        <div style="color:#e74c3c;font-size:12px;">+2.05%</div>
-      </td>
-      <td style="padding:10px 8px;font-size:12px;color:#27ae60;">
-        344.52 ~ 351.48
-      </td>
-      <td style="padding:10px 8px;font-size:12px;color:#e74c3c;">334.08</td>
-      <td style="padding:10px 8px;font-size:12px;">
-        <span style="color:#3498db;">T1:354.96</span><br>
-        <span style="color:#2980b9;">T2:361.92</span><br>
-        <span style="color:#1a5276;">T3:368.88</span>
-      </td>
-      <td style="padding:10px 8px;font-size:11px;color:#666;">強烈推薦</td>
-    </tr>
-    <tr style="border-bottom:1px solid #f0f0f0;">
-      <td style="padding:10px 8px;font-weight:bold;color:#333;">#3</td>
-      <td style="padding:10px 8px;">
-        <div style="font-weight:bold;font-size:15px;">8114 振樺電</div>
-        <div style="color:#999;font-size:12px;">電腦及週邊設備業</div>
-      </td>
-      <td style="padding:10px 8px;text-align:center;">
-        <span style="font-size:16px;font-weight:bold;color:#27ae60;">86.9</span>
-      </td>
-      <td style="padding:10px 8px;text-align:center;">
-        <div style="font-size:14px;">221.0</div>
-        <div style="color:#e74c3c;font-size:12px;">+9.95%</div>
-      </td>
-      <td style="padding:10px 8px;font-size:12px;color:#27ae60;">
-        214.91 ~ 227.09
-      </td>
-      <td style="padding:10px 8px;font-size:12px;color:#e74c3c;">196.64</td>
-      <td style="padding:10px 8px;font-size:12px;">
-        <span style="color:#3498db;">T1:233.18</span><br>
-        <span style="color:#2980b9;">T2:245.36</span><br>
-        <span style="color:#1a5276;">T3:257.54</span>
-      </td>
-      <td style="padding:10px 8px;font-size:11px;color:#666;">強烈推薦</td>
-    </tr>
-    <tr style="border-bottom:1px solid #f0f0f0;">
-      <td style="padding:10px 8px;font-weight:bold;color:#333;">#4</td>
-      <td style="padding:10px 8px;">
-        <div style="font-weight:bold;font-size:15px;">6669 緯穎</div>
-        <div style="color:#999;font-size:12px;">電腦及週邊設備業</div>
-      </td>
-      <td style="padding:10px 8px;text-align:center;">
-        <span style="font-size:16px;font-weight:bold;color:#27ae60;">86.1</span>
-      </td>
-      <td style="padding:10px 8px;text-align:center;">
-        <div style="font-size:14px;">5500.0</div>
-        <div style="color:#e74c3c;font-size:12px;">+10.00%</div>
-      </td>
-      <td style="padding:10px 8px;font-size:12px;color:#27ae60;">
-        5341.48 ~ 5658.52
-      </td>
-      <td style="padding:10px 8px;font-size:12px;color:#e74c3c;">4865.94</td>
-      <td style="padding:10px 8px;font-size:12px;">
-        <span style="color:#3498db;">T1:5817.03</span><br>
-        <span style="color:#2980b9;">T2:6134.06</span><br>
-        <span style="color:#1a5276;">T3:6451.09</span>
-      </td>
-      <td style="padding:10px 8px;font-size:11px;color:#666;">強烈推薦</td>
-    </tr>
-    <tr style="border-bottom:1px solid #f0f0f0;">
-      <td style="padding:10px 8px;font-weight:bold;color:#333;">#5</td>
-      <td style="padding:10px 8px;">
-        <div style="font-weight:bold;font-size:15px;">2027 大成鋼</div>
-        <div style="color:#999;font-size:12px;">鋼鐵工業</div>
-      </td>
-      <td style="padding:10px 8px;text-align:center;">
-        <span style="font-size:16px;font-weight:bold;color:#27ae60;">84.1</span>
-      </td>
-      <td style="padding:10px 8px;text-align:center;">
-        <div style="font-size:14px;">43.75</div>
-        <div style="color:#e74c3c;font-size:12px;">+6.32%</div>
-      </td>
-      <td style="padding:10px 8px;font-size:12px;color:#27ae60;">
-        42.98 ~ 44.52
-      </td>
-      <td style="padding:10px 8px;font-size:12px;color:#e74c3c;">40.65</td>
-      <td style="padding:10px 8px;font-size:12px;">
-        <span style="color:#3498db;">T1:45.3</span><br>
-        <span style="color:#2980b9;">T2:46.85</span><br>
-        <span style="color:#1a5276;">T3:48.4</span>
-      </td>
-      <td style="padding:10px 8px;font-size:11px;color:#666;">強烈推薦</td>
-    </tr>
-    <tr style="border-bottom:1px solid #f0f0f0;">
-      <td style="padding:10px 8px;font-weight:bold;color:#333;">#6</td>
-      <td style="padding:10px 8px;">
-        <div style="font-weight:bold;font-size:15px;">2542 興富發</div>
-        <div style="color:#999;font-size:12px;">建材營造</div>
-      </td>
-      <td style="padding:10px 8px;text-align:center;">
-        <span style="font-size:16px;font-weight:bold;color:#27ae60;">84.1</span>
-      </td>
-      <td style="padding:10px 8px;text-align:center;">
-        <div style="font-size:14px;">44.8</div>
-        <div style="color:#e74c3c;font-size:12px;">+1.59%</div>
-      </td>
-      <td style="padding:10px 8px;font-size:12px;color:#27ae60;">
-        44.35 ~ 45.25
-      </td>
-      <td style="padding:10px 8px;font-size:12px;color:#e74c3c;">43.01</td>
-      <td style="padding:10px 8px;font-size:12px;">
-        <span style="color:#3498db;">T1:45.7</span><br>
-        <span style="color:#2980b9;">T2:46.59</span><br>
-        <span style="color:#1a5276;">T3:47.49</span>
-      </td>
-      <td style="padding:10px 8px;font-size:11px;color:#666;">強烈推薦</td>
-    </tr>
-    <tr style="border-bottom:1px solid #f0f0f0;">
-      <td style="padding:10px 8px;font-weight:bold;color:#333;">#7</td>
-      <td style="padding:10px 8px;">
-        <div style="font-weight:bold;font-size:15px;">2317 鴻海</div>
-        <div style="color:#999;font-size:12px;">其他電子業</div>
-      </td>
-      <td style="padding:10px 8px;text-align:center;">
-        <span style="font-size:16px;font-weight:bold;color:#27ae60;">84.0</span>
-      </td>
-      <td style="padding:10px 8px;text-align:center;">
-        <div style="font-size:14px;">251.5</div>
-        <div style="color:#e74c3c;font-size:12px;">+2.24%</div>
-      </td>
-      <td style="padding:10px 8px;font-size:12px;color:#27ae60;">
-        247.12 ~ 255.88
-      </td>
-      <td style="padding:10px 8px;font-size:12px;color:#e74c3c;">233.98</td>
-      <td style="padding:10px 8px;font-size:12px;">
-        <span style="color:#3498db;">T1:260.26</span><br>
-        <span style="color:#2980b9;">T2:269.02</span><br>
-        <span style="color:#1a5276;">T3:277.78</span>
-      </td>
-      <td style="padding:10px 8px;font-size:11px;color:#666;">強烈推薦</td>
-    </tr>
-    <tr style="border-bottom:1px solid #f0f0f0;">
-      <td style="padding:10px 8px;font-weight:bold;color:#333;">#8</td>
-      <td style="padding:10px 8px;">
-        <div style="font-weight:bold;font-size:15px;">6239 力成</div>
-        <div style="color:#999;font-size:12px;">半導體業</div>
-      </td>
-      <td style="padding:10px 8px;text-align:center;">
-        <span style="font-size:16px;font-weight:bold;color:#27ae60;">83.5</span>
-      </td>
-      <td style="padding:10px 8px;text-align:center;">
-        <div style="font-size:14px;">294.0</div>
-        <div style="color:#e74c3c;font-size:12px;">+8.09%</div>
-      </td>
-      <td style="padding:10px 8px;font-size:12px;color:#27ae60;">
-        291.06 ~ 296.94
-      </td>
-      <td style="padding:10px 8px;font-size:12px;color:#e74c3c;">282.24</td>
-      <td style="padding:10px 8px;font-size:12px;">
-        <span style="color:#3498db;">T1:299.88</span><br>
-        <span style="color:#2980b9;">T2:305.76</span><br>
-        <span style="color:#1a5276;">T3:311.64</span>
-      </td>
-      <td style="padding:10px 8px;font-size:11px;color:#666;">強烈推薦</td>
-    </tr>
-    <tr style="border-bottom:1px solid #f0f0f0;">
-      <td style="padding:10px 8px;font-weight:bold;color:#333;">#9</td>
-      <td style="padding:10px 8px;">
-        <div style="font-weight:bold;font-size:15px;">6605 帝寶</div>
-        <div style="color:#999;font-size:12px;">汽車工業</div>
-      </td>
-      <td style="padding:10px 8px;text-align:center;">
-        <span style="font-size:16px;font-weight:bold;color:#27ae60;">83.4</span>
-      </td>
-      <td style="padding:10px 8px;text-align:center;">
-        <div style="font-size:14px;">135.5</div>
-        <div style="color:#e74c3c;font-size:12px;">+3.44%</div>
-      </td>
-      <td style="padding:10px 8px;font-size:12px;color:#27ae60;">
-        133.59 ~ 137.41
-      </td>
-      <td style="padding:10px 8px;font-size:12px;color:#e74c3c;">127.84</td>
-      <td style="padding:10px 8px;font-size:12px;">
-        <span style="color:#3498db;">T1:139.33</span><br>
-        <span style="color:#2980b9;">T2:143.16</span><br>
-        <span style="color:#1a5276;">T3:146.99</span>
-      </td>
-      <td style="padding:10px 8px;font-size:11px;color:#666;">強烈推薦</td>
-    </tr>
-    <tr style="border-bottom:1px solid #f0f0f0;">
-      <td style="padding:10px 8px;font-weight:bold;color:#333;">#10</td>
-      <td style="padding:10px 8px;">
-        <div style="font-weight:bold;font-size:15px;">3669 圓展</div>
-        <div style="color:#999;font-size:12px;">通信網路業</div>
-      </td>
-      <td style="padding:10px 8px;text-align:center;">
-        <span style="font-size:16px;font-weight:bold;color:#27ae60;">83.3</span>
-      </td>
-      <td style="padding:10px 8px;text-align:center;">
-        <div style="font-size:14px;">36.4</div>
-        <div style="color:#e74c3c;font-size:12px;">+8.66%</div>
-      </td>
-      <td style="padding:10px 8px;font-size:12px;color:#27ae60;">
-        35.53 ~ 37.27
-      </td>
-      <td style="padding:10px 8px;font-size:12px;color:#e74c3c;">32.92</td>
-      <td style="padding:10px 8px;font-size:12px;">
-        <span style="color:#3498db;">T1:38.14</span><br>
-        <span style="color:#2980b9;">T2:39.88</span><br>
-        <span style="color:#1a5276;">T3:41.62</span>
-      </td>
-      <td style="padding:10px 8px;font-size:11px;color:#666;">強烈推薦</td>
-    </tr></tbody>
-    </table>
-  </div>
-
-  <div class="card">
+  <div class="section">
     <h2>🚀 爆漲股預測 Top 5</h2>
-    <table>
-      <thead><tr><th>股票</th><th>爆漲機率</th><th>現價</th><th>訊號</th></tr></thead>
-      <tbody>
-    <tr style="border-bottom:1px solid #f0f0f0;">
-      <td style="padding:8px;">1591 <b>英屬開曼群島商駿</b></td>
-      <td style="padding:8px;text-align:center;">
-        <span style="font-size:15px;font-weight:bold;color:#e74c3c;">98.0%</span>
-        <div style="background:#eee;height:6px;border-radius:3px;margin-top:4px;"><div style="background:#e74c3c;width:98%;height:6px;border-radius:3px;"></div></div>
-      </td>
-      <td style="padding:8px;text-align:center;">34.25</td>
-      <td style="padding:8px;font-size:11px;color:#666;"></td>
-    </tr>
-    <tr style="border-bottom:1px solid #f0f0f0;">
-      <td style="padding:8px;">3523 <b>迎輝科技股份有限</b></td>
-      <td style="padding:8px;text-align:center;">
-        <span style="font-size:15px;font-weight:bold;color:#e74c3c;">96.8%</span>
-        <div style="background:#eee;height:6px;border-radius:3px;margin-top:4px;"><div style="background:#e74c3c;width:97%;height:6px;border-radius:3px;"></div></div>
-      </td>
-      <td style="padding:8px;text-align:center;">15.4</td>
-      <td style="padding:8px;font-size:11px;color:#666;"></td>
-    </tr>
-    <tr style="border-bottom:1px solid #f0f0f0;">
-      <td style="padding:8px;">3450 <b>聯鈞</b></td>
-      <td style="padding:8px;text-align:center;">
-        <span style="font-size:15px;font-weight:bold;color:#f39c12;">74.1%</span>
-        <div style="background:#eee;height:6px;border-radius:3px;margin-top:4px;"><div style="background:#f39c12;width:74%;height:6px;border-radius:3px;"></div></div>
-      </td>
-      <td style="padding:8px;text-align:center;">458.5</td>
-      <td style="padding:8px;font-size:11px;color:#666;"></td>
-    </tr>
-    <tr style="border-bottom:1px solid #f0f0f0;">
-      <td style="padding:8px;">2426 <b>鼎元</b></td>
-      <td style="padding:8px;text-align:center;">
-        <span style="font-size:15px;font-weight:bold;color:#f39c12;">72.6%</span>
-        <div style="background:#eee;height:6px;border-radius:3px;margin-top:4px;"><div style="background:#f39c12;width:73%;height:6px;border-radius:3px;"></div></div>
-      </td>
-      <td style="padding:8px;text-align:center;">58.8</td>
-      <td style="padding:8px;font-size:11px;color:#666;"></td>
-    </tr>
-    <tr style="border-bottom:1px solid #f0f0f0;">
-      <td style="padding:8px;">6141 <b>柏承</b></td>
-      <td style="padding:8px;text-align:center;">
-        <span style="font-size:15px;font-weight:bold;color:#f39c12;">68.9%</span>
-        <div style="background:#eee;height:6px;border-radius:3px;margin-top:4px;"><div style="background:#f39c12;width:69%;height:6px;border-radius:3px;"></div></div>
-      </td>
-      <td style="padding:8px;text-align:center;">42.0</td>
-      <td style="padding:8px;font-size:11px;color:#666;"></td>
-    </tr></tbody>
-    </table>
+    <div class="explode-grid">
+      
+    <div style="background:#fff;border:1px solid #e9ecef;border-radius:10px;padding:16px;margin:8px;flex:1;min-width:160px;max-width:200px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+      <div style="font-size:28px;font-weight:bold;color:#e74c3c;">82%</div>
+      <div style="font-size:11px;color:#888;margin-bottom:8px;">爆漲機率</div>
+      <div style="font-weight:bold;font-size:15px;">增你強</div>
+      <div style="color:#888;font-size:12px;margin-bottom:6px;">3028</div>
+      <div style="font-size:16px;font-weight:bold;">67.7</div>
+      <div style="color:#e74c3c;font-size:12px;">+6.0%</div>
+      <div style="margin-top:8px;font-size:11px;color:#999;">五維評分: 0.0</div>
+    </div>
+    <div style="background:#fff;border:1px solid #e9ecef;border-radius:10px;padding:16px;margin:8px;flex:1;min-width:160px;max-width:200px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+      <div style="font-size:28px;font-weight:bold;color:#e74c3c;">77%</div>
+      <div style="font-size:11px;color:#888;margin-bottom:8px;">爆漲機率</div>
+      <div style="font-weight:bold;font-size:15px;">威健</div>
+      <div style="color:#888;font-size:12px;margin-bottom:6px;">3033</div>
+      <div style="font-size:16px;font-weight:bold;">48.2</div>
+      <div style="color:#e74c3c;font-size:12px;">+3.2%</div>
+      <div style="margin-top:8px;font-size:11px;color:#999;">五維評分: 0.0</div>
+    </div>
+    <div style="background:#fff;border:1px solid #e9ecef;border-radius:10px;padding:16px;margin:8px;flex:1;min-width:160px;max-width:200px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+      <div style="font-size:28px;font-weight:bold;color:#e74c3c;">75%</div>
+      <div style="font-size:11px;color:#888;margin-bottom:8px;">爆漲機率</div>
+      <div style="font-weight:bold;font-size:15px;">福懋科</div>
+      <div style="color:#888;font-size:12px;margin-bottom:6px;">8131</div>
+      <div style="font-size:16px;font-weight:bold;">66.0</div>
+      <div style="color:#e74c3c;font-size:12px;">+10.0%</div>
+      <div style="margin-top:8px;font-size:11px;color:#999;">五維評分: 0.0</div>
+    </div>
+    <div style="background:#fff;border:1px solid #e9ecef;border-radius:10px;padding:16px;margin:8px;flex:1;min-width:160px;max-width:200px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+      <div style="font-size:28px;font-weight:bold;color:#e74c3c;">75%</div>
+      <div style="font-size:11px;color:#888;margin-bottom:8px;">爆漲機率</div>
+      <div style="font-weight:bold;font-size:15px;">仁寶</div>
+      <div style="color:#888;font-size:12px;margin-bottom:6px;">2324</div>
+      <div style="font-size:16px;font-weight:bold;">37.0</div>
+      <div style="color:#e74c3c;font-size:12px;">+1.8%</div>
+      <div style="margin-top:8px;font-size:11px;color:#999;">五維評分: 0.0</div>
+    </div>
+    <div style="background:#fff;border:1px solid #e9ecef;border-radius:10px;padding:16px;margin:8px;flex:1;min-width:160px;max-width:200px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+      <div style="font-size:28px;font-weight:bold;color:#e74c3c;">75%</div>
+      <div style="font-size:11px;color:#888;margin-bottom:8px;">爆漲機率</div>
+      <div style="font-weight:bold;font-size:15px;">威盛</div>
+      <div style="color:#888;font-size:12px;margin-bottom:6px;">2388</div>
+      <div style="font-size:16px;font-weight:bold;">80.3</div>
+      <div style="color:#e74c3c;font-size:12px;">+5.8%</div>
+      <div style="margin-top:8px;font-size:11px;color:#999;">五維評分: 0.0</div>
+    </div>
+    </div>
   </div>
 
-  <div class="card">
-    <h2>📈 T+1 歷史驗證 (前日 Top 5)</h2>
-    <p style="color:#999;font-size:13px;">參考日期：20260715</p>
-    <table>
-      <thead><tr><th>股票</th><th>進場價</th><th>T+1 收盤</th><th>報酬率</th></tr></thead>
-      <tbody>
-        <tr style="border-bottom:1px solid #f0f0f0;">
-          <td style="padding:8px;">5538 東明-KY</td>
-          <td style="padding:8px;text-align:center;"></td>
-          <td style="padding:8px;text-align:center;"></td>
-          <td style="padding:8px;text-align:center;font-weight:bold;color:#e74c3c;">-1.70%</td>
-        </tr>
-        <tr style="border-bottom:1px solid #f0f0f0;">
-          <td style="padding:8px;">5871 中租-KY</td>
-          <td style="padding:8px;text-align:center;"></td>
-          <td style="padding:8px;text-align:center;"></td>
-          <td style="padding:8px;text-align:center;font-weight:bold;color:#e74c3c;">-0.40%</td>
-        </tr>
-        <tr style="border-bottom:1px solid #f0f0f0;">
-          <td style="padding:8px;">4440 宜新實業</td>
-          <td style="padding:8px;text-align:center;"></td>
-          <td style="padding:8px;text-align:center;"></td>
-          <td style="padding:8px;text-align:center;font-weight:bold;color:#e74c3c;">-0.86%</td>
-        </tr>
-        <tr style="border-bottom:1px solid #f0f0f0;">
-          <td style="padding:8px;">2069 運錩</td>
-          <td style="padding:8px;text-align:center;"></td>
-          <td style="padding:8px;text-align:center;"></td>
-          <td style="padding:8px;text-align:center;font-weight:bold;color:#e74c3c;">-0.53%</td>
-        </tr>
-        <tr style="border-bottom:1px solid #f0f0f0;">
-          <td style="padding:8px;">2027 大成鋼</td>
-          <td style="padding:8px;text-align:center;"></td>
-          <td style="padding:8px;text-align:center;"></td>
-          <td style="padding:8px;text-align:center;font-weight:bold;color:#27ae60;">+6.32%</td>
-        </tr></tbody>
-    </table>
+  <div class="section">
+    <h2>📊 Top 10 五維評分排行</h2>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>排名</th>
+            <th>股票</th>
+            <th>總評分</th>
+            <th>股價</th>
+            <th>五維分析</th>
+            <th>進出場</th>
+            <th>目標價</th>
+            <th>建議</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+    <tr style="border-bottom:1px solid #f0f0f0;">
+      <td style="padding:12px 8px;text-align:center;font-weight:bold;color:#666;">#1</td>
+      <td style="padding:12px 8px;">
+        <div style="font-weight:bold;font-size:15px;">增你強</div>
+        <div style="color:#888;font-size:12px;">3028</div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;">
+        <div style="font-size:20px;font-weight:bold;color:#2c3e50;">87.4</div>
+        <div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:87%;background:#2ecc71;height:8px;border-radius:4px;"></div></div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;">
+        <div style="font-size:16px;font-weight:bold;">67.7</div>
+        <div style="color:#e74c3c;font-size:13px;">+6.0%</div>
+      </td>
+      <td style="padding:12px 8px;">
+        <div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">技術面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:82%;background:#2ecc71;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">基本面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:60%;background:#f39c12;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">消息面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:69%;background:#27ae60;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">情緒面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:76%;background:#27ae60;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">籌碼面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:72%;background:#27ae60;height:8px;border-radius:4px;"></div></div></div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;font-size:13px;">
+        <div>進場: 67.02~68.38</div>
+        <div style="color:#e74c3c;">停損: 64.99</div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;font-size:13px;">
+        <div style="color:#27ae60;">T1: 69.05</div>
+        <div style="color:#2980b9;">T2: 70.41</div>
+        <div style="color:#8e44ad;">T3: 71.76</div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;"><span style="background:#95a5a6;color:#fff;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:bold;">強烈推薦</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #f0f0f0;">
+      <td style="padding:12px 8px;text-align:center;font-weight:bold;color:#666;">#2</td>
+      <td style="padding:12px 8px;">
+        <div style="font-weight:bold;font-size:15px;">威健</div>
+        <div style="color:#888;font-size:12px;">3033</div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;">
+        <div style="font-size:20px;font-weight:bold;color:#2c3e50;">84.1</div>
+        <div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:84%;background:#2ecc71;height:8px;border-radius:4px;"></div></div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;">
+        <div style="font-size:16px;font-weight:bold;">48.2</div>
+        <div style="color:#e74c3c;font-size:13px;">+3.2%</div>
+      </td>
+      <td style="padding:12px 8px;">
+        <div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">技術面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:75%;background:#27ae60;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">基本面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:47%;background:#f39c12;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">消息面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:76%;background:#27ae60;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">情緒面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:74%;background:#27ae60;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">籌碼面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:66%;background:#27ae60;height:8px;border-radius:4px;"></div></div></div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;font-size:13px;">
+        <div>進場: 47.72~48.68</div>
+        <div style="color:#e74c3c;">停損: 46.27</div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;font-size:13px;">
+        <div style="color:#27ae60;">T1: 49.16</div>
+        <div style="color:#2980b9;">T2: 50.13</div>
+        <div style="color:#8e44ad;">T3: 51.09</div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;"><span style="background:#95a5a6;color:#fff;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:bold;">強烈推薦</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #f0f0f0;">
+      <td style="padding:12px 8px;text-align:center;font-weight:bold;color:#666;">#3</td>
+      <td style="padding:12px 8px;">
+        <div style="font-weight:bold;font-size:15px;">福懋科</div>
+        <div style="color:#888;font-size:12px;">8131</div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;">
+        <div style="font-size:20px;font-weight:bold;color:#2c3e50;">82.7</div>
+        <div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:83%;background:#2ecc71;height:8px;border-radius:4px;"></div></div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;">
+        <div style="font-size:16px;font-weight:bold;">66.0</div>
+        <div style="color:#e74c3c;font-size:13px;">+10.0%</div>
+      </td>
+      <td style="padding:12px 8px;">
+        <div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">技術面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:90%;background:#2ecc71;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">基本面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:28%;background:#e74c3c;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">消息面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:69%;background:#27ae60;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">情緒面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:76%;background:#27ae60;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">籌碼面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:80%;background:#2ecc71;height:8px;border-radius:4px;"></div></div></div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;font-size:13px;">
+        <div>進場: 65.34~66.66</div>
+        <div style="color:#e74c3c;">停損: 63.36</div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;font-size:13px;">
+        <div style="color:#27ae60;">T1: 67.32</div>
+        <div style="color:#2980b9;">T2: 68.64</div>
+        <div style="color:#8e44ad;">T3: 69.96</div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;"><span style="background:#95a5a6;color:#fff;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:bold;">強烈推薦</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #f0f0f0;">
+      <td style="padding:12px 8px;text-align:center;font-weight:bold;color:#666;">#4</td>
+      <td style="padding:12px 8px;">
+        <div style="font-weight:bold;font-size:15px;">仁寶</div>
+        <div style="color:#888;font-size:12px;">2324</div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;">
+        <div style="font-size:20px;font-weight:bold;color:#2c3e50;">82.3</div>
+        <div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:82%;background:#2ecc71;height:8px;border-radius:4px;"></div></div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;">
+        <div style="font-size:16px;font-weight:bold;">37.0</div>
+        <div style="color:#e74c3c;font-size:13px;">+1.8%</div>
+      </td>
+      <td style="padding:12px 8px;">
+        <div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">技術面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:97%;background:#2ecc71;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">基本面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:44%;background:#f39c12;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">消息面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:76%;background:#27ae60;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">情緒面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:54%;background:#f39c12;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">籌碼面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:54%;background:#f39c12;height:8px;border-radius:4px;"></div></div></div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;font-size:13px;">
+        <div>進場: 36.08~37.92</div>
+        <div style="color:#e74c3c;">停損: 33.3</div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;font-size:13px;">
+        <div style="color:#27ae60;">T1: 38.85</div>
+        <div style="color:#2980b9;">T2: 40.7</div>
+        <div style="color:#8e44ad;">T3: 42.55</div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;"><span style="background:#95a5a6;color:#fff;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:bold;">強烈推薦</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #f0f0f0;">
+      <td style="padding:12px 8px;text-align:center;font-weight:bold;color:#666;">#5</td>
+      <td style="padding:12px 8px;">
+        <div style="font-weight:bold;font-size:15px;">威盛</div>
+        <div style="color:#888;font-size:12px;">2388</div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;">
+        <div style="font-size:20px;font-weight:bold;color:#2c3e50;">82.3</div>
+        <div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:82%;background:#2ecc71;height:8px;border-radius:4px;"></div></div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;">
+        <div style="font-size:16px;font-weight:bold;">80.3</div>
+        <div style="color:#e74c3c;font-size:13px;">+5.8%</div>
+      </td>
+      <td style="padding:12px 8px;">
+        <div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">技術面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:90%;background:#2ecc71;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">基本面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:13%;background:#e74c3c;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">消息面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:75%;background:#27ae60;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">情緒面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:71%;background:#27ae60;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">籌碼面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:82%;background:#2ecc71;height:8px;border-radius:4px;"></div></div></div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;font-size:13px;">
+        <div>進場: 77.58~83.02</div>
+        <div style="color:#e74c3c;">停損: 69.42</div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;font-size:13px;">
+        <div style="color:#27ae60;">T1: 85.74</div>
+        <div style="color:#2980b9;">T2: 91.18</div>
+        <div style="color:#8e44ad;">T3: 96.62</div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;"><span style="background:#95a5a6;color:#fff;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:bold;">強烈推薦</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #f0f0f0;">
+      <td style="padding:12px 8px;text-align:center;font-weight:bold;color:#666;">#6</td>
+      <td style="padding:12px 8px;">
+        <div style="font-weight:bold;font-size:15px;">大聯大</div>
+        <div style="color:#888;font-size:12px;">3702</div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;">
+        <div style="font-size:20px;font-weight:bold;color:#2c3e50;">82.2</div>
+        <div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:82%;background:#2ecc71;height:8px;border-radius:4px;"></div></div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;">
+        <div style="font-size:16px;font-weight:bold;">117.5</div>
+        <div style="color:#e74c3c;font-size:13px;">+1.3%</div>
+      </td>
+      <td style="padding:12px 8px;">
+        <div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">技術面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:89%;background:#2ecc71;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">基本面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:51%;background:#f39c12;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">消息面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:61%;background:#27ae60;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">情緒面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:51%;background:#f39c12;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">籌碼面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:56%;background:#f39c12;height:8px;border-radius:4px;"></div></div></div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;font-size:13px;">
+        <div>進場: 114.2~120.8</div>
+        <div style="color:#e74c3c;">停損: 104.32</div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;font-size:13px;">
+        <div style="color:#27ae60;">T1: 124.09</div>
+        <div style="color:#2980b9;">T2: 130.68</div>
+        <div style="color:#8e44ad;">T3: 137.27</div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;"><span style="background:#95a5a6;color:#fff;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:bold;">強烈推薦</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #f0f0f0;">
+      <td style="padding:12px 8px;text-align:center;font-weight:bold;color:#666;">#7</td>
+      <td style="padding:12px 8px;">
+        <div style="font-weight:bold;font-size:15px;">至上</div>
+        <div style="color:#888;font-size:12px;">8112</div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;">
+        <div style="font-size:20px;font-weight:bold;color:#2c3e50;">81.4</div>
+        <div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:81%;background:#2ecc71;height:8px;border-radius:4px;"></div></div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;">
+        <div style="font-size:16px;font-weight:bold;">85.2</div>
+        <div style="color:#e74c3c;font-size:13px;">+4.7%</div>
+      </td>
+      <td style="padding:12px 8px;">
+        <div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">技術面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:78%;background:#27ae60;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">基本面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:69%;background:#27ae60;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">消息面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:49%;background:#f39c12;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">情緒面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:74%;background:#27ae60;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">籌碼面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:66%;background:#27ae60;height:8px;border-radius:4px;"></div></div></div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;font-size:13px;">
+        <div>進場: 84.35~86.05</div>
+        <div style="color:#e74c3c;">停損: 81.79</div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;font-size:13px;">
+        <div style="color:#27ae60;">T1: 86.9</div>
+        <div style="color:#2980b9;">T2: 88.61</div>
+        <div style="color:#8e44ad;">T3: 90.31</div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;"><span style="background:#95a5a6;color:#fff;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:bold;">強烈推薦</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #f0f0f0;">
+      <td style="padding:12px 8px;text-align:center;font-weight:bold;color:#666;">#8</td>
+      <td style="padding:12px 8px;">
+        <div style="font-weight:bold;font-size:15px;">台表科</div>
+        <div style="color:#888;font-size:12px;">6278</div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;">
+        <div style="font-size:20px;font-weight:bold;color:#2c3e50;">80.4</div>
+        <div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:80%;background:#2ecc71;height:8px;border-radius:4px;"></div></div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;">
+        <div style="font-size:16px;font-weight:bold;">153.0</div>
+        <div style="color:#e74c3c;font-size:13px;">+5.2%</div>
+      </td>
+      <td style="padding:12px 8px;">
+        <div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">技術面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:70%;background:#27ae60;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">基本面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:53%;background:#f39c12;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">消息面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:75%;background:#27ae60;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">情緒面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:66%;background:#27ae60;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">籌碼面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:73%;background:#27ae60;height:8px;border-radius:4px;"></div></div></div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;font-size:13px;">
+        <div>進場: 147.39~158.61</div>
+        <div style="color:#e74c3c;">停損: 130.56</div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;font-size:13px;">
+        <div style="color:#27ae60;">T1: 164.22</div>
+        <div style="color:#2980b9;">T2: 175.44</div>
+        <div style="color:#8e44ad;">T3: 186.66</div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;"><span style="background:#95a5a6;color:#fff;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:bold;">強烈推薦</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #f0f0f0;">
+      <td style="padding:12px 8px;text-align:center;font-weight:bold;color:#666;">#9</td>
+      <td style="padding:12px 8px;">
+        <div style="font-weight:bold;font-size:15px;">精技</div>
+        <div style="color:#888;font-size:12px;">2414</div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;">
+        <div style="font-size:20px;font-weight:bold;color:#2c3e50;">80.2</div>
+        <div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:80%;background:#2ecc71;height:8px;border-radius:4px;"></div></div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;">
+        <div style="font-size:16px;font-weight:bold;">59.6</div>
+        <div style="color:#e74c3c;font-size:13px;">+4.0%</div>
+      </td>
+      <td style="padding:12px 8px;">
+        <div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">技術面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:100%;background:#2ecc71;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">基本面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:50%;background:#f39c12;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">消息面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:38%;background:#e74c3c;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">情緒面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:65%;background:#27ae60;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">籌碼面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:73%;background:#27ae60;height:8px;border-radius:4px;"></div></div></div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;font-size:13px;">
+        <div>進場: 58.34~60.86</div>
+        <div style="color:#e74c3c;">停損: 54.56</div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;font-size:13px;">
+        <div style="color:#27ae60;">T1: 62.12</div>
+        <div style="color:#2980b9;">T2: 64.64</div>
+        <div style="color:#8e44ad;">T3: 67.16</div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;"><span style="background:#95a5a6;color:#fff;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:bold;">強烈推薦</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #f0f0f0;">
+      <td style="padding:12px 8px;text-align:center;font-weight:bold;color:#666;">#10</td>
+      <td style="padding:12px 8px;">
+        <div style="font-weight:bold;font-size:15px;">華榮</div>
+        <div style="color:#888;font-size:12px;">1608</div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;">
+        <div style="font-size:20px;font-weight:bold;color:#2c3e50;">80.0</div>
+        <div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:80%;background:#27ae60;height:8px;border-radius:4px;"></div></div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;">
+        <div style="font-size:16px;font-weight:bold;">34.25</div>
+        <div style="color:#e74c3c;font-size:13px;">+9.9%</div>
+      </td>
+      <td style="padding:12px 8px;">
+        <div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">技術面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:80%;background:#27ae60;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">基本面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:85%;background:#2ecc71;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">消息面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:56%;background:#f39c12;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">情緒面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:68%;background:#27ae60;height:8px;border-radius:4px;"></div></div></div><div style="margin:2px 0;"><span style="font-size:10px;color:#666;display:inline-block;width:45px;">籌碼面</span><div style="background:#e9ecef;border-radius:4px;height:8px;"><div style="width:80%;background:#2ecc71;height:8px;border-radius:4px;"></div></div></div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;font-size:13px;">
+        <div>進場: 33.91~34.59</div>
+        <div style="color:#e74c3c;">停損: 32.88</div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;font-size:13px;">
+        <div style="color:#27ae60;">T1: 34.94</div>
+        <div style="color:#2980b9;">T2: 35.62</div>
+        <div style="color:#8e44ad;">T3: 36.3</div>
+      </td>
+      <td style="padding:12px 8px;text-align:center;"><span style="background:#95a5a6;color:#fff;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:bold;">強烈推薦</span></td>
+    </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>📈 T+N 歷史驗證</h2>
+    <p style="color:#888;font-size:13px;margin-bottom:16px;">最近推薦標的的實際績效追蹤（T+1/T+3/T+5）</p>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>掃描日期</th>
+            <th>股票</th>
+            <th>T+1 報酬</th>
+            <th>T+3 報酬</th>
+            <th>T+5 報酬</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="5" style="text-align:center;color:#aaa;padding:20px;">尚無驗證資料</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <div class="footer">
-    台股雷達系統 · 每日 19:00 自動掃描 · 2026-08-03 19:09 CST<br>
-    <a href="https://juststarlight66-oss.github.io/taiwan-stock-radar/" style="color:#3498db;">查看線上儀表板</a>
+    <p>此報告由台股雷達自動生成 | 2026-08-04T19:02:44.620935+08:00 | <a href="https://juststarlight66-oss.github.io/taiwan-stock-radar/" style="color:#3498db;">線上版本</a></p>
+    <p style="color:#aaa;font-size:11px;">⚠️ 本報告僅供參考，不構成投資建議。投資有風險，請審慎評估。</p>
   </div>
 </div>
 </body>
