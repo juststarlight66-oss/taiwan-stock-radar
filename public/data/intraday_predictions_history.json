@@ -1,5 +1,59 @@
 [
   {
+    "scan_date": "20260805",
+    "captured_at": "2026-08-05T20:23:36.007266+08:00",
+    "scan_type": "intraday_daytrade",
+    "top5": [
+      {
+        "stock_id": "6213",
+        "name": "聯茂",
+        "entry_price": 338.0,
+        "change_pct": 9.03,
+        "sector": "電子零組件業",
+        "total_score": 81.0
+      },
+      {
+        "stock_id": "2344",
+        "name": "華邦電",
+        "entry_price": 170.0,
+        "change_pct": 8.28,
+        "sector": "半導體業",
+        "total_score": 79.0
+      },
+      {
+        "stock_id": "3023",
+        "name": "信邦",
+        "entry_price": 320.5,
+        "change_pct": 7.01,
+        "sector": "電子零組件業",
+        "total_score": 79.0
+      },
+      {
+        "stock_id": "6141",
+        "name": "柏承",
+        "entry_price": 36.0,
+        "change_pct": 7.78,
+        "sector": "電子零組件業",
+        "total_score": 74.0
+      },
+      {
+        "stock_id": "6215",
+        "name": "和椿",
+        "entry_price": 96.9,
+        "change_pct": 4.64,
+        "sector": "其他電子業",
+        "total_score": 69.0
+      }
+    ],
+    "t1_return": null,
+    "t1_check_date": null,
+    "t3_return": null,
+    "t3_check_date": null,
+    "t5_return": null,
+    "t5_check_date": null,
+    "win": null
+  },
+  {
     "scan_date": "20260804",
     "captured_at": "2026-08-04T20:26:13.736453+08:00",
     "scan_type": "intraday_daytrade",
