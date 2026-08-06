@@ -1,5 +1,59 @@
 [
   {
+    "scan_date": "20260806",
+    "captured_at": "2026-08-06T20:25:50.254692+08:00",
+    "scan_type": "intraday_daytrade",
+    "top5": [
+      {
+        "stock_id": "3017",
+        "name": "奇鋐",
+        "entry_price": 2935.0,
+        "change_pct": 7.51,
+        "sector": "電腦及週邊設備業",
+        "total_score": 79.0
+      },
+      {
+        "stock_id": "3167",
+        "name": "大量",
+        "entry_price": 690.0,
+        "change_pct": 6.98,
+        "sector": "電機機械",
+        "total_score": 74.0
+      },
+      {
+        "stock_id": "1904",
+        "name": "正隆",
+        "entry_price": 22.1,
+        "change_pct": 4.0,
+        "sector": "造紙工業",
+        "total_score": 73.0
+      },
+      {
+        "stock_id": "3026",
+        "name": "禾伸堂",
+        "entry_price": 580.0,
+        "change_pct": 6.03,
+        "sector": "電子零組件業",
+        "total_score": 73.0
+      },
+      {
+        "stock_id": "8046",
+        "name": "南電",
+        "entry_price": 1115.0,
+        "change_pct": 5.19,
+        "sector": "電子零組件業",
+        "total_score": 68.0
+      }
+    ],
+    "t1_return": null,
+    "t1_check_date": null,
+    "t3_return": null,
+    "t3_check_date": null,
+    "t5_return": null,
+    "t5_check_date": null,
+    "win": null
+  },
+  {
     "scan_date": "20260805",
     "captured_at": "2026-08-05T20:23:36.007266+08:00",
     "scan_type": "intraday_daytrade",
