@@ -1,5 +1,51 @@
 [
   {
+    "scan_date": "20260807",
+    "captured_at": "2026-08-07T19:22:07.231687+08:00",
+    "scan_type": "intraday_daytrade",
+    "top5": [
+      {
+        "stock_id": "2536",
+        "name": "宏普",
+        "entry_price": 19.35,
+        "change_pct": 7.8,
+        "sector": "建材營造",
+        "total_score": 74.0
+      },
+      {
+        "stock_id": "9941",
+        "name": "裕融",
+        "entry_price": 84.4,
+        "change_pct": 3.05,
+        "sector": "其他",
+        "total_score": 69.0
+      },
+      {
+        "stock_id": "6531",
+        "name": "愛普*",
+        "entry_price": 959.0,
+        "change_pct": 6.56,
+        "sector": "半導體業",
+        "total_score": 59.0
+      },
+      {
+        "stock_id": "7610",
+        "name": "聯友金屬-創",
+        "entry_price": 1850.0,
+        "change_pct": 5.71,
+        "sector": "其他",
+        "total_score": 58.0
+      }
+    ],
+    "t1_return": null,
+    "t1_check_date": null,
+    "t3_return": null,
+    "t3_check_date": null,
+    "t5_return": null,
+    "t5_check_date": null,
+    "win": null
+  },
+  {
     "scan_date": "20260806",
     "captured_at": "2026-08-06T20:25:50.254692+08:00",
     "scan_type": "intraday_daytrade",
