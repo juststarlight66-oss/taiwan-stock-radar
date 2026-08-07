@@ -74603,5 +74603,387 @@
       "explode_prob": 0.594
     }
   ],
-  "generated_at": "2026-08-07T18:39:52.645228+08:00"
+  "generated_at": "2026-08-07T18:39:52.645228+08:00",
+  "top10": [
+    {
+      "stock_id": "2031",
+      "name": "新光鋼",
+      "market": "TSE",
+      "sector_name": "鋼鐵工業",
+      "close": 45.0,
+      "change_pct": 9.89,
+      "volume": 10470044.0,
+      "scores": {
+        "technical": 95.5,
+        "chips": 100.0,
+        "fundamental": 84.135,
+        "news": 73.04194824778196,
+        "sentiment": 85.5,
+        "profit_space": 90.0,
+        "total": 103.86
+      },
+      "total_score": 103.86,
+      "recommendation": "強烈推薦",
+      "entry_low": 44.19,
+      "entry_high": 45.81,
+      "stop_loss": 41.74,
+      "targets": {
+        "entry_low": 44.19,
+        "entry_high": 45.81,
+        "stop_loss": 41.74,
+        "t1": 46.63,
+        "t2": 48.26,
+        "t3": 49.89
+      },
+      "fundamentals": {
+        "pe": 6.97,
+        "pb": 1.21,
+        "dy": 5.56
+      },
+      "rsi": 82.35,
+      "vol_ratio": 8.674353862772133
+    },
+    {
+      "stock_id": "2069",
+      "name": "運錩",
+      "market": "TSE",
+      "sector_name": "鋼鐵工業",
+      "close": 19.6,
+      "change_pct": 1.03,
+      "volume": 1241116.0,
+      "scores": {
+        "technical": 77.45652173913047,
+        "chips": 79.00507907429642,
+        "fundamental": 77.84917840375587,
+        "news": 75.65889731499715,
+        "sentiment": 64.45652173913047,
+        "profit_space": 90.0,
+        "total": 94.54
+      },
+      "total_score": 94.54,
+      "recommendation": "強烈推薦",
+      "entry_low": 19.32,
+      "entry_high": 19.88,
+      "stop_loss": 18.48,
+      "targets": {
+        "entry_low": 19.32,
+        "entry_high": 19.88,
+        "stop_loss": 18.48,
+        "t1": 20.16,
+        "t2": 20.72,
+        "t3": 21.28
+      },
+      "fundamentals": {
+        "pe": 10.65,
+        "pb": 0.75,
+        "dy": 5.1
+      },
+      "rsi": 80.4,
+      "vol_ratio": 3.2005079074296416
+    },
+    {
+      "stock_id": "2010",
+      "name": "春源",
+      "market": "TSE",
+      "sector_name": "鋼鐵工業",
+      "close": 22.95,
+      "change_pct": 6.99,
+      "volume": 5800301.0,
+      "scores": {
+        "technical": 96.58695652173911,
+        "chips": 100.0,
+        "fundamental": 85.0,
+        "news": 33.00089975838871,
+        "sentiment": 81.58695652173911,
+        "profit_space": 90.0,
+        "total": 91.05
+      },
+      "total_score": 91.05,
+      "recommendation": "強烈推薦",
+      "entry_low": 22.68,
+      "entry_high": 23.22,
+      "stop_loss": 21.85,
+      "targets": {
+        "entry_low": 22.68,
+        "entry_high": 23.22,
+        "stop_loss": 21.85,
+        "t1": 23.5,
+        "t2": 24.05,
+        "t3": 24.6
+      },
+      "fundamentals": {
+        "pe": 9.14,
+        "pb": 1.19,
+        "dy": 8.71
+      },
+      "rsi": 81.83,
+      "vol_ratio": 5.831381094959918
+    },
+    {
+      "stock_id": "6782",
+      "name": "視陽",
+      "market": "TSE",
+      "sector_name": "生技醫療業",
+      "close": 218.0,
+      "change_pct": 5.83,
+      "volume": 1178774.0,
+      "scores": {
+        "technical": 84.94444444444444,
+        "chips": 98.08996084393118,
+        "fundamental": 53.478794639247994,
+        "news": 72.16421638074813,
+        "sentiment": 84.94444444444444,
+        "profit_space": 90.0,
+        "total": 88.67
+      },
+      "total_score": 88.67,
+      "recommendation": "強烈推薦",
+      "entry_low": 214.07,
+      "entry_high": 221.93,
+      "stop_loss": 202.3,
+      "targets": {
+        "entry_low": 214.07,
+        "entry_high": 221.93,
+        "stop_loss": 202.3,
+        "t1": 225.85,
+        "t2": 233.7,
+        "t3": 241.55
+      },
+      "fundamentals": {
+        "pe": 13.21,
+        "pb": 3.09,
+        "dy": 3.85
+      },
+      "rsi": 84.65,
+      "vol_ratio": 3.1089960843931177
+    },
+    {
+      "stock_id": "2536",
+      "name": "宏普",
+      "market": "TSE",
+      "sector_name": "建材營造",
+      "close": 19.4,
+      "change_pct": 8.08,
+      "volume": 2136463.0,
+      "scores": {
+        "technical": 86.74999999999994,
+        "chips": 98.92420600517191,
+        "fundamental": 85.0,
+        "news": 48.934226279753396,
+        "sentiment": 81.74999999999994,
+        "profit_space": 90.0,
+        "total": 88.62
+      },
+      "total_score": 88.62,
+      "recommendation": "強烈推薦",
+      "entry_low": 19.1,
+      "entry_high": 19.7,
+      "stop_loss": 18.2,
+      "targets": {
+        "entry_low": 19.1,
+        "entry_high": 19.7,
+        "stop_loss": 18.2,
+        "t1": 20.0,
+        "t2": 20.6,
+        "t3": 21.2
+      },
+      "fundamentals": {
+        "pe": 4.67,
+        "pb": 0.51,
+        "dy": 10.31
+      },
+      "rsi": 70.31,
+      "vol_ratio": 3.1924206005171913
+    },
+    {
+      "stock_id": "2020",
+      "name": "美亞",
+      "market": "TSE",
+      "sector_name": "鋼鐵工業",
+      "close": 21.55,
+      "change_pct": 1.89,
+      "volume": 648655.0,
+      "scores": {
+        "technical": 78.62499999999999,
+        "chips": 77.15894639546065,
+        "fundamental": 80.5022502250225,
+        "news": 47.27538254589284,
+        "sentiment": 75.62499999999999,
+        "profit_space": 90.0,
+        "total": 87.55
+      },
+      "total_score": 87.55,
+      "recommendation": "強烈推薦",
+      "entry_low": 21.4,
+      "entry_high": 21.7,
+      "stop_loss": 20.95,
+      "targets": {
+        "entry_low": 21.4,
+        "entry_high": 21.7,
+        "stop_loss": 20.95,
+        "t1": 21.85,
+        "t2": 22.15,
+        "t3": 22.45
+      },
+      "fundamentals": {
+        "pe": 11.11,
+        "pb": 1.41,
+        "dy": 8.35
+      },
+      "rsi": 65.81,
+      "vol_ratio": 3.0158946395460644
+    },
+    {
+      "stock_id": "2611",
+      "name": "志信",
+      "market": "TSE",
+      "sector_name": "航運業",
+      "close": 13.95,
+      "change_pct": 4.1,
+      "volume": 469662.0,
+      "scores": {
+        "technical": 95.88461538461536,
+        "chips": 88.35529700109966,
+        "fundamental": 68.75917840375587,
+        "news": 52.555028935702694,
+        "sentiment": 72.88461538461536,
+        "profit_space": 90.0,
+        "total": 86.42
+      },
+      "total_score": 86.42,
+      "recommendation": "強烈推薦",
+      "entry_low": 13.76,
+      "entry_high": 14.14,
+      "stop_loss": 13.19,
+      "targets": {
+        "entry_low": 13.76,
+        "entry_high": 14.14,
+        "stop_loss": 13.19,
+        "t1": 14.33,
+        "t2": 14.71,
+        "t3": 15.09
+      },
+      "fundamentals": {
+        "pe": 10.65,
+        "pb": 0.99,
+        "dy": 3.73
+      },
+      "rsi": 62.9,
+      "vol_ratio": 2.7355297001099657
+    },
+    {
+      "stock_id": "2727",
+      "name": "王品",
+      "market": "TSE",
+      "sector_name": "觀光事業",
+      "close": 236.0,
+      "change_pct": 5.36,
+      "volume": 1627419.0,
+      "scores": {
+        "technical": 96.75,
+        "chips": 93.52389175953343,
+        "fundamental": 59.19615179252479,
+        "news": 40.93553502724868,
+        "sentiment": 73.75,
+        "profit_space": 90.0,
+        "total": 86.23
+      },
+      "total_score": 86.23,
+      "recommendation": "強烈推薦",
+      "entry_low": 232.53,
+      "entry_high": 239.47,
+      "stop_loss": 222.12,
+      "targets": {
+        "entry_low": 232.53,
+        "entry_high": 239.47,
+        "stop_loss": 222.12,
+        "t1": 242.94,
+        "t2": 249.88,
+        "t3": 256.82
+      },
+      "fundamentals": {
+        "pe": 13.11,
+        "pb": 4.6,
+        "dy": 6.83
+      },
+      "rsi": 64.88,
+      "vol_ratio": 2.6523891759533433
+    },
+    {
+      "stock_id": "2606",
+      "name": "裕民",
+      "market": "TSE",
+      "sector_name": "航運業",
+      "close": 67.5,
+      "change_pct": 4.81,
+      "volume": 8539793.0,
+      "scores": {
+        "technical": 100.0,
+        "chips": 88.01639403385103,
+        "fundamental": 63.36012345679013,
+        "news": 49.373900546710345,
+        "sentiment": 77.5,
+        "profit_space": 90.0,
+        "total": 85.71
+      },
+      "total_score": 85.71,
+      "recommendation": "強烈推薦",
+      "entry_low": 66.5,
+      "entry_high": 68.5,
+      "stop_loss": 63.52,
+      "targets": {
+        "entry_low": 66.5,
+        "entry_high": 68.5,
+        "stop_loss": 63.52,
+        "t1": 69.49,
+        "t2": 71.48,
+        "t3": 73.47
+      },
+      "fundamentals": {
+        "pe": 12.96,
+        "pb": 1.41,
+        "dy": 4.15
+      },
+      "rsi": 78.79,
+      "vol_ratio": 2.701639403385103
+    },
+    {
+      "stock_id": "9958",
+      "name": "世紀鋼",
+      "market": "TSE",
+      "sector_name": "鋼鐵工業",
+      "close": 113.5,
+      "change_pct": 2.71,
+      "volume": 3056041.0,
+      "scores": {
+        "technical": 93.68181818181819,
+        "chips": 82.85107121723419,
+        "fundamental": 51.540275337378866,
+        "news": 56.80305496424561,
+        "sentiment": 62.68181818181818,
+        "profit_space": 80.0,
+        "total": 85.6
+      },
+      "total_score": 85.6,
+      "recommendation": "強烈推薦",
+      "entry_low": 111.44,
+      "entry_high": 115.56,
+      "stop_loss": 105.24,
+      "targets": {
+        "entry_low": 111.44,
+        "entry_high": 115.56,
+        "stop_loss": 105.24,
+        "t1": 117.63,
+        "t2": 121.76,
+        "t3": 125.89
+      },
+      "fundamentals": {
+        "pe": 14.48,
+        "pb": 2.44,
+        "dy": 3.96
+      },
+      "rsi": 67.15,
+      "vol_ratio": 2.18510712172342
+    }
+  ]
 }

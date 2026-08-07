@@ -6864,7 +6864,7 @@
       }
     }
   ],
-  "last_updated": "2026-08-07T18:39:53.079909+08:00",
+  "last_updated": "2026-08-07T19:16:23.486228+08:00",
   "history": [
     {
       "date": "2026/08/07",
@@ -7090,6 +7090,57 @@
         }
       ],
       "generated_at": "2026-07-22T11:40:04.971230"
+    },
+    {
+      "date": "20260807",
+      "reference_date": "20260806",
+      "summary": {
+        "avg_return_pct": 2.89,
+        "win_count": 4,
+        "total": 5
+      },
+      "t1_results": [
+        {
+          "stock_id": "2069",
+          "name": "運錩",
+          "prev_close": 19.4,
+          "curr_close": 19.6,
+          "return_pct": 1.03,
+          "status": "win"
+        },
+        {
+          "stock_id": "1432",
+          "name": "大魯閣",
+          "prev_close": 15.15,
+          "curr_close": 15.1,
+          "return_pct": -0.33,
+          "status": "loss"
+        },
+        {
+          "stock_id": "2031",
+          "name": "新光鋼",
+          "prev_close": 40.95,
+          "curr_close": 45.0,
+          "return_pct": 9.89,
+          "status": "win"
+        },
+        {
+          "stock_id": "5306",
+          "name": "桂盟",
+          "prev_close": 93.2,
+          "curr_close": 94.7,
+          "return_pct": 1.61,
+          "status": "win"
+        },
+        {
+          "stock_id": "1904",
+          "name": "正隆",
+          "prev_close": 22.3,
+          "curr_close": 22.8,
+          "return_pct": 2.24,
+          "status": "win"
+        }
+      ]
     }
   ],
   "daily_results": [
