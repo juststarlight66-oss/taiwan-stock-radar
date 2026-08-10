@@ -1,5 +1,195 @@
 [
   {
+    "scan_date": "20260807",
+    "captured_at": "2026-08-10T18:54:52.886594+08:00",
+    "scan_type": "main_uptrend",
+    "top40": [
+      {
+        "stock_id": "6465",
+        "name": "威潤",
+        "entry_price": 47.6,
+        "change_pct": 1.49,
+        "total_score": 93,
+        "signal_3": true,
+        "signal_1": false,
+        "chg_30d": -23.82,
+        "capital_yi": 4.71
+      },
+      {
+        "stock_id": "1731",
+        "name": "美吾華",
+        "entry_price": 21.1,
+        "change_pct": 0.72,
+        "total_score": 85,
+        "signal_3": true,
+        "signal_1": false,
+        "chg_30d": 2.53,
+        "capital_yi": 99
+      },
+      {
+        "stock_id": "2108",
+        "name": "南帝",
+        "entry_price": 28.7,
+        "change_pct": 3.61,
+        "total_score": 81,
+        "signal_3": true,
+        "signal_1": true,
+        "chg_30d": 6.3,
+        "capital_yi": 99
+      },
+      {
+        "stock_id": "6763",
+        "name": "綠界科技*",
+        "entry_price": 43.65,
+        "change_pct": 2.71,
+        "total_score": 80,
+        "signal_3": false,
+        "signal_1": true,
+        "chg_30d": -1.74,
+        "capital_yi": 1.84
+      },
+      {
+        "stock_id": "1416",
+        "name": "廣豐",
+        "entry_price": 11.0,
+        "change_pct": 1.85,
+        "total_score": 80,
+        "signal_3": true,
+        "signal_1": false,
+        "chg_30d": 1.85,
+        "capital_yi": 99
+      },
+      {
+        "stock_id": "2020",
+        "name": "美亞",
+        "entry_price": 21.55,
+        "change_pct": 1.65,
+        "total_score": 80,
+        "signal_3": true,
+        "signal_1": false,
+        "chg_30d": 0.47,
+        "capital_yi": 99
+      },
+      {
+        "stock_id": "3716",
+        "name": "中化控股",
+        "entry_price": 34.95,
+        "change_pct": -0.71,
+        "total_score": 80,
+        "signal_3": true,
+        "signal_1": true,
+        "chg_30d": 3.87,
+        "capital_yi": 99
+      },
+      {
+        "stock_id": "2014",
+        "name": "中鴻",
+        "entry_price": 17.65,
+        "change_pct": 3.22,
+        "total_score": 75,
+        "signal_3": true,
+        "signal_1": true,
+        "chg_30d": 0.86,
+        "capital_yi": 99
+      },
+      {
+        "stock_id": "2536",
+        "name": "宏普",
+        "entry_price": 19.4,
+        "change_pct": 3.19,
+        "total_score": 75,
+        "signal_3": true,
+        "signal_1": true,
+        "chg_30d": 1.81,
+        "capital_yi": 99
+      },
+      {
+        "stock_id": "2727",
+        "name": "王品",
+        "entry_price": 236.0,
+        "change_pct": 3.96,
+        "total_score": 75,
+        "signal_3": true,
+        "signal_1": false,
+        "chg_30d": 2.84,
+        "capital_yi": 99
+      },
+      {
+        "stock_id": "2069",
+        "name": "運錩",
+        "entry_price": 19.6,
+        "change_pct": -2.0,
+        "total_score": 73,
+        "signal_3": true,
+        "signal_1": true,
+        "chg_30d": 7.4,
+        "capital_yi": 99
+      },
+      {
+        "stock_id": "1584",
+        "name": "精剛",
+        "entry_price": 18.05,
+        "change_pct": 3.14,
+        "total_score": 71,
+        "signal_3": true,
+        "signal_1": true,
+        "chg_30d": -3.48,
+        "capital_yi": 23.25
+      },
+      {
+        "stock_id": "8103",
+        "name": "瀚荃",
+        "entry_price": 78.7,
+        "change_pct": -6.86,
+        "total_score": 70,
+        "signal_3": true,
+        "signal_1": true,
+        "chg_30d": -14.74,
+        "capital_yi": 99
+      },
+      {
+        "stock_id": "9941",
+        "name": "裕融",
+        "entry_price": 84.3,
+        "change_pct": 2.55,
+        "total_score": 68,
+        "signal_3": false,
+        "signal_1": false,
+        "chg_30d": 7.25,
+        "capital_yi": 99
+      },
+      {
+        "stock_id": "4551",
+        "name": "智伸科",
+        "entry_price": 167.5,
+        "change_pct": -3.46,
+        "total_score": 65,
+        "signal_3": false,
+        "signal_1": false,
+        "chg_30d": -23.56,
+        "capital_yi": 99
+      },
+      {
+        "stock_id": "4142",
+        "name": "國光生",
+        "entry_price": 17.7,
+        "change_pct": 3.21,
+        "total_score": 63,
+        "signal_3": false,
+        "signal_1": true,
+        "chg_30d": 5.36,
+        "capital_yi": 99
+      }
+    ],
+    "t1_return": null,
+    "t1_check_date": null,
+    "t3_return": null,
+    "t3_check_date": null,
+    "t5_return": null,
+    "t5_check_date": null,
+    "win": null
+  },
+  {
     "scan_date": "20260723",
     "captured_at": "2026-07-24T20:06:42.438824+08:00",
     "scan_type": "main_uptrend",
