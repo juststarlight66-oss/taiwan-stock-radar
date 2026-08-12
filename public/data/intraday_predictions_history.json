@@ -1,5 +1,59 @@
 [
   {
+    "scan_date": "20260812",
+    "captured_at": "2026-08-12T19:22:28.324354+08:00",
+    "scan_type": "intraday_daytrade",
+    "top5": [
+      {
+        "stock_id": "1717",
+        "name": "長興",
+        "entry_price": 78.6,
+        "change_pct": 9.32,
+        "sector": "化學工業",
+        "total_score": 91.0
+      },
+      {
+        "stock_id": "1906",
+        "name": "寶隆",
+        "entry_price": 12.1,
+        "change_pct": 9.01,
+        "sector": "造紙工業",
+        "total_score": 91.0
+      },
+      {
+        "stock_id": "6152",
+        "name": "百一",
+        "entry_price": 16.1,
+        "change_pct": 8.78,
+        "sector": "通信網路業",
+        "total_score": 91.0
+      },
+      {
+        "stock_id": "2033",
+        "name": "佳大",
+        "entry_price": 22.0,
+        "change_pct": 7.06,
+        "sector": "鋼鐵工業",
+        "total_score": 86.0
+      },
+      {
+        "stock_id": "9933",
+        "name": "中鼎",
+        "entry_price": 42.0,
+        "change_pct": 8.67,
+        "sector": "其他",
+        "total_score": 86.0
+      }
+    ],
+    "t1_return": null,
+    "t1_check_date": null,
+    "t3_return": null,
+    "t3_check_date": null,
+    "t5_return": null,
+    "t5_check_date": null,
+    "win": null
+  },
+  {
     "scan_date": "20260807",
     "captured_at": "2026-08-11T19:18:56.768415+08:00",
     "scan_type": "intraday_daytrade",
