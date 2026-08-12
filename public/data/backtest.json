@@ -732,7 +732,108 @@
           "win_rate": null,
           "avg_return": null,
           "pending": true,
-          "stocks": []
+          "stocks": [
+            {
+              "stock_id": "4763",
+              "name": "材料*-KY",
+              "entry": 52.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1612",
+              "name": "宏泰",
+              "entry": 34.65,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3356",
+              "name": "奇偶",
+              "entry": 60.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2501",
+              "name": "國建",
+              "entry": 23.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3622",
+              "name": "洋華",
+              "entry": 55.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6278",
+              "name": "台表科",
+              "entry": 171.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1725",
+              "name": "元禎",
+              "entry": 30.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1735",
+              "name": "日勝化",
+              "entry": 20.65,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4938",
+              "name": "和碩",
+              "entry": 91.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3406",
+              "name": "玉晶光",
+              "entry": 578.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
         },
         "T3": {
           "label": "T+3",
@@ -740,7 +841,108 @@
           "win_rate": null,
           "avg_return": null,
           "pending": true,
-          "stocks": []
+          "stocks": [
+            {
+              "stock_id": "4763",
+              "name": "材料*-KY",
+              "entry": 52.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1612",
+              "name": "宏泰",
+              "entry": 34.65,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3356",
+              "name": "奇偶",
+              "entry": 60.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2501",
+              "name": "國建",
+              "entry": 23.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3622",
+              "name": "洋華",
+              "entry": 55.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6278",
+              "name": "台表科",
+              "entry": 171.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1725",
+              "name": "元禎",
+              "entry": 30.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1735",
+              "name": "日勝化",
+              "entry": 20.65,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4938",
+              "name": "和碩",
+              "entry": 91.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3406",
+              "name": "玉晶光",
+              "entry": 578.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
         },
         "T5": {
           "label": "T+5",
@@ -748,7 +950,108 @@
           "win_rate": null,
           "avg_return": null,
           "pending": true,
-          "stocks": []
+          "stocks": [
+            {
+              "stock_id": "4763",
+              "name": "材料*-KY",
+              "entry": 52.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1612",
+              "name": "宏泰",
+              "entry": 34.65,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3356",
+              "name": "奇偶",
+              "entry": 60.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2501",
+              "name": "國建",
+              "entry": 23.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3622",
+              "name": "洋華",
+              "entry": 55.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6278",
+              "name": "台表科",
+              "entry": 171.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1725",
+              "name": "元禎",
+              "entry": 30.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1735",
+              "name": "日勝化",
+              "entry": 20.65,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4938",
+              "name": "和碩",
+              "entry": 91.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3406",
+              "name": "玉晶光",
+              "entry": 578.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
         }
       }
     },
@@ -6951,11 +7254,62 @@
       }
     }
   ],
-  "last_updated": "2026-08-12T18:48:24.807573+08:00",
+  "last_updated": "2026-08-12T19:00:26.014996+08:00",
   "history": [
     {
       "date": "2026/08/12",
-      "results": {}
+      "results": {
+        "4763": {
+          "name": "材料*-KY",
+          "score": 92.23,
+          "close": 52.6
+        },
+        "1612": {
+          "name": "宏泰",
+          "score": 90.97,
+          "close": 34.65
+        },
+        "3356": {
+          "name": "奇偶",
+          "score": 90.71,
+          "close": 60.0
+        },
+        "2501": {
+          "name": "國建",
+          "score": 89.02,
+          "close": 23.15
+        },
+        "3622": {
+          "name": "洋華",
+          "score": 88.53,
+          "close": 55.1
+        },
+        "6278": {
+          "name": "台表科",
+          "score": 87.6,
+          "close": 171.0
+        },
+        "1725": {
+          "name": "元禎",
+          "score": 87.12,
+          "close": 30.9
+        },
+        "1735": {
+          "name": "日勝化",
+          "score": 86.57,
+          "close": 20.65
+        },
+        "4938": {
+          "name": "和碩",
+          "score": 86.46,
+          "close": 91.4
+        },
+        "3406": {
+          "name": "玉晶光",
+          "score": 86.3,
+          "close": 578.0
+        }
+      }
     },
     {
       "date": "2026/08/11",
@@ -7431,5 +7785,5 @@
       ]
     }
   ],
-  "updated": "2026-07-27T11:10:44.226215"
+  "updated": "2026-08-12T19:00:26.014996+08:00"
 }
