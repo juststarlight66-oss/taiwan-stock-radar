@@ -1,5 +1,184 @@
 [
   {
+    "scan_date": "20260813",
+    "captured_at": "2026-08-13T19:27:31.973830+08:00",
+    "scan_type": "main_uptrend",
+    "top40": [
+      {
+        "stock_id": "1586",
+        "name": "和勤",
+        "entry_price": 18.75,
+        "change_pct": 2.18,
+        "total_score": 93,
+        "signal_3": true,
+        "signal_1": false,
+        "chg_30d": -2.09,
+        "capital_yi": 10.68
+      },
+      {
+        "stock_id": "6151",
+        "name": "晉倫",
+        "entry_price": 36.9,
+        "change_pct": 3.8,
+        "total_score": 90,
+        "signal_3": true,
+        "signal_1": true,
+        "chg_30d": -5.75,
+        "capital_yi": 5.53
+      },
+      {
+        "stock_id": "3360",
+        "name": "尚立",
+        "entry_price": 17.1,
+        "change_pct": -2.01,
+        "total_score": 88,
+        "signal_3": true,
+        "signal_1": true,
+        "chg_30d": -21.74,
+        "capital_yi": 7.64
+      },
+      {
+        "stock_id": "3615",
+        "name": "安可",
+        "entry_price": 37.05,
+        "change_pct": 1.51,
+        "total_score": 83,
+        "signal_3": true,
+        "signal_1": true,
+        "chg_30d": -27.04,
+        "capital_yi": 6.85
+      },
+      {
+        "stock_id": "6291",
+        "name": "沛亨",
+        "entry_price": 387.0,
+        "change_pct": -3.85,
+        "total_score": 83,
+        "signal_3": false,
+        "signal_1": false,
+        "chg_30d": -26.43,
+        "capital_yi": 4.2
+      },
+      {
+        "stock_id": "6435",
+        "name": "大中",
+        "entry_price": 276.5,
+        "change_pct": 5.74,
+        "total_score": 83,
+        "signal_3": true,
+        "signal_1": true,
+        "chg_30d": -27.7,
+        "capital_yi": 3.75
+      },
+      {
+        "stock_id": "3388",
+        "name": "崇越電",
+        "entry_price": 76.3,
+        "change_pct": 0.93,
+        "total_score": 81,
+        "signal_3": false,
+        "signal_1": true,
+        "chg_30d": -11.28,
+        "capital_yi": 7.41
+      },
+      {
+        "stock_id": "6221",
+        "name": "晉泰",
+        "entry_price": 22.15,
+        "change_pct": -1.99,
+        "total_score": 80,
+        "signal_3": true,
+        "signal_1": true,
+        "chg_30d": -0.89,
+        "capital_yi": 16.86
+      },
+      {
+        "stock_id": "6432",
+        "name": "今展科",
+        "entry_price": 78.0,
+        "change_pct": 5.41,
+        "total_score": 78,
+        "signal_3": false,
+        "signal_1": true,
+        "chg_30d": -0.13,
+        "capital_yi": 3.44
+      },
+      {
+        "stock_id": "6517",
+        "name": "保勝光學",
+        "entry_price": 63.7,
+        "change_pct": 1.11,
+        "total_score": 78,
+        "signal_3": false,
+        "signal_1": false,
+        "chg_30d": -6.26,
+        "capital_yi": 3.06
+      },
+      {
+        "stock_id": "8182",
+        "name": "加高",
+        "entry_price": 42.3,
+        "change_pct": 1.32,
+        "total_score": 78,
+        "signal_3": true,
+        "signal_1": true,
+        "chg_30d": -23.09,
+        "capital_yi": 10.7
+      },
+      {
+        "stock_id": "5227",
+        "name": "立凱-KY",
+        "entry_price": 34.4,
+        "change_pct": 1.78,
+        "total_score": 75,
+        "signal_3": true,
+        "signal_1": false,
+        "chg_30d": -5.36,
+        "capital_yi": 9.6
+      },
+      {
+        "stock_id": "6175",
+        "name": "立敦",
+        "entry_price": 80.5,
+        "change_pct": 2.55,
+        "total_score": 73,
+        "signal_3": false,
+        "signal_1": true,
+        "chg_30d": -25.11,
+        "capital_yi": 15.01
+      },
+      {
+        "stock_id": "8255",
+        "name": "朋程",
+        "entry_price": 152.0,
+        "change_pct": 2.7,
+        "total_score": 73,
+        "signal_3": false,
+        "signal_1": true,
+        "chg_30d": -20.63,
+        "capital_yi": 10.18
+      },
+      {
+        "stock_id": "5425",
+        "name": "台半",
+        "entry_price": 88.8,
+        "change_pct": 2.42,
+        "total_score": 71,
+        "signal_3": false,
+        "signal_1": true,
+        "chg_30d": -31.86,
+        "capital_yi": 26.35
+      }
+    ],
+    "t1_return": null,
+    "t1_check_date": null,
+    "t3_return": null,
+    "t3_check_date": null,
+    "t5_return": null,
+    "t5_check_date": null,
+    "win": null
+  },
+  {
     "scan_date": "20260812",
     "captured_at": "2026-08-13T18:49:00.797636+08:00",
     "scan_type": "main_uptrend",
