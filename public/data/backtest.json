@@ -757,11 +757,62 @@
       "periods": {
         "T1": {
           "label": "T+1",
-          "backtest_date": null,
-          "win_rate": null,
-          "avg_return": null,
-          "pending": true,
-          "stocks": []
+          "backtest_date": "20260817",
+          "win_rate": 60.0,
+          "avg_return": 1.12,
+          "pending": false,
+          "stocks": [
+            {
+              "stock_id": "2603",
+              "name": "長榮",
+              "entry": 219.0,
+              "close": 231.5,
+              "return_pct": 5.71,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": false
+            },
+            {
+              "stock_id": "1603",
+              "name": "華電",
+              "entry": 31.1,
+              "close": 30.9,
+              "return_pct": -0.64,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": false
+            },
+            {
+              "stock_id": "1416",
+              "name": "廣豐",
+              "entry": 11.9,
+              "close": 11.85,
+              "return_pct": -0.42,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": false
+            },
+            {
+              "stock_id": "6918",
+              "name": "愛派司",
+              "entry": 74.0,
+              "close": 74.3,
+              "return_pct": 0.41,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": false
+            },
+            {
+              "stock_id": "2851",
+              "name": "中再保",
+              "entry": 38.75,
+              "close": 38.95,
+              "return_pct": 0.52,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": false
+            }
+          ]
         },
         "T3": {
           "label": "T+3",
@@ -7442,7 +7493,7 @@
       }
     }
   ],
-  "last_updated": "2026-08-17T18:15:19.729800+08:00",
+  "last_updated": "2026-08-17T19:03:43.817132+08:00",
   "history": [
     {
       "date": "2026/08/17",
@@ -8097,5 +8148,5 @@
       ]
     }
   ],
-  "updated": "2026-08-12T19:00:26.014996+08:00"
+  "updated": "2026-08-17T19:03:43.817132+08:00"
 }
