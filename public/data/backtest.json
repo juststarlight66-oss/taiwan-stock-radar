@@ -732,7 +732,108 @@
           "win_rate": null,
           "avg_return": null,
           "pending": true,
-          "stocks": []
+          "stocks": [
+            {
+              "stock_id": "2603",
+              "name": "長榮",
+              "entry": 238.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2606",
+              "name": "裕民",
+              "entry": 69.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2605",
+              "name": "新興",
+              "entry": 35.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2612",
+              "name": "中航",
+              "entry": 56.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2617",
+              "name": "台航",
+              "entry": 29.85,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2855",
+              "name": "統一證",
+              "entry": 46.85,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2607",
+              "name": "榮運",
+              "entry": 50.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2542",
+              "name": "興富發",
+              "entry": 47.75,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2618",
+              "name": "長榮航",
+              "entry": 41.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2611",
+              "name": "志信",
+              "entry": 15.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
         },
         "T3": {
           "label": "T+3",
@@ -740,7 +841,108 @@
           "win_rate": null,
           "avg_return": null,
           "pending": true,
-          "stocks": []
+          "stocks": [
+            {
+              "stock_id": "2603",
+              "name": "長榮",
+              "entry": 238.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2606",
+              "name": "裕民",
+              "entry": 69.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2605",
+              "name": "新興",
+              "entry": 35.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2612",
+              "name": "中航",
+              "entry": 56.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2617",
+              "name": "台航",
+              "entry": 29.85,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2855",
+              "name": "統一證",
+              "entry": 46.85,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2607",
+              "name": "榮運",
+              "entry": 50.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2542",
+              "name": "興富發",
+              "entry": 47.75,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2618",
+              "name": "長榮航",
+              "entry": 41.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2611",
+              "name": "志信",
+              "entry": 15.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
         },
         "T5": {
           "label": "T+5",
@@ -748,7 +950,108 @@
           "win_rate": null,
           "avg_return": null,
           "pending": true,
-          "stocks": []
+          "stocks": [
+            {
+              "stock_id": "2603",
+              "name": "長榮",
+              "entry": 238.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2606",
+              "name": "裕民",
+              "entry": 69.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2605",
+              "name": "新興",
+              "entry": 35.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2612",
+              "name": "中航",
+              "entry": 56.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2617",
+              "name": "台航",
+              "entry": 29.85,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2855",
+              "name": "統一證",
+              "entry": 46.85,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2607",
+              "name": "榮運",
+              "entry": 50.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2542",
+              "name": "興富發",
+              "entry": 47.75,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2618",
+              "name": "長榮航",
+              "entry": 41.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2611",
+              "name": "志信",
+              "entry": 15.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
         }
       }
     },
@@ -757,11 +1060,112 @@
       "periods": {
         "T1": {
           "label": "T+1",
-          "backtest_date": null,
-          "win_rate": null,
-          "avg_return": null,
-          "pending": true,
-          "stocks": []
+          "backtest_date": "20260818",
+          "win_rate": 40.0,
+          "avg_return": -0.3,
+          "pending": false,
+          "stocks": [
+            {
+              "stock_id": "2323",
+              "name": "中環",
+              "entry": 11.7,
+              "close": 11.1,
+              "return_pct": -5.13,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "2603",
+              "name": "長榮",
+              "entry": 231.5,
+              "close": 238.0,
+              "return_pct": 2.81,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "2618",
+              "name": "長榮航",
+              "entry": 41.8,
+              "close": 41.9,
+              "return_pct": 0.24,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "2606",
+              "name": "裕民",
+              "entry": 68.3,
+              "close": 69.0,
+              "return_pct": 1.02,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "2845",
+              "name": "遠東銀",
+              "entry": 13.6,
+              "close": 13.45,
+              "return_pct": -1.1,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "1558",
+              "name": "伸興",
+              "entry": 99.7,
+              "close": 98.9,
+              "return_pct": -0.8,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "2636",
+              "name": "台驊控股",
+              "entry": 69.6,
+              "close": 69.6,
+              "return_pct": 0.0,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "2607",
+              "name": "榮運",
+              "entry": 50.2,
+              "close": 50.5,
+              "return_pct": 0.6,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "1808",
+              "name": "潤隆",
+              "entry": 33.0,
+              "close": 32.85,
+              "return_pct": -0.45,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "2010",
+              "name": "春源",
+              "entry": 22.8,
+              "close": 22.75,
+              "return_pct": -0.22,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
+            }
+          ]
         },
         "T3": {
           "label": "T+3",
@@ -975,11 +1379,112 @@
         },
         "T3": {
           "label": "T+3",
-          "backtest_date": null,
-          "win_rate": null,
-          "avg_return": null,
-          "pending": true,
-          "stocks": []
+          "backtest_date": "20260818",
+          "win_rate": 40.0,
+          "avg_return": -0.03,
+          "pending": false,
+          "stocks": [
+            {
+              "stock_id": "2851",
+              "name": "中再保",
+              "entry": 37.85,
+              "close": 39.3,
+              "return_pct": 3.83,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "6277",
+              "name": "宏正",
+              "entry": 84.2,
+              "close": 84.0,
+              "return_pct": -0.24,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "1416",
+              "name": "廣豐",
+              "entry": 11.75,
+              "close": 11.7,
+              "return_pct": -0.43,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "2542",
+              "name": "興富發",
+              "entry": 46.4,
+              "close": 47.75,
+              "return_pct": 2.91,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "1513",
+              "name": "中興電",
+              "entry": 171.0,
+              "close": 167.0,
+              "return_pct": -2.34,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "6108",
+              "name": "競國",
+              "entry": 21.7,
+              "close": 23.6,
+              "return_pct": 8.76,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "3515",
+              "name": "華擎",
+              "entry": 236.0,
+              "close": 216.5,
+              "return_pct": -8.26,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "6525",
+              "name": "捷敏-KY",
+              "entry": 150.5,
+              "close": 148.0,
+              "return_pct": -1.66,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "6282",
+              "name": "康舒",
+              "entry": 48.15,
+              "close": 46.4,
+              "return_pct": -3.63,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "3130",
+              "name": "一零四",
+              "entry": 210.5,
+              "close": 212.0,
+              "return_pct": 0.71,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
+            }
+          ]
         },
         "T5": {
           "label": "T+5",
@@ -1344,11 +1849,112 @@
         },
         "T5": {
           "label": "T+5",
-          "backtest_date": null,
-          "win_rate": null,
-          "avg_return": null,
-          "pending": true,
-          "stocks": []
+          "backtest_date": "20260818",
+          "win_rate": 20.0,
+          "avg_return": -4.83,
+          "pending": false,
+          "stocks": [
+            {
+              "stock_id": "9910",
+              "name": "豐泰",
+              "entry": 71.3,
+              "close": 69.1,
+              "return_pct": -3.09,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "1612",
+              "name": "宏泰",
+              "entry": 34.0,
+              "close": 34.35,
+              "return_pct": 1.03,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "2392",
+              "name": "正崴",
+              "entry": 39.6,
+              "close": 40.3,
+              "return_pct": 1.77,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "9914",
+              "name": "美利達",
+              "entry": 94.3,
+              "close": 80.6,
+              "return_pct": -14.53,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "1432",
+              "name": "大魯閣",
+              "entry": 15.3,
+              "close": 15.05,
+              "return_pct": -1.63,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "8112",
+              "name": "至上",
+              "entry": 100.0,
+              "close": 90.3,
+              "return_pct": -9.7,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "9921",
+              "name": "巨大",
+              "entry": 111.5,
+              "close": 97.4,
+              "return_pct": -12.65,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "1582",
+              "name": "信錦",
+              "entry": 75.3,
+              "close": 72.8,
+              "return_pct": -3.32,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "2385",
+              "name": "群光",
+              "entry": 104.5,
+              "close": 104.5,
+              "return_pct": 0.0,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "9802",
+              "name": "鈺齊-KY",
+              "entry": 74.9,
+              "close": 70.3,
+              "return_pct": -6.14,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
+            }
+          ]
         }
       }
     },
@@ -7522,11 +8128,62 @@
       }
     }
   ],
-  "last_updated": "2026-08-18T18:10:07.327330+08:00",
+  "last_updated": "2026-08-18T19:13:19.331864+08:00",
   "history": [
     {
       "date": "2026/08/18",
-      "results": {}
+      "results": {
+        "2603": {
+          "name": "長榮",
+          "score": 96.26,
+          "close": 238.0
+        },
+        "2606": {
+          "name": "裕民",
+          "score": 93.98,
+          "close": 69.0
+        },
+        "2605": {
+          "name": "新興",
+          "score": 91.24,
+          "close": 35.2
+        },
+        "2612": {
+          "name": "中航",
+          "score": 91.2,
+          "close": 56.7
+        },
+        "2617": {
+          "name": "台航",
+          "score": 90.85,
+          "close": 29.85
+        },
+        "2855": {
+          "name": "統一證",
+          "score": 90.82,
+          "close": 46.85
+        },
+        "2607": {
+          "name": "榮運",
+          "score": 88.93,
+          "close": 50.5
+        },
+        "2542": {
+          "name": "興富發",
+          "score": 88.53,
+          "close": 47.75
+        },
+        "2618": {
+          "name": "長榮航",
+          "score": 88.18,
+          "close": 41.9
+        },
+        "2611": {
+          "name": "志信",
+          "score": 85.36,
+          "close": 15.4
+        }
+      }
     },
     {
       "date": "2026/08/17",

@@ -120,7 +120,7 @@ if os.path.exists(scan_path):
     with open(scan_path, encoding='utf-8') as f:
         scan = json.load(f)
 
-    top10 = scan.get('top10', [])[:10]
+    top10 = scan.get('top_stocks', scan.get('top10', []))[:10]
 
     # Build stocks list for grouped_records entry
     stocks_list = []
