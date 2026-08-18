@@ -724,6 +724,35 @@
   ],
   "grouped_records": [
     {
+      "scan_date": "20260818",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": []
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": []
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": []
+        }
+      }
+    },
+    {
       "scan_date": "20260817",
       "periods": {
         "T1": {
@@ -7493,8 +7522,12 @@
       }
     }
   ],
-  "last_updated": "2026-08-17T19:03:43.817132+08:00",
+  "last_updated": "2026-08-18T18:10:07.327330+08:00",
   "history": [
+    {
+      "date": "2026/08/18",
+      "results": {}
+    },
     {
       "date": "2026/08/17",
       "results": {}
