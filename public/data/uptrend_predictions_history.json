@@ -1,5 +1,52 @@
 [
   {
+    "scan_date": "20260818",
+    "captured_at": "2026-08-19T18:13:31.144776+08:00",
+    "scan_type": "main_uptrend",
+    "top40": [
+      {
+        "stock_id": "6411",
+        "name": "晶焱",
+        "entry_price": 79.1,
+        "change_pct": 0.13,
+        "total_score": 90,
+        "signal_3": true,
+        "signal_1": false,
+        "chg_30d": -15.56,
+        "capital_yi": 9.95
+      },
+      {
+        "stock_id": "8109",
+        "name": "博大",
+        "entry_price": 134.5,
+        "change_pct": 3.46,
+        "total_score": 90,
+        "signal_3": true,
+        "signal_1": false,
+        "chg_30d": -16.72,
+        "capital_yi": 8.22
+      },
+      {
+        "stock_id": "5425",
+        "name": "台半",
+        "entry_price": 91.5,
+        "change_pct": 1.78,
+        "total_score": 78,
+        "signal_3": true,
+        "signal_1": true,
+        "chg_30d": -28.45,
+        "capital_yi": 26.35
+      }
+    ],
+    "t1_return": null,
+    "t1_check_date": null,
+    "t3_return": null,
+    "t3_check_date": null,
+    "t5_return": null,
+    "t5_check_date": null,
+    "win": null
+  },
+  {
     "scan_date": "20260817",
     "captured_at": "2026-08-18T19:02:10.099519+08:00",
     "scan_type": "main_uptrend",
