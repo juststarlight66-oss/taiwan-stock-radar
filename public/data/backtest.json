@@ -1060,110 +1060,110 @@
       "periods": {
         "T1": {
           "label": "T+1",
-          "backtest_date": null,
-          "win_rate": null,
-          "avg_return": null,
-          "pending": true,
+          "backtest_date": "20260819",
+          "win_rate": 70.0,
+          "avg_return": -0.29,
+          "pending": false,
           "stocks": [
             {
-              "stock_id": "2603",
-              "name": "長榮",
-              "entry": 238.0,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "stock_id": "2615",
+              "name": "萬海",
+              "entry": 105.0,
+              "close": 106.5,
+              "return_pct": 1.43,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
-              "stock_id": "2606",
-              "name": "裕民",
-              "entry": 69.0,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "2605",
-              "name": "新興",
-              "entry": 35.2,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "2612",
-              "name": "中航",
-              "entry": 56.7,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "2617",
-              "name": "台航",
-              "entry": 29.85,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "2855",
-              "name": "統一證",
-              "entry": 46.85,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "2607",
-              "name": "榮運",
-              "entry": 50.5,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "stock_id": "6757",
+              "name": "台灣虎航",
+              "entry": 56.6,
+              "close": 57.0,
+              "return_pct": 0.71,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "2542",
               "name": "興富發",
               "entry": 47.75,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 48.15,
+              "return_pct": 0.84,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
-              "stock_id": "2618",
-              "name": "長榮航",
-              "entry": 41.9,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "stock_id": "5876",
+              "name": "上海商銀",
+              "entry": 43.2,
+              "close": 43.5,
+              "return_pct": 0.69,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
-              "stock_id": "2611",
-              "name": "志信",
-              "entry": 15.4,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "stock_id": "8070",
+              "name": "長華*",
+              "entry": 54.4,
+              "close": 51.0,
+              "return_pct": -6.25,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "2031",
+              "name": "新光鋼",
+              "entry": 44.35,
+              "close": 45.75,
+              "return_pct": 3.16,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "1402",
+              "name": "遠東新",
+              "entry": 27.8,
+              "close": 28.0,
+              "return_pct": 0.72,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "1102",
+              "name": "亞泥",
+              "entry": 33.5,
+              "close": 33.8,
+              "return_pct": 0.9,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "4440",
+              "name": "宜新實業",
+              "entry": 17.6,
+              "close": 17.6,
+              "return_pct": 0.0,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "1537",
+              "name": "廣隆",
+              "entry": 127.5,
+              "close": 121.0,
+              "return_pct": -5.1,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
             }
           ]
         },
@@ -8460,7 +8460,7 @@
       }
     }
   ],
-  "last_updated": "2026-08-19T18:13:29.509731+08:00",
+  "last_updated": "2026-08-19T19:58:32.066170+08:00",
   "history": [
     {
       "date": "2026/08/19",
