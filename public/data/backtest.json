@@ -1060,110 +1060,110 @@
       "periods": {
         "T1": {
           "label": "T+1",
-          "backtest_date": null,
-          "win_rate": null,
-          "avg_return": null,
-          "pending": true,
+          "backtest_date": "20260820",
+          "win_rate": 60.0,
+          "avg_return": 0.41,
+          "pending": false,
           "stocks": [
             {
               "stock_id": "2617",
               "name": "台航",
               "entry": 30.9,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 30.9,
+              "return_pct": 0.16,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "6670",
               "name": "復盛應用",
               "entry": 267.0,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 267.0,
+              "return_pct": -0.56,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "2636",
               "name": "台驊控股",
               "entry": 71.3,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 71.3,
+              "return_pct": -0.14,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "2248",
               "name": "華勝-KY",
               "entry": 62.9,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 62.9,
+              "return_pct": 1.59,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "2615",
               "name": "萬海",
               "entry": 106.5,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 106.5,
+              "return_pct": 6.57,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "2505",
               "name": "國揚",
               "entry": 18.2,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 18.2,
+              "return_pct": -4.12,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "2542",
               "name": "興富發",
               "entry": 48.15,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 48.15,
+              "return_pct": 0.31,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "5607",
               "name": "遠雄港",
               "entry": 54.0,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 54.0,
+              "return_pct": 2.41,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "3090",
               "name": "日電貿",
               "entry": 177.5,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 177.5,
+              "return_pct": -3.1,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "2385",
               "name": "群光",
               "entry": 106.0,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 106.0,
+              "return_pct": 0.94,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
             }
           ]
         },
