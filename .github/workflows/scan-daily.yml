@@ -65,6 +65,12 @@ jobs:
           cd tasks/2255
           python3 post_scan.py
 
+      - name: Run 60min reversal scan (60分K翻紅掃描)
+        run: |
+          export PYTHONPATH="$PWD:$PWD/tasks"
+          python3 tasks/intraday/scan_60min_reversal.py 2>&1 || \
+            echo "60min reversal scan ran with warnings (continuing)."
+
       - name: Copy and update data files
         run: |
           mkdir -p public/data
