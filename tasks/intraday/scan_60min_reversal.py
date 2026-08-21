@@ -977,5 +977,136 @@ def scan_next_day(stock_list: list[dict]) -> list[dict]:
     return top_next
 
 
+def send_reversal_email(result_path: Path) -> None:
+    """無論 0 檔或有訊號，都發送 60分K翻紅策略 Email。"""
+    import smtplib
+    import subprocess
+    from email.mime.text import MIMEText
+    from email.mime.multipart import MIMEMultipart
+
+    try:
+        with open(result_path, encoding="utf-8") as f:
+            data = json.load(f)
+    except Exception as e:
+        log(f"[Email] 讀取結果失敗：{e}")
+        return
+
+    scanned = data.get("scanned_count", 0)
+    qualified = data.get("qualified_count", 0)
+    next_day_stocks = data.get("next_day", {}).get("stocks", [])
+    next_day_count = len(next_day_stocks)
+    scan_time = data.get("scanned_at", "")
+    date_str = scan_time[:10] if scan_time else datetime.now(tz=timezone(timedelta(hours=8))).strftime("%Y-%m-%d")
+    date_display = date_str[5:].replace("-", "/")  # MM/DD
+
+    # Subject
+    if next_day_count > 0:
+        subject = f"【60分K翻紅策略】{date_display} | 次日翻紅{next_day_count}檔 | 掃描{scanned}檔"
+    elif qualified > 0:
+        subject = f"【60分K翻紅策略】{date_display} | 當日{qualified}檔底部訊號 | 掃描{scanned}檔"
+    else:
+        subject = f"【60分K翻紅策略】{date_display} | 今日無訊號（大漲/大跌日）| 掃描{scanned}檔"
+
+    # Detect market condition
+    pre_filtered = data.get("pre_filtered", 0)
+    if pre_filtered == 0:
+        market_note = "今日市場全面大漲或大跌，跌幅 -4%~+0.5% 範圍內無標的，底部反轉策略不適用。"
+    elif qualified == 0 and next_day_count == 0:
+        market_note = f"今日 {pre_filtered} 檔進入跌幅篩選，但均未達底部共振門檻（{data.get('filter','')})。大漲日資金全面進場，底部訊號難以形成。"
+    else:
+        market_note = ""
+
+    # Build stock rows HTML
+    def stock_rows(stocks, header):
+        if not stocks:
+            return ""
+        rows = "".join(
+            f"<tr><td style='padding:6px 12px;border-bottom:1px solid #eee;font-weight:bold'>{s.get('stock_id','')} {s.get('name','')}</td>"
+            f"<td style='padding:6px 12px;border-bottom:1px solid #eee;text-align:center'>{s.get('score',0):.0f}</td>"
+            f"<td style='padding:6px 12px;border-bottom:1px solid #eee;color:#e53e3e'>{s.get('day_change_pct',s.get('prev_day_change_pct',0)):+.1f}%</td>"
+            f"<td style='padding:6px 12px;border-bottom:1px solid #eee;font-size:12px'>{'+'.join(s.get('signals',[])) or '—'}</td>"
+            f"<td style='padding:6px 12px;border-bottom:1px solid #eee'>{s.get('entry_price',s.get('entry','—'))}</td>"
+            f"<td style='padding:6px 12px;border-bottom:1px solid #eee;color:#38a169'>{s.get('target_2',s.get('target_1','—'))}</td>"
+            f"<td style='padding:6px 12px;border-bottom:1px solid #eee;color:#e53e3e'>{s.get('stop_loss','—')}</td></tr>"
+            for s in stocks[:15]
+        )
+        return f"""
+        <h3 style='color:#6b46c1;margin:24px 0 8px'>{header}</h3>
+        <table style='width:100%;border-collapse:collapse;font-size:13px'>
+          <tr style='background:#f5f0ff;font-weight:bold'>
+            <th style='padding:8px 12px;text-align:left'>股票</th>
+            <th style='padding:8px 12px'>評分</th>
+            <th style='padding:8px 12px'>跌幅</th>
+            <th style='padding:8px 12px;text-align:left'>觸發訊號</th>
+            <th style='padding:8px 12px'>進場</th>
+            <th style='padding:8px 12px'>目標</th>
+            <th style='padding:8px 12px'>停損</th>
+          </tr>
+          {rows}
+        </table>"""
+
+    today_section = stock_rows(data.get("stocks", []), "🔔 當日底部共振訊號")
+    next_section = stock_rows(next_day_stocks, "🔮 次日翻紅預測（昨日底部共振）")
+
+    no_signal_section = ""
+    if not today_section and not next_section:
+        no_signal_section = f"""
+        <div style='background:#fff8e1;border-left:4px solid #f6c000;padding:16px;margin:20px 0;border-radius:4px'>
+          <strong>今日無底部反轉訊號</strong><br>
+          {market_note}<br><br>
+          <strong>策略說明：</strong>60分K翻紅策略尋找「當日微跌但盤中出現底部共振」的標的，
+          篩選跌幅 -4%~+0.5% 且達 KD金叉／MACD底部／量縮止跌共振的個股。<br>
+          大漲日或大跌日均不適用此策略，請等待盤整日或震盪日。
+        </div>"""
+
+    html = f"""
+    <html><body style='font-family:Arial,sans-serif;max-width:800px;margin:0 auto;padding:20px;color:#333'>
+      <div style='background:linear-gradient(135deg,#6b46c1,#9f7aea);padding:20px;border-radius:8px;color:white;margin-bottom:20px'>
+        <h1 style='margin:0;font-size:22px'>🔮 60分K線翻紅底部反轉策略</h1>
+        <p style='margin:8px 0 0;opacity:0.9'>{date_str} | 掃描 {scanned} 檔 | 篩選 {pre_filtered} 檔 | 當日訊號 {qualified} 檔 | 次日預測 {next_day_count} 檔</p>
+      </div>
+      {no_signal_section}
+      {today_section}
+      {next_section}
+      <div style='margin-top:32px;padding:12px;background:#f8f8f8;border-radius:4px;font-size:11px;color:#888'>
+        本報告由台股飆股獵手 AI 自動生成 | 60分K翻紅策略 v1.0 | 每日 19:00 自動執行 | 掃描時間 {scan_time}
+      </div>
+    </body></html>"""
+
+    # Use Nebula send_email via subprocess call to nebula CLI (env-based)
+    # Write HTML to temp file and use curl to call Nebula email API
+    nebula_token = os.environ.get("SANDBOX_AUTH_TOKEN", "")
+    api_base = os.environ.get("NEBULA_API_BASE", "https://api.nebula.gg")
+
+    import urllib.request
+    import urllib.error
+
+    payload = json.dumps({
+        "subject": subject,
+        "body": html,
+        "recipient": "juststarlight66@gmail.com",
+        "is_html": True
+    }).encode("utf-8")
+
+    req = urllib.request.Request(
+        f"{api_base}/v1/email/send",
+        data=payload,
+        headers={
+            "Authorization": f"Bearer {nebula_token}",
+            "Content-Type": "application/json",
+        },
+        method="POST"
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            log(f"[Email] 寄送成功：{subject}")
+    except urllib.error.HTTPError as e:
+        body = e.read().decode()
+        log(f"[Email] 寄送失敗 HTTP {e.code}：{body[:200]}")
+    except Exception as e:
+        log(f"[Email] 寄送失敗：{e}")
+
+
 if __name__ == "__main__":
     main()
+    send_reversal_email(OUT_PATH)

@@ -422,3 +422,86 @@ with open(meta_path, 'w', encoding='utf-8') as f:
 print(f"Written: {meta_path}")
 print(f"Subject: {meta['subject']}")
 print(f"Top stocks: {[s.get('name') for s in top_stocks[:5]]}")
+
+# ── 輸出 60分K 翻紅獨立 Email 資料 ─────────────────────────────────────────
+try:
+    import json as _json, os as _os
+
+    _rv_path = reversal_path  # already loaded above
+    _rv_data = {}
+    if _os.path.exists(_rv_path):
+        with open(_rv_path, encoding='utf-8') as _f:
+            _rv_data = _json.load(_f)
+
+    _scanned = _rv_data.get('scanned_count', 0)
+    _pre = _rv_data.get('pre_filtered', 0)
+    _qualified = _rv_data.get('qualified_count', 0)
+    _next_stocks = _rv_data.get('next_day', {}).get('stocks', [])
+    _next_count = len(_next_stocks)
+    _scan_time = _rv_data.get('scanned_at', '')
+    _date_disp = (_scan_time[5:10].replace('-', '/') if _scan_time else
+                  __import__('datetime').date.today().strftime('%m/%d'))
+
+    if _next_count > 0:
+        _subj = f'【60分K翻紅策略】{_date_disp} | 次日翻紅{_next_count}檔 | 掃描{_scanned}檔'
+    elif _qualified > 0:
+        _subj = f'【60分K翻紅策略】{_date_disp} | 當日{_qualified}檔底部訊號 | 掃描{_scanned}檔'
+    else:
+        _subj = f'【60分K翻紅策略】{_date_disp} | 今日無訊號（大漲/大跌日）| 掃描{_scanned}檔'
+
+    if _pre == 0:
+        _mkt = '今日市場全面大漲或大跌，跌幅 -4%~+0.5% 範圍內無標的，底部反轉策略不適用。'
+    elif _qualified == 0 and _next_count == 0:
+        _mkt = f'今日 {_pre} 檔進入跌幅篩選，但均未達底部共振門檻。大漲日資金全面進場，底部訊號難以形成。'
+    else:
+        _mkt = ''
+
+    def _rows(stocks):
+        if not stocks:
+            return ''
+        rs = ''.join(
+            f"<tr><td style='padding:6px 12px;border-bottom:1px solid #eee;font-weight:bold'>{s.get('stock_id','')} {s.get('name','')}</td>"
+            f"<td style='padding:6px 12px;border-bottom:1px solid #eee;text-align:center'>{s.get('score',0):.0f}</td>"
+            f"<td style='padding:6px 12px;border-bottom:1px solid #eee;color:#e53e3e'>{s.get('day_change_pct', s.get('prev_day_change_pct', 0)):+.1f}%</td>"
+            f"<td style='padding:6px 12px;border-bottom:1px solid #eee;font-size:12px'>{'+'.join(s.get('signals', [])) or '—'}</td>"
+            f"<td style='padding:6px 12px;border-bottom:1px solid #eee'>{s.get('entry_price', s.get('entry', '—'))}</td>"
+            f"<td style='padding:6px 12px;border-bottom:1px solid #eee;color:#38a169'>{s.get('target_2', s.get('target_1', '—'))}</td>"
+            f"<td style='padding:6px 12px;border-bottom:1px solid #eee;color:#e53e3e'>{s.get('stop_loss', '—')}</td></tr>"
+            for s in stocks[:15]
+        )
+        return f"""<table style='width:100%;border-collapse:collapse;font-size:13px'>
+          <tr style='background:#f5f0ff;font-weight:bold'>
+            <th style='padding:8px 12px;text-align:left'>股票</th><th style='padding:8px 12px'>評分</th>
+            <th style='padding:8px 12px'>跌幅</th><th style='padding:8px 12px;text-align:left'>觸發訊號</th>
+            <th style='padding:8px 12px'>進場</th><th style='padding:8px 12px'>目標</th><th style='padding:8px 12px'>停損</th>
+          </tr>{rs}</table>"""
+
+    _today_sec = (f"<h3 style='color:#6b46c1'>🔔 當日底部共振訊號</h3>{_rows(_rv_data.get('stocks',[]))}"
+                  if _rv_data.get('stocks') else '')
+    _next_sec = (f"<h3 style='color:#6b46c1'>🔮 次日翻紅預測（昨日底部共振）</h3>{_rows(_next_stocks)}"
+                 if _next_stocks else '')
+    _no_sig = (f"""<div style='background:#fff8e1;border-left:4px solid #f6c000;padding:16px;margin:20px 0;border-radius:4px'>
+        <strong>今日無底部反轉訊號</strong><br>{_mkt}<br><br>
+        <strong>策略說明：</strong>60分K翻紅策略尋找「當日微跌但盤中出現底部共振」的標的，
+        篩選跌幅 -4%~+0.5% 且達 KD金叉／MACD底部／量縮止跌共振的個股。<br>
+        大漲日或大跌日均不適用，請等待盤整日或震盪日。
+      </div>""" if not _today_sec and not _next_sec else '')
+
+    _html = f"""<html><body style='font-family:Arial,sans-serif;max-width:800px;margin:0 auto;padding:20px;color:#333'>
+      <div style='background:linear-gradient(135deg,#6b46c1,#9f7aea);padding:20px;border-radius:8px;color:white;margin-bottom:20px'>
+        <h1 style='margin:0;font-size:22px'>🔮 60分K線翻紅底部反轉策略</h1>
+        <p style='margin:8px 0 0;opacity:0.9'>{_scan_time[:10] if _scan_time else ''} | 掃描 {_scanned} 檔 | 篩選 {_pre} 檔 | 當日訊號 {_qualified} 檔 | 次日預測 {_next_count} 檔</p>
+      </div>
+      {_no_sig}{_today_sec}{_next_sec}
+      <div style='margin-top:32px;padding:12px;background:#f8f8f8;border-radius:4px;font-size:11px;color:#888'>
+        本報告由台股飆股獵手 AI 自動生成 | 60分K翻紅策略 v1.0 | 每日 19:00 自動執行 | 掃描時間 {_scan_time}
+      </div>
+    </body></html>"""
+
+    _meta_path = _os.path.join(data_dir, 'reversal_email_meta.json')
+    with open(_meta_path, 'w', encoding='utf-8') as _mf:
+        _json.dump({'subject': _subj, 'body': _html, 'generated_at': _scan_time,
+                    'next_count': _next_count, 'qualified_count': _qualified}, _mf, ensure_ascii=False)
+    print(f'[reversal_email] meta written: {_subj}')
+except Exception as _e:
+    print(f'[reversal_email] 生成失敗（非致命）: {_e}')

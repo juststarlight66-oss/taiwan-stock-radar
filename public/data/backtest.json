@@ -754,26 +754,6 @@
               "pending": true
             },
             {
-              "stock_id": "2617",
-              "name": "台航",
-              "entry": 31.8,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "2612",
-              "name": "中航",
-              "entry": 60.2,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
               "stock_id": "2609",
               "name": "陽明",
               "entry": 64.0,
@@ -794,9 +774,9 @@
               "pending": true
             },
             {
-              "stock_id": "8367",
-              "name": "建新國際",
-              "entry": 40.85,
+              "stock_id": "2108",
+              "name": "南帝",
+              "entry": 31.4,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -804,9 +784,9 @@
               "pending": true
             },
             {
-              "stock_id": "2614",
-              "name": "東森",
-              "entry": 18.8,
+              "stock_id": "2636",
+              "name": "台驊控股",
+              "entry": 73.3,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -814,9 +794,9 @@
               "pending": true
             },
             {
-              "stock_id": "2439",
-              "name": "美律",
-              "entry": 82.5,
+              "stock_id": "2612",
+              "name": "中航",
+              "entry": 60.2,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -824,9 +804,29 @@
               "pending": true
             },
             {
-              "stock_id": "2606",
-              "name": "裕民",
-              "entry": 72.6,
+              "stock_id": "1104",
+              "name": "環泥",
+              "entry": 26.85,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1709",
+              "name": "和益",
+              "entry": 33.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5871",
+              "name": "中租-KY",
+              "entry": 115.5,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -863,26 +863,6 @@
               "pending": true
             },
             {
-              "stock_id": "2617",
-              "name": "台航",
-              "entry": 31.8,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "2612",
-              "name": "中航",
-              "entry": 60.2,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
               "stock_id": "2609",
               "name": "陽明",
               "entry": 64.0,
@@ -903,9 +883,9 @@
               "pending": true
             },
             {
-              "stock_id": "8367",
-              "name": "建新國際",
-              "entry": 40.85,
+              "stock_id": "2108",
+              "name": "南帝",
+              "entry": 31.4,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -913,9 +893,9 @@
               "pending": true
             },
             {
-              "stock_id": "2614",
-              "name": "東森",
-              "entry": 18.8,
+              "stock_id": "2636",
+              "name": "台驊控股",
+              "entry": 73.3,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -923,9 +903,9 @@
               "pending": true
             },
             {
-              "stock_id": "2439",
-              "name": "美律",
-              "entry": 82.5,
+              "stock_id": "2612",
+              "name": "中航",
+              "entry": 60.2,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -933,9 +913,29 @@
               "pending": true
             },
             {
-              "stock_id": "2606",
-              "name": "裕民",
-              "entry": 72.6,
+              "stock_id": "1104",
+              "name": "環泥",
+              "entry": 26.85,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1709",
+              "name": "和益",
+              "entry": 33.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5871",
+              "name": "中租-KY",
+              "entry": 115.5,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -972,26 +972,6 @@
               "pending": true
             },
             {
-              "stock_id": "2617",
-              "name": "台航",
-              "entry": 31.8,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "2612",
-              "name": "中航",
-              "entry": 60.2,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
               "stock_id": "2609",
               "name": "陽明",
               "entry": 64.0,
@@ -1012,9 +992,9 @@
               "pending": true
             },
             {
-              "stock_id": "8367",
-              "name": "建新國際",
-              "entry": 40.85,
+              "stock_id": "2108",
+              "name": "南帝",
+              "entry": 31.4,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1022,9 +1002,9 @@
               "pending": true
             },
             {
-              "stock_id": "2614",
-              "name": "東森",
-              "entry": 18.8,
+              "stock_id": "2636",
+              "name": "台驊控股",
+              "entry": 73.3,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1032,9 +1012,9 @@
               "pending": true
             },
             {
-              "stock_id": "2439",
-              "name": "美律",
-              "entry": 82.5,
+              "stock_id": "2612",
+              "name": "中航",
+              "entry": 60.2,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1042,9 +1022,29 @@
               "pending": true
             },
             {
-              "stock_id": "2606",
-              "name": "裕民",
-              "entry": 72.6,
+              "stock_id": "1104",
+              "name": "環泥",
+              "entry": 26.85,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1709",
+              "name": "和益",
+              "entry": 33.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5871",
+              "name": "中租-KY",
+              "entry": 115.5,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1060,110 +1060,110 @@
       "periods": {
         "T1": {
           "label": "T+1",
-          "backtest_date": null,
-          "win_rate": null,
-          "avg_return": null,
-          "pending": true,
+          "backtest_date": "20260821",
+          "win_rate": 50.0,
+          "avg_return": 0.28,
+          "pending": false,
           "stocks": [
             {
               "stock_id": "2617",
               "name": "台航",
               "entry": 30.9,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 31.8,
+              "return_pct": 2.75,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "9904",
               "name": "寶成",
               "entry": 24.7,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 25.0,
+              "return_pct": -0.2,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "2636",
               "name": "台驊控股",
               "entry": 71.3,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 73.3,
+              "return_pct": 2.95,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "2393",
               "name": "億光",
               "entry": 64.6,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 64.7,
+              "return_pct": -2.41,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "2607",
               "name": "榮運",
               "entry": 50.4,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 52.4,
+              "return_pct": 1.16,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "4736",
               "name": "泰博",
               "entry": 143.0,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 142.5,
+              "return_pct": -2.06,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "4536",
               "name": "拓凱",
               "entry": 169.5,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 172.0,
+              "return_pct": 0.88,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "2204",
               "name": "中華",
               "entry": 53.0,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 55.1,
+              "return_pct": 0.18,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "4104",
               "name": "佳醫",
               "entry": 71.4,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 71.7,
+              "return_pct": 0.0,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "1707",
               "name": "葡萄王",
               "entry": 90.2,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 90.1,
+              "return_pct": -0.44,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
             }
           ]
         },
@@ -9124,60 +9124,60 @@
       }
     }
   ],
-  "last_updated": "2026-08-21T18:15:45.139880+08:00",
+  "last_updated": "2026-08-21T19:06:30.112034+08:00",
   "history": [
     {
       "date": "2026/08/21",
       "results": {
         "2603": {
           "name": "長榮",
-          "score": 91.86,
+          "score": 88.22,
           "close": 251.5
         },
         "1307": {
           "name": "三芳",
-          "score": 89.56,
+          "score": 87.63,
           "close": 31.15
-        },
-        "2617": {
-          "name": "台航",
-          "score": 88.69,
-          "close": 31.8
-        },
-        "2612": {
-          "name": "中航",
-          "score": 88.34,
-          "close": 60.2
         },
         "2609": {
           "name": "陽明",
-          "score": 88.14,
+          "score": 86.45,
           "close": 64.0
         },
         "2613": {
           "name": "中櫃",
-          "score": 87.4,
+          "score": 86.31,
           "close": 24.9
         },
-        "8367": {
-          "name": "建新國際",
-          "score": 87.03,
-          "close": 40.85
+        "2108": {
+          "name": "南帝",
+          "score": 82.83,
+          "close": 31.4
         },
-        "2614": {
-          "name": "東森",
-          "score": 86.23,
-          "close": 18.8
+        "2636": {
+          "name": "台驊控股",
+          "score": 81.39,
+          "close": 73.3
         },
-        "2439": {
-          "name": "美律",
-          "score": 84.1,
-          "close": 82.5
+        "2612": {
+          "name": "中航",
+          "score": 81.39,
+          "close": 60.2
         },
-        "2606": {
-          "name": "裕民",
-          "score": 84.0,
-          "close": 72.6
+        "1104": {
+          "name": "環泥",
+          "score": 80.9,
+          "close": 26.85
+        },
+        "1709": {
+          "name": "和益",
+          "score": 80.88,
+          "close": 33.3
+        },
+        "5871": {
+          "name": "中租-KY",
+          "score": 80.46,
+          "close": 115.5
         }
       }
     },
