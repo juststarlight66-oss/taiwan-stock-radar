@@ -579,6 +579,9 @@ def main():
         log(f"  #{i+1} {s['stock_id']} {s['name']} 分={s['score']} "
             f"日漲跌={s['day_change_pct']:+.1f}% 訊號=[{sigs}]")
 
+    # ---- 次日翻紅預測 ----
+    next_day_top = scan_next_day(stock_list)
+
     output = {
         "scan_type": "reversal_60min",
         "scanned_at": now_tw.strftime("%Y-%m-%d %H:%M:%S"),
@@ -589,6 +592,12 @@ def main():
         "pre_filtered": len(candidates_pre),
         "qualified_count": len(scored),
         "stocks": top,
+        "next_day": {
+            "description": "昨日尾盤底部共振，明日開盤有機會跳空翻紅",
+            "min_score": NEXT_DAY_MIN_SCORE,
+            "count": len(next_day_top),
+            "stocks": next_day_top,
+        },
     }
 
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
@@ -596,6 +605,376 @@ def main():
         json.dump(output, f, ensure_ascii=False, indent=2)
     log(f"輸出：{OUT_PATH}（{len(top)} 檔）")
     return top
+
+
+# ── Next-Day Reversal (隔日跳空翻紅預測) ─────────────────────────────────────
+
+NEXT_DAY_MIN_SCORE = 30      # 次日翻紅預測門檻
+NEXT_DAY_TOP_N = 15          # 最多輸出幾檔
+NEXT_DAY_LAST_BARS = 3       # 昨日最後幾根 60分K 作為訊號窗口
+
+
+def score_next_day_reversal(df_all: pd.DataFrame, day_change_pct: float, df_ctx: pd.DataFrame | None = None) -> tuple[float, dict]:
+    """
+    給昨日全天 60分K 評分，判斷「明日是否有翻紅潛力」。
+    只看昨日最後 NEXT_DAY_LAST_BARS 根（尾盤訊號窗口）加上全天背景。
+
+    評分維度（100分）：
+      KD 尾盤低位金叉   30pt  — 收盤前 K<50 且 K 上穿 D
+      MACD 底部翻揚     25pt  — hist 由負轉正 or DIF 快速收斂
+      量縮止跌          20pt  — 尾盤量能萎縮且收盤較盤中低點回升
+      MA20 支撐         15pt  — 昨收接近 MA20 ±2%
+      日跌幅位置        10pt  — 昨日跌幅越接近 -3%~-5% 越得分（洗盤型）
+    """
+    details: dict = {}
+    # 過濾 Volume=0（yfinance 填充錯誤）及 NaN
+    df_all = df_all[df_all["Volume"] > 0].dropna(subset=["Close", "High", "Low"])
+    if len(df_all) < 2:
+        return 0.0, details
+
+    # 指標計算用全量背景資料（df_ctx，通常 5 天 ~20-25 根），訊號讀取只看昨日末段
+    # 若有背景資料（df_ctx），用背景資料做指標，df_all 只用來定位昨日末段 row 數
+    if df_ctx is not None and len(df_ctx) >= 8:
+        df_ctx_clean = df_ctx[df_ctx["Volume"] > 0].dropna(subset=["Close", "High", "Low"])
+        ctx_closes = df_ctx_clean["Close"].values.astype(float)
+        ctx_highs  = df_ctx_clean["High"].values.astype(float)
+        ctx_lows   = df_ctx_clean["Low"].values.astype(float)
+        ctx_vols   = df_ctx_clean["Volume"].values.astype(float)
+        # 昨日末段在全量資料裡的位置：取末尾 len(df_all) 個 index
+        n_prev = len(df_all)
+        k_arr_full, d_arr_full = compute_kdj(ctx_highs, ctx_lows, ctx_closes)
+        dif_full, dea_full, hist_full = compute_macd(ctx_closes)
+        ma20_full = compute_ma(ctx_closes, 20)
+        # 昨日末段在 ctx 裡的 slice（最後 n_prev 根）
+        k_arr   = k_arr_full[-n_prev:]
+        d_arr   = d_arr_full[-n_prev:]
+        dif_arr = dif_full[-n_prev:]
+        dea_arr = dea_full[-n_prev:]
+        hist_arr = hist_full[-n_prev:]
+        ma20    = ma20_full[-n_prev:]
+        closes  = ctx_closes[-n_prev:]
+        highs   = ctx_highs[-n_prev:]
+        lows    = ctx_lows[-n_prev:]
+        vols    = ctx_vols[-n_prev:]
+    else:
+        closes = df_all["Close"].values.astype(float)
+        highs  = df_all["High"].values.astype(float)
+        lows   = df_all["Low"].values.astype(float)
+        vols   = df_all["Volume"].values.astype(float)
+        k_arr, d_arr = compute_kdj(highs, lows, closes)
+        dif_arr, dea_arr, hist_arr = compute_macd(closes)
+        ma20 = compute_ma(closes, 20)
+
+    # 防止全 NaN（資料不足時）
+    if len(k_arr) == 0 or (len(k_arr) > 0 and k_arr[-1] != k_arr[-1]):
+        return 0.0, details
+    # 尾盤窗口（昨日最後 N 根）
+    win = min(NEXT_DAY_LAST_BARS, len(df_all))
+    tail_closes = closes[-win:]
+    tail_vols   = vols[-win:]
+    k_tail = k_arr[-win:]
+    d_tail = d_arr[-win:]
+    hist_tail = hist_arr[-win:]
+    dif_tail  = dif_arr[-win:]
+
+    k_last, d_last   = float(k_arr[-1]),  float(d_arr[-1])
+    k_prev, d_prev   = float(k_arr[-2]),  float(d_arr[-2])
+    hist_last        = float(hist_arr[-1])
+    hist_prev        = float(hist_arr[-2]) if len(hist_arr) >= 2 else hist_last
+    hist_prev2       = float(hist_arr[-3]) if len(hist_arr) >= 3 else hist_prev
+    dif_last         = float(dif_arr[-1])
+    dif_prev         = float(dif_arr[-2]) if len(dif_arr) >= 2 else dif_last
+    ma20_last        = float(ma20[-1]) if ma20 is not None and len(ma20) > 0 else 0.0
+    close_last       = float(closes[-1])
+
+    score_breakdown: dict[str, float] = {}
+
+    # 1. KD 尾盤低位金叉 (30pt)
+    kd_score = 0.0
+    if k_prev < d_prev and k_last > d_last and k_last < 30:
+        kd_score = 30.0
+        details["kd_signal"] = "尾盤超低位金叉(K<30)"
+    elif k_prev < d_prev and k_last > d_last and k_last < 50:
+        kd_score = 22.0
+        details["kd_signal"] = "尾盤低位金叉(K<50)"
+    elif k_last < k_prev and k_last < 30 and k_last > d_last:
+        kd_score = 15.0
+        details["kd_signal"] = "K超低位且K>D"
+    elif k_last < 25 and k_last < d_last:
+        kd_score = 10.0
+        details["kd_signal"] = "K超低位底部蓄積"
+    elif k_last < 40 and k_last > d_last:
+        kd_score = 8.0
+        details["kd_signal"] = "K低位K>D"
+    else:
+        # 高位急跌反彈型（K>60 但日跌幅 > -4%，急跌反彈空間大）
+        if k_last > 60 and day_change_pct < -4.0:
+            kd_score = 12.0
+            details["kd_signal"] = "高位急跌反彈型"
+        elif k_last > 50 and day_change_pct < -3.0:
+            kd_score = 8.0
+            details["kd_signal"] = "中高位急跌"
+        else:
+            kd_score = 0.0
+            details["kd_signal"] = "無KD底部訊號"
+    details["k_last"] = round(k_last, 1)
+    details["d_last"] = round(d_last, 1)
+    score_breakdown["kd"] = kd_score
+
+    # 2. MACD 底部翻揚 (25pt)
+    macd_score = 0.0
+    if hist_prev < 0 and hist_last > 0:
+        macd_score = 25.0
+        details["macd_signal"] = "histogram死叉翻揚"
+    elif hist_prev2 < hist_prev < 0 and hist_last > hist_prev:
+        macd_score = 20.0
+        details["macd_signal"] = "histogram底部收斂加速"
+    elif hist_last > hist_prev and hist_prev < 0:
+        macd_score = 15.0
+        details["macd_signal"] = "histogram負值回升"
+    elif dif_last < 0 and dif_last > dif_prev and abs(dif_last) < abs(dif_prev) * 0.6:
+        macd_score = 12.0
+        details["macd_signal"] = "DIF快速收斂"
+    elif dif_last < 0 and dif_last > dif_prev:
+        macd_score = 8.0
+        details["macd_signal"] = "DIF負值回升"
+    elif hist_last > 0 and hist_last > hist_prev:
+        macd_score = 7.0
+        details["macd_signal"] = "histogram正值回升"
+    else:
+        macd_score = 0.0
+        details["macd_signal"] = "無MACD底部訊號"
+    details["macd_hist_last"] = round(hist_last, 4)
+    details["dif_last"] = round(dif_last, 4)
+    score_breakdown["macd"] = macd_score
+
+    # 3. 量縮止跌（尾盤量能萎縮 + 收盤接近當根高點）(20pt)
+    vol_score = 0.0
+    vol_signal = ""
+    if len(tail_vols) >= 2:
+        vol_shrink = bool(tail_vols[-1] < tail_vols[-2] * 0.8)
+        # 收盤接近當根高點（下影線少）= 買盤接手
+        last_bar = df_all.iloc[-1]
+        bar_range = float(last_bar["High"]) - float(last_bar["Low"])
+        close_pos = (float(last_bar["Close"]) - float(last_bar["Low"])) / bar_range if bar_range > 0 else 0.5
+        # 收盤接近低點 = 仍弱；接近高點 = 反撲
+        if vol_shrink and close_pos >= 0.7:
+            vol_score = 20.0
+            vol_signal = "量縮+收盤強勢反撲"
+        elif vol_shrink and close_pos >= 0.5:
+            vol_score = 15.0
+            vol_signal = "量縮+陽線止跌"
+        elif vol_shrink:
+            vol_score = 8.0
+            vol_signal = "量縮（收盤偏弱）"
+        elif close_pos >= 0.7:
+            vol_score = 10.0
+            vol_signal = "收盤強勢但量未縮"
+        else:
+            vol_score = 0.0
+            vol_signal = "無量縮訊號"
+    details["vol_signal"] = vol_signal
+    details["vol_shrink"] = bool(len(tail_vols) >= 2 and tail_vols[-1] < tail_vols[-2] * 0.8)
+    score_breakdown["volume"] = vol_score
+
+    # 4. MA20 支撐（昨收接近 MA20 ±2%）(15pt)
+    ma_score = 0.0
+    ma_signal = ""
+    if ma20_last > 0:
+        dist = (close_last - ma20_last) / ma20_last * 100
+        details["dist_ma20"] = round(dist, 2)
+        if -1.0 <= dist <= 1.0:
+            ma_score = 15.0
+            ma_signal = "緊貼MA20支撐"
+        elif -2.0 <= dist < -1.0:
+            ma_score = 12.0
+            ma_signal = "跌破MA20但接近"
+        elif 1.0 < dist <= 3.0:
+            ma_score = 10.0
+            ma_signal = "MA20上方撐住"
+        elif -4.0 <= dist < -2.0:
+            ma_score = 6.0
+            ma_signal = "跌破MA20偏遠"
+        else:
+            ma_score = 3.0
+            ma_signal = "距MA20過遠"
+    details["ma_signal"] = ma_signal
+    score_breakdown["ma_support"] = ma_score
+
+    # 5. 日跌幅位置（昨日跌幅 -2%~-6% 最佳）(10pt)
+    day_score = 0.0
+    day_signal = ""
+    dc = day_change_pct
+    if -6.0 <= dc <= -2.0:
+        day_score = 10.0
+        day_signal = "洗盤式下跌（翻紅潛力最高）"
+    elif -2.0 < dc <= -0.5:
+        day_score = 7.0
+        day_signal = "小跌蓄積"
+    elif -8.0 <= dc < -6.0:
+        day_score = 5.0
+        day_signal = "大跌（反彈空間大但風險高）"
+    elif dc < -8.0:
+        day_score = 2.0
+        day_signal = "重挫（風險高）"
+    else:
+        day_score = 0.0
+        day_signal = "未符合跌幅條件"
+    details["day_signal"] = day_signal
+    score_breakdown["day_position"] = day_score
+
+    details["score_breakdown"] = score_breakdown
+    total = sum(score_breakdown.values())
+    return round(total, 1), details
+
+
+def scan_next_day(stock_list: list[dict]) -> list[dict]:
+    """
+    隔日跳空翻紅預測掃描：
+    昨日日K收跌（day_change_pct < -0.5%），
+    用昨日全天 60分K 判斷尾盤底部訊號，評分高者列為「明日翻紅候選」。
+    """
+    log("\n[次日翻紅預測] 掃描昨日尾盤底部訊號...")
+
+    # 篩：昨日收跌 -0.5% 以下的標的才有翻紅潛力
+    PREV_DAY_DROP_MIN = -0.5
+    PREV_DAY_DROP_MAX = -10.0  # 跌超10%風險太高先排除
+    candidates = [
+        s for s in stock_list
+        if PREV_DAY_DROP_MAX <= (s.get("day_change_pct") or 0) <= PREV_DAY_DROP_MIN
+    ]
+    log(f"  昨日收跌標的：{len(candidates)} 檔")
+
+    if not candidates:
+        return []
+
+    # 抓昨日全天 60分K（period='5d' 含昨日）
+    tickers = [s["ticker"] for s in candidates]
+    ticker_to_stock = {s["ticker"]: s for s in candidates}
+    log(f"  抓取 {len(tickers)} 檔 60分K...")
+    data_60min = fetch_60min_data_batch(tickers)
+
+    # 只取昨日的 K 棒
+    tz_tw = "Asia/Taipei"
+    from datetime import timedelta
+    import pytz
+    tw_tz = pytz.timezone(tz_tw)
+    today_str = datetime.now(tw_tz).strftime("%Y-%m-%d")
+    # 昨日 = 最近一個交易日（取 period='5d' 中倒數第二天）
+
+    scored_next: list[dict] = []
+    for ticker, df_all in data_60min.items():
+        s = ticker_to_stock.get(ticker)
+        if s is None:
+            continue
+
+        if len(df_all) < 6:
+            continue
+
+        # 分組取昨日 K 棒（非今日）
+        try:
+            dt_idx = pd.DatetimeIndex(df_all.index)
+            dates = dt_idx.strftime("%Y-%m-%d")
+            unique_dates = sorted(set(dates))
+            if len(unique_dates) < 2:
+                continue
+            # 取最近的非今日交易日
+            prev_dates = [d for d in unique_dates if d != today_str]
+            if not prev_dates:
+                continue
+            prev_date = prev_dates[-1]
+            df_prev_raw = df_all[dates == prev_date]
+            df_prev = pd.DataFrame(df_prev_raw)  # ensure DataFrame type
+        except Exception:
+            continue
+
+        if len(df_prev) < 3:
+            continue
+
+        day_chg = s.get("day_change_pct") or 0
+        score, details = score_next_day_reversal(df_prev, day_chg, df_ctx=df_all)
+
+        if score < NEXT_DAY_MIN_SCORE:
+            continue
+
+        cur_price = s.get("day_close") or 0
+        prev_close = s.get("prev_close") or cur_price
+        entry = round(cur_price, 2)
+        target_1 = round(prev_close * 1.01, 2)
+        target_2 = round(prev_close * 1.04, 2)
+        stop_loss = round(entry * 0.965, 2)  # -3.5%
+
+        kd_sig  = details.get("kd_signal", "")
+        macd_sig= details.get("macd_signal", "")
+        vol_sig = details.get("vol_signal", "")
+        ma_sig  = details.get("ma_signal", "")
+
+        signals = []
+        if "金叉" in kd_sig or "超低" in kd_sig:
+            signals.append("KD底部金叉")
+        if "翻揚" in macd_sig or "收斂" in macd_sig or "回升" in macd_sig:
+            signals.append("MACD底部")
+        if "量縮" in vol_sig:
+            signals.append("量縮止跌")
+        if "MA20" in ma_sig and ("支撐" in ma_sig or "撐住" in ma_sig):
+            signals.append("MA20支撐")
+
+        scored_next.append({
+            "stock_id": s["stock_id"],
+            "name": s["name"],
+            "sector": s["sector_name"],
+            "market": s["market"],
+            "score": score,
+            "prev_day_change_pct": round(day_chg, 2),
+            "current_price": entry,
+            "target_1": target_1,
+            "target_2": target_2,
+            "stop_loss": stop_loss,
+            "signals": signals,
+            "signal_count": len(signals),
+            "strategy_note": "昨日尾盤底部共振，明日開盤可能跳空翻紅",
+            "details": {
+                "kd": {
+                    "k": details.get("k_last"),
+                    "d": details.get("d_last"),
+                    "signal": kd_sig,
+                    "score": details.get("score_breakdown", {}).get("kd", 0),
+                },
+                "macd": {
+                    "hist": details.get("macd_hist_last"),
+                    "dif": details.get("dif_last"),
+                    "signal": macd_sig,
+                    "score": details.get("score_breakdown", {}).get("macd", 0),
+                },
+                "volume": {
+                    "shrink": details.get("vol_shrink"),
+                    "signal": vol_sig,
+                    "score": details.get("score_breakdown", {}).get("volume", 0),
+                },
+                "ma_support": {
+                    "dist_ma20": details.get("dist_ma20"),
+                    "signal": ma_sig,
+                    "score": details.get("score_breakdown", {}).get("ma_support", 0),
+                },
+                "day_position": {
+                    "change_pct": round(day_chg, 2),
+                    "signal": details.get("day_signal", ""),
+                    "score": details.get("score_breakdown", {}).get("day_position", 0),
+                },
+                "score_breakdown": details.get("score_breakdown", {}),
+            },
+        })
+
+    scored_next.sort(key=lambda x: (-x["signal_count"], -x["score"]))
+    top_next = scored_next[:NEXT_DAY_TOP_N]
+
+    log(f"  次日翻紅候選：{len(top_next)} 檔")
+    for i, s in enumerate(top_next[:10]):
+        sigs = "+".join(s["signals"]) if s["signals"] else "無訊號"
+        log(f"    #{i+1} {s['stock_id']} {s['name']} 分={s['score']} "
+            f"昨跌={s['prev_day_change_pct']:+.1f}% [{sigs}]")
+
+    return top_next
 
 
 if __name__ == "__main__":
