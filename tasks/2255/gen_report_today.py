@@ -25,6 +25,19 @@ top_stocks = data.get('top_stocks', [])
 explode_top5 = data.get('explode_top5', [])
 generated_at = data.get('generated_at', now.isoformat())
 
+# Load reversal_60min.json (next-day prediction)
+reversal_path = os.path.join(data_dir, 'reversal_60min.json')
+reversal_next_stocks = []
+reversal_scanned_at = ""
+try:
+    if os.path.exists(reversal_path):
+        with open(reversal_path, encoding='utf-8') as f:
+            rv = json.load(f)
+        reversal_next_stocks = rv.get('next_day', {}).get('stocks', [])
+        reversal_scanned_at = rv.get('scanned_at', '')
+except Exception as e:
+    print(f"Warning: could not load reversal_60min.json: {e}")
+
 # Load backtest data
 backtest_path = os.path.join(data_dir, 'backtest.json')
 backtest_data = {}
@@ -217,6 +230,38 @@ elif isinstance(grouped, dict):
             </tr>'''
 
 # Full HTML report
+# Build next-day reversal rows
+def build_reversal_rows(stocks):
+    if not stocks:
+        return '<tr><td colspan="6" style="text-align:center;color:#aaa;padding:20px;">今日無符合條件的次日翻紅候選</td></tr>'
+    rows = []
+    for i, s in enumerate(stocks[:10]):
+        rank = i + 1
+        name = s.get('name', '')
+        sid  = s.get('stock_id', '')
+        score= s.get('score', 0)
+        dc   = s.get('prev_day_change_pct', 0)
+        sigs = ' + '.join(s.get('signals', [])) or '綜合訊號'
+        price= s.get('current_price', 0)
+        t1   = s.get('target_1', 0)
+        stop = s.get('stop_loss', 0)
+        note = s.get('strategy_note', '')
+        score_color = '#27ae60' if score >= 50 else '#e67e22' if score >= 35 else '#95a5a6'
+        dc_color = '#e74c3c' if dc < 0 else '#27ae60'
+        rows.append(f'''<tr style="background:{'#fff' if rank%2==0 else '#f9f9f9'}">
+          <td style="padding:8px;text-align:center;font-weight:bold;color:#555;">{rank}</td>
+          <td style="padding:8px;"><strong>{sid}</strong><br><span style="font-size:11px;color:#666;">{name}</span></td>
+          <td style="padding:8px;text-align:center;color:{score_color};font-weight:bold;">{score}</td>
+          <td style="padding:8px;text-align:center;color:{dc_color};">{dc:+.1f}%</td>
+          <td style="padding:8px;font-size:11px;color:#2980b9;">{sigs}</td>
+          <td style="padding:8px;font-size:11px;">進:{price:.1f} 目標:{t1:.1f} 止:{stop:.1f}</td>
+        </tr>''')
+    return '\n'.join(rows)
+
+reversal_rows = build_reversal_rows(reversal_next_stocks)
+reversal_count = len(reversal_next_stocks)
+reversal_note = f"共 {reversal_count} 檔候選，掃描於 {reversal_scanned_at}" if reversal_count > 0 else "今日無符合條件標的"
+
 html = f'''<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -319,6 +364,28 @@ html = f'''<!DOCTYPE html>
     </div>
   </div>
 
+  <!-- 次日翻紅預測區塊 -->
+  <div style="background:#fff;border-radius:12px;padding:20px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06);border-left:4px solid #8e44ad;">
+    <h2 style="color:#8e44ad;margin:0 0 4px;font-size:18px;">🔮 次日翻紅觀察名單</h2>
+    <p style="color:#888;font-size:12px;margin:0 0 14px;">{reversal_note} | 昨日尾盤底部訊號共振，明日開盤留意</p>
+    <table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <thead>
+        <tr style="background:#8e44ad;color:#fff;">
+          <th style="padding:8px;width:40px;">#</th>
+          <th style="padding:8px;text-align:left;">股票</th>
+          <th style="padding:8px;width:60px;">評分</th>
+          <th style="padding:8px;width:70px;">昨跌幅</th>
+          <th style="padding:8px;text-align:left;">訊號</th>
+          <th style="padding:8px;text-align:left;">進出場</th>
+        </tr>
+      </thead>
+      <tbody>
+        {reversal_rows}
+      </tbody>
+    </table>
+    <p style="color:#aaa;font-size:10px;margin:10px 0 0;">⚠️ 次日翻紅預測基於昨日60分K指標，僅供參考，開盤確認後再進場</p>
+  </div>
+
   <div class="footer">
     <p>此報告由台股雷達自動生成 | {generated_at} | <a href="https://juststarlight66-oss.github.io/taiwan-stock-radar/" style="color:#3498db;">線上版本</a></p>
     <p style="color:#aaa;font-size:11px;">⚠️ 本報告僅供參考，不構成投資建議。投資有風險，請審慎評估。</p>
@@ -336,7 +403,11 @@ print(f"Written: {report_path} ({len(html)} bytes)")
 # Write email_metadata.json
 meta = {
     "to": "juststarlight66@gmail.com",
-    "subject": f"【台股掃描報告】{date_display} | Top {len(top_stocks)} 推薦 | 掃描{scanned_count}檔",
+    "subject": (
+        f"【台股掃描報告】{date_display} | Top {len(top_stocks)} 推薦"
+        + (f" | 🔮次日翻紅{len(reversal_next_stocks)}檔" if reversal_next_stocks else "")
+        + f" | 掃描{scanned_count}檔"
+    ),
     "html_path": report_path,
     "scan_date": scan_date,
     "scanned_count": scanned_count,
