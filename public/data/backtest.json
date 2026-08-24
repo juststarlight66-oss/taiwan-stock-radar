@@ -724,6 +724,338 @@
   ],
   "grouped_records": [
     {
+      "scan_date": "20260824",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "1608",
+              "name": "華榮",
+              "entry": 36.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5283",
+              "name": "禾聯碩",
+              "entry": 59.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6189",
+              "name": "豐藝",
+              "entry": 49.45,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2362",
+              "name": "藍天",
+              "entry": 48.85,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1612",
+              "name": "宏泰",
+              "entry": 34.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9941",
+              "name": "裕融",
+              "entry": 85.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1603",
+              "name": "華電",
+              "entry": 31.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1604",
+              "name": "聲寶",
+              "entry": 23.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3622",
+              "name": "洋華",
+              "entry": 53.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2382",
+              "name": "廣達",
+              "entry": 325.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "1608",
+              "name": "華榮",
+              "entry": 36.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5283",
+              "name": "禾聯碩",
+              "entry": 59.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6189",
+              "name": "豐藝",
+              "entry": 49.45,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2362",
+              "name": "藍天",
+              "entry": 48.85,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1612",
+              "name": "宏泰",
+              "entry": 34.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9941",
+              "name": "裕融",
+              "entry": 85.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1603",
+              "name": "華電",
+              "entry": 31.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1604",
+              "name": "聲寶",
+              "entry": 23.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3622",
+              "name": "洋華",
+              "entry": 53.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2382",
+              "name": "廣達",
+              "entry": 325.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "1608",
+              "name": "華榮",
+              "entry": 36.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5283",
+              "name": "禾聯碩",
+              "entry": 59.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6189",
+              "name": "豐藝",
+              "entry": 49.45,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2362",
+              "name": "藍天",
+              "entry": 48.85,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1612",
+              "name": "宏泰",
+              "entry": 34.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9941",
+              "name": "裕融",
+              "entry": 85.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1603",
+              "name": "華電",
+              "entry": 31.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1604",
+              "name": "聲寶",
+              "entry": 23.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3622",
+              "name": "洋華",
+              "entry": 53.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2382",
+              "name": "廣達",
+              "entry": 325.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
+    },
+    {
       "scan_date": "20260821",
       "periods": {
         "T1": {
@@ -9124,8 +9456,63 @@
       }
     }
   ],
-  "last_updated": "2026-08-21T19:06:30.112034+08:00",
+  "last_updated": "2026-08-24T18:30:11.472697+08:00",
   "history": [
+    {
+      "date": "2026/08/24",
+      "results": {
+        "1608": {
+          "name": "華榮",
+          "score": 94.62,
+          "close": 36.7
+        },
+        "5283": {
+          "name": "禾聯碩",
+          "score": 92.05,
+          "close": 59.2
+        },
+        "6189": {
+          "name": "豐藝",
+          "score": 86.95,
+          "close": 49.45
+        },
+        "2362": {
+          "name": "藍天",
+          "score": 86.74,
+          "close": 48.85
+        },
+        "1612": {
+          "name": "宏泰",
+          "score": 86.48,
+          "close": 34.7
+        },
+        "9941": {
+          "name": "裕融",
+          "score": 85.81,
+          "close": 85.9
+        },
+        "1603": {
+          "name": "華電",
+          "score": 85.72,
+          "close": 31.1
+        },
+        "1604": {
+          "name": "聲寶",
+          "score": 85.13,
+          "close": 23.3
+        },
+        "3622": {
+          "name": "洋華",
+          "score": 85.06,
+          "close": 53.8
+        },
+        "2382": {
+          "name": "廣達",
+          "score": 85.0,
+          "close": 325.0
+        }
+      }
+    },
     {
       "date": "2026/08/21",
       "results": {
