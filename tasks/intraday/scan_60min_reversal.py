@@ -582,6 +582,19 @@ def main():
     # ---- 次日翻紅預測 ----
     next_day_top = scan_next_day(stock_list)
 
+    # ---- 歷史訊號回查（60天 60分K）----
+    all_candidates = list(top) + list(next_day_top)
+    if all_candidates:
+        try:
+            import sys as _sys
+            _sys.path.insert(0, str(Path(__file__).parent))
+            from historical_signal_lookup import batch_lookup
+            log(f"回查 {len(all_candidates)} 檔歷史 60分K 訊號（60天）...")
+            top = batch_lookup(top)
+            next_day_top = batch_lookup(next_day_top)
+        except Exception as _e:
+            log(f"[warn] 歷史訊號回查失敗：{_e}")
+
     output = {
         "scan_type": "reversal_60min",
         "scanned_at": now_tw.strftime("%Y-%m-%d %H:%M:%S"),

@@ -459,6 +459,19 @@ try:
     def _rows(stocks):
         if not stocks:
             return ''
+        def _prev_sig_html(s):
+            ps = s.get('prev_signal', {})
+            if not ps or not ps.get('found'):
+                return ''
+            return (
+                f"<tr><td colspan='7' style='padding:2px 12px 8px;font-size:11px;color:#6b46c1;background:#f9f6ff'>"
+                f"&#x1F4C5; 上次訊號：{ps.get('signal_date','')} {ps.get('signal_time','')} "
+                f"→ 進場 <b>{ps.get('entry_price',0):.1f}</b> 元，"
+                f"後續最高 <b style='color:#e53e3e'>{ps.get('max_price',0):.1f}</b> 元（"
+                f"<b style='color:#38a169'>+{ps.get('max_gain_pct',0):.1f}%</b>），"
+                f"距今 {ps.get('days_elapsed',0)} 天"
+                f"</td></tr>"
+            )
         rs = ''.join(
             f"<tr><td style='padding:6px 12px;border-bottom:1px solid #eee;font-weight:bold'>{s.get('stock_id','')} {s.get('name','')}</td>"
             f"<td style='padding:6px 12px;border-bottom:1px solid #eee;text-align:center'>{s.get('score',0):.0f}</td>"
@@ -467,6 +480,7 @@ try:
             f"<td style='padding:6px 12px;border-bottom:1px solid #eee'>{s.get('entry_price', s.get('entry', '—'))}</td>"
             f"<td style='padding:6px 12px;border-bottom:1px solid #eee;color:#38a169'>{s.get('target_2', s.get('target_1', '—'))}</td>"
             f"<td style='padding:6px 12px;border-bottom:1px solid #eee;color:#e53e3e'>{s.get('stop_loss', '—')}</td></tr>"
+            + _prev_sig_html(s)
             for s in stocks[:15]
         )
         return f"""<table style='width:100%;border-collapse:collapse;font-size:13px'>
