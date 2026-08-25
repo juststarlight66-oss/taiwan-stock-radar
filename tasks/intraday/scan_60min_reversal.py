@@ -50,7 +50,7 @@ now_tw = datetime.now(TW_TZ)
 # Strategy parameters
 MIN_SCORE = 40          # minimum composite score (0-100)
 DAY_CHANGE_MIN = -4.0   # today's day change: at least -4% (not too beaten down)
-DAY_CHANGE_MAX = 0.5    # at most +0.5% (hasn't turned green yet)
+DAY_CHANGE_MAX = 2.0    # at most +2.0% (include early green breakout)
 TOP_N = 20              # return top N candidates
 BATCH_SIZE = 300        # yfinance batch size
 BATCH_PAUSE = 2.0       # seconds between batches
