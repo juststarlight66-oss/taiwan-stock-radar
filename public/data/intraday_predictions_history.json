@@ -1,5 +1,59 @@
 [
   {
+    "scan_date": "20260824",
+    "captured_at": "2026-08-25T18:59:43.411691+08:00",
+    "scan_type": "intraday_daytrade",
+    "top5": [
+      {
+        "stock_id": "4304",
+        "name": "勝昱科技",
+        "entry_price": 26.8,
+        "change_pct": 4.28,
+        "sector": "塑膠工業",
+        "total_score": 76.5
+      },
+      {
+        "stock_id": "7712",
+        "name": "博盛半導體",
+        "entry_price": 149.0,
+        "change_pct": 5.3,
+        "sector": "半導體業",
+        "total_score": 72.1
+      },
+      {
+        "stock_id": "4303",
+        "name": "信立化學工業",
+        "entry_price": 53.6,
+        "change_pct": 4.69,
+        "sector": "塑膠工業",
+        "total_score": 71.2
+      },
+      {
+        "stock_id": "6218",
+        "name": "豪勉科技",
+        "entry_price": 39.5,
+        "change_pct": 4.23,
+        "sector": "通信網路業",
+        "total_score": 70.0
+      },
+      {
+        "stock_id": "4530",
+        "name": "天意能創",
+        "entry_price": 27.2,
+        "change_pct": 4.21,
+        "sector": "觀光事業",
+        "total_score": 69.0
+      }
+    ],
+    "t1_return": null,
+    "t1_check_date": null,
+    "t3_return": null,
+    "t3_check_date": null,
+    "t5_return": null,
+    "t5_check_date": null,
+    "win": null
+  },
+  {
     "scan_date": "20260812",
     "captured_at": "2026-08-24T19:02:04.756985+08:00",
     "scan_type": "intraday_daytrade",
