@@ -1,19 +1,22 @@
 #!/usr/bin/env python3
 """
-60分K線翻紅掃描腳本 — v1
+60分K線雙策略掃描腳本 — v2
 
-策略：找「快要由綠翻紅」的個股（底部反轉訊號）
-      目標在低點介入，而非追漲，故只挑當日微跌（-4%~+0.5%）的標的
+策略 A（底部低吸）：找「尚未翻紅但底部共振」的個股
+  - 日內跌幅 -5%~+5%（放寬，允許微漲股入選）
+  - KD 金叉（任何位置均計分，不限 K<50）
+  - MACD 底部翻揚
+  - 量縮止跌
+  - MIN_SCORE = 30（降低門檻，先讓候選進池）
+  輸出：public/data/reversal_bottom.json
 
-判斷條件（多指標共振）：
-1. KD 金叉底部：K 值從低位上穿 D 值（偏好 K < 50 時發生）
-2. MACD 底部翻揚：DIF 由負轉正，或 histogram 由負轉正
-3. 量縮止跌：近 2 根 60minK 量能萎縮，收盤收高（下影線支撐）
-4. 日內跌幅 -4% ~ +0.5%：尚未翻紅但接近（排除已漲轉強的）
-5. 均線支撐：股價接近 MA20 (60min) 或日線 MA5
+策略 B（強勢延伸）：找「已在漲且法人持續推進」的強勢股
+  - 當日漲幅 +1%~+8%
+  - 60分K 最近 2 根連續收高（強勢延伸型態）
+  - 外資近 3 日合計買超 > 500 張（從 scan_result.json 取得）
+  輸出：public/data/reversal_momentum.json
 
 資料源：yfinance，60min interval，抓最近 5 天資料（共 ~36 根 K 棒）
-輸出：public/data/reversal_60min.json
 """
 
 import json
@@ -41,17 +44,27 @@ except ImportError:
 
 REPO_DIR = Path(os.environ.get("REPO_DIR", Path(__file__).resolve().parent.parent.parent))
 TASKS_DIR = REPO_DIR / "tasks/2255"
-OUT_PATH = REPO_DIR / "public/data/reversal_60min.json"
+OUT_PATH = REPO_DIR / "public/data/reversal_60min.json"       # legacy (kept for compat)
+OUT_BOTTOM_PATH = REPO_DIR / "public/data/reversal_bottom.json"    # 策略A
+OUT_MOMENTUM_PATH = REPO_DIR / "public/data/reversal_momentum.json"  # 策略B
 scan_result_path = TASKS_DIR / "scan_result.json"
 
 TW_TZ = timezone(timedelta(hours=8))
 now_tw = datetime.now(TW_TZ)
 
-# Strategy parameters
-MIN_SCORE = 40          # minimum composite score (0-100)
-DAY_CHANGE_MIN = -4.0   # today's day change: at least -4% (not too beaten down)
-DAY_CHANGE_MAX = 4.0    # at most +4.0% (include early green breakout)
+# ── 策略 A（底部低吸）參數 ─────────────────────────────────────────────────────
+MIN_SCORE = 30          # 降低門檻：原 40 → 30
+DAY_CHANGE_MIN = -5.0   # 放寬下限：原 -4% → -5%
+DAY_CHANGE_MAX = 5.0    # 放寬上限：允許微漲股入選（原 +4%）
 TOP_N = 20              # return top N candidates
+
+# ── 策略 B（強勢延伸）參數 ─────────────────────────────────────────────────────
+MOMENTUM_DAY_MIN = 1.0    # 當日漲幅下限 +1%
+MOMENTUM_DAY_MAX = 8.0    # 當日漲幅上限 +8%（超過 8% 追高風險大）
+MOMENTUM_FOREIGN_MIN = 500  # 外資近3日合計買超張數門檻
+MOMENTUM_TOP_N = 15
+
+# ── 共用 ──────────────────────────────────────────────────────────────────────
 BATCH_SIZE = 300        # yfinance batch size
 BATCH_PAUSE = 2.0       # seconds between batches
 
@@ -175,6 +188,7 @@ def score_reversal(df_60min: pd.DataFrame, day_change_pct: float) -> tuple[float
         details["d_now"] = round(d_now, 1)
         details["kd_cross"] = just_crossed
 
+        # v2: 任何位置的金叉都算分（不限 K<50）
         if just_crossed and k_now < 30:
             kd_score = 30   # 低位金叉：最強訊號
             details["kd_signal"] = "低位金叉(K<30)"
@@ -182,17 +196,20 @@ def score_reversal(df_60min: pd.DataFrame, day_change_pct: float) -> tuple[float
             kd_score = 25   # 中低位金叉
             details["kd_signal"] = "中低位金叉"
         elif just_crossed:
-            kd_score = 15   # 高位金叉（意義較弱）
+            kd_score = 20   # v2: 高位金叉也給 20分（原 15）
             details["kd_signal"] = "金叉(K>=50)"
         elif k_now < 20 and k_now > k_prev:
-            kd_score = 20   # 超低位K值回升（尚未交叉）
+            kd_score = 20   # 超低位K値回升（尚未交叉）
             details["kd_signal"] = "超低位K回升"
         elif k_now < 30 and k_now > k_prev:
-            kd_score = 12
+            kd_score = 15   # v2: 低位K回升給 15（原 12）
             details["kd_signal"] = "低位K回升"
+        elif k_now > k_prev and k_now > 50:  # v2 新增：K在高位且上升
+            kd_score = 10
+            details["kd_signal"] = "高位K上升"
         else:
-            kd_score = 0
-            details["kd_signal"] = "無明顯KD訊號"
+            kd_score = 5    # v2: 對無明顯KD訊號也給小分（原 0）
+            details["kd_signal"] = "KD穩定"
 
     score += kd_score
 
@@ -616,7 +633,14 @@ def main():
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     with open(OUT_PATH, "w", encoding="utf-8") as f:
         json.dump(output, f, ensure_ascii=False, indent=2)
-    log(f"輸出：{OUT_PATH}（{len(top)} 檔）")
+    # 也寫入新路徑 reversal_bottom.json
+    OUT_BOTTOM_PATH.parent.mkdir(parents=True, exist_ok=True)
+    bottom_output = dict(output)
+    bottom_output["scan_type"] = "reversal_bottom"
+    bottom_output["strategy"] = "策略A：60分K底部低吸（放寬版）"
+    with open(OUT_BOTTOM_PATH, "w", encoding="utf-8") as f:
+        json.dump(bottom_output, f, ensure_ascii=False, indent=2)
+    log(f"輸出：{OUT_BOTTOM_PATH}（{len(top)} 檔）")
     return top
 
 
@@ -1120,6 +1144,287 @@ def send_reversal_email(result_path: Path) -> None:
         log(f"[Email] 寄送失敗：{e}")
 
 
+# ── 策略 B：強勢延伸掃描 ────────────────────────────────────────────────────────────
+
+def scan_momentum() -> list:
+    """策略 B：掃 60分K 強勢延伸股（當日已漲 +1%~+8% 且外資近3日買超 >500張）
+    輸出到 reversal_momentum.json
+    """
+    log("\n=== 策略 B 強勢延伸掃描開始 ===")
+    log(f"條件：當日漲幅 {MOMENTUM_DAY_MIN}%~{MOMENTUM_DAY_MAX}%，外資3日買超 >{MOMENTUM_FOREIGN_MIN}張")
+
+    # 1. 載入股票清單
+    stock_list = load_stock_list()
+    if not stock_list:
+        log("ERROR: No stocks loaded")
+        return []
+
+    # 2. 從 scan_result.json 建立 外資3日買超對映表
+    foreign_3d: dict[str, float] = {}
+    try:
+        if scan_result_path.exists():
+            with open(scan_result_path, encoding="utf-8") as f:
+                sr = json.load(f)
+            for item in sr.get("results", []):
+                sid = str(item.get("stock_id", ""))
+                # 外資近3日買超：將 chips 裡的 foreign_3d 加總
+                chips = item.get("chips", {}) or {}
+                f3 = chips.get("foreign_3d") or chips.get("foreign_buy_3d") or 0
+                foreign_3d[sid] = float(f3)
+        log(f"載入外資3日買超資料：{len(foreign_3d)} 檔")
+    except Exception as e:
+        log(f"[warn] 外資資料載入失敗：{e}，將放寬為不限外資")
+
+    # 3. 日內漲幅第一道筛選：+1%~+8%
+    candidates_pre = [
+        s for s in stock_list
+        if MOMENTUM_DAY_MIN <= (s.get("day_change_pct") or 0) <= MOMENTUM_DAY_MAX
+    ]
+    log(f"日內漲幅筛選後：{len(candidates_pre)} 檔")
+
+    # 4. 外資第二道筛選（若有外資資料）
+    if foreign_3d:
+        candidates_filt = [
+            s for s in candidates_pre
+            if foreign_3d.get(s["stock_id"], 0) >= MOMENTUM_FOREIGN_MIN
+        ]
+        log(f"外資3日買超>{MOMENTUM_FOREIGN_MIN}張筛選後：{len(candidates_filt)} 檔")
+        # 若外資筛選後太少，降低為 200 張門檻保證至少有候選
+        if len(candidates_filt) < 3 and len(candidates_pre) > 0:
+            log(f"[info] 外資門檻降至 200 張（原始間倣 {len(candidates_filt)} 檔太少）")
+            candidates_filt = [
+                s for s in candidates_pre
+                if foreign_3d.get(s["stock_id"], 0) >= 200
+            ]
+    else:
+        candidates_filt = candidates_pre  # 無外資資料時不限制
+
+    if not candidates_filt:
+        log("策略B：無符合條件的強勢股")
+        output = {
+            "scan_type": "reversal_momentum",
+            "scanned_at": now_tw.strftime("%Y-%m-%d %H:%M:%S"),
+            "strategy": "策略B：60分K強勢延伸",
+            "scanned_count": len(stock_list),
+            "pre_filtered": len(candidates_pre),
+            "qualified_count": 0,
+            "stocks": [],
+        }
+        OUT_MOMENTUM_PATH.parent.mkdir(parents=True, exist_ok=True)
+        with open(OUT_MOMENTUM_PATH, "w", encoding="utf-8") as f:
+            json.dump(output, f, ensure_ascii=False, indent=2)
+        return []
+
+    # 5. 抓取 60分K 資料
+    tickers = [s["ticker"] for s in candidates_filt]
+    ticker_to_stock = {s["ticker"]: s for s in candidates_filt}
+    log(f"抓取 {len(tickers)} 檔的60分K資料...")
+    data_60min = fetch_60min_data_batch(tickers)
+
+    # 6. 判斵60分K 連續2根收高
+    momentum_results = []
+    for ticker, df in data_60min.items():
+        s = ticker_to_stock.get(ticker)
+        if not s or df is None or len(df) < 3:
+            continue
+
+        df_clean = df[df["Volume"] > 0].copy()
+        if len(df_clean) < 2:
+            continue
+
+        closes = df_clean["Close"].values.astype(float)
+        volumes = df_clean["Volume"].values.astype(float)
+
+        # 條件：最近2根連續收高
+        c_last = closes[-1]
+        c_prev = closes[-2]
+        c_prev2 = closes[-3] if len(closes) >= 3 else closes[-2]
+
+        if not (c_last > c_prev and c_prev > c_prev2):
+            continue  # 不滿足連續2根上漲
+
+        day_chg = s.get("day_change_pct") or 0
+        cur_price = s.get("day_close") or 0
+        f3d = foreign_3d.get(s["stock_id"], 0)
+
+        # 計算強勢分數（漲幅越高＋外資越多＋連續按漲分）
+        momentum_score = 0
+        # 日內漲幅（最多 40分）
+        if day_chg >= 6:
+            momentum_score += 40
+        elif day_chg >= 4:
+            momentum_score += 30
+        elif day_chg >= 2:
+            momentum_score += 20
+        else:
+            momentum_score += 10
+        # 外資3日買超（最多 35分）
+        if f3d >= 3000:
+            momentum_score += 35
+        elif f3d >= 1000:
+            momentum_score += 25
+        elif f3d >= 500:
+            momentum_score += 15
+        elif f3d >= 200:
+            momentum_score += 8
+        # 60分K 漲幅（最多 25分）
+        bar_rise_pct = (c_last - c_prev2) / c_prev2 * 100 if c_prev2 > 0 else 0
+        if bar_rise_pct >= 2:
+            momentum_score += 25
+        elif bar_rise_pct >= 1:
+            momentum_score += 15
+        else:
+            momentum_score += 8
+
+        # 進場/目標/停損
+        entry = round(cur_price, 2)
+        target_1 = round(entry * 1.03, 2)   # +3%
+        target_2 = round(entry * 1.06, 2)   # +6%
+        stop_loss = round(entry * 0.97, 2)   # -3%
+
+        signals = ["強勢延伸", f"日漲{day_chg:+.1f}%"]
+        if f3d >= 500:
+            signals.append(f"外資+{f3d:.0f}張")
+
+        momentum_results.append({
+            "stock_id": s["stock_id"],
+            "name": s["name"],
+            "sector": s["sector_name"],
+            "market": s["market"],
+            "score": momentum_score,
+            "day_change_pct": round(day_chg, 2),
+            "foreign_3d": round(f3d, 0),
+            "entry": entry,
+            "target_1": target_1,
+            "target_2": target_2,
+            "stop_loss": stop_loss,
+            "signals": signals,
+            "signal_count": len(signals),
+            "60min_bar_rise_pct": round(bar_rise_pct, 2),
+        })
+
+    momentum_results.sort(key=lambda x: (-x["score"], -x["day_change_pct"]))
+    top_m = momentum_results[:MOMENTUM_TOP_N]
+
+    log(f"\n=== Top {len(top_m)} 強勢延伸候選 ===")
+    for i, s in enumerate(top_m[:10]):
+        log(f"  #{i+1} {s['stock_id']} {s['name']} 分={s['score']} "
+            f"日漲={s['day_change_pct']:+.1f}% 外資3日={s['foreign_3d']:.0f}張")
+
+    output = {
+        "scan_type": "reversal_momentum",
+        "scanned_at": now_tw.strftime("%Y-%m-%d %H:%M:%S"),
+        "strategy": "策略B：60分K強勢延伸",
+        "description": "當日已漲+1%~+8%且外資3日買超>500張，60分K連續2根收高的強勢股",
+        "filter": f"日漲{MOMENTUM_DAY_MIN}%~{MOMENTUM_DAY_MAX}%，外資>{MOMENTUM_FOREIGN_MIN}張",
+        "scanned_count": len(stock_list),
+        "pre_filtered": len(candidates_pre),
+        "foreign_filtered": len(candidates_filt),
+        "qualified_count": len(momentum_results),
+        "stocks": top_m,
+    }
+
+    OUT_MOMENTUM_PATH.parent.mkdir(parents=True, exist_ok=True)
+    with open(OUT_MOMENTUM_PATH, "w", encoding="utf-8") as f:
+        json.dump(output, f, ensure_ascii=False, indent=2)
+    log(f"輸出：{OUT_MOMENTUM_PATH}（{len(top_m)} 檔）")
+    return top_m
+
+
+def send_momentum_email(out_path: Path):
+    """策略 B 專屬 email"""
+    if not out_path.exists():
+        log("[Email-B] 找不到 reversal_momentum.json，跳過")
+        return
+    with open(out_path, encoding="utf-8") as f:
+        data = json.load(f)
+
+    stocks = data.get("stocks", [])
+    scanned = data.get("scanned_count", 0)
+    qualified = data.get("qualified_count", 0)
+    date_str = now_tw.strftime("%Y/%m/%d")
+    scan_time = data.get("scanned_at", "")
+    subject = f"【飆股獵手 策略B】強勢延伸 | {date_str} | {qualified}檔股"
+
+    def stock_rows_b(stocks_):
+        if not stocks_:
+            return ""
+        rows = "".join(
+            f"<tr>"
+            f"<td style='padding:6px 12px;border-bottom:1px solid #eee;font-weight:bold'>{s.get('stock_id','')} {s.get('name','')}</td>"
+            f"<td style='padding:6px 12px;border-bottom:1px solid #eee;text-align:center'>{s.get('score',0):.0f}</td>"
+            f"<td style='padding:6px 12px;border-bottom:1px solid #eee;color:#38a169'>{s.get('day_change_pct',0):+.1f}%</td>"
+            f"<td style='padding:6px 12px;border-bottom:1px solid #eee;text-align:center'>{s.get('foreign_3d',0):+.0f}</td>"
+            f"<td style='padding:6px 12px;border-bottom:1px solid #eee;font-size:12px'>{'+'.join(s.get('signals',[])) or '—'}</td>"
+            f"<td style='padding:6px 12px;border-bottom:1px solid #eee'>{s.get('entry','')}</td>"
+            f"<td style='padding:6px 12px;border-bottom:1px solid #eee;color:#38a169'>{s.get('target_2','')}</td>"
+            f"<td style='padding:6px 12px;border-bottom:1px solid #eee;color:#e53e3e'>{s.get('stop_loss','')}</td>"
+            f"</tr>"
+            for s in stocks_[:15]
+        )
+        return f"""
+        <table style='width:100%;border-collapse:collapse;font-size:13px'>
+          <tr style='background:#e6f4ea;font-weight:bold'>
+            <th style='padding:8px 12px;text-align:left'>股票</th>
+            <th style='padding:8px 12px'>評分</th>
+            <th style='padding:8px 12px'>漲幅</th>
+            <th style='padding:8px 12px'>外資3日(張)</th>
+            <th style='padding:8px 12px;text-align:left'>訊號</th>
+            <th style='padding:8px 12px'>進場</th>
+            <th style='padding:8px 12px'>目標</th>
+            <th style='padding:8px 12px'>停損</th>
+          </tr>
+          {rows}
+        </table>"""
+
+    no_signal = ""
+    if not stocks:
+        no_signal = """
+        <div style='background:#f0fff4;border-left:4px solid #38a169;padding:16px;margin:20px 0;border-radius:4px'>
+          <strong>今日無強勢延伸訊號</strong><br>
+          策略B需要：當日漲幅+1%~+8% + 外資3日買超>500張 + 60分K連續2根收高三者共振。
+        </div>"""
+
+    html = f"""
+    <html><body style='font-family:Arial,sans-serif;max-width:800px;margin:0 auto;padding:20px;color:#333'>
+      <div style='background:linear-gradient(135deg,#276749,#38a169);padding:20px;border-radius:8px;color:white;margin-bottom:20px'>
+        <h1 style='margin:0;font-size:22px'>🚀 策略B：強勢延伸股掃描</h1>
+        <p style='margin:8px 0 0;opacity:0.9'>{date_str} | 掃描 {scanned} 檔 | 符合條件 {qualified} 檔</p>
+        <p style='margin:4px 0 0;opacity:0.8;font-size:12px'>條件：日漲+1%~+8% + 外資3日買超>500張 + 60分K連續2根向上</p>
+      </div>
+      {no_signal}
+      {stock_rows_b(stocks)}
+      <div style='margin-top:32px;padding:12px;background:#f8f8f8;border-radius:4px;font-size:11px;color:#888'>
+        策略B：強勢延伸 v1.0 | 掃描時間 {scan_time}
+      </div>
+    </body></html>"""
+
+    nebula_token = os.environ.get("SANDBOX_AUTH_TOKEN", "")
+    api_base = os.environ.get("NEBULA_API_BASE", "https://api.nebula.gg")
+    import urllib.request, urllib.error
+    payload = json.dumps({
+        "subject": subject,
+        "body": html,
+        "recipient": "juststarlight66@gmail.com",
+        "is_html": True
+    }).encode("utf-8")
+    req = urllib.request.Request(
+        f"{api_base}/v1/email/send",
+        data=payload,
+        headers={"Authorization": f"Bearer {nebula_token}", "Content-Type": "application/json"},
+        method="POST"
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=30):
+            log(f"[Email-B] 寄送成功：{subject}")
+    except Exception as e:
+        log(f"[Email-B] 寄送失敗：{e}")
+
+
 if __name__ == "__main__":
+    # 策略 A：底部低吸（放寬版）
     main()
-    send_reversal_email(OUT_PATH)
+    send_reversal_email(OUT_BOTTOM_PATH)
+    # 策略 B：強勢延伸
+    scan_momentum()
+    send_momentum_email(OUT_MOMENTUM_PATH)
