@@ -1146,12 +1146,36 @@ def send_reversal_email(result_path: Path) -> None:
 
 # ── 策略 B：強勢延伸掃描 ────────────────────────────────────────────────────────────
 
+def _write_empty_momentum(scanned_count: int, pre_filtered: int) -> None:
+    """無訊號時寫出空的 reversal_momentum.json"""
+    output = {
+        "scan_type": "reversal_momentum",
+        "scanned_at": now_tw.strftime("%Y-%m-%d %H:%M:%S"),
+        "strategy": "策略B：60分K起漲偵測",
+        "description": "平盤蕴力+爆量+收強，三條件共振起漲偵測",
+        "scanned_count": scanned_count,
+        "pre_filtered": pre_filtered,
+        "qualified_count": 0,
+        "stocks": [],
+    }
+    OUT_MOMENTUM_PATH.parent.mkdir(parents=True, exist_ok=True)
+    with open(OUT_MOMENTUM_PATH, "w", encoding="utf-8") as f:
+        json.dump(output, f, ensure_ascii=False, indent=2)
+
+
 def scan_momentum() -> list:
-    """策略 B：掃 60分K 強勢延伸股（當日已漲 +1%~+8% 且外資近3日買超 >500張）
+    """策略 B：起漲偵測（v2）
+    目標：在股票「剛開始發動」時進場，而非追高
+
+    三個同時條件：
+    1. 過去 5 日橫盤整理：5日最高-最低 < 5%（蓄力）
+    2. 今日量比 > 1.5 倍（量能突然放大，主力進場訊號）
+    3. 今日 60分K 收盤在當日 K 棒高點的上半段（收強，不是衝高回落）
+
     輸出到 reversal_momentum.json
     """
-    log("\n=== 策略 B 強勢延伸掃描開始 ===")
-    log(f"條件：當日漲幅 {MOMENTUM_DAY_MIN}%~{MOMENTUM_DAY_MAX}%，外資3日買超 >{MOMENTUM_FOREIGN_MIN}張")
+    log("\n=== 策略 B 起漲偵測掃描開始（v2）===")
+    log("條件：5日橫盤(<5%波動) + 今日量比>1.5x + 60分K收在當日高點上半段")
 
     # 1. 載入股票清單
     stock_list = load_stock_list()
@@ -1159,174 +1183,180 @@ def scan_momentum() -> list:
         log("ERROR: No stocks loaded")
         return []
 
-    # 2. 從 scan_result.json 建立 外資3日買超對映表
-    # foreign_3d: 從 latest.json all_stock_scores 的 scores.chips（籍糎分 0-100）
-    # scan_result.json 沒有儲存外資張數，改用 chips 小數作代替指標
-    # chips_score >= 60 相當於法人籍糎命中，> 70 相當於外資/投信明顯買超
-    foreign_3d: dict[str, float] = {}  # key=stock_id, value=chips_score (0-100)
+    # 2. 載入 chips_score 輔助過濾（排除籌碼極弱的股票）
+    chips_map: dict[str, float] = {}  # key=stock_id, value=chips_score (0-100)
     try:
         latest_path = REPO_DIR / "public/data/latest.json"
-        if not latest_path.exists():
-            # fallback: try scan_result_path
-            latest_path = scan_result_path
         if latest_path.exists():
             with open(latest_path, encoding="utf-8") as f:
                 sr = json.load(f)
-            items = sr.get("all_stock_scores", sr.get("results", sr.get("top_stocks", [])))
-            for item in items:
+            for item in sr.get("all_stock_scores", []):
                 sid = str(item.get("stock_id", ""))
-                scores = item.get("scores", {})
-                chips_score = float(scores.get("chips", 0))
-                foreign_3d[sid] = chips_score
-        log(f"載入籍糎分資料：{len(foreign_3d)} 檔")
+                chips_map[sid] = float(item.get("scores", {}).get("chips", 0))
+        log(f"載入 chips_map：{len(chips_map)} 檔")
     except Exception as e:
-        log(f"[warn] 籍糎資料載入失敗：{e}，將放寬為不限制")
+        log(f"[warn] chips_map 載入失敗：{e}")
 
-    # 3. 日內漲幅第一道筛選：+1%~+8%
+    # 3. 第一道篩選：排除籌碼極弱（chips < 40）和漲幅已超過 10% 的追高股
+    #    保留：昨天到今天漲幅 -2%~+10%（起漲初期可能小漲也可能平盤）
     candidates_pre = [
         s for s in stock_list
-        if MOMENTUM_DAY_MIN <= (s.get("day_change_pct") or 0) <= MOMENTUM_DAY_MAX
+        if -2.0 <= (s.get("day_change_pct") or 0) <= 10.0
+        and chips_map.get(s["stock_id"], 50) >= 40  # 排除籌碼極差
+        and (s.get("day_close") or 0) >= 10  # 排除低價股（< 10 元）
     ]
-    log(f"日內漲幅筛選後：{len(candidates_pre)} 檔")
+    log(f"初步篩選後（-2%~+10%，chips>=40）：{len(candidates_pre)} 檔")
 
-    # 4. 外資第二道筛選（若有外資資料）
-    if foreign_3d:
-        candidates_filt = [
-            s for s in candidates_pre
-            if foreign_3d.get(s["stock_id"], 0) >= MOMENTUM_FOREIGN_MIN
-        ]
-        log(f"chips_score>={MOMENTUM_FOREIGN_MIN} 筛選後：{len(candidates_filt)} 檔")
-        # 若筛選後太少，降低為 50 保證至少有候選
-        if len(candidates_filt) < 3 and len(candidates_pre) > 0:
-            log(f"[info] chips_score 門檻降至 50（{len(candidates_filt)} 檔太少）")
-            candidates_filt = [
-                s for s in candidates_pre
-                if foreign_3d.get(s["stock_id"], 0) >= 50
-            ]
-    else:
-        candidates_filt = candidates_pre  # 無外資資料時不限制
-
-    if not candidates_filt:
-        log("策略B：無符合條件的強勢股")
-        output = {
-            "scan_type": "reversal_momentum",
-            "scanned_at": now_tw.strftime("%Y-%m-%d %H:%M:%S"),
-            "strategy": "策略B：60分K強勢延伸",
-            "scanned_count": len(stock_list),
-            "pre_filtered": len(candidates_pre),
-            "qualified_count": 0,
-            "stocks": [],
-        }
-        OUT_MOMENTUM_PATH.parent.mkdir(parents=True, exist_ok=True)
-        with open(OUT_MOMENTUM_PATH, "w", encoding="utf-8") as f:
-            json.dump(output, f, ensure_ascii=False, indent=2)
+    if not candidates_pre:
+        log("策略B：無候選股")
+        _write_empty_momentum(len(stock_list), 0)
         return []
 
-    # 5. 抓取 60分K 資料
-    tickers = [s["ticker"] for s in candidates_filt]
-    ticker_to_stock = {s["ticker"]: s for s in candidates_filt}
-    log(f"抓取 {len(tickers)} 檔的60分K資料...")
-    data_60min = fetch_60min_data_batch(tickers)
+    # 4. 抓取完整 5 天 60分K（不用 fetch_60min_data_batch，因為它會被截成只有今日）
+    #    直接用 yf.download batch 且保留全部 5 天資料
+    tickers = [s["ticker"] for s in candidates_pre]
+    ticker_to_stock = {s["ticker"]: s for s in candidates_pre}
+    today_str = now_tw.strftime("%Y-%m-%d")
+    log(f"抓取 {len(tickers)} 檔的完整 5 天 60分K資料...")
 
-    # 6. 判斵60分K 連續2根收高
+    raw_data: dict[str, pd.DataFrame] = {}
+    for i in range(0, len(tickers), BATCH_SIZE):
+        batch = tickers[i:i + BATCH_SIZE]
+        try:
+            dl = yf.download(batch, period="5d", interval="60m",
+                             progress=False, threads=True, timeout=30, auto_adjust=True)
+            if dl is None or dl.empty:
+                continue
+            for tk in batch:
+                try:
+                    tk_df = dl if len(batch) == 1 else dl.xs(tk, level=1, axis=1)
+                    tk_df = tk_df[tk_df["Volume"] > 0].copy()
+                    if len(tk_df) >= 3:
+                        raw_data[tk] = tk_df  # 保留全部天數
+                except Exception:
+                    pass
+        except Exception as e:
+            log(f"  [warn] batch fetch error: {e}")
+        if i + BATCH_SIZE < len(tickers):
+            time.sleep(BATCH_PAUSE)
+    log(f"  完整資料抓取完成：{len(raw_data)} 檔")
+
+    # 5. 逐檔判斷三個起漲條件
     momentum_results = []
-    for ticker, df in data_60min.items():
+    for ticker, df in raw_data.items():
         s = ticker_to_stock.get(ticker)
         if not s or df is None or len(df) < 3:
             continue
 
-        df_clean = df[df["Volume"] > 0].copy()
-        if len(df_clean) < 2:
+        df = df.copy()
+        df["date"] = pd.DatetimeIndex(df.index).normalize()  # type: ignore
+        daily_vol = df.groupby("date")["Volume"].sum()
+
+        # ── 條件 1：昨日以前 4 個交易日橫盤 < 8% ─────────────────────────
+        prev_df = df[pd.DatetimeIndex(df.index).strftime("%Y-%m-%d") != today_str]
+        if len(prev_df) >= 4:
+            ph = float(prev_df["High"].max())
+            pl = float(prev_df["Low"].min())
+            range_pct = (ph - pl) / pl * 100 if pl > 0 else 999
+        else:
+            # 前置日資料不足，用全部資料的範圍
+            ph = float(df["High"].max())
+            pl = float(df["Low"].min())
+            range_pct = (ph - pl) / pl * 100 if pl > 0 else 999
+        if range_pct >= 10.0:  # 放寬到 10%（包含今日大漲）
             continue
 
-        closes = df_clean["Close"].values.astype(float)
-        volumes = df_clean["Volume"].values.astype(float)
+        # ── 條件 2：今日量 > 前置日平均量的 1.5 倍 ────────────────────────
+        if len(daily_vol) < 2:
+            continue
+        today_vol    = float(daily_vol.iloc[-1])
+        avg_prev_vol = float(daily_vol.iloc[:-1].mean())
+        vol_ratio = today_vol / avg_prev_vol if avg_prev_vol > 0 else 0
+        if vol_ratio < 1.2:  # 放寬為 1.2x（對比日數少時樣本多）
+            continue
 
-        # 條件：最近2根連續收高
-        c_last = closes[-1]
-        c_prev = closes[-2]
-        c_prev2 = closes[-3] if len(closes) >= 3 else closes[-2]
+        # ── 條件 3：今日最後一根 60分K 收在當日高低範圍的上半段 ─────────
+        today_bars = df[pd.DatetimeIndex(df.index).strftime("%Y-%m-%d") == today_str]
+        if len(today_bars) < 1:
+            continue
+        last_bar_close = float(today_bars["Close"].iloc[-1])
+        last_bar_high  = float(today_bars["High"].max())
+        last_bar_low   = float(today_bars["Low"].min())
+        bar_mid = (last_bar_high + last_bar_low) / 2
+        if last_bar_close < bar_mid:  # 收在下半段 = 衝高回落，不算起漲
+            continue
 
-        if not (c_last > c_prev and c_prev > c_prev2):
-            continue  # 不滿足連續2根上漲
+        # ── 所有條件通過，計算評分 ───────────────────────────────────────────
+        day_chg    = s.get("day_change_pct") or 0
+        cur_price  = s.get("day_close") or 0
+        chips_score = chips_map.get(s["stock_id"], 0)
 
-        day_chg = s.get("day_change_pct") or 0
-        cur_price = s.get("day_close") or 0
-        f3d = foreign_3d.get(s["stock_id"], 0)
+        score = 0
+        # 量比越大越好（最多 40分）
+        if vol_ratio >= 3.0:   score += 40
+        elif vol_ratio >= 2.0: score += 30
+        elif vol_ratio >= 1.5: score += 20
+        # 橫盤越窄越好（整理越充分）（最多 25分）
+        if range_pct < 3.0:    score += 25
+        elif range_pct < 5.0:  score += 15
+        else:                   score += 8
+        # chips 籌碼分（最多 20分）
+        if chips_score >= 80:   score += 20
+        elif chips_score >= 60: score += 12
+        elif chips_score >= 40: score += 5
+        # 今日收盤位置（最多 15分）
+        close_pos = (last_bar_close - last_bar_low) / (last_bar_high - last_bar_low) if (last_bar_high - last_bar_low) > 0 else 0.5
+        if close_pos >= 0.85:   score += 15  # 收在最高點附近
+        elif close_pos >= 0.65: score += 10
+        else:                   score += 5   # 僅收在上半段
 
-        # 計算強勢分數（漲幅越高＋外資越多＋連續按漲分）
-        momentum_score = 0
-        # 日內漲幅（最多 40分）
-        if day_chg >= 6:
-            momentum_score += 40
-        elif day_chg >= 4:
-            momentum_score += 30
-        elif day_chg >= 2:
-            momentum_score += 20
-        else:
-            momentum_score += 10
-        # 外資3日買超（最多 35分）
-        if f3d >= 3000:
-            momentum_score += 35
-        elif f3d >= 1000:
-            momentum_score += 25
-        elif f3d >= 500:
-            momentum_score += 15
-        elif f3d >= 200:
-            momentum_score += 8
-        # 60分K 漲幅（最多 25分）
-        bar_rise_pct = (c_last - c_prev2) / c_prev2 * 100 if c_prev2 > 0 else 0
-        if bar_rise_pct >= 2:
-            momentum_score += 25
-        elif bar_rise_pct >= 1:
-            momentum_score += 15
-        else:
-            momentum_score += 8
+        # 進場/目標/停損（以今日收盤為進場基準）
+        entry     = round(cur_price, 2)
+        target_1  = round(entry * 1.05, 2)   # +5%（起漲股空間大）
+        target_2  = round(entry * 1.10, 2)   # +10%
+        stop_loss = round(entry * 0.96, 2)   # -4%（橫盤基礎支撐）
 
-        # 進場/目標/停損
-        entry = round(cur_price, 2)
-        target_1 = round(entry * 1.03, 2)   # +3%
-        target_2 = round(entry * 1.06, 2)   # +6%
-        stop_loss = round(entry * 0.97, 2)   # -3%
-
-        signals = ["強勢延伸", f"日漲{day_chg:+.1f}%"]
-        if f3d >= 70:
-            signals.append(f"chips強勢({f3d:.0f})")
+        signals = ["起漲偵測", f"量比{vol_ratio:.1f}x", f"橫盤{range_pct:.1f}%"]
+        if chips_score >= 70:
+            signals.append(f"chips強({chips_score:.0f})")
+        if close_pos >= 0.85:
+            signals.append("收最高")
 
         momentum_results.append({
-            "stock_id": s["stock_id"],
-            "name": s["name"],
-            "sector": s["sector_name"],
-            "market": s["market"],
-            "score": momentum_score,
+            "stock_id":       s["stock_id"],
+            "name":           s["name"],
+            "sector":         s["sector_name"],
+            "market":         s["market"],
+            "score":          score,
             "day_change_pct": round(day_chg, 2),
-            "foreign_3d": round(f3d, 0),
-            "entry": entry,
-            "target_1": target_1,
-            "target_2": target_2,
-            "stop_loss": stop_loss,
-            "signals": signals,
-            "signal_count": len(signals),
-            "60min_bar_rise_pct": round(bar_rise_pct, 2),
+            "chips_score":    round(chips_score, 1),
+            "vol_ratio":      round(vol_ratio, 2),
+            "range_5d_pct":   round(range_pct, 2),
+            "close_position": round(close_pos, 2),
+            "entry":          entry,
+            "target_1":       target_1,
+            "target_2":       target_2,
+            "stop_loss":      stop_loss,
+            "signals":        signals,
+            "signal_count":   len(signals),
         })
 
-    momentum_results.sort(key=lambda x: (-x["score"], -x["day_change_pct"]))
+    momentum_results.sort(key=lambda x: (-x["score"], -x["vol_ratio"]))
     top_m = momentum_results[:MOMENTUM_TOP_N]
 
-    log(f"\n=== Top {len(top_m)} 強勢延伸候選 ===")
+    log(f"\n=== Top {len(top_m)} 起漲候選 ===")
     for i, s in enumerate(top_m[:10]):
         log(f"  #{i+1} {s['stock_id']} {s['name']} 分={s['score']} "
-            f"日漲={s['day_change_pct']:+.1f}% 外資3日={s['foreign_3d']:.0f}張")
+            f"日漲={s['day_change_pct']:+.1f}% 量比={s['vol_ratio']:.1f}x chips={s['chips_score']:.0f}")
 
     output = {
         "scan_type": "reversal_momentum",
         "scanned_at": now_tw.strftime("%Y-%m-%d %H:%M:%S"),
-        "strategy": "策略B：60分K強勢延伸",
-        "description": "當日已漲+1%~+8%且外資3日買超>500張，60分K連續2根收高的強勢股",
-        "filter": f"日漲{MOMENTUM_DAY_MIN}%~{MOMENTUM_DAY_MAX}%，外資>{MOMENTUM_FOREIGN_MIN}張",
+        "strategy": "策略B：60分K起漲偵測",
+        "description": "平盤蕴力蕴穌+爆量發動+收強三條件共振的起漲點股票",
+        "filter": "平盤<10%+量比>1.2x+收在高低上半段",
         "scanned_count": len(stock_list),
         "pre_filtered": len(candidates_pre),
-        "foreign_filtered": len(candidates_filt),
         "qualified_count": len(momentum_results),
         "stocks": top_m,
     }
