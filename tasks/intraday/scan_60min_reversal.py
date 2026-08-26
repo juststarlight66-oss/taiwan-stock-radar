@@ -61,7 +61,7 @@ TOP_N = 20              # return top N candidates
 # ── 策略 B（強勢延伸）參數 ─────────────────────────────────────────────────────
 MOMENTUM_DAY_MIN = 1.0    # 當日漲幅下限 +1%
 MOMENTUM_DAY_MAX = 8.0    # 當日漲幅上限 +8%（超過 8% 追高風險大）
-MOMENTUM_FOREIGN_MIN = 500  # 外資近3日合計買超張數門檻
+MOMENTUM_FOREIGN_MIN = 60   # chips_score 門檻 (0-100)：>=60=法人籍糎命中，>=70=外資明顯買超
 MOMENTUM_TOP_N = 15
 
 # ── 共用 ──────────────────────────────────────────────────────────────────────
@@ -1160,20 +1160,27 @@ def scan_momentum() -> list:
         return []
 
     # 2. 從 scan_result.json 建立 外資3日買超對映表
-    foreign_3d: dict[str, float] = {}
+    # foreign_3d: 從 latest.json all_stock_scores 的 scores.chips（籍糎分 0-100）
+    # scan_result.json 沒有儲存外資張數，改用 chips 小數作代替指標
+    # chips_score >= 60 相當於法人籍糎命中，> 70 相當於外資/投信明顯買超
+    foreign_3d: dict[str, float] = {}  # key=stock_id, value=chips_score (0-100)
     try:
-        if scan_result_path.exists():
-            with open(scan_result_path, encoding="utf-8") as f:
+        latest_path = REPO_DIR / "public/data/latest.json"
+        if not latest_path.exists():
+            # fallback: try scan_result_path
+            latest_path = scan_result_path
+        if latest_path.exists():
+            with open(latest_path, encoding="utf-8") as f:
                 sr = json.load(f)
-            for item in sr.get("results", []):
+            items = sr.get("all_stock_scores", sr.get("results", sr.get("top_stocks", [])))
+            for item in items:
                 sid = str(item.get("stock_id", ""))
-                # 外資近3日買超：將 chips 裡的 foreign_3d 加總
-                chips = item.get("chips", {}) or {}
-                f3 = chips.get("foreign_3d") or chips.get("foreign_buy_3d") or 0
-                foreign_3d[sid] = float(f3)
-        log(f"載入外資3日買超資料：{len(foreign_3d)} 檔")
+                scores = item.get("scores", {})
+                chips_score = float(scores.get("chips", 0))
+                foreign_3d[sid] = chips_score
+        log(f"載入籍糎分資料：{len(foreign_3d)} 檔")
     except Exception as e:
-        log(f"[warn] 外資資料載入失敗：{e}，將放寬為不限外資")
+        log(f"[warn] 籍糎資料載入失敗：{e}，將放寬為不限制")
 
     # 3. 日內漲幅第一道筛選：+1%~+8%
     candidates_pre = [
@@ -1188,13 +1195,13 @@ def scan_momentum() -> list:
             s for s in candidates_pre
             if foreign_3d.get(s["stock_id"], 0) >= MOMENTUM_FOREIGN_MIN
         ]
-        log(f"外資3日買超>{MOMENTUM_FOREIGN_MIN}張筛選後：{len(candidates_filt)} 檔")
-        # 若外資筛選後太少，降低為 200 張門檻保證至少有候選
+        log(f"chips_score>={MOMENTUM_FOREIGN_MIN} 筛選後：{len(candidates_filt)} 檔")
+        # 若筛選後太少，降低為 50 保證至少有候選
         if len(candidates_filt) < 3 and len(candidates_pre) > 0:
-            log(f"[info] 外資門檻降至 200 張（原始間倣 {len(candidates_filt)} 檔太少）")
+            log(f"[info] chips_score 門檻降至 50（{len(candidates_filt)} 檔太少）")
             candidates_filt = [
                 s for s in candidates_pre
-                if foreign_3d.get(s["stock_id"], 0) >= 200
+                if foreign_3d.get(s["stock_id"], 0) >= 50
             ]
     else:
         candidates_filt = candidates_pre  # 無外資資料時不限制
@@ -1283,8 +1290,8 @@ def scan_momentum() -> list:
         stop_loss = round(entry * 0.97, 2)   # -3%
 
         signals = ["強勢延伸", f"日漲{day_chg:+.1f}%"]
-        if f3d >= 500:
-            signals.append(f"外資+{f3d:.0f}張")
+        if f3d >= 70:
+            signals.append(f"chips強勢({f3d:.0f})")
 
         momentum_results.append({
             "stock_id": s["stock_id"],

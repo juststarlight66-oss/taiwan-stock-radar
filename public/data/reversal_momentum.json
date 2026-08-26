@@ -1,0 +1,313 @@
+{
+  "scan_type": "reversal_momentum",
+  "scanned_at": "2026-08-26 19:56:22",
+  "strategy": "策略B：60分K強勢延伸",
+  "description": "當日已漲+1%~+8%且外資3日買超>500張，60分K連續2根收高的強勢股",
+  "filter": "日漲1.0%~8.0%，外資>60張",
+  "scanned_count": 1958,
+  "pre_filtered": 775,
+  "foreign_filtered": 520,
+  "qualified_count": 119,
+  "stocks": [
+    {
+      "stock_id": "1711",
+      "name": "永光",
+      "sector": "化學工業",
+      "market": "TSE",
+      "score": 65,
+      "day_change_pct": 7.15,
+      "foreign_3d": 92.0,
+      "entry": 44.2,
+      "target_1": 45.53,
+      "target_2": 46.85,
+      "stop_loss": 42.87,
+      "signals": [
+        "強勢延伸",
+        "日漲+7.2%",
+        "chips強勢(92)"
+      ],
+      "signal_count": 3,
+      "60min_bar_rise_pct": 2.22
+    },
+    {
+      "stock_id": "4510",
+      "name": "高鋒工業股份有限公司",
+      "sector": "電機機械",
+      "market": "TPEX",
+      "score": 65,
+      "day_change_pct": 7.12,
+      "foreign_3d": 84.0,
+      "entry": 45.9,
+      "target_1": 47.28,
+      "target_2": 48.65,
+      "stop_loss": 44.52,
+      "signals": [
+        "強勢延伸",
+        "日漲+7.1%",
+        "chips強勢(84)"
+      ],
+      "signal_count": 3,
+      "60min_bar_rise_pct": 4.57
+    },
+    {
+      "stock_id": "6743",
+      "name": "安普新",
+      "sector": "其他電子業",
+      "market": "TSE",
+      "score": 65,
+      "day_change_pct": 6.69,
+      "foreign_3d": 97.0,
+      "entry": 27.1,
+      "target_1": 27.91,
+      "target_2": 28.73,
+      "stop_loss": 26.29,
+      "signals": [
+        "強勢延伸",
+        "日漲+6.7%",
+        "chips強勢(97)"
+      ],
+      "signal_count": 3,
+      "60min_bar_rise_pct": 5.04
+    },
+    {
+      "stock_id": "6651",
+      "name": "全宇昕科技股份有限公司",
+      "sector": "半導體業",
+      "market": "TPEX",
+      "score": 65,
+      "day_change_pct": 6.34,
+      "foreign_3d": 92.0,
+      "entry": 151.0,
+      "target_1": 155.53,
+      "target_2": 160.06,
+      "stop_loss": 146.47,
+      "signals": [
+        "強勢延伸",
+        "日漲+6.3%",
+        "chips強勢(92)"
+      ],
+      "signal_count": 3,
+      "60min_bar_rise_pct": 5.19
+    },
+    {
+      "stock_id": "4906",
+      "name": "正文",
+      "sector": "通信網路業",
+      "market": "TSE",
+      "score": 55,
+      "day_change_pct": 7.96,
+      "foreign_3d": 100.0,
+      "entry": 37.3,
+      "target_1": 38.42,
+      "target_2": 39.54,
+      "stop_loss": 36.18,
+      "signals": [
+        "強勢延伸",
+        "日漲+8.0%",
+        "chips強勢(100)"
+      ],
+      "signal_count": 3,
+      "60min_bar_rise_pct": 1.09
+    },
+    {
+      "stock_id": "7734",
+      "name": "印能科技股份有限公司",
+      "sector": "半導體業",
+      "market": "TPEX",
+      "score": 55,
+      "day_change_pct": 7.27,
+      "foreign_3d": 81.0,
+      "entry": 3100.0,
+      "target_1": 3193.0,
+      "target_2": 3286.0,
+      "stop_loss": 3007.0,
+      "signals": [
+        "強勢延伸",
+        "日漲+7.3%",
+        "chips強勢(81)"
+      ],
+      "signal_count": 3,
+      "60min_bar_rise_pct": 1.3
+    },
+    {
+      "stock_id": "3017",
+      "name": "奇鋐",
+      "sector": "電腦及週邊設備業",
+      "market": "TSE",
+      "score": 55,
+      "day_change_pct": 6.95,
+      "foreign_3d": 85.0,
+      "entry": 3155.0,
+      "target_1": 3249.65,
+      "target_2": 3344.3,
+      "stop_loss": 3060.35,
+      "signals": [
+        "強勢延伸",
+        "日漲+7.0%",
+        "chips強勢(85)"
+      ],
+      "signal_count": 3,
+      "60min_bar_rise_pct": 1.12
+    },
+    {
+      "stock_id": "2340",
+      "name": "台亞",
+      "sector": "半導體業",
+      "market": "TSE",
+      "score": 55,
+      "day_change_pct": 6.6,
+      "foreign_3d": 88.0,
+      "entry": 34.75,
+      "target_1": 35.79,
+      "target_2": 36.84,
+      "stop_loss": 33.71,
+      "signals": [
+        "強勢延伸",
+        "日漲+6.6%",
+        "chips強勢(88)"
+      ],
+      "signal_count": 3,
+      "60min_bar_rise_pct": 1.02
+    },
+    {
+      "stock_id": "3054",
+      "name": "立萬利",
+      "sector": "食品工業",
+      "market": "TSE",
+      "score": 55,
+      "day_change_pct": 6.03,
+      "foreign_3d": 78.0,
+      "entry": 54.5,
+      "target_1": 56.13,
+      "target_2": 57.77,
+      "stop_loss": 52.87,
+      "signals": [
+        "強勢延伸",
+        "日漲+6.0%",
+        "chips強勢(78)"
+      ],
+      "signal_count": 3,
+      "60min_bar_rise_pct": 1.3
+    },
+    {
+      "stock_id": "3491",
+      "name": "昇達科技股份有限公司",
+      "sector": "通信網路業",
+      "market": "TPEX",
+      "score": 55,
+      "day_change_pct": 5.91,
+      "foreign_3d": 80.0,
+      "entry": 1345.0,
+      "target_1": 1385.35,
+      "target_2": 1425.7,
+      "stop_loss": 1304.65,
+      "signals": [
+        "強勢延伸",
+        "日漲+5.9%",
+        "chips強勢(80)"
+      ],
+      "signal_count": 3,
+      "60min_bar_rise_pct": 3.86
+    },
+    {
+      "stock_id": "4768",
+      "name": "晶呈科技股份有限公司",
+      "sector": "化學工業",
+      "market": "TPEX",
+      "score": 55,
+      "day_change_pct": 5.7,
+      "foreign_3d": 75.0,
+      "entry": 324.5,
+      "target_1": 334.24,
+      "target_2": 343.97,
+      "stop_loss": 314.76,
+      "signals": [
+        "強勢延伸",
+        "日漲+5.7%",
+        "chips強勢(75)"
+      ],
+      "signal_count": 3,
+      "60min_bar_rise_pct": 2.05
+    },
+    {
+      "stock_id": "3189",
+      "name": "景碩",
+      "sector": "半導體業",
+      "market": "TSE",
+      "score": 55,
+      "day_change_pct": 5.51,
+      "foreign_3d": 82.0,
+      "entry": 881.0,
+      "target_1": 907.43,
+      "target_2": 933.86,
+      "stop_loss": 854.57,
+      "signals": [
+        "強勢延伸",
+        "日漲+5.5%",
+        "chips強勢(82)"
+      ],
+      "signal_count": 3,
+      "60min_bar_rise_pct": 5.28
+    },
+    {
+      "stock_id": "7795",
+      "name": "長廣",
+      "sector": "",
+      "market": "TSE",
+      "score": 55,
+      "day_change_pct": 5.26,
+      "foreign_3d": 84.0,
+      "entry": 580.0,
+      "target_1": 597.4,
+      "target_2": 614.8,
+      "stop_loss": 562.6,
+      "signals": [
+        "強勢延伸",
+        "日漲+5.3%",
+        "chips強勢(84)"
+      ],
+      "signal_count": 3,
+      "60min_bar_rise_pct": 2.11
+    },
+    {
+      "stock_id": "8222",
+      "name": "寶一",
+      "sector": "電機機械",
+      "market": "TSE",
+      "score": 55,
+      "day_change_pct": 5.19,
+      "foreign_3d": 82.0,
+      "entry": 40.5,
+      "target_1": 41.72,
+      "target_2": 42.93,
+      "stop_loss": 39.28,
+      "signals": [
+        "強勢延伸",
+        "日漲+5.2%",
+        "chips強勢(82)"
+      ],
+      "signal_count": 3,
+      "60min_bar_rise_pct": 3.05
+    },
+    {
+      "stock_id": "2009",
+      "name": "第一銅",
+      "sector": "鋼鐵工業",
+      "market": "TSE",
+      "score": 55,
+      "day_change_pct": 4.73,
+      "foreign_3d": 82.0,
+      "entry": 43.2,
+      "target_1": 44.5,
+      "target_2": 45.79,
+      "stop_loss": 41.9,
+      "signals": [
+        "強勢延伸",
+        "日漲+4.7%",
+        "chips強勢(82)"
+      ],
+      "signal_count": 3,
+      "60min_bar_rise_pct": 2.62
+    }
+  ]
+}
