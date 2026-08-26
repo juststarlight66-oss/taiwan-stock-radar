@@ -724,6 +724,338 @@
   ],
   "grouped_records": [
     {
+      "scan_date": "20260826",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "3673",
+              "name": "TPK-KY",
+              "entry": 68.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2393",
+              "name": "億光",
+              "entry": 66.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2069",
+              "name": "運錩",
+              "entry": 21.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1203",
+              "name": "味王",
+              "entry": 46.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1339",
+              "name": "昭輝",
+              "entry": 46.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2855",
+              "name": "統一證",
+              "entry": 47.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6271",
+              "name": "同欣電",
+              "entry": 208.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5471",
+              "name": "松翰",
+              "entry": 60.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1817",
+              "name": "凱撒衛",
+              "entry": 40.25,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1301",
+              "name": "台塑",
+              "entry": 60.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "3673",
+              "name": "TPK-KY",
+              "entry": 68.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2393",
+              "name": "億光",
+              "entry": 66.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2069",
+              "name": "運錩",
+              "entry": 21.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1203",
+              "name": "味王",
+              "entry": 46.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1339",
+              "name": "昭輝",
+              "entry": 46.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2855",
+              "name": "統一證",
+              "entry": 47.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6271",
+              "name": "同欣電",
+              "entry": 208.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5471",
+              "name": "松翰",
+              "entry": 60.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1817",
+              "name": "凱撒衛",
+              "entry": 40.25,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1301",
+              "name": "台塑",
+              "entry": 60.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "3673",
+              "name": "TPK-KY",
+              "entry": 68.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2393",
+              "name": "億光",
+              "entry": 66.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2069",
+              "name": "運錩",
+              "entry": 21.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1203",
+              "name": "味王",
+              "entry": 46.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1339",
+              "name": "昭輝",
+              "entry": 46.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2855",
+              "name": "統一證",
+              "entry": 47.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6271",
+              "name": "同欣電",
+              "entry": 208.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5471",
+              "name": "松翰",
+              "entry": 60.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1817",
+              "name": "凱撒衛",
+              "entry": 40.25,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1301",
+              "name": "台塑",
+              "entry": 60.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
+    },
+    {
       "scan_date": "20260825",
       "periods": {
         "T1": {
@@ -9586,8 +9918,63 @@
       }
     }
   ],
-  "last_updated": "2026-08-25T18:11:06.902850+08:00",
+  "last_updated": "2026-08-26T18:24:22.161499+08:00",
   "history": [
+    {
+      "date": "2026/08/26",
+      "results": {
+        "3673": {
+          "name": "TPK-KY",
+          "score": 91.38,
+          "close": 68.1
+        },
+        "2393": {
+          "name": "億光",
+          "score": 88.83,
+          "close": 66.8
+        },
+        "2069": {
+          "name": "運錩",
+          "score": 88.62,
+          "close": 21.8
+        },
+        "1203": {
+          "name": "味王",
+          "score": 84.55,
+          "close": 46.9
+        },
+        "1339": {
+          "name": "昭輝",
+          "score": 84.27,
+          "close": 46.3
+        },
+        "2855": {
+          "name": "統一證",
+          "score": 84.23,
+          "close": 47.4
+        },
+        "6271": {
+          "name": "同欣電",
+          "score": 83.66,
+          "close": 208.0
+        },
+        "5471": {
+          "name": "松翰",
+          "score": 83.55,
+          "close": 60.6
+        },
+        "1817": {
+          "name": "凱撒衛",
+          "score": 83.4,
+          "close": 40.25
+        },
+        "1301": {
+          "name": "台塑",
+          "score": 83.26,
+          "close": 60.1
+        }
+      }
+    },
     {
       "date": "2026/08/25",
       "results": {
