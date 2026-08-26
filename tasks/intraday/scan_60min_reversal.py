@@ -1184,7 +1184,8 @@ def scan_momentum() -> list:
         return []
 
     # 2. 載入 chips_score 輔助過濾（排除籌碼極弱的股票）
-    chips_map: dict[str, float] = {}  # key=stock_id, value=chips_score (0-100)
+    chips_map: dict[str, float] = {}   # key=stock_id, value=chips_score (0-100)
+    volume_map: dict[str, float] = {}  # key=stock_id, value=今日成交張數
     try:
         latest_path = REPO_DIR / "public/data/latest.json"
         if latest_path.exists():
@@ -1193,6 +1194,9 @@ def scan_momentum() -> list:
             for item in sr.get("all_stock_scores", []):
                 sid = str(item.get("stock_id", ""))
                 chips_map[sid] = float(item.get("scores", {}).get("chips", 0))
+                # 同時載入今日成交張數（volume 單位：股，÷1000 = 張）
+                vol_shares = float(item.get("volume", 0) or 0)
+                volume_map[sid] = vol_shares / 1000
         log(f"載入 chips_map：{len(chips_map)} 檔")
     except Exception as e:
         log(f"[warn] chips_map 載入失敗：{e}")
@@ -1202,10 +1206,11 @@ def scan_momentum() -> list:
     candidates_pre = [
         s for s in stock_list
         if -2.0 <= (s.get("day_change_pct") or 0) <= 10.0
-        and chips_map.get(s["stock_id"], 50) >= 40  # 排除籌碼極差
-        and (s.get("day_close") or 0) >= 10  # 排除低價股（< 10 元）
+        and chips_map.get(s["stock_id"], 50) >= 40      # 排除籌碼極差
+        and (s.get("day_close") or 0) >= 10              # 排除低價股（< 10 元）
+        and volume_map.get(s["stock_id"], 999999) >= 500   # 排除今日量太小（< 500 張）
     ]
-    log(f"初步篩選後（-2%~+10%，chips>=40）：{len(candidates_pre)} 檔")
+    log(f"初步篩選後（-2%~+10%，chips>=40，量>=500張，市值>=30億）：{len(candidates_pre)} 檔")
 
     if not candidates_pre:
         log("策略B：無候選股")
@@ -1263,7 +1268,7 @@ def scan_momentum() -> list:
             ph = float(df["High"].max())
             pl = float(df["Low"].min())
             range_pct = (ph - pl) / pl * 100 if pl > 0 else 999
-        if range_pct >= 10.0:  # 放寬到 10%（包含今日大漲）
+        if range_pct >= 6.0:   # 6% 以內才算橫盤蓄力
             continue
 
         # ── 條件 2：今日量 > 前置日平均量的 1.5 倍 ────────────────────────
