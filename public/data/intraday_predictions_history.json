@@ -1,5 +1,59 @@
 [
   {
+    "scan_date": "20260827",
+    "captured_at": "2026-08-28T04:41:27.737978+08:00",
+    "scan_type": "intraday_daytrade",
+    "top5": [
+      {
+        "stock_id": "2375",
+        "name": "凱美",
+        "entry_price": 130.5,
+        "change_pct": 5.24,
+        "sector": "電子零組件業",
+        "total_score": 75.2
+      },
+      {
+        "stock_id": "7828",
+        "name": "創新服務",
+        "entry_price": 1660.0,
+        "change_pct": 5.06,
+        "sector": "半導體業",
+        "total_score": 74.2
+      },
+      {
+        "stock_id": "4148",
+        "name": "全宇生技-KY",
+        "entry_price": 34.3,
+        "change_pct": 4.26,
+        "sector": "生技醫療業",
+        "total_score": 72.0
+      },
+      {
+        "stock_id": "6945",
+        "name": "圓祥生技",
+        "entry_price": 106.5,
+        "change_pct": 4.93,
+        "sector": "生技醫療業",
+        "total_score": 69.0
+      },
+      {
+        "stock_id": "5321",
+        "name": "美而快國際",
+        "entry_price": 84.9,
+        "change_pct": 4.69,
+        "sector": "電子商務",
+        "total_score": 68.5
+      }
+    ],
+    "t1_return": null,
+    "t1_check_date": null,
+    "t3_return": null,
+    "t3_check_date": null,
+    "t5_return": null,
+    "t5_check_date": null,
+    "win": null
+  },
+  {
     "scan_date": "20260824",
     "captured_at": "2026-08-26T19:01:26.185872+08:00",
     "scan_type": "intraday_daytrade",
