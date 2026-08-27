@@ -1,11 +1,11 @@
 {
   "scan_type": "reversal_bottom",
-  "scanned_at": "2026-08-26 19:44:52",
+  "scanned_at": "2026-08-27 12:32:03",
   "strategy": "策略A：60分K底部低吸（放寬版）",
   "description": "篩選日內微跌（尚未翻紅）但60分K出現KD金叉+MACD底部+量縮止跌共振訊號的個股",
   "filter": "日內跌幅 -5.0%~5.0%，最低評分 30",
   "scanned_count": 1958,
-  "pre_filtered": 1777,
+  "pre_filtered": 1779,
   "qualified_count": 0,
   "stocks": [],
   "next_day": {
