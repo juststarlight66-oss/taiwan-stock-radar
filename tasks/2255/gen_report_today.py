@@ -186,34 +186,35 @@ def fmt_r(v):
 grouped = backtest_data.get('grouped_records', [])
 backtest_rows = ''
 if grouped and isinstance(grouped, list):
-    recent = sorted(grouped, key=lambda x: x.get('scan_date', ''), reverse=True)[:5]
+    recent = sorted(grouped, key=lambda x: str(x.get('scan_date', '')), reverse=True)[:8]
     for grp in recent:
         scan_date_bt = grp.get('scan_date', '-')
         periods = grp.get('periods', {})
-        # periods may have t1/t3/t5 data per stock
-        if isinstance(periods, dict):
-            for period_key, period_data in list(periods.items())[:3]:
-                if isinstance(period_data, list):
-                    for rec in period_data[:2]:
-                        sid = rec.get('stock_id', '')
-                        name = rec.get('name', '')
-                        t1r = rec.get('t1_return') or rec.get('return')
-                        t3r = rec.get('t3_return')
-                        t5r = rec.get('t5_return')
-                        backtest_rows += f'''<tr style="border-bottom:1px solid #f5f5f5;">
-                          <td style="padding:8px;">{scan_date_bt}</td>
-                          <td style="padding:8px;">{sid} {name}</td>
-                          <td style="padding:8px;text-align:center;">{fmt_r(t1r)}</td>
-                          <td style="padding:8px;text-align:center;">{fmt_r(t3r)}</td>
-                          <td style="padding:8px;text-align:center;">{fmt_r(t5r)}</td>
-                        </tr>'''
+        if isinstance(periods, dict) and periods:
+            cells = []
+            for pk in ('T1', 'T3', 'T5'):
+                p = periods.get(pk)
+                if not isinstance(p, dict) or p.get('pending') or p.get('win_rate') is None:
+                    cells.append('<span style="color:#aaa">待驗證</span>')
+                else:
+                    wr = p.get('win_rate') or 0
+                    ar = p.get('avg_return') or 0
+                    color = '#e74c3c' if ar > 0 else '#27ae60' if ar < 0 else '#666'
+                    cells.append(f'<span style="color:{color}">勝率 {wr:.0f}% · {ar:+.2f}%</span>')
+            backtest_rows += f'''<tr style="border-bottom:1px solid #f5f5f5;">
+              <td style="padding:8px;">{scan_date_bt}</td>
+              <td style="padding:8px;">Top 10</td>
+              <td style="padding:8px;text-align:center;">{cells[0]}</td>
+              <td style="padding:8px;text-align:center;">{cells[1]}</td>
+              <td style="padding:8px;text-align:center;">{cells[2]}</td>
+            </tr>'''
         else:
             backtest_rows += f'''<tr style="border-bottom:1px solid #f5f5f5;">
               <td style="padding:8px;">{scan_date_bt}</td>
               <td colspan="4" style="padding:8px;color:#aaa;">資料處理中</td>
             </tr>'''
 elif isinstance(grouped, dict):
-    recent = sorted(grouped.items(), reverse=True)[:5]
+    recent = sorted(grouped.items(), reverse=True)[:8]
     for date_key, records in recent:
         for rec in (records[:3] if isinstance(records, list) else []):
             sid = rec.get('stock_id', '')
