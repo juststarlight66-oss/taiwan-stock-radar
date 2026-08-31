@@ -724,6 +724,338 @@
   ],
   "grouped_records": [
     {
+      "scan_date": "20260901",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "2377",
+              "name": "微星",
+              "entry": 155.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2855",
+              "name": "統一證",
+              "entry": 49.55,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2606",
+              "name": "裕民",
+              "entry": 76.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2885",
+              "name": "元大金",
+              "entry": 65.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1326",
+              "name": "台化",
+              "entry": 68.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2834",
+              "name": "臺企銀",
+              "entry": 16.95,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1309",
+              "name": "台達化",
+              "entry": 13.45,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2617",
+              "name": "台航",
+              "entry": 30.95,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2801",
+              "name": "彰銀",
+              "entry": 25.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2845",
+              "name": "遠東銀",
+              "entry": 13.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "2377",
+              "name": "微星",
+              "entry": 155.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2855",
+              "name": "統一證",
+              "entry": 49.55,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2606",
+              "name": "裕民",
+              "entry": 76.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2885",
+              "name": "元大金",
+              "entry": 65.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1326",
+              "name": "台化",
+              "entry": 68.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2834",
+              "name": "臺企銀",
+              "entry": 16.95,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1309",
+              "name": "台達化",
+              "entry": 13.45,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2617",
+              "name": "台航",
+              "entry": 30.95,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2801",
+              "name": "彰銀",
+              "entry": 25.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2845",
+              "name": "遠東銀",
+              "entry": 13.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "2377",
+              "name": "微星",
+              "entry": 155.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2855",
+              "name": "統一證",
+              "entry": 49.55,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2606",
+              "name": "裕民",
+              "entry": 76.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2885",
+              "name": "元大金",
+              "entry": 65.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1326",
+              "name": "台化",
+              "entry": 68.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2834",
+              "name": "臺企銀",
+              "entry": 16.95,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1309",
+              "name": "台達化",
+              "entry": 13.45,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2617",
+              "name": "台航",
+              "entry": 30.95,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2801",
+              "name": "彰銀",
+              "entry": 25.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2845",
+              "name": "遠東銀",
+              "entry": 13.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
+    },
+    {
       "scan_date": "20260828",
       "periods": {
         "T1": {
@@ -10582,8 +10914,63 @@
       }
     }
   ],
-  "last_updated": "2026-08-28T19:04:17.330062+08:00",
+  "last_updated": "2026-09-01T01:31:27.597539+08:00",
   "history": [
+    {
+      "date": "2026/09/01",
+      "results": {
+        "2377": {
+          "name": "微星",
+          "score": 93.52,
+          "close": 155.0
+        },
+        "2855": {
+          "name": "統一證",
+          "score": 92.84,
+          "close": 49.55
+        },
+        "2606": {
+          "name": "裕民",
+          "score": 89.66,
+          "close": 76.1
+        },
+        "2885": {
+          "name": "元大金",
+          "score": 88.01,
+          "close": 65.4
+        },
+        "1326": {
+          "name": "台化",
+          "score": 85.99,
+          "close": 68.3
+        },
+        "2834": {
+          "name": "臺企銀",
+          "score": 85.72,
+          "close": 16.95
+        },
+        "1309": {
+          "name": "台達化",
+          "score": 85.62,
+          "close": 13.45
+        },
+        "2617": {
+          "name": "台航",
+          "score": 85.26,
+          "close": 30.95
+        },
+        "2801": {
+          "name": "彰銀",
+          "score": 85.19,
+          "close": 25.15
+        },
+        "2845": {
+          "name": "遠東銀",
+          "score": 84.53,
+          "close": 13.5
+        }
+      }
+    },
     {
       "date": "2026/08/28",
       "results": {

@@ -1,11 +1,11 @@
 {
   "scan_type": "reversal_momentum",
-  "scanned_at": "2026-08-28 04:08:09",
+  "scanned_at": "2026-09-01 01:31:28",
   "strategy": "策略B：60分K起漲偵測",
   "description": "平盤蕴力蕴穌+爆量發動+收強三條件共振的起漲點股票",
   "filter": "平盤<10%+量比>1.2x+收在高低上半段",
   "scanned_count": 1944,
-  "pre_filtered": 472,
+  "pre_filtered": 391,
   "qualified_count": 0,
   "stocks": []
 }
