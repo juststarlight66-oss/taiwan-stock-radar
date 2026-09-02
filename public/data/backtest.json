@@ -724,6 +724,338 @@
   ],
   "grouped_records": [
     {
+      "scan_date": "20260902",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "2812",
+              "name": "台中銀",
+              "entry": 19.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3356",
+              "name": "奇偶",
+              "entry": 63.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3312",
+              "name": "弘憶股",
+              "entry": 56.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2887",
+              "name": "台新新光金",
+              "entry": 41.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3528",
+              "name": "安馳",
+              "entry": 86.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3010",
+              "name": "華立",
+              "entry": 129.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2882",
+              "name": "國泰金",
+              "entry": 109.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2886",
+              "name": "兆豐金",
+              "entry": 49.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2897",
+              "name": "王道銀行",
+              "entry": 10.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2393",
+              "name": "億光",
+              "entry": 66.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "2812",
+              "name": "台中銀",
+              "entry": 19.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3356",
+              "name": "奇偶",
+              "entry": 63.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3312",
+              "name": "弘憶股",
+              "entry": 56.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2887",
+              "name": "台新新光金",
+              "entry": 41.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3528",
+              "name": "安馳",
+              "entry": 86.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3010",
+              "name": "華立",
+              "entry": 129.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2882",
+              "name": "國泰金",
+              "entry": 109.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2886",
+              "name": "兆豐金",
+              "entry": 49.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2897",
+              "name": "王道銀行",
+              "entry": 10.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2393",
+              "name": "億光",
+              "entry": 66.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "2812",
+              "name": "台中銀",
+              "entry": 19.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3356",
+              "name": "奇偶",
+              "entry": 63.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3312",
+              "name": "弘憶股",
+              "entry": 56.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2887",
+              "name": "台新新光金",
+              "entry": 41.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3528",
+              "name": "安馳",
+              "entry": 86.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3010",
+              "name": "華立",
+              "entry": 129.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2882",
+              "name": "國泰金",
+              "entry": 109.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2886",
+              "name": "兆豐金",
+              "entry": 49.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2897",
+              "name": "王道銀行",
+              "entry": 10.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2393",
+              "name": "億光",
+              "entry": 66.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
+    },
+    {
       "scan_date": "20260901",
       "periods": {
         "T1": {
@@ -10914,8 +11246,63 @@
       }
     }
   ],
-  "last_updated": "2026-09-01T22:24:14.033064+08:00",
+  "last_updated": "2026-09-02T21:59:28.578564+08:00",
   "history": [
+    {
+      "date": "2026/09/02",
+      "results": {
+        "2812": {
+          "name": "台中銀",
+          "score": 95.02,
+          "close": 19.4
+        },
+        "3356": {
+          "name": "奇偶",
+          "score": 88.08,
+          "close": 63.2
+        },
+        "3312": {
+          "name": "弘憶股",
+          "score": 87.62,
+          "close": 56.0
+        },
+        "2887": {
+          "name": "台新新光金",
+          "score": 86.5,
+          "close": 41.2
+        },
+        "3528": {
+          "name": "安馳",
+          "score": 86.37,
+          "close": 86.0
+        },
+        "3010": {
+          "name": "華立",
+          "score": 86.36,
+          "close": 129.5
+        },
+        "2882": {
+          "name": "國泰金",
+          "score": 85.75,
+          "close": 109.0
+        },
+        "2886": {
+          "name": "兆豐金",
+          "score": 85.64,
+          "close": 49.0
+        },
+        "2897": {
+          "name": "王道銀行",
+          "score": 85.2,
+          "close": 10.7
+        },
+        "2393": {
+          "name": "億光",
+          "score": 85.13,
+          "close": 66.0
+        }
+      }
+    },
     {
       "date": "2026/09/01",
       "results": {
