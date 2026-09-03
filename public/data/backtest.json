@@ -724,6 +724,338 @@
   ],
   "grouped_records": [
     {
+      "scan_date": "20260903",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "2603",
+              "name": "長榮",
+              "entry": 239.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2618",
+              "name": "長榮航",
+              "entry": 42.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2845",
+              "name": "遠東銀",
+              "entry": 13.65,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1102",
+              "name": "亞泥",
+              "entry": 35.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2820",
+              "name": "華票",
+              "entry": 17.05,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5876",
+              "name": "上海商銀",
+              "entry": 45.95,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2637",
+              "name": "慧洋-KY",
+              "entry": 99.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2855",
+              "name": "統一證",
+              "entry": 50.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2885",
+              "name": "元大金",
+              "entry": 68.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2897",
+              "name": "王道銀行",
+              "entry": 10.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "2603",
+              "name": "長榮",
+              "entry": 239.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2618",
+              "name": "長榮航",
+              "entry": 42.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2845",
+              "name": "遠東銀",
+              "entry": 13.65,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1102",
+              "name": "亞泥",
+              "entry": 35.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2820",
+              "name": "華票",
+              "entry": 17.05,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5876",
+              "name": "上海商銀",
+              "entry": 45.95,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2637",
+              "name": "慧洋-KY",
+              "entry": 99.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2855",
+              "name": "統一證",
+              "entry": 50.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2885",
+              "name": "元大金",
+              "entry": 68.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2897",
+              "name": "王道銀行",
+              "entry": 10.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "2603",
+              "name": "長榮",
+              "entry": 239.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2618",
+              "name": "長榮航",
+              "entry": 42.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2845",
+              "name": "遠東銀",
+              "entry": 13.65,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1102",
+              "name": "亞泥",
+              "entry": 35.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2820",
+              "name": "華票",
+              "entry": 17.05,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5876",
+              "name": "上海商銀",
+              "entry": 45.95,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2637",
+              "name": "慧洋-KY",
+              "entry": 99.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2855",
+              "name": "統一證",
+              "entry": 50.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2885",
+              "name": "元大金",
+              "entry": 68.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2897",
+              "name": "王道銀行",
+              "entry": 10.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
+    },
+    {
       "scan_date": "20260902",
       "periods": {
         "T1": {
@@ -11246,8 +11578,63 @@
       }
     }
   ],
-  "last_updated": "2026-09-02T21:59:28.578564+08:00",
+  "last_updated": "2026-09-03T22:07:11.615408+08:00",
   "history": [
+    {
+      "date": "2026/09/03",
+      "results": {
+        "2603": {
+          "name": "長榮",
+          "score": 98.33,
+          "close": 239.0
+        },
+        "2618": {
+          "name": "長榮航",
+          "score": 88.89,
+          "close": 42.8
+        },
+        "2845": {
+          "name": "遠東銀",
+          "score": 88.17,
+          "close": 13.65
+        },
+        "1102": {
+          "name": "亞泥",
+          "score": 87.83,
+          "close": 35.2
+        },
+        "2820": {
+          "name": "華票",
+          "score": 87.46,
+          "close": 17.05
+        },
+        "5876": {
+          "name": "上海商銀",
+          "score": 86.03,
+          "close": 45.95
+        },
+        "2637": {
+          "name": "慧洋-KY",
+          "score": 86.0,
+          "close": 99.8
+        },
+        "2855": {
+          "name": "統一證",
+          "score": 85.85,
+          "close": 50.6
+        },
+        "2885": {
+          "name": "元大金",
+          "score": 85.52,
+          "close": 68.5
+        },
+        "2897": {
+          "name": "王道銀行",
+          "score": 84.74,
+          "close": 10.9
+        }
+      }
+    },
     {
       "date": "2026/09/02",
       "results": {
