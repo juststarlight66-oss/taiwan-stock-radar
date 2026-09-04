@@ -1,0 +1,269 @@
+{
+  "available_dates": [
+    "20260812",
+    "20260722",
+    "20260717",
+    "20260716",
+    "20260715",
+    "20260713",
+    "20260626",
+    "20260618"
+  ],
+  "last_updated": "2026-08-12T18:59:53.825281+08:00",
+  "scans": [
+    {
+      "date": "20260904",
+      "file": "scan_result_20260904.json",
+      "scan_time": "21:53:08"
+    },
+    {
+      "date": "20260903",
+      "file": "scan_result_20260903.json",
+      "scan_time": "22:07:11"
+    },
+    {
+      "date": "20260902",
+      "file": "scan_result_20260902.json",
+      "scan_time": "21:59:28"
+    },
+    {
+      "date": "20260901",
+      "file": "scan_result_20260901.json",
+      "scan_time": "22:24:14"
+    },
+    {
+      "date": "20260828",
+      "file": "scan_result_20260828.json",
+      "scan_time": "19:04:17"
+    },
+    {
+      "date": "20260827",
+      "file": "scan_result_20260827.json",
+      "scan_time": "19:02:09"
+    },
+    {
+      "date": "20260826",
+      "file": "scan_result_20260826.json",
+      "scan_time": "18:24:22"
+    },
+    {
+      "date": "20260825",
+      "file": "scan_result_20260825.json",
+      "scan_time": "18:11:06"
+    },
+    {
+      "date": "20260824",
+      "scanned_count": 1947,
+      "top5": [
+        {
+          "stock_id": "1608",
+          "name": "華榮",
+          "score": 94.62
+        },
+        {
+          "stock_id": "5283",
+          "name": "禾聯碩",
+          "score": 92.05
+        },
+        {
+          "stock_id": "6189",
+          "name": "豐藝",
+          "score": 86.95
+        },
+        {
+          "stock_id": "2362",
+          "name": "藍天",
+          "score": 86.74
+        },
+        {
+          "stock_id": "1612",
+          "name": "宏泰",
+          "score": 86.48
+        }
+      ],
+      "generated_at": "2026-08-24 19:28:19"
+    },
+    {
+      "date": "20260821",
+      "file": "scan_result_20260821.json",
+      "scan_time": "19:06:30"
+    },
+    {
+      "date": "20260820",
+      "file": "scan_result_20260820.json",
+      "scan_time": "18:25:49"
+    },
+    {
+      "date": "20260819",
+      "file": "scan_result_20260819.json",
+      "scan_time": "19:58:32"
+    },
+    {
+      "date": "20260818",
+      "file": "scan_result_20260818.json",
+      "scan_time": "19:13:19"
+    },
+    {
+      "date": "20260817",
+      "file": "scan_result_20260817.json",
+      "scan_time": "19:02:37"
+    },
+    {
+      "date": "20260814",
+      "file": "scan_result_20260814.json",
+      "scan_time": "19:46:54"
+    },
+    {
+      "date": "20260813",
+      "file": "scan_result_20260813.json",
+      "scan_time": "19:16:24"
+    },
+    {
+      "date": "20260812",
+      "file": "scan_result_20260812.json",
+      "scan_time": "18:48:24"
+    },
+    {
+      "date": "20260811",
+      "file": "scan_result_20260811.json",
+      "scan_time": "18:58:20"
+    },
+    {
+      "date": "20260810",
+      "file": "scan_result_20260810.json",
+      "scan_time": "18:58:36"
+    },
+    {
+      "date": "20260807",
+      "file": "scan_result_20260807.json",
+      "scan_time": "20:08:34"
+    },
+    {
+      "date": "20260806",
+      "file": "scan_result_20260806.json",
+      "scan_time": "19:59:44"
+    },
+    {
+      "date": "20260805",
+      "file": "scan_result_20260805.json",
+      "scan_time": "19:55:32"
+    },
+    {
+      "date": "20260804",
+      "file": "scan_result_20260804.json",
+      "scan_time": "19:57:07"
+    },
+    {
+      "date": "20260803",
+      "file": "scan_result_20260803.json",
+      "scan_time": "20:50:07"
+    },
+    {
+      "date": "20260730",
+      "file": "scan_result_20260730.json",
+      "scan_time": "19:40:06"
+    },
+    {
+      "date": "20260729",
+      "file": "scan_result_20260729.json",
+      "scan_time": "19:59:03"
+    },
+    {
+      "date": "20260728",
+      "file": "scan_result_20260728.json",
+      "scan_time": "19:46:22"
+    },
+    {
+      "date": "20260727",
+      "file": "scan_result_20260727.json",
+      "scan_time": "20:55:43"
+    },
+    {
+      "date": "20260724",
+      "file": "scan_result_20260724.json",
+      "scan_time": "19:29:26"
+    },
+    {
+      "date": "20260723",
+      "file": "scan_result_20260723.json",
+      "scan_time": "19:38:02"
+    },
+    {
+      "date": "20260721",
+      "file": "scan_result_20260721.json",
+      "scan_time": "19:40:53"
+    },
+    {
+      "date": "20260716",
+      "file": "scan_result_20260716.json",
+      "scan_time": "19:29:36"
+    },
+    {
+      "date": "20260714",
+      "file": "scan_result_20260714.json",
+      "scan_time": "19:18:20"
+    },
+    {
+      "date": "20260713",
+      "file": "scan_result_20260713.json",
+      "scan_time": "19:09:26",
+      "scanned_count": 868
+    },
+    {
+      "date": "20260626",
+      "file": "scan_result_20260626.json",
+      "scan_time": "19:10:10",
+      "scanned_count": 1959
+    },
+    {
+      "date": "20260624",
+      "file": "scan_result_20260624.json",
+      "scan_time": "19:14:32"
+    },
+    {
+      "date": "20260623",
+      "file": "scan_result_20260623.json",
+      "scan_time": "19:13:31",
+      "scanned_count": 1074
+    }
+  ],
+  "updated_at": "2026-09-04T21:53:08.364091+08:00",
+  "dates": [
+    "20260812",
+    "20260605",
+    "20260608",
+    "20260609",
+    "20260618",
+    "20260623",
+    "20260624",
+    "20260625",
+    "20260626",
+    "20260627",
+    "20260628",
+    "20260629",
+    "20260630",
+    "20260701",
+    "20260702",
+    "20260703",
+    "20260704",
+    "20260705",
+    "20260706",
+    "20260707",
+    "20260708",
+    "20260709",
+    "20260710",
+    "20260711",
+    "20260712",
+    "20260713",
+    "20260714",
+    "20260715",
+    "20260717",
+    "20260720",
+    "20260722",
+    "20260724",
+    "20260725",
+    "20260726",
+    "20260727"
+  ],
+  "updated": "2026-08-12T18:59:53.825281+08:00"
+}
