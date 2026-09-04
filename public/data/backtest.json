@@ -724,6 +724,338 @@
   ],
   "grouped_records": [
     {
+      "scan_date": "20260904",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "2385",
+              "name": "群光",
+              "entry": 110.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2353",
+              "name": "宏碁",
+              "entry": 32.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2362",
+              "name": "藍天",
+              "entry": 49.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4938",
+              "name": "和碩",
+              "entry": 95.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2324",
+              "name": "仁寶",
+              "entry": 41.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2377",
+              "name": "微星",
+              "entry": 161.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2357",
+              "name": "華碩",
+              "entry": 1025.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3005",
+              "name": "神基",
+              "entry": 115.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4967",
+              "name": "十銓",
+              "entry": 276.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3090",
+              "name": "日電貿",
+              "entry": 176.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "2385",
+              "name": "群光",
+              "entry": 110.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2353",
+              "name": "宏碁",
+              "entry": 32.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2362",
+              "name": "藍天",
+              "entry": 49.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4938",
+              "name": "和碩",
+              "entry": 95.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2324",
+              "name": "仁寶",
+              "entry": 41.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2377",
+              "name": "微星",
+              "entry": 161.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2357",
+              "name": "華碩",
+              "entry": 1025.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3005",
+              "name": "神基",
+              "entry": 115.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4967",
+              "name": "十銓",
+              "entry": 276.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3090",
+              "name": "日電貿",
+              "entry": 176.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "2385",
+              "name": "群光",
+              "entry": 110.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2353",
+              "name": "宏碁",
+              "entry": 32.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2362",
+              "name": "藍天",
+              "entry": 49.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4938",
+              "name": "和碩",
+              "entry": 95.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2324",
+              "name": "仁寶",
+              "entry": 41.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2377",
+              "name": "微星",
+              "entry": 161.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2357",
+              "name": "華碩",
+              "entry": 1025.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3005",
+              "name": "神基",
+              "entry": 115.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4967",
+              "name": "十銓",
+              "entry": 276.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3090",
+              "name": "日電貿",
+              "entry": 176.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
+    },
+    {
       "scan_date": "20260903",
       "periods": {
         "T1": {
@@ -11578,8 +11910,63 @@
       }
     }
   ],
-  "last_updated": "2026-09-03T22:07:11.615408+08:00",
+  "last_updated": "2026-09-04T21:53:08.364091+08:00",
   "history": [
+    {
+      "date": "2026/09/04",
+      "results": {
+        "2385": {
+          "name": "群光",
+          "score": 95.11,
+          "close": 110.5
+        },
+        "2353": {
+          "name": "宏碁",
+          "score": 94.41,
+          "close": 32.7
+        },
+        "2362": {
+          "name": "藍天",
+          "score": 94.32,
+          "close": 49.3
+        },
+        "4938": {
+          "name": "和碩",
+          "score": 94.02,
+          "close": 95.4
+        },
+        "2324": {
+          "name": "仁寶",
+          "score": 93.66,
+          "close": 41.6
+        },
+        "2377": {
+          "name": "微星",
+          "score": 92.7,
+          "close": 161.5
+        },
+        "2357": {
+          "name": "華碩",
+          "score": 89.98,
+          "close": 1025.0
+        },
+        "3005": {
+          "name": "神基",
+          "score": 89.71,
+          "close": 115.0
+        },
+        "4967": {
+          "name": "十銓",
+          "score": 89.68,
+          "close": 276.0
+        },
+        "3090": {
+          "name": "日電貿",
+          "score": 89.41,
+          "close": 176.5
+        }
+      }
+    },
     {
       "date": "2026/09/03",
       "results": {

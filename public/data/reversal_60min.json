@@ -1,11 +1,11 @@
 {
   "scan_type": "reversal_60min",
-  "scanned_at": "2026-09-03 22:07:12",
+  "scanned_at": "2026-09-04 21:53:09",
   "strategy": "60分K線翻紅底部反轉",
   "description": "篩選日內微跌（尚未翻紅）但60分K出現KD金叉+MACD底部+量縮止跌共振訊號的個股",
   "filter": "日內跌幅 -5.0%~5.0%，最低評分 30",
-  "scanned_count": 1939,
-  "pre_filtered": 1787,
+  "scanned_count": 1952,
+  "pre_filtered": 1820,
   "qualified_count": 0,
   "stocks": [],
   "next_day": {
