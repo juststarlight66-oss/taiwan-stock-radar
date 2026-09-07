@@ -724,6 +724,338 @@
   ],
   "grouped_records": [
     {
+      "scan_date": "20260907",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "3679",
+              "name": "新至陞",
+              "entry": 108.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2449",
+              "name": "京元電子",
+              "entry": 273.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3034",
+              "name": "聯詠",
+              "entry": 540.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2451",
+              "name": "創見",
+              "entry": 289.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3006",
+              "name": "晶豪科",
+              "entry": 297.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6531",
+              "name": "愛普*",
+              "entry": 960.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2330",
+              "name": "台積電",
+              "entry": 2460.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6770",
+              "name": "力積電",
+              "entry": 72.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2603",
+              "name": "長榮",
+              "entry": 233.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5876",
+              "name": "上海商銀",
+              "entry": 46.95,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "3679",
+              "name": "新至陞",
+              "entry": 108.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2449",
+              "name": "京元電子",
+              "entry": 273.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3034",
+              "name": "聯詠",
+              "entry": 540.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2451",
+              "name": "創見",
+              "entry": 289.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3006",
+              "name": "晶豪科",
+              "entry": 297.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6531",
+              "name": "愛普*",
+              "entry": 960.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2330",
+              "name": "台積電",
+              "entry": 2460.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6770",
+              "name": "力積電",
+              "entry": 72.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2603",
+              "name": "長榮",
+              "entry": 233.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5876",
+              "name": "上海商銀",
+              "entry": 46.95,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "3679",
+              "name": "新至陞",
+              "entry": 108.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2449",
+              "name": "京元電子",
+              "entry": 273.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3034",
+              "name": "聯詠",
+              "entry": 540.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2451",
+              "name": "創見",
+              "entry": 289.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3006",
+              "name": "晶豪科",
+              "entry": 297.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6531",
+              "name": "愛普*",
+              "entry": 960.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2330",
+              "name": "台積電",
+              "entry": 2460.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6770",
+              "name": "力積電",
+              "entry": 72.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2603",
+              "name": "長榮",
+              "entry": 233.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5876",
+              "name": "上海商銀",
+              "entry": 46.95,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
+    },
+    {
       "scan_date": "20260904",
       "periods": {
         "T1": {
@@ -11910,8 +12242,63 @@
       }
     }
   ],
-  "last_updated": "2026-09-04T21:53:08.364091+08:00",
+  "last_updated": "2026-09-07T23:25:13.470771+08:00",
   "history": [
+    {
+      "date": "2026/09/07",
+      "results": {
+        "3679": {
+          "name": "新至陞",
+          "score": 91.34,
+          "close": 108.0
+        },
+        "2449": {
+          "name": "京元電子",
+          "score": 87.9,
+          "close": 273.0
+        },
+        "3034": {
+          "name": "聯詠",
+          "score": 85.57,
+          "close": 540.0
+        },
+        "2451": {
+          "name": "創見",
+          "score": 82.83,
+          "close": 289.5
+        },
+        "3006": {
+          "name": "晶豪科",
+          "score": 82.52,
+          "close": 297.0
+        },
+        "6531": {
+          "name": "愛普*",
+          "score": 82.36,
+          "close": 960.0
+        },
+        "2330": {
+          "name": "台積電",
+          "score": 82.17,
+          "close": 2460.0
+        },
+        "6770": {
+          "name": "力積電",
+          "score": 81.61,
+          "close": 72.9
+        },
+        "2603": {
+          "name": "長榮",
+          "score": 81.22,
+          "close": 233.0
+        },
+        "5876": {
+          "name": "上海商銀",
+          "score": 80.76,
+          "close": 46.95
+        }
+      }
+    },
     {
       "date": "2026/09/04",
       "results": {
