@@ -724,6 +724,338 @@
   ],
   "grouped_records": [
     {
+      "scan_date": "20260909",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "2603",
+              "name": "長榮",
+              "entry": 234.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2382",
+              "name": "廣達",
+              "entry": 342.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9931",
+              "name": "欣高",
+              "entry": 34.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1326",
+              "name": "台化",
+              "entry": 71.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1304",
+              "name": "台聚",
+              "entry": 12.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2385",
+              "name": "群光",
+              "entry": 106.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2637",
+              "name": "慧洋-KY",
+              "entry": 100.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6206",
+              "name": "飛捷",
+              "entry": 137.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6805",
+              "name": "富世達",
+              "entry": 2295.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1301",
+              "name": "台塑",
+              "entry": 66.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "2603",
+              "name": "長榮",
+              "entry": 234.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2382",
+              "name": "廣達",
+              "entry": 342.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9931",
+              "name": "欣高",
+              "entry": 34.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1326",
+              "name": "台化",
+              "entry": 71.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1304",
+              "name": "台聚",
+              "entry": 12.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2385",
+              "name": "群光",
+              "entry": 106.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2637",
+              "name": "慧洋-KY",
+              "entry": 100.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6206",
+              "name": "飛捷",
+              "entry": 137.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6805",
+              "name": "富世達",
+              "entry": 2295.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1301",
+              "name": "台塑",
+              "entry": 66.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "2603",
+              "name": "長榮",
+              "entry": 234.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2382",
+              "name": "廣達",
+              "entry": 342.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9931",
+              "name": "欣高",
+              "entry": 34.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1326",
+              "name": "台化",
+              "entry": 71.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1304",
+              "name": "台聚",
+              "entry": 12.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2385",
+              "name": "群光",
+              "entry": 106.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2637",
+              "name": "慧洋-KY",
+              "entry": 100.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6206",
+              "name": "飛捷",
+              "entry": 137.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6805",
+              "name": "富世達",
+              "entry": 2295.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1301",
+              "name": "台塑",
+              "entry": 66.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
+    },
+    {
       "scan_date": "20260908",
       "periods": {
         "T1": {
@@ -12574,8 +12906,63 @@
       }
     }
   ],
-  "last_updated": "2026-09-08T21:58:09.926586+08:00",
+  "last_updated": "2026-09-09T22:07:46.980025+08:00",
   "history": [
+    {
+      "date": "2026/09/09",
+      "results": {
+        "2603": {
+          "name": "長榮",
+          "score": 91.5,
+          "close": 234.0
+        },
+        "2382": {
+          "name": "廣達",
+          "score": 88.49,
+          "close": 342.0
+        },
+        "9931": {
+          "name": "欣高",
+          "score": 88.19,
+          "close": 34.2
+        },
+        "1326": {
+          "name": "台化",
+          "score": 85.33,
+          "close": 71.8
+        },
+        "1304": {
+          "name": "台聚",
+          "score": 84.14,
+          "close": 12.8
+        },
+        "2385": {
+          "name": "群光",
+          "score": 83.5,
+          "close": 106.5
+        },
+        "2637": {
+          "name": "慧洋-KY",
+          "score": 83.26,
+          "close": 100.5
+        },
+        "6206": {
+          "name": "飛捷",
+          "score": 81.81,
+          "close": 137.5
+        },
+        "6805": {
+          "name": "富世達",
+          "score": 80.95,
+          "close": 2295.0
+        },
+        "1301": {
+          "name": "台塑",
+          "score": 80.5,
+          "close": 66.7
+        }
+      }
+    },
     {
       "date": "2026/09/08",
       "results": {
