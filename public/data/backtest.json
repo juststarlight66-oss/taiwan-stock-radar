@@ -724,6 +724,338 @@
   ],
   "grouped_records": [
     {
+      "scan_date": "20260910",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "1315",
+              "name": "達新",
+              "entry": 66.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9905",
+              "name": "大華",
+              "entry": 21.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2504",
+              "name": "國產",
+              "entry": 31.45,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1477",
+              "name": "聚陽",
+              "entry": 197.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2373",
+              "name": "震旦行",
+              "entry": 53.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6165",
+              "name": "浪凡",
+              "entry": 47.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4736",
+              "name": "泰博",
+              "entry": 128.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2528",
+              "name": "皇普",
+              "entry": 20.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5225",
+              "name": "東科-KY",
+              "entry": 53.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3617",
+              "name": "碩天",
+              "entry": 239.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "1315",
+              "name": "達新",
+              "entry": 66.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9905",
+              "name": "大華",
+              "entry": 21.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2504",
+              "name": "國產",
+              "entry": 31.45,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1477",
+              "name": "聚陽",
+              "entry": 197.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2373",
+              "name": "震旦行",
+              "entry": 53.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6165",
+              "name": "浪凡",
+              "entry": 47.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4736",
+              "name": "泰博",
+              "entry": 128.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2528",
+              "name": "皇普",
+              "entry": 20.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5225",
+              "name": "東科-KY",
+              "entry": 53.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3617",
+              "name": "碩天",
+              "entry": 239.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "1315",
+              "name": "達新",
+              "entry": 66.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9905",
+              "name": "大華",
+              "entry": 21.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2504",
+              "name": "國產",
+              "entry": 31.45,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1477",
+              "name": "聚陽",
+              "entry": 197.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2373",
+              "name": "震旦行",
+              "entry": 53.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6165",
+              "name": "浪凡",
+              "entry": 47.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4736",
+              "name": "泰博",
+              "entry": 128.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2528",
+              "name": "皇普",
+              "entry": 20.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5225",
+              "name": "東科-KY",
+              "entry": 53.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3617",
+              "name": "碩天",
+              "entry": 239.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
+    },
+    {
       "scan_date": "20260909",
       "periods": {
         "T1": {
@@ -12906,8 +13238,63 @@
       }
     }
   ],
-  "last_updated": "2026-09-09T22:07:46.980025+08:00",
+  "last_updated": "2026-09-10T22:04:56.359870+08:00",
   "history": [
+    {
+      "date": "2026/09/10",
+      "results": {
+        "1315": {
+          "name": "達新",
+          "score": 84.0,
+          "close": 66.3
+        },
+        "9905": {
+          "name": "大華",
+          "score": 78.25,
+          "close": 21.5
+        },
+        "2504": {
+          "name": "國產",
+          "score": 78.14,
+          "close": 31.45
+        },
+        "1477": {
+          "name": "聚陽",
+          "score": 77.93,
+          "close": 197.5
+        },
+        "2373": {
+          "name": "震旦行",
+          "score": 77.52,
+          "close": 53.1
+        },
+        "6165": {
+          "name": "浪凡",
+          "score": 77.43,
+          "close": 47.7
+        },
+        "4736": {
+          "name": "泰博",
+          "score": 76.86,
+          "close": 128.0
+        },
+        "2528": {
+          "name": "皇普",
+          "score": 76.79,
+          "close": 20.15
+        },
+        "5225": {
+          "name": "東科-KY",
+          "score": 76.79,
+          "close": 53.7
+        },
+        "3617": {
+          "name": "碩天",
+          "score": 76.62,
+          "close": 239.0
+        }
+      }
+    },
     {
       "date": "2026/09/09",
       "results": {
