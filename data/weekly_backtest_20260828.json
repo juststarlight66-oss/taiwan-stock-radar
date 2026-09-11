@@ -1,0 +1,283 @@
+{
+  "report_date": "20260828",
+  "report_type": "weekly_backtest",
+  "generated_at": "2026-08-28T14:47:50+08:00",
+  "week_ending": "2026-08-28",
+  "scan_days_this_week": [
+    "20260824",
+    "20260825",
+    "20260826",
+    "20260827",
+    "20260828"
+  ],
+  "summary": {
+    "total_recommendations": 10,
+    "scanned_stocks": 1958,
+    "top_sectors": [],
+    "avg_score": 83.34
+  },
+  "power_combo_indicators": {
+    "description": "三燈號指標 - T+N 追蹤框架",
+    "t1_win_rate": 33.3,
+    "t1_samples": 15,
+    "t3_win_rate": null,
+    "t3_samples": 0,
+    "t5_win_rate": null,
+    "t5_samples": 0,
+    "avg_t5_return": null,
+    "stop_loss_triggers": 0,
+    "note": "基於 36 筆歷史推薦的 T+N 追蹤數據"
+  },
+  "weekly_top10": [
+    {
+      "stock_id": "2855",
+      "name": "統一證",
+      "entry_date": "20260828",
+      "entry_price": 48.55,
+      "stop_loss": 46.61,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 87.45,
+      "close": 48.55,
+      "change_pct": 1.57,
+      "sector": "金融保險",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "2880",
+      "name": "華南金",
+      "entry_date": "20260828",
+      "entry_price": 40.25,
+      "stop_loss": 38.64,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 86.26,
+      "close": 40.25,
+      "change_pct": 2.29,
+      "sector": "金融保險",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "2881",
+      "name": "富邦金",
+      "entry_date": "20260828",
+      "entry_price": 144.0,
+      "stop_loss": 138.24,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 85.32,
+      "close": 144.0,
+      "change_pct": 1.77,
+      "sector": "金融保險",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "2316",
+      "name": "楠梓電",
+      "entry_date": "20260828",
+      "entry_price": 164.0,
+      "stop_loss": 157.44,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 83.59,
+      "close": 164.0,
+      "change_pct": 2.18,
+      "sector": "電子零組件業",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "6005",
+      "name": "群益證",
+      "entry_date": "20260828",
+      "entry_price": 31.45,
+      "stop_loss": 30.19,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 82.57,
+      "close": 31.45,
+      "change_pct": 1.13,
+      "sector": "金融保險",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "2889",
+      "name": "國票金",
+      "entry_date": "20260828",
+      "entry_price": 15.9,
+      "stop_loss": 15.26,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 82.51,
+      "close": 15.9,
+      "change_pct": -1.85,
+      "sector": "金融保險",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "2887",
+      "name": "台新新光金",
+      "entry_date": "20260828",
+      "entry_price": 37.5,
+      "stop_loss": 36.0,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 81.77,
+      "close": 37.5,
+      "change_pct": 0.54,
+      "sector": "金融保險",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "2303",
+      "name": "聯電",
+      "entry_date": "20260828",
+      "entry_price": 130.0,
+      "stop_loss": 124.8,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 81.57,
+      "close": 130.0,
+      "change_pct": 9.7,
+      "sector": "半導體業",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "2801",
+      "name": "彰銀",
+      "entry_date": "20260828",
+      "entry_price": 24.85,
+      "stop_loss": 23.86,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 81.31,
+      "close": 24.85,
+      "change_pct": 0.61,
+      "sector": "金融保險",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "2883",
+      "name": "凱基金",
+      "entry_date": "20260828",
+      "entry_price": 32.75,
+      "stop_loss": 31.44,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 81.06,
+      "close": 32.75,
+      "change_pct": 1.87,
+      "sector": "金融保險",
+      "sector_boost": 0
+    }
+  ]
+}

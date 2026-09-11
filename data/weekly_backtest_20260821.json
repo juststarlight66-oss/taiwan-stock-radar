@@ -1,0 +1,283 @@
+{
+  "report_date": "20260821",
+  "report_type": "weekly_backtest",
+  "generated_at": "2026-08-21T14:45:38+08:00",
+  "week_ending": "2026-08-21",
+  "scan_days_this_week": [
+    "20260817",
+    "20260818",
+    "20260819",
+    "20260820",
+    "20260821"
+  ],
+  "summary": {
+    "total_recommendations": 10,
+    "scanned_stocks": 1961,
+    "top_sectors": [],
+    "avg_score": 83.65
+  },
+  "power_combo_indicators": {
+    "description": "三燈號指標 - T+N 追蹤框架",
+    "t1_win_rate": 33.3,
+    "t1_samples": 15,
+    "t3_win_rate": null,
+    "t3_samples": 0,
+    "t5_win_rate": null,
+    "t5_samples": 0,
+    "avg_t5_return": null,
+    "stop_loss_triggers": 0,
+    "note": "基於 36 筆歷史推薦的 T+N 追蹤數據"
+  },
+  "weekly_top10": [
+    {
+      "stock_id": "2603",
+      "name": "長榮",
+      "entry_date": "20260821",
+      "entry_price": 251.5,
+      "stop_loss": 241.44,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 88.22,
+      "close": 251.5,
+      "change_pct": 2.24,
+      "sector": "航運業",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "1307",
+      "name": "三芳",
+      "entry_date": "20260821",
+      "entry_price": 31.15,
+      "stop_loss": 29.9,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 87.63,
+      "close": 31.15,
+      "change_pct": 1.3,
+      "sector": "塑膠工業",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "2609",
+      "name": "陽明",
+      "entry_date": "20260821",
+      "entry_price": 64.0,
+      "stop_loss": 61.44,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 86.45,
+      "close": 64.0,
+      "change_pct": 6.14,
+      "sector": "航運業",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "2613",
+      "name": "中櫃",
+      "entry_date": "20260821",
+      "entry_price": 24.9,
+      "stop_loss": 23.9,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 86.31,
+      "close": 24.9,
+      "change_pct": 9.93,
+      "sector": "航運業",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "2108",
+      "name": "南帝",
+      "entry_date": "20260821",
+      "entry_price": 31.4,
+      "stop_loss": 30.14,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 82.83,
+      "close": 31.4,
+      "change_pct": 6.44,
+      "sector": "橡膠工業",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "2636",
+      "name": "台驊控股",
+      "entry_date": "20260821",
+      "entry_price": 73.3,
+      "stop_loss": 70.37,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 81.39,
+      "close": 73.3,
+      "change_pct": 2.95,
+      "sector": "航運業",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "2612",
+      "name": "中航",
+      "entry_date": "20260821",
+      "entry_price": 60.2,
+      "stop_loss": 57.79,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 81.39,
+      "close": 60.2,
+      "change_pct": 2.56,
+      "sector": "航運業",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "1104",
+      "name": "環泥",
+      "entry_date": "20260821",
+      "entry_price": 26.85,
+      "stop_loss": 25.78,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 80.9,
+      "close": 26.85,
+      "change_pct": 0.19,
+      "sector": "水泥工業",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "1709",
+      "name": "和益",
+      "entry_date": "20260821",
+      "entry_price": 33.3,
+      "stop_loss": 31.97,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 80.88,
+      "close": 33.3,
+      "change_pct": 9.9,
+      "sector": "化學工業",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "5871",
+      "name": "中租-KY",
+      "entry_date": "20260821",
+      "entry_price": 115.5,
+      "stop_loss": 110.88,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 80.46,
+      "close": 115.5,
+      "change_pct": 3.59,
+      "sector": "其他",
+      "sector_boost": 0
+    }
+  ]
+}
