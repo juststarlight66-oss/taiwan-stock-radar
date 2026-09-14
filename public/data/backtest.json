@@ -724,6 +724,338 @@
   ],
   "grouped_records": [
     {
+      "scan_date": "20260915",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "6005",
+              "name": "群益證",
+              "entry": 32.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2882",
+              "name": "國泰金",
+              "entry": 112.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2845",
+              "name": "遠東銀",
+              "entry": 13.75,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "8464",
+              "name": "億豐",
+              "entry": 377.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2881",
+              "name": "富邦金",
+              "entry": 154.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2207",
+              "name": "和泰車",
+              "entry": 538.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2891",
+              "name": "中信金",
+              "entry": 68.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2851",
+              "name": "中再保",
+              "entry": 47.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2855",
+              "name": "統一證",
+              "entry": 52.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2889",
+              "name": "國票金",
+              "entry": 17.05,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "6005",
+              "name": "群益證",
+              "entry": 32.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2882",
+              "name": "國泰金",
+              "entry": 112.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2845",
+              "name": "遠東銀",
+              "entry": 13.75,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "8464",
+              "name": "億豐",
+              "entry": 377.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2881",
+              "name": "富邦金",
+              "entry": 154.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2207",
+              "name": "和泰車",
+              "entry": 538.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2891",
+              "name": "中信金",
+              "entry": 68.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2851",
+              "name": "中再保",
+              "entry": 47.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2855",
+              "name": "統一證",
+              "entry": 52.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2889",
+              "name": "國票金",
+              "entry": 17.05,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "6005",
+              "name": "群益證",
+              "entry": 32.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2882",
+              "name": "國泰金",
+              "entry": 112.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2845",
+              "name": "遠東銀",
+              "entry": 13.75,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "8464",
+              "name": "億豐",
+              "entry": 377.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2881",
+              "name": "富邦金",
+              "entry": 154.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2207",
+              "name": "和泰車",
+              "entry": 538.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2891",
+              "name": "中信金",
+              "entry": 68.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2851",
+              "name": "中再保",
+              "entry": 47.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2855",
+              "name": "統一證",
+              "entry": 52.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2889",
+              "name": "國票金",
+              "entry": 17.05,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
+    },
+    {
       "scan_date": "20260911",
       "periods": {
         "T1": {
@@ -13570,8 +13902,63 @@
       }
     }
   ],
-  "last_updated": "2026-09-11T21:55:12.609500+08:00",
+  "last_updated": "2026-09-15T00:11:40.820603+08:00",
   "history": [
+    {
+      "date": "2026/09/15",
+      "results": {
+        "6005": {
+          "name": "群益證",
+          "score": 91.31,
+          "close": 32.1
+        },
+        "2882": {
+          "name": "國泰金",
+          "score": 91.13,
+          "close": 112.5
+        },
+        "2845": {
+          "name": "遠東銀",
+          "score": 90.1,
+          "close": 13.75
+        },
+        "8464": {
+          "name": "億豐",
+          "score": 88.07,
+          "close": 377.5
+        },
+        "2881": {
+          "name": "富邦金",
+          "score": 87.29,
+          "close": 154.0
+        },
+        "2207": {
+          "name": "和泰車",
+          "score": 86.58,
+          "close": 538.0
+        },
+        "2891": {
+          "name": "中信金",
+          "score": 85.94,
+          "close": 68.1
+        },
+        "2851": {
+          "name": "中再保",
+          "score": 83.48,
+          "close": 47.5
+        },
+        "2855": {
+          "name": "統一證",
+          "score": 83.28,
+          "close": 52.9
+        },
+        "2889": {
+          "name": "國票金",
+          "score": 83.11,
+          "close": 17.05
+        }
+      }
+    },
     {
       "date": "2026/09/11",
       "results": {
