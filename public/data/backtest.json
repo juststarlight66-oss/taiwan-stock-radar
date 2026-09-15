@@ -734,9 +734,9 @@
           "pending": true,
           "stocks": [
             {
-              "stock_id": "6148",
-              "name": "驊宏資通股份有限公司",
-              "entry": 37.5,
+              "stock_id": "2480",
+              "name": "敦陽科",
+              "entry": 161.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -744,9 +744,9 @@
               "pending": true
             },
             {
-              "stock_id": "3232",
-              "name": "昱捷股份有限公司",
-              "entry": 21.55,
+              "stock_id": "4807",
+              "name": "日成-KY",
+              "entry": 30.8,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -754,9 +754,9 @@
               "pending": true
             },
             {
-              "stock_id": "6590",
-              "name": "普鴻資訊股份有限公司",
-              "entry": 68.7,
+              "stock_id": "2891",
+              "name": "中信金",
+              "entry": 69.7,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -764,9 +764,9 @@
               "pending": true
             },
             {
-              "stock_id": "5202",
-              "name": "力新國際科技股份有限公司",
-              "entry": 14.15,
+              "stock_id": "4915",
+              "name": "致伸",
+              "entry": 65.6,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -774,9 +774,9 @@
               "pending": true
             },
             {
-              "stock_id": "6221",
-              "name": "晉泰科技股份有限公司",
-              "entry": 28.15,
+              "stock_id": "9910",
+              "name": "豐泰",
+              "entry": 68.4,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -784,9 +784,9 @@
               "pending": true
             },
             {
-              "stock_id": "6140",
-              "name": "訊達電腦股份有限公司",
-              "entry": 20.05,
+              "stock_id": "2427",
+              "name": "三商電",
+              "entry": 24.35,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -794,9 +794,9 @@
               "pending": true
             },
             {
-              "stock_id": "6240",
-              "name": "松崗國際興業股份有限公司",
-              "entry": 24.6,
+              "stock_id": "1102",
+              "name": "亞泥",
+              "entry": 35.2,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -804,9 +804,9 @@
               "pending": true
             },
             {
-              "stock_id": "5251",
-              "name": "天鉞電子股份有限公司",
-              "entry": 29.15,
+              "stock_id": "6112",
+              "name": "邁達特",
+              "entry": 48.15,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -814,9 +814,9 @@
               "pending": true
             },
             {
-              "stock_id": "3434",
-              "name": "哲固資訊科技股份有限公司",
-              "entry": 32.5,
+              "stock_id": "8464",
+              "name": "億豐",
+              "entry": 382.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -824,9 +824,9 @@
               "pending": true
             },
             {
-              "stock_id": "3297",
-              "name": "杭特電子股份有限公司",
-              "entry": 30.85,
+              "stock_id": "2468",
+              "name": "華經",
+              "entry": 43.25,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -843,9 +843,9 @@
           "pending": true,
           "stocks": [
             {
-              "stock_id": "6148",
-              "name": "驊宏資通股份有限公司",
-              "entry": 37.5,
+              "stock_id": "2480",
+              "name": "敦陽科",
+              "entry": 161.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -853,9 +853,9 @@
               "pending": true
             },
             {
-              "stock_id": "3232",
-              "name": "昱捷股份有限公司",
-              "entry": 21.55,
+              "stock_id": "4807",
+              "name": "日成-KY",
+              "entry": 30.8,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -863,9 +863,9 @@
               "pending": true
             },
             {
-              "stock_id": "6590",
-              "name": "普鴻資訊股份有限公司",
-              "entry": 68.7,
+              "stock_id": "2891",
+              "name": "中信金",
+              "entry": 69.7,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -873,9 +873,9 @@
               "pending": true
             },
             {
-              "stock_id": "5202",
-              "name": "力新國際科技股份有限公司",
-              "entry": 14.15,
+              "stock_id": "4915",
+              "name": "致伸",
+              "entry": 65.6,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -883,9 +883,9 @@
               "pending": true
             },
             {
-              "stock_id": "6221",
-              "name": "晉泰科技股份有限公司",
-              "entry": 28.15,
+              "stock_id": "9910",
+              "name": "豐泰",
+              "entry": 68.4,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -893,9 +893,9 @@
               "pending": true
             },
             {
-              "stock_id": "6140",
-              "name": "訊達電腦股份有限公司",
-              "entry": 20.05,
+              "stock_id": "2427",
+              "name": "三商電",
+              "entry": 24.35,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -903,9 +903,9 @@
               "pending": true
             },
             {
-              "stock_id": "6240",
-              "name": "松崗國際興業股份有限公司",
-              "entry": 24.6,
+              "stock_id": "1102",
+              "name": "亞泥",
+              "entry": 35.2,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -913,9 +913,9 @@
               "pending": true
             },
             {
-              "stock_id": "5251",
-              "name": "天鉞電子股份有限公司",
-              "entry": 29.15,
+              "stock_id": "6112",
+              "name": "邁達特",
+              "entry": 48.15,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -923,9 +923,9 @@
               "pending": true
             },
             {
-              "stock_id": "3434",
-              "name": "哲固資訊科技股份有限公司",
-              "entry": 32.5,
+              "stock_id": "8464",
+              "name": "億豐",
+              "entry": 382.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -933,9 +933,9 @@
               "pending": true
             },
             {
-              "stock_id": "3297",
-              "name": "杭特電子股份有限公司",
-              "entry": 30.85,
+              "stock_id": "2468",
+              "name": "華經",
+              "entry": 43.25,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -952,9 +952,9 @@
           "pending": true,
           "stocks": [
             {
-              "stock_id": "6148",
-              "name": "驊宏資通股份有限公司",
-              "entry": 37.5,
+              "stock_id": "2480",
+              "name": "敦陽科",
+              "entry": 161.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -962,9 +962,9 @@
               "pending": true
             },
             {
-              "stock_id": "3232",
-              "name": "昱捷股份有限公司",
-              "entry": 21.55,
+              "stock_id": "4807",
+              "name": "日成-KY",
+              "entry": 30.8,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -972,9 +972,9 @@
               "pending": true
             },
             {
-              "stock_id": "6590",
-              "name": "普鴻資訊股份有限公司",
-              "entry": 68.7,
+              "stock_id": "2891",
+              "name": "中信金",
+              "entry": 69.7,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -982,9 +982,9 @@
               "pending": true
             },
             {
-              "stock_id": "5202",
-              "name": "力新國際科技股份有限公司",
-              "entry": 14.15,
+              "stock_id": "4915",
+              "name": "致伸",
+              "entry": 65.6,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -992,9 +992,9 @@
               "pending": true
             },
             {
-              "stock_id": "6221",
-              "name": "晉泰科技股份有限公司",
-              "entry": 28.15,
+              "stock_id": "9910",
+              "name": "豐泰",
+              "entry": 68.4,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1002,9 +1002,9 @@
               "pending": true
             },
             {
-              "stock_id": "6140",
-              "name": "訊達電腦股份有限公司",
-              "entry": 20.05,
+              "stock_id": "2427",
+              "name": "三商電",
+              "entry": 24.35,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1012,9 +1012,9 @@
               "pending": true
             },
             {
-              "stock_id": "6240",
-              "name": "松崗國際興業股份有限公司",
-              "entry": 24.6,
+              "stock_id": "1102",
+              "name": "亞泥",
+              "entry": 35.2,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1022,9 +1022,9 @@
               "pending": true
             },
             {
-              "stock_id": "5251",
-              "name": "天鉞電子股份有限公司",
-              "entry": 29.15,
+              "stock_id": "6112",
+              "name": "邁達特",
+              "entry": 48.15,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1032,9 +1032,9 @@
               "pending": true
             },
             {
-              "stock_id": "3434",
-              "name": "哲固資訊科技股份有限公司",
-              "entry": 32.5,
+              "stock_id": "8464",
+              "name": "億豐",
+              "entry": 382.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1042,9 +1042,9 @@
               "pending": true
             },
             {
-              "stock_id": "3297",
-              "name": "杭特電子股份有限公司",
-              "entry": 30.85,
+              "stock_id": "2468",
+              "name": "華經",
+              "entry": 43.25,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -13902,60 +13902,60 @@
       }
     }
   ],
-  "last_updated": "2026-09-15T19:38:08.913766+08:00",
+  "last_updated": "2026-09-15T22:35:34.105442+08:00",
   "history": [
     {
       "date": "2026/09/15",
       "results": {
-        "6148": {
-          "name": "驊宏資通股份有限公司",
-          "score": 70.07,
-          "close": 37.5
+        "2480": {
+          "name": "敦陽科",
+          "score": 86.51,
+          "close": 161.0
         },
-        "3232": {
-          "name": "昱捷股份有限公司",
-          "score": 70.06,
-          "close": 21.55
+        "4807": {
+          "name": "日成-KY",
+          "score": 85.97,
+          "close": 30.8
         },
-        "6590": {
-          "name": "普鴻資訊股份有限公司",
-          "score": 70.05,
-          "close": 68.7
+        "2891": {
+          "name": "中信金",
+          "score": 85.85,
+          "close": 69.7
         },
-        "5202": {
-          "name": "力新國際科技股份有限公司",
-          "score": 69.93,
-          "close": 14.15
+        "4915": {
+          "name": "致伸",
+          "score": 85.3,
+          "close": 65.6
         },
-        "6221": {
-          "name": "晉泰科技股份有限公司",
-          "score": 66.54,
-          "close": 28.15
+        "9910": {
+          "name": "豐泰",
+          "score": 85.29,
+          "close": 68.4
         },
-        "6140": {
-          "name": "訊達電腦股份有限公司",
-          "score": 66.49,
-          "close": 20.05
+        "2427": {
+          "name": "三商電",
+          "score": 84.36,
+          "close": 24.35
         },
-        "6240": {
-          "name": "松崗國際興業股份有限公司",
-          "score": 65.34,
-          "close": 24.6
+        "1102": {
+          "name": "亞泥",
+          "score": 84.0,
+          "close": 35.2
         },
-        "5251": {
-          "name": "天鉞電子股份有限公司",
-          "score": 65.09,
-          "close": 29.15
+        "6112": {
+          "name": "邁達特",
+          "score": 83.95,
+          "close": 48.15
         },
-        "3434": {
-          "name": "哲固資訊科技股份有限公司",
-          "score": 65.08,
-          "close": 32.5
+        "8464": {
+          "name": "億豐",
+          "score": 83.64,
+          "close": 382.0
         },
-        "3297": {
-          "name": "杭特電子股份有限公司",
-          "score": 65.08,
-          "close": 30.85
+        "2468": {
+          "name": "華經",
+          "score": 83.35,
+          "close": 43.25
         }
       }
     },
