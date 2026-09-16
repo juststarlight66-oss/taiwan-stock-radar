@@ -36,3 +36,4 @@ yarn-error.log*
 # local documentation (not committed to git)
 /docs/
 __pycache__/
+scan_run*.log
