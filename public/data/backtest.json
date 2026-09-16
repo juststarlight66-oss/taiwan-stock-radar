@@ -734,9 +734,9 @@
           "pending": true,
           "stocks": [
             {
-              "stock_id": "3406",
-              "name": "玉晶光",
-              "entry": 1005.0,
+              "stock_id": "3014",
+              "name": "聯陽",
+              "entry": 132.5,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -754,9 +754,29 @@
               "pending": true
             },
             {
-              "stock_id": "2393",
-              "name": "億光",
-              "entry": 63.1,
+              "stock_id": "4967",
+              "name": "十銓",
+              "entry": 275.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5469",
+              "name": "瀚宇博",
+              "entry": 74.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2481",
+              "name": "強茂",
+              "entry": 168.5,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -774,9 +794,9 @@
               "pending": true
             },
             {
-              "stock_id": "2069",
-              "name": "運錩",
-              "entry": 23.65,
+              "stock_id": "3034",
+              "name": "聯詠",
+              "entry": 548.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -784,9 +804,9 @@
               "pending": true
             },
             {
-              "stock_id": "2451",
-              "name": "創見",
-              "entry": 282.5,
+              "stock_id": "2882",
+              "name": "國泰金",
+              "entry": 112.5,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -794,9 +814,9 @@
               "pending": true
             },
             {
-              "stock_id": "2387",
-              "name": "精元",
-              "entry": 36.35,
+              "stock_id": "2377",
+              "name": "微星",
+              "entry": 153.5,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -804,29 +824,9 @@
               "pending": true
             },
             {
-              "stock_id": "4967",
-              "name": "十銓",
-              "entry": 275.0,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "2413",
-              "name": "環科",
-              "entry": 53.0,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "2453",
-              "name": "凌群",
-              "entry": 55.3,
+              "stock_id": "2474",
+              "name": "可成",
+              "entry": 207.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -843,9 +843,9 @@
           "pending": true,
           "stocks": [
             {
-              "stock_id": "3406",
-              "name": "玉晶光",
-              "entry": 1005.0,
+              "stock_id": "3014",
+              "name": "聯陽",
+              "entry": 132.5,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -863,9 +863,29 @@
               "pending": true
             },
             {
-              "stock_id": "2393",
-              "name": "億光",
-              "entry": 63.1,
+              "stock_id": "4967",
+              "name": "十銓",
+              "entry": 275.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5469",
+              "name": "瀚宇博",
+              "entry": 74.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2481",
+              "name": "強茂",
+              "entry": 168.5,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -883,9 +903,9 @@
               "pending": true
             },
             {
-              "stock_id": "2069",
-              "name": "運錩",
-              "entry": 23.65,
+              "stock_id": "3034",
+              "name": "聯詠",
+              "entry": 548.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -893,9 +913,9 @@
               "pending": true
             },
             {
-              "stock_id": "2451",
-              "name": "創見",
-              "entry": 282.5,
+              "stock_id": "2882",
+              "name": "國泰金",
+              "entry": 112.5,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -903,9 +923,9 @@
               "pending": true
             },
             {
-              "stock_id": "2387",
-              "name": "精元",
-              "entry": 36.35,
+              "stock_id": "2377",
+              "name": "微星",
+              "entry": 153.5,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -913,29 +933,9 @@
               "pending": true
             },
             {
-              "stock_id": "4967",
-              "name": "十銓",
-              "entry": 275.0,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "2413",
-              "name": "環科",
-              "entry": 53.0,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "2453",
-              "name": "凌群",
-              "entry": 55.3,
+              "stock_id": "2474",
+              "name": "可成",
+              "entry": 207.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -952,9 +952,9 @@
           "pending": true,
           "stocks": [
             {
-              "stock_id": "3406",
-              "name": "玉晶光",
-              "entry": 1005.0,
+              "stock_id": "3014",
+              "name": "聯陽",
+              "entry": 132.5,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -972,9 +972,29 @@
               "pending": true
             },
             {
-              "stock_id": "2393",
-              "name": "億光",
-              "entry": 63.1,
+              "stock_id": "4967",
+              "name": "十銓",
+              "entry": 275.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5469",
+              "name": "瀚宇博",
+              "entry": 74.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2481",
+              "name": "強茂",
+              "entry": 168.5,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -992,9 +1012,9 @@
               "pending": true
             },
             {
-              "stock_id": "2069",
-              "name": "運錩",
-              "entry": 23.65,
+              "stock_id": "3034",
+              "name": "聯詠",
+              "entry": 548.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1002,9 +1022,9 @@
               "pending": true
             },
             {
-              "stock_id": "2451",
-              "name": "創見",
-              "entry": 282.5,
+              "stock_id": "2882",
+              "name": "國泰金",
+              "entry": 112.5,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1012,9 +1032,9 @@
               "pending": true
             },
             {
-              "stock_id": "2387",
-              "name": "精元",
-              "entry": 36.35,
+              "stock_id": "2377",
+              "name": "微星",
+              "entry": 153.5,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1022,29 +1042,9 @@
               "pending": true
             },
             {
-              "stock_id": "4967",
-              "name": "十銓",
-              "entry": 275.0,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "2413",
-              "name": "環科",
-              "entry": 53.0,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "2453",
-              "name": "凌群",
-              "entry": 55.3,
+              "stock_id": "2474",
+              "name": "可成",
+              "entry": 207.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -14234,60 +14234,60 @@
       }
     }
   ],
-  "last_updated": "2026-09-16T20:29:40.796866+08:00",
+  "last_updated": "2026-09-16T22:36:22.776874+08:00",
   "history": [
     {
       "date": "2026/09/16",
       "results": {
-        "3406": {
-          "name": "玉晶光",
-          "score": 90.81,
-          "close": 1005.0
+        "3014": {
+          "name": "聯陽",
+          "score": 93.16,
+          "close": 132.5
         },
         "2603": {
           "name": "長榮",
-          "score": 87.09,
+          "score": 91.72,
           "close": 239.0
-        },
-        "2393": {
-          "name": "億光",
-          "score": 83.8,
-          "close": 63.1
-        },
-        "5269": {
-          "name": "祥碩",
-          "score": 83.11,
-          "close": 1475.0
-        },
-        "2069": {
-          "name": "運錩",
-          "score": 82.78,
-          "close": 23.65
-        },
-        "2451": {
-          "name": "創見",
-          "score": 82.77,
-          "close": 282.5
-        },
-        "2387": {
-          "name": "精元",
-          "score": 82.0,
-          "close": 36.35
         },
         "4967": {
           "name": "十銓",
-          "score": 81.97,
+          "score": 91.64,
           "close": 275.0
         },
-        "2413": {
-          "name": "環科",
-          "score": 80.32,
-          "close": 53.0
+        "5469": {
+          "name": "瀚宇博",
+          "score": 91.05,
+          "close": 74.7
         },
-        "2453": {
-          "name": "凌群",
-          "score": 80.28,
-          "close": 55.3
+        "2481": {
+          "name": "強茂",
+          "score": 88.32,
+          "close": 168.5
+        },
+        "5269": {
+          "name": "祥碩",
+          "score": 87.82,
+          "close": 1475.0
+        },
+        "3034": {
+          "name": "聯詠",
+          "score": 87.4,
+          "close": 548.0
+        },
+        "2882": {
+          "name": "國泰金",
+          "score": 87.32,
+          "close": 112.5
+        },
+        "2377": {
+          "name": "微星",
+          "score": 86.67,
+          "close": 153.5
+        },
+        "2474": {
+          "name": "可成",
+          "score": 86.34,
+          "close": 207.0
         }
       }
     },
