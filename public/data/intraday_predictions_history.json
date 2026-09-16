@@ -1,5 +1,59 @@
 [
   {
+    "scan_date": "20260916",
+    "captured_at": "2026-09-16T23:07:39.350039+08:00",
+    "scan_type": "intraday_daytrade",
+    "top5": [
+      {
+        "stock_id": "3297",
+        "name": "杭特電子",
+        "entry_price": 32.5,
+        "change_pct": 5.19,
+        "sector": "光電業",
+        "total_score": 81.8
+      },
+      {
+        "stock_id": "6221",
+        "name": "晉泰科技",
+        "entry_price": 29.3,
+        "change_pct": 4.09,
+        "sector": "資訊服務業",
+        "total_score": 76.5
+      },
+      {
+        "stock_id": "5251",
+        "name": "天鉞電子",
+        "entry_price": 30.1,
+        "change_pct": 3.43,
+        "sector": "光電業",
+        "total_score": 76.5
+      },
+      {
+        "stock_id": "6174",
+        "name": "安碁科技",
+        "entry_price": 44.6,
+        "change_pct": 5.06,
+        "sector": "電子零組件業",
+        "total_score": 76.5
+      },
+      {
+        "stock_id": "4924",
+        "name": "欣厚科技",
+        "entry_price": 14.1,
+        "change_pct": 4.44,
+        "sector": "其他",
+        "total_score": 73.5
+      }
+    ],
+    "t1_return": null,
+    "t1_check_date": null,
+    "t3_return": null,
+    "t3_check_date": null,
+    "t5_return": null,
+    "t5_check_date": null,
+    "win": null
+  },
+  {
     "scan_date": "20260827",
     "captured_at": "2026-09-15T23:11:05.527260+08:00",
     "scan_type": "intraday_daytrade",
