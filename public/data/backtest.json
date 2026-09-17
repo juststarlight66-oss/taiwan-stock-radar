@@ -734,9 +734,9 @@
           "pending": true,
           "stocks": [
             {
-              "stock_id": "2603",
-              "name": "長榮",
-              "entry": 239.0,
+              "stock_id": "3702",
+              "name": "大聯大",
+              "entry": 111.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -744,9 +744,19 @@
               "pending": true
             },
             {
-              "stock_id": "3014",
-              "name": "聯陽",
-              "entry": 132.5,
+              "stock_id": "2603",
+              "name": "長榮",
+              "entry": 242.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3005",
+              "name": "神基",
+              "entry": 118.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -756,7 +766,7 @@
             {
               "stock_id": "9945",
               "name": "潤泰新",
-              "entry": 28.05,
+              "entry": 28.95,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -764,9 +774,9 @@
               "pending": true
             },
             {
-              "stock_id": "2855",
-              "name": "統一證",
-              "entry": 51.6,
+              "stock_id": "4763",
+              "name": "材料*-KY",
+              "entry": 47.7,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -774,9 +784,9 @@
               "pending": true
             },
             {
-              "stock_id": "1817",
-              "name": "凱撒衛",
-              "entry": 40.2,
+              "stock_id": "6505",
+              "name": "台塑化",
+              "entry": 86.2,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -784,9 +794,9 @@
               "pending": true
             },
             {
-              "stock_id": "6176",
-              "name": "瑞儀",
-              "entry": 92.2,
+              "stock_id": "1709",
+              "name": "和益",
+              "entry": 42.95,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -794,9 +804,9 @@
               "pending": true
             },
             {
-              "stock_id": "4532",
-              "name": "瑞智",
-              "entry": 23.6,
+              "stock_id": "8478",
+              "name": "東哥遊艇",
+              "entry": 143.5,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -804,9 +814,9 @@
               "pending": true
             },
             {
-              "stock_id": "2617",
-              "name": "台航",
-              "entry": 32.45,
+              "stock_id": "1725",
+              "name": "元禎",
+              "entry": 33.6,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -814,19 +824,9 @@
               "pending": true
             },
             {
-              "stock_id": "2382",
-              "name": "廣達",
-              "entry": 340.5,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "2812",
-              "name": "台中銀",
-              "entry": 19.3,
+              "stock_id": "1708",
+              "name": "東鹼",
+              "entry": 51.1,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -843,9 +843,9 @@
           "pending": true,
           "stocks": [
             {
-              "stock_id": "2603",
-              "name": "長榮",
-              "entry": 239.0,
+              "stock_id": "3702",
+              "name": "大聯大",
+              "entry": 111.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -853,9 +853,19 @@
               "pending": true
             },
             {
-              "stock_id": "3014",
-              "name": "聯陽",
-              "entry": 132.5,
+              "stock_id": "2603",
+              "name": "長榮",
+              "entry": 242.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3005",
+              "name": "神基",
+              "entry": 118.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -865,7 +875,7 @@
             {
               "stock_id": "9945",
               "name": "潤泰新",
-              "entry": 28.05,
+              "entry": 28.95,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -873,9 +883,9 @@
               "pending": true
             },
             {
-              "stock_id": "2855",
-              "name": "統一證",
-              "entry": 51.6,
+              "stock_id": "4763",
+              "name": "材料*-KY",
+              "entry": 47.7,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -883,9 +893,9 @@
               "pending": true
             },
             {
-              "stock_id": "1817",
-              "name": "凱撒衛",
-              "entry": 40.2,
+              "stock_id": "6505",
+              "name": "台塑化",
+              "entry": 86.2,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -893,9 +903,9 @@
               "pending": true
             },
             {
-              "stock_id": "6176",
-              "name": "瑞儀",
-              "entry": 92.2,
+              "stock_id": "1709",
+              "name": "和益",
+              "entry": 42.95,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -903,9 +913,9 @@
               "pending": true
             },
             {
-              "stock_id": "4532",
-              "name": "瑞智",
-              "entry": 23.6,
+              "stock_id": "8478",
+              "name": "東哥遊艇",
+              "entry": 143.5,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -913,9 +923,9 @@
               "pending": true
             },
             {
-              "stock_id": "2617",
-              "name": "台航",
-              "entry": 32.45,
+              "stock_id": "1725",
+              "name": "元禎",
+              "entry": 33.6,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -923,19 +933,9 @@
               "pending": true
             },
             {
-              "stock_id": "2382",
-              "name": "廣達",
-              "entry": 340.5,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "2812",
-              "name": "台中銀",
-              "entry": 19.3,
+              "stock_id": "1708",
+              "name": "東鹼",
+              "entry": 51.1,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -952,9 +952,9 @@
           "pending": true,
           "stocks": [
             {
-              "stock_id": "2603",
-              "name": "長榮",
-              "entry": 239.0,
+              "stock_id": "3702",
+              "name": "大聯大",
+              "entry": 111.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -962,9 +962,19 @@
               "pending": true
             },
             {
-              "stock_id": "3014",
-              "name": "聯陽",
-              "entry": 132.5,
+              "stock_id": "2603",
+              "name": "長榮",
+              "entry": 242.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3005",
+              "name": "神基",
+              "entry": 118.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -974,7 +984,7 @@
             {
               "stock_id": "9945",
               "name": "潤泰新",
-              "entry": 28.05,
+              "entry": 28.95,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -982,9 +992,9 @@
               "pending": true
             },
             {
-              "stock_id": "2855",
-              "name": "統一證",
-              "entry": 51.6,
+              "stock_id": "4763",
+              "name": "材料*-KY",
+              "entry": 47.7,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -992,9 +1002,9 @@
               "pending": true
             },
             {
-              "stock_id": "1817",
-              "name": "凱撒衛",
-              "entry": 40.2,
+              "stock_id": "6505",
+              "name": "台塑化",
+              "entry": 86.2,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1002,9 +1012,9 @@
               "pending": true
             },
             {
-              "stock_id": "6176",
-              "name": "瑞儀",
-              "entry": 92.2,
+              "stock_id": "1709",
+              "name": "和益",
+              "entry": 42.95,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1012,9 +1022,9 @@
               "pending": true
             },
             {
-              "stock_id": "4532",
-              "name": "瑞智",
-              "entry": 23.6,
+              "stock_id": "8478",
+              "name": "東哥遊艇",
+              "entry": 143.5,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1022,9 +1032,9 @@
               "pending": true
             },
             {
-              "stock_id": "2617",
-              "name": "台航",
-              "entry": 32.45,
+              "stock_id": "1725",
+              "name": "元禎",
+              "entry": 33.6,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1032,19 +1042,9 @@
               "pending": true
             },
             {
-              "stock_id": "2382",
-              "name": "廣達",
-              "entry": 340.5,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "2812",
-              "name": "台中銀",
-              "entry": 19.3,
+              "stock_id": "1708",
+              "name": "東鹼",
+              "entry": 51.1,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -14566,60 +14566,60 @@
       }
     }
   ],
-  "last_updated": "2026-09-17T19:53:14.399078+08:00",
+  "last_updated": "2026-09-17T22:41:49.125695+08:00",
   "history": [
     {
       "date": "2026/09/17",
       "results": {
+        "3702": {
+          "name": "大聯大",
+          "score": 94.33,
+          "close": 111.0
+        },
         "2603": {
           "name": "長榮",
-          "score": 95.97,
-          "close": 239.0
+          "score": 91.57,
+          "close": 242.5
         },
-        "3014": {
-          "name": "聯陽",
-          "score": 91.28,
-          "close": 132.5
+        "3005": {
+          "name": "神基",
+          "score": 91.36,
+          "close": 118.0
         },
         "9945": {
           "name": "潤泰新",
-          "score": 89.78,
-          "close": 28.05
+          "score": 90.31,
+          "close": 28.95
         },
-        "2855": {
-          "name": "統一證",
-          "score": 87.86,
-          "close": 51.6
+        "4763": {
+          "name": "材料*-KY",
+          "score": 90.12,
+          "close": 47.7
         },
-        "1817": {
-          "name": "凱撒衛",
-          "score": 87.18,
-          "close": 40.2
-        },
-        "6176": {
-          "name": "瑞儀",
+        "6505": {
+          "name": "台塑化",
           "score": 86.76,
-          "close": 92.2
+          "close": 86.2
         },
-        "4532": {
-          "name": "瑞智",
-          "score": 86.03,
-          "close": 23.6
+        "1709": {
+          "name": "和益",
+          "score": 86.19,
+          "close": 42.95
         },
-        "2617": {
-          "name": "台航",
-          "score": 85.95,
-          "close": 32.45
+        "8478": {
+          "name": "東哥遊艇",
+          "score": 85.98,
+          "close": 143.5
         },
-        "2382": {
-          "name": "廣達",
-          "score": 85.68,
-          "close": 340.5
+        "1725": {
+          "name": "元禎",
+          "score": 85.82,
+          "close": 33.6
         },
-        "2812": {
-          "name": "台中銀",
-          "score": 85.06,
-          "close": 19.3
+        "1708": {
+          "name": "東鹼",
+          "score": 85.74,
+          "close": 51.1
         }
       }
     },
