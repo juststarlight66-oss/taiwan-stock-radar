@@ -1,5 +1,59 @@
 [
   {
+    "scan_date": "20260918",
+    "captured_at": "2026-09-18T22:35:48.084174+08:00",
+    "scan_type": "intraday_daytrade",
+    "top5": [
+      {
+        "stock_id": "3312",
+        "name": "弘憶股",
+        "entry_price": 51.2,
+        "change_pct": 5.03,
+        "sector": "電子通路業",
+        "total_score": 81.2
+      },
+      {
+        "stock_id": "4907",
+        "name": "富宇地產",
+        "entry_price": 45.8,
+        "change_pct": 4.33,
+        "sector": "建材營造",
+        "total_score": 76.5
+      },
+      {
+        "stock_id": "2527",
+        "name": "宏璟",
+        "entry_price": 45.7,
+        "change_pct": 4.46,
+        "sector": "建材營造",
+        "total_score": 76.0
+      },
+      {
+        "stock_id": "1438",
+        "name": "三地開發",
+        "entry_price": 22.5,
+        "change_pct": 5.37,
+        "sector": "建材營造",
+        "total_score": 76.0
+      },
+      {
+        "stock_id": "1235",
+        "name": "興泰",
+        "entry_price": 39.4,
+        "change_pct": 5.07,
+        "sector": "食品工業",
+        "total_score": 76.0
+      }
+    ],
+    "t1_return": null,
+    "t1_check_date": null,
+    "t3_return": null,
+    "t3_check_date": null,
+    "t5_return": null,
+    "t5_check_date": null,
+    "win": null
+  },
+  {
     "scan_date": "20260916",
     "captured_at": "2026-09-17T23:11:34.601088+08:00",
     "scan_type": "intraday_daytrade",
