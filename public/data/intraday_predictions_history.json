@@ -1,5 +1,59 @@
 [
   {
+    "scan_date": "20260921",
+    "captured_at": "2026-09-22T00:33:00.094424+08:00",
+    "scan_type": "intraday_daytrade",
+    "top5": [
+      {
+        "stock_id": "6526",
+        "name": "達發",
+        "entry_price": 727.0,
+        "change_pct": 5.21,
+        "sector": "半導體業",
+        "total_score": 78.2
+      },
+      {
+        "stock_id": "8183",
+        "name": "台灣精星科技",
+        "entry_price": 29.1,
+        "change_pct": 3.74,
+        "sector": "其他電子業",
+        "total_score": 76.5
+      },
+      {
+        "stock_id": "7768",
+        "name": "頌勝科技",
+        "entry_price": 301.0,
+        "change_pct": 5.24,
+        "sector": "",
+        "total_score": 74.2
+      },
+      {
+        "stock_id": "3691",
+        "name": "碩禾電子材料",
+        "entry_price": 101.5,
+        "change_pct": 4.1,
+        "sector": "光電業",
+        "total_score": 74.2
+      },
+      {
+        "stock_id": "2360",
+        "name": "致茂",
+        "entry_price": 2395.0,
+        "change_pct": 4.59,
+        "sector": "其他電子業",
+        "total_score": 73.5
+      }
+    ],
+    "t1_return": null,
+    "t1_check_date": null,
+    "t3_return": null,
+    "t3_check_date": null,
+    "t5_return": null,
+    "t5_check_date": null,
+    "win": null
+  },
+  {
     "scan_date": "20260918",
     "captured_at": "2026-09-18T22:35:48.084174+08:00",
     "scan_type": "intraday_daytrade",
