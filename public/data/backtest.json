@@ -734,9 +734,29 @@
           "pending": true,
           "stocks": [
             {
-              "stock_id": "1102",
-              "name": "亞泥",
-              "entry": 35.95,
+              "stock_id": "2010",
+              "name": "春源",
+              "entry": 22.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2636",
+              "name": "台驊控股",
+              "entry": 71.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2025",
+              "name": "千興",
+              "entry": 13.1,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -746,7 +766,7 @@
             {
               "stock_id": "2027",
               "name": "大成鋼",
-              "entry": 46.6,
+              "entry": 47.6,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -754,9 +774,9 @@
               "pending": true
             },
             {
-              "stock_id": "2109",
-              "name": "華豐",
-              "entry": 14.85,
+              "stock_id": "2031",
+              "name": "新光鋼",
+              "entry": 46.1,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -764,9 +784,19 @@
               "pending": true
             },
             {
-              "stock_id": "2347",
-              "name": "聯強",
-              "entry": 94.5,
+              "stock_id": "6743",
+              "name": "安普新",
+              "entry": 30.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6201",
+              "name": "亞弘電",
+              "entry": 44.7,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -776,7 +806,7 @@
             {
               "stock_id": "4915",
               "name": "致伸",
-              "entry": 64.4,
+              "entry": 64.1,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -784,9 +814,9 @@
               "pending": true
             },
             {
-              "stock_id": "5225",
-              "name": "東科-KY",
-              "entry": 56.2,
+              "stock_id": "3022",
+              "name": "威強電",
+              "entry": 93.1,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -794,39 +824,9 @@
               "pending": true
             },
             {
-              "stock_id": "9904",
-              "name": "寶成",
-              "entry": 24.9,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "6670",
-              "name": "復盛應用",
-              "entry": 273.0,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "9945",
-              "name": "潤泰新",
-              "entry": 29.55,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "2114",
-              "name": "鑫永銓",
-              "entry": 90.0,
+              "stock_id": "1456",
+              "name": "怡華",
+              "entry": 14.7,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -843,9 +843,29 @@
           "pending": true,
           "stocks": [
             {
-              "stock_id": "1102",
-              "name": "亞泥",
-              "entry": 35.95,
+              "stock_id": "2010",
+              "name": "春源",
+              "entry": 22.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2636",
+              "name": "台驊控股",
+              "entry": 71.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2025",
+              "name": "千興",
+              "entry": 13.1,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -855,7 +875,7 @@
             {
               "stock_id": "2027",
               "name": "大成鋼",
-              "entry": 46.6,
+              "entry": 47.6,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -863,9 +883,9 @@
               "pending": true
             },
             {
-              "stock_id": "2109",
-              "name": "華豐",
-              "entry": 14.85,
+              "stock_id": "2031",
+              "name": "新光鋼",
+              "entry": 46.1,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -873,9 +893,19 @@
               "pending": true
             },
             {
-              "stock_id": "2347",
-              "name": "聯強",
-              "entry": 94.5,
+              "stock_id": "6743",
+              "name": "安普新",
+              "entry": 30.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6201",
+              "name": "亞弘電",
+              "entry": 44.7,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -885,7 +915,7 @@
             {
               "stock_id": "4915",
               "name": "致伸",
-              "entry": 64.4,
+              "entry": 64.1,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -893,9 +923,9 @@
               "pending": true
             },
             {
-              "stock_id": "5225",
-              "name": "東科-KY",
-              "entry": 56.2,
+              "stock_id": "3022",
+              "name": "威強電",
+              "entry": 93.1,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -903,39 +933,9 @@
               "pending": true
             },
             {
-              "stock_id": "9904",
-              "name": "寶成",
-              "entry": 24.9,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "6670",
-              "name": "復盛應用",
-              "entry": 273.0,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "9945",
-              "name": "潤泰新",
-              "entry": 29.55,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "2114",
-              "name": "鑫永銓",
-              "entry": 90.0,
+              "stock_id": "1456",
+              "name": "怡華",
+              "entry": 14.7,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -952,9 +952,29 @@
           "pending": true,
           "stocks": [
             {
-              "stock_id": "1102",
-              "name": "亞泥",
-              "entry": 35.95,
+              "stock_id": "2010",
+              "name": "春源",
+              "entry": 22.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2636",
+              "name": "台驊控股",
+              "entry": 71.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2025",
+              "name": "千興",
+              "entry": 13.1,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -964,7 +984,7 @@
             {
               "stock_id": "2027",
               "name": "大成鋼",
-              "entry": 46.6,
+              "entry": 47.6,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -972,9 +992,9 @@
               "pending": true
             },
             {
-              "stock_id": "2109",
-              "name": "華豐",
-              "entry": 14.85,
+              "stock_id": "2031",
+              "name": "新光鋼",
+              "entry": 46.1,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -982,9 +1002,19 @@
               "pending": true
             },
             {
-              "stock_id": "2347",
-              "name": "聯強",
-              "entry": 94.5,
+              "stock_id": "6743",
+              "name": "安普新",
+              "entry": 30.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6201",
+              "name": "亞弘電",
+              "entry": 44.7,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -994,7 +1024,7 @@
             {
               "stock_id": "4915",
               "name": "致伸",
-              "entry": 64.4,
+              "entry": 64.1,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1002,9 +1032,9 @@
               "pending": true
             },
             {
-              "stock_id": "5225",
-              "name": "東科-KY",
-              "entry": 56.2,
+              "stock_id": "3022",
+              "name": "威強電",
+              "entry": 93.1,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1012,39 +1042,9 @@
               "pending": true
             },
             {
-              "stock_id": "9904",
-              "name": "寶成",
-              "entry": 24.9,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "6670",
-              "name": "復盛應用",
-              "entry": 273.0,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "9945",
-              "name": "潤泰新",
-              "entry": 29.55,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "2114",
-              "name": "鑫永銓",
-              "entry": 90.0,
+              "stock_id": "1456",
+              "name": "怡華",
+              "entry": 14.7,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -16226,60 +16226,60 @@
       }
     }
   ],
-  "last_updated": "2026-09-24T19:02:10.382488+08:00",
+  "last_updated": "2026-09-24T22:40:01.218769+08:00",
   "history": [
     {
       "date": "2026/09/24",
       "results": {
-        "1102": {
-          "name": "亞泥",
-          "score": 88.32,
-          "close": 35.95
+        "2010": {
+          "name": "春源",
+          "score": 94.07,
+          "close": 22.35
+        },
+        "2636": {
+          "name": "台驊控股",
+          "score": 91.97,
+          "close": 71.9
+        },
+        "2025": {
+          "name": "千興",
+          "score": 91.78,
+          "close": 13.1
         },
         "2027": {
           "name": "大成鋼",
-          "score": 86.05,
-          "close": 46.6
+          "score": 91.38,
+          "close": 47.6
         },
-        "2109": {
-          "name": "華豐",
-          "score": 84.8,
-          "close": 14.85
+        "2031": {
+          "name": "新光鋼",
+          "score": 89.35,
+          "close": 46.1
         },
-        "2347": {
-          "name": "聯強",
-          "score": 84.47,
-          "close": 94.5
+        "6743": {
+          "name": "安普新",
+          "score": 84.91,
+          "close": 30.6
+        },
+        "6201": {
+          "name": "亞弘電",
+          "score": 83.76,
+          "close": 44.7
         },
         "4915": {
           "name": "致伸",
-          "score": 84.0,
-          "close": 64.4
+          "score": 83.61,
+          "close": 64.1
         },
-        "5225": {
-          "name": "東科-KY",
-          "score": 83.87,
-          "close": 56.2
+        "3022": {
+          "name": "威強電",
+          "score": 83.57,
+          "close": 93.1
         },
-        "9904": {
-          "name": "寶成",
-          "score": 82.61,
-          "close": 24.9
-        },
-        "6670": {
-          "name": "復盛應用",
-          "score": 82.05,
-          "close": 273.0
-        },
-        "9945": {
-          "name": "潤泰新",
-          "score": 81.56,
-          "close": 29.55
-        },
-        "2114": {
-          "name": "鑫永銓",
-          "score": 81.27,
-          "close": 90.0
+        "1456": {
+          "name": "怡華",
+          "score": 83.53,
+          "close": 14.7
         }
       }
     },
