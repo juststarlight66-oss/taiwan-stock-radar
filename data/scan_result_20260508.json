@@ -1,0 +1,32 @@
+{
+  "date": "20260508",
+  "scan_date": "2026/05/08",
+  "scan_time": "22:55:00",
+  "scanned_count": 2100,
+  "market_env": "整理偏弱",
+  "taiex": {
+    "close": 41603.94,
+    "change": -329.84,
+    "change_pct": -0.79
+  },
+  "top10": [
+    {"rank":1,"stock_id":"6446","stock_name":"藥華藥","close":724,"change_pct":9.87,"total_score":92,"recommendation":"★★★ Strong Recommend","reason":"藥華藥4月單月營收20.3億元，創歷史新高，年增幅達142%，前四月累計營收更大幅超越去年全年。外資連續8個交易日買超，今日漲停鎖板，技術面呈現強勢多頭排列，KD高位交叉向上，MACD紅柱持續擴張。生技族群今日領漲大盤，族群動能最強。適合波段操作，建議分批布局，停損設於680元。"},
+    {"rank":2,"stock_id":"6526","stock_name":"達發","close":753,"change_pct":4.58,"total_score":89,"recommendation":"★★★ Strong Recommend","reason":"達發科技低軌衛星晶片訂單能見度翻倍，Q1 EPS達12元史上最高，三大法人今日合計買超2026張，外資連買5日。技術面突破前高整理平台，成交量放大6.7倍，顯示主力大量進場。低軌衛星題材持續發酵，SpaceX擴產消息帶動族群輪動。建議進場，目標看800元，停損設於720元。"},
+    {"rank":3,"stock_id":"2408","stock_name":"南亞科","close":274,"change_pct":-4.53,"total_score":87,"recommendation":"★★★ Strong Recommend","reason":"南亞科4月營收年增717%，前4月累計營收已超越去年全年總額，HBM3E需求爆發帶動業績大幅反轉。外資持續增持，今日成交量達1.3億股，顯示機構大量布局。記憶體族群受惠AI伺服器需求強勁，DDR5報價持續上揚。技術面築底完成向上突破，適合中期波段操作，停損設於260元。"},
+    {"rank":4,"stock_id":"3443","stock_name":"創意","close":5210,"change_pct":-4.40,"total_score":85,"recommendation":"★★★ Strong Recommend","reason":"創意電子Q1 EPS 12.28元創歷史新高，受惠台積電CoWoS先進封裝產能持續滿載。外資目標價上調至6000元，今日雖獲利回吐下跌240元，但基本面強勁，視為回測買點。CoW-SoIC訂單能見度至2027年，AI晶片設計服務需求不減。技術面回測月線支撐，逢低分批布局，停損設於5000元。"},
+    {"rank":5,"stock_id":"2059","stock_name":"川湖","close":5320,"change_pct":9.91,"total_score":84,"recommendation":"★★★ Strong Recommend","reason":"川湖Q1 EPS 36.58元，為台股機殼類股最高水準，法說會揭露Q2訂單能見度強勁，AI伺服器滑軌需求爆發，今日漲停480元表現強勢。外資連買10日，投信同步加碼，三大法人聯手做多。伺服器機殼族群受惠GB200機架大量出貨，全年EPS估破120元。技術面突破歷史高點，追高風險需注意，停損設於5100元。"},
+    {"rank":6,"stock_id":"2383","stock_name":"台光電","close":4750,"change_pct":-4.23,"total_score":82,"recommendation":"★★ Recommend","reason":"台光電Q1 EPS 14.9元創歷史新高，ABF載板需求受惠AI晶片封裝持續增加，投信連續12日大力買超。今日雖下跌210元，屬技術面正常回檔，基本面無虞。下半年GB300訂單陸續入帳，全年EPS估破50元。技術面回測20日均線支撐，逢低布局機會，但需注意整體市場環境，停損設於4500元。"},
+    {"rank":7,"stock_id":"8210","stock_name":"勤誠","close":1415,"change_pct":9.69,"total_score":80,"recommendation":"★★ Recommend","reason":"勤誠Q1 EPS 10.73元史上最高，機殼散熱雙業務受惠AI伺服器放量，法說會預告Q2訂單持續強勁。今日漲停收盤，成交量放大6倍，技術面突破盤整區，短線動能強勁。外資與投信同步買超，三大法人站隊做多。適合短線操作，建議追高需注意風險，停損設於1360元。"},
+    {"rank":8,"stock_id":"3036","stock_name":"文曄","close":240.5,"change_pct":9.82,"total_score":78,"recommendation":"★★ Recommend","reason":"文曄Q1 EPS 5.32元創歷史最高，4月合併業績持續創高，AI伺服器零組件通路需求強勁，與輝達、AMD合作關係深化。今日漲停收盤240.5元，成交量放大，技術面突破前波高點。電子通路族群受惠下半年AI伺服器出貨旺季，預期全年EPS挑戰20元。停損設於225元。"},
+    {"rank":9,"stock_id":"2379","stock_name":"瑞昱","close":592,"change_pct":9.84,"total_score":76,"recommendation":"★★ Recommend","reason":"瑞昱今日收盤592元漲停，網通晶片受惠WiFi 7換機潮與AI家庭設備需求爆發。Q1 EPS預估15元以上，外資目標價上調至650元。技術面突破前高，量價俱揚為強勢訊號。但需注意外資態度尚未完全翻多，建議分批進場，等待外資連買確認後加碼，停損設於565元。"},
+    {"rank":10,"stock_id":"2327","stock_name":"國巨","close":389,"change_pct":4.72,"total_score":73,"recommendation":"★ Watch","reason":"國巨4月營收創歷史新高，被動元件族群受惠汽車電子與AI伺服器需求回溫，投信連續買超。技術面股價壓在400元整數關卡前稍作整理，需等待突破確認訊號。建議觀察是否能站穩400元並放量突破，突破後可輕倉進場。外資仍在觀望，短線操作為主，停損設於375元。"}
+  ],
+  "sector_ranking": [
+    {"rank":1,"sector_name":"生技醫療","change_pct":4.2},
+    {"rank":2,"sector_name":"IC設計","change_pct":2.8},
+    {"rank":3,"sector_name":"記憶體","change_pct":2.1},
+    {"rank":4,"sector_name":"被動元件","change_pct":1.5},
+    {"rank":5,"sector_name":"低軌衛星","change_pct":1.3}
+  ],
+  "updated_at": "2026-05-08T23:55:00.000000+08:00"
+}
