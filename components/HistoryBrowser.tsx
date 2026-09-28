@@ -145,7 +145,7 @@ export default function HistoryBrowser({ initialDates }: Props) {
   useEffect(() => {
     if (initialDates) return;
     setLoadingIndex(true);
-    fetch(`${BASE}/data/index.json`)
+    fetch(`${BASE}/data/index.json?v=${Date.now()}`, { cache: 'no-store' })
       .then(r => r.json())
       .then(d => {
         // Prefer 'scans' array (richer: has scanned_count), fallback to available_dates

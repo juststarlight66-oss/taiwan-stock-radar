@@ -19,8 +19,14 @@ export interface AllScoresData {
 
 const BASE = '/taiwan-stock-radar';
 
+// Data JSONs are regenerated under the same filename on every scan, and the
+// GitHub Pages CDN caches by bare path, so a stale payload can be served even
+// when the origin is fresh. Always send a unique query string plus `no-store`.
+const bust = (url: string) =>
+  `${url}${url.includes('?') ? '&' : '?'}v=${Date.now()}`;
+
 const fetcher = (url: string) =>
-  fetch(url).then((r) => {
+  fetch(bust(url), { cache: 'no-store' }).then((r) => {
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
     return r.json();
   });
@@ -138,7 +144,7 @@ export function useOnDemandScan() {
     setIsLoading(true);
     setResult(null);
     try {
-      const res = await fetch(`${BASE}/data/all_scores.json`);
+      const res = await fetch(bust(`${BASE}/data/all_scores.json`), { cache: 'no-store' });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const json: AllScoresData = await res.json();
       const found = (json.all_stock_scores ?? json.stocks ?? []).find(

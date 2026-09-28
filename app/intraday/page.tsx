@@ -340,10 +340,12 @@ export default function IntradayPage() {
       setLiveQuoteStatus('idle');
       setError(null);
 
-      // Phase 1: Load static JSONs (no cache-busting — let browser reuse them)
+      // Phase 1: Load static JSONs. Both are regenerated under the same filename
+      // on every scan and the Pages CDN caches by bare path, so cache-bust them.
+      const dataVersion = Date.now();
       const [intradayRes, latestRes] = await Promise.all([
-        fetch(`${BASE}/data/intraday.json`),
-        fetch(`${BASE}/data/latest.json`),
+        fetch(`${BASE}/data/intraday.json?v=${dataVersion}`, { cache: 'no-store' }),
+        fetch(`${BASE}/data/latest.json?v=${dataVersion}`, { cache: 'no-store' }),
       ]);
 
       const rawIntraday: any = await intradayRes.json();
