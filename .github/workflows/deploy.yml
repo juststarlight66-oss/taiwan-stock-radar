@@ -69,6 +69,7 @@ jobs:
           EOF
 
       - name: Enrich latest.json with strategy/targets/explode_prob
+        continue-on-error: true
         run: |
           python3 << 'PYEOF'
           import json, os, math
@@ -111,28 +112,64 @@ jobs:
                   return f'{strength} | \u98a8\u96aa\u5831\u916c\u6bd4 {rr:.1f}:1'
               return strength
 
+          def pick_score(s):
+              # v2 scan payloads carry 'score'; older payloads carried 'total_score'.
+              for key in ('score', 'total_score', 'weighted_score', 'final_score'):
+                  v = s.get(key)
+                  if isinstance(v, (int, float)):
+                      return float(v)
+              return 50.0
+
+          def pick_number(*candidates, fallback=None):
+              for v in candidates:
+                  if isinstance(v, (int, float)) and v > 0:
+                      return v
+              return fallback
+
           def enrich_stock(s):
               close = s.get('close') or 0
-              score = s.get('total_score', 0) if s.get('total_score') is not None else 50
+              score = pick_score(s)
               t = compute_targets(close)
               rec = compute_recommendation(score, t['upside'], t['downside'])
+
+              # The scan already emits its own entry/stop/target numbers and they are
+              # internally consistent, so keep them and only fill in what is missing.
+              existing = s.get('targets') if isinstance(s.get('targets'), dict) else {}
+              entry_low = pick_number(s.get('entry_low'), existing.get('entry_low'), fallback=t['entry_low'])
+              entry_high = pick_number(s.get('entry_high'), existing.get('entry_high'), fallback=t['entry_high'])
+              stop_loss = pick_number(s.get('stop_loss'), existing.get('stop_loss'), fallback=t['stop_loss'])
+              t1 = pick_number(s.get('target1'), existing.get('t1'), existing.get('target1'), fallback=t['target1'])
+              t2 = pick_number(s.get('target2'), existing.get('t2'), existing.get('target2'), fallback=t['target2'])
+              t3 = pick_number(s.get('target3'), existing.get('t3'), existing.get('target3'), fallback=t['target3'])
+
+              # Keep the scan's own strategy label (e.g. a plain string) instead of dropping it.
+              prev_strategy = s.get('strategy')
+              label = prev_strategy.get('label') if isinstance(prev_strategy, dict) else prev_strategy
+
               s['change_pct'] = s.get('change_pct', 0) or 0
-              s['entry_low'] = t['entry_low']
-              s['entry_high'] = t['entry_high']
-              s['stop_loss'] = t['stop_loss']
-              s['target1'] = t['target1']
-              s['target2'] = t['target2']
-              s['target3'] = t['target3']
+              s['entry_low'] = entry_low
+              s['entry_high'] = entry_high
+              s['stop_loss'] = stop_loss
+              s['target1'] = t1
+              s['target2'] = t2
+              s['target3'] = t3
               s['recommendation'] = rec
-              s['targets'] = t
+              s['targets'] = {
+                  't1': t1, 't2': t2, 't3': t3, 'stop_loss': stop_loss,
+                  'entry_low': entry_low, 'entry_high': entry_high,
+                  'target1': t1, 'target2': t2, 'target3': t3,
+                  'upside': t['upside'], 'upside2': t['upside2'], 'upside3': t['upside3'],
+                  'downside': t['downside'], 'atr': t['atr'],
+              }
               s['strategy'] = {
-                  'entry': t['entry_low'], 'entry_low': t['entry_low'],
-                  'entry_high': t['entry_high'], 'stop_loss': t['stop_loss'],
-                  'target': t['target1'], 'target1': t['target1'],
-                  'target2': t['target2'], 'target3': t['target3'],
+                  'entry': entry_low, 'entry_low': entry_low,
+                  'entry_high': entry_high, 'stop_loss': stop_loss,
+                  'target': t1, 'target1': t1,
+                  'target2': t2, 'target3': t3,
                   'upside': t['upside'], 'upside2': t['upside2'],
                   'upside3': t['upside3'], 'downside': t['downside'],
                   'atr': t['atr'], 'recommendation': rec,
+                  'label': label, 'score': score,
               }
               return s
 
@@ -144,18 +181,26 @@ jobs:
           enriched_explode = []
           for s in explode:
               e = enrich_stock(s)
-              score = s.get('total_score', 0) if s.get('total_score') is not None else 50
-              e['explode_prob'] = round(min(0.98, max(0.02, (score - 30) / 70)), 3)
+              if e.get('explode_prob') is None:
+                  # Keep the scan's own probability when it already computed one.
+                  score = pick_score(s)
+                  e['explode_prob'] = round(min(0.98, max(0.02, (score - 30) / 70)), 3)
               enriched_explode.append(e)
           data['explode_top5'] = enriched_explode
           print(f"Enriched {len(data['explode_top5'])} explode_top5 stocks")
 
-          with open('public/data/latest.json', 'w') as f:
+          tmp = 'public/data/latest.json.tmp'
+          with open(tmp, 'w') as f:
               json.dump(data, f, ensure_ascii=False)
+          os.replace(tmp, 'public/data/latest.json')
           print("latest.json enriched and saved.")
 
-          t = data['top10'][0]
-          print(f"Sample: #{t['stock_id']} {t.get('name','')} score={t['total_score']} entry={t.get('entry_low')}-{t.get('entry_high')} stop={t.get('stop_loss')} t1={t.get('target1')}")
+          # Diagnostic only - a cosmetic print must never fail the deploy step.
+          try:
+              t = data['top10'][0] if data.get('top10') else {}
+              print(f"Sample: #{t.get('stock_id','')} {t.get('name','')} score={t.get('score')} entry={t.get('entry_low')}-{t.get('entry_high')} stop={t.get('stop_loss')} t1={t.get('target1')}")
+          except Exception as exc:
+              print(f"[warn] sample print skipped: {exc}")
           PYEOF
 
       - name: Install dependencies
