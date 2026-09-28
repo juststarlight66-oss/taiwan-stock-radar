@@ -724,6 +724,338 @@
   ],
   "grouped_records": [
     {
+      "scan_date": "20260929",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "2010",
+              "name": "春源",
+              "entry": 22.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2031",
+              "name": "新光鋼",
+              "entry": 46.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2006",
+              "name": "東和鋼鐵",
+              "entry": 87.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9958",
+              "name": "世紀鋼",
+              "entry": 92.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2027",
+              "name": "大成鋼",
+              "entry": 47.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6743",
+              "name": "安普新",
+              "entry": 30.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6201",
+              "name": "亞弘電",
+              "entry": 44.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4915",
+              "name": "致伸",
+              "entry": 64.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3022",
+              "name": "威強電",
+              "entry": 93.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1456",
+              "name": "怡華",
+              "entry": 14.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "2010",
+              "name": "春源",
+              "entry": 22.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2031",
+              "name": "新光鋼",
+              "entry": 46.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2006",
+              "name": "東和鋼鐵",
+              "entry": 87.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9958",
+              "name": "世紀鋼",
+              "entry": 92.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2027",
+              "name": "大成鋼",
+              "entry": 47.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6743",
+              "name": "安普新",
+              "entry": 30.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6201",
+              "name": "亞弘電",
+              "entry": 44.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4915",
+              "name": "致伸",
+              "entry": 64.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3022",
+              "name": "威強電",
+              "entry": 93.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1456",
+              "name": "怡華",
+              "entry": 14.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "2010",
+              "name": "春源",
+              "entry": 22.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2031",
+              "name": "新光鋼",
+              "entry": 46.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2006",
+              "name": "東和鋼鐵",
+              "entry": 87.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9958",
+              "name": "世紀鋼",
+              "entry": 92.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2027",
+              "name": "大成鋼",
+              "entry": 47.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6743",
+              "name": "安普新",
+              "entry": 30.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6201",
+              "name": "亞弘電",
+              "entry": 44.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4915",
+              "name": "致伸",
+              "entry": 64.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3022",
+              "name": "威強電",
+              "entry": 93.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1456",
+              "name": "怡華",
+              "entry": 14.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
+    },
+    {
       "scan_date": "20260925",
       "periods": {
         "T1": {
@@ -16558,8 +16890,63 @@
       }
     }
   ],
-  "last_updated": "2026-09-25T19:03:04.463284+08:00",
+  "last_updated": "2026-09-29T02:06:28.996426+08:00",
   "history": [
+    {
+      "date": "2026/09/29",
+      "results": {
+        "2010": {
+          "name": "春源",
+          "score": 94.07,
+          "close": 22.35
+        },
+        "2031": {
+          "name": "新光鋼",
+          "score": 89.35,
+          "close": 46.1
+        },
+        "2006": {
+          "name": "東和鋼鐵",
+          "score": 86.58,
+          "close": 87.8
+        },
+        "9958": {
+          "name": "世紀鋼",
+          "score": 86.54,
+          "close": 92.2
+        },
+        "2027": {
+          "name": "大成鋼",
+          "score": 86.14,
+          "close": 47.6
+        },
+        "6743": {
+          "name": "安普新",
+          "score": 84.91,
+          "close": 30.6
+        },
+        "6201": {
+          "name": "亞弘電",
+          "score": 83.76,
+          "close": 44.7
+        },
+        "4915": {
+          "name": "致伸",
+          "score": 83.61,
+          "close": 64.1
+        },
+        "3022": {
+          "name": "威強電",
+          "score": 83.57,
+          "close": 93.1
+        },
+        "1456": {
+          "name": "怡華",
+          "score": 83.53,
+          "close": 14.7
+        }
+      }
+    },
     {
       "date": "2026/09/25",
       "results": {
