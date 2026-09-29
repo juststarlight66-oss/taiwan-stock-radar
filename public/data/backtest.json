@@ -724,6 +724,338 @@
   ],
   "grouped_records": [
     {
+      "scan_date": "20260930",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "3356",
+              "name": "奇偶",
+              "entry": 65.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4739",
+              "name": "康普",
+              "entry": 83.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2031",
+              "name": "新光鋼",
+              "entry": 45.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2020",
+              "name": "美亞",
+              "entry": 24.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1612",
+              "name": "宏泰",
+              "entry": 35.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3051",
+              "name": "力特",
+              "entry": 22.65,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3673",
+              "name": "TPK-KY",
+              "entry": 68.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3592",
+              "name": "瑞鼎",
+              "entry": 225.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6189",
+              "name": "豐藝",
+              "entry": 50.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4942",
+              "name": "嘉彰",
+              "entry": 31.95,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "3356",
+              "name": "奇偶",
+              "entry": 65.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4739",
+              "name": "康普",
+              "entry": 83.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2031",
+              "name": "新光鋼",
+              "entry": 45.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2020",
+              "name": "美亞",
+              "entry": 24.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1612",
+              "name": "宏泰",
+              "entry": 35.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3051",
+              "name": "力特",
+              "entry": 22.65,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3673",
+              "name": "TPK-KY",
+              "entry": 68.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3592",
+              "name": "瑞鼎",
+              "entry": 225.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6189",
+              "name": "豐藝",
+              "entry": 50.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4942",
+              "name": "嘉彰",
+              "entry": 31.95,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "3356",
+              "name": "奇偶",
+              "entry": 65.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4739",
+              "name": "康普",
+              "entry": 83.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2031",
+              "name": "新光鋼",
+              "entry": 45.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2020",
+              "name": "美亞",
+              "entry": 24.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1612",
+              "name": "宏泰",
+              "entry": 35.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3051",
+              "name": "力特",
+              "entry": 22.65,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3673",
+              "name": "TPK-KY",
+              "entry": 68.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3592",
+              "name": "瑞鼎",
+              "entry": 225.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6189",
+              "name": "豐藝",
+              "entry": 50.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4942",
+              "name": "嘉彰",
+              "entry": 31.95,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
+    },
+    {
       "scan_date": "20260929",
       "periods": {
         "T1": {
@@ -16890,8 +17222,63 @@
       }
     }
   ],
-  "last_updated": "2026-09-29T19:08:56.134414+08:00",
+  "last_updated": "2026-09-30T00:23:09.568373+08:00",
   "history": [
+    {
+      "date": "2026/09/30",
+      "results": {
+        "3356": {
+          "name": "奇偶",
+          "score": 87.56,
+          "close": 65.6
+        },
+        "4739": {
+          "name": "康普",
+          "score": 87.39,
+          "close": 83.2
+        },
+        "2031": {
+          "name": "新光鋼",
+          "score": 86.82,
+          "close": 45.7
+        },
+        "2020": {
+          "name": "美亞",
+          "score": 86.27,
+          "close": 24.3
+        },
+        "1612": {
+          "name": "宏泰",
+          "score": 84.95,
+          "close": 35.35
+        },
+        "3051": {
+          "name": "力特",
+          "score": 84.64,
+          "close": 22.65
+        },
+        "3673": {
+          "name": "TPK-KY",
+          "score": 84.32,
+          "close": 68.7
+        },
+        "3592": {
+          "name": "瑞鼎",
+          "score": 84.14,
+          "close": 225.0
+        },
+        "6189": {
+          "name": "豐藝",
+          "score": 83.95,
+          "close": 50.2
+        },
+        "4942": {
+          "name": "嘉彰",
+          "score": 83.66,
+          "close": 31.95
+        }
+      }
+    },
     {
       "date": "2026/09/29",
       "results": {
