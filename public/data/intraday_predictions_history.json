@@ -1,5 +1,59 @@
 [
   {
+    "scan_date": "20260929",
+    "captured_at": "2026-09-30T00:35:55.359768+08:00",
+    "scan_type": "intraday_daytrade",
+    "top5": [
+      {
+        "stock_id": "8240",
+        "name": "華宏新技",
+        "entry_price": 54.5,
+        "change_pct": 4.81,
+        "sector": "光電業",
+        "total_score": 74.2
+      },
+      {
+        "stock_id": "3323",
+        "name": "加百裕工業",
+        "entry_price": 29.3,
+        "change_pct": 5.21,
+        "sector": "電腦及週邊設備業",
+        "total_score": 74.2
+      },
+      {
+        "stock_id": "6872",
+        "name": "浩宇生醫",
+        "entry_price": 23.5,
+        "change_pct": 5.15,
+        "sector": "生技醫療業",
+        "total_score": 74.2
+      },
+      {
+        "stock_id": "6419",
+        "name": "京晨科技",
+        "entry_price": 154.0,
+        "change_pct": 3.36,
+        "sector": "光電業",
+        "total_score": 73.0
+      },
+      {
+        "stock_id": "3673",
+        "name": "TPK-KY",
+        "entry_price": 68.9,
+        "change_pct": 5.03,
+        "sector": "光電業",
+        "total_score": 70.8
+      }
+    ],
+    "t1_return": null,
+    "t1_check_date": null,
+    "t3_return": null,
+    "t3_check_date": null,
+    "t5_return": null,
+    "t5_check_date": null,
+    "win": null
+  },
+  {
     "scan_date": "20260923",
     "captured_at": "2026-09-29T02:14:12.568368+08:00",
     "scan_type": "intraday_daytrade",
