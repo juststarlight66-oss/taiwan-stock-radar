@@ -74717,5 +74717,117 @@
       "explode_prob": 0.543
     }
   ],
-  "generated_at": "2026-10-01T19:06:49.161385+08:00"
+  "generated_at": "2026-10-01T19:06:49.161385+08:00",
+  "backtest": {
+    "previous_scan_date": "20260930",
+    "T1": {
+      "label": "T+1",
+      "backtest_date": "20261001",
+      "win_rate": 44.4,
+      "avg_return": -0.39,
+      "filled": 9,
+      "stocks": [
+        {
+          "stock_id": "3592",
+          "name": "瑞鼎",
+          "entry": 237.5,
+          "close": 238.0,
+          "return_pct": 0.21,
+          "hit_target": true,
+          "hit_stoploss": false,
+          "pending": false
+        },
+        {
+          "stock_id": "6120",
+          "name": "達運",
+          "entry": 14.35,
+          "close": 14.75,
+          "return_pct": 2.79,
+          "hit_target": true,
+          "hit_stoploss": false,
+          "pending": false
+        },
+        {
+          "stock_id": "5538",
+          "name": "東明-KY",
+          "entry": 36.25,
+          "close": 35.95,
+          "return_pct": -0.83,
+          "hit_target": false,
+          "hit_stoploss": false,
+          "pending": false
+        },
+        {
+          "stock_id": "3038",
+          "name": "全台",
+          "entry": 20.8,
+          "close": 20.9,
+          "return_pct": 0.48,
+          "hit_target": true,
+          "hit_stoploss": false,
+          "pending": false
+        },
+        {
+          "stock_id": "2031",
+          "name": "新光鋼",
+          "entry": 46.5,
+          "close": 46.2,
+          "return_pct": -0.65,
+          "hit_target": false,
+          "hit_stoploss": false,
+          "pending": false
+        },
+        {
+          "stock_id": "1810",
+          "name": "和成",
+          "entry": 24.45,
+          "close": 24.0,
+          "return_pct": -1.84,
+          "hit_target": false,
+          "hit_stoploss": false,
+          "pending": false
+        },
+        {
+          "stock_id": "2323",
+          "name": "中環",
+          "entry": 11.0,
+          "close": null,
+          "return_pct": null,
+          "hit_target": null,
+          "hit_stoploss": null,
+          "pending": true
+        },
+        {
+          "stock_id": "2010",
+          "name": "春源",
+          "entry": 23.0,
+          "close": 22.5,
+          "return_pct": -2.17,
+          "hit_target": false,
+          "hit_stoploss": false,
+          "pending": false
+        },
+        {
+          "stock_id": "1605",
+          "name": "華新",
+          "entry": 38.4,
+          "close": 38.55,
+          "return_pct": 0.39,
+          "hit_target": true,
+          "hit_stoploss": false,
+          "pending": false
+        },
+        {
+          "stock_id": "2020",
+          "name": "美亞",
+          "entry": 26.7,
+          "close": 26.2,
+          "return_pct": -1.87,
+          "hit_target": false,
+          "hit_stoploss": false,
+          "pending": false
+        }
+      ]
+    }
+  }
 }

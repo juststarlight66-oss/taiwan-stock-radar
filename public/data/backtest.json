@@ -724,7 +724,7 @@
   ],
   "grouped_records": [
     {
-      "scan_date": "20260930",
+      "scan_date": "20261001",
       "periods": {
         "T1": {
           "label": "T+1",
@@ -732,66 +732,297 @@
           "win_rate": null,
           "avg_return": null,
           "pending": true,
+          "stocks": []
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "2420",
+              "name": "新巨",
+              "entry": 58.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4915",
+              "name": "致伸",
+              "entry": 65.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2458",
+              "name": "義隆",
+              "entry": 138.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2451",
+              "name": "創見",
+              "entry": 289.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "8016",
+              "name": "矽創",
+              "entry": 288.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3090",
+              "name": "日電貿",
+              "entry": 169.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3679",
+              "name": "新至陞",
+              "entry": 108.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6414",
+              "name": "樺漢",
+              "entry": 402.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2375",
+              "name": "凱美",
+              "entry": 124.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2478",
+              "name": "大毅",
+              "entry": 124.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "2420",
+              "name": "新巨",
+              "entry": 58.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4915",
+              "name": "致伸",
+              "entry": 65.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2458",
+              "name": "義隆",
+              "entry": 138.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2451",
+              "name": "創見",
+              "entry": 289.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "8016",
+              "name": "矽創",
+              "entry": 288.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3090",
+              "name": "日電貿",
+              "entry": 169.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3679",
+              "name": "新至陞",
+              "entry": 108.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6414",
+              "name": "樺漢",
+              "entry": 402.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2375",
+              "name": "凱美",
+              "entry": 124.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2478",
+              "name": "大毅",
+              "entry": 124.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scan_date": "20260930",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": "20261001",
+          "win_rate": 44.4,
+          "avg_return": -0.39,
+          "pending": false,
           "stocks": [
             {
               "stock_id": "3592",
               "name": "瑞鼎",
               "entry": 237.5,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 238.0,
+              "return_pct": 0.21,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "6120",
               "name": "達運",
               "entry": 14.35,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 14.75,
+              "return_pct": 2.79,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "5538",
               "name": "東明-KY",
               "entry": 36.25,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 35.95,
+              "return_pct": -0.83,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "3038",
               "name": "全台",
               "entry": 20.8,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 20.9,
+              "return_pct": 0.48,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "2031",
               "name": "新光鋼",
               "entry": 46.5,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 46.2,
+              "return_pct": -0.65,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "1810",
               "name": "和成",
               "entry": 24.45,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 24.0,
+              "return_pct": -1.84,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "2323",
@@ -807,31 +1038,31 @@
               "stock_id": "2010",
               "name": "春源",
               "entry": 23.0,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 22.5,
+              "return_pct": -2.17,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "1605",
               "name": "華新",
               "entry": 38.4,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 38.55,
+              "return_pct": 0.39,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "2020",
               "name": "美亞",
               "entry": 26.7,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 26.2,
+              "return_pct": -1.87,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
             }
           ]
         },
@@ -17222,8 +17453,63 @@
       }
     }
   ],
-  "last_updated": "2026-09-30T19:07:04.085391+08:00",
+  "last_updated": "2026-10-01T19:06:54.776062+08:00",
   "history": [
+    {
+      "date": "2026/10/01",
+      "results": {
+        "2420": {
+          "name": "新巨",
+          "score": 92.63,
+          "close": 58.0
+        },
+        "4915": {
+          "name": "致伸",
+          "score": 91.8,
+          "close": 65.0
+        },
+        "2458": {
+          "name": "義隆",
+          "score": 91.59,
+          "close": 138.5
+        },
+        "2451": {
+          "name": "創見",
+          "score": 90.58,
+          "close": 289.5
+        },
+        "8016": {
+          "name": "矽創",
+          "score": 89.53,
+          "close": 288.5
+        },
+        "3090": {
+          "name": "日電貿",
+          "score": 88.24,
+          "close": 169.0
+        },
+        "3679": {
+          "name": "新至陞",
+          "score": 88.24,
+          "close": 108.5
+        },
+        "6414": {
+          "name": "樺漢",
+          "score": 87.25,
+          "close": 402.5
+        },
+        "2375": {
+          "name": "凱美",
+          "score": 87.12,
+          "close": 124.5
+        },
+        "2478": {
+          "name": "大毅",
+          "score": 86.66,
+          "close": 124.5
+        }
+      }
+    },
     {
       "date": "2026/09/30",
       "results": {
