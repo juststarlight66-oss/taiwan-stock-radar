@@ -724,6 +724,338 @@
   ],
   "grouped_records": [
     {
+      "scan_date": "20261003",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "3090",
+              "name": "日電貿",
+              "entry": 173.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "8249",
+              "name": "菱光",
+              "entry": 41.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2492",
+              "name": "華新科",
+              "entry": 361.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1326",
+              "name": "台化",
+              "entry": 71.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2355",
+              "name": "敬鵬",
+              "entry": 43.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2006",
+              "name": "東和鋼鐵",
+              "entry": 86.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2855",
+              "name": "統一證",
+              "entry": 57.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6191",
+              "name": "精成科",
+              "entry": 84.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3025",
+              "name": "星通",
+              "entry": 55.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3592",
+              "name": "瑞鼎",
+              "entry": 239.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "3090",
+              "name": "日電貿",
+              "entry": 173.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "8249",
+              "name": "菱光",
+              "entry": 41.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2492",
+              "name": "華新科",
+              "entry": 361.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1326",
+              "name": "台化",
+              "entry": 71.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2355",
+              "name": "敬鵬",
+              "entry": 43.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2006",
+              "name": "東和鋼鐵",
+              "entry": 86.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2855",
+              "name": "統一證",
+              "entry": 57.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6191",
+              "name": "精成科",
+              "entry": 84.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3025",
+              "name": "星通",
+              "entry": 55.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3592",
+              "name": "瑞鼎",
+              "entry": 239.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "3090",
+              "name": "日電貿",
+              "entry": 173.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "8249",
+              "name": "菱光",
+              "entry": 41.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2492",
+              "name": "華新科",
+              "entry": 361.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1326",
+              "name": "台化",
+              "entry": 71.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2355",
+              "name": "敬鵬",
+              "entry": 43.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2006",
+              "name": "東和鋼鐵",
+              "entry": 86.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2855",
+              "name": "統一證",
+              "entry": 57.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6191",
+              "name": "精成科",
+              "entry": 84.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3025",
+              "name": "星通",
+              "entry": 55.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3592",
+              "name": "瑞鼎",
+              "entry": 239.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
+    },
+    {
       "scan_date": "20261002",
       "periods": {
         "T1": {
@@ -17785,8 +18117,63 @@
       }
     }
   ],
-  "last_updated": "2026-10-02T19:07:15.313333+08:00",
+  "last_updated": "2026-10-03T00:17:20.308468+08:00",
   "history": [
+    {
+      "date": "2026/10/03",
+      "results": {
+        "3090": {
+          "name": "日電貿",
+          "score": 91.54,
+          "close": 173.5
+        },
+        "8249": {
+          "name": "菱光",
+          "score": 89.49,
+          "close": 41.0
+        },
+        "2492": {
+          "name": "華新科",
+          "score": 86.58,
+          "close": 361.5
+        },
+        "1326": {
+          "name": "台化",
+          "score": 86.28,
+          "close": 71.7
+        },
+        "2355": {
+          "name": "敬鵬",
+          "score": 85.98,
+          "close": 43.3
+        },
+        "2006": {
+          "name": "東和鋼鐵",
+          "score": 85.77,
+          "close": 86.6
+        },
+        "2855": {
+          "name": "統一證",
+          "score": 85.7,
+          "close": 57.6
+        },
+        "6191": {
+          "name": "精成科",
+          "score": 85.55,
+          "close": 84.7
+        },
+        "3025": {
+          "name": "星通",
+          "score": 84.65,
+          "close": 55.4
+        },
+        "3592": {
+          "name": "瑞鼎",
+          "score": 84.5,
+          "close": 239.0
+        }
+      }
+    },
     {
       "date": "2026/10/02",
       "results": {
