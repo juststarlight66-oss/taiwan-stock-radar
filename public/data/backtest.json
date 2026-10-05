@@ -724,6 +724,338 @@
   ],
   "grouped_records": [
     {
+      "scan_date": "20261006",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "1713",
+              "name": "國化",
+              "entry": 44.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6005",
+              "name": "群益證",
+              "entry": 33.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1735",
+              "name": "日勝化",
+              "entry": 24.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "8070",
+              "name": "長華*",
+              "entry": 51.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5469",
+              "name": "瀚宇博",
+              "entry": 78.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1725",
+              "name": "元禎",
+              "entry": 34.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1718",
+              "name": "中纖",
+              "entry": 11.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3044",
+              "name": "健鼎",
+              "entry": 557.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "8081",
+              "name": "致新",
+              "entry": 259.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3645",
+              "name": "達邁",
+              "entry": 76.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "1713",
+              "name": "國化",
+              "entry": 44.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6005",
+              "name": "群益證",
+              "entry": 33.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1735",
+              "name": "日勝化",
+              "entry": 24.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "8070",
+              "name": "長華*",
+              "entry": 51.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5469",
+              "name": "瀚宇博",
+              "entry": 78.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1725",
+              "name": "元禎",
+              "entry": 34.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1718",
+              "name": "中纖",
+              "entry": 11.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3044",
+              "name": "健鼎",
+              "entry": 557.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "8081",
+              "name": "致新",
+              "entry": 259.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3645",
+              "name": "達邁",
+              "entry": 76.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "1713",
+              "name": "國化",
+              "entry": 44.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6005",
+              "name": "群益證",
+              "entry": 33.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1735",
+              "name": "日勝化",
+              "entry": 24.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "8070",
+              "name": "長華*",
+              "entry": 51.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5469",
+              "name": "瀚宇博",
+              "entry": 78.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1725",
+              "name": "元禎",
+              "entry": 34.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1718",
+              "name": "中纖",
+              "entry": 11.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3044",
+              "name": "健鼎",
+              "entry": 557.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "8081",
+              "name": "致新",
+              "entry": 259.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3645",
+              "name": "達邁",
+              "entry": 76.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
+    },
+    {
       "scan_date": "20261005",
       "periods": {
         "T1": {
@@ -18449,8 +18781,63 @@
       }
     }
   ],
-  "last_updated": "2026-10-05T19:13:58.487220+08:00",
+  "last_updated": "2026-10-06T03:02:07.048744+08:00",
   "history": [
+    {
+      "date": "2026/10/06",
+      "results": {
+        "1713": {
+          "name": "國化",
+          "score": 98.7,
+          "close": 44.8
+        },
+        "6005": {
+          "name": "群益證",
+          "score": 93.25,
+          "close": 33.0
+        },
+        "1735": {
+          "name": "日勝化",
+          "score": 92.51,
+          "close": 24.35
+        },
+        "8070": {
+          "name": "長華*",
+          "score": 90.61,
+          "close": 51.7
+        },
+        "5469": {
+          "name": "瀚宇博",
+          "score": 90.05,
+          "close": 78.4
+        },
+        "1725": {
+          "name": "元禎",
+          "score": 87.53,
+          "close": 34.15
+        },
+        "1718": {
+          "name": "中纖",
+          "score": 86.92,
+          "close": 11.15
+        },
+        "3044": {
+          "name": "健鼎",
+          "score": 86.53,
+          "close": 557.0
+        },
+        "8081": {
+          "name": "致新",
+          "score": 86.35,
+          "close": 259.0
+        },
+        "3645": {
+          "name": "達邁",
+          "score": 85.74,
+          "close": 76.0
+        }
+      }
+    },
     {
       "date": "2026/10/05",
       "results": {
