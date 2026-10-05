@@ -1,7 +1,388 @@
 {
   "scan_date": "20261005",
-  "generated_at": "2026-10-05T19:13:58.487220+08:00",
-  "total_stocks": 1965,
+  "scanned_count": 1965,
+  "top_stocks": [
+    {
+      "stock_id": "5469",
+      "name": "瀚宇博",
+      "market": "TSE",
+      "sector_name": "電子零組件業",
+      "close": 78.4,
+      "change_pct": 3.29,
+      "volume": 3805771.0,
+      "scores": {
+        "technical": 100.0,
+        "chips": 96.0,
+        "fundamental": 58.927630853994486,
+        "news": 52.10244148510361,
+        "sentiment": 85.5,
+        "profit_space": 85.0,
+        "total": 91.67
+      },
+      "total_score": 91.67,
+      "recommendation": "強烈推薦",
+      "entry_low": 77.59,
+      "entry_high": 79.21,
+      "stop_loss": 75.18,
+      "targets": {
+        "entry_low": 77.59,
+        "entry_high": 79.21,
+        "stop_loss": 75.18,
+        "t1": 80.01,
+        "t2": 81.62,
+        "t3": 83.23
+      },
+      "fundamentals": {
+        "pe": 14.52,
+        "pb": 0.62,
+        "dy": 3.21
+      },
+      "rsi": 83.02,
+      "vol_ratio": 3.634400303145941
+    },
+    {
+      "stock_id": "1713",
+      "name": "國化",
+      "market": "TSE",
+      "sector_name": "化學工業",
+      "close": 44.8,
+      "change_pct": 4.92,
+      "volume": 970272.0,
+      "scores": {
+        "technical": 82.31818181818181,
+        "chips": 96.0,
+        "fundamental": 81.30434782608695,
+        "news": 50.30919164935194,
+        "sentiment": 77.31818181818181,
+        "profit_space": 90.0,
+        "total": 91.34
+      },
+      "total_score": 91.34,
+      "recommendation": "強烈推薦",
+      "entry_low": 44.32,
+      "entry_high": 45.27,
+      "stop_loss": 42.9,
+      "targets": {
+        "entry_low": 44.32,
+        "entry_high": 45.27,
+        "stop_loss": 42.9,
+        "t1": 45.75,
+        "t2": 46.7,
+        "t3": 47.65
+      },
+      "fundamentals": {
+        "pe": 9.45,
+        "pb": 1.84,
+        "dy": 6.92
+      },
+      "rsi": 86.25,
+      "vol_ratio": 6.980283708556293
+    },
+    {
+      "stock_id": "8473",
+      "name": "山林水",
+      "market": "TSE",
+      "sector_name": "其他",
+      "close": 40.35,
+      "change_pct": 3.59,
+      "volume": 608140.0,
+      "scores": {
+        "technical": 97.50000000000001,
+        "chips": 78.59387411240823,
+        "fundamental": 71.93752136752137,
+        "news": 68.49691267274332,
+        "sentiment": 68.50000000000001,
+        "profit_space": 80.0,
+        "total": 90.35
+      },
+      "total_score": 90.35,
+      "recommendation": "強烈推薦",
+      "entry_low": 39.95,
+      "entry_high": 40.76,
+      "stop_loss": 38.73,
+      "targets": {
+        "entry_low": 39.95,
+        "entry_high": 40.76,
+        "stop_loss": 38.73,
+        "t1": 41.16,
+        "t2": 41.97,
+        "t3": 42.78
+      },
+      "fundamentals": {
+        "pe": 11.7,
+        "pb": 1.06,
+        "dy": 4.56
+      },
+      "rsi": 67.2,
+      "vol_ratio": 1.759387411240823
+    },
+    {
+      "stock_id": "3014",
+      "name": "聯陽",
+      "market": "TSE",
+      "sector_name": "半導體業",
+      "close": 146.5,
+      "change_pct": 2.81,
+      "volume": 5400354.0,
+      "scores": {
+        "technical": 99.25,
+        "chips": 88.96885757917232,
+        "fundamental": 61.65533600065322,
+        "news": 78.08998630964426,
+        "sentiment": 68.25,
+        "profit_space": 65.0,
+        "total": 87.79
+      },
+      "total_score": 87.79,
+      "recommendation": "強烈推薦",
+      "entry_low": 144.56,
+      "entry_high": 148.44,
+      "stop_loss": 138.76,
+      "targets": {
+        "entry_low": 144.56,
+        "entry_high": 148.44,
+        "stop_loss": 138.76,
+        "t1": 150.37,
+        "t2": 154.24,
+        "t3": 158.11
+      },
+      "fundamentals": {
+        "pe": 14.8,
+        "pb": 3.31,
+        "dy": 5.8
+      },
+      "rsi": 77.63,
+      "vol_ratio": 2.7968857579172317
+    },
+    {
+      "stock_id": "6191",
+      "name": "精成科",
+      "market": "TSE",
+      "sector_name": "電子零組件業",
+      "close": 85.9,
+      "change_pct": 1.42,
+      "volume": 2759396.0,
+      "scores": {
+        "technical": 87.55882352941185,
+        "chips": 70.21588516054018,
+        "fundamental": 56.92506680026719,
+        "news": 68.09431555891399,
+        "sentiment": 61.55882352941185,
+        "profit_space": 80.0,
+        "total": 87.78
+      },
+      "total_score": 87.78,
+      "recommendation": "強烈推薦",
+      "entry_low": 85.15,
+      "entry_high": 86.65,
+      "stop_loss": 82.9,
+      "targets": {
+        "entry_low": 85.15,
+        "entry_high": 86.65,
+        "stop_loss": 82.9,
+        "t1": 87.4,
+        "t2": 88.9,
+        "t3": 90.4
+      },
+      "fundamentals": {
+        "pe": 14.97,
+        "pb": 1.17,
+        "dy": 3.03
+      },
+      "rsi": 72.32,
+      "vol_ratio": 2.3215885160540175
+    },
+    {
+      "stock_id": "1718",
+      "name": "中纖",
+      "market": "TSE",
+      "sector_name": "化學工業",
+      "close": 11.15,
+      "change_pct": 3.72,
+      "volume": 42928384.0,
+      "scores": {
+        "technical": 100.0,
+        "chips": 96.0,
+        "fundamental": 36.22751322751323,
+        "news": 56.819991366492395,
+        "sentiment": 77.55882352941177,
+        "profit_space": 85.0,
+        "total": 87.0
+      },
+      "total_score": 87.0,
+      "recommendation": "強烈推薦",
+      "entry_low": 10.96,
+      "entry_high": 11.35,
+      "stop_loss": 10.37,
+      "targets": {
+        "entry_low": 10.96,
+        "entry_high": 11.35,
+        "stop_loss": 10.37,
+        "t1": 11.54,
+        "t2": 11.93,
+        "t3": 12.32
+      },
+      "fundamentals": {
+        "pe": 18.9,
+        "pb": 0.63,
+        "dy": 0.0
+      },
+      "rsi": 67.79,
+      "vol_ratio": 4.58234822836525
+    },
+    {
+      "stock_id": "2462",
+      "name": "良得電",
+      "market": "TSE",
+      "sector_name": "電子零組件業",
+      "close": 20.7,
+      "change_pct": 4.55,
+      "volume": 946938.0,
+      "scores": {
+        "technical": 95.14285714285714,
+        "chips": 96.0,
+        "fundamental": 32.21811081638668,
+        "news": 61.68468625195294,
+        "sentiment": 80.14285714285714,
+        "profit_space": 85.0,
+        "total": 86.73
+      },
+      "total_score": 86.73,
+      "recommendation": "強烈推薦",
+      "entry_low": 20.43,
+      "entry_high": 20.96,
+      "stop_loss": 19.64,
+      "targets": {
+        "entry_low": 20.43,
+        "entry_high": 20.96,
+        "stop_loss": 19.64,
+        "t1": 21.23,
+        "t2": 21.76,
+        "t3": 22.29
+      },
+      "fundamentals": {
+        "pe": 33.93,
+        "pb": 0.95,
+        "dy": 0.97
+      },
+      "rsi": 72.05,
+      "vol_ratio": 8.627130503230603
+    },
+    {
+      "stock_id": "6005",
+      "name": "群益證",
+      "market": "TSE",
+      "sector_name": "金融保險",
+      "close": 33.0,
+      "change_pct": 3.12,
+      "volume": 14269727.0,
+      "scores": {
+        "technical": 98.73529411764704,
+        "chips": 86.93545731647251,
+        "fundamental": 83.795,
+        "news": 50.464413365563864,
+        "sentiment": 75.73529411764704,
+        "profit_space": 85.0,
+        "total": 86.65
+      },
+      "total_score": 86.65,
+      "recommendation": "強烈推薦",
+      "entry_low": 32.64,
+      "entry_high": 33.36,
+      "stop_loss": 31.56,
+      "targets": {
+        "entry_low": 32.64,
+        "entry_high": 33.36,
+        "stop_loss": 31.56,
+        "t1": 33.72,
+        "t2": 34.44,
+        "t3": 35.16
+      },
+      "fundamentals": {
+        "pe": 6.13,
+        "pb": 1.38,
+        "dy": 5.18
+      },
+      "rsi": 68.94,
+      "vol_ratio": 2.5935457316472506
+    },
+    {
+      "stock_id": "2355",
+      "name": "敬鵬",
+      "market": "TSE",
+      "sector_name": "電子零組件業",
+      "close": 44.65,
+      "change_pct": 3.12,
+      "volume": 6816305.0,
+      "scores": {
+        "technical": 97.11290322580643,
+        "chips": 96.0,
+        "fundamental": 46.838297872340426,
+        "news": 48.36553871913222,
+        "sentiment": 82.11290322580643,
+        "profit_space": 85.0,
+        "total": 86.56
+      },
+      "total_score": 86.56,
+      "recommendation": "強烈推薦",
+      "entry_low": 44.12,
+      "entry_high": 45.18,
+      "stop_loss": 42.51,
+      "targets": {
+        "entry_low": 44.12,
+        "entry_high": 45.18,
+        "stop_loss": 42.51,
+        "t1": 45.72,
+        "t2": 46.79,
+        "t3": 47.86
+      },
+      "fundamentals": {
+        "pe": 23.5,
+        "pb": 1.01,
+        "dy": 2.24
+      },
+      "rsi": 80.16,
+      "vol_ratio": 3.727018703263303
+    },
+    {
+      "stock_id": "6285",
+      "name": "啟碁",
+      "market": "TSE",
+      "sector_name": "通信網路業",
+      "close": 249.5,
+      "change_pct": 4.83,
+      "volume": 8838953.0,
+      "scores": {
+        "technical": 99.07142857142857,
+        "chips": 91.29872251762023,
+        "fundamental": 26.64953415828738,
+        "news": 61.62206744917281,
+        "sentiment": 84.07142857142857,
+        "profit_space": 85.0,
+        "total": 86.51
+      },
+      "total_score": 86.51,
+      "recommendation": "強烈推薦",
+      "entry_low": 245.73,
+      "entry_high": 253.27,
+      "stop_loss": 234.42,
+      "targets": {
+        "entry_low": 245.73,
+        "entry_high": 253.27,
+        "stop_loss": 234.42,
+        "t1": 257.04,
+        "t2": 264.58,
+        "t3": 272.12
+      },
+      "fundamentals": {
+        "pe": 27.33,
+        "pb": 3.37,
+        "dy": 1.72
+      },
+      "rsi": 74.28,
+      "vol_ratio": 3.0298722517620242
+    }
+  ],
   "all_stock_scores": [
     {
       "stock_id": "5469",
@@ -74673,5 +75054,160 @@
       "rsi": 26.7,
       "vol_ratio": 1.08625
     }
-  ]
+  ],
+  "explode_top5": [
+    {
+      "stock_id": "3701",
+      "name": "大眾控",
+      "close": 60.9,
+      "volume": 4322771.0,
+      "change_pct": 9.93,
+      "explode_prob": 0.96
+    },
+    {
+      "stock_id": "5205",
+      "name": "中茂能資系統整合科技(股)公司",
+      "close": 25.05,
+      "volume": 21401.0,
+      "change_pct": 9.87,
+      "explode_prob": 0.959
+    },
+    {
+      "stock_id": "3629",
+      "name": "地心引力股份有限公司",
+      "close": 13.35,
+      "volume": 5180.0,
+      "change_pct": -8.56,
+      "explode_prob": 0.747
+    },
+    {
+      "stock_id": "3490",
+      "name": "單井工業股份有限公司",
+      "close": 46.15,
+      "volume": 8282809.0,
+      "change_pct": -8.97,
+      "explode_prob": 0.661
+    },
+    {
+      "stock_id": "3362",
+      "name": "先進光電科技股份有限公司",
+      "close": 191.0,
+      "volume": 7905467.0,
+      "change_pct": 8.83,
+      "explode_prob": 0.615
+    }
+  ],
+  "generated_at": "2026-10-05T19:13:52.501418+08:00",
+  "backtest": {
+    "previous_scan_date": "20261002",
+    "T1": {
+      "label": "T+1",
+      "backtest_date": "20261005",
+      "win_rate": 70.0,
+      "avg_return": 2.83,
+      "filled": 10,
+      "stocks": [
+        {
+          "stock_id": "4766",
+          "name": "南寶",
+          "entry": 353.0,
+          "close": 346.5,
+          "return_pct": -1.84,
+          "hit_target": false,
+          "hit_stoploss": false,
+          "pending": false
+        },
+        {
+          "stock_id": "6994",
+          "name": "富威電力",
+          "entry": 32.05,
+          "close": 31.95,
+          "return_pct": -0.31,
+          "hit_target": false,
+          "hit_stoploss": false,
+          "pending": false
+        },
+        {
+          "stock_id": "8249",
+          "name": "菱光",
+          "entry": 41.0,
+          "close": 40.5,
+          "return_pct": -1.22,
+          "hit_target": false,
+          "hit_stoploss": false,
+          "pending": false
+        },
+        {
+          "stock_id": "1735",
+          "name": "日勝化",
+          "entry": 22.15,
+          "close": 24.35,
+          "return_pct": 9.93,
+          "hit_target": true,
+          "hit_stoploss": false,
+          "pending": false
+        },
+        {
+          "stock_id": "1714",
+          "name": "和桐",
+          "entry": 16.85,
+          "close": 18.5,
+          "return_pct": 9.79,
+          "hit_target": true,
+          "hit_stoploss": false,
+          "pending": false
+        },
+        {
+          "stock_id": "2355",
+          "name": "敬鵬",
+          "entry": 43.3,
+          "close": 44.65,
+          "return_pct": 3.12,
+          "hit_target": true,
+          "hit_stoploss": false,
+          "pending": false
+        },
+        {
+          "stock_id": "1713",
+          "name": "國化",
+          "entry": 42.7,
+          "close": 44.8,
+          "return_pct": 4.92,
+          "hit_target": true,
+          "hit_stoploss": false,
+          "pending": false
+        },
+        {
+          "stock_id": "6191",
+          "name": "精成科",
+          "entry": 84.7,
+          "close": 85.9,
+          "return_pct": 1.42,
+          "hit_target": true,
+          "hit_stoploss": false,
+          "pending": false
+        },
+        {
+          "stock_id": "3025",
+          "name": "星通",
+          "entry": 55.4,
+          "close": 55.9,
+          "return_pct": 0.9,
+          "hit_target": true,
+          "hit_stoploss": false,
+          "pending": false
+        },
+        {
+          "stock_id": "6197",
+          "name": "佳必琪",
+          "entry": 339.5,
+          "close": 345.0,
+          "return_pct": 1.62,
+          "hit_target": true,
+          "hit_stoploss": false,
+          "pending": false
+        }
+      ]
+    }
+  }
 }
