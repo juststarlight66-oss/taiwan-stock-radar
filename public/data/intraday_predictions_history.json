@@ -1,5 +1,59 @@
 [
   {
+    "scan_date": "20261006",
+    "captured_at": "2026-10-07T00:53:56.278511+08:00",
+    "scan_type": "intraday_daytrade",
+    "top5": [
+      {
+        "stock_id": "6997",
+        "name": "博弘雲端科技",
+        "entry_price": 68.8,
+        "change_pct": 3.46,
+        "sector": "電子商務",
+        "total_score": 78.2
+      },
+      {
+        "stock_id": "2383",
+        "name": "台光電",
+        "entry_price": 5955.0,
+        "change_pct": 4.47,
+        "sector": "電子零組件業",
+        "total_score": 76.5
+      },
+      {
+        "stock_id": "5234",
+        "name": "達興材料",
+        "entry_price": 322.5,
+        "change_pct": 5.05,
+        "sector": "光電業",
+        "total_score": 76.5
+      },
+      {
+        "stock_id": "6683",
+        "name": "雍智科技",
+        "entry_price": 1510.0,
+        "change_pct": 4.86,
+        "sector": "半導體業",
+        "total_score": 73.5
+      },
+      {
+        "stock_id": "4735",
+        "name": "豪展醫療科技",
+        "entry_price": 37.7,
+        "change_pct": 4.58,
+        "sector": "生技醫療業",
+        "total_score": 73.0
+      }
+    ],
+    "t1_return": null,
+    "t1_check_date": null,
+    "t3_return": null,
+    "t3_check_date": null,
+    "t5_return": null,
+    "t5_check_date": null,
+    "win": null
+  },
+  {
     "scan_date": "20260929",
     "captured_at": "2026-10-06T03:22:15.885787+08:00",
     "scan_type": "intraday_daytrade",
