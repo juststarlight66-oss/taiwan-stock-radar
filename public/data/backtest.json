@@ -724,6 +724,338 @@
   ],
   "grouped_records": [
     {
+      "scan_date": "20261007",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "2890",
+              "name": "永豐金",
+              "entry": 45.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4720",
+              "name": "德淵",
+              "entry": 25.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1477",
+              "name": "聚陽",
+              "entry": 203.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2008",
+              "name": "高興昌",
+              "entry": 31.45,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2605",
+              "name": "新興",
+              "entry": 36.95,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4766",
+              "name": "南寶",
+              "entry": 353.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2891",
+              "name": "中信金",
+              "entry": 68.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1735",
+              "name": "日勝化",
+              "entry": 23.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1476",
+              "name": "儒鴻",
+              "entry": 290.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1102",
+              "name": "亞泥",
+              "entry": 35.45,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "2890",
+              "name": "永豐金",
+              "entry": 45.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4720",
+              "name": "德淵",
+              "entry": 25.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1477",
+              "name": "聚陽",
+              "entry": 203.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2008",
+              "name": "高興昌",
+              "entry": 31.45,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2605",
+              "name": "新興",
+              "entry": 36.95,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4766",
+              "name": "南寶",
+              "entry": 353.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2891",
+              "name": "中信金",
+              "entry": 68.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1735",
+              "name": "日勝化",
+              "entry": 23.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1476",
+              "name": "儒鴻",
+              "entry": 290.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1102",
+              "name": "亞泥",
+              "entry": 35.45,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "2890",
+              "name": "永豐金",
+              "entry": 45.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4720",
+              "name": "德淵",
+              "entry": 25.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1477",
+              "name": "聚陽",
+              "entry": 203.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2008",
+              "name": "高興昌",
+              "entry": 31.45,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2605",
+              "name": "新興",
+              "entry": 36.95,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4766",
+              "name": "南寶",
+              "entry": 353.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2891",
+              "name": "中信金",
+              "entry": 68.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1735",
+              "name": "日勝化",
+              "entry": 23.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1476",
+              "name": "儒鴻",
+              "entry": 290.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1102",
+              "name": "亞泥",
+              "entry": 35.45,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
+    },
+    {
       "scan_date": "20261006",
       "periods": {
         "T1": {
@@ -18781,8 +19113,63 @@
       }
     }
   ],
-  "last_updated": "2026-10-06T19:06:17.512846+08:00",
+  "last_updated": "2026-10-07T00:35:50.621812+08:00",
   "history": [
+    {
+      "date": "2026/10/07",
+      "results": {
+        "2890": {
+          "name": "永豐金",
+          "score": 85.08,
+          "close": 45.4
+        },
+        "4720": {
+          "name": "德淵",
+          "score": 84.41,
+          "close": 25.3
+        },
+        "1477": {
+          "name": "聚陽",
+          "score": 83.34,
+          "close": 203.5
+        },
+        "2008": {
+          "name": "高興昌",
+          "score": 83.14,
+          "close": 31.45
+        },
+        "2605": {
+          "name": "新興",
+          "score": 82.7,
+          "close": 36.95
+        },
+        "4766": {
+          "name": "南寶",
+          "score": 82.34,
+          "close": 353.5
+        },
+        "2891": {
+          "name": "中信金",
+          "score": 81.3,
+          "close": 68.4
+        },
+        "1735": {
+          "name": "日勝化",
+          "score": 81.21,
+          "close": 23.4
+        },
+        "1476": {
+          "name": "儒鴻",
+          "score": 81.17,
+          "close": 290.0
+        },
+        "1102": {
+          "name": "亞泥",
+          "score": 81.08,
+          "close": 35.45
+        }
+      }
+    },
     {
       "date": "2026/10/06",
       "results": {
