@@ -724,7 +724,7 @@
   ],
   "grouped_records": [
     {
-      "scan_date": "20261007",
+      "scan_date": "20261008",
       "periods": {
         "T1": {
           "label": "T+1",
@@ -733,6 +733,338 @@
           "avg_return": null,
           "pending": true,
           "stocks": []
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "1476",
+              "name": "儒鴻",
+              "entry": 310.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1102",
+              "name": "亞泥",
+              "entry": 36.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1615",
+              "name": "大山",
+              "entry": 46.05,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1752",
+              "name": "南光",
+              "entry": 33.25,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4736",
+              "name": "泰博",
+              "entry": 134.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9945",
+              "name": "潤泰新",
+              "entry": 29.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1325",
+              "name": "恆大",
+              "entry": 30.55,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1718",
+              "name": "中纖",
+              "entry": 12.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2027",
+              "name": "大成鋼",
+              "entry": 48.25,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6807",
+              "name": "峰源-KY",
+              "entry": 34.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "1476",
+              "name": "儒鴻",
+              "entry": 310.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1102",
+              "name": "亞泥",
+              "entry": 36.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1615",
+              "name": "大山",
+              "entry": 46.05,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1752",
+              "name": "南光",
+              "entry": 33.25,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4736",
+              "name": "泰博",
+              "entry": 134.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9945",
+              "name": "潤泰新",
+              "entry": 29.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1325",
+              "name": "恆大",
+              "entry": 30.55,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1718",
+              "name": "中纖",
+              "entry": 12.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2027",
+              "name": "大成鋼",
+              "entry": 48.25,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6807",
+              "name": "峰源-KY",
+              "entry": 34.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scan_date": "20261007",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": "20261008",
+          "win_rate": 50.0,
+          "avg_return": -0.26,
+          "pending": false,
+          "stocks": [
+            {
+              "stock_id": "6890",
+              "name": "來億-KY",
+              "entry": 156.0,
+              "close": 152.0,
+              "return_pct": -2.56,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "2851",
+              "name": "中再保",
+              "entry": 47.75,
+              "close": 47.95,
+              "return_pct": 0.42,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "1102",
+              "name": "亞泥",
+              "entry": 35.9,
+              "close": 36.35,
+              "return_pct": 1.25,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "9802",
+              "name": "鈺齊-KY",
+              "entry": 65.9,
+              "close": 65.9,
+              "return_pct": 0.0,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "2439",
+              "name": "美律",
+              "entry": 78.7,
+              "close": 80.6,
+              "return_pct": 2.41,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "1608",
+              "name": "華榮",
+              "entry": 37.05,
+              "close": 36.55,
+              "return_pct": -1.35,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "3694",
+              "name": "海華",
+              "entry": 51.9,
+              "close": 51.0,
+              "return_pct": -1.73,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "9904",
+              "name": "寶成",
+              "entry": 24.95,
+              "close": 25.05,
+              "return_pct": 0.4,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "2504",
+              "name": "國產",
+              "entry": 31.55,
+              "close": 31.95,
+              "return_pct": 1.27,
+              "hit_target": true,
+              "hit_stoploss": false,
+              "pending": false
+            },
+            {
+              "stock_id": "1802",
+              "name": "台玻",
+              "entry": 65.7,
+              "close": 63.9,
+              "return_pct": -2.74,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
+            }
+          ]
         },
         "T3": {
           "label": "T+3",
@@ -19113,8 +19445,63 @@
       }
     }
   ],
-  "last_updated": "2026-10-07T19:07:47.572929+08:00",
+  "last_updated": "2026-10-08T19:07:19.426815+08:00",
   "history": [
+    {
+      "date": "2026/10/08",
+      "results": {
+        "1476": {
+          "name": "儒鴻",
+          "score": 91.01,
+          "close": 310.0
+        },
+        "1102": {
+          "name": "亞泥",
+          "score": 88.14,
+          "close": 36.35
+        },
+        "1615": {
+          "name": "大山",
+          "score": 86.38,
+          "close": 46.05
+        },
+        "1752": {
+          "name": "南光",
+          "score": 85.73,
+          "close": 33.25
+        },
+        "4736": {
+          "name": "泰博",
+          "score": 85.72,
+          "close": 134.5
+        },
+        "9945": {
+          "name": "潤泰新",
+          "score": 85.36,
+          "close": 29.8
+        },
+        "1325": {
+          "name": "恆大",
+          "score": 84.67,
+          "close": 30.55
+        },
+        "1718": {
+          "name": "中纖",
+          "score": 84.12,
+          "close": 12.2
+        },
+        "2027": {
+          "name": "大成鋼",
+          "score": 83.47,
+          "close": 48.25
+        },
+        "6807": {
+          "name": "峰源-KY",
+          "score": 83.33,
+          "close": 34.0
+        }
+      }
+    },
     {
       "date": "2026/10/07",
       "results": {
