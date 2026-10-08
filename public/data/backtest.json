@@ -724,6 +724,338 @@
   ],
   "grouped_records": [
     {
+      "scan_date": "20261009",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "9945",
+              "name": "潤泰新",
+              "entry": 29.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1102",
+              "name": "亞泥",
+              "entry": 36.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "8442",
+              "name": "威宏-KY",
+              "entry": 48.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1307",
+              "name": "三芳",
+              "entry": 31.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2027",
+              "name": "大成鋼",
+              "entry": 48.25,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6136",
+              "name": "富爾特",
+              "entry": 26.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1476",
+              "name": "儒鴻",
+              "entry": 310.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1456",
+              "name": "怡華",
+              "entry": 14.95,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4935",
+              "name": "茂林-KY",
+              "entry": 34.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9103",
+              "name": "美德醫療-DR",
+              "entry": 5.88,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "9945",
+              "name": "潤泰新",
+              "entry": 29.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1102",
+              "name": "亞泥",
+              "entry": 36.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "8442",
+              "name": "威宏-KY",
+              "entry": 48.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1307",
+              "name": "三芳",
+              "entry": 31.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2027",
+              "name": "大成鋼",
+              "entry": 48.25,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6136",
+              "name": "富爾特",
+              "entry": 26.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1476",
+              "name": "儒鴻",
+              "entry": 310.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1456",
+              "name": "怡華",
+              "entry": 14.95,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4935",
+              "name": "茂林-KY",
+              "entry": 34.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9103",
+              "name": "美德醫療-DR",
+              "entry": 5.88,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "9945",
+              "name": "潤泰新",
+              "entry": 29.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1102",
+              "name": "亞泥",
+              "entry": 36.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "8442",
+              "name": "威宏-KY",
+              "entry": 48.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1307",
+              "name": "三芳",
+              "entry": 31.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2027",
+              "name": "大成鋼",
+              "entry": 48.25,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6136",
+              "name": "富爾特",
+              "entry": 26.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1476",
+              "name": "儒鴻",
+              "entry": 310.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1456",
+              "name": "怡華",
+              "entry": 14.95,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4935",
+              "name": "茂林-KY",
+              "entry": 34.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9103",
+              "name": "美德醫療-DR",
+              "entry": 5.88,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
+    },
+    {
       "scan_date": "20261008",
       "periods": {
         "T1": {
@@ -19445,8 +19777,63 @@
       }
     }
   ],
-  "last_updated": "2026-10-08T19:07:19.426815+08:00",
+  "last_updated": "2026-10-09T01:11:54.459562+08:00",
   "history": [
+    {
+      "date": "2026/10/09",
+      "results": {
+        "9945": {
+          "name": "潤泰新",
+          "score": 88.17,
+          "close": 29.8
+        },
+        "1102": {
+          "name": "亞泥",
+          "score": 87.27,
+          "close": 36.35
+        },
+        "8442": {
+          "name": "威宏-KY",
+          "score": 86.29,
+          "close": 48.6
+        },
+        "1307": {
+          "name": "三芳",
+          "score": 85.09,
+          "close": 31.3
+        },
+        "2027": {
+          "name": "大成鋼",
+          "score": 84.88,
+          "close": 48.25
+        },
+        "6136": {
+          "name": "富爾特",
+          "score": 84.42,
+          "close": 26.6
+        },
+        "1476": {
+          "name": "儒鴻",
+          "score": 84.27,
+          "close": 310.0
+        },
+        "1456": {
+          "name": "怡華",
+          "score": 83.57,
+          "close": 14.95
+        },
+        "4935": {
+          "name": "茂林-KY",
+          "score": 82.74,
+          "close": 34.3
+        },
+        "9103": {
+          "name": "美德醫療-DR",
+          "score": 82.52,
+          "close": 5.88
+        }
+      }
+    },
     {
       "date": "2026/10/08",
       "results": {
