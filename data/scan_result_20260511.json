@@ -1,0 +1,445 @@
+{
+  "scan_date": "2026-05-11",
+  "data_date": "2026-05-08",
+  "market_snapshot": {
+    "taiex": 41603.94,
+    "change": -329.84,
+    "change_pct": -0.79,
+    "volume_billion": 1470,
+    "market_trend": "consolidation_bullish",
+    "advancing": 412,
+    "declining": 523,
+    "limit_up": 29,
+    "limit_down": 6,
+    "foreign_net_buy_billion": -120.85,
+    "trust_net_buy_billion": 19.57,
+    "dealer_net_buy_billion": -100.37,
+    "foreign_futures_net_short": 54530,
+    "margin_balance_billion": 4771.85,
+    "short_balance_thousand": 205
+  },
+  "catalysts": [
+    {"event": "Trump-Xi meeting this week", "sector": "semiconductor, defense", "impact": "high"},
+    {"event": "MSCI semi-annual rebalance (5/11)", "sector": "broad market", "impact": "high"},
+    {"event": "Nvidia CEO Jensen Huang confirms billions invested in Corning glass substrate", "sector": "advanced packaging, substrate", "impact": "high"},
+    {"event": "TSMC April revenue NT$410.7B, second highest ever", "sector": "semiconductor", "impact": "high"},
+    {"event": "Intel wins Apple orders, stock surges 13.93%", "sector": "semiconductor", "impact": "medium"},
+    {"event": "TSMC Technology Forum 5/14", "sector": "semiconductor", "impact": "medium"},
+    {"event": "Nvidia earnings next week, Google IO, Computex early June", "sector": "AI, semiconductor", "impact": "medium"}
+  ],
+  "sector_ranking": [
+    {"sector": "IC Design", "change_pct": 6.14, "rank": 1},
+    {"sector": "Passive Components", "change_pct": 4.71, "rank": 2},
+    {"sector": "Electronic Components", "change_pct": 5.05, "rank": 3},
+    {"sector": "Financial", "change_pct": 0.87, "rank": 4}
+  ],
+  "model_version": "v2.0_backtest_optimized_20260226",
+  "top_10": [
+    {
+      "rank": 1,
+      "stock_id": "2454",
+      "name": "聯發科",
+      "close": 3630,
+      "change_pct": 6.14,
+      "total_score": 91,
+      "recommendation": "★★★ Strong Recommend",
+      "power_combo": true,
+      "sector_boost": "[族群強勢+3] IC設計 (+6.14%) 1/3",
+      "dimensions": {
+        "technical": 26,
+        "chips": 20,
+        "fundamentals": 18,
+        "news": 15,
+        "market_strength": 12
+      },
+      "signals": {
+        "ma_trend": "price > MA20 > MA60",
+        "vol_ratio": 2.8,
+        "rsi14": 72,
+        "macd": "above_signal",
+        "break_60d_high": true
+      },
+      "strategy": {
+        "entry_zone": "3550-3650",
+        "entry_note": "處置期間(5/7-5/20)波動加劇，跳空超過3700不追等拉回",
+        "stop_loss": 3267,
+        "stop_loss_pct": -10,
+        "target_1": 3993,
+        "target_1_pct": 10,
+        "target_2": 4356,
+        "target_2_pct": 20,
+        "hold_days": "5-10",
+        "max_loss_per_lot": 36300,
+        "position_suggestion": "0-1張(處置期間建議觀望或極輕倉)"
+      }
+    },
+    {
+      "rank": 2,
+      "stock_id": "3034",
+      "name": "聯詠",
+      "close": 498,
+      "change_pct": 9.93,
+      "total_score": 87,
+      "recommendation": "★★★ Strong Recommend",
+      "power_combo": false,
+      "sector_boost": "[族群強勢+3] IC設計 (+6.14%) 2/3",
+      "dimensions": {
+        "technical": 25,
+        "chips": 21,
+        "fundamentals": 16,
+        "news": 14,
+        "market_strength": 11
+      },
+      "signals": {
+        "ma_trend": "price > MA20 > MA60",
+        "vol_ratio": 3.5,
+        "rsi14": 68,
+        "macd": "golden_cross",
+        "break_60d_high": true
+      },
+      "strategy": {
+        "entry_zone": "480-510",
+        "entry_note": "漲停次日開盤若跳空超過520不追，等拉回5MA",
+        "stop_loss": 448,
+        "stop_loss_pct": -10,
+        "target_1": 548,
+        "target_1_pct": 10,
+        "target_2": 598,
+        "target_2_pct": 20,
+        "hold_days": "3-5",
+        "max_loss_per_lot": 5000,
+        "position_suggestion": "1-2張"
+      }
+    },
+    {
+      "rank": 3,
+      "stock_id": "3026",
+      "name": "禾伸堂",
+      "close": 330,
+      "change_pct": 10.0,
+      "total_score": 82,
+      "recommendation": "★★★ Strong Recommend",
+      "power_combo": false,
+      "sector_boost": "[族群強勢+3] 被動元件 (+4.71%) 1/3",
+      "dimensions": {
+        "technical": 23,
+        "chips": 20,
+        "fundamentals": 14,
+        "news": 14,
+        "market_strength": 11
+      },
+      "signals": {
+        "ma_trend": "price > MA20 > MA60",
+        "vol_ratio": 4.2,
+        "rsi14": 75,
+        "macd": "above_signal",
+        "break_60d_high": true
+      },
+      "strategy": {
+        "entry_zone": "315-335",
+        "entry_note": "漲停次日開盤跳空超過340不追，等拉回5MA~10MA",
+        "stop_loss": 297,
+        "stop_loss_pct": -10,
+        "target_1": 363,
+        "target_1_pct": 10,
+        "target_2": 396,
+        "target_2_pct": 20,
+        "hold_days": "3-5",
+        "max_loss_per_lot": 3300,
+        "position_suggestion": "1-2張"
+      }
+    },
+    {
+      "rank": 4,
+      "stock_id": "2330",
+      "name": "台積電",
+      "close": 2290,
+      "change_pct": -0.87,
+      "total_score": 86,
+      "recommendation": "★★★ Strong Recommend",
+      "power_combo": false,
+      "sector_boost": "",
+      "dimensions": {
+        "technical": 22,
+        "chips": 19,
+        "fundamentals": 19,
+        "news": 15,
+        "market_strength": 11
+      },
+      "signals": {
+        "ma_trend": "price > MA20 > MA60",
+        "vol_ratio": 0.77,
+        "rsi14": 58,
+        "macd": "above_signal",
+        "break_60d_high": true
+      },
+      "strategy": {
+        "entry_zone": "2260-2320",
+        "entry_note": "外資調節短線拉回，4月營收創次高，技術論壇5/14催化",
+        "stop_loss": 2061,
+        "stop_loss_pct": -10,
+        "target_1": 2519,
+        "target_1_pct": 10,
+        "target_2": 2748,
+        "target_2_pct": 20,
+        "hold_days": "5-10",
+        "max_loss_per_lot": 22900,
+        "position_suggestion": "0-1張(權值股建議用ETF替代)"
+      }
+    },
+    {
+      "rank": 5,
+      "stock_id": "3036",
+      "name": "文曄",
+      "close": 168,
+      "change_pct": 9.91,
+      "total_score": 80,
+      "recommendation": "★★★ Strong Recommend",
+      "power_combo": false,
+      "sector_boost": "[族群強勢+3] IC通路 (+5.05%) 1/3",
+      "dimensions": {
+        "technical": 22,
+        "chips": 18,
+        "fundamentals": 15,
+        "news": 13,
+        "market_strength": 12
+      },
+      "signals": {
+        "ma_trend": "price > MA20 > MA60",
+        "vol_ratio": 3.0,
+        "rsi14": 65,
+        "macd": "above_signal",
+        "break_60d_high": true
+      },
+      "strategy": {
+        "entry_zone": "162-172",
+        "entry_note": "漲停次日開盤跳空超過175不追，等拉回5MA",
+        "stop_loss": 151,
+        "stop_loss_pct": -10,
+        "target_1": 185,
+        "target_1_pct": 10,
+        "target_2": 202,
+        "target_2_pct": 20,
+        "hold_days": "3-5",
+        "max_loss_per_lot": 1700,
+        "position_suggestion": "1-2張"
+      }
+    },
+    {
+      "rank": 6,
+      "stock_id": "2059",
+      "name": "川湖",
+      "close": 5320,
+      "change_pct": 9.92,
+      "total_score": 79,
+      "recommendation": "★★ Watch List",
+      "power_combo": false,
+      "sector_boost": "",
+      "dimensions": {
+        "technical": 21,
+        "chips": 19,
+        "fundamentals": 16,
+        "news": 12,
+        "market_strength": 11
+      },
+      "signals": {
+        "ma_trend": "price > MA20 > MA60",
+        "vol_ratio": 2.5,
+        "rsi14": 70,
+        "macd": "above_signal",
+        "break_60d_high": true
+      },
+      "strategy": {
+        "entry_zone": "5100-5400",
+        "entry_note": "Q1 EPS 36.58創歷史次高，ASIC供應鏈，高價股建議輕倉",
+        "stop_loss": 4788,
+        "stop_loss_pct": -10,
+        "target_1": 5852,
+        "target_1_pct": 10,
+        "target_2": 6384,
+        "target_2_pct": 20,
+        "hold_days": "3-5",
+        "max_loss_per_lot": 53200,
+        "position_suggestion": "0-1張(高價股風險高)"
+      }
+    },
+    {
+      "rank": 7,
+      "stock_id": "2327",
+      "name": "國巨",
+      "close": 389,
+      "change_pct": 4.71,
+      "total_score": 78,
+      "recommendation": "★★ Watch List",
+      "power_combo": false,
+      "sector_boost": "[族群強勢+3] 被動元件 (+4.71%) 2/3",
+      "dimensions": {
+        "technical": 21,
+        "chips": 20,
+        "fundamentals": 16,
+        "news": 12,
+        "market_strength": 9
+      },
+      "signals": {
+        "ma_trend": "price > MA20 > MA60",
+        "vol_ratio": 2.2,
+        "rsi14": 62,
+        "macd": "above_signal",
+        "break_60d_high": false
+      },
+      "strategy": {
+        "entry_zone": "375-395",
+        "entry_note": "4月營收創歷史新高，AI被動元件需求爆發，回測10MA進場",
+        "stop_loss": 350,
+        "stop_loss_pct": -10,
+        "target_1": 428,
+        "target_1_pct": 10,
+        "target_2": 467,
+        "target_2_pct": 20,
+        "hold_days": "5-10",
+        "max_loss_per_lot": 3900,
+        "position_suggestion": "1-2張"
+      }
+    },
+    {
+      "rank": 8,
+      "stock_id": "2379",
+      "name": "瑞昱",
+      "close": 592,
+      "change_pct": 9.83,
+      "total_score": 76,
+      "recommendation": "★★ Watch List",
+      "power_combo": false,
+      "sector_boost": "[族群強勢+3] IC設計 (+6.14%) 3/3",
+      "dimensions": {
+        "technical": 22,
+        "chips": 17,
+        "fundamentals": 15,
+        "news": 12,
+        "market_strength": 10
+      },
+      "signals": {
+        "ma_trend": "price > MA20 > MA60",
+        "vol_ratio": 2.8,
+        "rsi14": 68,
+        "macd": "golden_cross",
+        "break_60d_high": true
+      },
+      "strategy": {
+        "entry_zone": "570-600",
+        "entry_note": "IC設計族群聯動，漲停次日等拉回5MA",
+        "stop_loss": 533,
+        "stop_loss_pct": -10,
+        "target_1": 651,
+        "target_1_pct": 10,
+        "target_2": 710,
+        "target_2_pct": 20,
+        "hold_days": "3-5",
+        "max_loss_per_lot": 5900,
+        "position_suggestion": "1張"
+      }
+    },
+    {
+      "rank": 9,
+      "stock_id": "2451",
+      "name": "創見",
+      "close": 312.5,
+      "change_pct": 3.31,
+      "total_score": 74,
+      "recommendation": "★★ Watch List",
+      "power_combo": false,
+      "sector_boost": "",
+      "dimensions": {
+        "technical": 19,
+        "chips": 16,
+        "fundamentals": 19,
+        "news": 12,
+        "market_strength": 8
+      },
+      "signals": {
+        "ma_trend": "price > MA20 > MA60",
+        "vol_ratio": 1.5,
+        "rsi14": 65,
+        "macd": "above_signal",
+        "break_60d_high": false
+      },
+      "strategy": {
+        "entry_zone": "300-320",
+        "entry_note": "Q1 EPS 18.93創新高，短線乖離偏大，等拉回10MA進場",
+        "stop_loss": 281,
+        "stop_loss_pct": -10,
+        "target_1": 344,
+        "target_1_pct": 10,
+        "target_2": 375,
+        "target_2_pct": 20,
+        "hold_days": "5-10",
+        "max_loss_per_lot": 3150,
+        "position_suggestion": "1張"
+      }
+    },
+    {
+      "rank": 10,
+      "stock_id": "6173",
+      "name": "信昌電",
+      "close": 93,
+      "change_pct": 9.87,
+      "total_score": 72,
+      "recommendation": "★★ Watch List",
+      "power_combo": false,
+      "sector_boost": "[族群強勢+3] 被動元件 (+4.71%) 3/3",
+      "dimensions": {
+        "technical": 20,
+        "chips": 16,
+        "fundamentals": 13,
+        "news": 12,
+        "market_strength": 11
+      },
+      "signals": {
+        "ma_trend": "price > MA20 > MA60",
+        "vol_ratio": 3.8,
+        "rsi14": 66,
+        "macd": "above_signal",
+        "break_60d_high": true
+      },
+      "strategy": {
+        "entry_zone": "88-95",
+        "entry_note": "被動元件族群聯動，第二根漲停後等拉回5MA",
+        "stop_loss": 84,
+        "stop_loss_pct": -10,
+        "target_1": 102,
+        "target_1_pct": 10,
+        "target_2": 112,
+        "target_2_pct": 20,
+        "hold_days": "3-5",
+        "max_loss_per_lot": 900,
+        "position_suggestion": "1-2張"
+      }
+    }
+  ],
+  "watch_list": [
+    {
+      "stock_id": "2317",
+      "name": "鴻海",
+      "close": 250,
+      "score": 68,
+      "status": "籌碼轉強但尚未突破月線壓力",
+      "wait_signal": "外資連續2日買超 + 收盤站回20MA(約255)"
+    },
+    {
+      "stock_id": "2308",
+      "name": "台達電",
+      "close": 2200,
+      "score": 67,
+      "status": "短線拉回整理，籌碼面外資調節",
+      "wait_signal": "外資轉買超 + 站回5MA(約2250)"
+    },
+    {
+      "stock_id": "3711",
+      "name": "日月光投控",
+      "close": 558,
+      "score": 66,
+      "status": "盤中創558新高後拉回，量能不足",
+      "wait_signal": "成交量放大至5日均量1.5倍 + 收盤站穩550"
+    }
+  ]
+}
