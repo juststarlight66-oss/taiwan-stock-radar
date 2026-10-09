@@ -12,6 +12,11 @@
   "last_updated": "2026-08-12T18:59:53.825281+08:00",
   "scans": [
     {
+      "date": "20261010",
+      "file": "scan_result_20261010.json",
+      "scan_time": "00:41:29"
+    },
+    {
       "date": "20261009",
       "file": "scan_result_20261009.json",
       "scan_time": "01:11:54"
@@ -334,14 +339,9 @@
       "file": "scan_result_20260626.json",
       "scan_time": "19:10:10",
       "scanned_count": 1959
-    },
-    {
-      "date": "20260624",
-      "file": "scan_result_20260624.json",
-      "scan_time": "19:14:32"
     }
   ],
-  "updated_at": "2026-10-09T01:11:54.459562+08:00",
+  "updated_at": "2026-10-10T00:41:29.819393+08:00",
   "dates": [
     "20260812",
     "20260605",

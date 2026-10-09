@@ -1,13 +1,68 @@
 {
   "scan_type": "reversal_60min",
-  "scanned_at": "2026-10-09 01:11:55",
+  "scanned_at": "2026-10-10 00:41:30",
   "strategy": "60分K線翻紅底部反轉",
   "description": "篩選日內微跌（尚未翻紅）但60分K出現KD金叉+MACD底部+量縮止跌共振訊號的個股",
   "filter": "日內跌幅 -5.0%~5.0%，最低評分 30",
   "scanned_count": 1958,
-  "pre_filtered": 1047,
-  "qualified_count": 477,
+  "pre_filtered": 1847,
+  "qualified_count": 712,
   "stocks": [
+    {
+      "stock_id": "6171",
+      "name": "大城地產股份有限公司",
+      "sector": "建材營造",
+      "market": "TPEX",
+      "score": 75.0,
+      "day_change_pct": 0.42,
+      "entry": 24.1,
+      "target_1": 24.34,
+      "target_2": 24.82,
+      "stop_loss": 23.38,
+      "signals": [
+        "KD金叉",
+        "量縮止跌",
+        "MA20支撐"
+      ],
+      "signal_count": 3,
+      "details": {
+        "kd": {
+          "k": 19.0,
+          "d": 18.7,
+          "signal": "低位金叉(K<30)",
+          "score": 30
+        },
+        "macd": {
+          "hist": 0.0,
+          "dif": 0.0,
+          "signal": "無MACD底部訊號",
+          "score": 0
+        },
+        "volume": {
+          "shrink": true,
+          "lower_wick": true,
+          "signal": "量縮+陽線止跌",
+          "score": 20
+        },
+        "ma_support": {
+          "dist_ma20": 0.2,
+          "signal": "緊貼MA20支撐",
+          "score": 15
+        },
+        "day_position": {
+          "change_pct": 0.42,
+          "signal": "幾乎平盤",
+          "score": 10
+        },
+        "score_breakdown": {
+          "kd": 30,
+          "macd": 0,
+          "volume": 20,
+          "ma_support": 15,
+          "day_position": 10
+        }
+      }
+    },
     {
       "stock_id": "2250",
       "name": "IKKA-KY",
@@ -27,8 +82,8 @@
       "signal_count": 3,
       "details": {
         "kd": {
-          "k": 20.7,
-          "d": 15.2,
+          "k": 20.8,
+          "d": 15.4,
           "signal": "低位金叉(K<30)",
           "score": 30
         },
@@ -45,7 +100,7 @@
           "score": 20
         },
         "ma_support": {
-          "dist_ma20": -0.17,
+          "dist_ma20": -0.18,
           "signal": "緊貼MA20支撐",
           "score": 15
         },
@@ -229,6 +284,61 @@
       }
     },
     {
+      "stock_id": "3211",
+      "name": "順達科技股份有限公司",
+      "sector": "電腦及週邊設備業",
+      "market": "TPEX",
+      "score": 65.0,
+      "day_change_pct": -0.39,
+      "entry": 388.0,
+      "target_1": 391.88,
+      "target_2": 399.64,
+      "stop_loss": 376.36,
+      "signals": [
+        "KD金叉",
+        "量縮止跌",
+        "MA20支撐"
+      ],
+      "signal_count": 3,
+      "details": {
+        "kd": {
+          "k": 53.3,
+          "d": 52.8,
+          "signal": "金叉(K>=50)",
+          "score": 20
+        },
+        "macd": {
+          "hist": 0.0,
+          "dif": 0.0,
+          "signal": "無MACD底部訊號",
+          "score": 0
+        },
+        "volume": {
+          "shrink": true,
+          "lower_wick": true,
+          "signal": "量縮+陽線止跌",
+          "score": 20
+        },
+        "ma_support": {
+          "dist_ma20": -0.8,
+          "signal": "緊貼MA20支撐",
+          "score": 15
+        },
+        "day_position": {
+          "change_pct": -0.39,
+          "signal": "幾乎平盤",
+          "score": 10
+        },
+        "score_breakdown": {
+          "kd": 20,
+          "macd": 0,
+          "volume": 20,
+          "ma_support": 15,
+          "day_position": 10
+        }
+      }
+    },
+    {
       "stock_id": "2537",
       "name": "聯上發",
       "sector": "建材營造",
@@ -334,6 +444,61 @@
           "macd": 0,
           "volume": 15,
           "ma_support": 10,
+          "day_position": 10
+        }
+      }
+    },
+    {
+      "stock_id": "4702",
+      "name": "中美聯合實業股份有限公司",
+      "sector": "貿易百貨",
+      "market": "TPEX",
+      "score": 60.0,
+      "day_change_pct": 0.21,
+      "entry": 9.36,
+      "target_1": 9.45,
+      "target_2": 9.64,
+      "stop_loss": 9.08,
+      "signals": [
+        "KD金叉",
+        "量縮止跌",
+        "MA20支撐"
+      ],
+      "signal_count": 3,
+      "details": {
+        "kd": {
+          "k": 52.1,
+          "d": 48.4,
+          "signal": "金叉(K>=50)",
+          "score": 20
+        },
+        "macd": {
+          "hist": 0.0,
+          "dif": 0.0,
+          "signal": "無MACD底部訊號",
+          "score": 0
+        },
+        "volume": {
+          "shrink": true,
+          "lower_wick": false,
+          "signal": "量縮止跌",
+          "score": 15
+        },
+        "ma_support": {
+          "dist_ma20": 0.3,
+          "signal": "緊貼MA20支撐",
+          "score": 15
+        },
+        "day_position": {
+          "change_pct": 0.21,
+          "signal": "幾乎平盤",
+          "score": 10
+        },
+        "score_breakdown": {
+          "kd": 20,
+          "macd": 0,
+          "volume": 15,
+          "ma_support": 15,
           "day_position": 10
         }
       }
@@ -445,6 +610,171 @@
           "volume": 0,
           "ma_support": 15,
           "day_position": 10
+        }
+      }
+    },
+    {
+      "stock_id": "5210",
+      "name": "寶碩財務科技股份有限公司",
+      "sector": "資訊服務業",
+      "market": "TPEX",
+      "score": 55.0,
+      "day_change_pct": 0.17,
+      "entry": 29.9,
+      "target_1": 30.2,
+      "target_2": 30.8,
+      "stop_loss": 29.0,
+      "signals": [
+        "KD金叉",
+        "量縮止跌",
+        "MA20支撐"
+      ],
+      "signal_count": 3,
+      "details": {
+        "kd": {
+          "k": 29.0,
+          "d": 26.8,
+          "signal": "低位金叉(K<30)",
+          "score": 30
+        },
+        "macd": {
+          "hist": 0.0,
+          "dif": 0.0,
+          "signal": "無MACD底部訊號",
+          "score": 0
+        },
+        "volume": {
+          "shrink": false,
+          "lower_wick": false,
+          "signal": "無量縮訊號",
+          "score": 0
+        },
+        "ma_support": {
+          "dist_ma20": 0.11,
+          "signal": "緊貼MA20支撐",
+          "score": 15
+        },
+        "day_position": {
+          "change_pct": 0.17,
+          "signal": "幾乎平盤",
+          "score": 10
+        },
+        "score_breakdown": {
+          "kd": 30,
+          "macd": 0,
+          "volume": 0,
+          "ma_support": 15,
+          "day_position": 10
+        }
+      }
+    },
+    {
+      "stock_id": "4416",
+      "name": "三圓建設股份有限公司",
+      "sector": "建材營造",
+      "market": "TPEX",
+      "score": 55.0,
+      "day_change_pct": -2.78,
+      "entry": 12.25,
+      "target_1": 12.37,
+      "target_2": 12.62,
+      "stop_loss": 11.88,
+      "signals": [
+        "KD金叉",
+        "量縮止跌",
+        "MA20支撐"
+      ],
+      "signal_count": 3,
+      "details": {
+        "kd": {
+          "k": 14.5,
+          "d": 15.5,
+          "signal": "超低位K回升",
+          "score": 20
+        },
+        "macd": {
+          "hist": 0.0,
+          "dif": 0.0,
+          "signal": "無MACD底部訊號",
+          "score": 0
+        },
+        "volume": {
+          "shrink": true,
+          "lower_wick": true,
+          "signal": "量縮+陽線止跌",
+          "score": 20
+        },
+        "ma_support": {
+          "dist_ma20": -1.59,
+          "signal": "輕跌MA20下方",
+          "score": 10
+        },
+        "day_position": {
+          "change_pct": -2.78,
+          "signal": "小幅下跌",
+          "score": 5
+        },
+        "score_breakdown": {
+          "kd": 20,
+          "macd": 0,
+          "volume": 20,
+          "ma_support": 10,
+          "day_position": 5
+        }
+      }
+    },
+    {
+      "stock_id": "8071",
+      "name": "能率網通股份有限公司",
+      "sector": "電子零組件業",
+      "market": "TPEX",
+      "score": 53.0,
+      "day_change_pct": -0.68,
+      "entry": 21.75,
+      "target_1": 21.97,
+      "target_2": 22.4,
+      "stop_loss": 21.1,
+      "signals": [
+        "KD金叉",
+        "量縮止跌",
+        "MA20支撐"
+      ],
+      "signal_count": 3,
+      "details": {
+        "kd": {
+          "k": 26.1,
+          "d": 24.8,
+          "signal": "低位金叉(K<30)",
+          "score": 30
+        },
+        "macd": {
+          "hist": 0.0,
+          "dif": 0.0,
+          "signal": "無MACD底部訊號",
+          "score": 0
+        },
+        "volume": {
+          "shrink": false,
+          "lower_wick": false,
+          "signal": "無量縮訊號",
+          "score": 0
+        },
+        "ma_support": {
+          "dist_ma20": -0.97,
+          "signal": "緊貼MA20支撐",
+          "score": 15
+        },
+        "day_position": {
+          "change_pct": -0.68,
+          "signal": "微幅下跌",
+          "score": 8
+        },
+        "score_breakdown": {
+          "kd": 30,
+          "macd": 0,
+          "volume": 0,
+          "ma_support": 15,
+          "day_position": 8
         }
       }
     },
@@ -614,71 +944,16 @@
       }
     },
     {
-      "stock_id": "2208",
-      "name": "台船",
-      "sector": "航運業",
-      "market": "TSE",
-      "score": 50.0,
-      "day_change_pct": 0.27,
-      "entry": 18.55,
-      "target_1": 18.74,
-      "target_2": 19.11,
-      "stop_loss": 17.99,
-      "signals": [
-        "KD金叉",
-        "量縮止跌",
-        "MA20支撐"
-      ],
-      "signal_count": 3,
-      "details": {
-        "kd": {
-          "k": 43.4,
-          "d": 41.3,
-          "signal": "中低位金叉",
-          "score": 25
-        },
-        "macd": {
-          "hist": 0.0,
-          "dif": 0.0,
-          "signal": "無MACD底部訊號",
-          "score": 0
-        },
-        "volume": {
-          "shrink": false,
-          "lower_wick": false,
-          "signal": "無量縮訊號",
-          "score": 0
-        },
-        "ma_support": {
-          "dist_ma20": -0.22,
-          "signal": "緊貼MA20支撐",
-          "score": 15
-        },
-        "day_position": {
-          "change_pct": 0.27,
-          "signal": "幾乎平盤",
-          "score": 10
-        },
-        "score_breakdown": {
-          "kd": 25,
-          "macd": 0,
-          "volume": 0,
-          "ma_support": 15,
-          "day_position": 10
-        }
-      }
-    },
-    {
-      "stock_id": "8028",
-      "name": "昇陽半導體",
-      "sector": "半導體業",
-      "market": "TSE",
+      "stock_id": "6712",
+      "name": "長聖國際生技股份有限公司",
+      "sector": "生技醫療業",
+      "market": "TPEX",
       "score": 50.0,
       "day_change_pct": 0,
-      "entry": 285.0,
-      "target_1": 287.85,
-      "target_2": 293.55,
-      "stop_loss": 276.45,
+      "entry": 161.5,
+      "target_1": 163.12,
+      "target_2": 166.34,
+      "stop_loss": 156.66,
       "signals": [
         "KD金叉",
         "量縮止跌",
@@ -687,8 +962,8 @@
       "signal_count": 3,
       "details": {
         "kd": {
-          "k": 41.7,
-          "d": 37.9,
+          "k": 42.7,
+          "d": 41.4,
           "signal": "中低位金叉",
           "score": 25
         },
@@ -705,7 +980,7 @@
           "score": 0
         },
         "ma_support": {
-          "dist_ma20": 0.19,
+          "dist_ma20": 0.36,
           "signal": "緊貼MA20支撐",
           "score": 15
         },
@@ -724,16 +999,16 @@
       }
     },
     {
-      "stock_id": "2371",
-      "name": "大同",
-      "sector": "電機機械",
-      "market": "TSE",
-      "score": 48.0,
-      "day_change_pct": -0.65,
-      "entry": 30.4,
-      "target_1": 30.7,
-      "target_2": 31.31,
-      "stop_loss": 29.49,
+      "stock_id": "3152",
+      "name": "璟德電子工業股份有限公司",
+      "sector": "通信網路業",
+      "market": "TPEX",
+      "score": 50.0,
+      "day_change_pct": 0.21,
+      "entry": 243.0,
+      "target_1": 245.43,
+      "target_2": 250.29,
+      "stop_loss": 235.71,
       "signals": [
         "KD金叉",
         "量縮止跌",
@@ -742,8 +1017,8 @@
       "signal_count": 3,
       "details": {
         "kd": {
-          "k": 30.4,
-          "d": 28.5,
+          "k": 44.4,
+          "d": 43.6,
           "signal": "中低位金叉",
           "score": 25
         },
@@ -760,200 +1035,35 @@
           "score": 0
         },
         "ma_support": {
-          "dist_ma20": -0.14,
+          "dist_ma20": 1.03,
           "signal": "緊貼MA20支撐",
           "score": 15
         },
         "day_position": {
-          "change_pct": -0.65,
-          "signal": "微幅下跌",
-          "score": 8
+          "change_pct": 0.21,
+          "signal": "幾乎平盤",
+          "score": 10
         },
         "score_breakdown": {
           "kd": 25,
           "macd": 0,
           "volume": 0,
           "ma_support": 15,
-          "day_position": 8
-        }
-      }
-    },
-    {
-      "stock_id": "3712",
-      "name": "永崴投控",
-      "sector": "電腦及週邊設備業",
-      "market": "TSE",
-      "score": 48.0,
-      "day_change_pct": -0.74,
-      "entry": 20.2,
-      "target_1": 20.4,
-      "target_2": 20.81,
-      "stop_loss": 19.59,
-      "signals": [
-        "KD金叉",
-        "量縮止跌",
-        "MA20支撐"
-      ],
-      "signal_count": 3,
-      "details": {
-        "kd": {
-          "k": 19.4,
-          "d": 16.9,
-          "signal": "超低位K回升",
-          "score": 20
-        },
-        "macd": {
-          "hist": 0.0,
-          "dif": 0.0,
-          "signal": "無MACD底部訊號",
-          "score": 0
-        },
-        "volume": {
-          "shrink": true,
-          "lower_wick": false,
-          "signal": "量縮（仍下跌）",
-          "score": 10
-        },
-        "ma_support": {
-          "dist_ma20": -1.32,
-          "signal": "輕跌MA20下方",
-          "score": 10
-        },
-        "day_position": {
-          "change_pct": -0.74,
-          "signal": "微幅下跌",
-          "score": 8
-        },
-        "score_breakdown": {
-          "kd": 20,
-          "macd": 0,
-          "volume": 10,
-          "ma_support": 10,
-          "day_position": 8
-        }
-      }
-    },
-    {
-      "stock_id": "6451",
-      "name": "訊芯-KY",
-      "sector": "半導體業",
-      "market": "TSE",
-      "score": 48.0,
-      "day_change_pct": -1.41,
-      "entry": 420.5,
-      "target_1": 424.7,
-      "target_2": 433.12,
-      "stop_loss": 407.88,
-      "signals": [
-        "KD金叉",
-        "量縮止跌",
-        "MA20支撐"
-      ],
-      "signal_count": 3,
-      "details": {
-        "kd": {
-          "k": 23.5,
-          "d": 22.3,
-          "signal": "低位金叉(K<30)",
-          "score": 30
-        },
-        "macd": {
-          "hist": 0.0,
-          "dif": 0.0,
-          "signal": "無MACD底部訊號",
-          "score": 0
-        },
-        "volume": {
-          "shrink": false,
-          "lower_wick": false,
-          "signal": "無量縮訊號",
-          "score": 0
-        },
-        "ma_support": {
-          "dist_ma20": -1.71,
-          "signal": "輕跌MA20下方",
-          "score": 10
-        },
-        "day_position": {
-          "change_pct": -1.41,
-          "signal": "微幅下跌",
-          "score": 8
-        },
-        "score_breakdown": {
-          "kd": 30,
-          "macd": 0,
-          "volume": 0,
-          "ma_support": 10,
-          "day_position": 8
-        }
-      }
-    },
-    {
-      "stock_id": "6189",
-      "name": "豐藝",
-      "sector": "電子通路業",
-      "market": "TSE",
-      "score": 45.0,
-      "day_change_pct": -0.2,
-      "entry": 49.3,
-      "target_1": 49.79,
-      "target_2": 50.78,
-      "stop_loss": 47.82,
-      "signals": [
-        "KD金叉",
-        "量縮止跌",
-        "MA20支撐"
-      ],
-      "signal_count": 3,
-      "details": {
-        "kd": {
-          "k": 19.5,
-          "d": 22.3,
-          "signal": "超低位K回升",
-          "score": 20
-        },
-        "macd": {
-          "hist": 0.0,
-          "dif": 0.0,
-          "signal": "無MACD底部訊號",
-          "score": 0
-        },
-        "volume": {
-          "shrink": false,
-          "lower_wick": false,
-          "signal": "無量縮訊號",
-          "score": 0
-        },
-        "ma_support": {
-          "dist_ma20": -0.53,
-          "signal": "緊貼MA20支撐",
-          "score": 15
-        },
-        "day_position": {
-          "change_pct": -0.2,
-          "signal": "幾乎平盤",
-          "score": 10
-        },
-        "score_breakdown": {
-          "kd": 20,
-          "macd": 0,
-          "volume": 0,
-          "ma_support": 15,
           "day_position": 10
         }
       }
     },
     {
-      "stock_id": "1342",
-      "name": "八貫",
-      "sector": "其他",
-      "market": "TSE",
-      "score": 45.0,
-      "day_change_pct": 0,
-      "entry": 101.0,
-      "target_1": 102.01,
-      "target_2": 104.03,
-      "stop_loss": 97.97,
+      "stock_id": "4721",
+      "name": "美琪瑪國際股份有限公司",
+      "sector": "化學工業",
+      "market": "TPEX",
+      "score": 50.0,
+      "day_change_pct": -0.49,
+      "entry": 81.9,
+      "target_1": 82.72,
+      "target_2": 84.36,
+      "stop_loss": 79.44,
       "signals": [
         "KD金叉",
         "量縮止跌",
@@ -962,10 +1072,10 @@
       "signal_count": 3,
       "details": {
         "kd": {
-          "k": 72.8,
-          "d": 65.5,
-          "signal": "金叉(K>=50)",
-          "score": 20
+          "k": 42.0,
+          "d": 39.1,
+          "signal": "中低位金叉",
+          "score": 25
         },
         "macd": {
           "hist": 0.0,
@@ -980,127 +1090,17 @@
           "score": 0
         },
         "ma_support": {
-          "dist_ma20": 0.72,
+          "dist_ma20": 0.46,
           "signal": "緊貼MA20支撐",
           "score": 15
         },
         "day_position": {
-          "change_pct": 0,
+          "change_pct": -0.49,
           "signal": "幾乎平盤",
           "score": 10
         },
         "score_breakdown": {
-          "kd": 20,
-          "macd": 0,
-          "volume": 0,
-          "ma_support": 15,
-          "day_position": 10
-        }
-      }
-    },
-    {
-      "stock_id": "2034",
-      "name": "允強",
-      "sector": "鋼鐵工業",
-      "market": "TSE",
-      "score": 45.0,
-      "day_change_pct": -0.41,
-      "entry": 24.05,
-      "target_1": 24.29,
-      "target_2": 24.77,
-      "stop_loss": 23.33,
-      "signals": [
-        "KD金叉",
-        "量縮止跌",
-        "MA20支撐"
-      ],
-      "signal_count": 3,
-      "details": {
-        "kd": {
-          "k": 52.1,
-          "d": 48.8,
-          "signal": "金叉(K>=50)",
-          "score": 20
-        },
-        "macd": {
-          "hist": 0.0,
-          "dif": 0.0,
-          "signal": "無MACD底部訊號",
-          "score": 0
-        },
-        "volume": {
-          "shrink": false,
-          "lower_wick": false,
-          "signal": "無量縮訊號",
-          "score": 0
-        },
-        "ma_support": {
-          "dist_ma20": 0.7,
-          "signal": "緊貼MA20支撐",
-          "score": 15
-        },
-        "day_position": {
-          "change_pct": -0.41,
-          "signal": "幾乎平盤",
-          "score": 10
-        },
-        "score_breakdown": {
-          "kd": 20,
-          "macd": 0,
-          "volume": 0,
-          "ma_support": 15,
-          "day_position": 10
-        }
-      }
-    },
-    {
-      "stock_id": "9958",
-      "name": "世紀鋼",
-      "sector": "鋼鐵工業",
-      "market": "TSE",
-      "score": 45.0,
-      "day_change_pct": 0.11,
-      "entry": 89.1,
-      "target_1": 89.99,
-      "target_2": 91.77,
-      "stop_loss": 86.43,
-      "signals": [
-        "KD金叉",
-        "量縮止跌",
-        "MA20支撐"
-      ],
-      "signal_count": 3,
-      "details": {
-        "kd": {
-          "k": 13.0,
-          "d": 13.8,
-          "signal": "超低位K回升",
-          "score": 20
-        },
-        "macd": {
-          "hist": 0.0,
-          "dif": 0.0,
-          "signal": "無MACD底部訊號",
-          "score": 0
-        },
-        "volume": {
-          "shrink": false,
-          "lower_wick": false,
-          "signal": "無量縮訊號",
-          "score": 0
-        },
-        "ma_support": {
-          "dist_ma20": -0.47,
-          "signal": "緊貼MA20支撐",
-          "score": 15
-        },
-        "day_position": {
-          "change_pct": 0.11,
-          "signal": "幾乎平盤",
-          "score": 10
-        },
-        "score_breakdown": {
-          "kd": 20,
+          "kd": 25,
           "macd": 0,
           "volume": 0,
           "ma_support": 15,
@@ -1114,61 +1114,6 @@
     "min_score": 30,
     "count": 15,
     "stocks": [
-      {
-        "stock_id": "6789",
-        "name": "采鈺",
-        "sector": "半導體業",
-        "market": "TSE",
-        "score": 72.0,
-        "prev_day_change_pct": -0.93,
-        "current_price": 481.0,
-        "target_1": 485.81,
-        "target_2": 500.24,
-        "stop_loss": 464.16,
-        "signals": [
-          "KD底部金叉",
-          "量縮止跌",
-          "MA20支撐"
-        ],
-        "signal_count": 3,
-        "strategy_note": "昨日尾盤底部共振，明日開盤可能跳空翻紅",
-        "details": {
-          "kd": {
-            "k": 18.3,
-            "d": 16.8,
-            "signal": "尾盤超低位金叉(K<30)",
-            "score": 30.0
-          },
-          "macd": {
-            "hist": 0.0,
-            "dif": 0.0,
-            "signal": "無MACD底部訊號",
-            "score": 0.0
-          },
-          "volume": {
-            "shrink": true,
-            "signal": "量縮+收盤強勢反撲",
-            "score": 20.0
-          },
-          "ma_support": {
-            "dist_ma20": -0.94,
-            "signal": "緊貼MA20支撐",
-            "score": 15.0
-          },
-          "day_position": {
-            "change_pct": -0.93,
-            "signal": "小跌蓄積",
-            "score": 7.0
-          },
-          "score_breakdown": {
-            "kd": 30.0,
-            "macd": 0.0,
-            "volume": 20.0,
-            "ma_support": 15.0,
-            "day_position": 7.0
-          }
-        }
-      },
       {
         "stock_id": "9946",
         "name": "三發地產",
@@ -1225,16 +1170,16 @@
         }
       },
       {
-        "stock_id": "1717",
-        "name": "長興",
-        "sector": "化學工業",
+        "stock_id": "2421",
+        "name": "建準",
+        "sector": "電子零組件業",
         "market": "TSE",
-        "score": 52.0,
-        "prev_day_change_pct": -1.59,
-        "current_price": 74.4,
-        "target_1": 75.14,
-        "target_2": 77.38,
-        "stop_loss": 71.8,
+        "score": 55.0,
+        "prev_day_change_pct": -2.04,
+        "current_price": 168.0,
+        "target_1": 169.68,
+        "target_2": 174.72,
+        "stop_loss": 162.12,
         "signals": [
           "KD底部金叉",
           "量縮止跌",
@@ -1244,8 +1189,8 @@
         "strategy_note": "昨日尾盤底部共振，明日開盤可能跳空翻紅",
         "details": {
           "kd": {
-            "k": 16.5,
-            "d": 28.3,
+            "k": 21.5,
+            "d": 31.9,
             "signal": "K超低位底部蓄積",
             "score": 10.0
           },
@@ -1261,21 +1206,21 @@
             "score": 20.0
           },
           "ma_support": {
-            "dist_ma20": -0.49,
+            "dist_ma20": -0.85,
             "signal": "緊貼MA20支撐",
             "score": 15.0
           },
           "day_position": {
-            "change_pct": -1.59,
-            "signal": "小跌蓄積",
-            "score": 7.0
+            "change_pct": -2.04,
+            "signal": "洗盤式下跌（翻紅潛力最高）",
+            "score": 10.0
           },
           "score_breakdown": {
             "kd": 10.0,
             "macd": 0.0,
             "volume": 20.0,
             "ma_support": 15.0,
-            "day_position": 7.0
+            "day_position": 10.0
           }
         }
       },
@@ -1299,8 +1244,8 @@
         "strategy_note": "昨日尾盤底部共振，明日開盤可能跳空翻紅",
         "details": {
           "kd": {
-            "k": 17.2,
-            "d": 26.6,
+            "k": 19.4,
+            "d": 29.4,
             "signal": "K超低位底部蓄積",
             "score": 10.0
           },
@@ -1316,12 +1261,232 @@
             "score": 20.0
           },
           "ma_support": {
-            "dist_ma20": -0.32,
+            "dist_ma20": -0.22,
             "signal": "緊貼MA20支撐",
             "score": 15.0
           },
           "day_position": {
             "change_pct": -1.63,
+            "signal": "小跌蓄積",
+            "score": 7.0
+          },
+          "score_breakdown": {
+            "kd": 10.0,
+            "macd": 0.0,
+            "volume": 20.0,
+            "ma_support": 15.0,
+            "day_position": 7.0
+          }
+        }
+      },
+      {
+        "stock_id": "1717",
+        "name": "長興",
+        "sector": "化學工業",
+        "market": "TSE",
+        "score": 52.0,
+        "prev_day_change_pct": -1.59,
+        "current_price": 74.4,
+        "target_1": 75.14,
+        "target_2": 77.38,
+        "stop_loss": 71.8,
+        "signals": [
+          "KD底部金叉",
+          "量縮止跌",
+          "MA20支撐"
+        ],
+        "signal_count": 3,
+        "strategy_note": "昨日尾盤底部共振，明日開盤可能跳空翻紅",
+        "details": {
+          "kd": {
+            "k": 18.2,
+            "d": 29.8,
+            "signal": "K超低位底部蓄積",
+            "score": 10.0
+          },
+          "macd": {
+            "hist": 0.0,
+            "dif": 0.0,
+            "signal": "無MACD底部訊號",
+            "score": 0.0
+          },
+          "volume": {
+            "shrink": true,
+            "signal": "量縮+收盤強勢反撲",
+            "score": 20.0
+          },
+          "ma_support": {
+            "dist_ma20": -0.44,
+            "signal": "緊貼MA20支撐",
+            "score": 15.0
+          },
+          "day_position": {
+            "change_pct": -1.59,
+            "signal": "小跌蓄積",
+            "score": 7.0
+          },
+          "score_breakdown": {
+            "kd": 10.0,
+            "macd": 0.0,
+            "volume": 20.0,
+            "ma_support": 15.0,
+            "day_position": 7.0
+          }
+        }
+      },
+      {
+        "stock_id": "2330",
+        "name": "台積電",
+        "sector": "半導體業",
+        "market": "TSE",
+        "score": 52.0,
+        "prev_day_change_pct": -1.35,
+        "current_price": 2550.0,
+        "target_1": 2575.5,
+        "target_2": 2652.0,
+        "stop_loss": 2460.75,
+        "signals": [
+          "KD底部金叉",
+          "量縮止跌",
+          "MA20支撐"
+        ],
+        "signal_count": 3,
+        "strategy_note": "昨日尾盤底部共振，明日開盤可能跳空翻紅",
+        "details": {
+          "kd": {
+            "k": 18.7,
+            "d": 34.6,
+            "signal": "K超低位底部蓄積",
+            "score": 10.0
+          },
+          "macd": {
+            "hist": 0.0,
+            "dif": 0.0,
+            "signal": "無MACD底部訊號",
+            "score": 0.0
+          },
+          "volume": {
+            "shrink": true,
+            "signal": "量縮+收盤強勢反撲",
+            "score": 20.0
+          },
+          "ma_support": {
+            "dist_ma20": 0.15,
+            "signal": "緊貼MA20支撐",
+            "score": 15.0
+          },
+          "day_position": {
+            "change_pct": -1.35,
+            "signal": "小跌蓄積",
+            "score": 7.0
+          },
+          "score_breakdown": {
+            "kd": 10.0,
+            "macd": 0.0,
+            "volume": 20.0,
+            "ma_support": 15.0,
+            "day_position": 7.0
+          }
+        }
+      },
+      {
+        "stock_id": "3583",
+        "name": "辛耘",
+        "sector": "半導體業",
+        "market": "TSE",
+        "score": 52.0,
+        "prev_day_change_pct": -0.94,
+        "current_price": 736.0,
+        "target_1": 743.36,
+        "target_2": 765.44,
+        "stop_loss": 710.24,
+        "signals": [
+          "KD底部金叉",
+          "量縮止跌",
+          "MA20支撐"
+        ],
+        "signal_count": 3,
+        "strategy_note": "昨日尾盤底部共振，明日開盤可能跳空翻紅",
+        "details": {
+          "kd": {
+            "k": 10.5,
+            "d": 16.7,
+            "signal": "K超低位底部蓄積",
+            "score": 10.0
+          },
+          "macd": {
+            "hist": 0.0,
+            "dif": 0.0,
+            "signal": "無MACD底部訊號",
+            "score": 0.0
+          },
+          "volume": {
+            "shrink": true,
+            "signal": "量縮+收盤強勢反撲",
+            "score": 20.0
+          },
+          "ma_support": {
+            "dist_ma20": -0.92,
+            "signal": "緊貼MA20支撐",
+            "score": 15.0
+          },
+          "day_position": {
+            "change_pct": -0.94,
+            "signal": "小跌蓄積",
+            "score": 7.0
+          },
+          "score_breakdown": {
+            "kd": 10.0,
+            "macd": 0.0,
+            "volume": 20.0,
+            "ma_support": 15.0,
+            "day_position": 7.0
+          }
+        }
+      },
+      {
+        "stock_id": "4971",
+        "name": "英特磊科技股份有限公司",
+        "sector": "半導體業",
+        "market": "TPEX",
+        "score": 52.0,
+        "prev_day_change_pct": -1.32,
+        "current_price": 596.0,
+        "target_1": 601.96,
+        "target_2": 619.84,
+        "stop_loss": 575.14,
+        "signals": [
+          "KD底部金叉",
+          "量縮止跌",
+          "MA20支撐"
+        ],
+        "signal_count": 3,
+        "strategy_note": "昨日尾盤底部共振，明日開盤可能跳空翻紅",
+        "details": {
+          "kd": {
+            "k": 16.5,
+            "d": 25.0,
+            "signal": "K超低位底部蓄積",
+            "score": 10.0
+          },
+          "macd": {
+            "hist": 0.0,
+            "dif": 0.0,
+            "signal": "無MACD底部訊號",
+            "score": 0.0
+          },
+          "volume": {
+            "shrink": true,
+            "signal": "量縮+收盤強勢反撲",
+            "score": 20.0
+          },
+          "ma_support": {
+            "dist_ma20": -0.56,
+            "signal": "緊貼MA20支撐",
+            "score": 15.0
+          },
+          "day_position": {
+            "change_pct": -1.32,
             "signal": "小跌蓄積",
             "score": 7.0
           },
@@ -1390,71 +1555,16 @@
         }
       },
       {
-        "stock_id": "2330",
-        "name": "台積電",
-        "sector": "半導體業",
-        "market": "TSE",
-        "score": 52.0,
-        "prev_day_change_pct": -1.35,
-        "current_price": 2550.0,
-        "target_1": 2575.5,
-        "target_2": 2652.0,
-        "stop_loss": 2460.75,
-        "signals": [
-          "KD底部金叉",
-          "量縮止跌",
-          "MA20支撐"
-        ],
-        "signal_count": 3,
-        "strategy_note": "昨日尾盤底部共振，明日開盤可能跳空翻紅",
-        "details": {
-          "kd": {
-            "k": 19.1,
-            "d": 35.1,
-            "signal": "K超低位底部蓄積",
-            "score": 10.0
-          },
-          "macd": {
-            "hist": 0.0,
-            "dif": 0.0,
-            "signal": "無MACD底部訊號",
-            "score": 0.0
-          },
-          "volume": {
-            "shrink": true,
-            "signal": "量縮+收盤強勢反撲",
-            "score": 20.0
-          },
-          "ma_support": {
-            "dist_ma20": -0.01,
-            "signal": "緊貼MA20支撐",
-            "score": 15.0
-          },
-          "day_position": {
-            "change_pct": -1.35,
-            "signal": "小跌蓄積",
-            "score": 7.0
-          },
-          "score_breakdown": {
-            "kd": 10.0,
-            "macd": 0.0,
-            "volume": 20.0,
-            "ma_support": 15.0,
-            "day_position": 7.0
-          }
-        }
-      },
-      {
-        "stock_id": "6743",
-        "name": "安普新",
-        "sector": "其他電子業",
+        "stock_id": "1783",
+        "name": "和康生",
+        "sector": "生技醫療業",
         "market": "TSE",
         "score": 47.0,
-        "prev_day_change_pct": -0.7,
-        "current_price": 35.5,
-        "target_1": 35.85,
-        "target_2": 36.92,
-        "stop_loss": 34.26,
+        "prev_day_change_pct": -1.17,
+        "current_price": 38.1,
+        "target_1": 38.48,
+        "target_2": 39.62,
+        "stop_loss": 36.77,
         "signals": [
           "KD底部金叉",
           "量縮止跌",
@@ -1464,8 +1574,8 @@
         "strategy_note": "昨日尾盤底部共振，明日開盤可能跳空翻紅",
         "details": {
           "kd": {
-            "k": 16.0,
-            "d": 21.0,
+            "k": 24.3,
+            "d": 47.3,
             "signal": "K超低位底部蓄積",
             "score": 10.0
           },
@@ -1481,12 +1591,12 @@
             "score": 15.0
           },
           "ma_support": {
-            "dist_ma20": -0.28,
+            "dist_ma20": 0.42,
             "signal": "緊貼MA20支撐",
             "score": 15.0
           },
           "day_position": {
-            "change_pct": -0.7,
+            "change_pct": -1.17,
             "signal": "小跌蓄積",
             "score": 7.0
           },
@@ -1555,16 +1665,16 @@
         }
       },
       {
-        "stock_id": "1783",
-        "name": "和康生",
-        "sector": "生技醫療業",
+        "stock_id": "1582",
+        "name": "信錦",
+        "sector": "電子零組件業",
         "market": "TSE",
         "score": 47.0,
-        "prev_day_change_pct": -1.17,
-        "current_price": 38.1,
-        "target_1": 38.48,
-        "target_2": 39.62,
-        "stop_loss": 36.77,
+        "prev_day_change_pct": -0.84,
+        "current_price": 71.1,
+        "target_1": 71.81,
+        "target_2": 73.94,
+        "stop_loss": 68.61,
         "signals": [
           "KD底部金叉",
           "量縮止跌",
@@ -1574,8 +1684,8 @@
         "strategy_note": "昨日尾盤底部共振，明日開盤可能跳空翻紅",
         "details": {
           "kd": {
-            "k": 24.2,
-            "d": 46.9,
+            "k": 14.2,
+            "d": 20.9,
             "signal": "K超低位底部蓄積",
             "score": 10.0
           },
@@ -1591,12 +1701,12 @@
             "score": 15.0
           },
           "ma_support": {
-            "dist_ma20": 0.46,
+            "dist_ma20": -1.0,
             "signal": "緊貼MA20支撐",
             "score": 15.0
           },
           "day_position": {
-            "change_pct": -1.17,
+            "change_pct": -0.84,
             "signal": "小跌蓄積",
             "score": 7.0
           },
@@ -1665,16 +1775,16 @@
         }
       },
       {
-        "stock_id": "6283",
-        "name": "淳安",
-        "sector": "其他電子業",
-        "market": "TSE",
+        "stock_id": "3306",
+        "name": "鼎天國際股份有限公司",
+        "sector": "通信網路業",
+        "market": "TPEX",
         "score": 47.0,
-        "prev_day_change_pct": -1.06,
-        "current_price": 18.75,
-        "target_1": 18.94,
-        "target_2": 19.5,
-        "stop_loss": 18.09,
+        "prev_day_change_pct": -0.95,
+        "current_price": 46.85,
+        "target_1": 47.32,
+        "target_2": 48.72,
+        "stop_loss": 45.21,
         "signals": [
           "KD底部金叉",
           "量縮止跌",
@@ -1684,8 +1794,8 @@
         "strategy_note": "昨日尾盤底部共振，明日開盤可能跳空翻紅",
         "details": {
           "kd": {
-            "k": 21.0,
-            "d": 32.4,
+            "k": 9.9,
+            "d": 20.1,
             "signal": "K超低位底部蓄積",
             "score": 10.0
           },
@@ -1701,12 +1811,12 @@
             "score": 15.0
           },
           "ma_support": {
-            "dist_ma20": -0.98,
+            "dist_ma20": -0.84,
             "signal": "緊貼MA20支撐",
             "score": 15.0
           },
           "day_position": {
-            "change_pct": -1.06,
+            "change_pct": -0.95,
             "signal": "小跌蓄積",
             "score": 7.0
           },
@@ -1720,71 +1830,16 @@
         }
       },
       {
-        "stock_id": "2885",
-        "name": "元大金",
-        "sector": "金融保險",
-        "market": "TSE",
-        "score": 43.0,
-        "prev_day_change_pct": -2.43,
-        "current_price": 68.3,
-        "target_1": 68.98,
-        "target_2": 71.03,
-        "stop_loss": 65.91,
-        "signals": [
-          "KD底部金叉",
-          "量縮止跌",
-          "MA20支撐"
-        ],
-        "signal_count": 3,
-        "strategy_note": "昨日尾盤底部共振，明日開盤可能跳空翻紅",
-        "details": {
-          "kd": {
-            "k": 20.7,
-            "d": 41.4,
-            "signal": "K超低位底部蓄積",
-            "score": 10.0
-          },
-          "macd": {
-            "hist": 0.0,
-            "dif": 0.0,
-            "signal": "無MACD底部訊號",
-            "score": 0.0
-          },
-          "volume": {
-            "shrink": true,
-            "signal": "量縮（收盤偏弱）",
-            "score": 8.0
-          },
-          "ma_support": {
-            "dist_ma20": -0.23,
-            "signal": "緊貼MA20支撐",
-            "score": 15.0
-          },
-          "day_position": {
-            "change_pct": -2.43,
-            "signal": "洗盤式下跌（翻紅潛力最高）",
-            "score": 10.0
-          },
-          "score_breakdown": {
-            "kd": 10.0,
-            "macd": 0.0,
-            "volume": 8.0,
-            "ma_support": 15.0,
-            "day_position": 10.0
-          }
-        }
-      },
-      {
-        "stock_id": "6913",
-        "name": "鴻呈實業股份有限公司",
-        "sector": "電子零組件業",
+        "stock_id": "8390",
+        "name": "金益鼎企業股份有限公司",
+        "sector": "其他",
         "market": "TPEX",
-        "score": 43.0,
-        "prev_day_change_pct": -3.36,
-        "current_price": 129.5,
-        "target_1": 130.79,
-        "target_2": 134.68,
-        "stop_loss": 124.97,
+        "score": 47.0,
+        "prev_day_change_pct": -0.98,
+        "current_price": 90.9,
+        "target_1": 91.81,
+        "target_2": 94.54,
+        "stop_loss": 87.72,
         "signals": [
           "KD底部金叉",
           "量縮止跌",
@@ -1794,8 +1849,8 @@
         "strategy_note": "昨日尾盤底部共振，明日開盤可能跳空翻紅",
         "details": {
           "kd": {
-            "k": 20.3,
-            "d": 38.2,
+            "k": 19.9,
+            "d": 36.5,
             "signal": "K超低位底部蓄積",
             "score": 10.0
           },
@@ -1807,94 +1862,39 @@
           },
           "volume": {
             "shrink": true,
-            "signal": "量縮（收盤偏弱）",
-            "score": 8.0
+            "signal": "量縮+陽線止跌",
+            "score": 15.0
           },
           "ma_support": {
-            "dist_ma20": -0.86,
+            "dist_ma20": -0.2,
             "signal": "緊貼MA20支撐",
             "score": 15.0
           },
           "day_position": {
-            "change_pct": -3.36,
-            "signal": "洗盤式下跌（翻紅潛力最高）",
-            "score": 10.0
-          },
-          "score_breakdown": {
-            "kd": 10.0,
-            "macd": 0.0,
-            "volume": 8.0,
-            "ma_support": 15.0,
-            "day_position": 10.0
-          }
-        }
-      },
-      {
-        "stock_id": "2006",
-        "name": "東和鋼鐵",
-        "sector": "鋼鐵工業",
-        "market": "TSE",
-        "score": 40.0,
-        "prev_day_change_pct": -0.7,
-        "current_price": 85.3,
-        "target_1": 86.15,
-        "target_2": 88.71,
-        "stop_loss": 82.31,
-        "signals": [
-          "KD底部金叉",
-          "量縮止跌",
-          "MA20支撐"
-        ],
-        "signal_count": 3,
-        "strategy_note": "昨日尾盤底部共振，明日開盤可能跳空翻紅",
-        "details": {
-          "kd": {
-            "k": 23.7,
-            "d": 29.0,
-            "signal": "K超低位底部蓄積",
-            "score": 10.0
-          },
-          "macd": {
-            "hist": 0.0,
-            "dif": 0.0,
-            "signal": "無MACD底部訊號",
-            "score": 0.0
-          },
-          "volume": {
-            "shrink": true,
-            "signal": "量縮（收盤偏弱）",
-            "score": 8.0
-          },
-          "ma_support": {
-            "dist_ma20": -0.92,
-            "signal": "緊貼MA20支撐",
-            "score": 15.0
-          },
-          "day_position": {
-            "change_pct": -0.7,
+            "change_pct": -0.98,
             "signal": "小跌蓄積",
             "score": 7.0
           },
           "score_breakdown": {
             "kd": 10.0,
             "macd": 0.0,
-            "volume": 8.0,
+            "volume": 15.0,
             "ma_support": 15.0,
             "day_position": 7.0
           }
         }
       },
       {
-        "stock_id": "1514",
-        "name": "亞力",
-        "sector": "電機機械",
-        "market": "TSE",
-        "score": 40.0,
-        "prev_day_change_pct": -0.97,
-        "current_price": 102.5,
-        "target_1": 103.53,
-        "target_2": 106.6,
-        "stop_loss": 98.91,
+        "stock_id": "5347",
+        "name": "世界先進積體電路股份有限公司",
+        "sector": "半導體業",
+        "market": "TPEX",
+        "score": 47.0,
+        "prev_day_change_pct": -1.84,
+        "current_price": 186.5,
+        "target_1": 188.37,
+        "target_2": 193.96,
+        "stop_loss": 179.97,
         "signals": [
           "KD底部金叉",
           "量縮止跌",
@@ -1904,8 +1904,8 @@
         "strategy_note": "昨日尾盤底部共振，明日開盤可能跳空翻紅",
         "details": {
           "kd": {
-            "k": 19.5,
-            "d": 31.3,
+            "k": 13.7,
+            "d": 26.7,
             "signal": "K超低位底部蓄積",
             "score": 10.0
           },
@@ -1917,23 +1917,23 @@
           },
           "volume": {
             "shrink": true,
-            "signal": "量縮（收盤偏弱）",
-            "score": 8.0
+            "signal": "量縮+陽線止跌",
+            "score": 15.0
           },
           "ma_support": {
-            "dist_ma20": -0.51,
+            "dist_ma20": -0.82,
             "signal": "緊貼MA20支撐",
             "score": 15.0
           },
           "day_position": {
-            "change_pct": -0.97,
+            "change_pct": -1.84,
             "signal": "小跌蓄積",
             "score": 7.0
           },
           "score_breakdown": {
             "kd": 10.0,
             "macd": 0.0,
-            "volume": 8.0,
+            "volume": 15.0,
             "ma_support": 15.0,
             "day_position": 7.0
           }
