@@ -724,6 +724,338 @@
   ],
   "grouped_records": [
     {
+      "scan_date": "20261014",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "2603",
+              "name": "長榮",
+              "entry": 264.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2607",
+              "name": "榮運",
+              "entry": 58.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2891",
+              "name": "中信金",
+              "entry": 71.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2618",
+              "name": "長榮航",
+              "entry": 43.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2880",
+              "name": "華南金",
+              "entry": 49.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2816",
+              "name": "旺旺保",
+              "entry": 42.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2851",
+              "name": "中再保",
+              "entry": 49.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2885",
+              "name": "元大金",
+              "entry": 70.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2882",
+              "name": "國泰金",
+              "entry": 114.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9935",
+              "name": "慶豐富",
+              "entry": 18.55,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "2603",
+              "name": "長榮",
+              "entry": 264.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2607",
+              "name": "榮運",
+              "entry": 58.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2891",
+              "name": "中信金",
+              "entry": 71.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2618",
+              "name": "長榮航",
+              "entry": 43.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2880",
+              "name": "華南金",
+              "entry": 49.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2816",
+              "name": "旺旺保",
+              "entry": 42.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2851",
+              "name": "中再保",
+              "entry": 49.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2885",
+              "name": "元大金",
+              "entry": 70.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2882",
+              "name": "國泰金",
+              "entry": 114.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9935",
+              "name": "慶豐富",
+              "entry": 18.55,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "2603",
+              "name": "長榮",
+              "entry": 264.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2607",
+              "name": "榮運",
+              "entry": 58.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2891",
+              "name": "中信金",
+              "entry": 71.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2618",
+              "name": "長榮航",
+              "entry": 43.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2880",
+              "name": "華南金",
+              "entry": 49.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2816",
+              "name": "旺旺保",
+              "entry": 42.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2851",
+              "name": "中再保",
+              "entry": 49.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2885",
+              "name": "元大金",
+              "entry": 70.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2882",
+              "name": "國泰金",
+              "entry": 114.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9935",
+              "name": "慶豐富",
+              "entry": 18.55,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
+    },
+    {
       "scan_date": "20261013",
       "periods": {
         "T1": {
@@ -20542,8 +20874,63 @@
       }
     }
   ],
-  "last_updated": "2026-10-13T19:06:40.509282+08:00",
+  "last_updated": "2026-10-14T01:21:05.555539+08:00",
   "history": [
+    {
+      "date": "2026/10/14",
+      "results": {
+        "2603": {
+          "name": "長榮",
+          "score": 104.89,
+          "close": 264.0
+        },
+        "2607": {
+          "name": "榮運",
+          "score": 97.16,
+          "close": 58.7
+        },
+        "2891": {
+          "name": "中信金",
+          "score": 97.12,
+          "close": 71.6
+        },
+        "2618": {
+          "name": "長榮航",
+          "score": 95.69,
+          "close": 43.0
+        },
+        "2880": {
+          "name": "華南金",
+          "score": 95.41,
+          "close": 49.35
+        },
+        "2816": {
+          "name": "旺旺保",
+          "score": 94.43,
+          "close": 42.6
+        },
+        "2851": {
+          "name": "中再保",
+          "score": 94.3,
+          "close": 49.3
+        },
+        "2885": {
+          "name": "元大金",
+          "score": 93.27,
+          "close": 70.6
+        },
+        "2882": {
+          "name": "國泰金",
+          "score": 91.94,
+          "close": 114.5
+        },
+        "9935": {
+          "name": "慶豐富",
+          "score": 90.29,
+          "close": 18.55
+        }
+      }
+    },
     {
       "date": "2026/10/13",
       "results": {
