@@ -734,9 +734,9 @@
           "pending": true,
           "stocks": [
             {
-              "stock_id": "2886",
-              "name": "兆豐金",
-              "entry": 52.5,
+              "stock_id": "1102",
+              "name": "亞泥",
+              "entry": 37.85,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -744,9 +744,9 @@
               "pending": true
             },
             {
-              "stock_id": "1102",
-              "name": "亞泥",
-              "entry": 37.85,
+              "stock_id": "6670",
+              "name": "復盛應用",
+              "entry": 274.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -764,9 +764,9 @@
               "pending": true
             },
             {
-              "stock_id": "5876",
-              "name": "上海商銀",
-              "entry": 53.4,
+              "stock_id": "2886",
+              "name": "兆豐金",
+              "entry": 52.5,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -774,9 +774,29 @@
               "pending": true
             },
             {
-              "stock_id": "2816",
-              "name": "旺旺保",
-              "entry": 45.25,
+              "stock_id": "5880",
+              "name": "合庫金",
+              "entry": 27.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2727",
+              "name": "王品",
+              "entry": 246.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2851",
+              "name": "中再保",
+              "entry": 53.2,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -794,9 +814,9 @@
               "pending": true
             },
             {
-              "stock_id": "6768",
-              "name": "志強-KY",
-              "entry": 64.5,
+              "stock_id": "1737",
+              "name": "臺鹽",
+              "entry": 30.25,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -804,29 +824,9 @@
               "pending": true
             },
             {
-              "stock_id": "1423",
-              "name": "利華",
-              "entry": 36.0,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "2801",
-              "name": "彰銀",
-              "entry": 29.15,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "2884",
-              "name": "玉山金",
-              "entry": 48.8,
+              "stock_id": "2820",
+              "name": "華票",
+              "entry": 16.8,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -843,9 +843,9 @@
           "pending": true,
           "stocks": [
             {
-              "stock_id": "2886",
-              "name": "兆豐金",
-              "entry": 52.5,
+              "stock_id": "1102",
+              "name": "亞泥",
+              "entry": 37.85,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -853,9 +853,9 @@
               "pending": true
             },
             {
-              "stock_id": "1102",
-              "name": "亞泥",
-              "entry": 37.85,
+              "stock_id": "6670",
+              "name": "復盛應用",
+              "entry": 274.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -873,9 +873,9 @@
               "pending": true
             },
             {
-              "stock_id": "5876",
-              "name": "上海商銀",
-              "entry": 53.4,
+              "stock_id": "2886",
+              "name": "兆豐金",
+              "entry": 52.5,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -883,9 +883,29 @@
               "pending": true
             },
             {
-              "stock_id": "2816",
-              "name": "旺旺保",
-              "entry": 45.25,
+              "stock_id": "5880",
+              "name": "合庫金",
+              "entry": 27.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2727",
+              "name": "王品",
+              "entry": 246.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2851",
+              "name": "中再保",
+              "entry": 53.2,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -903,9 +923,9 @@
               "pending": true
             },
             {
-              "stock_id": "6768",
-              "name": "志強-KY",
-              "entry": 64.5,
+              "stock_id": "1737",
+              "name": "臺鹽",
+              "entry": 30.25,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -913,29 +933,9 @@
               "pending": true
             },
             {
-              "stock_id": "1423",
-              "name": "利華",
-              "entry": 36.0,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "2801",
-              "name": "彰銀",
-              "entry": 29.15,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "2884",
-              "name": "玉山金",
-              "entry": 48.8,
+              "stock_id": "2820",
+              "name": "華票",
+              "entry": 16.8,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -952,9 +952,9 @@
           "pending": true,
           "stocks": [
             {
-              "stock_id": "2886",
-              "name": "兆豐金",
-              "entry": 52.5,
+              "stock_id": "1102",
+              "name": "亞泥",
+              "entry": 37.85,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -962,9 +962,9 @@
               "pending": true
             },
             {
-              "stock_id": "1102",
-              "name": "亞泥",
-              "entry": 37.85,
+              "stock_id": "6670",
+              "name": "復盛應用",
+              "entry": 274.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -982,9 +982,9 @@
               "pending": true
             },
             {
-              "stock_id": "5876",
-              "name": "上海商銀",
-              "entry": 53.4,
+              "stock_id": "2886",
+              "name": "兆豐金",
+              "entry": 52.5,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -992,9 +992,29 @@
               "pending": true
             },
             {
-              "stock_id": "2816",
-              "name": "旺旺保",
-              "entry": 45.25,
+              "stock_id": "5880",
+              "name": "合庫金",
+              "entry": 27.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2727",
+              "name": "王品",
+              "entry": 246.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2851",
+              "name": "中再保",
+              "entry": 53.2,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1012,9 +1032,9 @@
               "pending": true
             },
             {
-              "stock_id": "6768",
-              "name": "志強-KY",
-              "entry": 64.5,
+              "stock_id": "1737",
+              "name": "臺鹽",
+              "entry": 30.25,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1022,29 +1042,9 @@
               "pending": true
             },
             {
-              "stock_id": "1423",
-              "name": "利華",
-              "entry": 36.0,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "2801",
-              "name": "彰銀",
-              "entry": 29.15,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "2884",
-              "name": "玉山金",
-              "entry": 48.8,
+              "stock_id": "2820",
+              "name": "華票",
+              "entry": 16.8,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -21206,60 +21206,60 @@
       }
     }
   ],
-  "last_updated": "2026-10-15T19:06:53.125938+08:00",
+  "last_updated": "2026-10-15T22:41:55.186170+08:00",
   "history": [
     {
       "date": "2026/10/15",
       "results": {
-        "2886": {
-          "name": "兆豐金",
-          "score": 95.01,
-          "close": 52.5
-        },
         "1102": {
           "name": "亞泥",
-          "score": 93.34,
+          "score": 95.96,
           "close": 37.85
+        },
+        "6670": {
+          "name": "復盛應用",
+          "score": 93.75,
+          "close": 274.0
         },
         "1216": {
           "name": "統一",
-          "score": 91.28,
+          "score": 91.26,
           "close": 79.5
         },
-        "5876": {
-          "name": "上海商銀",
-          "score": 91.11,
-          "close": 53.4
+        "2886": {
+          "name": "兆豐金",
+          "score": 89.25,
+          "close": 52.5
         },
-        "2816": {
-          "name": "旺旺保",
-          "score": 91.03,
-          "close": 45.25
+        "5880": {
+          "name": "合庫金",
+          "score": 89.18,
+          "close": 27.5
+        },
+        "2727": {
+          "name": "王品",
+          "score": 87.45,
+          "close": 246.0
+        },
+        "2851": {
+          "name": "中再保",
+          "score": 87.39,
+          "close": 53.2
         },
         "9904": {
           "name": "寶成",
-          "score": 90.64,
+          "score": 87.23,
           "close": 26.25
         },
-        "6768": {
-          "name": "志強-KY",
-          "score": 90.57,
-          "close": 64.5
+        "1737": {
+          "name": "臺鹽",
+          "score": 86.13,
+          "close": 30.25
         },
-        "1423": {
-          "name": "利華",
-          "score": 89.93,
-          "close": 36.0
-        },
-        "2801": {
-          "name": "彰銀",
-          "score": 88.05,
-          "close": 29.15
-        },
-        "2884": {
-          "name": "玉山金",
-          "score": 87.92,
-          "close": 48.8
+        "2820": {
+          "name": "華票",
+          "score": 86.12,
+          "close": 16.8
         }
       }
     },
