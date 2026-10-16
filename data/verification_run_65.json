@@ -1,0 +1,447 @@
+{
+  "execution": 65,
+  "verify_timestamp": "2026-07-29T10:02:47.573409",
+  "verify_date": "2026-07-29",
+  "actual_returns": [
+    {
+      "scan_date": "20260727",
+      "label": "T+1",
+      "target_date": "20260728",
+      "wins": 0,
+      "total": 10,
+      "win_rate": 0.0,
+      "details": [
+        {
+          "symbol": "2834",
+          "name": "臺企銀",
+          "entry_price": 18.2,
+          "actual_close": 18.1,
+          "return_pct": -0.55,
+          "is_win": false,
+          "total_score": 92.55
+        },
+        {
+          "symbol": "9927",
+          "name": "泰銘",
+          "entry_price": 70.5,
+          "actual_close": 69.8,
+          "return_pct": -0.99,
+          "is_win": false,
+          "total_score": 91.31
+        },
+        {
+          "symbol": "2850",
+          "name": "新產",
+          "entry_price": 158.0,
+          "actual_close": 155.0,
+          "return_pct": -1.9,
+          "is_win": false,
+          "total_score": 90.05
+        },
+        {
+          "symbol": "6670",
+          "name": "復盛應用",
+          "entry_price": 273.0,
+          "actual_close": 268.0,
+          "return_pct": -1.83,
+          "is_win": false,
+          "total_score": 88.37
+        },
+        {
+          "symbol": "2006",
+          "name": "東和鋼鐵",
+          "entry_price": 73.0,
+          "actual_close": 72.5,
+          "return_pct": -0.68,
+          "is_win": false,
+          "total_score": 88.14
+        },
+        {
+          "symbol": "2762",
+          "name": "世界健身-KY",
+          "entry_price": 87.5,
+          "actual_close": 87.0,
+          "return_pct": -0.57,
+          "is_win": false,
+          "total_score": 87.74
+        },
+        {
+          "symbol": "2031",
+          "name": "新光鋼",
+          "entry_price": 40.95,
+          "actual_close": 39.8,
+          "return_pct": -2.81,
+          "is_win": false,
+          "total_score": 87.28
+        },
+        {
+          "symbol": "1210",
+          "name": "大成",
+          "entry_price": 58.1,
+          "actual_close": 57.5,
+          "return_pct": -1.03,
+          "is_win": false,
+          "total_score": 86.81
+        },
+        {
+          "symbol": "9802",
+          "name": "鈺齊-KY",
+          "entry_price": 74.3,
+          "actual_close": 72.8,
+          "return_pct": -2.02,
+          "is_win": false,
+          "total_score": 86.78
+        },
+        {
+          "symbol": "1419",
+          "name": "新紡",
+          "entry_price": 69.5,
+          "actual_close": 68.2,
+          "return_pct": -1.87,
+          "is_win": false,
+          "total_score": 85.4
+        }
+      ]
+    },
+    {
+      "scan_date": "20260724",
+      "label": "T+3",
+      "target_date": "20260728",
+      "wins": 4,
+      "total": 10,
+      "win_rate": 40.0,
+      "details": [
+        {
+          "symbol": "2615",
+          "name": "萬海",
+          "entry_price": 87.0,
+          "actual_close": 83.6,
+          "return_pct": -3.91,
+          "is_win": false,
+          "total_score": 91.36
+        },
+        {
+          "symbol": "8367",
+          "name": "建新國際",
+          "entry_price": 40.55,
+          "actual_close": 40.7,
+          "return_pct": 0.37,
+          "is_win": true,
+          "total_score": 90.85
+        },
+        {
+          "symbol": "2607",
+          "name": "榮運",
+          "entry_price": 47.85,
+          "actual_close": 47.2,
+          "return_pct": -1.36,
+          "is_win": false,
+          "total_score": 88.87
+        },
+        {
+          "symbol": "1736",
+          "name": "喬山",
+          "entry_price": 136.5,
+          "actual_close": 130.5,
+          "return_pct": -4.4,
+          "is_win": false,
+          "total_score": 86.63
+        },
+        {
+          "symbol": "2886",
+          "name": "兆豐金",
+          "entry_price": 48.45,
+          "actual_close": 49.45,
+          "return_pct": 2.06,
+          "is_win": true,
+          "total_score": 86.28
+        },
+        {
+          "symbol": "2546",
+          "name": "根基",
+          "entry_price": 96.0,
+          "actual_close": 96.8,
+          "return_pct": 0.83,
+          "is_win": true,
+          "total_score": 86.08
+        },
+        {
+          "symbol": "2832",
+          "name": "台產",
+          "entry_price": 56.4,
+          "actual_close": 56.3,
+          "return_pct": -0.18,
+          "is_win": false,
+          "total_score": 86.01
+        },
+        {
+          "symbol": "2852",
+          "name": "第一保",
+          "entry_price": 26.65,
+          "actual_close": 26.6,
+          "return_pct": -0.19,
+          "is_win": false,
+          "total_score": 85.84
+        },
+        {
+          "symbol": "2801",
+          "name": "彰銀",
+          "entry_price": 24.35,
+          "actual_close": 24.55,
+          "return_pct": 0.82,
+          "is_win": true,
+          "total_score": 85.69
+        },
+        {
+          "symbol": "1210",
+          "name": "大成",
+          "entry_price": 57.8,
+          "actual_close": 57.5,
+          "return_pct": -0.52,
+          "is_win": false,
+          "total_score": 85.56
+        }
+      ]
+    },
+    {
+      "scan_date": "20260722",
+      "label": "T+5",
+      "target_date": "20260728",
+      "wins": 1,
+      "total": 10,
+      "win_rate": 10.0,
+      "details": [
+        {
+          "symbol": "6591",
+          "name": "動力-KY",
+          "entry_price": 45.0,
+          "actual_close": 43.85,
+          "return_pct": -2.56,
+          "is_win": false,
+          "total_score": 89.61
+        },
+        {
+          "symbol": "2376",
+          "name": "技嘉",
+          "entry_price": 348.0,
+          "actual_close": 327.0,
+          "return_pct": -6.03,
+          "is_win": false,
+          "total_score": 87.15
+        },
+        {
+          "symbol": "8114",
+          "name": "振樺電",
+          "entry_price": 221.0,
+          "actual_close": 213.5,
+          "return_pct": -3.39,
+          "is_win": false,
+          "total_score": 86.9
+        },
+        {
+          "symbol": "6669",
+          "name": "緯穎",
+          "entry_price": 5500.0,
+          "actual_close": 5315.0,
+          "return_pct": -3.36,
+          "is_win": false,
+          "total_score": 86.08
+        },
+        {
+          "symbol": "2027",
+          "name": "大成鋼",
+          "entry_price": 43.75,
+          "actual_close": 42.2,
+          "return_pct": -3.54,
+          "is_win": false,
+          "total_score": 84.09
+        },
+        {
+          "symbol": "2542",
+          "name": "興富發",
+          "entry_price": 44.8,
+          "actual_close": 42.95,
+          "return_pct": -4.13,
+          "is_win": false,
+          "total_score": 84.07
+        },
+        {
+          "symbol": "2317",
+          "name": "鴻海",
+          "entry_price": 251.5,
+          "actual_close": 238.0,
+          "return_pct": -5.37,
+          "is_win": false,
+          "total_score": 84.01
+        },
+        {
+          "symbol": "6239",
+          "name": "力成",
+          "entry_price": 294.0,
+          "actual_close": 251.5,
+          "return_pct": -14.46,
+          "is_win": false,
+          "total_score": 83.48
+        },
+        {
+          "symbol": "6605",
+          "name": "帝寶",
+          "entry_price": 135.5,
+          "actual_close": 130.0,
+          "return_pct": -4.06,
+          "is_win": false,
+          "total_score": 83.42
+        },
+        {
+          "symbol": "3669",
+          "name": "圓展",
+          "entry_price": 36.4,
+          "actual_close": 40.45,
+          "return_pct": 11.13,
+          "is_win": true,
+          "total_score": 83.33
+        }
+      ]
+    },
+    {
+      "scan_date": "20260728",
+      "label": "T+1",
+      "target_date": "20260729",
+      "wins": 4,
+      "total": 10,
+      "win_rate": 40.0,
+      "details": [
+        {
+          "symbol": "1101",
+          "name": "台泥",
+          "entry_price": 24.8,
+          "actual_close": 24.35,
+          "return_pct": -1.81,
+          "is_win": false,
+          "total_score": 88.83
+        },
+        {
+          "symbol": "2610",
+          "name": "華航",
+          "entry_price": 21.75,
+          "actual_close": 21.7,
+          "return_pct": -0.23,
+          "is_win": false,
+          "total_score": 87.81
+        },
+        {
+          "symbol": "2762",
+          "name": "世界健身-KY",
+          "entry_price": 87.0,
+          "actual_close": 88.1,
+          "return_pct": 1.26,
+          "is_win": true,
+          "total_score": 84.74
+        },
+        {
+          "symbol": "1108",
+          "name": "幸福",
+          "entry_price": 12.05,
+          "actual_close": 11.95,
+          "return_pct": -0.83,
+          "is_win": false,
+          "total_score": 84.23
+        },
+        {
+          "symbol": "2006",
+          "name": "東和鋼鐵",
+          "entry_price": 72.5,
+          "actual_close": 72.4,
+          "return_pct": -0.14,
+          "is_win": false,
+          "total_score": 84.18
+        },
+        {
+          "symbol": "9910",
+          "name": "豐泰",
+          "entry_price": 69.1,
+          "actual_close": 70.8,
+          "return_pct": 2.46,
+          "is_win": true,
+          "total_score": 82.49
+        },
+        {
+          "symbol": "1102",
+          "name": "亞泥",
+          "entry_price": 33.0,
+          "actual_close": 32.8,
+          "return_pct": -0.61,
+          "is_win": false,
+          "total_score": 82.43
+        },
+        {
+          "symbol": "1216",
+          "name": "統一",
+          "entry_price": 77.4,
+          "actual_close": 78.2,
+          "return_pct": 1.03,
+          "is_win": true,
+          "total_score": 82.15
+        },
+        {
+          "symbol": "2106",
+          "name": "建大",
+          "entry_price": 18.4,
+          "actual_close": 18.25,
+          "return_pct": -0.82,
+          "is_win": false,
+          "total_score": 81.84
+        },
+        {
+          "symbol": "2886",
+          "name": "兆豐金",
+          "entry_price": 49.45,
+          "actual_close": 49.9,
+          "return_pct": 0.91,
+          "is_win": true,
+          "total_score": 81.59
+        }
+      ]
+    }
+  ],
+  "dimension_accuracy": {
+    "chips": 22.5,
+    "fundamental": 22.5,
+    "news": 22.5,
+    "profit_space": 22.5,
+    "sentiment": 22.5,
+    "technical": 22.5,
+    "total": 18.4
+  },
+  "holding_paths_updated": 40,
+  "plans": [
+    {
+      "scan_date": "20260727",
+      "label": "T+1",
+      "wins": 0,
+      "total": 10,
+      "win_rate": 0.0
+    },
+    {
+      "scan_date": "20260724",
+      "label": "T+3",
+      "wins": 4,
+      "total": 10,
+      "win_rate": 40.0
+    },
+    {
+      "scan_date": "20260722",
+      "label": "T+5",
+      "wins": 1,
+      "total": 10,
+      "win_rate": 10.0
+    },
+    {
+      "scan_date": "20260728",
+      "label": "T+1",
+      "wins": 4,
+      "total": 10,
+      "win_rate": 40.0
+    }
+  ]
+}

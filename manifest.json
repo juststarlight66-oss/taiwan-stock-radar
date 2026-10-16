@@ -1,0 +1,19 @@
+{
+  "name": "台股雷達 Taiwan Stock Radar",
+  "short_name": "台股雷達",
+  "description": "每日 AI 五維度選股系統，掃描 2100+ 檔台股精選強勢反轉機會",
+  "start_url": "/taiwan-stock-radar/",
+  "display": "standalone",
+  "background_color": "#030712",
+  "theme_color": "#030712",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "/taiwan-stock-radar/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/taiwan-stock-radar/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "screenshots": [
+    { "src": "/taiwan-stock-radar/screenshot-wide.png", "sizes": "1280x720", "form_factor": "wide" }
+  ],
+  "categories": ["finance"],
+  "lang": "zh-TW"
+}
