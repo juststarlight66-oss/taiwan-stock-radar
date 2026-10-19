@@ -1,5 +1,217 @@
 [
   {
+    "scan_date": "20261019",
+    "captured_at": "2026-10-20T00:51:12.181585+08:00",
+    "scan_type": "main_uptrend",
+    "top40": [
+      {
+        "stock_id": "4741",
+        "name": "泓瀚",
+        "entry_price": 40.0,
+        "change_pct": 5.26,
+        "total_score": 98,
+        "signal_3": true,
+        "signal_1": false,
+        "chg_30d": -4.99,
+        "capital_yi": 3.48
+      },
+      {
+        "stock_id": "5475",
+        "name": "德宏",
+        "entry_price": 208.0,
+        "change_pct": 4.79,
+        "total_score": 91,
+        "signal_3": true,
+        "signal_1": false,
+        "chg_30d": 9.47,
+        "capital_yi": 12.71
+      },
+      {
+        "stock_id": "3305",
+        "name": "昇貿",
+        "entry_price": 114.0,
+        "change_pct": 0.88,
+        "total_score": 86,
+        "signal_3": true,
+        "signal_1": true,
+        "chg_30d": 1.79,
+        "capital_yi": 99
+      },
+      {
+        "stock_id": "4953",
+        "name": "緯致",
+        "entry_price": 118.0,
+        "change_pct": 1.29,
+        "total_score": 85,
+        "signal_3": true,
+        "signal_1": false,
+        "chg_30d": -4.07,
+        "capital_yi": 7.43
+      },
+      {
+        "stock_id": "5314",
+        "name": "世紀*",
+        "entry_price": 27.5,
+        "change_pct": 0.92,
+        "total_score": 85,
+        "signal_3": true,
+        "signal_1": false,
+        "chg_30d": -19.46,
+        "capital_yi": 6.02
+      },
+      {
+        "stock_id": "1526",
+        "name": "日馳",
+        "entry_price": 16.5,
+        "change_pct": 7.14,
+        "total_score": 80,
+        "signal_3": true,
+        "signal_1": true,
+        "chg_30d": 2.8,
+        "capital_yi": 99
+      },
+      {
+        "stock_id": "6695",
+        "name": "芯鼎",
+        "entry_price": 51.0,
+        "change_pct": 4.19,
+        "total_score": 80,
+        "signal_3": true,
+        "signal_1": false,
+        "chg_30d": 0.59,
+        "capital_yi": 99
+      },
+      {
+        "stock_id": "8429",
+        "name": "金麗-KY",
+        "entry_price": 6.22,
+        "change_pct": 5.96,
+        "total_score": 80,
+        "signal_3": true,
+        "signal_1": true,
+        "chg_30d": 3.84,
+        "capital_yi": 99
+      },
+      {
+        "stock_id": "4939",
+        "name": "亞電",
+        "entry_price": 78.3,
+        "change_pct": -6.0,
+        "total_score": 78,
+        "signal_3": false,
+        "signal_1": true,
+        "chg_30d": -11.92,
+        "capital_yi": 9.82
+      },
+      {
+        "stock_id": "3027",
+        "name": "盛達",
+        "entry_price": 19.35,
+        "change_pct": 3.75,
+        "total_score": 78,
+        "signal_3": true,
+        "signal_1": false,
+        "chg_30d": 5.45,
+        "capital_yi": 99
+      },
+      {
+        "stock_id": "8422",
+        "name": "可寧衛*",
+        "entry_price": 26.0,
+        "change_pct": 0.78,
+        "total_score": 75,
+        "signal_3": true,
+        "signal_1": false,
+        "chg_30d": -2.44,
+        "capital_yi": 99
+      },
+      {
+        "stock_id": "8358",
+        "name": "金居",
+        "entry_price": 484.0,
+        "change_pct": 2.54,
+        "total_score": 73,
+        "signal_3": true,
+        "signal_1": false,
+        "chg_30d": -3.78,
+        "capital_yi": 25.26
+      },
+      {
+        "stock_id": "6165",
+        "name": "浪凡",
+        "entry_price": 50.1,
+        "change_pct": 2.66,
+        "total_score": 73,
+        "signal_3": true,
+        "signal_1": true,
+        "chg_30d": 0.3,
+        "capital_yi": 99
+      },
+      {
+        "stock_id": "1103",
+        "name": "嘉泥",
+        "entry_price": 13.4,
+        "change_pct": 0.75,
+        "total_score": 70,
+        "signal_3": false,
+        "signal_1": false,
+        "chg_30d": 1.13,
+        "capital_yi": 99
+      },
+      {
+        "stock_id": "4306",
+        "name": "炎洲",
+        "entry_price": 14.85,
+        "change_pct": 2.06,
+        "total_score": 70,
+        "signal_3": false,
+        "signal_1": false,
+        "chg_30d": -1.33,
+        "capital_yi": 99
+      },
+      {
+        "stock_id": "8039",
+        "name": "台虹",
+        "entry_price": 299.0,
+        "change_pct": -2.29,
+        "total_score": 70,
+        "signal_3": false,
+        "signal_1": false,
+        "chg_30d": -4.63,
+        "capital_yi": 99
+      },
+      {
+        "stock_id": "2102",
+        "name": "泰豐",
+        "entry_price": 16.25,
+        "change_pct": 0.93,
+        "total_score": 65,
+        "signal_3": true,
+        "signal_1": false,
+        "chg_30d": -11.92,
+        "capital_yi": 99
+      },
+      {
+        "stock_id": "6141",
+        "name": "柏承",
+        "entry_price": 58.4,
+        "change_pct": 11.24,
+        "total_score": 63,
+        "signal_3": false,
+        "signal_1": true,
+        "chg_30d": 6.57,
+        "capital_yi": 99
+      }
+    ],
+    "t1_return": null,
+    "t1_check_date": null,
+    "t3_return": null,
+    "t3_check_date": null,
+    "t5_return": null,
+    "t5_check_date": null,
+    "win": null
+  },
+  {
     "scan_date": "20261016",
     "captured_at": "2026-10-16T23:00:40.809104+08:00",
     "scan_type": "main_uptrend",
