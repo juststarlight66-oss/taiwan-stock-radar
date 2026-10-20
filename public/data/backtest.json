@@ -734,9 +734,9 @@
           "pending": true,
           "stocks": [
             {
-              "stock_id": "2027",
-              "name": "大成鋼",
-              "entry": 51.0,
+              "stock_id": "9904",
+              "name": "寶成",
+              "entry": 26.55,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -744,9 +744,19 @@
               "pending": true
             },
             {
-              "stock_id": "2031",
-              "name": "新光鋼",
-              "entry": 48.25,
+              "stock_id": "8114",
+              "name": "振樺電",
+              "entry": 180.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3005",
+              "name": "神基",
+              "entry": 123.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -764,9 +774,9 @@
               "pending": true
             },
             {
-              "stock_id": "2006",
-              "name": "東和鋼鐵",
-              "entry": 92.2,
+              "stock_id": "2377",
+              "name": "微星",
+              "entry": 164.5,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -774,9 +784,9 @@
               "pending": true
             },
             {
-              "stock_id": "1452",
-              "name": "宏益",
-              "entry": 11.15,
+              "stock_id": "6776",
+              "name": "展碁國際",
+              "entry": 53.2,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -784,9 +794,9 @@
               "pending": true
             },
             {
-              "stock_id": "2603",
-              "name": "長榮",
-              "entry": 262.0,
+              "stock_id": "2362",
+              "name": "藍天",
+              "entry": 47.75,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -794,9 +804,9 @@
               "pending": true
             },
             {
-              "stock_id": "2912",
-              "name": "統一超",
-              "entry": 228.5,
+              "stock_id": "3706",
+              "name": "神達",
+              "entry": 80.7,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -804,9 +814,9 @@
               "pending": true
             },
             {
-              "stock_id": "5538",
-              "name": "東明-KY",
-              "entry": 36.65,
+              "stock_id": "2504",
+              "name": "國產",
+              "entry": 32.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -814,19 +824,9 @@
               "pending": true
             },
             {
-              "stock_id": "2010",
-              "name": "春源",
-              "entry": 23.25,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "1457",
-              "name": "宜進",
-              "entry": 14.7,
+              "stock_id": "8463",
+              "name": "潤泰材",
+              "entry": 21.35,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -843,9 +843,9 @@
           "pending": true,
           "stocks": [
             {
-              "stock_id": "2027",
-              "name": "大成鋼",
-              "entry": 51.0,
+              "stock_id": "9904",
+              "name": "寶成",
+              "entry": 26.55,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -853,9 +853,19 @@
               "pending": true
             },
             {
-              "stock_id": "2031",
-              "name": "新光鋼",
-              "entry": 48.25,
+              "stock_id": "8114",
+              "name": "振樺電",
+              "entry": 180.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3005",
+              "name": "神基",
+              "entry": 123.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -873,9 +883,9 @@
               "pending": true
             },
             {
-              "stock_id": "2006",
-              "name": "東和鋼鐵",
-              "entry": 92.2,
+              "stock_id": "2377",
+              "name": "微星",
+              "entry": 164.5,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -883,9 +893,9 @@
               "pending": true
             },
             {
-              "stock_id": "1452",
-              "name": "宏益",
-              "entry": 11.15,
+              "stock_id": "6776",
+              "name": "展碁國際",
+              "entry": 53.2,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -893,9 +903,9 @@
               "pending": true
             },
             {
-              "stock_id": "2603",
-              "name": "長榮",
-              "entry": 262.0,
+              "stock_id": "2362",
+              "name": "藍天",
+              "entry": 47.75,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -903,9 +913,9 @@
               "pending": true
             },
             {
-              "stock_id": "2912",
-              "name": "統一超",
-              "entry": 228.5,
+              "stock_id": "3706",
+              "name": "神達",
+              "entry": 80.7,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -913,9 +923,9 @@
               "pending": true
             },
             {
-              "stock_id": "5538",
-              "name": "東明-KY",
-              "entry": 36.65,
+              "stock_id": "2504",
+              "name": "國產",
+              "entry": 32.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -923,19 +933,9 @@
               "pending": true
             },
             {
-              "stock_id": "2010",
-              "name": "春源",
-              "entry": 23.25,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "1457",
-              "name": "宜進",
-              "entry": 14.7,
+              "stock_id": "8463",
+              "name": "潤泰材",
+              "entry": 21.35,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -952,9 +952,9 @@
           "pending": true,
           "stocks": [
             {
-              "stock_id": "2027",
-              "name": "大成鋼",
-              "entry": 51.0,
+              "stock_id": "9904",
+              "name": "寶成",
+              "entry": 26.55,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -962,9 +962,19 @@
               "pending": true
             },
             {
-              "stock_id": "2031",
-              "name": "新光鋼",
-              "entry": 48.25,
+              "stock_id": "8114",
+              "name": "振樺電",
+              "entry": 180.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3005",
+              "name": "神基",
+              "entry": 123.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -982,9 +992,9 @@
               "pending": true
             },
             {
-              "stock_id": "2006",
-              "name": "東和鋼鐵",
-              "entry": 92.2,
+              "stock_id": "2377",
+              "name": "微星",
+              "entry": 164.5,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -992,9 +1002,9 @@
               "pending": true
             },
             {
-              "stock_id": "1452",
-              "name": "宏益",
-              "entry": 11.15,
+              "stock_id": "6776",
+              "name": "展碁國際",
+              "entry": 53.2,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1002,9 +1012,9 @@
               "pending": true
             },
             {
-              "stock_id": "2603",
-              "name": "長榮",
-              "entry": 262.0,
+              "stock_id": "2362",
+              "name": "藍天",
+              "entry": 47.75,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1012,9 +1022,9 @@
               "pending": true
             },
             {
-              "stock_id": "2912",
-              "name": "統一超",
-              "entry": 228.5,
+              "stock_id": "3706",
+              "name": "神達",
+              "entry": 80.7,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1022,9 +1032,9 @@
               "pending": true
             },
             {
-              "stock_id": "5538",
-              "name": "東明-KY",
-              "entry": 36.65,
+              "stock_id": "2504",
+              "name": "國產",
+              "entry": 32.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1032,19 +1042,9 @@
               "pending": true
             },
             {
-              "stock_id": "2010",
-              "name": "春源",
-              "entry": 23.25,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
-              "stock_id": "1457",
-              "name": "宜進",
-              "entry": 14.7,
+              "stock_id": "8463",
+              "name": "潤泰材",
+              "entry": 21.35,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1060,110 +1060,110 @@
       "periods": {
         "T1": {
           "label": "T+1",
-          "backtest_date": null,
-          "win_rate": null,
-          "avg_return": null,
-          "pending": true,
+          "backtest_date": "20261020",
+          "win_rate": 0.0,
+          "avg_return": -1.61,
+          "pending": false,
           "stocks": [
             {
               "stock_id": "2027",
               "name": "大成鋼",
               "entry": 51.0,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 49.95,
+              "return_pct": -2.06,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "2031",
               "name": "新光鋼",
               "entry": 48.25,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 47.4,
+              "return_pct": -1.76,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "2851",
               "name": "中再保",
               "entry": 51.1,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 49.65,
+              "return_pct": -2.84,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "2006",
               "name": "東和鋼鐵",
               "entry": 92.2,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 90.7,
+              "return_pct": -1.63,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "6165",
               "name": "浪凡",
               "entry": 50.1,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 50.1,
+              "return_pct": 0.0,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "9945",
               "name": "潤泰新",
               "entry": 29.8,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 29.5,
+              "return_pct": -1.01,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "1457",
               "name": "宜進",
               "entry": 14.7,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 14.45,
+              "return_pct": -1.7,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "2010",
               "name": "春源",
               "entry": 23.25,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 23.1,
+              "return_pct": -0.65,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "5538",
               "name": "東明-KY",
               "entry": 36.65,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 35.75,
+              "return_pct": -2.46,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
             },
             {
               "stock_id": "2915",
               "name": "潤泰全",
               "entry": 59.1,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
+              "close": 57.9,
+              "return_pct": -2.03,
+              "hit_target": false,
+              "hit_stoploss": false,
+              "pending": false
             }
           ]
         },
@@ -22202,60 +22202,60 @@
       }
     }
   ],
-  "last_updated": "2026-10-20T00:49:35.819528+08:00",
+  "last_updated": "2026-10-20T19:07:08.003055+08:00",
   "history": [
     {
       "date": "2026/10/20",
       "results": {
-        "2027": {
-          "name": "大成鋼",
-          "score": 92.69,
-          "close": 51.0
+        "9904": {
+          "name": "寶成",
+          "score": 87.31,
+          "close": 26.55
         },
-        "2031": {
-          "name": "新光鋼",
-          "score": 90.62,
-          "close": 48.25
+        "8114": {
+          "name": "振樺電",
+          "score": 85.08,
+          "close": 180.5
+        },
+        "3005": {
+          "name": "神基",
+          "score": 83.59,
+          "close": 123.0
         },
         "6165": {
           "name": "浪凡",
-          "score": 87.31,
+          "score": 83.57,
           "close": 50.1
         },
-        "2006": {
-          "name": "東和鋼鐵",
-          "score": 87.1,
-          "close": 92.2
+        "2377": {
+          "name": "微星",
+          "score": 82.96,
+          "close": 164.5
         },
-        "1452": {
-          "name": "宏益",
-          "score": 86.92,
-          "close": 11.15
+        "6776": {
+          "name": "展碁國際",
+          "score": 82.58,
+          "close": 53.2
         },
-        "2603": {
-          "name": "長榮",
-          "score": 86.26,
-          "close": 262.0
+        "2362": {
+          "name": "藍天",
+          "score": 82.48,
+          "close": 47.75
         },
-        "2912": {
-          "name": "統一超",
-          "score": 86.16,
-          "close": 228.5
+        "3706": {
+          "name": "神達",
+          "score": 81.87,
+          "close": 80.7
         },
-        "5538": {
-          "name": "東明-KY",
-          "score": 85.87,
-          "close": 36.65
+        "2504": {
+          "name": "國產",
+          "score": 81.06,
+          "close": 32.0
         },
-        "2010": {
-          "name": "春源",
-          "score": 84.65,
-          "close": 23.25
-        },
-        "1457": {
-          "name": "宜進",
-          "score": 84.03,
-          "close": 14.7
+        "8463": {
+          "name": "潤泰材",
+          "score": 80.56,
+          "close": 21.35
         }
       }
     },
