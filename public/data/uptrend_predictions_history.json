@@ -1,5 +1,173 @@
 [
   {
+    "scan_date": "20261020",
+    "captured_at": "2026-10-20T22:42:04.087280+08:00",
+    "scan_type": "main_uptrend",
+    "top40": [
+      {
+        "stock_id": "6609",
+        "name": "瀧澤科",
+        "entry_price": 41.0,
+        "change_pct": -6.29,
+        "total_score": 93,
+        "signal_3": true,
+        "signal_1": true,
+        "chg_30d": 1.74,
+        "capital_yi": 7.25
+      },
+      {
+        "stock_id": "6167",
+        "name": "久正",
+        "entry_price": 11.3,
+        "change_pct": 9.71,
+        "total_score": 86,
+        "signal_3": true,
+        "signal_1": true,
+        "chg_30d": 9.6,
+        "capital_yi": 14.31
+      },
+      {
+        "stock_id": "8383",
+        "name": "千附",
+        "entry_price": 70.2,
+        "change_pct": 1.59,
+        "total_score": 86,
+        "signal_3": true,
+        "signal_1": false,
+        "chg_30d": 9.35,
+        "capital_yi": 11.38
+      },
+      {
+        "stock_id": "4953",
+        "name": "緯致",
+        "entry_price": 120.0,
+        "change_pct": 1.69,
+        "total_score": 81,
+        "signal_3": false,
+        "signal_1": true,
+        "chg_30d": 0.84,
+        "capital_yi": 7.43
+      },
+      {
+        "stock_id": "3305",
+        "name": "昇貿",
+        "entry_price": 113.5,
+        "change_pct": 0.44,
+        "total_score": 81,
+        "signal_3": true,
+        "signal_1": true,
+        "chg_30d": 4.61,
+        "capital_yi": 99
+      },
+      {
+        "stock_id": "1526",
+        "name": "日馳",
+        "entry_price": 16.1,
+        "change_pct": -3.3,
+        "total_score": 78,
+        "signal_3": true,
+        "signal_1": true,
+        "chg_30d": 4.55,
+        "capital_yi": 99
+      },
+      {
+        "stock_id": "6129",
+        "name": "普誠",
+        "entry_price": 14.75,
+        "change_pct": 9.67,
+        "total_score": 75,
+        "signal_3": true,
+        "signal_1": true,
+        "chg_30d": -0.08,
+        "capital_yi": 16.06
+      },
+      {
+        "stock_id": "8429",
+        "name": "金麗-KY",
+        "entry_price": 6.24,
+        "change_pct": -0.16,
+        "total_score": 73,
+        "signal_3": true,
+        "signal_1": true,
+        "chg_30d": 4.0,
+        "capital_yi": 99
+      },
+      {
+        "stock_id": "3231",
+        "name": "緯創",
+        "entry_price": 189.0,
+        "change_pct": 6.18,
+        "total_score": 70,
+        "signal_3": false,
+        "signal_1": false,
+        "chg_30d": 0.27,
+        "capital_yi": 99
+      },
+      {
+        "stock_id": "3630",
+        "name": "新鉅科",
+        "entry_price": 29.0,
+        "change_pct": -4.29,
+        "total_score": 69,
+        "signal_3": false,
+        "signal_1": true,
+        "chg_30d": 7.21,
+        "capital_yi": 20.42
+      },
+      {
+        "stock_id": "3047",
+        "name": "訊舟",
+        "entry_price": 14.6,
+        "change_pct": 0.0,
+        "total_score": 68,
+        "signal_3": false,
+        "signal_1": false,
+        "chg_30d": 8.96,
+        "capital_yi": 99
+      },
+      {
+        "stock_id": "7786",
+        "name": "東方風能",
+        "entry_price": 121.0,
+        "change_pct": -2.42,
+        "total_score": 68,
+        "signal_3": false,
+        "signal_1": true,
+        "chg_30d": 3.86,
+        "capital_yi": 99
+      },
+      {
+        "stock_id": "8011",
+        "name": "台通",
+        "entry_price": 16.55,
+        "change_pct": -0.3,
+        "total_score": 68,
+        "signal_3": true,
+        "signal_1": false,
+        "chg_30d": 5.08,
+        "capital_yi": 99
+      },
+      {
+        "stock_id": "9933",
+        "name": "中鼎",
+        "entry_price": 42.95,
+        "change_pct": 1.54,
+        "total_score": 58,
+        "signal_3": false,
+        "signal_1": false,
+        "chg_30d": 9.39,
+        "capital_yi": 99
+      }
+    ],
+    "t1_return": null,
+    "t1_check_date": null,
+    "t3_return": null,
+    "t3_check_date": null,
+    "t5_return": null,
+    "t5_check_date": null,
+    "win": null
+  },
+  {
     "scan_date": "20261019",
     "captured_at": "2026-10-20T01:10:37.110229+08:00",
     "scan_type": "main_uptrend",

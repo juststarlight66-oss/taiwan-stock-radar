@@ -1,11 +1,101 @@
 {
   "scan_type": "reversal_momentum",
-  "scanned_at": "2026-10-20 00:49:36",
+  "scanned_at": "2026-10-20 22:40:05",
   "strategy": "策略B：60分K起漲偵測",
   "description": "平盤蕴力蕴穌+爆量發動+收強三條件共振的起漲點股票",
   "filter": "平盤<10%+量比>1.2x+收在高低上半段",
-  "scanned_count": 1960,
-  "pre_filtered": 320,
-  "qualified_count": 0,
-  "stocks": []
+  "scanned_count": 1093,
+  "pre_filtered": 372,
+  "qualified_count": 4,
+  "stocks": [
+    {
+      "stock_id": "8011",
+      "name": "台通",
+      "sector": "通信網路業",
+      "market": "TSE",
+      "score": 62,
+      "day_change_pct": 0.61,
+      "chips_score": 70.2,
+      "vol_ratio": 2.79,
+      "range_5d_pct": 4.67,
+      "close_position": 0.57,
+      "entry": 16.55,
+      "target_1": 17.38,
+      "target_2": 18.21,
+      "stop_loss": 15.89,
+      "signals": [
+        "起漲偵測",
+        "量比2.8x",
+        "橫盤4.7%",
+        "chips強(70)"
+      ],
+      "signal_count": 4
+    },
+    {
+      "stock_id": "2069",
+      "name": "運錩",
+      "sector": "鋼鐵工業",
+      "market": "TSE",
+      "score": 62,
+      "day_change_pct": 1.63,
+      "chips_score": 63.9,
+      "vol_ratio": 2.28,
+      "range_5d_pct": 4.85,
+      "close_position": 0.63,
+      "entry": 24.9,
+      "target_1": 26.14,
+      "target_2": 27.39,
+      "stop_loss": 23.9,
+      "signals": [
+        "起漲偵測",
+        "量比2.3x",
+        "橫盤4.9%"
+      ],
+      "signal_count": 3
+    },
+    {
+      "stock_id": "6177",
+      "name": "達麗",
+      "sector": "建材營造",
+      "market": "TSE",
+      "score": 60,
+      "day_change_pct": 0.33,
+      "chips_score": 57.0,
+      "vol_ratio": 1.83,
+      "range_5d_pct": 2.78,
+      "close_position": 0.81,
+      "entry": 45.35,
+      "target_1": 47.62,
+      "target_2": 49.89,
+      "stop_loss": 43.54,
+      "signals": [
+        "起漲偵測",
+        "量比1.8x",
+        "橫盤2.8%"
+      ],
+      "signal_count": 3
+    },
+    {
+      "stock_id": "2353",
+      "name": "宏碁",
+      "sector": "電腦及週邊設備業",
+      "market": "TSE",
+      "score": 32,
+      "day_change_pct": 1.09,
+      "chips_score": 61.2,
+      "vol_ratio": 1.26,
+      "range_5d_pct": 3.65,
+      "close_position": 0.5,
+      "entry": 32.4,
+      "target_1": 34.02,
+      "target_2": 35.64,
+      "stop_loss": 31.1,
+      "signals": [
+        "起漲偵測",
+        "量比1.3x",
+        "橫盤3.7%"
+      ],
+      "signal_count": 3
+    }
+  ]
 }
