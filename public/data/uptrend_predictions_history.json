@@ -1,7 +1,7 @@
 [
   {
     "scan_date": "20261020",
-    "captured_at": "2026-10-20T22:42:04.087280+08:00",
+    "captured_at": "2026-10-20T23:22:58.377506+08:00",
     "scan_type": "main_uptrend",
     "top40": [
       {
@@ -651,7 +651,9 @@
         "chg_30d": 7.63,
         "capital_yi": 99,
         "t1_close": 103.5,
-        "t1_return": 9.52
+        "t1_return": 9.52,
+        "t3_close": 93.9,
+        "t3_return": -0.63
       },
       {
         "stock_id": "1586",
