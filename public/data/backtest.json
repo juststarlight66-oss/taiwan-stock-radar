@@ -734,16 +734,6 @@
           "pending": true,
           "stocks": [
             {
-              "stock_id": "4961",
-              "name": "天鈺",
-              "entry": 188.0,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
               "stock_id": "5880",
               "name": "合庫金",
               "entry": 28.0,
@@ -764,9 +754,9 @@
               "pending": true
             },
             {
-              "stock_id": "2880",
-              "name": "華南金",
-              "entry": 49.8,
+              "stock_id": "6133",
+              "name": "金橋",
+              "entry": 26.85,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -774,9 +764,9 @@
               "pending": true
             },
             {
-              "stock_id": "5876",
-              "name": "上海商銀",
-              "entry": 53.8,
+              "stock_id": "3679",
+              "name": "新至陞",
+              "entry": 108.5,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -784,9 +774,9 @@
               "pending": true
             },
             {
-              "stock_id": "2439",
-              "name": "美律",
-              "entry": 81.6,
+              "stock_id": "3006",
+              "name": "晶豪科",
+              "entry": 246.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -794,9 +784,19 @@
               "pending": true
             },
             {
-              "stock_id": "3014",
-              "name": "聯陽",
-              "entry": 143.0,
+              "stock_id": "2441",
+              "name": "超豐",
+              "entry": 117.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3034",
+              "name": "聯詠",
+              "entry": 590.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -814,9 +814,9 @@
               "pending": true
             },
             {
-              "stock_id": "2891",
-              "name": "中信金",
-              "entry": 74.8,
+              "stock_id": "2449",
+              "name": "京元電子",
+              "entry": 278.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -824,9 +824,9 @@
               "pending": true
             },
             {
-              "stock_id": "2548",
-              "name": "華固",
-              "entry": 92.5,
+              "stock_id": "2880",
+              "name": "華南金",
+              "entry": 49.8,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -843,16 +843,6 @@
           "pending": true,
           "stocks": [
             {
-              "stock_id": "4961",
-              "name": "天鈺",
-              "entry": 188.0,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
               "stock_id": "5880",
               "name": "合庫金",
               "entry": 28.0,
@@ -873,9 +863,9 @@
               "pending": true
             },
             {
-              "stock_id": "2880",
-              "name": "華南金",
-              "entry": 49.8,
+              "stock_id": "6133",
+              "name": "金橋",
+              "entry": 26.85,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -883,9 +873,9 @@
               "pending": true
             },
             {
-              "stock_id": "5876",
-              "name": "上海商銀",
-              "entry": 53.8,
+              "stock_id": "3679",
+              "name": "新至陞",
+              "entry": 108.5,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -893,9 +883,9 @@
               "pending": true
             },
             {
-              "stock_id": "2439",
-              "name": "美律",
-              "entry": 81.6,
+              "stock_id": "3006",
+              "name": "晶豪科",
+              "entry": 246.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -903,9 +893,19 @@
               "pending": true
             },
             {
-              "stock_id": "3014",
-              "name": "聯陽",
-              "entry": 143.0,
+              "stock_id": "2441",
+              "name": "超豐",
+              "entry": 117.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3034",
+              "name": "聯詠",
+              "entry": 590.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -923,9 +923,9 @@
               "pending": true
             },
             {
-              "stock_id": "2891",
-              "name": "中信金",
-              "entry": 74.8,
+              "stock_id": "2449",
+              "name": "京元電子",
+              "entry": 278.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -933,9 +933,9 @@
               "pending": true
             },
             {
-              "stock_id": "2548",
-              "name": "華固",
-              "entry": 92.5,
+              "stock_id": "2880",
+              "name": "華南金",
+              "entry": 49.8,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -952,16 +952,6 @@
           "pending": true,
           "stocks": [
             {
-              "stock_id": "4961",
-              "name": "天鈺",
-              "entry": 188.0,
-              "close": null,
-              "return_pct": null,
-              "hit_target": null,
-              "hit_stoploss": null,
-              "pending": true
-            },
-            {
               "stock_id": "5880",
               "name": "合庫金",
               "entry": 28.0,
@@ -982,9 +972,9 @@
               "pending": true
             },
             {
-              "stock_id": "2880",
-              "name": "華南金",
-              "entry": 49.8,
+              "stock_id": "6133",
+              "name": "金橋",
+              "entry": 26.85,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -992,9 +982,9 @@
               "pending": true
             },
             {
-              "stock_id": "5876",
-              "name": "上海商銀",
-              "entry": 53.8,
+              "stock_id": "3679",
+              "name": "新至陞",
+              "entry": 108.5,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1002,9 +992,9 @@
               "pending": true
             },
             {
-              "stock_id": "2439",
-              "name": "美律",
-              "entry": 81.6,
+              "stock_id": "3006",
+              "name": "晶豪科",
+              "entry": 246.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1012,9 +1002,19 @@
               "pending": true
             },
             {
-              "stock_id": "3014",
-              "name": "聯陽",
-              "entry": 143.0,
+              "stock_id": "2441",
+              "name": "超豐",
+              "entry": 117.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3034",
+              "name": "聯詠",
+              "entry": 590.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1032,9 +1032,9 @@
               "pending": true
             },
             {
-              "stock_id": "2891",
-              "name": "中信金",
-              "entry": 74.8,
+              "stock_id": "2449",
+              "name": "京元電子",
+              "entry": 278.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1042,9 +1042,9 @@
               "pending": true
             },
             {
-              "stock_id": "2548",
-              "name": "華固",
-              "entry": 92.5,
+              "stock_id": "2880",
+              "name": "華南金",
+              "entry": 49.8,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -22534,60 +22534,60 @@
       }
     }
   ],
-  "last_updated": "2026-10-21T19:09:04.315521+08:00",
+  "last_updated": "2026-10-21T22:49:16.514110+08:00",
   "history": [
     {
       "date": "2026/10/21",
       "results": {
-        "4961": {
-          "name": "天鈺",
-          "score": 94.68,
-          "close": 188.0
-        },
         "5880": {
           "name": "合庫金",
-          "score": 92.43,
+          "score": 86.39,
           "close": 28.0
         },
         "8016": {
           "name": "矽創",
-          "score": 91.46,
+          "score": 85.37,
           "close": 298.0
         },
-        "2880": {
-          "name": "華南金",
-          "score": 89.67,
-          "close": 49.8
+        "6133": {
+          "name": "金橋",
+          "score": 84.68,
+          "close": 26.85
         },
-        "5876": {
-          "name": "上海商銀",
-          "score": 88.39,
-          "close": 53.8
+        "3679": {
+          "name": "新至陞",
+          "score": 84.63,
+          "close": 108.5
         },
-        "2439": {
-          "name": "美律",
-          "score": 87.51,
-          "close": 81.6
+        "3006": {
+          "name": "晶豪科",
+          "score": 84.39,
+          "close": 246.0
         },
-        "3014": {
-          "name": "聯陽",
-          "score": 86.98,
-          "close": 143.0
+        "2441": {
+          "name": "超豐",
+          "score": 83.9,
+          "close": 117.5
+        },
+        "3034": {
+          "name": "聯詠",
+          "score": 83.2,
+          "close": 590.0
         },
         "2436": {
           "name": "偉詮電",
-          "score": 86.68,
+          "score": 82.99,
           "close": 70.3
         },
-        "2891": {
-          "name": "中信金",
-          "score": 86.3,
-          "close": 74.8
+        "2449": {
+          "name": "京元電子",
+          "score": 82.99,
+          "close": 278.0
         },
-        "2548": {
-          "name": "華固",
-          "score": 86.02,
-          "close": 92.5
+        "2880": {
+          "name": "華南金",
+          "score": 82.69,
+          "close": 49.8
         }
       }
     },
