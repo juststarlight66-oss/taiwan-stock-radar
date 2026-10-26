@@ -724,6 +724,338 @@
   ],
   "grouped_records": [
     {
+      "scan_date": "20261027",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "1101",
+              "name": "台泥",
+              "entry": 27.95,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2027",
+              "name": "大成鋼",
+              "entry": 50.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2010",
+              "name": "春源",
+              "entry": 23.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3029",
+              "name": "零壹",
+              "entry": 122.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6192",
+              "name": "巨路",
+              "entry": 115.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1103",
+              "name": "嘉泥",
+              "entry": 13.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2885",
+              "name": "元大金",
+              "entry": 72.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1456",
+              "name": "怡華",
+              "entry": 15.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2034",
+              "name": "允強",
+              "entry": 24.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2480",
+              "name": "敦陽科",
+              "entry": 186.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "1101",
+              "name": "台泥",
+              "entry": 27.95,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2027",
+              "name": "大成鋼",
+              "entry": 50.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2010",
+              "name": "春源",
+              "entry": 23.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3029",
+              "name": "零壹",
+              "entry": 122.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6192",
+              "name": "巨路",
+              "entry": 115.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1103",
+              "name": "嘉泥",
+              "entry": 13.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2885",
+              "name": "元大金",
+              "entry": 72.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1456",
+              "name": "怡華",
+              "entry": 15.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2034",
+              "name": "允強",
+              "entry": 24.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2480",
+              "name": "敦陽科",
+              "entry": 186.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "1101",
+              "name": "台泥",
+              "entry": 27.95,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2027",
+              "name": "大成鋼",
+              "entry": 50.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2010",
+              "name": "春源",
+              "entry": 23.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3029",
+              "name": "零壹",
+              "entry": 122.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6192",
+              "name": "巨路",
+              "entry": 115.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1103",
+              "name": "嘉泥",
+              "entry": 13.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2885",
+              "name": "元大金",
+              "entry": 72.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1456",
+              "name": "怡華",
+              "entry": 15.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2034",
+              "name": "允強",
+              "entry": 24.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2480",
+              "name": "敦陽科",
+              "entry": 186.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
+    },
+    {
       "scan_date": "20261023",
       "periods": {
         "T1": {
@@ -23198,8 +23530,63 @@
       }
     }
   ],
-  "last_updated": "2026-10-23T22:37:10.283739+08:00",
+  "last_updated": "2026-10-27T00:27:50.283242+08:00",
   "history": [
+    {
+      "date": "2026/10/27",
+      "results": {
+        "1101": {
+          "name": "台泥",
+          "score": 93.46,
+          "close": 27.95
+        },
+        "2027": {
+          "name": "大成鋼",
+          "score": 87.07,
+          "close": 50.6
+        },
+        "2010": {
+          "name": "春源",
+          "score": 84.19,
+          "close": 23.1
+        },
+        "3029": {
+          "name": "零壹",
+          "score": 84.18,
+          "close": 122.5
+        },
+        "6192": {
+          "name": "巨路",
+          "score": 84.09,
+          "close": 115.0
+        },
+        "1103": {
+          "name": "嘉泥",
+          "score": 83.8,
+          "close": 13.6
+        },
+        "2885": {
+          "name": "元大金",
+          "score": 83.35,
+          "close": 72.4
+        },
+        "1456": {
+          "name": "怡華",
+          "score": 83.08,
+          "close": 15.4
+        },
+        "2034": {
+          "name": "允強",
+          "score": 83.03,
+          "close": 24.35
+        },
+        "2480": {
+          "name": "敦陽科",
+          "score": 82.97,
+          "close": 186.5
+        }
+      }
+    },
     {
       "date": "2026/10/23",
       "results": {
