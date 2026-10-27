@@ -734,9 +734,9 @@
           "pending": true,
           "stocks": [
             {
-              "stock_id": "1101",
-              "name": "台泥",
-              "entry": 27.95,
+              "stock_id": "3703",
+              "name": "欣陸",
+              "entry": 21.75,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -744,9 +744,9 @@
               "pending": true
             },
             {
-              "stock_id": "2027",
-              "name": "大成鋼",
-              "entry": 50.6,
+              "stock_id": "2504",
+              "name": "國產",
+              "entry": 34.75,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -754,9 +754,9 @@
               "pending": true
             },
             {
-              "stock_id": "2010",
-              "name": "春源",
-              "entry": 23.1,
+              "stock_id": "2204",
+              "name": "中華",
+              "entry": 55.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -764,9 +764,9 @@
               "pending": true
             },
             {
-              "stock_id": "3029",
-              "name": "零壹",
-              "entry": 122.5,
+              "stock_id": "2535",
+              "name": "達欣工",
+              "entry": 93.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -774,9 +774,9 @@
               "pending": true
             },
             {
-              "stock_id": "6192",
-              "name": "巨路",
-              "entry": 115.0,
+              "stock_id": "5522",
+              "name": "遠雄",
+              "entry": 65.2,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -784,9 +784,9 @@
               "pending": true
             },
             {
-              "stock_id": "1103",
-              "name": "嘉泥",
-              "entry": 13.6,
+              "stock_id": "2520",
+              "name": "冠德",
+              "entry": 38.1,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -794,9 +794,9 @@
               "pending": true
             },
             {
-              "stock_id": "2885",
-              "name": "元大金",
-              "entry": 72.4,
+              "stock_id": "4306",
+              "name": "炎洲",
+              "entry": 14.85,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -804,9 +804,9 @@
               "pending": true
             },
             {
-              "stock_id": "1456",
-              "name": "怡華",
-              "entry": 15.4,
+              "stock_id": "2597",
+              "name": "潤弘",
+              "entry": 177.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -814,9 +814,9 @@
               "pending": true
             },
             {
-              "stock_id": "2034",
-              "name": "允強",
-              "entry": 24.35,
+              "stock_id": "6177",
+              "name": "達麗",
+              "entry": 47.1,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -824,9 +824,9 @@
               "pending": true
             },
             {
-              "stock_id": "2480",
-              "name": "敦陽科",
-              "entry": 186.5,
+              "stock_id": "1215",
+              "name": "卜蜂",
+              "entry": 109.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -843,9 +843,9 @@
           "pending": true,
           "stocks": [
             {
-              "stock_id": "1101",
-              "name": "台泥",
-              "entry": 27.95,
+              "stock_id": "3703",
+              "name": "欣陸",
+              "entry": 21.75,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -853,9 +853,9 @@
               "pending": true
             },
             {
-              "stock_id": "2027",
-              "name": "大成鋼",
-              "entry": 50.6,
+              "stock_id": "2504",
+              "name": "國產",
+              "entry": 34.75,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -863,9 +863,9 @@
               "pending": true
             },
             {
-              "stock_id": "2010",
-              "name": "春源",
-              "entry": 23.1,
+              "stock_id": "2204",
+              "name": "中華",
+              "entry": 55.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -873,9 +873,9 @@
               "pending": true
             },
             {
-              "stock_id": "3029",
-              "name": "零壹",
-              "entry": 122.5,
+              "stock_id": "2535",
+              "name": "達欣工",
+              "entry": 93.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -883,9 +883,9 @@
               "pending": true
             },
             {
-              "stock_id": "6192",
-              "name": "巨路",
-              "entry": 115.0,
+              "stock_id": "5522",
+              "name": "遠雄",
+              "entry": 65.2,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -893,9 +893,9 @@
               "pending": true
             },
             {
-              "stock_id": "1103",
-              "name": "嘉泥",
-              "entry": 13.6,
+              "stock_id": "2520",
+              "name": "冠德",
+              "entry": 38.1,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -903,9 +903,9 @@
               "pending": true
             },
             {
-              "stock_id": "2885",
-              "name": "元大金",
-              "entry": 72.4,
+              "stock_id": "4306",
+              "name": "炎洲",
+              "entry": 14.85,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -913,9 +913,9 @@
               "pending": true
             },
             {
-              "stock_id": "1456",
-              "name": "怡華",
-              "entry": 15.4,
+              "stock_id": "2597",
+              "name": "潤弘",
+              "entry": 177.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -923,9 +923,9 @@
               "pending": true
             },
             {
-              "stock_id": "2034",
-              "name": "允強",
-              "entry": 24.35,
+              "stock_id": "6177",
+              "name": "達麗",
+              "entry": 47.1,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -933,9 +933,9 @@
               "pending": true
             },
             {
-              "stock_id": "2480",
-              "name": "敦陽科",
-              "entry": 186.5,
+              "stock_id": "1215",
+              "name": "卜蜂",
+              "entry": 109.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -952,9 +952,9 @@
           "pending": true,
           "stocks": [
             {
-              "stock_id": "1101",
-              "name": "台泥",
-              "entry": 27.95,
+              "stock_id": "3703",
+              "name": "欣陸",
+              "entry": 21.75,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -962,9 +962,9 @@
               "pending": true
             },
             {
-              "stock_id": "2027",
-              "name": "大成鋼",
-              "entry": 50.6,
+              "stock_id": "2504",
+              "name": "國產",
+              "entry": 34.75,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -972,9 +972,9 @@
               "pending": true
             },
             {
-              "stock_id": "2010",
-              "name": "春源",
-              "entry": 23.1,
+              "stock_id": "2204",
+              "name": "中華",
+              "entry": 55.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -982,9 +982,9 @@
               "pending": true
             },
             {
-              "stock_id": "3029",
-              "name": "零壹",
-              "entry": 122.5,
+              "stock_id": "2535",
+              "name": "達欣工",
+              "entry": 93.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -992,9 +992,9 @@
               "pending": true
             },
             {
-              "stock_id": "6192",
-              "name": "巨路",
-              "entry": 115.0,
+              "stock_id": "5522",
+              "name": "遠雄",
+              "entry": 65.2,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1002,9 +1002,9 @@
               "pending": true
             },
             {
-              "stock_id": "1103",
-              "name": "嘉泥",
-              "entry": 13.6,
+              "stock_id": "2520",
+              "name": "冠德",
+              "entry": 38.1,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1012,9 +1012,9 @@
               "pending": true
             },
             {
-              "stock_id": "2885",
-              "name": "元大金",
-              "entry": 72.4,
+              "stock_id": "4306",
+              "name": "炎洲",
+              "entry": 14.85,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1022,9 +1022,9 @@
               "pending": true
             },
             {
-              "stock_id": "1456",
-              "name": "怡華",
-              "entry": 15.4,
+              "stock_id": "2597",
+              "name": "潤弘",
+              "entry": 177.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1032,9 +1032,9 @@
               "pending": true
             },
             {
-              "stock_id": "2034",
-              "name": "允強",
-              "entry": 24.35,
+              "stock_id": "6177",
+              "name": "達麗",
+              "entry": 47.1,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -1042,9 +1042,9 @@
               "pending": true
             },
             {
-              "stock_id": "2480",
-              "name": "敦陽科",
-              "entry": 186.5,
+              "stock_id": "1215",
+              "name": "卜蜂",
+              "entry": 109.0,
               "close": null,
               "return_pct": null,
               "hit_target": null,
@@ -23530,60 +23530,60 @@
       }
     }
   ],
-  "last_updated": "2026-10-27T00:27:50.283242+08:00",
+  "last_updated": "2026-10-27T23:41:03.133402+08:00",
   "history": [
     {
       "date": "2026/10/27",
       "results": {
-        "1101": {
-          "name": "台泥",
-          "score": 93.46,
-          "close": 27.95
+        "3703": {
+          "name": "欣陸",
+          "score": 96.5,
+          "close": 21.75
         },
-        "2027": {
-          "name": "大成鋼",
-          "score": 87.07,
-          "close": 50.6
+        "2504": {
+          "name": "國產",
+          "score": 95.51,
+          "close": 34.75
         },
-        "2010": {
-          "name": "春源",
-          "score": 84.19,
-          "close": 23.1
+        "2204": {
+          "name": "中華",
+          "score": 95.45,
+          "close": 55.0
         },
-        "3029": {
-          "name": "零壹",
-          "score": 84.18,
-          "close": 122.5
+        "2535": {
+          "name": "達欣工",
+          "score": 95.41,
+          "close": 93.0
         },
-        "6192": {
-          "name": "巨路",
-          "score": 84.09,
-          "close": 115.0
+        "5522": {
+          "name": "遠雄",
+          "score": 95.16,
+          "close": 65.2
         },
-        "1103": {
-          "name": "嘉泥",
-          "score": 83.8,
-          "close": 13.6
+        "2520": {
+          "name": "冠德",
+          "score": 91.03,
+          "close": 38.1
         },
-        "2885": {
-          "name": "元大金",
-          "score": 83.35,
-          "close": 72.4
+        "4306": {
+          "name": "炎洲",
+          "score": 90.73,
+          "close": 14.85
         },
-        "1456": {
-          "name": "怡華",
-          "score": 83.08,
-          "close": 15.4
+        "2597": {
+          "name": "潤弘",
+          "score": 90.44,
+          "close": 177.0
         },
-        "2034": {
-          "name": "允強",
-          "score": 83.03,
-          "close": 24.35
+        "6177": {
+          "name": "達麗",
+          "score": 89.57,
+          "close": 47.1
         },
-        "2480": {
-          "name": "敦陽科",
-          "score": 82.97,
-          "close": 186.5
+        "1215": {
+          "name": "卜蜂",
+          "score": 88.81,
+          "close": 109.0
         }
       }
     },
