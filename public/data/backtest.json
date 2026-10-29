@@ -724,6 +724,338 @@
   ],
   "grouped_records": [
     {
+      "scan_date": "20261030",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "4771",
+              "name": "望隼",
+              "entry": 212.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2892",
+              "name": "第一金",
+              "entry": 44.45,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4137",
+              "name": "麗豐-KY",
+              "entry": 81.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2889",
+              "name": "國票金",
+              "entry": 17.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2886",
+              "name": "兆豐金",
+              "entry": 54.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1736",
+              "name": "喬山",
+              "entry": 123.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1201",
+              "name": "味全",
+              "entry": 12.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2891",
+              "name": "中信金",
+              "entry": 75.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5880",
+              "name": "合庫金",
+              "entry": 28.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9904",
+              "name": "寶成",
+              "entry": 25.65,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "4771",
+              "name": "望隼",
+              "entry": 212.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2892",
+              "name": "第一金",
+              "entry": 44.45,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4137",
+              "name": "麗豐-KY",
+              "entry": 81.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2889",
+              "name": "國票金",
+              "entry": 17.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2886",
+              "name": "兆豐金",
+              "entry": 54.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1736",
+              "name": "喬山",
+              "entry": 123.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1201",
+              "name": "味全",
+              "entry": 12.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2891",
+              "name": "中信金",
+              "entry": 75.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5880",
+              "name": "合庫金",
+              "entry": 28.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9904",
+              "name": "寶成",
+              "entry": 25.65,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "4771",
+              "name": "望隼",
+              "entry": 212.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2892",
+              "name": "第一金",
+              "entry": 44.45,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4137",
+              "name": "麗豐-KY",
+              "entry": 81.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2889",
+              "name": "國票金",
+              "entry": 17.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2886",
+              "name": "兆豐金",
+              "entry": 54.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1736",
+              "name": "喬山",
+              "entry": 123.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1201",
+              "name": "味全",
+              "entry": 12.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2891",
+              "name": "中信金",
+              "entry": 75.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5880",
+              "name": "合庫金",
+              "entry": 28.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9904",
+              "name": "寶成",
+              "entry": 25.65,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
+    },
+    {
       "scan_date": "20261029",
       "periods": {
         "T1": {
@@ -23862,8 +24194,63 @@
       }
     }
   ],
-  "last_updated": "2026-10-29T00:23:57.448736+08:00",
+  "last_updated": "2026-10-30T00:41:24.672145+08:00",
   "history": [
+    {
+      "date": "2026/10/30",
+      "results": {
+        "4771": {
+          "name": "望隼",
+          "score": 89.49,
+          "close": 212.0
+        },
+        "2892": {
+          "name": "第一金",
+          "score": 87.87,
+          "close": 44.45
+        },
+        "4137": {
+          "name": "麗豐-KY",
+          "score": 85.42,
+          "close": 81.2
+        },
+        "2889": {
+          "name": "國票金",
+          "score": 83.62,
+          "close": 17.2
+        },
+        "2886": {
+          "name": "兆豐金",
+          "score": 82.21,
+          "close": 54.8
+        },
+        "1736": {
+          "name": "喬山",
+          "score": 82.11,
+          "close": 123.5
+        },
+        "1201": {
+          "name": "味全",
+          "score": 81.69,
+          "close": 12.35
+        },
+        "2891": {
+          "name": "中信金",
+          "score": 81.46,
+          "close": 75.3
+        },
+        "5880": {
+          "name": "合庫金",
+          "score": 81.19,
+          "close": 28.9
+        },
+        "9904": {
+          "name": "寶成",
+          "score": 81.06,
+          "close": 25.65
+        }
+      }
+    },
     {
       "date": "2026/10/29",
       "results": {
