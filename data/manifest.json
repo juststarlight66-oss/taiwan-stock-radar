@@ -1,0 +1,22 @@
+{
+  "latest.json": {
+    "path": "tasks/2255/push_ready/latest.json",
+    "repo_path": "public/data/latest.json",
+    "size": 241036
+  },
+  "all_scores.json": {
+    "path": "tasks/2255/push_ready/all_scores.json",
+    "repo_path": "public/data/all_scores.json",
+    "size": 2704592
+  },
+  "scan_result_20260507.json": {
+    "path": "tasks/2255/push_ready/scan_result_20260507.json",
+    "repo_path": "public/data/scan_result_20260507.json",
+    "size": 4425873
+  },
+  "index.json": {
+    "path": "tasks/2255/push_ready/index.json",
+    "repo_path": "public/data/index.json",
+    "size": 143
+  }
+}

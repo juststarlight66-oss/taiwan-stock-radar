@@ -1,0 +1,283 @@
+{
+  "report_date": "20261009",
+  "report_type": "weekly_backtest",
+  "generated_at": "2026-10-09T14:50:47+08:00",
+  "week_ending": "2026-10-09",
+  "scan_days_this_week": [
+    "20261005",
+    "20261006",
+    "20261007",
+    "20261008",
+    "20261009"
+  ],
+  "summary": {
+    "total_recommendations": 10,
+    "scanned_stocks": 1958,
+    "top_sectors": [],
+    "avg_score": 84.92
+  },
+  "power_combo_indicators": {
+    "description": "三燈號指標 - T+N 追蹤框架",
+    "t1_win_rate": 33.3,
+    "t1_samples": 15,
+    "t3_win_rate": null,
+    "t3_samples": 0,
+    "t5_win_rate": null,
+    "t5_samples": 0,
+    "avg_t5_return": null,
+    "stop_loss_triggers": 0,
+    "note": "基於 36 筆歷史推薦的 T+N 追蹤數據"
+  },
+  "weekly_top10": [
+    {
+      "stock_id": "9945",
+      "name": "潤泰新",
+      "entry_date": "20261009",
+      "entry_price": 29.8,
+      "stop_loss": 28.61,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 88.17,
+      "close": 29.8,
+      "change_pct": 1.71,
+      "sector": "其他",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "1102",
+      "name": "亞泥",
+      "entry_date": "20261009",
+      "entry_price": 36.35,
+      "stop_loss": 34.9,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 87.27,
+      "close": 36.35,
+      "change_pct": 1.25,
+      "sector": "水泥工業",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "8442",
+      "name": "威宏-KY",
+      "entry_date": "20261009",
+      "entry_price": 48.6,
+      "stop_loss": 46.66,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 86.29,
+      "close": 48.6,
+      "change_pct": 5.42,
+      "sector": "其他",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "1307",
+      "name": "三芳",
+      "entry_date": "20261009",
+      "entry_price": 31.3,
+      "stop_loss": 30.05,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 85.09,
+      "close": 31.3,
+      "change_pct": -0.63,
+      "sector": "塑膠工業",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "2027",
+      "name": "大成鋼",
+      "entry_date": "20261009",
+      "entry_price": 48.25,
+      "stop_loss": 46.32,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 84.88,
+      "close": 48.25,
+      "change_pct": 1.05,
+      "sector": "鋼鐵工業",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "6136",
+      "name": "富爾特",
+      "entry_date": "20261009",
+      "entry_price": 26.6,
+      "stop_loss": 25.54,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 84.42,
+      "close": 26.6,
+      "change_pct": 5.35,
+      "sector": "通信網路業",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "1476",
+      "name": "儒鴻",
+      "entry_date": "20261009",
+      "entry_price": 310.0,
+      "stop_loss": 297.6,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 84.27,
+      "close": 310.0,
+      "change_pct": 4.38,
+      "sector": "紡織纖維",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "1456",
+      "name": "怡華",
+      "entry_date": "20261009",
+      "entry_price": 14.95,
+      "stop_loss": 14.35,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 83.57,
+      "close": 14.95,
+      "change_pct": 3.82,
+      "sector": "建材營造",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "4935",
+      "name": "茂林-KY",
+      "entry_date": "20261009",
+      "entry_price": 34.3,
+      "stop_loss": 32.93,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 82.74,
+      "close": 34.3,
+      "change_pct": 4.1,
+      "sector": "光電業",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "9103",
+      "name": "美德醫療-DR",
+      "entry_date": "20261009",
+      "entry_price": 5.88,
+      "stop_loss": 5.64,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 82.52,
+      "close": 5.88,
+      "change_pct": 9.91,
+      "sector": "存託憑證",
+      "sector_boost": 0
+    }
+  ]
+}
