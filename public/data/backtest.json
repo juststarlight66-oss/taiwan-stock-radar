@@ -724,6 +724,338 @@
   ],
   "grouped_records": [
     {
+      "scan_date": "20261103",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "1605",
+              "name": "華新",
+              "entry": 37.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1416",
+              "name": "廣豐",
+              "entry": 13.55,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6271",
+              "name": "同欣電",
+              "entry": 216.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2204",
+              "name": "中華",
+              "entry": 53.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1817",
+              "name": "凱撒衛",
+              "entry": 40.45,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2006",
+              "name": "東和鋼鐵",
+              "entry": 91.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2610",
+              "name": "華航",
+              "entry": 20.65,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1615",
+              "name": "大山",
+              "entry": 46.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2451",
+              "name": "創見",
+              "entry": 285.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1725",
+              "name": "元禎",
+              "entry": 33.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "1605",
+              "name": "華新",
+              "entry": 37.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1416",
+              "name": "廣豐",
+              "entry": 13.55,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6271",
+              "name": "同欣電",
+              "entry": 216.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2204",
+              "name": "中華",
+              "entry": 53.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1817",
+              "name": "凱撒衛",
+              "entry": 40.45,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2006",
+              "name": "東和鋼鐵",
+              "entry": 91.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2610",
+              "name": "華航",
+              "entry": 20.65,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1615",
+              "name": "大山",
+              "entry": 46.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2451",
+              "name": "創見",
+              "entry": 285.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1725",
+              "name": "元禎",
+              "entry": 33.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "1605",
+              "name": "華新",
+              "entry": 37.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1416",
+              "name": "廣豐",
+              "entry": 13.55,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6271",
+              "name": "同欣電",
+              "entry": 216.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2204",
+              "name": "中華",
+              "entry": 53.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1817",
+              "name": "凱撒衛",
+              "entry": 40.45,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2006",
+              "name": "東和鋼鐵",
+              "entry": 91.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2610",
+              "name": "華航",
+              "entry": 20.65,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1615",
+              "name": "大山",
+              "entry": 46.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2451",
+              "name": "創見",
+              "entry": 285.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1725",
+              "name": "元禎",
+              "entry": 33.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
+    },
+    {
       "scan_date": "20261031",
       "periods": {
         "T1": {
@@ -24526,8 +24858,63 @@
       }
     }
   ],
-  "last_updated": "2026-10-31T00:24:03.823833+08:00",
+  "last_updated": "2026-11-03T03:55:14.034889+08:00",
   "history": [
+    {
+      "date": "2026/11/03",
+      "results": {
+        "1605": {
+          "name": "華新",
+          "score": 81.42,
+          "close": 37.6
+        },
+        "1416": {
+          "name": "廣豐",
+          "score": 80.87,
+          "close": 13.55
+        },
+        "6271": {
+          "name": "同欣電",
+          "score": 80.34,
+          "close": 216.5
+        },
+        "2204": {
+          "name": "中華",
+          "score": 79.86,
+          "close": 53.1
+        },
+        "1817": {
+          "name": "凱撒衛",
+          "score": 78.57,
+          "close": 40.45
+        },
+        "2006": {
+          "name": "東和鋼鐵",
+          "score": 78.43,
+          "close": 91.6
+        },
+        "2610": {
+          "name": "華航",
+          "score": 78.12,
+          "close": 20.65
+        },
+        "1615": {
+          "name": "大山",
+          "score": 78.11,
+          "close": 46.3
+        },
+        "2451": {
+          "name": "創見",
+          "score": 77.26,
+          "close": 285.0
+        },
+        "1725": {
+          "name": "元禎",
+          "score": 77.06,
+          "close": 33.15
+        }
+      }
+    },
     {
       "date": "2026/10/31",
       "results": {
