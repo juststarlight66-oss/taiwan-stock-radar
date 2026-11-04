@@ -724,6 +724,338 @@
   ],
   "grouped_records": [
     {
+      "scan_date": "20261105",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "2603",
+              "name": "長榮",
+              "entry": 268.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3168",
+              "name": "眾福科",
+              "entry": 42.25,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2471",
+              "name": "資通",
+              "entry": 52.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3045",
+              "name": "台灣大",
+              "entry": 135.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3679",
+              "name": "新至陞",
+              "entry": 108.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3515",
+              "name": "華擎",
+              "entry": 226.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2618",
+              "name": "長榮航",
+              "entry": 43.75,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4766",
+              "name": "南寶",
+              "entry": 351.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5880",
+              "name": "合庫金",
+              "entry": 28.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6201",
+              "name": "亞弘電",
+              "entry": 48.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "2603",
+              "name": "長榮",
+              "entry": 268.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3168",
+              "name": "眾福科",
+              "entry": 42.25,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2471",
+              "name": "資通",
+              "entry": 52.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3045",
+              "name": "台灣大",
+              "entry": 135.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3679",
+              "name": "新至陞",
+              "entry": 108.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3515",
+              "name": "華擎",
+              "entry": 226.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2618",
+              "name": "長榮航",
+              "entry": 43.75,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4766",
+              "name": "南寶",
+              "entry": 351.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5880",
+              "name": "合庫金",
+              "entry": 28.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6201",
+              "name": "亞弘電",
+              "entry": 48.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "2603",
+              "name": "長榮",
+              "entry": 268.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3168",
+              "name": "眾福科",
+              "entry": 42.25,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2471",
+              "name": "資通",
+              "entry": 52.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3045",
+              "name": "台灣大",
+              "entry": 135.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3679",
+              "name": "新至陞",
+              "entry": 108.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3515",
+              "name": "華擎",
+              "entry": 226.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2618",
+              "name": "長榮航",
+              "entry": 43.75,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4766",
+              "name": "南寶",
+              "entry": 351.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5880",
+              "name": "合庫金",
+              "entry": 28.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6201",
+              "name": "亞弘電",
+              "entry": 48.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
+    },
+    {
       "scan_date": "20261104",
       "periods": {
         "T1": {
@@ -25190,8 +25522,63 @@
       }
     }
   ],
-  "last_updated": "2026-11-04T01:31:11.704466+08:00",
+  "last_updated": "2026-11-05T01:35:56.799060+08:00",
   "history": [
+    {
+      "date": "2026/11/05",
+      "results": {
+        "2603": {
+          "name": "長榮",
+          "score": 93.61,
+          "close": 268.0
+        },
+        "3168": {
+          "name": "眾福科",
+          "score": 88.71,
+          "close": 42.25
+        },
+        "2471": {
+          "name": "資通",
+          "score": 87.59,
+          "close": 52.5
+        },
+        "3045": {
+          "name": "台灣大",
+          "score": 85.68,
+          "close": 135.0
+        },
+        "3679": {
+          "name": "新至陞",
+          "score": 85.65,
+          "close": 108.0
+        },
+        "3515": {
+          "name": "華擎",
+          "score": 85.62,
+          "close": 226.0
+        },
+        "2618": {
+          "name": "長榮航",
+          "score": 84.71,
+          "close": 43.75
+        },
+        "4766": {
+          "name": "南寶",
+          "score": 83.83,
+          "close": 351.5
+        },
+        "5880": {
+          "name": "合庫金",
+          "score": 82.15,
+          "close": 28.5
+        },
+        "6201": {
+          "name": "亞弘電",
+          "score": 81.43,
+          "close": 48.1
+        }
+      }
+    },
     {
       "date": "2026/11/04",
       "results": {
