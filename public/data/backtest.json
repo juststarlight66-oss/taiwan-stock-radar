@@ -724,6 +724,338 @@
   ],
   "grouped_records": [
     {
+      "scan_date": "20261106",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "2501",
+              "name": "國建",
+              "entry": 21.05,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1476",
+              "name": "儒鴻",
+              "entry": 339.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2891",
+              "name": "中信金",
+              "entry": 74.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9802",
+              "name": "鈺齊-KY",
+              "entry": 64.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1725",
+              "name": "元禎",
+              "entry": 33.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9904",
+              "name": "寶成",
+              "entry": 26.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1423",
+              "name": "利華",
+              "entry": 33.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1203",
+              "name": "味王",
+              "entry": 44.25,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1477",
+              "name": "聚陽",
+              "entry": 214.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9910",
+              "name": "豐泰",
+              "entry": 69.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "2501",
+              "name": "國建",
+              "entry": 21.05,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1476",
+              "name": "儒鴻",
+              "entry": 339.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2891",
+              "name": "中信金",
+              "entry": 74.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9802",
+              "name": "鈺齊-KY",
+              "entry": 64.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1725",
+              "name": "元禎",
+              "entry": 33.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9904",
+              "name": "寶成",
+              "entry": 26.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1423",
+              "name": "利華",
+              "entry": 33.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1203",
+              "name": "味王",
+              "entry": 44.25,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1477",
+              "name": "聚陽",
+              "entry": 214.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9910",
+              "name": "豐泰",
+              "entry": 69.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "2501",
+              "name": "國建",
+              "entry": 21.05,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1476",
+              "name": "儒鴻",
+              "entry": 339.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2891",
+              "name": "中信金",
+              "entry": 74.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9802",
+              "name": "鈺齊-KY",
+              "entry": 64.3,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1725",
+              "name": "元禎",
+              "entry": 33.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9904",
+              "name": "寶成",
+              "entry": 26.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1423",
+              "name": "利華",
+              "entry": 33.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1203",
+              "name": "味王",
+              "entry": 44.25,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1477",
+              "name": "聚陽",
+              "entry": 214.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9910",
+              "name": "豐泰",
+              "entry": 69.2,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
+    },
+    {
       "scan_date": "20261105",
       "periods": {
         "T1": {
@@ -25522,8 +25854,63 @@
       }
     }
   ],
-  "last_updated": "2026-11-05T01:35:56.799060+08:00",
+  "last_updated": "2026-11-06T01:49:53.002758+08:00",
   "history": [
+    {
+      "date": "2026/11/06",
+      "results": {
+        "2501": {
+          "name": "國建",
+          "score": 102.15,
+          "close": 21.05
+        },
+        "1476": {
+          "name": "儒鴻",
+          "score": 93.0,
+          "close": 339.5
+        },
+        "2891": {
+          "name": "中信金",
+          "score": 91.64,
+          "close": 74.9
+        },
+        "9802": {
+          "name": "鈺齊-KY",
+          "score": 91.58,
+          "close": 64.3
+        },
+        "1725": {
+          "name": "元禎",
+          "score": 87.93,
+          "close": 33.9
+        },
+        "9904": {
+          "name": "寶成",
+          "score": 87.58,
+          "close": 26.0
+        },
+        "1423": {
+          "name": "利華",
+          "score": 83.42,
+          "close": 33.9
+        },
+        "1203": {
+          "name": "味王",
+          "score": 82.98,
+          "close": 44.25
+        },
+        "1477": {
+          "name": "聚陽",
+          "score": 82.85,
+          "close": 214.5
+        },
+        "9910": {
+          "name": "豐泰",
+          "score": 82.44,
+          "close": 69.2
+        }
+      }
+    },
     {
       "date": "2026/11/05",
       "results": {
