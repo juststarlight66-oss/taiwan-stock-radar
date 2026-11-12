@@ -724,6 +724,338 @@
   ],
   "grouped_records": [
     {
+      "scan_date": "20261113",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "9935",
+              "name": "慶豐富",
+              "entry": 19.85,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6670",
+              "name": "復盛應用",
+              "entry": 267.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6890",
+              "name": "來億-KY",
+              "entry": 147.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4755",
+              "name": "三福化",
+              "entry": 128.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1802",
+              "name": "台玻",
+              "entry": 81.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "8481",
+              "name": "政伸",
+              "entry": 40.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2024",
+              "name": "志聯",
+              "entry": 13.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4560",
+              "name": "強信-KY",
+              "entry": 29.85,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5876",
+              "name": "上海商銀",
+              "entry": 52.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2453",
+              "name": "凌群",
+              "entry": 58.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "9935",
+              "name": "慶豐富",
+              "entry": 19.85,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6670",
+              "name": "復盛應用",
+              "entry": 267.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6890",
+              "name": "來億-KY",
+              "entry": 147.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4755",
+              "name": "三福化",
+              "entry": 128.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1802",
+              "name": "台玻",
+              "entry": 81.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "8481",
+              "name": "政伸",
+              "entry": 40.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2024",
+              "name": "志聯",
+              "entry": 13.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4560",
+              "name": "強信-KY",
+              "entry": 29.85,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5876",
+              "name": "上海商銀",
+              "entry": 52.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2453",
+              "name": "凌群",
+              "entry": 58.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "9935",
+              "name": "慶豐富",
+              "entry": 19.85,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6670",
+              "name": "復盛應用",
+              "entry": 267.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6890",
+              "name": "來億-KY",
+              "entry": 147.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4755",
+              "name": "三福化",
+              "entry": 128.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1802",
+              "name": "台玻",
+              "entry": 81.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "8481",
+              "name": "政伸",
+              "entry": 40.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2024",
+              "name": "志聯",
+              "entry": 13.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4560",
+              "name": "強信-KY",
+              "entry": 29.85,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "5876",
+              "name": "上海商銀",
+              "entry": 52.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2453",
+              "name": "凌群",
+              "entry": 58.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
+    },
+    {
       "scan_date": "20261112",
       "periods": {
         "T1": {
@@ -25732,372 +26064,65 @@
           ]
         }
       }
-    },
-    {
-      "scan_date": "20260704",
-      "periods": {
-        "T1": {
-          "label": "T+1",
-          "backtest_date": "20260705",
-          "win_rate": 0.0,
-          "avg_return": 0.0,
-          "pending": false,
-          "stocks": [
-            {
-              "stock_id": "1452",
-              "name": "宏益",
-              "entry": 11.95,
-              "entry_price": 11.95,
-              "close": 11.95,
-              "return_pct": 0.0,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "2816",
-              "name": "旺旺保",
-              "entry": 34.85,
-              "entry_price": 34.85,
-              "close": 34.85,
-              "return_pct": 0.0,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "1314",
-              "name": "中石化",
-              "entry": 9.88,
-              "entry_price": 9.88,
-              "close": 9.88,
-              "return_pct": 0.0,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "2103",
-              "name": "台橡",
-              "entry": 23.5,
-              "entry_price": 23.5,
-              "close": 23.5,
-              "return_pct": 0.0,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "1308",
-              "name": "亞聚",
-              "entry": 15.85,
-              "entry_price": 15.85,
-              "close": 15.85,
-              "return_pct": 0.0,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "1313",
-              "name": "聯成",
-              "entry": 14.3,
-              "entry_price": 14.3,
-              "close": 14.3,
-              "return_pct": 0.0,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "1337",
-              "name": "再生-KY",
-              "entry": 5.61,
-              "entry_price": 5.61,
-              "close": 5.61,
-              "return_pct": 0.0,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "1340",
-              "name": "勝悅-KY",
-              "entry": 5.84,
-              "entry_price": 5.84,
-              "close": 5.84,
-              "return_pct": 0.0,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "1304",
-              "name": "台聚",
-              "entry": 15.5,
-              "entry_price": 15.5,
-              "close": 15.5,
-              "return_pct": 0.0,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "1310",
-              "name": "台苯",
-              "entry": 11.4,
-              "entry_price": 11.4,
-              "close": 11.4,
-              "return_pct": 0.0,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            }
-          ]
-        },
-        "T3": {
-          "label": "T+3",
-          "backtest_date": "20260707",
-          "win_rate": 20.0,
-          "avg_return": -3.23,
-          "pending": false,
-          "stocks": [
-            {
-              "stock_id": "1452",
-              "name": "宏益",
-              "entry": 11.95,
-              "entry_price": 11.95,
-              "close": 11.75,
-              "return_pct": -1.67,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "2816",
-              "name": "旺旺保",
-              "entry": 34.85,
-              "entry_price": 34.85,
-              "close": 34.9,
-              "return_pct": 0.14,
-              "hit_target": true,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "1314",
-              "name": "中石化",
-              "entry": 9.88,
-              "entry_price": 9.88,
-              "close": 9.77,
-              "return_pct": -1.11,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "2103",
-              "name": "台橡",
-              "entry": 23.5,
-              "entry_price": 23.5,
-              "close": 24.65,
-              "return_pct": 4.89,
-              "hit_target": true,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "1308",
-              "name": "亞聚",
-              "entry": 15.85,
-              "entry_price": 15.85,
-              "close": 15.1,
-              "return_pct": -4.73,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "1313",
-              "name": "聯成",
-              "entry": 14.3,
-              "entry_price": 14.3,
-              "close": 13.05,
-              "return_pct": -8.74,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "1337",
-              "name": "再生-KY",
-              "entry": 5.61,
-              "entry_price": 5.61,
-              "close": 5.17,
-              "return_pct": -7.84,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "1340",
-              "name": "勝悅-KY",
-              "entry": 5.84,
-              "entry_price": 5.84,
-              "close": 5.71,
-              "return_pct": -2.23,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "1304",
-              "name": "台聚",
-              "entry": 15.5,
-              "entry_price": 15.5,
-              "close": 14.2,
-              "return_pct": -8.39,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "1310",
-              "name": "台苯",
-              "entry": 11.4,
-              "entry_price": 11.4,
-              "close": 11.1,
-              "return_pct": -2.63,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            }
-          ]
-        },
-        "T5": {
-          "label": "T+5",
-          "backtest_date": "20260709",
-          "win_rate": 0.0,
-          "avg_return": -7.31,
-          "pending": false,
-          "stocks": [
-            {
-              "stock_id": "1452",
-              "name": "宏益",
-              "entry": 11.95,
-              "entry_price": 11.95,
-              "close": 11.65,
-              "return_pct": -2.51,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "2816",
-              "name": "旺旺保",
-              "entry": 34.85,
-              "entry_price": 34.85,
-              "close": 34.35,
-              "return_pct": -1.43,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "1314",
-              "name": "中石化",
-              "entry": 9.88,
-              "entry_price": 9.88,
-              "close": 8.9,
-              "return_pct": -9.92,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "2103",
-              "name": "台橡",
-              "entry": 23.5,
-              "entry_price": 23.5,
-              "close": 23.05,
-              "return_pct": -1.91,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "1308",
-              "name": "亞聚",
-              "entry": 15.85,
-              "entry_price": 15.85,
-              "close": 14.65,
-              "return_pct": -7.57,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "1313",
-              "name": "聯成",
-              "entry": 14.3,
-              "entry_price": 14.3,
-              "close": 12.5,
-              "return_pct": -12.59,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "1337",
-              "name": "再生-KY",
-              "entry": 5.61,
-              "entry_price": 5.61,
-              "close": 5.13,
-              "return_pct": -8.56,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "1340",
-              "name": "勝悅-KY",
-              "entry": 5.84,
-              "entry_price": 5.84,
-              "close": 5.5,
-              "return_pct": -5.82,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "1304",
-              "name": "台聚",
-              "entry": 15.5,
-              "entry_price": 15.5,
-              "close": 13.4,
-              "return_pct": -13.55,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "1310",
-              "name": "台苯",
-              "entry": 11.4,
-              "entry_price": 11.4,
-              "close": 10.35,
-              "return_pct": -9.21,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            }
-          ]
-        }
-      }
     }
   ],
-  "last_updated": "2026-11-12T01:34:27.807014+08:00",
+  "last_updated": "2026-11-13T01:56:04.130447+08:00",
   "history": [
+    {
+      "date": "2026/11/13",
+      "results": {
+        "9935": {
+          "name": "慶豐富",
+          "score": 95.21,
+          "close": 19.85
+        },
+        "6670": {
+          "name": "復盛應用",
+          "score": 92.53,
+          "close": 267.0
+        },
+        "6890": {
+          "name": "來億-KY",
+          "score": 89.95,
+          "close": 147.0
+        },
+        "4755": {
+          "name": "三福化",
+          "score": 81.4,
+          "close": 128.5
+        },
+        "1802": {
+          "name": "台玻",
+          "score": 81.04,
+          "close": 81.7
+        },
+        "8481": {
+          "name": "政伸",
+          "score": 80.95,
+          "close": 40.7
+        },
+        "2024": {
+          "name": "志聯",
+          "score": 80.66,
+          "close": 13.35
+        },
+        "4560": {
+          "name": "強信-KY",
+          "score": 80.02,
+          "close": 29.85
+        },
+        "5876": {
+          "name": "上海商銀",
+          "score": 79.37,
+          "close": 52.6
+        },
+        "2453": {
+          "name": "凌群",
+          "score": 79.26,
+          "close": 58.8
+        }
+      }
+    },
     {
       "date": "2026/11/12",
       "results": {
