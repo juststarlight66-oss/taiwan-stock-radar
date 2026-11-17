@@ -724,6 +724,338 @@
   ],
   "grouped_records": [
     {
+      "scan_date": "20261118",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "5522",
+              "name": "遠雄",
+              "entry": 60.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1342",
+              "name": "八貫",
+              "entry": 97.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2501",
+              "name": "國建",
+              "entry": 21.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2911",
+              "name": "麗嬰房",
+              "entry": 5.62,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2910",
+              "name": "統領",
+              "entry": 23.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2027",
+              "name": "大成鋼",
+              "entry": 45.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2504",
+              "name": "國產",
+              "entry": 31.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4438",
+              "name": "廣越",
+              "entry": 54.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2603",
+              "name": "長榮",
+              "entry": 256.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4440",
+              "name": "宜新實業",
+              "entry": 16.65,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "5522",
+              "name": "遠雄",
+              "entry": 60.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1342",
+              "name": "八貫",
+              "entry": 97.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2501",
+              "name": "國建",
+              "entry": 21.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2911",
+              "name": "麗嬰房",
+              "entry": 5.62,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2910",
+              "name": "統領",
+              "entry": 23.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2027",
+              "name": "大成鋼",
+              "entry": 45.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2504",
+              "name": "國產",
+              "entry": 31.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4438",
+              "name": "廣越",
+              "entry": 54.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2603",
+              "name": "長榮",
+              "entry": 256.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4440",
+              "name": "宜新實業",
+              "entry": 16.65,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "5522",
+              "name": "遠雄",
+              "entry": 60.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1342",
+              "name": "八貫",
+              "entry": 97.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2501",
+              "name": "國建",
+              "entry": 21.4,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2911",
+              "name": "麗嬰房",
+              "entry": 5.62,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2910",
+              "name": "統領",
+              "entry": 23.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2027",
+              "name": "大成鋼",
+              "entry": 45.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2504",
+              "name": "國產",
+              "entry": 31.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4438",
+              "name": "廣越",
+              "entry": 54.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2603",
+              "name": "長榮",
+              "entry": 256.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "4440",
+              "name": "宜新實業",
+              "entry": 16.65,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
+    },
+    {
       "scan_date": "20261117",
       "periods": {
         "T1": {
@@ -25642,372 +25974,65 @@
           ]
         }
       }
-    },
-    {
-      "scan_date": "20260707",
-      "periods": {
-        "T1": {
-          "label": "T+1",
-          "backtest_date": "20260708",
-          "win_rate": 70.0,
-          "avg_return": 1.38,
-          "pending": false,
-          "stocks": [
-            {
-              "stock_id": "1423",
-              "name": "利華",
-              "entry": 37.1,
-              "entry_price": 37.1,
-              "close": 36.75,
-              "return_pct": -0.94,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "2882",
-              "name": "國泰金",
-              "entry": 97.0,
-              "entry_price": 97.0,
-              "close": 98.0,
-              "return_pct": 1.03,
-              "hit_target": true,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "3046",
-              "name": "建碁",
-              "entry": 58.4,
-              "entry_price": 58.4,
-              "close": 55.0,
-              "return_pct": -5.82,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "1796",
-              "name": "金穎生物科技股份有限公司",
-              "entry": 34.75,
-              "entry_price": 34.75,
-              "close": 38.2,
-              "return_pct": 9.93,
-              "hit_target": true,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "6712",
-              "name": "長聖國際生技股份有限公司",
-              "entry": 177.5,
-              "entry_price": 177.5,
-              "close": 183.0,
-              "return_pct": 3.1,
-              "hit_target": true,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "6617",
-              "name": "共信醫藥科技控股股份有限公司",
-              "entry": 111.5,
-              "entry_price": 111.5,
-              "close": 117.5,
-              "return_pct": 5.38,
-              "hit_target": true,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "6945",
-              "name": "圓祥生技股份有限公司",
-              "entry": 114.5,
-              "entry_price": 114.5,
-              "close": 118.0,
-              "return_pct": 3.06,
-              "hit_target": true,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "4160",
-              "name": "訊聯基因數位股份有限公司",
-              "entry": 43.75,
-              "entry_price": 43.75,
-              "close": 42.2,
-              "return_pct": -3.54,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "4163",
-              "name": "鐿鈦科技股份有限公司",
-              "entry": 135.0,
-              "entry_price": 135.0,
-              "close": 136.0,
-              "return_pct": 0.74,
-              "hit_target": true,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "2838",
-              "name": "聯邦銀",
-              "entry": 24.5,
-              "entry_price": 24.5,
-              "close": 24.7,
-              "return_pct": 0.82,
-              "hit_target": true,
-              "hit_stoploss": false,
-              "pending": false
-            }
-          ]
-        },
-        "T3": {
-          "label": "T+3",
-          "backtest_date": "20260710",
-          "win_rate": 0.0,
-          "avg_return": -2.49,
-          "pending": false,
-          "stocks": [
-            {
-              "stock_id": "1423",
-              "name": "利華",
-              "entry": 37.1,
-              "entry_price": 37.1,
-              "close": 36.9,
-              "return_pct": -0.54,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "2882",
-              "name": "國泰金",
-              "entry": 97.0,
-              "entry_price": 97.0,
-              "close": 96.3,
-              "return_pct": -0.72,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "3046",
-              "name": "建碁",
-              "entry": 58.4,
-              "entry_price": 58.4,
-              "close": 55.6,
-              "return_pct": -4.79,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "1796",
-              "name": "金穎生物科技股份有限公司",
-              "entry": 34.75,
-              "entry_price": 34.75,
-              "close": 34.4,
-              "return_pct": -1.01,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "6712",
-              "name": "長聖國際生技股份有限公司",
-              "entry": 177.5,
-              "entry_price": 177.5,
-              "close": 175.5,
-              "return_pct": -1.13,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "6617",
-              "name": "共信醫藥科技控股股份有限公司",
-              "entry": 111.5,
-              "entry_price": 111.5,
-              "close": 110.0,
-              "return_pct": -1.35,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "6945",
-              "name": "圓祥生技股份有限公司",
-              "entry": 114.5,
-              "entry_price": 114.5,
-              "close": 112.0,
-              "return_pct": -2.18,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "4160",
-              "name": "訊聯基因數位股份有限公司",
-              "entry": 43.75,
-              "entry_price": 43.75,
-              "close": 41.65,
-              "return_pct": -4.8,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "4163",
-              "name": "鐿鈦科技股份有限公司",
-              "entry": 135.0,
-              "entry_price": 135.0,
-              "close": 127.5,
-              "return_pct": -5.56,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "2838",
-              "name": "聯邦銀",
-              "entry": 24.5,
-              "entry_price": 24.5,
-              "close": 23.8,
-              "return_pct": -2.86,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            }
-          ]
-        },
-        "T5": {
-          "label": "T+5",
-          "backtest_date": "20260712",
-          "win_rate": 0.0,
-          "avg_return": -2.49,
-          "pending": false,
-          "stocks": [
-            {
-              "stock_id": "1423",
-              "name": "利華",
-              "entry": 37.1,
-              "entry_price": 37.1,
-              "close": 36.9,
-              "return_pct": -0.54,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "2882",
-              "name": "國泰金",
-              "entry": 97.0,
-              "entry_price": 97.0,
-              "close": 96.3,
-              "return_pct": -0.72,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "3046",
-              "name": "建碁",
-              "entry": 58.4,
-              "entry_price": 58.4,
-              "close": 55.6,
-              "return_pct": -4.79,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "1796",
-              "name": "金穎生物科技股份有限公司",
-              "entry": 34.75,
-              "entry_price": 34.75,
-              "close": 34.4,
-              "return_pct": -1.01,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "6712",
-              "name": "長聖國際生技股份有限公司",
-              "entry": 177.5,
-              "entry_price": 177.5,
-              "close": 175.5,
-              "return_pct": -1.13,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "6617",
-              "name": "共信醫藥科技控股股份有限公司",
-              "entry": 111.5,
-              "entry_price": 111.5,
-              "close": 110.0,
-              "return_pct": -1.35,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "6945",
-              "name": "圓祥生技股份有限公司",
-              "entry": 114.5,
-              "entry_price": 114.5,
-              "close": 112.0,
-              "return_pct": -2.18,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "4160",
-              "name": "訊聯基因數位股份有限公司",
-              "entry": 43.75,
-              "entry_price": 43.75,
-              "close": 41.65,
-              "return_pct": -4.8,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "4163",
-              "name": "鐿鈦科技股份有限公司",
-              "entry": 135.0,
-              "entry_price": 135.0,
-              "close": 127.5,
-              "return_pct": -5.56,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "2838",
-              "name": "聯邦銀",
-              "entry": 24.5,
-              "entry_price": 24.5,
-              "close": 23.8,
-              "return_pct": -2.86,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            }
-          ]
-        }
-      }
     }
   ],
-  "last_updated": "2026-11-17T04:13:07.127314+08:00",
+  "last_updated": "2026-11-18T02:54:28.376033+08:00",
   "history": [
+    {
+      "date": "2026/11/18",
+      "results": {
+        "5522": {
+          "name": "遠雄",
+          "score": 88.7,
+          "close": 60.9
+        },
+        "1342": {
+          "name": "八貫",
+          "score": 85.3,
+          "close": 97.1
+        },
+        "2501": {
+          "name": "國建",
+          "score": 84.94,
+          "close": 21.4
+        },
+        "2911": {
+          "name": "麗嬰房",
+          "score": 84.39,
+          "close": 5.62
+        },
+        "2910": {
+          "name": "統領",
+          "score": 84.01,
+          "close": 23.35
+        },
+        "2027": {
+          "name": "大成鋼",
+          "score": 83.95,
+          "close": 45.35
+        },
+        "2504": {
+          "name": "國產",
+          "score": 81.65,
+          "close": 31.15
+        },
+        "4438": {
+          "name": "廣越",
+          "score": 81.61,
+          "close": 54.5
+        },
+        "2603": {
+          "name": "長榮",
+          "score": 80.18,
+          "close": 256.5
+        },
+        "4440": {
+          "name": "宜新實業",
+          "score": 80.1,
+          "close": 16.65
+        }
+      }
+    },
     {
       "date": "2026/11/17",
       "results": {
