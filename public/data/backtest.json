@@ -724,6 +724,338 @@
   ],
   "grouped_records": [
     {
+      "scan_date": "20261119",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "6139",
+              "name": "亞翔",
+              "entry": 587.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6176",
+              "name": "瑞儀",
+              "entry": 80.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3044",
+              "name": "健鼎",
+              "entry": 481.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3231",
+              "name": "緯創",
+              "entry": 162.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2382",
+              "name": "廣達",
+              "entry": 265.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3028",
+              "name": "增你強",
+              "entry": 57.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3005",
+              "name": "神基",
+              "entry": 101.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3665",
+              "name": "貿聯-KY",
+              "entry": 1550.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2495",
+              "name": "普安",
+              "entry": 27.25,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "8016",
+              "name": "矽創",
+              "entry": 249.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "6139",
+              "name": "亞翔",
+              "entry": 587.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6176",
+              "name": "瑞儀",
+              "entry": 80.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3044",
+              "name": "健鼎",
+              "entry": 481.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3231",
+              "name": "緯創",
+              "entry": 162.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2382",
+              "name": "廣達",
+              "entry": 265.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3028",
+              "name": "增你強",
+              "entry": 57.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3005",
+              "name": "神基",
+              "entry": 101.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3665",
+              "name": "貿聯-KY",
+              "entry": 1550.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2495",
+              "name": "普安",
+              "entry": 27.25,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "8016",
+              "name": "矽創",
+              "entry": 249.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "6139",
+              "name": "亞翔",
+              "entry": 587.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6176",
+              "name": "瑞儀",
+              "entry": 80.7,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3044",
+              "name": "健鼎",
+              "entry": 481.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3231",
+              "name": "緯創",
+              "entry": 162.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2382",
+              "name": "廣達",
+              "entry": 265.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3028",
+              "name": "增你強",
+              "entry": 57.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3005",
+              "name": "神基",
+              "entry": 101.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "3665",
+              "name": "貿聯-KY",
+              "entry": 1550.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2495",
+              "name": "普安",
+              "entry": 27.25,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "8016",
+              "name": "矽創",
+              "entry": 249.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
+    },
+    {
       "scan_date": "20261118",
       "periods": {
         "T1": {
@@ -25612,372 +25944,65 @@
           ]
         }
       }
-    },
-    {
-      "scan_date": "20260708",
-      "periods": {
-        "T1": {
-          "label": "T+1",
-          "backtest_date": "20260709",
-          "win_rate": 30.0,
-          "avg_return": 0.0,
-          "pending": false,
-          "stocks": [
-            {
-              "stock_id": "2603",
-              "name": "長榮",
-              "entry": 196.0,
-              "entry_price": 196.0,
-              "close": 194.5,
-              "return_pct": -0.77,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "2605",
-              "name": "新興",
-              "entry": 31.0,
-              "entry_price": 31.0,
-              "close": 30.45,
-              "return_pct": -1.77,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "6142",
-              "name": "友勁",
-              "entry": 10.25,
-              "entry_price": 10.25,
-              "close": 11.25,
-              "return_pct": 9.76,
-              "hit_target": true,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "2332",
-              "name": "友訊",
-              "entry": 21.9,
-              "entry_price": 21.9,
-              "close": 24.05,
-              "return_pct": 9.82,
-              "hit_target": true,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "3564",
-              "name": "其陽科技股份有限公司",
-              "entry": 56.1,
-              "entry_price": 56.1,
-              "close": 54.1,
-              "return_pct": -3.57,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "3081",
-              "name": "聯亞光電工業股份有限公司",
-              "entry": 2095.0,
-              "entry_price": 2095.0,
-              "close": 2005.0,
-              "return_pct": -4.3,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "2424",
-              "name": "隴華",
-              "entry": 10.5,
-              "entry_price": 10.5,
-              "close": 10.1,
-              "return_pct": -3.81,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "8442",
-              "name": "威宏-KY",
-              "entry": 46.25,
-              "entry_price": 46.25,
-              "close": 45.5,
-              "return_pct": -1.62,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "2615",
-              "name": "萬海",
-              "entry": 79.4,
-              "entry_price": 79.4,
-              "close": 80.4,
-              "return_pct": 1.26,
-              "hit_target": true,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "3363",
-              "name": "上詮光纖通信股份有限公司",
-              "entry": 640.0,
-              "entry_price": 640.0,
-              "close": 608.0,
-              "return_pct": -5.0,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            }
-          ]
-        },
-        "T3": {
-          "label": "T+3",
-          "backtest_date": "20260711",
-          "win_rate": 30.0,
-          "avg_return": 0.0,
-          "pending": false,
-          "stocks": [
-            {
-              "stock_id": "2603",
-              "name": "長榮",
-              "entry": 196.0,
-              "entry_price": 196.0,
-              "close": 194.5,
-              "return_pct": -0.77,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "2605",
-              "name": "新興",
-              "entry": 31.0,
-              "entry_price": 31.0,
-              "close": 30.45,
-              "return_pct": -1.77,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "6142",
-              "name": "友勁",
-              "entry": 10.25,
-              "entry_price": 10.25,
-              "close": 11.25,
-              "return_pct": 9.76,
-              "hit_target": true,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "2332",
-              "name": "友訊",
-              "entry": 21.9,
-              "entry_price": 21.9,
-              "close": 24.05,
-              "return_pct": 9.82,
-              "hit_target": true,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "3564",
-              "name": "其陽科技股份有限公司",
-              "entry": 56.1,
-              "entry_price": 56.1,
-              "close": 54.1,
-              "return_pct": -3.57,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "3081",
-              "name": "聯亞光電工業股份有限公司",
-              "entry": 2095.0,
-              "entry_price": 2095.0,
-              "close": 2005.0,
-              "return_pct": -4.3,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "2424",
-              "name": "隴華",
-              "entry": 10.5,
-              "entry_price": 10.5,
-              "close": 10.1,
-              "return_pct": -3.81,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "8442",
-              "name": "威宏-KY",
-              "entry": 46.25,
-              "entry_price": 46.25,
-              "close": 45.5,
-              "return_pct": -1.62,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "2615",
-              "name": "萬海",
-              "entry": 79.4,
-              "entry_price": 79.4,
-              "close": 80.4,
-              "return_pct": 1.26,
-              "hit_target": true,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "3363",
-              "name": "上詮光纖通信股份有限公司",
-              "entry": 640.0,
-              "entry_price": 640.0,
-              "close": 608.0,
-              "return_pct": -5.0,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            }
-          ]
-        },
-        "T5": {
-          "label": "T+5",
-          "backtest_date": "20260713",
-          "win_rate": 20.0,
-          "avg_return": -1.07,
-          "pending": false,
-          "stocks": [
-            {
-              "stock_id": "2603",
-              "name": "長榮",
-              "entry": 196.0,
-              "entry_price": 196.0,
-              "close": 195.0,
-              "return_pct": -0.51,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "2605",
-              "name": "新興",
-              "entry": 31.0,
-              "entry_price": 31.0,
-              "close": 30.6,
-              "return_pct": -1.29,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "6142",
-              "name": "友勁",
-              "entry": 10.25,
-              "entry_price": 10.25,
-              "close": 10.65,
-              "return_pct": 3.9,
-              "hit_target": true,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "2332",
-              "name": "友訊",
-              "entry": 21.9,
-              "entry_price": 21.9,
-              "close": 25.95,
-              "return_pct": 18.49,
-              "hit_target": true,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "3564",
-              "name": "其陽科技股份有限公司",
-              "entry": 56.1,
-              "entry_price": 56.1,
-              "close": 52.4,
-              "return_pct": -6.6,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "3081",
-              "name": "聯亞光電工業股份有限公司",
-              "entry": 2095.0,
-              "entry_price": 2095.0,
-              "close": 1990.0,
-              "return_pct": -5.01,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "2424",
-              "name": "隴華",
-              "entry": 10.5,
-              "entry_price": 10.5,
-              "close": 9.61,
-              "return_pct": -8.48,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "8442",
-              "name": "威宏-KY",
-              "entry": 46.25,
-              "entry_price": 46.25,
-              "close": 44.0,
-              "return_pct": -4.86,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "2615",
-              "name": "萬海",
-              "entry": 79.4,
-              "entry_price": 79.4,
-              "close": 79.2,
-              "return_pct": -0.25,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "3363",
-              "name": "上詮光纖通信股份有限公司",
-              "entry": 640.0,
-              "entry_price": 640.0,
-              "close": 601.0,
-              "return_pct": -6.09,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            }
-          ]
-        }
-      }
     }
   ],
-  "last_updated": "2026-11-18T02:54:28.376033+08:00",
+  "last_updated": "2026-11-19T02:33:25.928917+08:00",
   "history": [
+    {
+      "date": "2026/11/19",
+      "results": {
+        "6139": {
+          "name": "亞翔",
+          "score": 89.7,
+          "close": 587.0
+        },
+        "6176": {
+          "name": "瑞儀",
+          "score": 89.52,
+          "close": 80.7
+        },
+        "3044": {
+          "name": "健鼎",
+          "score": 85.99,
+          "close": 481.5
+        },
+        "3231": {
+          "name": "緯創",
+          "score": 85.84,
+          "close": 162.0
+        },
+        "2382": {
+          "name": "廣達",
+          "score": 85.22,
+          "close": 265.0
+        },
+        "3028": {
+          "name": "增你強",
+          "score": 84.92,
+          "close": 57.5
+        },
+        "3005": {
+          "name": "神基",
+          "score": 84.87,
+          "close": 101.0
+        },
+        "3665": {
+          "name": "貿聯-KY",
+          "score": 84.61,
+          "close": 1550.0
+        },
+        "2495": {
+          "name": "普安",
+          "score": 84.33,
+          "close": 27.25
+        },
+        "8016": {
+          "name": "矽創",
+          "score": 84.32,
+          "close": 249.0
+        }
+      }
+    },
     {
       "date": "2026/11/18",
       "results": {
