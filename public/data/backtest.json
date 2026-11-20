@@ -724,6 +724,338 @@
   ],
   "grouped_records": [
     {
+      "scan_date": "20261121",
+      "periods": {
+        "T1": {
+          "label": "T+1",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "5522",
+              "name": "遠雄",
+              "entry": 62.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2471",
+              "name": "資通",
+              "entry": 62.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1102",
+              "name": "亞泥",
+              "entry": 32.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6807",
+              "name": "峰源-KY",
+              "entry": 33.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2451",
+              "name": "創見",
+              "entry": 211.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9931",
+              "name": "欣高",
+              "entry": 34.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6505",
+              "name": "台塑化",
+              "entry": 80.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "7786",
+              "name": "東方風能",
+              "entry": 102.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6671",
+              "name": "三能-KY",
+              "entry": 22.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9918",
+              "name": "欣天然",
+              "entry": 42.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T3": {
+          "label": "T+3",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "5522",
+              "name": "遠雄",
+              "entry": 62.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2471",
+              "name": "資通",
+              "entry": 62.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1102",
+              "name": "亞泥",
+              "entry": 32.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6807",
+              "name": "峰源-KY",
+              "entry": 33.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2451",
+              "name": "創見",
+              "entry": 211.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9931",
+              "name": "欣高",
+              "entry": 34.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6505",
+              "name": "台塑化",
+              "entry": 80.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "7786",
+              "name": "東方風能",
+              "entry": 102.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6671",
+              "name": "三能-KY",
+              "entry": 22.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9918",
+              "name": "欣天然",
+              "entry": 42.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        },
+        "T5": {
+          "label": "T+5",
+          "backtest_date": null,
+          "win_rate": null,
+          "avg_return": null,
+          "pending": true,
+          "stocks": [
+            {
+              "stock_id": "5522",
+              "name": "遠雄",
+              "entry": 62.9,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2471",
+              "name": "資通",
+              "entry": 62.8,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "1102",
+              "name": "亞泥",
+              "entry": 32.35,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6807",
+              "name": "峰源-KY",
+              "entry": 33.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "2451",
+              "name": "創見",
+              "entry": 211.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9931",
+              "name": "欣高",
+              "entry": 34.1,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6505",
+              "name": "台塑化",
+              "entry": 80.6,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "7786",
+              "name": "東方風能",
+              "entry": 102.5,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "6671",
+              "name": "三能-KY",
+              "entry": 22.15,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            },
+            {
+              "stock_id": "9918",
+              "name": "欣天然",
+              "entry": 42.0,
+              "close": null,
+              "return_pct": null,
+              "hit_target": null,
+              "hit_stoploss": null,
+              "pending": true
+            }
+          ]
+        }
+      }
+    },
+    {
       "scan_date": "20261120",
       "periods": {
         "T1": {
@@ -25552,372 +25884,65 @@
           ]
         }
       }
-    },
-    {
-      "scan_date": "20260710",
-      "periods": {
-        "T1": {
-          "label": "T+1",
-          "backtest_date": "20260711",
-          "win_rate": 0.0,
-          "avg_return": 0.0,
-          "pending": false,
-          "stocks": [
-            {
-              "stock_id": "2527",
-              "name": "宏璟",
-              "entry": 42.6,
-              "entry_price": 42.6,
-              "close": 42.6,
-              "return_pct": 0.0,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "2637",
-              "name": "慧洋-KY",
-              "entry": 83.0,
-              "entry_price": 83.0,
-              "close": 83.0,
-              "return_pct": 0.0,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "2536",
-              "name": "宏普",
-              "entry": 19.55,
-              "entry_price": 19.55,
-              "close": 19.55,
-              "return_pct": 0.0,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "3543",
-              "name": "州巧",
-              "entry": 33.4,
-              "entry_price": 33.4,
-              "close": 33.4,
-              "return_pct": 0.0,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "9802",
-              "name": "鈺齊-KY",
-              "entry": 75.0,
-              "entry_price": 75.0,
-              "close": 75.0,
-              "return_pct": 0.0,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "2423",
-              "name": "固緯",
-              "entry": 79.7,
-              "entry_price": 79.7,
-              "close": 79.7,
-              "return_pct": 0.0,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "6142",
-              "name": "友勁",
-              "entry": 11.25,
-              "entry_price": 11.25,
-              "close": 11.25,
-              "return_pct": 0.0,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "4439",
-              "name": "冠星-KY",
-              "entry": 101.0,
-              "entry_price": 101.0,
-              "close": 101.0,
-              "return_pct": 0.0,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "4949",
-              "name": "有成精密",
-              "entry": 79.0,
-              "entry_price": 79.0,
-              "close": 79.0,
-              "return_pct": 0.0,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "1615",
-              "name": "大山",
-              "entry": 46.4,
-              "entry_price": 46.4,
-              "close": 46.4,
-              "return_pct": 0.0,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            }
-          ]
-        },
-        "T3": {
-          "label": "T+3",
-          "backtest_date": "20260713",
-          "win_rate": 50.0,
-          "avg_return": -0.01,
-          "pending": false,
-          "stocks": [
-            {
-              "stock_id": "2527",
-              "name": "宏璟",
-              "entry": 42.6,
-              "entry_price": 42.6,
-              "close": 45.65,
-              "return_pct": 7.16,
-              "hit_target": true,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "2637",
-              "name": "慧洋-KY",
-              "entry": 83.0,
-              "entry_price": 83.0,
-              "close": 84.7,
-              "return_pct": 2.05,
-              "hit_target": true,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "2536",
-              "name": "宏普",
-              "entry": 19.55,
-              "entry_price": 19.55,
-              "close": 19.55,
-              "return_pct": 0.0,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "3543",
-              "name": "州巧",
-              "entry": 33.4,
-              "entry_price": 33.4,
-              "close": 30.75,
-              "return_pct": -7.93,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "9802",
-              "name": "鈺齊-KY",
-              "entry": 75.0,
-              "entry_price": 75.0,
-              "close": 74.7,
-              "return_pct": -0.4,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "2423",
-              "name": "固緯",
-              "entry": 79.7,
-              "entry_price": 79.7,
-              "close": 78.3,
-              "return_pct": -1.76,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "6142",
-              "name": "友勁",
-              "entry": 11.25,
-              "entry_price": 11.25,
-              "close": 10.65,
-              "return_pct": -5.33,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "4439",
-              "name": "冠星-KY",
-              "entry": 101.0,
-              "entry_price": 101.0,
-              "close": 104.0,
-              "return_pct": 2.97,
-              "hit_target": true,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "4949",
-              "name": "有成精密",
-              "entry": 79.0,
-              "entry_price": 79.0,
-              "close": 80.7,
-              "return_pct": 2.15,
-              "hit_target": true,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "1615",
-              "name": "大山",
-              "entry": 46.4,
-              "entry_price": 46.4,
-              "close": 46.85,
-              "return_pct": 0.97,
-              "hit_target": true,
-              "hit_stoploss": false,
-              "pending": false
-            }
-          ]
-        },
-        "T5": {
-          "label": "T+5",
-          "backtest_date": "20260715",
-          "win_rate": 60.0,
-          "avg_return": 0.61,
-          "pending": false,
-          "stocks": [
-            {
-              "stock_id": "2527",
-              "name": "宏璟",
-              "entry": 42.6,
-              "entry_price": 42.6,
-              "close": 45.05,
-              "return_pct": 5.75,
-              "hit_target": true,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "2637",
-              "name": "慧洋-KY",
-              "entry": 83.0,
-              "entry_price": 83.0,
-              "close": 83.9,
-              "return_pct": 1.08,
-              "hit_target": true,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "2536",
-              "name": "宏普",
-              "entry": 19.55,
-              "entry_price": 19.55,
-              "close": 19.6,
-              "return_pct": 0.26,
-              "hit_target": true,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "3543",
-              "name": "州巧",
-              "entry": 33.4,
-              "entry_price": 33.4,
-              "close": 31.8,
-              "return_pct": -4.79,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "9802",
-              "name": "鈺齊-KY",
-              "entry": 75.0,
-              "entry_price": 75.0,
-              "close": 74.6,
-              "return_pct": -0.53,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "2423",
-              "name": "固緯",
-              "entry": 79.7,
-              "entry_price": 79.7,
-              "close": 84.8,
-              "return_pct": 6.4,
-              "hit_target": true,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "6142",
-              "name": "友勁",
-              "entry": 11.25,
-              "entry_price": 11.25,
-              "close": 10.15,
-              "return_pct": -9.78,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "4439",
-              "name": "冠星-KY",
-              "entry": 101.0,
-              "entry_price": 101.0,
-              "close": 107.5,
-              "return_pct": 6.44,
-              "hit_target": true,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "4949",
-              "name": "有成精密",
-              "entry": 79.0,
-              "entry_price": 79.0,
-              "close": 78.9,
-              "return_pct": -0.13,
-              "hit_target": false,
-              "hit_stoploss": false,
-              "pending": false
-            },
-            {
-              "stock_id": "1615",
-              "name": "大山",
-              "entry": 46.4,
-              "entry_price": 46.4,
-              "close": 47.05,
-              "return_pct": 1.4,
-              "hit_target": true,
-              "hit_stoploss": false,
-              "pending": false
-            }
-          ]
-        }
-      }
     }
   ],
-  "last_updated": "2026-11-20T03:03:25.796614+08:00",
+  "last_updated": "2026-11-21T02:11:30.464410+08:00",
   "history": [
+    {
+      "date": "2026/11/21",
+      "results": {
+        "5522": {
+          "name": "遠雄",
+          "score": 79.53,
+          "close": 62.9
+        },
+        "2471": {
+          "name": "資通",
+          "score": 77.91,
+          "close": 62.8
+        },
+        "1102": {
+          "name": "亞泥",
+          "score": 75.87,
+          "close": 32.35
+        },
+        "6807": {
+          "name": "峰源-KY",
+          "score": 74.71,
+          "close": 33.0
+        },
+        "2451": {
+          "name": "創見",
+          "score": 74.39,
+          "close": 211.0
+        },
+        "9931": {
+          "name": "欣高",
+          "score": 73.69,
+          "close": 34.1
+        },
+        "6505": {
+          "name": "台塑化",
+          "score": 73.45,
+          "close": 80.6
+        },
+        "7786": {
+          "name": "東方風能",
+          "score": 73.15,
+          "close": 102.5
+        },
+        "6671": {
+          "name": "三能-KY",
+          "score": 72.72,
+          "close": 22.15
+        },
+        "9918": {
+          "name": "欣天然",
+          "score": 72.45,
+          "close": 42.0
+        }
+      }
+    },
     {
       "date": "2026/11/20",
       "results": {
