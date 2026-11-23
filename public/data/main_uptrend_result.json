@@ -1,6 +1,6 @@
 {
   "scan_date": "2026-11-23",
-  "generated_at": "2026-11-23T11:02:31.078885",
+  "generated_at": "2026-11-23T11:14:07.731127",
   "scanner": "main_uptrend_bottom_breakout_v3",
   "description": "底部起漲掃描 — Pure Condition 三 (硬門檻: chg_30d<10%, chg_5d<8%, vol_ratio>=2.0, above MA5)",
   "scoring_components": {
@@ -23,15 +23,15 @@
   "top40": [
     {
       "stock_id": "6725",
-      "streak_days": 0,
-      "streak_bonus": 0,
+      "streak_days": 1,
+      "streak_bonus": 3,
       "name": "矽科宏晟",
       "close": 170.5,
       "change_pct": 10.0,
       "volume_zhang": 1472.0,
       "vol_ratio": 6.65,
       "capital_yi": 3.71,
-      "total_score": 96,
+      "total_score": 99,
       "above_ma5": true,
       "above_ma10": true,
       "above_ma20": true,
@@ -47,15 +47,15 @@
     },
     {
       "stock_id": "6419",
-      "streak_days": 0,
-      "streak_bonus": 0,
+      "streak_days": 1,
+      "streak_bonus": 3,
       "name": "京晨科",
       "close": 109.0,
       "change_pct": 7.92,
       "volume_zhang": 847.3,
       "vol_ratio": 2.01,
       "capital_yi": 1.32,
-      "total_score": 75,
+      "total_score": 78,
       "above_ma5": true,
       "above_ma10": false,
       "above_ma20": false,
@@ -70,5 +70,5 @@
       "signal_1": false
     }
   ],
-  "elapsed_seconds": 66.5
+  "elapsed_seconds": 161.6
 }
