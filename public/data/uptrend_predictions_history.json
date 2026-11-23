@@ -1,5 +1,41 @@
 [
   {
+    "scan_date": "20261123",
+    "captured_at": "2026-11-24T05:50:20.958837+08:00",
+    "scan_type": "main_uptrend",
+    "top40": [
+      {
+        "stock_id": "6725",
+        "name": "矽科宏晟",
+        "entry_price": 170.5,
+        "change_pct": 10.0,
+        "total_score": 99,
+        "signal_3": true,
+        "signal_1": true,
+        "chg_30d": -20.14,
+        "capital_yi": 3.71
+      },
+      {
+        "stock_id": "6419",
+        "name": "京晨科",
+        "entry_price": 109.0,
+        "change_pct": 7.92,
+        "total_score": 78,
+        "signal_3": false,
+        "signal_1": false,
+        "chg_30d": -31.23,
+        "capital_yi": 1.32
+      }
+    ],
+    "t1_return": null,
+    "t1_check_date": null,
+    "t3_return": null,
+    "t3_check_date": null,
+    "t5_return": null,
+    "t5_check_date": null,
+    "win": null
+  },
+  {
     "scan_date": "20261023",
     "captured_at": "2026-11-21T02:50:39.974561+08:00",
     "scan_type": "main_uptrend",
