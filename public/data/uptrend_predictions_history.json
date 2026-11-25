@@ -1,5 +1,63 @@
 [
   {
+    "scan_date": "20261125",
+    "captured_at": "2026-11-26T03:42:36.615838+08:00",
+    "scan_type": "main_uptrend",
+    "top40": [
+      {
+        "stock_id": "6667",
+        "name": "信紘科",
+        "entry_price": 244.0,
+        "change_pct": 3.17,
+        "total_score": 90,
+        "signal_3": true,
+        "signal_1": false,
+        "chg_30d": -11.91,
+        "capital_yi": 5.35
+      },
+      {
+        "stock_id": "3691",
+        "name": "碩禾",
+        "entry_price": 94.6,
+        "change_pct": 3.05,
+        "total_score": 80,
+        "signal_3": true,
+        "signal_1": false,
+        "chg_30d": -5.02,
+        "capital_yi": 9.19
+      },
+      {
+        "stock_id": "6584",
+        "name": "南俊國際",
+        "entry_price": 268.0,
+        "change_pct": 5.93,
+        "total_score": 80,
+        "signal_3": true,
+        "signal_1": false,
+        "chg_30d": -45.69,
+        "capital_yi": 7.14
+      },
+      {
+        "stock_id": "6274",
+        "name": "台燿",
+        "entry_price": 739.0,
+        "change_pct": -1.86,
+        "total_score": 68,
+        "signal_3": true,
+        "signal_1": false,
+        "chg_30d": -55.35,
+        "capital_yi": 29.95
+      }
+    ],
+    "t1_return": null,
+    "t1_check_date": null,
+    "t3_return": null,
+    "t3_check_date": null,
+    "t5_return": null,
+    "t5_check_date": null,
+    "win": null
+  },
+  {
     "scan_date": "20261124",
     "captured_at": "2026-11-25T04:53:24.070066+08:00",
     "scan_type": "main_uptrend",
