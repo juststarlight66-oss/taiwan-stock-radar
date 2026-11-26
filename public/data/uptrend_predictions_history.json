@@ -1,5 +1,30 @@
 [
   {
+    "scan_date": "20261126",
+    "captured_at": "2026-11-27T03:25:47.399749+08:00",
+    "scan_type": "main_uptrend",
+    "top40": [
+      {
+        "stock_id": "3441",
+        "name": "聯一光",
+        "entry_price": 137.5,
+        "change_pct": 10.0,
+        "total_score": 83,
+        "signal_3": true,
+        "signal_1": false,
+        "chg_30d": -41.98,
+        "capital_yi": 4.0
+      }
+    ],
+    "t1_return": null,
+    "t1_check_date": null,
+    "t3_return": null,
+    "t3_check_date": null,
+    "t5_return": null,
+    "t5_check_date": null,
+    "win": null
+  },
+  {
     "scan_date": "20261125",
     "captured_at": "2026-11-26T04:11:54.540436+08:00",
     "scan_type": "main_uptrend",
