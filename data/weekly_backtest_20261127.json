@@ -1,0 +1,283 @@
+{
+  "report_date": "20261127",
+  "report_type": "weekly_backtest",
+  "generated_at": "2026-11-27T14:50:40+08:00",
+  "week_ending": "2026-11-27",
+  "scan_days_this_week": [
+    "20261123",
+    "20261124",
+    "20261125",
+    "20261126",
+    "20261127"
+  ],
+  "summary": {
+    "total_recommendations": 10,
+    "scanned_stocks": 1961,
+    "top_sectors": [],
+    "avg_score": 81.86
+  },
+  "power_combo_indicators": {
+    "description": "三燈號指標 - T+N 追蹤框架",
+    "t1_win_rate": 33.3,
+    "t1_samples": 15,
+    "t3_win_rate": null,
+    "t3_samples": 0,
+    "t5_win_rate": null,
+    "t5_samples": 0,
+    "avg_t5_return": null,
+    "stop_loss_triggers": 0,
+    "note": "基於 36 筆歷史推薦的 T+N 追蹤數據"
+  },
+  "weekly_top10": [
+    {
+      "stock_id": "2385",
+      "name": "群光",
+      "entry_date": "20261127",
+      "entry_price": 101.0,
+      "stop_loss": 96.96,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 84.61,
+      "close": 101.0,
+      "change_pct": 9.78,
+      "sector": "電子零組件業",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "2505",
+      "name": "國揚",
+      "entry_date": "20261127",
+      "entry_price": 16.15,
+      "stop_loss": 15.5,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 84.28,
+      "close": 16.15,
+      "change_pct": 2.54,
+      "sector": "建材營造",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "6807",
+      "name": "峰源-KY",
+      "entry_date": "20261127",
+      "entry_price": 34.55,
+      "stop_loss": 33.17,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 82.34,
+      "close": 34.55,
+      "change_pct": 2.67,
+      "sector": "貿易百貨",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "6994",
+      "name": "富威電力",
+      "entry_date": "20261127",
+      "entry_price": 16.15,
+      "stop_loss": 15.5,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 82.27,
+      "close": 16.15,
+      "change_pct": 9.86,
+      "sector": "其他",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "3036",
+      "name": "文曄",
+      "entry_date": "20261127",
+      "entry_price": 173.0,
+      "stop_loss": 166.08,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 82.0,
+      "close": 173.0,
+      "change_pct": 2.67,
+      "sector": "電子通路業",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "9935",
+      "name": "慶豐富",
+      "entry_date": "20261127",
+      "entry_price": 20.35,
+      "stop_loss": 19.54,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 81.8,
+      "close": 20.35,
+      "change_pct": 4.36,
+      "sector": "貿易百貨",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "2528",
+      "name": "皇普",
+      "entry_date": "20261127",
+      "entry_price": 16.9,
+      "stop_loss": 16.22,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 81.0,
+      "close": 16.9,
+      "change_pct": 3.36,
+      "sector": "建材營造",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "2504",
+      "name": "國產",
+      "entry_date": "20261127",
+      "entry_price": 32.65,
+      "stop_loss": 31.34,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 80.62,
+      "close": 32.65,
+      "change_pct": 1.71,
+      "sector": "建材營造",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "6790",
+      "name": "永豐實",
+      "entry_date": "20261127",
+      "entry_price": 35.9,
+      "stop_loss": 34.46,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 80.14,
+      "close": 35.9,
+      "change_pct": 0.42,
+      "sector": "造紙工業",
+      "sector_boost": 0
+    },
+    {
+      "stock_id": "2539",
+      "name": "櫻花建",
+      "entry_date": "20261127",
+      "entry_price": 29.45,
+      "stop_loss": 28.27,
+      "stop_loss_pct": 4.0,
+      "t1": {
+        "pct": null,
+        "win": null
+      },
+      "t3": {
+        "pct": null,
+        "win": null
+      },
+      "t5": {
+        "pct": null,
+        "win": null
+      },
+      "total_score": 79.51,
+      "close": 29.45,
+      "change_pct": 2.97,
+      "sector": "建材營造",
+      "sector_boost": 0
+    }
+  ]
+}
