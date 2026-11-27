@@ -1,5 +1,41 @@
 [
   {
+    "scan_date": "20261127",
+    "captured_at": "2026-11-28T03:23:22.347061+08:00",
+    "scan_type": "main_uptrend",
+    "top40": [
+      {
+        "stock_id": "8937",
+        "name": "合騏*",
+        "entry_price": 21.65,
+        "change_pct": 4.09,
+        "total_score": 81,
+        "signal_3": true,
+        "signal_1": true,
+        "chg_30d": -11.99,
+        "capital_yi": 11.04
+      },
+      {
+        "stock_id": "2633",
+        "name": "台灣高鐵",
+        "entry_price": 25.95,
+        "change_pct": 2.17,
+        "total_score": 78,
+        "signal_3": true,
+        "signal_1": true,
+        "chg_30d": -0.95,
+        "capital_yi": 99
+      }
+    ],
+    "t1_return": null,
+    "t1_check_date": null,
+    "t3_return": null,
+    "t3_check_date": null,
+    "t5_return": null,
+    "t5_check_date": null,
+    "win": null
+  },
+  {
     "scan_date": "20261126",
     "captured_at": "2026-11-27T03:50:17.369628+08:00",
     "scan_type": "main_uptrend",
